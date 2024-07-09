@@ -11,7 +11,7 @@ use AC\Value\Formatter;
 class AuthorAvatarFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Avatar', 'codepress-admin-columns');
     }

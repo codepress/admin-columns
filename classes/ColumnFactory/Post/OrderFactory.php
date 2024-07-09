@@ -16,7 +16,7 @@ class OrderFactory extends BaseColumnFactory
         return 'column-order';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Order', 'codepress-admin-columns');
     }

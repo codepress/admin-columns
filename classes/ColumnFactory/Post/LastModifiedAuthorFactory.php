@@ -42,7 +42,7 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
         return 'column-last_modified_author';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Last Modified Author', 'codepress-admin-columns');
     }

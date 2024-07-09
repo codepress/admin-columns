@@ -11,7 +11,7 @@ use AC\Value\Formatter;
 class AuthorIpFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Author IP', 'codepress-admin-columns');
     }

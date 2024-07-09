@@ -17,7 +17,7 @@ class StickyFactory extends BaseColumnFactory
         return 'column-sticky';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Sticky', 'codepress-admin-columns');
     }

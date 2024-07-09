@@ -16,7 +16,7 @@ class FileNameFactory extends BaseColumnFactory
         return 'column-file_name';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Filename', 'codepress-admin-columns');
     }

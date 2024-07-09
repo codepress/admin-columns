@@ -46,7 +46,7 @@ class LastPostFactory extends BaseColumnFactory
         $this->add_component_factory($this->post_link);
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Last Post', 'codepress-admin-columns');
     }

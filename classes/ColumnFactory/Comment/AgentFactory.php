@@ -11,7 +11,7 @@ use AC\Value\Formatter\Comment\Property;
 class AgentFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Agent', 'codepress-admin-columns');
     }

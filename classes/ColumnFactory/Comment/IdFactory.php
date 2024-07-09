@@ -7,7 +7,7 @@ use AC\Column\BaseColumnFactory;
 class IdFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('ID', 'codepress-admin-columns');
     }

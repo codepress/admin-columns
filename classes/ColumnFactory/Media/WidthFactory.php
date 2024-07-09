@@ -17,7 +17,7 @@ class WidthFactory extends BaseColumnFactory
         return 'column-width';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Width', 'codepress-admin-columns');
     }

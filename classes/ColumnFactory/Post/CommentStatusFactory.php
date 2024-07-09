@@ -18,7 +18,7 @@ class CommentStatusFactory extends BaseColumnFactory
         return 'column-comment_status';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Allow Comments', 'codepress-admin-columns');
     }

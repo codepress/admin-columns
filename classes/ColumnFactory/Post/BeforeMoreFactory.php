@@ -38,7 +38,7 @@ final class BeforeMoreFactory extends BaseColumnFactory
         return 'column-before_moretag';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('More Tag', 'codepress-admin-columns');
     }

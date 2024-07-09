@@ -30,7 +30,7 @@ class OriginalFactory extends BaseColumnFactory
         return $this->type;
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return $this->label;
     }

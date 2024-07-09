@@ -10,8 +10,8 @@ use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
 use AC\Value\Formatter\Collection\LocalizeSeparator;
-use AC\Value\Formatter\Post\UsedByMenu;
 use AC\Value\Formatter\Term\TermProperty;
+use AC\Value\Formatter\UsedByMenu;
 
 class MenuFactory extends BaseColumnFactory
 {
@@ -48,7 +48,7 @@ class MenuFactory extends BaseColumnFactory
         return 'column-used_by_menu';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Menu', 'codepress-admin-columns');
     }

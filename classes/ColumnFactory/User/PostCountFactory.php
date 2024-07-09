@@ -36,7 +36,7 @@ class PostCountFactory extends BaseColumnFactory
         $this->add_component_factory($this->post_status);
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Post Count', 'codepress-admin-columns');
     }

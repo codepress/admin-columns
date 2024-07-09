@@ -52,7 +52,7 @@ class TaxonomyFactory extends BaseColumnFactory
         return 'column-taxonomy';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Taxonomy', 'codepress-admin-columns');
     }

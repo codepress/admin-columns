@@ -36,7 +36,7 @@ class FileMetaAudioFactory extends BaseColumnFactory
         return 'column-meta_audio';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Audio Meta', 'codepress-admin-columns');
     }

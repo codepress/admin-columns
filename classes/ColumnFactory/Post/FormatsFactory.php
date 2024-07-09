@@ -36,7 +36,7 @@ class FormatsFactory extends BaseColumnFactory
         return 'column-post_formats';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Post Format', 'codepress-admin-columns');
     }

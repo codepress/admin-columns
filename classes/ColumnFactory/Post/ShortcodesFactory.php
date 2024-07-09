@@ -11,7 +11,7 @@ use AC\Value\Formatter\Post\Shortcodes;
 class ShortcodesFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Shortcodes', 'codepress-admin-columns');
     }

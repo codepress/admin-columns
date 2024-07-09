@@ -38,7 +38,7 @@ class CommentCountFactory extends BaseColumnFactory
         return 'column-comment_count';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Comment Count', 'codepress-admin-columns');
     }

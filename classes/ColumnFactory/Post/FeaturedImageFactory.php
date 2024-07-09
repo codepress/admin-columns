@@ -36,7 +36,7 @@ class FeaturedImageFactory extends BaseColumnFactory
         return 'column-featured_image';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Featured Image', 'codepress-admin-columns');
     }

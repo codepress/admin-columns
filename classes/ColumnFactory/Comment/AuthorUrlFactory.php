@@ -12,7 +12,7 @@ use AC\Value\Formatter\Linkable;
 class AuthorUrlFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Author URL', 'codepress-admin-columns');
     }

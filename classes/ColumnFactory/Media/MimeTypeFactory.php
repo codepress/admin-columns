@@ -16,7 +16,7 @@ class MimeTypeFactory extends BaseColumnFactory
         return 'column-mime_type';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Mime Type', 'codepress-admin-columns');
     }

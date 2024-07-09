@@ -16,7 +16,7 @@ class DepthFactory extends BaseColumnFactory
         return 'column-depth';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Depth', 'codepress-admin-columns');
     }

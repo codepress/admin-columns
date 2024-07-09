@@ -36,7 +36,7 @@ class FullPathFactory extends BaseColumnFactory
         return 'column-full_path';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('File Path', 'codepress-admin-columns');
     }

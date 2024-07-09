@@ -49,7 +49,7 @@ class CustomFieldFactory extends BaseColumnFactory
         return 'column-meta';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Custom Field', 'codepress-admin-columns');
     }

@@ -15,7 +15,7 @@ class NumberFactory extends BaseColumnFactory
         return 'column-meta-number';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Number', 'codepress-admin-columns');
     }

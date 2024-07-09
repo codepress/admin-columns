@@ -31,7 +31,7 @@ class SlugFactory extends BaseColumnFactory
         $this->add_component_factory($this->character_limit);
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Slug', 'codepress-admin-columns');
     }

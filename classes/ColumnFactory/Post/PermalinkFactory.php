@@ -17,7 +17,7 @@ class PermalinkFactory extends BaseColumnFactory
         return 'column-permalink';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Permalink', 'codepress-admin-columns');
     }

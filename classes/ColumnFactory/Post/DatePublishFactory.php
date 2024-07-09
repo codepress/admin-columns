@@ -39,7 +39,7 @@ class DatePublishFactory extends BaseColumnFactory
         return 'column-date_published';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Date Published', 'codepress-admin-columns');
     }

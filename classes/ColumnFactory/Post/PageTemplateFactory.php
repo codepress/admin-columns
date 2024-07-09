@@ -29,7 +29,7 @@ class PageTemplateFactory extends BaseColumnFactory
         return 'column-page_template';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Page Template', 'codepress-admin-columns');
     }

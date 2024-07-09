@@ -12,7 +12,7 @@ use AC\Value\Formatter\WordCount;
 class WordCountFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Word Count', 'codepress-admin-columns');
     }

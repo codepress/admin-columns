@@ -36,7 +36,7 @@ class LastModifiedFactory extends BaseColumnFactory
         return 'column-modified';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Last Modified', 'codepress-admin-columns');
     }

@@ -12,7 +12,7 @@ use AC\Value\Formatter\Post\ShortLink;
 class ShortLinkFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Shortlink', 'codepress-admin-columns');
     }

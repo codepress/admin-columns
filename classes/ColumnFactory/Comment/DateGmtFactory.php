@@ -12,7 +12,7 @@ use AC\Value\Formatter\Comment\Property;
 class DateGmtFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Date GMT', 'codepress-admin-columns');
     }

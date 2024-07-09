@@ -36,7 +36,7 @@ class FileMetaVideoFactory extends BaseColumnFactory
         return 'column-meta_video';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Video Meta', 'codepress-admin-columns');
     }

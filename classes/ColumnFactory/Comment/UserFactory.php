@@ -37,7 +37,7 @@ class UserFactory extends BaseColumnFactory
         parent::add_component_factories($config);
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('User', 'codepress-admin-columns');
     }

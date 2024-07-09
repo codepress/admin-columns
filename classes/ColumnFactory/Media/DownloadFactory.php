@@ -16,7 +16,7 @@ class DownloadFactory extends BaseColumnFactory
         return 'column-download';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Download', 'codepress-admin-columns');
     }

@@ -41,7 +41,7 @@ class ExifDataFactory extends BaseColumnFactory
         return 'column-exif_data';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Image Meta (EXIF)', 'codepress-admin-columns');
     }

@@ -45,7 +45,7 @@ class AuthorFactory extends BaseColumnFactory
         return 'column-author_name';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Author', 'codepress-admin-columns');
     }

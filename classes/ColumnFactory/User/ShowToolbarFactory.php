@@ -11,7 +11,7 @@ use AC\Value\Formatter;
 class ShowToolbarFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Show Toolbar', 'codepress-admin-columns');
     }

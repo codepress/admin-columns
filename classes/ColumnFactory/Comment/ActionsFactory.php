@@ -16,7 +16,7 @@ class ActionsFactory extends BaseColumnFactory
         $this->add_component_factory(new ComponentFactory\ActionIcons());
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Actions', 'codepress-admin-columns');
     }

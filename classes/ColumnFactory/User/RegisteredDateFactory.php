@@ -30,7 +30,7 @@ class RegisteredDateFactory extends BaseColumnFactory
         $this->add_component_factory($this->date_format);
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Registered', 'codepress-admin-columns');
     }

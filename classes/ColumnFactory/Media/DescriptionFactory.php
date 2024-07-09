@@ -42,7 +42,7 @@ class DescriptionFactory extends BaseColumnFactory
         return 'column-description';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Description', 'codepress-admin-columns');
     }

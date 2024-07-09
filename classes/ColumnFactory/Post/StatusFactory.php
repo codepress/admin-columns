@@ -31,7 +31,7 @@ class StatusFactory extends BaseColumnFactory
         $this->add_component_factory($this->post_status_icon);
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Status', 'codepress-admin-columns');
     }

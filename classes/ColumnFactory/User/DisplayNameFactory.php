@@ -11,7 +11,7 @@ use AC\Value\Formatter;
 class DisplayNameFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Display Name', 'codepress-admin-columns');
     }

@@ -41,7 +41,7 @@ class AvailableSizesFactory extends BaseColumnFactory
         return 'column-available_sizes';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Available Sizes', 'codepress-admin-columns');
     }

@@ -42,7 +42,7 @@ class ParentFactory extends BaseColumnFactory
         return 'column-parent';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Parent', 'codepress-admin-columns');
     }

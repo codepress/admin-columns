@@ -21,7 +21,7 @@ class ArtistFactory extends BaseColumnFactory
         return 'column-meta_artist';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Artist', 'codepress-admin-columns');
     }

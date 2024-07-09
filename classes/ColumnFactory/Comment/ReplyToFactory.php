@@ -12,7 +12,7 @@ use AC\Value\Formatter\Comment\ReplyToLink;
 class ReplyToFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('In Reply To', 'codepress-admin-columns');
     }

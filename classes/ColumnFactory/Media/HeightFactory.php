@@ -17,7 +17,7 @@ class HeightFactory extends BaseColumnFactory
         return 'column-height';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Height', 'codepress-admin-columns');
     }

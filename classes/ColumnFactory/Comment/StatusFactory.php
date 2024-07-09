@@ -11,7 +11,7 @@ use AC\Value\Formatter\Comment\StatusLabel;
 class StatusFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Status', 'codepress-admin-columns');
     }

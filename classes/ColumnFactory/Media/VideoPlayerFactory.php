@@ -41,7 +41,7 @@ class VideoPlayerFactory extends BaseColumnFactory
         return 'column-video_player';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Video Player', 'codepress-admin-columns');
     }

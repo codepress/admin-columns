@@ -36,7 +36,7 @@ class EstimateReadingTimeFactory extends BaseColumnFactory
         return 'column-estimated_reading_time';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Read Time', 'codepress-admin-columns');
     }

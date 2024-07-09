@@ -33,7 +33,7 @@ class AttachmentFactory extends BaseColumnFactory
         return 'column-attachment';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Attachments', 'codepress-admin-columns');
     }

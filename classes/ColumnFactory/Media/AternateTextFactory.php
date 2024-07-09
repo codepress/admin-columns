@@ -18,7 +18,7 @@ class AternateTextFactory extends BaseColumnFactory
         return 'media-image';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Alternative Text', 'codepress-admin-columns');
     }

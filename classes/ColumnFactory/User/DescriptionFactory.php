@@ -36,7 +36,7 @@ class DescriptionFactory extends BaseColumnFactory
         $this->add_component_factory($this->before_after_factory);
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Description', 'codepress-admin-columns');
     }

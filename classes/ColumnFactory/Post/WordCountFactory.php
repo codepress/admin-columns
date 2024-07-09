@@ -16,7 +16,7 @@ class WordCountFactory extends BaseColumnFactory
         return 'column-word_count';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Word Count', 'codepress-admin-columns');
     }

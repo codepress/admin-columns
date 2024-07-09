@@ -18,7 +18,7 @@ class AudioPlayerFactory extends BaseColumnFactory
         return 'column-audio_player';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Audio Player', 'codepress-admin-columns');
     }

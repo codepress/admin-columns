@@ -15,7 +15,7 @@ class TextFactory extends BaseColumnFactory
         return 'column-meta-text';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Text', 'codepress-admin-columns');
     }

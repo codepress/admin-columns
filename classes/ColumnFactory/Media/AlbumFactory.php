@@ -18,7 +18,7 @@ class AlbumFactory extends BaseColumnFactory
         return 'column-meta_album';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Album', 'codepress-admin-columns');
     }

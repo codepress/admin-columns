@@ -11,7 +11,7 @@ use AC\Value\Formatter;
 class VisualEditingFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Visual Editor', 'codepress-admin-columns');
     }

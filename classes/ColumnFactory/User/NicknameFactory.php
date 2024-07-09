@@ -30,7 +30,7 @@ class NicknameFactory extends BaseColumnFactory
         $this->add_component_factory($this->user_link);
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Nickname', 'codepress-admin-columns');
     }

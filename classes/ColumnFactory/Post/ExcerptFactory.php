@@ -41,7 +41,7 @@ class ExcerptFactory extends BaseColumnFactory
         return 'column-excerpt';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Excerpt', 'codepress-admin-columns');
     }

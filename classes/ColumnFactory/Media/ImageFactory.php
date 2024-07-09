@@ -33,7 +33,7 @@ class ImageFactory extends BaseColumnFactory
         return 'column-image';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Image', 'codepress-admin-columns');
     }

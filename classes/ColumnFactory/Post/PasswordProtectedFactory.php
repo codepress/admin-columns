@@ -16,7 +16,7 @@ class PasswordProtectedFactory extends BaseColumnFactory
         return 'column-password_protected';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Password Protected', 'codepress-admin-columns');
     }

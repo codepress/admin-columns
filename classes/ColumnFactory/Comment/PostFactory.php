@@ -30,7 +30,7 @@ class PostFactory extends BaseColumnFactory
         $this->post_link = $post_link;
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Post', 'codepress-admin-columns');
     }

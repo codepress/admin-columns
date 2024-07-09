@@ -13,7 +13,7 @@ use AC\Value\Formatter\Post\PingStatus;
 class PingStatusFactory extends BaseColumnFactory
 {
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Ping Status', 'codepress-admin-columns');
     }

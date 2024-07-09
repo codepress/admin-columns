@@ -16,7 +16,7 @@ class FileSizeFactory extends BaseColumnFactory
         return 'column-file_size';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('File Size', 'codepress-admin-columns');
     }

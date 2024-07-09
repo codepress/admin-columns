@@ -91,7 +91,7 @@ abstract class BaseColumnFactory implements ColumnFactory
 
     abstract public function get_column_type(): string;
 
-    abstract protected function get_label(): string;
+    abstract public function get_label(): string;
 
     protected function get_group(): ?string
     {

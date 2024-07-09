@@ -42,7 +42,7 @@ class TitleRawFactory extends BaseColumnFactory
         return 'column-title_raw';
     }
 
-    protected function get_label(): string
+    public function get_label(): string
     {
         return __('Title Only', 'codepress-admin-columns');
     }
