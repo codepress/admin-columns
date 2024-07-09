@@ -33,8 +33,8 @@ class PostFactory implements ColumnFactories
 
         $post_type = $table_screen->get_post_type();
 
-        $this->container->set(PostTypeSlug::class, new PostTypeSlug($post_type));
-        $this->container->set(Relation::class, new AC\Relation\Post($post_type));
+        $this->container->set(PostTypeSlug::class, new PostTypeSlug($table_screen->get_post_type()));
+        $this->container->set(Relation::class, new AC\Relation\Post($table_screen->get_post_type()));
         $this->container->set(MetaType::class, MetaType::create_post_type());
         $this->container->set(ListKey::class, $table_screen->get_key());
 
@@ -98,15 +98,15 @@ class PostFactory implements ColumnFactories
             $factories[] = $this->container->make($fqn_class);
         }
 
-        if (post_type_supports($post_type->name, 'title')) {
+        if (post_type_supports($post_type, 'title')) {
             $factories[] = $this->container->make(Post\TitleRawFactory::class);
         }
 
-        if (post_type_supports($post_type->name, 'thumbnail')) {
+        if (post_type_supports($post_type, 'thumbnail')) {
             $factories[] = $this->container->make(Post\FeaturedImageFactory::class);
         }
 
-        if (post_type_supports($post_type->name, 'post-formats')) {
+        if (post_type_supports($post_type, 'post-formats')) {
             $factories[] = $this->container->make(Post\FormatsFactory::class);
         }
 
@@ -115,7 +115,7 @@ class PostFactory implements ColumnFactories
             $factories[] = $this->container->make(Post\TaxonomyFactory::class);
         }
 
-        if ('post' === $post_type->name) {
+        if ('post' === $post_type) {
             $factories[] = $this->container->make(Post\StickyFactory::class);
         }
 
