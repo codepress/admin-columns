@@ -71,8 +71,6 @@ class PostFactory implements ColumnFactories
             AC\ColumnFactory\ActionsFactory::class,
             Post\AttachmentFactory::class,
             Post\AuthorFactory::class,
-            Post\FeaturedImageFactory::class,
-            Post\FormatsFactory::class,
             Post\IdFactory::class,
             Post\LastModifiedAuthorFactory::class,
             Post\BeforeMoreFactory::class,
@@ -94,17 +92,31 @@ class PostFactory implements ColumnFactories
             Post\ShortLinkFactory::class,
             Post\SlugFactory::class,
             Post\StatusFactory::class,
-            Post\StickyFactory::class,
-            Post\TitleRawFactory::class,
         ];
 
         foreach ($fqn_classes as $fqn_class) {
             $factories[] = $this->container->make($fqn_class);
         }
 
+        if (post_type_supports($post_type->name, 'title')) {
+            $factories[] = $this->container->make(Post\TitleRawFactory::class);
+        }
+
+        if (post_type_supports($post_type->name, 'thumbnail')) {
+            $factories[] = $this->container->make(Post\FeaturedImageFactory::class);
+        }
+
+        if (post_type_supports($post_type->name, 'post-formats')) {
+            $factories[] = $this->container->make(Post\FormatsFactory::class);
+        }
+
         // TODO does this do an additional DB call?
         if (count(ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)) > 0) {
             $factories[] = $this->container->make(Post\TaxonomyFactory::class);
+        }
+
+        if ('post' === $post_type->name) {
+            $factories[] = $this->container->make(Post\StickyFactory::class);
         }
 
         $factories[] = $this->container->make(Post\WordCountFactory::class);
