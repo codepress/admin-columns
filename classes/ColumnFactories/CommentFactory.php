@@ -35,7 +35,7 @@ class CommentFactory implements ColumnFactories
         // TODO implement custom field, date, response, type
         $factoryClasses = [
             AC\ColumnFactory\CustomFieldFactory::class,
-            Comment\ActionsFactory::class,
+            AC\ColumnFactory\ActionsFactory::class,
             Comment\AgentFactory::class,
             Comment\ApprovedFactory::class,
             Comment\AuthorAvatarFactory::class,

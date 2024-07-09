@@ -7,6 +7,7 @@ namespace AC\ColumnFactories;
 use AC;
 use AC\Collection;
 use AC\ColumnFactories;
+use AC\ColumnFactory;
 use AC\ColumnFactory\User;
 use AC\TableScreen;
 use AC\Vendor\DI\Container;
@@ -37,6 +38,7 @@ class UserFactory implements ColumnFactories
         //            ]
         //        );
 
+        $factories[] = $this->container->make(ColumnFactory\ActionsFactory::class);
         $factories[] = $this->container->make(User\AuthorSlugFactory::class);
         $factories[] = $this->container->make(User\CommentCountFactory::class);
         $factories[] = $this->container->make(User\DescriptionFactory::class);

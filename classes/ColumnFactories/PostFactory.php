@@ -68,6 +68,7 @@ class PostFactory implements ColumnFactories
 
         $fqn_classes = [
             AC\ColumnFactory\CustomFieldFactory::class,
+            AC\ColumnFactory\ActionsFactory::class,
             Post\AttachmentFactory::class,
             Post\AuthorFactory::class,
             Post\FeaturedImageFactory::class,

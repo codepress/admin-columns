@@ -46,17 +46,13 @@ class AdminColumns
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\MediaFactory::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\PostFactory::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\UserFactory::class));
-
-        // TODO replace with factories
+        
+        ColumnFactories\Aggregate::add($container->get(ColumnFactories\OriginalFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\PostFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\CommentFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\MediaFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
-        ColumnFactories\Aggregate::add($container->get(ColumnFactories\OriginalFactory::class));
 
-        //        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\MediaFactory::class));
-        //        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\PostFactory::class));
-        //        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\UserFactory::class));
         //
         //        if ( ! defined('ACP_FILE')) {
         //            ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\IntegrationsFactory::class));

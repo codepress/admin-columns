@@ -34,10 +34,8 @@ class MediaFactory implements ColumnFactories
             Media\AudioPlayerFactory::class,
             Media\AvailableSizesFactory::class,
             Media\CaptionFactory::class,
-            Media\DescriptionFactory::class,
             Media\DimensionsFactory::class,
             Media\DownloadFactory::class,
-            Media\ExifDataFactory::class,
             Media\FileMetaAudioFactory::class,
             Media\FileMetaVideoFactory::class,
             Media\FileNameFactory::class,
@@ -50,6 +48,10 @@ class MediaFactory implements ColumnFactories
             Media\VideoPlayerFactory::class,
             Media\WidthFactory::class,
         ];
+
+        if (function_exists('exif_read_data')) {
+            $factoryClasses[] = Media\ExifDataFactory::class;
+        }
 
         foreach ($factoryClasses as $factoryClass) {
             $factories[$factoryClass] = $this->container->make($factoryClass);
