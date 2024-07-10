@@ -46,13 +46,13 @@ class PreviewViewLink implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $link = $this->extended_view->get_link()
+        $link = $this->extended_view->get_link($value->get_id(), __('View', 'codepress-admin-columns'))
                                     ->with_class("-nopadding -preview")
                                     ->with_title(get_the_title($value->get_id()))
                                     ->with_edit_link(get_edit_post_link($value->get_id()))
                                     ->with_download_link(wp_get_attachment_url($value->get_id()));
 
-        return $value->with_value($link->render(__('View', 'codepress-admin-columns'), $value->get_id()));
+        return $value->with_value($link->render());
     }
 
 }

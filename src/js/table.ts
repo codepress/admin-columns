@@ -81,6 +81,8 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
                 items[cell.getName()] = [];
             }
 
+            let params = link.dataset.modalParams ?? null;
+
             items[cell.getName()].push({
                 element: link,
                 editLink: link.dataset.modalEditLink ?? '',
@@ -88,7 +90,8 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
                 title: link.dataset.modalTitle ?? null,
                 view: link.dataset.view ?? '',
                 columnName: cell.getName(),
-                objectId: cell.getObjectID()
+                objectId: cell.getObjectID(),
+                params: params ? JSON.parse(params) : {}
             });
         }
     });

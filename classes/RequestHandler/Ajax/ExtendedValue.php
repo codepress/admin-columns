@@ -31,13 +31,14 @@ class ExtendedValue implements RequestAjaxHandler
         $response = new Json();
 
         if ( ! (new Nonce\Ajax())->verify($request)) {
-            //$response->error();
+            $response->error();
         }
 
         $id = (int)$request->filter('object_id', null, FILTER_SANITIZE_NUMBER_INT);
         $list_id = (string)$request->filter('list_id', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $column_name = (string)$request->filter('column_name', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $view = (string)$request->filter('view', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $params = (array)$request->get('params', []);
 
         if ( ! $id) {
             wp_send_json_error(__('Invalid item ID.', 'codepress-admin-columns'), 400);
@@ -59,15 +60,13 @@ class ExtendedValue implements RequestAjaxHandler
             wp_send_json_error(__('Invalid column.', 'codepress-admin-columns'), 400);
         }
 
-        $view = $this->views->get_view($view);
-
-        if ( ! $view) {
+        if ( ! $this->views->has_view($view)) {
             wp_send_json_error(__('Invalid view.', 'codepress-admin-columns'), 400);
         }
 
         header("Cache-Control: max-age=60");
 
-        echo $view->render($id);
+        echo $this->views->get_view($view)->render($id, $params);
 
         exit;
     }

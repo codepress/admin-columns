@@ -74,6 +74,7 @@ export type ValueModalItem = {
     columnName: string
     objectId: number
     view: string
+    params: { [key: string]: any }
 }
 
 export type ValueModalItemCollection = Array<ValueModalItem>

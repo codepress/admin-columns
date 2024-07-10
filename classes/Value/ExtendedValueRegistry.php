@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Value;
 
 use AC\Value\Extended\ExtendedValue;
+use LogicException;
 
 class ExtendedValueRegistry
 {
@@ -16,7 +17,18 @@ class ExtendedValueRegistry
         self::$views[] = $view;
     }
 
-    public function get_view(string $name): ?ExtendedValue
+    public function has_view(string $name): bool
+    {
+        foreach (self::$views as $view) {
+            if ($view->can_render($name)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function get_view(string $name): ExtendedValue
     {
         foreach (self::$views as $view) {
             if ($view->can_render($name)) {
@@ -24,7 +36,7 @@ class ExtendedValueRegistry
             }
         }
 
-        return null;
+        throw new LogicException('No extended value found for view: ' . $name);
     }
 
 }

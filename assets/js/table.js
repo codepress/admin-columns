@@ -250,7 +250,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (133:5) {#if editLink }
+// (135:5) {#if editLink }
 function create_if_block_2(ctx) {
   let a;
   let t_value = /*translation*/ctx[9].edit + "";
@@ -279,7 +279,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (136:5) {#if downloadLink }
+// (138:5) {#if downloadLink }
 function create_if_block_1(ctx) {
   let a;
   let t_value = /*translation*/ctx[9].download + "";
@@ -309,7 +309,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (140:4) {#if items.length > 1 }
+// (142:4) {#if items.length > 1 }
 function create_if_block(ctx) {
   let div;
   let button0;
@@ -597,6 +597,7 @@ function instance($$self, $$props, $$invalidate) {
       source.cancel();
     }
     source = CancelToken.source();
+    console.log(item);
     return (0,axios__WEBPACK_IMPORTED_MODULE_4__["default"])({
       method: 'get',
       url: ajaxurl,
@@ -607,6 +608,7 @@ function instance($$self, $$props, $$invalidate) {
         column_name: item.columnName,
         object_id: item.objectId,
         view: item.view,
+        params: item.params,
         _ajax_nonce: AC.ajax_nonce
       }
     }).then(response => {
@@ -17227,20 +17229,22 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
     });
     let items = {};
     event.table.getElement().querySelectorAll('td [data-modal-value]').forEach(link => {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f;
         let cell = event.table.Cells.getByElement((_a = link.closest('td')) !== null && _a !== void 0 ? _a : document.createElement('td'));
         if (cell) {
             if (!items.hasOwnProperty(cell.getName())) {
                 items[cell.getName()] = [];
             }
+            let params = (_b = link.dataset.modalParams) !== null && _b !== void 0 ? _b : null;
             items[cell.getName()].push({
                 element: link,
-                editLink: (_b = link.dataset.modalEditLink) !== null && _b !== void 0 ? _b : '',
-                downloadLink: (_c = link.dataset.modalDownloadLink) !== null && _c !== void 0 ? _c : '',
-                title: (_d = link.dataset.modalTitle) !== null && _d !== void 0 ? _d : null,
-                view: (_e = link.dataset.view) !== null && _e !== void 0 ? _e : '',
+                editLink: (_c = link.dataset.modalEditLink) !== null && _c !== void 0 ? _c : '',
+                downloadLink: (_d = link.dataset.modalDownloadLink) !== null && _d !== void 0 ? _d : '',
+                title: (_e = link.dataset.modalTitle) !== null && _e !== void 0 ? _e : null,
+                view: (_f = link.dataset.view) !== null && _f !== void 0 ? _f : '',
                 columnName: cell.getName(),
-                objectId: cell.getObjectID()
+                objectId: cell.getObjectID(),
+                params: params ? JSON.parse(params) : {}
             });
         }
     });

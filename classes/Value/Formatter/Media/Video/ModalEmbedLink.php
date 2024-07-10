@@ -6,36 +6,33 @@ namespace AC\Value\Formatter\Media\Video;
 
 use AC\Setting\Formatter;
 use AC\Type\Value;
+use AC\Value\Extended\ExtendedValue;
 
 class ModalEmbedLink implements Formatter
 {
 
+    private $extended_value;
+
+    public function __construct(ExtendedValue $extended_value)
+    {
+        $this->extended_value = $extended_value;
+    }
+
     public function format(Value $value): Value
     {
-        // TODO not necessary if aggregate checks null values
         if ( ! $value->get_value()) {
             return $value;
         }
 
-        $link = ac_helper()->html->get_ajax_modal_link(
-            __('Play', 'codepress-admin-columns'),
-            [
-                'title'         => get_the_title($value->get_id()),
-                'edit_link'     => get_edit_post_link($value->get_id()),
-                'download_link' => $this->create_relative_path($value->get_value()) ?: null,
-                'id'            => $value->get_id(),
-                'class'         => "-nopadding",
-            ]
-        );
+        $link = $this->extended_value->get_link($value->get_id(), __('Play', 'codepress-admin-columns'))
+                                     ->with_title(get_the_title($value->get_id()))
+                                     ->with_edit_link(get_edit_post_link($value->get_id()))
+                                     ->with_download_link(str_replace(site_url(), '', $value->get_value()))
+                                     ->with_class("-nopadding");
 
         return $value->with_value(
-            $link
+            $link->render()
         );
-    }
-
-    private function create_relative_path($url)
-    {
-        return str_replace(site_url(), '', $url);
     }
 
 }

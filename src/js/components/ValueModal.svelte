@@ -62,6 +62,8 @@
 
         source = CancelToken.source();
 
+        console.log( item );
+
         return axios({
             method: 'get',
             url: ajaxurl,
@@ -72,6 +74,7 @@
                 column_name: item.columnName,
                 object_id: item.objectId,
 				view: item.view,
+				params: item.params,
                 _ajax_nonce: AC.ajax_nonce
             }
         }).then((response: AxiosResponse<string>) => {

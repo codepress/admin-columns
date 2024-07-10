@@ -11,17 +11,31 @@ final class ExtendedValueLink
 
     private $attributes;
 
-    public function __construct(string $view, $attributes = [])
+    private $id;
+
+    private $label;
+
+    private $params;
+
+    public function __construct(string $label, int $id, string $view, $attributes = [], $params = [])
     {
         $this->view = $view;
         $this->attributes = $attributes;
+        $this->id = $id;
+        $this->label = $label;
+        $this->params = $params;
     }
 
     protected function with_attribute(string $key, string $value): self
     {
         $this->attributes[$key] = $value;
 
-        return new self($this->view, $this->attributes);
+        return new self($this->label, $this->id, $this->view, $this->attributes, $this->params);
+    }
+
+    public function with_params($params): self
+    {
+        return new self($this->label, $this->id, $this->view, $this->attributes, $params);
     }
 
     public function with_title(string $title): self
@@ -44,7 +58,7 @@ final class ExtendedValueLink
         return $this->with_attribute('class', $class);
     }
 
-    public function render(string $label, int $id): string
+    public function render(): string
     {
         $attributes = $this->attributes;
         $attribute_markup = [];
@@ -62,13 +76,17 @@ final class ExtendedValueLink
             $attribute_markup[] = sprintf('data-modal-class="%s"', esc_attr($attributes['class']));
         }
 
-        $attribute_markup[] = sprintf('data-modal-id="%s"', esc_attr($id));
+        if ( ! empty($this->params)) {
+            $attribute_markup[] = sprintf('data-modal-params="%s"', esc_attr(json_encode($this->params)));
+        }
+
+        $attribute_markup[] = sprintf('data-modal-id="%s"', esc_attr($this->id));
         $attribute_markup[] = sprintf('data-view="%s"', esc_attr($this->view));
 
         return sprintf(
             '<a style="border-bottom: 1px dotted;" data-modal-value %s>%s</a>',
             implode(' ', $attribute_markup),
-            $label
+            $this->label
         );
     }
 }
