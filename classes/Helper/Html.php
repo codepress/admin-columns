@@ -119,8 +119,11 @@ class Html
     /**
      * Display a modal which trigger an ajax event on click. The ajax callback calls AC\Column::get_ajax_value.
      */
-    public function get_ajax_modal_link(string $label, array $attributes = [], string $label_suffix = null): string
-    {
+    public function get_ajax_modal_link(
+        string $label,
+        string $view,
+        array $attributes = []
+    ): string {
         $attribute_markup = [];
 
         if (isset($attributes['title']) && $attributes['title']) {
@@ -139,11 +142,12 @@ class Html
             $attribute_markup[] = sprintf('data-modal-id="%s"', esc_attr($attributes['id']));
         }
 
+        $attribute_markup[] = sprintf('data-view="%s"', esc_attr($view));
+
         return sprintf(
-            '<a style="border-bottom: 1px dotted;" data-modal-value %s>%s</a>%s',
+            '<a style="border-bottom: 1px dotted;" data-modal-value %s>%s</a>',
             implode(' ', $attribute_markup),
-            $label,
-            $label_suffix
+            $label
         );
     }
 

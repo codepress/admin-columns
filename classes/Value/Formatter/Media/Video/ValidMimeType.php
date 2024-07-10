@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter\Media\Video;
 
+use AC\ApplyFilter\ValidVideoMimetypes;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
@@ -30,14 +31,7 @@ class ValidMimeType implements Formatter
 
     private function get_valid_mime_types()
     {
-        return (array)apply_filters(
-            'ac/column/audio_player/valid_mime_types',
-            [
-                'video/mp4',
-                'video/webm',
-                'video/quicktime',
-            ]
-        );
+        return (new ValidVideoMimetypes())->apply_filters();
     }
 
     private function get_mime_type($id)

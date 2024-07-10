@@ -9,16 +9,15 @@
     declare const AC: LocalizedAcTable;
 
     export let items: ValueModalItemCollection
-    export let objectId;
+    export let objectId: number;
     export let destroyHandler: Function;
 
-    let modalClass = '';
-    let columnTitle;
-    let mainElement;
-    let title;
-    let content;
-    let editLink;
-    let downloadLink;
+    let modalClass:string = '';
+    let columnTitle:string;
+    let title: string;
+    let content: string;
+    let editLink: string;
+    let downloadLink: string;
     let source;
     let translation = getTableTranslation();
     let index: number;
@@ -31,7 +30,7 @@
         destroyHandler();
     }
 
-    const initKeyPress = (e) => {
+    const initKeyPress = (e:KeyboardEvent) => {
         if (e.key === 'Escape') {
             destroyHandler();
         }
@@ -56,9 +55,11 @@
         content = `<span class="loading">${translation.value_loading}</span>`;
         editLink = item.editLink;
         downloadLink = item.downloadLink;
+
         if (source) {
             source.cancel();
         }
+
         source = CancelToken.source();
 
         return axios({
@@ -66,16 +67,20 @@
             url: ajaxurl,
             cancelToken: source.token,
             params: {
-                action: 'ac-get-column-modal-value',
-                layout: AC.layout,
+                action: 'ac-extended-value',
+                list_id: AC.layout,
                 column_name: item.columnName,
                 object_id: item.objectId,
+				view: item.view,
                 _ajax_nonce: AC.ajax_nonce
             }
         }).then((response: AxiosResponse<string>) => {
             content = response.data
             title = getTitle(item);
-        });
+        }).catch( r => {
+            content = 'Content could not be loaded.';
+            title = 'Error loading content.';
+		});
     }
 
 
@@ -84,7 +89,7 @@
         hasPrev = index !== 0;
     }
 
-    const updateItem = (index) => {
+    const updateItem = (index: number) => {
         updateData(items[index]);
     }
 
@@ -107,18 +112,21 @@
     onMount(() => {
         let item = items.find(i => i.objectId === objectId);
 
-        index = items.findIndex(item => item.objectId === objectId);
-        columnTitle = item.element.closest('td').dataset.colname as string;
+        if( item ){
+            index = items.findIndex(item => item.objectId === objectId);
+            columnTitle = item.element.closest('td')!.dataset.colname as string;
 
-        if (items.length > 1) {
-            document.addEventListener('keydown', initKeyPress);
-        }
+            if (items.length > 1) {
+                document.addEventListener('keydown', initKeyPress);
+            }
 
-        modalClass = item.element.dataset.modalClass;
-        title = item.title ?? `#${item.objectId}`;
+            modalClass = item.element.dataset.modalClass ?? ''
+            title = item.title ?? `#${item.objectId}`;
 
-        updateData(item);
-        determineSiblings();
+            updateData(item);
+            determineSiblings();
+		}
+
     });
 
     onDestroy(() => {
@@ -126,7 +134,7 @@
     });
 </script>
 
-<div class="ac-value-modal {modalClass}" bind:this={mainElement} on:click={close} on:keypress={()=>{}} role="none">
+<div class="ac-value-modal {modalClass}" on:click={close} on:keypress={()=>{}} role="none">
 	<div class="ac-value-modal-background">
 	</div>
 	<div class="ac-value-modal-container">

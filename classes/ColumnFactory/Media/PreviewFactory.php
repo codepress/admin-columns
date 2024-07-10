@@ -6,11 +6,12 @@ use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Linkable;
-use AC\Value\Formatter\Media\AttachmentUrl;
+use AC\Value\Extended\MediaPreview;
+use AC\Value\Formatter\Media\PreviewViewLink;
 
 class PreviewFactory extends BaseColumnFactory
 {
+
     public function get_column_type(): string
     {
         return 'column-preview';
@@ -26,8 +27,7 @@ class PreviewFactory extends BaseColumnFactory
         Config $config,
         FormatterCollection $formatters
     ): FormatterCollection {
-        $formatters->add(new AttachmentUrl());
-        $formatters->add(new Linkable('View'));
+        $formatters->add(new PreviewViewLink(new MediaPreview()));
 
         return parent::get_formatters($components, $config, $formatters);
     }

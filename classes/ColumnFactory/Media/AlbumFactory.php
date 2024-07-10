@@ -11,8 +11,6 @@ use AC\Value\Formatter\Media\AttachmentMetaData;
 class AlbumFactory extends BaseColumnFactory
 {
 
-    // Group to group: 'media-audio'
-
     public function get_column_type(): string
     {
         return 'column-meta_album';
@@ -21,6 +19,11 @@ class AlbumFactory extends BaseColumnFactory
     public function get_label(): string
     {
         return __('Album', 'codepress-admin-columns');
+    }
+
+    protected function get_group(): ?string
+    {
+        return 'media-audio';
     }
 
     protected function get_formatters(

@@ -73,6 +73,7 @@ export type ValueModalItem = {
     downloadLink: string
     columnName: string
     objectId: number
+    view: string
 }
 
 export type ValueModalItemCollection = Array<ValueModalItem>
