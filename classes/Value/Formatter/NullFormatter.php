@@ -7,12 +7,12 @@ namespace AC\Value\Formatter;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
-final class NullFormatter implements Formatter
+class NullFormatter implements Formatter
 {
 
     public function format(Value $value): Value
     {
-        return $value;
+        return new Value(null);
     }
 
 }
