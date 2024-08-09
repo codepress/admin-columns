@@ -88,7 +88,12 @@ class FieldType extends Builder
         return OptionFactory::create_select(
             self::NAME,
             $this->get_field_type_options(),
-            $config->get(self::NAME, '')
+            $config->get(self::NAME, ''),
+            __('Select the field type', 'codepress-admin-columns'),
+            false,
+            new AC\Setting\AttributeCollection([
+                AC\Setting\AttributeFactory::create_refresh(),
+            ])
         );
     }
 
@@ -172,12 +177,22 @@ class FieldType extends Builder
     protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
     {
         $field_type = $config->get(self::NAME, self::TYPE_DEFAULT);
+
         switch ($field_type) {
             case self::TYPE_COLOR:
                 $formatters->add(new AC\Value\Formatter\Color());
                 break;
+            case self::TYPE_NUMERIC:
+                $formatters->add(
+                    new AC\Value\Formatter\NumberFormat(
+                        (int)$config->get('number_decimals', 0),
+                        $config->get('number_decimal_point', '.'),
+                        $config->get('number_thousands_separator', ',')
+                    )
+                );
+                break;
             case self::TYPE_NON_EMPTY:
-                //TODO
+                $formatters->add(new AC\Value\Formatter\YesNoIcon());
                 break;
             case self::TYPE_USER:
             case self::TYPE_MEDIA:
