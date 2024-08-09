@@ -47,9 +47,7 @@ class ColumnTypeRepository
         $types = $this->default_columns_repository->find_all($table_screen->get_key());
 
         foreach ($this->aggregate->create($table_screen) as $type => $factory) {
-            $label = $types[$type] ?? null;
-
-            if ( ! $label) {
+            if ( ! array_key_exists($type, $types)) {
                 continue;
             }
 
@@ -57,7 +55,7 @@ class ColumnTypeRepository
                 $factory->create(
                     new Setting\Config([
                         'name'  => $type,
-                        'label' => $label,
+                        'label' => $types[$type],
                     ])
                 )
             );
