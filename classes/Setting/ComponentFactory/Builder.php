@@ -82,6 +82,11 @@ abstract class Builder extends Base
 
     protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
     {
+        return $this->check_children_formatters($config, $formatters);
+    }
+
+    protected function check_children_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    {
         $children = $this->get_children($config);
 
         if ($children) {

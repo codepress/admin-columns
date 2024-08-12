@@ -9,7 +9,7 @@ use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Type\ListKey;
 
-final class CustomField extends Builder
+class CustomField extends Builder
 {
 
     private const NAME = 'field';

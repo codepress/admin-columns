@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\StringComparisonSpecification;
+use AC\Setting\AttributeCollection;
+use AC\Setting\AttributeFactory;
 use AC\Setting\Children;
 use AC\Setting\Component;
 use AC\Setting\ComponentCollection;
@@ -33,15 +35,6 @@ class UserProperty extends Builder
     public const PROPERTY_NICKNAME = 'nickname';
     public const PROPERTY_ROLES = 'roles';
     public const PROPERTY_GRAVATAR = 'gravatar';
-    public const PROPERTY_META = 'custom_field';
-
-    private $show_related_meta;
-
-    public function __construct(
-        bool $show_related_meta = false
-    ) {
-        $this->show_related_meta = $show_related_meta;
-    }
 
     protected function get_label(Config $config): ?string
     {
@@ -53,7 +46,12 @@ class UserProperty extends Builder
         return OptionFactory::create_select(
             'display_author_as',
             $this->get_input_options(),
-            $config->get('display_author_as') ?: 'display_name'
+            $config->get('display_author_as') ?: 'display_name',
+            null,
+            false,
+            new AttributeCollection([
+                AttributeFactory::create_refresh(),
+            ])
         );
     }
 
@@ -65,33 +63,49 @@ class UserProperty extends Builder
                 $formatters->add(new Formatter\Gravatar((int)$config->get('gravatar_size', '60')));
 
                 break;
-            default:
+            case self::PROPERTY_DISPLAY_NAME:
+            case self::PROPERTY_EMAIL:
+            case self::PROPERTY_FULL_NAME:
+            case self::PROPERTY_FIRST_NAME:
+            case self::PROPERTY_ID:
+            case self::PROPERTY_LAST_NAME:
+            case self::PROPERTY_LOGIN:
+            case self::PROPERTY_NICENAME:
+            case self::PROPERTY_URL:
+            case self::PROPERTY_NICKNAME:
+            case self::PROPERTY_ROLES:
                 $formatters->add(new Formatter\User\Property((string)$config->get('display_author_as')));
+                break;
         }
 
-        return $formatters;
+        return parent::get_formatters($config, $formatters);
     }
 
     protected function get_children(Config $config): ?Children
     {
         return new Children(
-            new ComponentCollection([
-                new Component(
-                    __('Image Size', 'codepress-admin-columns'),
-                    null,
-                    Number::create_single_step(
-                        'gravatar_size',
-                        0,
-                        100,
-                        (int)$config->get('gravatar_size', 60),
-                        null,
-                        null,
-                        'px'
-                    ),
-                    StringComparisonSpecification::equal('gravatar')
-                ),
-            ])
+            $this->get_children_component_collection($config)
         );
+    }
+
+    protected function get_children_component_collection(Config $config): ComponentCollection
+    {
+        return new ComponentCollection([
+            new Component(
+                __('Image Size', 'codepress-admin-columns'),
+                null,
+                Number::create_single_step(
+                    'gravatar_size',
+                    0,
+                    100,
+                    (int)$config->get('gravatar_size', 60),
+                    null,
+                    null,
+                    'px'
+                ),
+                StringComparisonSpecification::equal('gravatar')
+            ),
+        ]);
     }
 
     protected function get_input_options(): OptionCollection
@@ -121,10 +135,6 @@ class UserProperty extends Builder
 
         $options->add(new Option(__('Roles', 'codepress-admin-columns'), self::PROPERTY_ROLES, $other_group));
         $options->add(new Option(__('Gravatar', 'codepress-admin-columns'), self::PROPERTY_GRAVATAR, $other_group));
-
-        if ($this->show_related_meta) {
-            $options->add(new Option(__('Custom Field', 'codepress-admin-columns'), self::PROPERTY_META, $other_group));
-        }
 
         return $options;
     }

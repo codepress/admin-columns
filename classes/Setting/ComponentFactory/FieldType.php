@@ -195,7 +195,8 @@ class FieldType extends Builder
                 $formatters->add(new AC\Value\Formatter\YesNoIcon());
                 break;
             case self::TYPE_USER:
-            case self::TYPE_MEDIA:
+            case self::TYPE_MEDIA: // TODo check for string also
+            case self::TYPE_IMAGE: // TODo check for string also
             case self::TYPE_POST:
                 $formatters->add(new AC\Value\Formatter\ForeignId());
                 break;

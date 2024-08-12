@@ -33,6 +33,7 @@ class PostFactory implements ColumnFactories
 
         $post_type = $table_screen->get_post_type();
 
+        // TODO is this necessary and the way to go?
         $this->container->set(PostTypeSlug::class, new PostTypeSlug($table_screen->get_post_type()));
         $this->container->set(Relation::class, new AC\Relation\Post($table_screen->get_post_type()));
         $this->container->set(MetaType::class, MetaType::create_post_type());
