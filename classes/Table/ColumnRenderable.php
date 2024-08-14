@@ -28,7 +28,14 @@ class ColumnRenderable
             return null;
         }
 
-        $formatter = (new ProcessFormatters($column->get_formatters()));
+        $formatters = $column->get_formatters();
+
+        // TODO Test, how to bail on original columns? a column always need to have a formatter?
+        if ($formatters->count() === 0) {
+            return null;
+        }
+
+        $formatter = (new ProcessFormatters($formatters));
 
         $value = $formatter->format(
             new Value($id)

@@ -9227,7 +9227,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (76:3) {#if allowCreation}
+// (75:3) {#if allowCreation}
 function create_if_block(ctx) {
   let div;
   return {
@@ -9253,7 +9253,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (75:2) 
+// (74:2) 
 function create_empty_slot(ctx) {
   let div;
   function select_block_type(ctx, dirty) {
@@ -9413,7 +9413,6 @@ function instance($$self, $$props, $$invalidate) {
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
     var _a;
-    console.log(config.input);
     (0,_ajax_settings__WEBPACK_IMPORTED_MODULE_4__.getRemoteSelectOptions)(config.input.attributes['data-handler'], JSON.parse(config.input.attributes['data-params'])).then(response => {
       if (response.data.success) {
         originalOptions = response.data.data.options;

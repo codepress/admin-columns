@@ -464,6 +464,7 @@
 
 .ac-header-toggle {
   align-items: center;
+  box-sizing: border-box;
   border: 1px solid #C3CBD7;
   border-radius: 5px;
   color: #C3CBD7;
