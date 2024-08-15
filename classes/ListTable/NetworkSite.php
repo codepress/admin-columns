@@ -15,13 +15,13 @@ class NetworkSite implements ListTable
         $this->table = $table;
     }
 
-    public function get_column_value(string $column, $id): string
+    public function render_cell(string $column_id, $row_id): string
     {
         ob_start();
 
-        $method = 'column_' . $column;
+        $method = 'column_' . $column_id;
 
-        $blog = get_site($id);
+        $blog = get_site($row_id);
 
         if ( ! $blog) {
             return '';
@@ -30,7 +30,7 @@ class NetworkSite implements ListTable
         if (method_exists($this->table, $method)) {
             call_user_func([$this->table, $method], $blog->to_array());
         } else {
-            $this->table->column_default($blog->to_array(), $column);
+            $this->table->column_default($blog->to_array(), $column_id);
         }
 
         return ob_get_clean();

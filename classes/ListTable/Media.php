@@ -15,16 +15,16 @@ class Media implements ListTable
         $this->table = $table;
     }
 
-    public function get_column_value(string $column, $id): string
+    public function render_cell(string $column_id, $row_id): string
     {
         ob_start();
 
-        $method = 'column_' . $column;
+        $method = 'column_' . $column_id;
 
         if (method_exists($this->table, $method)) {
-            call_user_func([$this->table, $method], get_post($id));
+            call_user_func([$this->table, $method], get_post($row_id));
         } else {
-            $this->table->column_default(get_post($id), $column);
+            $this->table->column_default(get_post($row_id), $column_id);
         }
 
         return ob_get_clean();

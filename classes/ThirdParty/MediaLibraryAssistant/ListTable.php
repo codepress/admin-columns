@@ -18,21 +18,21 @@ class ListTable implements AC\ListTable
         $this->table = $table;
     }
 
-    public function get_column_value(string $column, $id): string
+    public function render_cell(string $column_id, $row_id): string
     {
-        $item = (object)MLAData::mla_get_attachment_by_id($id);
+        $item = (object)MLAData::mla_get_attachment_by_id($row_id);
 
         if ( ! $item) {
             return '';
         }
 
-        $method = 'column_' . $column;
+        $method = 'column_' . $column_id;
 
         if (method_exists($this->table, $method)) {
             return (string)call_user_func([$this->table, $method], $item);
         }
 
-        return (string)$this->table->column_default($item, $column);
+        return (string)$this->table->column_default($item, $column_id);
     }
 
     public function get_total_items(): int
