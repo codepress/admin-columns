@@ -28,11 +28,6 @@ class IdFactory extends BaseColumnFactory
         $this->add_component_factory($this->before_after_factory);
     }
 
-    protected function add_common_component_factories(): void
-    {
-        $this->add_component_factory($this->before_after_factory);
-    }
-
     public function get_column_type(): string
     {
         return 'column-postid';
