@@ -60,21 +60,31 @@
     });
 </script>
 
-<div class="ac-admin-page lg:acu-flex acu-gap-6">
-	<aside class="ac-admin-page-menu lg:acu-w-[220px] xl:acu-w-[250px]">
+<div class="ac-admin-page acu-flex acu-flex-col acu-min-h-[calc(100vh_-_70px)] acu-w-full acu-transform
+			xl:acu-flex-row ">
+	<aside class="ac-admin-page-menu acu-pl-4 acu-pr-[30px] acu-py-8
+				  xl:acu-w-[250px] xl:acu-bg-[#EAF0F6] xl:acu-pt-[60px]">
 		<ListScreenMenu
 			menu={menu}
 			openedGroups={openedGroups}
 			on:itemSelect={handleMenuSelect}
 		/>
 	</aside>
-	<main class="ac-admin-page-main">
+	<main class="ac-admin-page-main acu-px-4 acu-pt-2 xl:acu-pt-[60px]">
 		{#each ListScreenSections.getSections( 'before_columns' ) as component}
-			<HtmlSection component={component}></HtmlSection>
+			<!--			<HtmlSection component={component}></HtmlSection>-->
 		{/each}
-
-		{#if $listScreenDataStore !== null}
-			<ListScreenForm bind:config={config} bind:data={$listScreenDataStore} tableUrl={tableUrl}></ListScreenForm>
-		{/if}
+		<div class="xl:acu-flex xl:acu-gap-6 xl:acu-flex-row-reverse">
+			<div>
+				{#each ListScreenSections.getSections( 'sidebar' ) as component}
+					<HtmlSection component={component}></HtmlSection>
+				{/each}
+			</div>
+			<div class="acu-flex-grow">
+				{#if $listScreenDataStore !== null}
+					<ListScreenForm bind:config={config} bind:data={$listScreenDataStore} tableUrl={tableUrl}></ListScreenForm>
+				{/if}
+			</div>
+		</div>
 	</main>
 </div>

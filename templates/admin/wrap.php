@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( ! defined('ABSPATH')) {
+    exit;
 }
 
 ?>
 <div id="cpac" class="wrap">
-	<?= $this->content; ?>
+    <?= $this->content; ?>
 </div>

@@ -6,6 +6,7 @@ module.exports = {
 	content : [
 		"./../../src/core/**/*.{js,ts,svelte}",
 		"./../../src/editing/**/*.{js,ts,svelte}",
+		"./../templates/**/*.php",
 		"./js/**/*.{js,ts,svelte}",
 		"./ui/**/*.{js,ts,svelte}",
 	],
@@ -37,6 +38,7 @@ module.exports = {
 			'3xl' : '1600px'
 		},
 		colors: {
+			'gray-dark' : '#3D4350',
 			'ui-border': 'var(--acui-border)',
 			'link': 'var(--ac-link)',
 			'link-hover': 'var(--ac-link-hover)',

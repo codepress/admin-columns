@@ -1,26 +1,32 @@
 <?php
 
 use AC\Admin\Type\MenuItem;
-use AC\View;
 
 /**
  * @var MenuItem[] $items
  */
 $items = $this->menu_items;
 ?>
-<?= (new View(['license_status' => 1]))->set_template('admin/header') ?>
 
-<nav class="cpac-admin-nav">
-	<ul class="cpac-nav">
-        <?php
-        foreach ($items as $item) : ?>
-			<li class="cpac-nav__item <?= esc_attr($item->get_class()); ?>">
-				<a href="<?= esc_url($item->get_url()); ?>"<?php
-                echo $item->get_target() ? sprintf(' target="%s"', $item->get_target()) : ''; ?>>
-                    <?= $item->get_label(); ?>
-				</a>
-			</li>
-        <?php
-        endforeach; ?>
-	</ul>
-</nav>
+
+<header class="acu-flex acu-bg-gray-dark acu-px-[50px] acu-py-3">
+	<div class="acu-w-[260px] acu-items-center acu-flex ">
+		<img class="acu-w-[180px]" src="<?= esc_url(ac_get_url('assets/images/logo-ac-light.svg')) ?>" alt="">
+	</div>
+	<div class="acu-flex">
+		<ul class="acu-flex ac-admin-nav acu-gap-2">
+            <?php
+            foreach ($items as $item) : ?>
+				<li class="ac-admin-nav__item <?= esc_attr($item->get_class()); ?>">
+					<a href="<?= esc_url(
+                        $item->get_url()
+                    ) ?>" class="acu-text-[#fff] acu-inline-block ac-admin-nav__link"
+                        <?= $item->get_target() ? sprintf(' target="%s"', $item->get_target()) : '' ?>>
+                        <?= $item->get_label() ?>
+					</a>
+				</li>
+            <?php
+            endforeach; ?>
+		</ul>
+	</div>
+</header>

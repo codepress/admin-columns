@@ -580,12 +580,20 @@
   display: none;
 }
 
-body {
+body.admin-columns__columns {
   background-color: #F1F5F9;
+}
+body.admin-columns__columns #cpac {
+  padding: 0 !important;
+}
+
+#wpbody-content {
+  padding-bottom: 10px;
 }
 
 .ac-admin-page {
   -webkit-font-smoothing: antialiased;
+  transform: translateY(-30px);
 }
 .ac-admin-page .ac-admin-page-menu {
   flex-shrink: 0;

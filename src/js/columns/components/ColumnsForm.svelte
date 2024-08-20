@@ -159,7 +159,7 @@
 </script>
 
 
-<DebugToolbar bind:data={data} bind:config={config}/>
+<!--<DebugToolbar bind:data={data} bind:config={config}/>-->
 
 {#if data }
 	<div class="ac-columns">
