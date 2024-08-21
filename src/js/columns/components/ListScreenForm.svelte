@@ -9,10 +9,13 @@
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {currentListKey} from "../store/current-list-screen";
     import {AxiosError} from "axios";
+    import {getColumnSettingsTranslation} from "../utils/global";
 
     export let config: any
     export let data: ListScreenData
     export let tableUrl: string;
+
+    const i18n = getColumnSettingsTranslation();
 
     let isSaving = false;
 
@@ -42,7 +45,7 @@
 
 	{#if !$listScreenIsReadOnly}
 		<div class="acp-footer-bar acu-flex acu-justify-end acu-mt-[-35px] acu-rounded-b-lg acu-bg-[white] acu-sticky acu-bottom-[0] acu-p-4 acu-border acu-border-solid acu-border-ui-border rounded-t-none">
-			<AcButton on:click={saveSettings} type="primary" loading={isSaving}>Save</AcButton>
+			<AcButton on:click={saveSettings} type="primary" loading={isSaving}>{i18n.editor.label.save}</AcButton>
 		</div>
 	{/if}
 

@@ -56,6 +56,11 @@ final class ListScreen
         return $this->id;
     }
 
+    public function set_title(string $title): void
+    {
+        $this->title = $title;
+    }
+
     public function get_title(): string
     {
         return $this->title;

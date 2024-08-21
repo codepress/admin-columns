@@ -24,7 +24,6 @@
 
 
 	const abortAll = () => {
-        console.log( calls );
         calls.forEach(call => call.abort());
         calls = [];
 	}

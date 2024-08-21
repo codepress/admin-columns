@@ -26,6 +26,8 @@ type AdminColumnsI18n = {
             add_columns: string
             load_default_columns: string
             clear_columns: string
+            save: string
+            view: string
         }
         sentence: {
             show_default_columns: string
