@@ -40,6 +40,7 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
 
     public function manage_value(AC\ListScreen $list_screen): AC\Table\ManageValue
     {
+        // TODO fix
         return new ManageValue($list_screen);
     }
 

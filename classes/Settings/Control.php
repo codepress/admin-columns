@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AC\Settings;
 
-use AC;
 use AC\Expression\NullSpecification;
 use AC\Expression\Specification;
 use AC\Setting\Control\Input;
 
-class Control extends Component implements AC\Setting\Control
+// TODO fix
+class Control extends Component
 {
 
     protected $input;
