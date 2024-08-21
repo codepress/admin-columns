@@ -52,12 +52,14 @@ class Base implements Column
 
     public function get_id(): ColumnId
     {
-        // TODO add to constructor?
-        $id = (string)$this->get_setting('name')
-                           ->get_input()
-                           ->get_value();
+        // TODO add ColumnId to constructor?
+        $id = $this->get_setting('name')
+                   ->get_input()
+                   ->get_value();
 
-        return new ColumnId($id);
+        return ColumnId::is_valid_id($id)
+            ? new ColumnId($id)
+            : ColumnId::generate();
     }
 
     public function get_label(): string
@@ -82,32 +84,9 @@ class Base implements Column
         return $this->formatters;
     }
 
-    // TODO David move the recursive initial outside this function for a cleaner API (Also in interface)
-    public function get_setting(string $name, ComponentCollection $settings = null): ?Component
+    public function get_setting(string $name): ?Component
     {
-        $settings = $settings ?: $this->settings;
-
-        foreach ($settings as $setting) {
-            if ($setting->has_children()) {
-                $found = $this->get_setting($name, $setting->get_children()->get_iterator());
-
-                if ($found) {
-                    return $found;
-                }
-            }
-
-            if ($setting->has_input() && $name === $setting->get_input()->get_name()) {
-                return $setting;
-            }
-        }
-
-        return null;
-    }
-
-    // TODO remove
-    public function is_original(): bool
-    {
-        return false;
+        return $this->settings->find($name);
     }
 
     // TODO remove

@@ -29,4 +29,26 @@ class ComponentCollection extends Collection implements Countable
         return count($this->data);
     }
 
+    // TODO is this the right place for it?
+    public function find(string $name, ComponentCollection $settings = null): ?Component
+    {
+        $settings = $settings ?: $this;
+
+        foreach ($settings as $setting) {
+            if ($setting->has_children()) {
+                $found = $this->find($name, $setting->get_children()->get_iterator());
+
+                if ($found) {
+                    return $found;
+                }
+            }
+
+            if ($setting->has_input() && $name === $setting->get_input()->get_name()) {
+                return $setting;
+            }
+        }
+
+        return null;
+    }
+
 }

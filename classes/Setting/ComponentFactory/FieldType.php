@@ -33,6 +33,8 @@ class FieldType extends Builder
     public const TYPE_URL = 'link';
     public const TYPE_USER = 'user_by_id';
 
+    public const TYPE_SELECT = 'select';
+
     private $string_limit;
 
     private $number_format;

@@ -2,13 +2,13 @@
 
 namespace AC\Column;
 
-use AC;
+use AC\Column;
 use AC\Setting\Config;
 
 interface ColumnFactory
 {
 
-    public function create(Config $config): AC\Column;
+    public function create(Config $config): Column;
 
     public function get_column_type(): string;
 

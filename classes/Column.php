@@ -20,7 +20,7 @@ interface Column
 
     public function get_group(): string;
 
-    public function get_setting(string $name, ComponentCollection $settings = null): ?Component;
+    public function get_setting(string $name): ?Component;
 
     public function get_settings(): ComponentCollection;
 

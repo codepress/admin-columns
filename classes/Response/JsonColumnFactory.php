@@ -7,7 +7,6 @@ namespace AC\Response;
 use AC\Column;
 use AC\Setting\Encoder;
 
-// TODO remove?
 class JsonColumnFactory
 {
 
