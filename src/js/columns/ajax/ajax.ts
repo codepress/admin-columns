@@ -23,10 +23,11 @@ export type listScreenSettingsResponse = {
     success: true
 }
 
-export const getListScreenSettings = (listKey: string, listId: string = ''): AxiosPromise<listScreenSettingsResponse> => {
+export const getListScreenSettings = (listKey: string, listId: string = '', abort: AbortController): AxiosPromise<listScreenSettingsResponse> => {
     const nonce = getColumnSettingsConfig().nonce;
 
     return axios.get(ajaxurl, {
+        signal: abort.signal,
         params: {
             _ajax_nonce: nonce,
             action: 'ac-list-screen-settings',

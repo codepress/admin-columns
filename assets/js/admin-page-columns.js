@@ -3478,26 +3478,17 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[14] = list[i];
+  child_ctx[16] = list[i];
   return child_ctx;
 }
 
-// (66:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
-function create_each_block_1(ctx) {
-  return {
-    c: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
-    m: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
-    d: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop
-  };
-}
-
-// (71:4) {#each ListScreenSections.getSections( 'sidebar' ) as component}
+// (89:4) {#each ListScreenSections.getSections( 'sidebar' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_7__["default"]({
     props: {
-      component: /*component*/ctx[14]
+      component: /*component*/ctx[16]
     }
   });
   return {
@@ -3524,7 +3515,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (76:4) {#if $listScreenDataStore !== null}
+// (94:4) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
@@ -3593,10 +3584,9 @@ function create_fragment(ctx) {
   let listscreenmenu;
   let t0;
   let main;
-  let t1;
   let div2;
   let div0;
-  let t2;
+  let t1;
   let div1;
   let current;
   listscreenmenu = new _ListScreenMenu_svelte__WEBPACK_IMPORTED_MODULE_8__["default"]({
@@ -3619,13 +3609,12 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(listscreenmenu.$$.fragment);
       t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       main = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("main");
-      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       if (if_block) if_block.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(aside, "class", "ac-admin-page-menu acu-pl-4 acu-pr-[30px] acu-py-8 xl:acu-w-[250px] xl:acu-bg-[#EAF0F6] xl:acu-pt-[60px]");
@@ -3640,7 +3629,6 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(listscreenmenu, aside, null);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, t0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, main);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(main, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(main, div2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div0);
       for (let i = 0; i < each_blocks.length; i += 1) {
@@ -3648,7 +3636,7 @@ function create_fragment(ctx) {
           each_blocks[i].m(div0, null);
         }
       }
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div1);
       if (if_block) if_block.m(div1, null);
       current = true;
@@ -3711,9 +3699,9 @@ function instance($$self, $$props, $$invalidate) {
   let $columnTypesStore;
   let $currentListId;
   let $listScreenDataStore;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(10, $currentListKey = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(11, $columnTypesStore = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(12, $currentListId = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(12, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(13, $columnTypesStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(14, $currentListId = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $$value => $$invalidate(4, $listScreenDataStore = $$value));
   let {
     menu
@@ -3724,6 +3712,8 @@ function instance($$self, $$props, $$invalidate) {
   let {
     initialListId = null
   } = $$props;
+  let loadingSettings = false;
+  let abort = null;
   let config;
   let tableUrl;
   let loadedListId = null;
@@ -3734,7 +3724,18 @@ function instance($$self, $$props, $$invalidate) {
     refreshListScreenData(e.detail);
   };
   const refreshListScreenData = (listKey, listId = '') => {
-    (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettings)(listKey, listId).then(response => {
+    if (abort) {
+      abort.abort();
+    }
+    if (loadingSettings) {
+      return;
+    }
+    if (listKey === $currentListKey && loadedListId === listId && typeof $listScreenDataStore !== 'undefined') {
+      return;
+    }
+    abort = new AbortController();
+    loadingSettings = true;
+    (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettings)(listKey, listId, abort).then(response => {
       $$invalidate(6, initialListId = '');
       $$invalidate(2, config = response.data.data.column_settings);
       $$invalidate(3, tableUrl = response.data.data.table_url);
@@ -3746,20 +3747,28 @@ function instance($$self, $$props, $$invalidate) {
       _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore.update(() => {
         return response.data.data.settings.list_screen;
       });
+      loadingSettings = false;
     }).catch(response => {
+      loadingSettings = false;
+      if (response.message === 'canceled') {
+        return;
+      }
       _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_11__.NotificationProgrammatic.open({
         message: response.message,
         type: 'error'
       });
+      loadingSettings = false;
     });
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
     _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey.subscribe(listKey => {
+      abort === null || abort === void 0 ? void 0 : abort.abort();
       if (initialListId === '') {
         refreshListScreenData(listKey);
       }
     });
     _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId.subscribe(listId => {
+      abort === null || abort === void 0 ? void 0 : abort.abort();
       if (listId && loadedListId !== listId) {
         refreshListScreenData($currentListKey, listId);
       }
@@ -19058,9 +19067,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/global */ "./js/columns/utils/global.ts");
 
 
-const getListScreenSettings = (listKey, listId = '') => {
+const getListScreenSettings = (listKey, listId = '', abort) => {
     const nonce = (0,_utils_global__WEBPACK_IMPORTED_MODULE_0__.getColumnSettingsConfig)().nonce;
     return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(ajaxurl, {
+        signal: abort.signal,
         params: {
             _ajax_nonce: nonce,
             action: 'ac-list-screen-settings',
