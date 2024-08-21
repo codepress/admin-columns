@@ -23,7 +23,7 @@ class ColumnNames implements Sort
         $ordered = $last = [];
 
         foreach ($columns as $column) {
-            $key = array_search($column->get_name(), $this->column_names);
+            $key = array_search((string)$column->get_id(), $this->column_names);
 
             if (false === $key) {
                 $last[] = $column;

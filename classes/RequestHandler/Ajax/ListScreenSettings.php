@@ -134,7 +134,7 @@ class ListScreenSettings implements RequestAjaxHandler
         $settings = [];
 
         foreach ($columns as $column) {
-            $settings[$column->get_name()] = (new Encoder($column->get_settings()))->encode();
+            $settings[(string)$column->get_id()] = (new Encoder($column->get_settings()))->encode();
         }
 
         return $settings;

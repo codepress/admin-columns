@@ -7,6 +7,7 @@ namespace AC\Response;
 use AC\Column;
 use AC\Setting\Encoder;
 
+// TODO remove?
 class JsonColumnFactory
 {
 
@@ -16,8 +17,9 @@ class JsonColumnFactory
             'columns',
             [
                 'settings' => $this->get_column_settings($column),
-                'original' => $column->is_original(),
-                'id'       => $column->get_name(),
+                // TODO
+                // 'original' => $column->is_original(),
+                'id'       => (string)$column->get_id(),
             ]
         );
     }

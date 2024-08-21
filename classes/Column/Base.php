@@ -52,23 +52,12 @@ class Base implements Column
 
     public function get_id(): ColumnId
     {
-        return new ColumnId($this->get_name());
-    }
+        // TODO add to constructor?
+        $id = (string)$this->get_setting('name')
+                           ->get_input()
+                           ->get_value();
 
-    // TODO remove; refactor to get_id().
-    public function get_name(): string
-    {
-        return (string)$this->get_setting('name')
-                            ->get_input()
-                            ->get_value();
-    }
-
-    // TODO remove
-    public function get_custom_label(): string
-    {
-        return (string)$this->get_setting('label')
-                            ->get_input()
-                            ->get_value();
+        return new ColumnId($id);
     }
 
     public function get_label(): string

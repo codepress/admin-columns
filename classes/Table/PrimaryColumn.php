@@ -26,7 +26,7 @@ class PrimaryColumn
         $column = $columns->first();
 
         if ( ! $default_column && $column) {
-            $default = $column->get_name();
+            $default = (string)$column->get_id();
         }
 
         $table_screen = $this->list_screen->get_table_screen();
@@ -34,7 +34,7 @@ class PrimaryColumn
         // If actions column is present, set it as primary
         foreach ($columns as $column) {
             if ('column-actions' === $column->get_type()) {
-                $default = $column->get_name();
+                $default = (string)$column->get_id();
 
                 if ($table_screen instanceof Media) {
                     // Add download button to the actions column

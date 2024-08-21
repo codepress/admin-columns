@@ -49,7 +49,7 @@ class ListStorage
         $results = [];
 
         foreach ($list_screen->get_columns() as $column) {
-            $name = $column->get_name();
+            $name = (string)$column->get_id();
 
             $results[$name] = $this->get($list_screen, $name);
         }
