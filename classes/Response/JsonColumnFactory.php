@@ -13,6 +13,7 @@ class JsonColumnFactory
     public function create_by_column(Column $column): Json
     {
         return (new Json())->set_parameter(
+        // TODO rename to 'column'
             'columns',
             [
                 'settings' => $this->get_column_settings($column),

@@ -2,6 +2,7 @@
 
 namespace AC\Column;
 
+// TODO remove. Instead use ExtendedValue.
 interface AjaxValue
 {
 

@@ -89,6 +89,12 @@ class Base implements Column
         return $this->settings->find($name);
     }
 
+    // TODO move outside this scope
+    public function get_empty_char(): string
+    {
+        return '&ndash;';
+    }
+
     // TODO remove
     //        public function get_name(): string
     //        {
@@ -378,12 +384,6 @@ class Base implements Column
 
     //        return $value;
     //    }
-
-    // TODO move to Renderable
-    public function get_empty_char(): string
-    {
-        return '&ndash;';
-    }
 
     //    public function toArray(): array
     //    {

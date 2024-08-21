@@ -29,7 +29,7 @@ class ComponentCollection extends Collection implements Countable
         return count($this->data);
     }
 
-    // TODO is this the right place for it?
+    // TODO move outside this scope
     public function find(string $name, ComponentCollection $settings = null): ?Component
     {
         $settings = $settings ?: $this;
