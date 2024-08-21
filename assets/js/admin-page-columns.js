@@ -3478,17 +3478,17 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[16] = list[i];
+  child_ctx[18] = list[i];
   return child_ctx;
 }
 
-// (89:4) {#each ListScreenSections.getSections( 'sidebar' ) as component}
+// (93:4) {#each ListScreenSections.getSections( 'sidebar' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_7__["default"]({
     props: {
-      component: /*component*/ctx[16]
+      component: /*component*/ctx[18]
     }
   });
   return {
@@ -3515,7 +3515,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (94:4) {#if $listScreenDataStore !== null}
+// (98:4) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
@@ -3696,13 +3696,13 @@ function create_fragment(ctx) {
 }
 function instance($$self, $$props, $$invalidate) {
   let $currentListKey;
+  let $listScreenDataStore;
   let $columnTypesStore;
   let $currentListId;
-  let $listScreenDataStore;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(12, $currentListKey = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(13, $columnTypesStore = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(14, $currentListId = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(13, $currentListKey = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $$value => $$invalidate(4, $listScreenDataStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(14, $columnTypesStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(15, $currentListId = $$value));
   let {
     menu
   } = $$props;
@@ -3717,16 +3717,21 @@ function instance($$self, $$props, $$invalidate) {
   let config;
   let tableUrl;
   let loadedListId = null;
+  let calls = [];
+  const abortAll = () => {
+    console.log(calls);
+    calls.forEach(call => call.abort());
+    calls = [];
+  };
   const handleMenuSelect = e => {
     if ($currentListKey === e.detail) {
       return;
     }
+    abortAll();
+    loadingSettings = false;
     refreshListScreenData(e.detail);
   };
   const refreshListScreenData = (listKey, listId = '') => {
-    if (abort) {
-      abort.abort();
-    }
     if (loadingSettings) {
       return;
     }
@@ -3734,6 +3739,7 @@ function instance($$self, $$props, $$invalidate) {
       return;
     }
     abort = new AbortController();
+    calls.push(abort);
     loadingSettings = true;
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettings)(listKey, listId, abort).then(response => {
       $$invalidate(6, initialListId = '');
@@ -3744,9 +3750,7 @@ function instance($$self, $$props, $$invalidate) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $currentListId = response.data.data.settings.list_screen.id, $currentListId);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $columnTypesStore = response.data.data.column_types.sort(_store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypeSorter), $columnTypesStore);
       _store_read_only__WEBPACK_IMPORTED_MODULE_12__.listScreenIsReadOnly.set(response.data.data.read_only);
-      _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore.update(() => {
-        return response.data.data.settings.list_screen;
-      });
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $listScreenDataStore = response.data.data.settings.list_screen, $listScreenDataStore);
       loadingSettings = false;
     }).catch(response => {
       loadingSettings = false;
@@ -3762,13 +3766,13 @@ function instance($$self, $$props, $$invalidate) {
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
     _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey.subscribe(listKey => {
-      abort === null || abort === void 0 ? void 0 : abort.abort();
+      abortAll();
       if (initialListId === '') {
         refreshListScreenData(listKey);
       }
     });
     _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId.subscribe(listId => {
-      abort === null || abort === void 0 ? void 0 : abort.abort();
+      abortAll();
       if (listId && loadedListId !== listId) {
         refreshListScreenData($currentListKey, listId);
       }

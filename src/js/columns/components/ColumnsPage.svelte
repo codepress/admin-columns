@@ -20,20 +20,26 @@
     let config: { [key: string]: AC.Vars.Settings.ColumnSetting[] };
     let tableUrl: string;
     let loadedListId: string | null = null;
+	let calls: Array<AbortController> = [];
+
+
+	const abortAll = () => {
+        console.log( calls );
+        calls.forEach(call => call.abort());
+        calls = [];
+	}
 
     const handleMenuSelect = (e: CustomEvent<string>) => {
         if ($currentListKey === e.detail) {
             return;
         }
 
-        refreshListScreenData(e.detail);
+        abortAll();
+        loadingSettings = false;
+        refreshListScreenData( e.detail );
     }
 
     const refreshListScreenData = (listKey: string, listId: string = '') => {
-        if (abort) {
-            abort.abort();
-        }
-
         if( loadingSettings) {
             return;
 		}
@@ -43,6 +49,7 @@
         }
 
         abort = new AbortController();
+        calls.push(abort);
         loadingSettings = true;
 
         getListScreenSettings(listKey, listId, abort).then(response => {
@@ -54,9 +61,7 @@
             $currentListId = response.data.data.settings.list_screen.id;
             $columnTypesStore = response.data.data.column_types.sort(columnTypeSorter);
             listScreenIsReadOnly.set(response.data.data.read_only);
-            listScreenDataStore.update(() => {
-                return response.data.data.settings.list_screen;
-            });
+            $listScreenDataStore = response.data.data.settings.list_screen;
             loadingSettings = false;
         }).catch((response) => {
             loadingSettings = false;
@@ -69,15 +74,16 @@
     }
 
     onMount(() => {
+
         currentListKey.subscribe(listKey => {
-            abort?.abort();
+            abortAll();
             if (initialListId === '') {
                 refreshListScreenData(listKey);
             }
         });
 
         currentListId.subscribe((listId) => {
-            abort?.abort();
+            abortAll();
             if (listId && loadedListId !== listId) {
                 refreshListScreenData($currentListKey, listId);
             }
