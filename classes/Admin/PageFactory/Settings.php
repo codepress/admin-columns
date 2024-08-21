@@ -32,7 +32,7 @@ class Settings implements PageFactoryInterface
     {
         $page = new Page\Settings(
             new AC\Admin\View\Menu($this->menu_factory->create('settings')),
-            $this->location
+            new AC\Admin\Asset\Script\SettingsFactory($this->location)
         );
 
         $page->add_section(new Section\General([new Section\Partial\ShowEditButton()]))

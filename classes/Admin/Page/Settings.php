@@ -8,7 +8,6 @@ use AC\Admin\Section;
 use AC\Admin\SectionCollection;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
-use AC\Asset\Location;
 use AC\Renderable;
 use AC\View;
 
@@ -19,15 +18,12 @@ class Settings implements Enqueueables, Renderable, RenderableHead
 
     private $head;
 
-    private $location;
-
     protected $sections;
 
     private $settings_factory;
 
     public function __construct(
         Renderable $head,
-        Location\Absolute $location,
         SettingsFactory $settings_factory,
         SectionCollection $sections = null
     ) {
@@ -36,7 +32,6 @@ class Settings implements Enqueueables, Renderable, RenderableHead
         }
 
         $this->head = $head;
-        $this->location = $location;
         $this->sections = $sections;
         $this->settings_factory = $settings_factory;
     }
