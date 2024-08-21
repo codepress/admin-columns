@@ -135,10 +135,12 @@ class Columns extends Script
                 ],
                 'editor'   => [
                     'label'    => [
+                        'save'                 => __('Save', 'codepress-admin-columns'),
                         'add_column'           => __('Add Column', 'codepress-admin-columns'),
                         'add_columns'          => __('Add Columns', 'codepress-admin-columns'),
                         'clear_columns'        => __('Clear columns', 'codepress-admin-columns'),
                         'load_default_columns' => __('Load default columns', 'codepress-admin-columns'),
+                        'view'                 => __('View', 'codepress-admin-columns'),
                     ],
                     'sentence' => [
                         'show_default_columns' => __(

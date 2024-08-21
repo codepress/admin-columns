@@ -176,7 +176,7 @@
 				<input bind:value={data.title} disabled={$listScreenIsReadOnly}/>
 			</div>
 			<div class="ac-columns__header__action">
-				<a href={tableUrl} class="acui-button acui-button-default">View</a>
+				<a href={tableUrl} class="acui-button acui-button-default">{i18n.editor.label.view}</a>
 			</div>
 		</header>
 
@@ -222,7 +222,7 @@
 						<AcButton type="text" on:click={clearColumns}>{i18n.editor.label.clear_columns}</AcButton>
 					{/if}
 					<AcDropdown maxHeight="400px" --acui-dropdown-width="300px" value position="bottom-left">
-						<AcButton slot="trigger">+ {i18n.editor.label.add_columns}</AcButton>
+						<AcButton slot="trigger" type="primary">+ {i18n.editor.label.add_columns}</AcButton>
 						<ColumnTypeDropdown on:selectItem={( e ) => addColumn(e.detail)}>
 
 						</ColumnTypeDropdown>

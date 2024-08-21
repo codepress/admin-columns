@@ -15,20 +15,43 @@
     export let openedGroups: string[];
     export let initialListId: string | null = null;
 
+    let loadingSettings: boolean = false;
+    let abort: AbortController | null = null;
     let config: { [key: string]: AC.Vars.Settings.ColumnSetting[] };
     let tableUrl: string;
     let loadedListId: string | null = null;
+	let calls: Array<AbortController> = [];
+
+
+	const abortAll = () => {
+        calls.forEach(call => call.abort());
+        calls = [];
+	}
 
     const handleMenuSelect = (e: CustomEvent<string>) => {
         if ($currentListKey === e.detail) {
             return;
         }
 
-        refreshListScreenData(e.detail);
+        abortAll();
+        loadingSettings = false;
+        refreshListScreenData( e.detail );
     }
 
     const refreshListScreenData = (listKey: string, listId: string = '') => {
-        getListScreenSettings(listKey, listId).then(response => {
+        if( loadingSettings) {
+            return;
+		}
+
+        if (listKey === $currentListKey && loadedListId === listId && typeof $listScreenDataStore !== 'undefined') {
+            return;
+        }
+
+        abort = new AbortController();
+        calls.push(abort);
+        loadingSettings = true;
+
+        getListScreenSettings(listKey, listId, abort).then(response => {
             initialListId = '';
             config = response.data.data.column_settings
             tableUrl = response.data.data.table_url;
@@ -37,22 +60,29 @@
             $currentListId = response.data.data.settings.list_screen.id;
             $columnTypesStore = response.data.data.column_types.sort(columnTypeSorter);
             listScreenIsReadOnly.set(response.data.data.read_only);
-            listScreenDataStore.update(() => {
-                return response.data.data.settings.list_screen;
-            })
+            $listScreenDataStore = response.data.data.settings.list_screen;
+            loadingSettings = false;
         }).catch((response) => {
+            loadingSettings = false;
+            if( response.message === 'canceled' ){
+                return;
+			}
             NotificationProgrammatic.open({message: response.message, type: 'error'})
+            loadingSettings = false;
         });
     }
 
     onMount(() => {
+
         currentListKey.subscribe(listKey => {
+            abortAll();
             if (initialListId === '') {
                 refreshListScreenData(listKey);
             }
         });
 
         currentListId.subscribe((listId) => {
+            abortAll();
             if (listId && loadedListId !== listId) {
                 refreshListScreenData($currentListKey, listId);
             }
@@ -71,9 +101,6 @@
 		/>
 	</aside>
 	<main class="ac-admin-page-main acu-px-4 acu-pt-2 xl:acu-pt-[60px] xl:acu-px-[50px]">
-		{#each ListScreenSections.getSections( 'before_columns' ) as component}
-			<!--			<HtmlSection component={component}></HtmlSection>-->
-		{/each}
 		<div class="xl:acu-flex xl:acu-gap-6 xl:acu-flex-row-reverse">
 			<div>
 				{#each ListScreenSections.getSections( 'sidebar' ) as component}
