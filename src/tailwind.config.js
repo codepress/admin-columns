@@ -39,6 +39,7 @@ module.exports = {
 		},
 		colors: {
 			'gray-dark' : '#3D4350',
+			'acbase': 'var(--ac-text-color)',
 			'ui-border': 'var(--acui-border)',
 			'link': 'var(--ac-link)',
 			'link-hover': 'var(--ac-link-hover)',

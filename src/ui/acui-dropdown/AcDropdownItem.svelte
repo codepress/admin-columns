@@ -1,6 +1,7 @@
 <script lang="ts">
     import {createEventDispatcher} from "svelte";
 
+    export let customCss: string | null = '';
     export let custom: boolean = false;
     export let href: string | null = null;
     export let value: string | null = null;
@@ -30,16 +31,16 @@
 </script>
 
 {#if custom }
-	<div class="acui-dropdown-item" role="listitem" bind:this={element}>
+	<div class="acui-dropdown-item acu-group/dropdown {customCss}" role="listitem" bind:this={element}>
 		<slot></slot>
 	</div>
 {:else}
 	{#if href}
-		<a class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} bind:this={element} {href}>
+		<a class="acui-dropdown-item acu-group/dropdown {customCss}" on:click={handleClick} on:keydown={handleKeyDown} bind:this={element} {href}>
 			<slot></slot>
 		</a>
 	{:else}
-		<div class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} tabindex="0" role="button" bind:this={element}>
+		<div class="acui-dropdown-item acu-group/dropdown {customCss}" on:click={handleClick} on:keydown={handleKeyDown} tabindex="0" role="button" bind:this={element}>
 			<slot></slot>
 		</div>
 	{/if}

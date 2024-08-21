@@ -70,7 +70,7 @@
 			on:itemSelect={handleMenuSelect}
 		/>
 	</aside>
-	<main class="ac-admin-page-main acu-px-4 acu-pt-2 xl:acu-pt-[60px]">
+	<main class="ac-admin-page-main acu-px-4 acu-pt-2 xl:acu-pt-[60px] xl:acu-px-[50px]">
 		{#each ListScreenSections.getSections( 'before_columns' ) as component}
 			<!--			<HtmlSection component={component}></HtmlSection>-->
 		{/each}

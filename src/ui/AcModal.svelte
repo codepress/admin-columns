@@ -6,11 +6,12 @@
     export let contentNoPadding: boolean = false;
     export let hideContent: boolean = false;
     export let disableClose: boolean = false;
-    export let className = '';
-    export let visible = false;
-    export let disableScroll = null;
+    export let className: string = '';
+    export let visible: boolean = false;
+    export let disableScroll: boolean = false;
+    export let appendToBody: boolean = false;
 
-    let element;
+    let element: HTMLElement | null = null;
     const dispatch = createEventDispatcher();
 
     export const FreeScrollLock = () => {
@@ -34,6 +35,10 @@
                 close();
             }
         });
+
+        if( appendToBody && element){
+            document.body.append(element);
+		}
 
         if (disableScroll && element) {
             bodyScrollLock.disableBodyScroll(element, {});
