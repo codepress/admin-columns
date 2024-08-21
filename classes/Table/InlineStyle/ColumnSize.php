@@ -64,14 +64,14 @@ class ColumnSize implements Renderable
         $html = '';
 
         foreach ($this->list_screen->get_columns() as $column) {
-            $width = $this->list_storage->get($this->list_screen, $column->get_name());
+            $width = $this->list_storage->get($this->list_screen, (string)$column->get_id());
             if ($width) {
-                $html .= $this->render_style($column->get_name(), $width, 'list');
+                $html .= $this->render_style((string)$column->get_id(), $width, 'list');
             }
 
-            $width = $this->user_storage->get($this->list_screen->get_id(), $column->get_name());
+            $width = $this->user_storage->get($this->list_screen->get_id(), (string)$column->get_id());
             if ($width) {
-                $html .= $this->render_style($column->get_name(), $width, 'user');
+                $html .= $this->render_style((string)$column->get_id(), $width, 'user');
             }
         }
 

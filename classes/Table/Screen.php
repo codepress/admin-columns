@@ -253,7 +253,7 @@ final class Screen implements Registerable
     {
         $types = [];
         foreach ($this->list_screen->get_columns() as $column) {
-            $types[$column->get_name()] = $column->get_type();
+            $types[(string)$column->get_id()] = $column->get_type();
         }
 
         return $types;
