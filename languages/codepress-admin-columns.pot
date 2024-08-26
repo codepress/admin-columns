@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2024-06-07 07:16+0000\n"
+"POT-Creation-Date: 2024-08-26 08:11+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -228,7 +228,7 @@ msgstr ""
 msgid "BuddyPress"
 msgstr ""
 
-#: classes/Integration/BuddyPress.php:22, classes/Integration/EventsCalendar.php:22, classes/Integration/GravityForms.php:23, classes/Integration/MetaBox.php:22, classes/Integration/Pods.php:22, classes/Integration/Types.php:22, classes/Integration/WooCommerce.php:22, classes/Integration/YoastSeo.php:22
+#: classes/Integration/BuddyPress.php:22, classes/Integration/EventsCalendar.php:22, classes/Integration/GravityForms.php:22, classes/Integration/MetaBox.php:22, classes/Integration/Pods.php:22, classes/Integration/Types.php:22, classes/Integration/WooCommerce.php:22, classes/Integration/YoastSeo.php:22
 msgid "Integrates %s with Admin Columns."
 msgstr ""
 
@@ -244,11 +244,11 @@ msgstr ""
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Events, Organizers and Venues."
 msgstr ""
 
-#: classes/Integration/GravityForms.php:24, classes/Integration/GravityForms.php:31
+#: classes/Integration/GravityForms.php:23, classes/Integration/GravityForms.php:30
 msgid "Gravity Forms"
 msgstr ""
 
-#: classes/Integration/GravityForms.php:27
+#: classes/Integration/GravityForms.php:26
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Entries."
 msgstr ""
 
