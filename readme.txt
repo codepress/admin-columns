@@ -1,11 +1,12 @@
 === Admin Columns ===
-Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
-Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
+Contributors: codepress, tschutter, davidmosterd, dungengronovius, engelen
+Tags: admin, column, columns, table, tables
 Requires at least: 4.7.3
 Tested up to: 6.5.4
 Requires PHP: 7.2
 Stable tag: 4.7.7
+License: GPLv2
+License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
