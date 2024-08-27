@@ -29,8 +29,8 @@ body.admin-columns__columns {
 
 	.ac-admin-page-main {
 		flex-grow: 1;
-		max-width: 1200px;
 	}
+
 }
 
 
@@ -77,6 +77,21 @@ body.admin-columns__columns {
 .ac-menu-group-list {
 	.ac-menu-group-list__item {
 		margin-left: 28px;
+	}
+
+
+	a {
+		text-decoration: none;
+	}
+
+	.ac-menu-group-list__container {
+		position: relative;
+		color: var(--ac-text-color);
+		display: block;
+		border-radius: 5px;
+		&:hover {
+			background: #fff;
+		}
 	}
 
 	.ac-menu-group-list__link {

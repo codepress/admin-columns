@@ -22,12 +22,28 @@
   right: 20px
 }
 
+.acu-top-\[-3px\] {
+  top: -3px
+}
+
 .acu-top-\[0\] {
   top: 0
 }
 
-.acu-top-\[-3px\] {
-  top: -3px
+.acu-top-\[3px\] {
+  top: 3px
+}
+
+.acu-right-\[10px\] {
+  right: 10px
+}
+
+.acu-top-\[5px\] {
+  top: 5px
+}
+
+.acu-top-\[7px\] {
+  top: 7px
 }
 
 .acu-z-0 {
@@ -135,8 +151,8 @@
   width: 180px
 }
 
-.acu-w-\[240px\] {
-  width: 240px
+.acu-w-\[220px\] {
+  width: 220px
 }
 
 .acu-w-\[260px\] {
@@ -147,12 +163,8 @@
   width: 100%
 }
 
-.acu-w-\[200px\] {
-  width: 200px
-}
-
-.acu-w-\[220px\] {
-  width: 220px
+.acu-max-w-\[1200px\] {
+  max-width: 1200px
 }
 
 .acu-max-w-full {
@@ -250,18 +262,10 @@
   overflow: hidden
 }
 
-.acu-overflow-clip {
-  overflow: clip
-}
-
 .acu-truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap
-}
-
-.acu-text-clip {
-  text-overflow: clip
 }
 
 .acu-whitespace-nowrap {
@@ -280,6 +284,10 @@
   border-radius: 0.5rem
 }
 
+.acu-rounded-\[3px\] {
+  border-radius: 3px
+}
+
 .acu-rounded-b-lg {
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem
@@ -293,8 +301,16 @@
   border-width: 0px
 }
 
+.acu-border-2 {
+  border-width: 2px
+}
+
 .acu-border-b {
   border-bottom-width: 1px
+}
+
+.acu-border-s-2 {
+  border-inline-start-width: 2px
 }
 
 .acu-border-solid {
@@ -340,6 +356,10 @@
 .acu-bg-gray-dark {
   --tw-bg-opacity: 1;
   background-color: rgb(61 67 80 / var(--tw-bg-opacity))
+}
+
+.acu-bg-notification-red {
+  background-color: var(--ac-notification-red)
 }
 
 .acu-bg-none {
@@ -472,6 +492,10 @@
   padding-right: 10px
 }
 
+.acu-pr-3 {
+  padding-right: 15px
+}
+
 .acu-pr-6 {
   padding-right: 30px
 }
@@ -494,10 +518,6 @@
 
 .acu-pt-4 {
   padding-top: 20px
-}
-
-.acu-pr-3 {
-  padding-right: 15px
 }
 
 .acu-text-center {
@@ -553,14 +573,18 @@
   color: rgb(214 54 56 / var(--tw-text-opacity))
 }
 
+.acu-text-\[\#FE3D6C\] {
+  --tw-text-opacity: 1;
+  color: rgb(254 61 108 / var(--tw-text-opacity))
+}
+
 .acu-text-\[\#fff\] {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity))
 }
 
-.acu-text-\[black\] {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity))
+.acu-text-acbase {
+  color: var(--ac-text-color)
 }
 
 .acu-text-link {
@@ -571,22 +595,8 @@
   color: var(--ac-notification-red)
 }
 
-.acu-text-acbase {
-  color: var(--ac-text-color)
-}
-
-.acu-text-\[\#\#FE3D6C\] {
-  color: ##FE3D6C
-}
-
-.acu-text-\[\#FE3D6C\] {
-  --tw-text-opacity: 1;
-  color: rgb(254 61 108 / var(--tw-text-opacity))
-}
-
-.acu-text-\[red\] {
-  --tw-text-opacity: 1;
-  color: rgb(255 0 0 / var(--tw-text-opacity))
+.acu-text-\[\#FE3D6C\!important\] {
+  color: #FE3D6C !important
 }
 
 .acu-no-underline {
@@ -609,14 +619,61 @@
   padding-bottom: 0
 }
 
+.focus-within\:acu-border-2:focus-within {
+  border-width: 2px
+}
+
+.focus-within\:acu-border-solid:focus-within {
+  border-style: solid
+}
+
+.focus-within\:acu-border-\[black\]:focus-within {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity))
+}
+
 .focus-within\:acu-bg-\[white\]:focus-within {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity))
 }
 
+.focus-within\:acu-bg-notification-red:focus-within {
+  background-color: var(--ac-notification-red)
+}
+
+.focus-within\:acu-bg-\[red\]:focus-within {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 0 0 / var(--tw-bg-opacity))
+}
+
+.focus-within\:acu-shadow:focus-within {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+}
+
+.focus-within\:acu-shadow-\[0_0_0_2px_\#2271b1\]:focus-within {
+  --tw-shadow: 0 0 0 2px #2271b1;
+  --tw-shadow-colored: 0 0 0 2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+}
+
+.focus-within\:acu-outline-2:focus-within {
+  outline-width: 2px
+}
+
 .hover\:acu-bg-\[white\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+}
+
+.hover\:acu-text-\[\#fff\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.hover\:acu-text-acbase:hover {
+  color: var(--ac-text-color)
 }
 
 .hover\:acu-text-link-hover:hover {
@@ -631,25 +688,32 @@
   color: var(--ac-notification-red)
 }
 
-.hover\:acu-text-acbase:hover {
-  color: var(--ac-text-color)
-}
-
-.hover\:acu-text-\[white\]:hover {
+.hover\:acu-text-\[\#FE3D6C\]:hover {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity))
+  color: rgb(254 61 108 / var(--tw-text-opacity))
 }
 
-.hover\:acu-text-\[\#fff\]:hover {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity))
+.hover\:acu-text-\[\#FE3D6C\!important\]:hover {
+  color: #FE3D6C !important
 }
 
-.hover\:acu-no-underline:hover {
-  text-decoration-line: none
+.focus\:acu-border-2:focus {
+  border-width: 2px
+}
+
+.focus\:acu-bg-notification-red:focus {
+  background-color: var(--ac-notification-red)
+}
+
+.acu-group:focus-within .group-focus-within\:acu-visible {
+  visibility: visible
 }
 
 .acu-group:hover .group-hover\:acu-visible {
+  visibility: visible
+}
+
+.acu-group:focus .group-focus\:acu-visible {
   visibility: visible
 }
 
@@ -731,6 +795,48 @@
 
   .xl\:acu-pt-\[60px\] {
     padding-top: 60px
+  }
+}
+
+@media (min-width: 1450px) {
+  .\32xl\:acu-block {
+    display: block
+  }
+
+  .\32xl\:acu-hidden {
+    display: none
+  }
+
+  .\32xl\:acu-w-\[250px\] {
+    width: 250px
+  }
+
+  .\32xl\:acu-flex-row {
+    flex-direction: row
+  }
+
+  .\32xl\:acu-bg-\[\#EAF0F6\] {
+    --tw-bg-opacity: 1;
+    background-color: rgb(234 240 246 / var(--tw-bg-opacity))
+  }
+
+  .\32xl\:acu-px-\[50px\] {
+    padding-left: 50px;
+    padding-right: 50px
+  }
+
+  .\32xl\:acu-pt-\[60px\] {
+    padding-top: 60px
+  }
+}
+
+@media (min-width: 1600px) {
+  .\33xl\:acu-w-\[250px\] {
+    width: 250px
+  }
+
+  .\33xl\:acu-w-\[260px\] {
+    width: 260px
   }
 }
 

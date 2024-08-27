@@ -91,27 +91,27 @@
 </script>
 
 <div class="ac-admin-page acu-flex acu-flex-col acu-min-h-[calc(100vh_-_70px)] acu-w-full acu-transform
-			xl:acu-flex-row ">
+			2xl:acu-flex-row ">
 	<aside class="ac-admin-page-menu acu-pl-4 acu-pr-[30px] acu-py-8
-				  xl:acu-w-[250px] xl:acu-bg-[#EAF0F6] xl:acu-pt-[60px]">
+				  2xl:acu-w-[250px] 2xl:acu-bg-[#EAF0F6] 2xl:acu-pt-[60px]">
 		<ListScreenMenu
 			menu={menu}
 			openedGroups={openedGroups}
 			on:itemSelect={handleMenuSelect}
 		/>
 	</aside>
-	<main class="ac-admin-page-main acu-px-4 acu-pt-2 xl:acu-pt-[60px] xl:acu-px-[50px]">
-		<div class="xl:acu-flex xl:acu-gap-6 xl:acu-flex-row-reverse">
-			<div>
-				{#each ListScreenSections.getSections( 'sidebar' ) as component}
-					<HtmlSection component={component}></HtmlSection>
-				{/each}
-			</div>
-			<div class="acu-flex-grow">
+	<main class="ac-admin-page-main acu-px-4 acu-pt-2 2xl:acu-pt-[60px] 2xl:acu-px-[50px]">
+		<div class="xl:acu-flex xl:acu-gap-6 xl:acu-flex-row">
+			<div class="acu-flex-grow acu-max-w-[1200px]">
 				{#if $listScreenDataStore !== null}
 					<ListScreenForm bind:config={config} bind:data={$listScreenDataStore} tableUrl={tableUrl}></ListScreenForm>
 				{/if}
 			</div>
+			<aside class="acu-hidden xl:acu-block">
+				{#each ListScreenSections.getSections( 'sidebar' ) as component}
+					<HtmlSection component={component}></HtmlSection>
+				{/each}
+			</aside>
 		</div>
 	</main>
 </div>

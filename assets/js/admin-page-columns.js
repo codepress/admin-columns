@@ -3484,40 +3484,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (92:4) {#each ListScreenSections.getSections( 'sidebar' ) as component}
-function create_each_block(ctx) {
-  let htmlsection;
-  let current;
-  htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_7__["default"]({
-    props: {
-      component: /*component*/ctx[18]
-    }
-  });
-  return {
-    c() {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(htmlsection.$$.fragment);
-    },
-    m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(htmlsection, target, anchor);
-      current = true;
-    },
-    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
-    i(local) {
-      if (current) return;
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(htmlsection.$$.fragment, local);
-      current = true;
-    },
-    o(local) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(htmlsection.$$.fragment, local);
-      current = false;
-    },
-    d(detaching) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(htmlsection, detaching);
-    }
-  };
-}
-
-// (97:4) {#if $listScreenDataStore !== null}
+// (92:4) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
@@ -3580,16 +3547,49 @@ function create_if_block(ctx) {
     }
   };
 }
+
+// (97:4) {#each ListScreenSections.getSections( 'sidebar' ) as component}
+function create_each_block(ctx) {
+  let htmlsection;
+  let current;
+  htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_7__["default"]({
+    props: {
+      component: /*component*/ctx[18]
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(htmlsection.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(htmlsection, target, anchor);
+      current = true;
+    },
+    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(htmlsection.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(htmlsection.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(htmlsection, detaching);
+    }
+  };
+}
 function create_fragment(ctx) {
-  let div3;
-  let aside;
+  let div2;
+  let aside0;
   let listscreenmenu;
   let t0;
   let main;
-  let div2;
+  let div1;
   let div0;
   let t1;
-  let div1;
+  let aside1;
   let current;
   listscreenmenu = new _ListScreenMenu_svelte__WEBPACK_IMPORTED_MODULE_8__["default"]({
     props: {
@@ -3598,49 +3598,50 @@ function create_fragment(ctx) {
     }
   });
   listscreenmenu.$on("itemSelect", /*handleMenuSelect*/ctx[5]);
+  let if_block = /*$listScreenDataStore*/ctx[4] !== null && create_if_block(ctx);
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(_store_list_screen_sections__WEBPACK_IMPORTED_MODULE_6__["default"].getSections('sidebar'));
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
   }
-  let if_block = /*$listScreenDataStore*/ctx[4] !== null && create_if_block(ctx);
   return {
     c() {
-      div3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      aside = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("aside");
+      div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      aside0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("aside");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(listscreenmenu.$$.fragment);
       t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       main = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("main");
-      div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      if (if_block) if_block.c();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      aside1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("aside");
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      if (if_block) if_block.c();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(aside, "class", "ac-admin-page-menu acu-pl-4 acu-pr-[30px] acu-py-8 xl:acu-w-[250px] xl:acu-bg-[#EAF0F6] xl:acu-pt-[60px]");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-flex-grow");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "xl:acu-flex xl:acu-gap-6 xl:acu-flex-row-reverse");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(main, "class", "ac-admin-page-main acu-px-4 acu-pt-2 xl:acu-pt-[60px] xl:acu-px-[50px]");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div3, "class", "ac-admin-page acu-flex acu-flex-col acu-min-h-[calc(100vh_-_70px)] acu-w-full acu-transform xl:acu-flex-row ");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(aside0, "class", "ac-admin-page-menu acu-pl-4 acu-pr-[30px] acu-py-8 2xl:acu-w-[250px] 2xl:acu-bg-[#EAF0F6] 2xl:acu-pt-[60px]");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acu-flex-grow acu-max-w-[1200px]");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(aside1, "class", "acu-hidden xl:acu-block");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "xl:acu-flex xl:acu-gap-6 xl:acu-flex-row");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(main, "class", "ac-admin-page-main acu-px-4 acu-pt-2 2xl:acu-pt-[60px] 2xl:acu-px-[50px]");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "ac-admin-page acu-flex acu-flex-col acu-min-h-[calc(100vh_-_70px)] acu-w-full acu-transform 2xl:acu-flex-row ");
     },
     m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div3, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, aside);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(listscreenmenu, aside, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, t0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, main);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(main, div2);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div2, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, aside0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(listscreenmenu, aside0, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, main);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(main, div1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, div0);
+      if (if_block) if_block.m(div0, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, aside1);
       for (let i = 0; i < each_blocks.length; i += 1) {
         if (each_blocks[i]) {
-          each_blocks[i].m(div0, null);
+          each_blocks[i].m(aside1, null);
         }
       }
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t1);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div1);
-      if (if_block) if_block.m(div1, null);
       current = true;
     },
     p(ctx, [dirty]) {
@@ -3658,7 +3659,7 @@ function create_fragment(ctx) {
           if_block = create_if_block(ctx);
           if_block.c();
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
-          if_block.m(div1, null);
+          if_block.m(div0, null);
         }
       } else if (if_block) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
@@ -3671,28 +3672,28 @@ function create_fragment(ctx) {
     i(local) {
       if (current) return;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(listscreenmenu.$$.fragment, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block);
       for (let i = 0; i < each_value.length; i += 1) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(each_blocks[i]);
       }
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block);
       current = true;
     },
     o(local) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(listscreenmenu.$$.fragment, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block);
       each_blocks = each_blocks.filter(Boolean);
       for (let i = 0; i < each_blocks.length; i += 1) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(each_blocks[i]);
       }
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block);
       current = false;
     },
     d(detaching) {
       if (detaching) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div3);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div2);
       }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(listscreenmenu);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
       if (if_block) if_block.d();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
     }
   };
 }
@@ -5066,8 +5067,8 @@ function create_fragment(ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "ac-table-screen-nav__select xl:acu-hidden");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "ac-table-screen-nav__list acu-hidden xl:acu-block acu-flex-grow");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "ac-table-screen-nav__select 2xl:acu-hidden");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "ac-table-screen-nav__list acu-hidden 2xl:acu-block acu-flex-grow");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(nav, "class", "ac-table-screen-nav");
     },
     m(target, anchor) {
@@ -13863,7 +13864,7 @@ const get_trigger_slot_context = ctx => ({
   active: /*opened*/ctx[4]
 });
 
-// (83:1) {#if opened}
+// (84:1) {#if opened}
 function create_if_block(ctx) {
   let acdropdownmenu;
   let current;
@@ -13920,7 +13921,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (84:2) <AcDropdownMenu {maxHeight} {appendToBody} trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
+// (85:2) <AcDropdownMenu {maxHeight} {appendToBody} trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
 function create_default_slot(ctx) {
   let current;
   const default_slot_template = /*#slots*/ctx[13].default;
@@ -13976,7 +13977,7 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acui-dropdown-trigger");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "aria-haspopup", "true");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "role", "button");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "tabindex", "-1");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "tabindex", "0");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acui-dropdown");
     },
     m(target, anchor) {

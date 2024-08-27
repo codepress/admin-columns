@@ -83,9 +83,10 @@
     });
 
 </script>
+
 <div class="acui-dropdown" bind:this={container} on:change={handleSelect}>
 	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown}
-			aria-haspopup="true" bind:this={trigger} role="button" tabindex="-1">
+		aria-haspopup="true" bind:this={trigger} role="button" tabindex="0">
 		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}

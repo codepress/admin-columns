@@ -600,7 +600,6 @@ body.admin-columns__columns #cpac {
 }
 .ac-admin-page .ac-admin-page-main {
   flex-grow: 1;
-  max-width: 1200px;
 }
 
 .ac-menu-group {
@@ -639,6 +638,18 @@ body.admin-columns__columns #cpac {
 
 .ac-menu-group-list .ac-menu-group-list__item {
   margin-left: 28px;
+}
+.ac-menu-group-list a {
+  text-decoration: none;
+}
+.ac-menu-group-list .ac-menu-group-list__container {
+  position: relative;
+  color: var(--ac-text-color);
+  display: block;
+  border-radius: 5px;
+}
+.ac-menu-group-list .ac-menu-group-list__container:hover {
+  background: #fff;
 }
 .ac-menu-group-list .ac-menu-group-list__link {
   color: var(--ac-text-color);

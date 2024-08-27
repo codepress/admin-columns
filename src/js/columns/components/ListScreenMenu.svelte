@@ -92,7 +92,7 @@
 </script>
 <nav class="ac-table-screen-nav">
 
-	<div class="ac-table-screen-nav__select xl:acu-hidden">
+	<div class="ac-table-screen-nav__select 2xl:acu-hidden">
 		{#if options }
 			<select bind:value={$currentListKey} class="acu-w-[100%]">
 				{#each groups as group}
@@ -105,7 +105,7 @@
 			</select>
 		{/if}
 	</div>
-	<div class="ac-table-screen-nav__list acu-hidden xl:acu-block acu-flex-grow">
+	<div class="ac-table-screen-nav__list acu-hidden 2xl:acu-block acu-flex-grow">
 
 		{#if Object.keys( favoriteItems ).length > 0}
 			<div class="ac-menu-group">
