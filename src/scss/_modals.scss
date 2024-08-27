@@ -13,6 +13,15 @@ body .ac-modal {
 	background: rgba(0, 0, 0, .5);
 	display: none;
 
+	&.-xl {
+		--modalWidth: 960px;
+	}
+	&.-overflow {
+		.ac-modal__dialog__content {
+			overflow: auto!important;
+		}
+	}
+
 	&.-active {
 		display: flex;
 		align-items: center;

@@ -73,7 +73,7 @@
 
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=522085") format("woff2"), url("../fonts/cpac_icons.woff?v=161913") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=37453") format("woff2"), url("../fonts/cpac_icons.woff?v=742989") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -87,92 +87,100 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.cpacicon-bulk-edit::before {
+.cpacicon-add-template::before {
   content: "\ea01";
 }
 
-.cpacicon-delete::before {
+.cpacicon-bulk-edit::before {
   content: "\ea02";
 }
 
-.cpacicon-download::before {
+.cpacicon-delete::before {
   content: "\ea03";
 }
 
-.cpacicon-draft::before {
+.cpacicon-download::before {
   content: "\ea04";
 }
 
-.cpacicon-duplicate::before {
+.cpacicon-draft::before {
   content: "\ea05";
 }
 
-.cpacicon-filter::before {
+.cpacicon-duplicate::before {
   content: "\ea06";
 }
 
-.cpacicon-gf-article::before {
+.cpacicon-filter::before {
   content: "\ea07";
 }
 
-.cpacicon-gf-auto-stories::before {
+.cpacicon-full-screen::before {
   content: "\ea08";
 }
 
-.cpacicon-gf-comment::before {
+.cpacicon-gf-article::before {
   content: "\ea09";
 }
 
-.cpacicon-gf-label::before {
+.cpacicon-gf-auto-stories::before {
   content: "\ea0a";
 }
 
-.cpacicon-gf-media::before {
+.cpacicon-gf-comment::before {
   content: "\ea0b";
 }
 
-.cpacicon-gf-user::before {
+.cpacicon-gf-label::before {
   content: "\ea0c";
 }
 
-.cpacicon-more::before {
+.cpacicon-gf-media::before {
   content: "\ea0d";
 }
 
-.cpacicon-move::before {
+.cpacicon-gf-user::before {
   content: "\ea0e";
 }
 
-.cpacicon-rename::before {
+.cpacicon-more::before {
   content: "\ea0f";
 }
 
-.cpacicon-reset-password::before {
+.cpacicon-move::before {
   content: "\ea10";
 }
 
-.cpacicon-segment::before {
+.cpacicon-rename::before {
   content: "\ea11";
 }
 
-.cpacicon-smart-filter::before {
+.cpacicon-reset-password::before {
   content: "\ea12";
 }
 
-.cpacicon-text-clip::before {
+.cpacicon-segment::before {
   content: "\ea13";
 }
 
-.cpacicon-text-wrap::before {
+.cpacicon-smart-filter::before {
   content: "\ea14";
 }
 
-.cpacicon-user-switch::before {
+.cpacicon-text-clip::before {
   content: "\ea15";
 }
 
-.cpacicon-woo::before {
+.cpacicon-text-wrap::before {
   content: "\ea16";
+}
+
+.cpacicon-user-switch::before {
+  content: "\ea17";
+}
+
+.cpacicon-woo::before {
+  content: "\ea18";
 }
 
 /**
@@ -188,6 +196,12 @@ body .ac-modal {
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   display: none;
+}
+body .ac-modal.-xl {
+  --modalWidth: 960px;
+}
+body .ac-modal.-overflow .ac-modal__dialog__content {
+  overflow: auto !important;
 }
 body .ac-modal.-active {
   display: flex;
@@ -1840,11 +1854,11 @@ div.cpac-color span {
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.resetpassword a:before,
 .column-actions .cpac_use_icons + .row-actions > span.resetpassword a:before {
-  content: "\ea10";
+  content: "\ea12";
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.switch_to_user a:before,
 .column-actions .cpac_use_icons + .row-actions > span.switch_to_user a:before {
-  content: "\ea15";
+  content: "\ea17";
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.copy,
 .column-actions .cpac_use_icons + .row-actions > span.copy {

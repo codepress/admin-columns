@@ -3484,7 +3484,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (92:4) {#if $listScreenDataStore !== null}
+// (91:4) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
@@ -3548,7 +3548,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (97:4) {#each ListScreenSections.getSections( 'sidebar' ) as component}
+// (96:4) {#each ListScreenSections.getSections( 'sidebar' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
@@ -3774,7 +3774,6 @@ function instance($$self, $$props, $$invalidate) {
       }
     });
     _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId.subscribe(listId => {
-      abortAll();
       if (listId && loadedListId !== listId) {
         refreshListScreenData($currentListKey, listId);
       }
@@ -13430,7 +13429,7 @@ const get_before_content_slot_context = ctx => ({});
 const get_header_slot_changes = dirty => ({});
 const get_header_slot_context = ctx => ({});
 
-// (43:3) {#if !disableClose}
+// (44:3) {#if !disableClose}
 function create_if_block_2(ctx) {
   let button;
   let span;
@@ -13467,7 +13466,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (52:2) {#if $$slots.content && !hideContent }
+// (53:2) {#if $$slots.content && !hideContent }
 function create_if_block_1(ctx) {
   let div;
   let current;
@@ -13515,7 +13514,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (60:2) {#if $$slots.footer }
+// (61:2) {#if $$slots.footer }
 function create_if_block(ctx) {
   let div;
   let current;

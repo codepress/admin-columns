@@ -82,7 +82,6 @@
         });
 
         currentListId.subscribe((listId) => {
-            abortAll();
             if (listId && loadedListId !== listId) {
                 refreshListScreenData($currentListKey, listId);
             }
