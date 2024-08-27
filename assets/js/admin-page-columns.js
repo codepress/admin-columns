@@ -13864,7 +13864,7 @@ const get_trigger_slot_context = ctx => ({
   active: /*opened*/ctx[4]
 });
 
-// (84:1) {#if opened}
+// (116:1) {#if opened}
 function create_if_block(ctx) {
   let acdropdownmenu;
   let current;
@@ -13921,7 +13921,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (85:2) <AcDropdownMenu {maxHeight} {appendToBody} trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
+// (117:2) <AcDropdownMenu {maxHeight} {appendToBody} trigger={trigger} position={position} on:click={handleSelect}    on:itemSelect={( e ) => { e.stopPropagation(); handleSelect(e)}}>
 function create_default_slot(ctx) {
   let current;
   const default_slot_template = /*#slots*/ctx[13].default;
@@ -14123,6 +14123,35 @@ function instance($$self, $$props, $$invalidate) {
     if (e.key === 'Escape') {
       close();
     }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      focusNextItem();
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      focusPrevItem();
+    }
+  };
+  const getTabElements = () => {
+    return Array.from(container.querySelectorAll('a, button, input, textarea, select, details, [tabindex]')).filter(element => element.tabIndex > -1).sort((a, b) => a.tabIndex > b.tabIndex ? -1 : 1);
+  };
+  const moveFocus = (move = 1) => {
+    var _a;
+    const focus = document.activeElement;
+    const items = getTabElements();
+    if (items.length === 0) {
+      return;
+    }
+    const index = items.indexOf(focus);
+    if (index) {
+      (_a = items[index + move]) === null || _a === void 0 ? void 0 : _a.focus();
+    }
+  };
+  const focusNextItem = () => {
+    moveFocus(1);
+  };
+  const focusPrevItem = () => {
+    moveFocus(-1);
   };
   const handleOutsideClick = e => {
     if (container && !container.contains(e.target)) {
@@ -14165,7 +14194,7 @@ function instance($$self, $$props, $$invalidate) {
   }
   const itemSelect_handler = e => {
     e.stopPropagation();
-    handleSelect();
+    handleSelect(e);
   };
   function div1_binding($$value) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {
