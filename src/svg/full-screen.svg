@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg"
+>
+    <g id="Concept-/-UI-2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Table-Views-Alt" transform="translate(-1593, -152)" fill="#5F6368" fill-rule="nonzero">
+            <g id="Body" transform="translate(0, 80)">
+                <g id="Table-Views" transform="translate(1490, 64.5)">
+                    <g id="tooltip" transform="translate(77, 0)">
+                        <g id="icon-fullscreen" transform="translate(26, 7.5)">
+                            <path d="M0,14 L0,10.2666667 L1.49333333,10.2666667 L1.49333333,12.5066667 L3.73333333,12.5066667 L3.73333333,14 L0,14 Z M10.2666667,14 L10.2666667,12.5066667 L12.5066667,12.5066667 L12.5066667,10.2666667 L14,10.2666667 L14,14 L10.2666667,14 Z M0,3.73333333 L0,0 L3.73333333,0 L3.73333333,1.49333333 L1.49333333,1.49333333 L1.49333333,3.73333333 L0,3.73333333 Z M12.5066667,3.73333333 L12.5066667,1.49333333 L10.2666667,1.49333333 L10.2666667,0 L14,0 L14,3.73333333 L12.5066667,3.73333333 Z"
+                                  id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
