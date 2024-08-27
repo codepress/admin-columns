@@ -61,6 +61,11 @@ final class ListScreen
         $this->title = $title;
     }
 
+    public function set_table_screen(TableScreen $table_screen): void
+    {
+        $this->table_screen = $table_screen;
+    }
+
     public function get_title(): string
     {
         return $this->title;
