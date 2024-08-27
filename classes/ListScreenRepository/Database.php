@@ -17,6 +17,7 @@ use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
+use AC\Type\ListScreenStorageType;
 use DateTime;
 
 class Database implements ListScreenRepositoryWritable
@@ -32,14 +33,18 @@ class Database implements ListScreenRepositoryWritable
 
     private $column_factory;
 
+    private $storage_type;
+
     public function __construct(
         TableScreenFactory $table_screen_factory,
         EncoderFactory $encoder_factory,
-        ColumnFactory $column_factory
+        ColumnFactory $column_factory,
+        ListScreenStorageType $storage_type = null
     ) {
         $this->table_screen_factory = $table_screen_factory;
         $this->encoder_factory = $encoder_factory;
         $this->column_factory = $column_factory;
+        $this->storage_type = $storage_type ?? new ListScreenStorageType();
     }
 
     protected function find_from_source(ListScreenId $id): ?ListScreen
@@ -51,8 +56,10 @@ class Database implements ListScreenRepositoryWritable
 			SELECT * 
 			FROM ' . $wpdb->prefix . self::TABLE . '
 			WHERE list_id = %s
+			AND type = %s
 		',
-            (string)$id
+            (string)$id,
+            (string)$this->storage_type
         );
 
         $row = $wpdb->get_row($sql);
@@ -71,7 +78,13 @@ class Database implements ListScreenRepositoryWritable
         $sql = '
 			SELECT * 
 			FROM ' . $wpdb->prefix . self::TABLE . '
+			WHERE type = %s
 		';
+
+        $sql = $wpdb->prepare(
+            $sql,
+            (string)$this->storage_type
+        );
 
         return $this->create_list_screens(
             $wpdb->get_results($sql)
@@ -87,8 +100,10 @@ class Database implements ListScreenRepositoryWritable
 			SELECT * 
 			FROM ' . $wpdb->prefix . self::TABLE . '
 			WHERE list_key = %s
+			AND type = %s
 		',
-            (string)$key
+            (string)$key,
+            (string)$this->storage_type
         );
 
         return $this->create_list_screens(
@@ -114,6 +129,7 @@ class Database implements ListScreenRepositoryWritable
             'columns'       => $list_screen_dto['columns'] ? serialize($list_screen_dto['columns']) : null,
             'settings'      => $settings ? serialize($settings) : null,
             'date_modified' => $date->format('Y-m-d H:i:s'),
+            'type'          => (string)$this->storage_type,
         ];
 
         $table = $wpdb->prefix . self::TABLE;
