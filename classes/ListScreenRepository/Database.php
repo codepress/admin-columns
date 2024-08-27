@@ -142,7 +142,7 @@ class Database implements ListScreenRepositoryWritable
                 [
                     'list_id' => (string)$list_screen->get_id(),
                 ],
-                array_fill(0, 6, '%s')
+                array_fill(0, 7, '%s')
             );
         } else {
             $args['date_created'] = $args['date_modified'];
@@ -150,7 +150,7 @@ class Database implements ListScreenRepositoryWritable
             $wpdb->insert(
                 $table,
                 $args,
-                array_fill(0, 7, '%s')
+                array_fill(0, 8, '%s')
             );
         }
     }
