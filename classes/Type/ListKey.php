@@ -25,11 +25,6 @@ final class ListKey
         return '' !== $key;
     }
 
-    public function is_network(): bool
-    {
-        return ac_helper()->string->starts_with($this->key, 'wp-ms_');
-    }
-
     public function equals(ListKey $key): bool
     {
         return $this->key === (string)$key;
