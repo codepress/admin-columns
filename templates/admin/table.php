@@ -16,19 +16,19 @@ $table = $this->table;
 <table class="widefat fixed ac-table">
 	<thead>
     <?php
-    foreach ($table->get_headings() as $key => $label) : ?>
-		<th class="<?= $key ?>"><?= $label ?></th>
+    foreach ($table->get_headings() as $column => $label) : ?>
+		<th class="<?= $column ?>"><?= $label ?></th>
     <?php
     endforeach; ?>
 	</thead>
 	<tbody>
     <?php
-    foreach ($table->get_rows() as $list_screen) : ?>
+    foreach ($table->get_rows() as $row_data) : ?>
 		<tr>
             <?php
-            foreach (array_keys($table->get_headings()) as $key) : ?>
-				<td class="<?= $key ?>">
-                    <?= $table->get_column($key, $list_screen) ?>
+            foreach (array_keys($table->get_headings()) as $column) : ?>
+				<td class="<?= $column ?>">
+                    <?= $table->render_cell($column, $row_data) ?>
 				</td>
             <?php
             endforeach; ?>
