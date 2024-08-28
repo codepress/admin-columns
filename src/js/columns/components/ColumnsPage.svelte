@@ -13,77 +13,74 @@
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
-    export let initialListId: string | null = null;
 
-    let loadingSettings: boolean = false;
-    let abort: AbortController | null = null;
+    let debounceTimeout: any;
     let config: { [key: string]: AC.Vars.Settings.ColumnSetting[] };
     let tableUrl: string;
     let loadedListId: string | null = null;
-	let calls: Array<AbortController> = [];
 
 
-	const abortAll = () => {
-        calls.forEach(call => call.abort());
-        calls = [];
-	}
+    let abortController: AbortController;
+    // TODO test
+    let queuedListId: string | null = null;
+    let queuedListKey: string | null = null;
 
     const handleMenuSelect = (e: CustomEvent<string>) => {
         if ($currentListKey === e.detail) {
             return;
         }
 
-        abortAll();
-        loadingSettings = false;
-        refreshListScreenData( e.detail );
+        $currentListKey = e.detail;
     }
 
     const refreshListScreenData = (listKey: string, listId: string = '') => {
-        if( loadingSettings) {
-            return;
-		}
-
-        if (listKey === $currentListKey && loadedListId === listId && typeof $listScreenDataStore !== 'undefined') {
-            return;
+        if (abortController) {
+            abortController.abort();
         }
+        abortController = new AbortController();
 
-        abort = new AbortController();
-        calls.push(abort);
-        loadingSettings = true;
-
-        getListScreenSettings(listKey, listId, abort).then(response => {
-            initialListId = '';
+        getListScreenSettings(listKey, listId, abortController).then(response => {
+            loadedListId = response.data.data.settings.list_screen.id;
             config = response.data.data.column_settings
             tableUrl = response.data.data.table_url;
-            $currentListKey = listKey;
-            loadedListId = response.data.data.settings.list_screen.id;
-            $currentListId = response.data.data.settings.list_screen.id;
             $columnTypesStore = response.data.data.column_types.sort(columnTypeSorter);
             listScreenIsReadOnly.set(response.data.data.read_only);
             $listScreenDataStore = response.data.data.settings.list_screen;
-            loadingSettings = false;
         }).catch((response) => {
-            loadingSettings = false;
-            if( response.message === 'canceled' ){
-                return;
-			}
             NotificationProgrammatic.open({message: response.message, type: 'error'})
-            loadingSettings = false;
         });
+    }
+
+
+    const processQueuedChanges = () => {
+        clearTimeout(debounceTimeout);
+
+        if (!queuedListKey) {
+            queuedListKey = $currentListKey;
+        }
+
+        refreshListScreenData(queuedListKey, queuedListId ?? '')
+        queuedListKey = null;
+        queuedListId = null;
+    }
+
+
+    const debounceFetch = (delay: number = 400) => {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(processQueuedChanges, delay);
     }
 
     onMount(() => {
 
         currentListKey.subscribe(listKey => {
-            abortAll();
-            if (initialListId === '') {
-                refreshListScreenData(listKey);
-            }
+            queuedListKey = listKey;
+            debounceFetch()
         });
 
         currentListId.subscribe((listId) => {
             if (listId && loadedListId !== listId) {
-                refreshListScreenData($currentListKey, listId);
+                queuedListId = listId;
+                debounceFetch();
             }
         });
     });
