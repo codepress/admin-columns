@@ -55,6 +55,11 @@
   margin-bottom: 30px
 }
 
+.acu-my-\[0\] {
+  margin-top: 0;
+  margin-bottom: 0
+}
+
 .acu-mb-1 {
   margin-bottom: 5px
 }
@@ -139,8 +144,16 @@
   height: 30px
 }
 
+.acu-h-\[40px\] {
+  height: 40px
+}
+
 .acu-min-h-\[calc\(100vh_-_70px\)\] {
   min-height: calc(100vh - 70px)
+}
+
+.acu-min-h-\[calc\(100vh_-_370px\)\] {
+  min-height: calc(100vh - 370px)
 }
 
 .acu-w-1\/3 {
@@ -169,6 +182,14 @@
 
 .acu-w-full {
   width: 100%
+}
+
+.acu-w-\[40px\] {
+  width: 40px
+}
+
+.acu-w-\[60px\] {
+  width: 60px
 }
 
 .acu-max-w-\[1200px\] {
@@ -543,6 +564,18 @@
   line-height: 1.5rem
 }
 
+.acu-text-\[30px\] {
+  font-size: 30px
+}
+
+.acu-text-\[26px\] {
+  font-size: 26px
+}
+
+.acu-text-\[28px\] {
+  font-size: 28px
+}
+
 .acu-font-bold {
   font-weight: 700
 }
@@ -553,6 +586,10 @@
 
 .acu-font-semibold {
   font-weight: 600
+}
+
+.acu-font-normal {
+  font-weight: 400
 }
 
 .acu-uppercase {
@@ -630,6 +667,20 @@
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
 }
 
+.hover\:acu-bg-\[\#f5\]:hover {
+  background-color: #f5
+}
+
+.hover\:acu-bg-\[\#f5a\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 85 170 / var(--tw-bg-opacity))
+}
+
+.hover\:acu-bg-\[red\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 0 0 / var(--tw-bg-opacity))
+}
+
 .hover\:acu-text-\[\#fff\]:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity))
@@ -645,6 +696,15 @@
 
 .hover\:acu-text-notification-red:hover {
   color: var(--ac-notification-red)
+}
+
+.hover\:acu-text-\[\#757575\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(117 117 117 / var(--tw-text-opacity))
+}
+
+.hover\:acu-text-\[--ac-primary-color\]:hover {
+  color: var(--ac-primary-color)
 }
 
 .acu-group:focus-within .group-focus-within\:acu-visible {

@@ -129,3 +129,40 @@
 .acp-column-setting[data-setting="hidden"] {
 	display: none;
 }
+
+
+
+.ac-modal.-iconpicker {
+
+	.ac-modal__dialog__content {
+		max-height: calc(100vh - 260px);
+		overflow-y: auto!important;
+	}
+
+	.ac-ipicker__icon {
+		padding:0;
+		width: 49px;
+		height: 49px;
+		white-space: nowrap;
+		text-align: center;
+		background: none;
+		border: none;
+		cursor: pointer;
+
+		&:hover {
+            color: var(--ac-primary-color-hover);
+        }
+
+		&.active {
+			background: var(--ac-primary-color);
+			color: #fff;
+		}
+
+		span {
+			width: 49px;
+			height: 49px;
+			line-height: 49px;
+		}
+	}
+
+}
