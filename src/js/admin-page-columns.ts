@@ -5,15 +5,16 @@ import {currentListId, currentListKey} from "./columns/store/current-list-screen
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import ListScreenSections from "./columns/store/list-screen-sections";
 import {listScreenDataStore} from "./columns/store/list-screen-data";
-import {columnTypeSorter, columnTypesStore} from "./columns/store/column-types";
+import {columnTypesStore} from "./columns/store/column-types";
 import {listScreenIsReadOnly} from "./columns/store/read_only";
 import {favoriteListKeysStore} from "./columns/store/favorite-listkeys";
+import {debugMode} from "./columns/store/debug";
 
 const AcServices = initAcServices();
-const config = getColumnSettingsConfig();
+const localConfig = getColumnSettingsConfig();
 
 // TODO clean up legacy columns and check what is necessary
-require('./_legacy-columns.ts');
+//require('./_legacy-columns.ts');
 require('./columns/init/setting-types.ts');
 
 currentListKey.subscribe((d) => {
@@ -41,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
             currentListId,
             currentListKey,
             listScreenDataStore,
-            listScreenIsReadOnly
+            listScreenIsReadOnly,
+            debugMode,
         },
         registerSettingType,
         ListScreenSections,
@@ -49,22 +51,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     AcServices.registerService('ColumnPage', ConfigService);
 
-    currentListId.set(config.list_id)
-    currentListKey.set(config.list_key);
+    currentListId.set(localConfig.list_id)
+    currentListKey.set(localConfig.list_key);
     columnTypesStore.set([]);
-    favoriteListKeysStore.set(config.menu_items_favorites);
+    debugMode.set(false);
+    favoriteListKeysStore.set(localConfig.menu_items_favorites);
+
+    const cpacElement = document.querySelector('#cpac');
+    if (cpacElement) {
+        new ColumnsPage({
+            target: cpacElement,
+            props: {
+                menu: localConfig.menu_items,
+                openedGroups: localConfig.menu_groups_opened
+            }
+        });
+    }
 
 
-    const target = document.createElement('div');
-
-    new ColumnsPage({
-        target: target,
-        props: {
-            initialListId: config.list_id,
-            menu: config.menu_items,
-            openedGroups: config.menu_groups_opened
-        }
-    });
-
-    document.querySelector('#cpac')?.prepend(target);
 });

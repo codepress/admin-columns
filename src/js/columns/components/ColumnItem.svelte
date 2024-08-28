@@ -13,6 +13,7 @@
     import {listScreenIsReadOnly} from "../store/read_only";
     import {refreshColumn} from "../ajax/ajax";
     import {currentListKey} from "../store/current-list-screen";
+    import {debugMode} from "../store/debug";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
@@ -81,11 +82,11 @@
     }
 
     const refreshSetting = () => {
-        refreshColumn( data, $currentListKey).then( d => {
-            if( d.data.success ){
+        refreshColumn(data, $currentListKey).then(d => {
+            if (d.data.success) {
                 config = d.data.data.columns.settings;
-			}
-		})
+            }
+        })
     }
 
     $: opened = $openedColumnsStore.includes(data.name);
@@ -135,12 +136,13 @@
 				bind:settings={config}
 				on:refresh={refreshSetting}
 			/>
-
-			<div style="padding: 10px; background: #FFDCDCFF">
-				<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
-				<button class="button" on:click={checkAppliedSettings}>Check settings</button>
-				<button class="button" on:click={refreshSetting}>Refresh settings</button>
-			</div>
+			{#if $debugMode}
+				<div style="padding: 10px; background: #FFDCDCFF">
+					<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
+					<button class="button" on:click={checkAppliedSettings}>Check settings</button>
+					<button class="button" on:click={refreshSetting}>Refresh settings</button>
+				</div>
+			{/if}
 		</div>
 	{/if}
 </div>
