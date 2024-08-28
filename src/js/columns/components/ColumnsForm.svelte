@@ -162,7 +162,7 @@
 <!--<DebugToolbar bind:data={data} bind:config={config}/>-->
 
 {#if data }
-	<div class="ac-columns">
+	<div class="ac-columns acu-shadow">
 		<header class="ac-columns__header">
 			<div class="ac-columns__header__table">
 				<h1>

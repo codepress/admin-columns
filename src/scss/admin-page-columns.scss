@@ -9,6 +9,7 @@
 
 body.admin-columns__columns {
 	background-color: #F1F5F9;
+
 	#cpac {
 		padding: 0 !important;
 	}
@@ -16,10 +17,9 @@ body.admin-columns__columns {
 
 #wpbody-content {
 	padding-bottom: 10px;
-	@media (min-width: 1450px){
+	@media (min-width: 1450px) {
 		background: linear-gradient(to right, #EAF0F6 0px, #EAF0F6 300px, transparent 250px);
 	}
-
 }
 
 
@@ -92,6 +92,7 @@ body.admin-columns__columns {
 		color: var(--ac-text-color);
 		display: block;
 		border-radius: 5px;
+
 		&:hover {
 			background: #fff;
 		}

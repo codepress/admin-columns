@@ -43,10 +43,10 @@
 		<HtmlSection component={component}></HtmlSection>
 	{/each}
 
-	{#if !$listScreenIsReadOnly}
-		<div class="acp-footer-bar acu-flex acu-justify-end acu-mt-[-35px] acu-rounded-b-lg acu-bg-[white] acu-sticky acu-bottom-[0] acu-p-4 acu-border acu-border-solid acu-border-ui-border rounded-t-none">
-			<AcButton on:click={saveSettings} type="primary" loading={isSaving}>{i18n.editor.label.save}</AcButton>
-		</div>
-	{/if}
+	<!--{#if !$listScreenIsReadOnly}-->
+	<!--	<div class="acp-footer-bar acu-flex acu-justify-end acu-mt-[-35px] acu-rounded-b-lg acu-bg-[white] acu-sticky acu-bottom-[0] acu-p-4 acu-border acu-border-solid acu-border-ui-border rounded-t-none">-->
+	<!--		<AcButton on:click={saveSettings} type="primary" loading={isSaving}>{i18n.editor.label.save}</AcButton>-->
+	<!--	</div>-->
+	<!--{/if}-->
 
 </section>

@@ -21,10 +21,6 @@
     let tableUrl: string;
     let loadedListId: string | null = null;
 
-
-    let header: HTMLElement|null;
-
-
     let form: ListScreenForm;
 
     let abortController: AbortController;
@@ -76,10 +72,6 @@
         debounceTimeout = setTimeout(processQueuedChanges, delay);
     }
 
-    const saveSettings = () => {
-        form.saveSettings();
-	}
-
     onMount(() => {
         currentListKey.subscribe(listKey => {
             queuedListKey = listKey;
@@ -97,7 +89,9 @@
 </script>
 
 <AdminHeaderBar title="Columns">
-	<AcButton type="primary" size="small" on:click={saveSettings}>Save</AcButton>
+	<div class="acu-flex acu-justify-end">
+		<AcButton type="primary" on:click={() => form.saveSettings()}>Save Changes</AcButton>
+	</div>
 </AdminHeaderBar>
 
 
