@@ -3484,17 +3484,17 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (91:4) {#if $listScreenDataStore !== null}
+// (84:4) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
   let updating_data;
   let current;
   function listscreenform_config_binding(value) {
-    /*listscreenform_config_binding*/ctx[7](value);
+    /*listscreenform_config_binding*/ctx[6](value);
   }
   function listscreenform_data_binding(value) {
-    /*listscreenform_data_binding*/ctx[8](value);
+    /*listscreenform_data_binding*/ctx[7](value);
   }
   let listscreenform_props = {
     tableUrl: /*tableUrl*/ctx[3]
@@ -3548,7 +3548,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (96:4) {#each ListScreenSections.getSections( 'sidebar' ) as component}
+// (89:4) {#each ListScreenSections.getSections( 'sidebar' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
@@ -3701,81 +3701,71 @@ function instance($$self, $$props, $$invalidate) {
   let $currentListKey;
   let $listScreenDataStore;
   let $columnTypesStore;
-  let $currentListId;
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(13, $currentListKey = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $$value => $$invalidate(4, $listScreenDataStore = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(14, $columnTypesStore = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(15, $currentListId = $$value));
   let {
     menu
   } = $$props;
   let {
     openedGroups
   } = $$props;
-  let {
-    initialListId = null
-  } = $$props;
-  let loadingSettings = false;
-  let abort = null;
+  let debounceTimeout;
   let config;
   let tableUrl;
   let loadedListId = null;
-  let calls = [];
-  const abortAll = () => {
-    calls.forEach(call => call.abort());
-    calls = [];
-  };
+  let abortController;
+
+  // TODO test
+  let queuedListId = null;
+  let queuedListKey = null;
   const handleMenuSelect = e => {
     if ($currentListKey === e.detail) {
       return;
     }
-    abortAll();
-    loadingSettings = false;
-    refreshListScreenData(e.detail);
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $currentListKey = e.detail, $currentListKey);
   };
   const refreshListScreenData = (listKey, listId = '') => {
-    if (loadingSettings) {
-      return;
+    if (abortController) {
+      abortController.abort();
     }
-    if (listKey === $currentListKey && loadedListId === listId && typeof $listScreenDataStore !== 'undefined') {
-      return;
-    }
-    abort = new AbortController();
-    calls.push(abort);
-    loadingSettings = true;
-    (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettings)(listKey, listId, abort).then(response => {
-      $$invalidate(6, initialListId = '');
+    abortController = new AbortController();
+    (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettings)(listKey, listId, abortController).then(response => {
+      loadedListId = response.data.data.settings.list_screen.id;
       $$invalidate(2, config = response.data.data.column_settings);
       $$invalidate(3, tableUrl = response.data.data.table_url);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $currentListKey = listKey, $currentListKey);
-      loadedListId = response.data.data.settings.list_screen.id;
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $currentListId = response.data.data.settings.list_screen.id, $currentListId);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $columnTypesStore = response.data.data.column_types.sort(_store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypeSorter), $columnTypesStore);
       _store_read_only__WEBPACK_IMPORTED_MODULE_12__.listScreenIsReadOnly.set(response.data.data.read_only);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $listScreenDataStore = response.data.data.settings.list_screen, $listScreenDataStore);
-      loadingSettings = false;
     }).catch(response => {
-      loadingSettings = false;
-      if (response.message === 'canceled') {
-        return;
-      }
       _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_11__.NotificationProgrammatic.open({
         message: response.message,
         type: 'error'
       });
-      loadingSettings = false;
     });
+  };
+  const processQueuedChanges = () => {
+    clearTimeout(debounceTimeout);
+    if (!queuedListKey) {
+      queuedListKey = $currentListKey;
+    }
+    refreshListScreenData(queuedListKey, queuedListId !== null && queuedListId !== void 0 ? queuedListId : '');
+    queuedListKey = null;
+    queuedListId = null;
+  };
+  const debounceFetch = (delay = 400) => {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(processQueuedChanges, delay);
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
     _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey.subscribe(listKey => {
-      abortAll();
-      if (initialListId === '') {
-        refreshListScreenData(listKey);
-      }
+      queuedListKey = listKey;
+      debounceFetch();
     });
     _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId.subscribe(listId => {
       if (listId && loadedListId !== listId) {
-        refreshListScreenData($currentListKey, listId);
+        queuedListId = listId;
+        debounceFetch();
       }
     });
   });
@@ -3790,17 +3780,15 @@ function instance($$self, $$props, $$invalidate) {
   $$self.$$set = $$props => {
     if ('menu' in $$props) $$invalidate(0, menu = $$props.menu);
     if ('openedGroups' in $$props) $$invalidate(1, openedGroups = $$props.openedGroups);
-    if ('initialListId' in $$props) $$invalidate(6, initialListId = $$props.initialListId);
   };
-  return [menu, openedGroups, config, tableUrl, $listScreenDataStore, handleMenuSelect, initialListId, listscreenform_config_binding, listscreenform_data_binding];
+  return [menu, openedGroups, config, tableUrl, $listScreenDataStore, handleMenuSelect, listscreenform_config_binding, listscreenform_data_binding];
 }
 class ColumnsPage extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       menu: 0,
-      openedGroups: 1,
-      initialListId: 6
+      openedGroups: 1
     });
   }
 }
