@@ -5,7 +5,7 @@
     export let trigger: HTMLElement;
     export let appendToBody: boolean = false;
     export let maxHeight: string|null = null;
-    export let position: string = 'bottom-right';
+    export let position: string|null = 'bottom-right';
 
     let rootElement: HTMLElement;
     let menuElement: HTMLElement;
