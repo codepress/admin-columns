@@ -10,6 +10,8 @@
     import {columnTypeSorter, columnTypesStore} from "../store/column-types";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {listScreenIsReadOnly} from "../store/read_only";
+    import AdminHeaderBar from "../../admin/component/AdminHeaderBar.svelte";
+    import AcButton from "ACUi/element/AcButton.svelte";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -20,8 +22,12 @@
     let loadedListId: string | null = null;
 
 
+    let header: HTMLElement|null;
+
+
+    let form: ListScreenForm;
+
     let abortController: AbortController;
-    // TODO test
     let queuedListId: string | null = null;
     let queuedListKey: string | null = null;
 
@@ -34,6 +40,8 @@
     }
 
     const refreshListScreenData = (listKey: string, listId: string = '') => {
+        queuedListKey = null;
+        queuedListId = null;
         if (abortController) {
             abortController.abort();
         }
@@ -60,8 +68,6 @@
         }
 
         refreshListScreenData(queuedListKey, queuedListId ?? '')
-        queuedListKey = null;
-        queuedListId = null;
     }
 
 
@@ -70,8 +76,11 @@
         debounceTimeout = setTimeout(processQueuedChanges, delay);
     }
 
-    onMount(() => {
+    const saveSettings = () => {
+        form.saveSettings();
+	}
 
+    onMount(() => {
         currentListKey.subscribe(listKey => {
             queuedListKey = listKey;
             debounceFetch()
@@ -83,24 +92,32 @@
                 debounceFetch();
             }
         });
+
     });
 </script>
 
+<AdminHeaderBar title="Columns">
+	<AcButton type="primary" size="small" on:click={saveSettings}>Save</AcButton>
+</AdminHeaderBar>
+
+
 <div class="ac-admin-page acu-flex acu-flex-col acu-min-h-[calc(100vh_-_70px)] acu-w-full acu-transform
 			2xl:acu-flex-row ">
-	<aside class="ac-admin-page-menu acu-pl-4 acu-pr-[30px] acu-py-8
-				  2xl:acu-w-[250px] 2xl:acu-bg-[#EAF0F6] 2xl:acu-pt-[60px]">
+	<aside class="ac-admin-page-menu acu-relative acu-pl-4 acu-pr-[30px] acu-py-8
+				  2xl:acu-w-[250px] 2xl:acu-pt-[30px]">
 		<ListScreenMenu
 			menu={menu}
 			openedGroups={openedGroups}
 			on:itemSelect={handleMenuSelect}
 		/>
 	</aside>
-	<main class="ac-admin-page-main acu-px-4 acu-pt-2 2xl:acu-pt-[60px] 2xl:acu-px-[50px]">
+	<main class="ac-admin-page-main acu-px-4 acu-pt-2 2xl:acu-pt-[30px] 2xl:acu-px-[50px]">
 		<div class="xl:acu-flex xl:acu-gap-6 xl:acu-flex-row">
 			<div class="acu-flex-grow acu-max-w-[1200px]">
 				{#if $listScreenDataStore !== null}
-					<ListScreenForm bind:config={config} bind:data={$listScreenDataStore} tableUrl={tableUrl}></ListScreenForm>
+					<ListScreenForm bind:this={form} bind:config={config}
+						bind:data={$listScreenDataStore}
+						tableUrl={tableUrl}></ListScreenForm>
 				{/if}
 			</div>
 			<aside class="acu-hidden xl:acu-block">

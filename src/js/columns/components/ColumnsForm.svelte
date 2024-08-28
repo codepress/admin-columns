@@ -215,8 +215,8 @@
 				{/each}
 			</div>
 		</div>
+		<footer class="ac-columns__footer">
 		{#if !$listScreenIsReadOnly}
-			<footer class="ac-columns__footer">
 				<div>
 					{#if data.columns.length > 0}
 						<AcButton type="text" on:click={clearColumns}>{i18n.editor.label.clear_columns}</AcButton>
@@ -228,8 +228,9 @@
 						</ColumnTypeDropdown>
 					</AcDropdown>
 				</div>
-			</footer>
+
 		{/if}
+		</footer>
 	</div>
 {:else}
 	<ColumnsFormSkeleton></ColumnsFormSkeleton>

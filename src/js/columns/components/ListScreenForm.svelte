@@ -19,7 +19,7 @@
 
     let isSaving = false;
 
-    const saveSettings = () => {
+    export const saveSettings = () => {
         isSaving = true;
         saveListScreen(data, $currentListKey).then((response) => {
             if (response.data.success) {

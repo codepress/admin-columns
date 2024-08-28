@@ -16,12 +16,15 @@ body.admin-columns__columns {
 
 #wpbody-content {
 	padding-bottom: 10px;
+	@media (min-width: 1450px){
+		background: linear-gradient(to right, #EAF0F6 0px, #EAF0F6 300px, transparent 250px);
+	}
+
 }
 
 
 .ac-admin-page {
 	-webkit-font-smoothing: antialiased;
-	transform: translateY(-30px);
 
 	.ac-admin-page-menu {
 		flex-shrink: 0;
