@@ -54,6 +54,7 @@ class AdminColumns
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\CommentFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\MediaFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
+        ColumnFactories\Aggregate::add($container->get(ColumnFactories\IntegrationFactory::class));
 
         ExtendedValueRegistry::add($container->get(MediaPreview::class));
 
@@ -134,7 +135,6 @@ class AdminColumns
         $request_ajax_handlers->add('ac-admin-screen-options', $container->get(Ajax\ScreenOptions::class));
         $request_ajax_handlers->add('ac-get-column-value', $container->get(Ajax\ColumnValue::class));
         $request_ajax_handlers->add('ac-extended-value', $container->get(Ajax\ExtendedValue::class));
-        $request_ajax_handlers->add('ac-get-column-modal-value', $container->get(Ajax\ColumnValueModal::class));
         $request_ajax_handlers->add('ac-admin-general-options', $container->get(Ajax\AdminGeneralOptions::class));
         // TODO Stefan create ajax call in JS
         $request_ajax_handlers->add('ac-restore-settings', $container->get(Ajax\RestoreSettingsRequest::class));
