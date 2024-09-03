@@ -14,15 +14,16 @@
     import {refreshColumn} from "../ajax/ajax";
     import {currentListKey} from "../store/current-list-screen";
     import {debugMode} from "../store/debug";
+    import ColumnLabel from "./ColumnLabel.svelte";
+    import {columnTypesStore} from "../store/column-types";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
 
-    let labelElement: HTMLElement | null;
-    let readableLabel: string = '';
-
     const dispatch = createEventDispatcher();
     const originalsColumns = ColumnTypesUtils.getOriginalColumnTypes();
+
+    let columnTypeLabel:string;
 
     const toggle = () => {
         openedColumnsStore.toggle(data.name);
@@ -40,6 +41,9 @@
 
     onMount(() => {
         isOriginalColumn = typeof originalsColumns.find(c => c.value === data.type) !== 'undefined';
+
+        columnTypeLabel = $columnTypesStore.find( c => c.value === data.type)?.label ?? 'ff'
+		console.log('LABEL', columnTypeLabel)
     })
 
     const checkCondition = (condition: AC.Specification.Rule, parent: string) => {
@@ -98,7 +102,9 @@
 			<AcIcon icon="move" size="sm"/>
 		</div>
 		<div class="ac-column-header__label">
-			<strong on:click={toggle} on:keydown role="none" bind:this={labelElement}>{@html data.label}{readableLabel}</strong>
+			<strong on:click={toggle} on:keydown role="none">
+				<ColumnLabel bind:value={data.label} fallback={columnTypeLabel} />
+			</strong>
 			<div class="ac-column-row-actions">
 				<a class="ac-column-row-action -edit" href={'#'} on:click|preventDefault={toggle}>Edit</a>
 				{#if !isOriginalColumn}

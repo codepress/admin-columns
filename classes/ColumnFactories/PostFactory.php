@@ -57,15 +57,15 @@ class PostFactory implements ColumnFactories
         //            'meta_key_factory' => $meta_key_factory,
         //        ]);
         //
-        //        $factories[] = $this->container->make(
-        //            CustomFieldFactory::class,
-        //            [
-        //                'custom_field_factory' => new Settings\Column\CustomFieldFactory(
-        //                    new MetaType(MetaType::POST),
-        //                    $this->container->get(CustomFieldTypeFactory::class)
-        //                ),
-        //            ]
-        //        );
+        //                $factories[] = $this->container->make(
+        //                    CustomFieldFactory::class,
+        //                    [
+        //                        'custom_field_factory' => new Settings\Column\CustomFieldFactory(
+        //                            new MetaType(MetaType::POST),
+        //                            $this->container->get(CustomFieldTypeFactory::class)
+        //                        ),
+        //                    ]
+        //                );
 
         $fqn_classes = [
             AC\ColumnFactory\CustomFieldFactory::class,

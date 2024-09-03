@@ -45,9 +45,7 @@ class Columns extends Script
         parent::__construct($handle, $location, [
             // TODO do we still use these scripts
             'jquery',
-            'jquery-ui-slider',
             'jquery-ui-sortable',
-            'jquery-touch-punch',
         ]);
 
         $this->table_screen = $table_screen;
