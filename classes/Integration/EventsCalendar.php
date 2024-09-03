@@ -55,7 +55,10 @@ final class EventsCalendar extends Integration
 
     public function show_placeholder(TableScreen $table_screen): bool
     {
-        return $table_screen instanceof PostType && in_array($table_screen->get_post_type(), $this->get_post_types());
+        return $table_screen instanceof PostType && in_array(
+                (string)$table_screen->get_post_type(),
+                $this->get_post_types()
+            );
     }
 
 }

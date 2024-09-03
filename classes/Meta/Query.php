@@ -287,7 +287,7 @@ class Query
         return $this->where($field, '', 'IS NULL');
     }
 
-    public function where_post_type($post_type): self
+    public function where_post_type(string $post_type): self
     {
         return $this->where('post_type', '=', $post_type);
     }
