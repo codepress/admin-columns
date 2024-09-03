@@ -31,7 +31,8 @@ type AdminColumnsI18n = {
         }
         sentence: {
             show_default_columns: string
-            getting_started: string
+            get_started: string
+            documentation: string
         }
     }
 }

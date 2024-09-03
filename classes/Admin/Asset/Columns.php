@@ -147,7 +147,11 @@ class Columns extends Script
                             'The default columns will be shown on the list table when no columns are added.',
                             'codepress-admin-columns'
                         ),
-                        'getting_started'      => sprintf(
+                        'get_started'          => __(
+                            'Get started by adding columns to your list table.',
+                            'codepress-admin-columns'
+                        ),
+                        'documentation'        => sprintf(
                             __('New to Admin Columns? Take a look at our %s', 'codepress-admin-columns'),
                             sprintf(
                                 '<a target="_blank" href="%s">%s</a>',

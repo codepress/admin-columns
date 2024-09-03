@@ -184,9 +184,8 @@
 
 			{#if data.columns.length === 0 || data.columns === null}
 				<div class="acu-p-10 acu-bg-[#F1F5F9]">
-					<div class="acu-text-center">
-						<h2>{i18n.editor.label.add_columns}</h2>
-						<p>{i18n.editor.sentence.show_default_columns}</p>
+					<div class="acu-text-center acu-font-bold">
+						<p>{i18n.editor.sentence.get_started}</p>
 					</div>
 
 					<div class="acu-flex acu-gap-3 acu-items-center acu-justify-center acu-pt-4 acu-pb-6">
@@ -198,8 +197,8 @@
 						</AcDropdown>
 						<AcButton loading={loadingDefaultColumns} --acui-loading-color="#000" on:click={handleLoadDefaultColumns}>{i18n.editor.label.load_default_columns}</AcButton>
 					</div>
-					<div class="acu-text-center">
-						<p>{@html i18n.editor.sentence.getting_started}</p>
+					<div class="acu-text-center acu-text-12px">
+						<p>{@html i18n.editor.sentence.documentation}</p>
 					</div>
 				</div>
 			{/if}
