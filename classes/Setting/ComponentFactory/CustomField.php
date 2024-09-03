@@ -31,7 +31,7 @@ class CustomField extends Builder
         return __('Custom field key', 'codepress-admin-columns');
     }
 
-    private function use_text_field()
+    private function use_text_field(): bool
     {
         return (bool)apply_filters('ac/column/custom_field/use_text_input', false);
     }
