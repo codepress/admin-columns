@@ -1,5 +1,7 @@
 import AcAdminColumnsVar = AC.Vars.Admin.Columns.AcAdminColumnsVar;
 
+
+
 declare namespace AC.Vars.Admin.Columns {
 
     type ColumnGroup = {
@@ -24,6 +26,12 @@ declare namespace AC.Vars.Admin.Columns {
     }
     type MenuItems = { [key: string]: MenuGroup }
 
+    type UninitializedListScreens = { [key: string]: UninitializedListScreen }
+    type UninitializedListScreen = {
+        label: string
+        screen_link: string
+    }
+
     type AcAdminColumnsVar = {
         nonce: string
         column_groups: ColumnGroup[]
@@ -31,6 +39,7 @@ declare namespace AC.Vars.Admin.Columns {
         menu_groups_opened: string[]
         menu_items: MenuItems
         menu_items_favorites: string[]
+        uninitialized_list_screens: UninitializedListScreens
         list_key: string
         list_id: string
     }

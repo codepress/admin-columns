@@ -72,7 +72,7 @@ class DefaultColumns implements Registerable
         ob_end_clean();
 
         $this->default_columns_repository->update(
-            $this->table_screen,
+            $this->table_screen->get_key(),
             $columns && is_array($columns)
                 ? $columns
                 : []

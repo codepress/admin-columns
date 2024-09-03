@@ -9,12 +9,13 @@ import {columnTypesStore} from "./columns/store/column-types";
 import {listScreenIsReadOnly} from "./columns/store/read_only";
 import {favoriteListKeysStore} from "./columns/store/favorite-listkeys";
 import {debugMode} from "./columns/store/debug";
+import {initUninitializedListScreens} from "./admin/columns/listscreen-initialize";
+import InfoScreenOption from "./admin/columns/screen-options";
+import {showColumnName, showColumnType} from "./columns/store/screen-options";
 
 const AcServices = initAcServices();
 const localConfig = getColumnSettingsConfig();
 
-// TODO clean up legacy columns and check what is necessary
-//require('./_legacy-columns.ts');
 require('./columns/init/setting-types.ts');
 
 currentListKey.subscribe((d) => {
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     favoriteListKeysStore.set(localConfig.menu_items_favorites);
 
     const cpacElement = document.querySelector('#cpac');
+
     if (cpacElement) {
         new ColumnsPage({
             target: cpacElement,
@@ -68,5 +70,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    if (localConfig.uninitialized_list_screens ) {
+        initUninitializedListScreens(localConfig.uninitialized_list_screens, localConfig.list_key);
+    }
+
+    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_id"] input').forEach(el =>
+        new InfoScreenOption('show_column_id', el, showColumnName)
+    );
+    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_type"] input').forEach(el =>
+        new InfoScreenOption('show_column_type', el, showColumnType)
+    );
 
 });
