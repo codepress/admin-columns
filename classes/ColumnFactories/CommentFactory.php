@@ -5,35 +5,19 @@ declare(strict_types=1);
 namespace AC\ColumnFactories;
 
 use AC;
-use AC\Collection;
-use AC\ColumnFactories;
 use AC\ColumnFactory\Comment;
-use AC\MetaType;
 use AC\TableScreen;
-use AC\Type\ListKey;
-use AC\Vendor\DI\Container;
 
-class CommentFactory implements ColumnFactories
+class CommentFactory extends BaseFactory
 {
 
-    private $container;
-
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
-
-    public function create(TableScreen $table_screen): ?Collection\ColumnFactories
+    protected function get_factories(TableScreen $table_screen): array
     {
         if ( ! $table_screen instanceof AC\TableScreen\Comment) {
-            return null;
+            return [];
         }
 
-        $this->container->set(MetaType::class, MetaType::create_comment_type());
-        $this->container->set(ListKey::class, $table_screen->get_key());
-
-        // TODO implement custom field, date, response, type
-        $factoryClasses = [
+        return [
             AC\ColumnFactory\CustomFieldFactory::class,
             AC\ColumnFactory\ActionsFactory::class,
             Comment\AgentFactory::class,
@@ -53,18 +37,6 @@ class CommentFactory implements ColumnFactories
             Comment\UserFactory::class,
             Comment\WordCountFactory::class,
         ];
-
-        foreach ($factoryClasses as $factoryClass) {
-            $factories[] = $this->container->make($factoryClass);
-        }
-
-        $collection = new Collection\ColumnFactories();
-
-        foreach ($factories as $factory) {
-            $collection->add($factory->get_column_type(), $factory);
-        }
-
-        return $collection;
     }
 
 }

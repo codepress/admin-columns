@@ -5,30 +5,19 @@ declare(strict_types=1);
 namespace AC\ColumnFactories;
 
 use AC;
-use AC\Collection;
-use AC\ColumnFactories;
 use AC\ColumnFactory\Media;
 use AC\TableScreen;
-use AC\Vendor\DI\Container;
 
-class MediaFactory implements ColumnFactories
+class MediaFactory extends BaseFactory
 {
 
-    private $container;
-
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
-
-    public function create(TableScreen $table_screen): ?Collection\ColumnFactories
+    protected function get_factories(TableScreen $table_screen): array
     {
         if ( ! $table_screen instanceof AC\TableScreen\Media) {
-            return null;
+            return [];
         }
 
-        // Todo IMPLEMENT - Preview Modal for Preview
-        $factoryClasses = [
+        $factories = [
             Media\AlbumFactory::class,
             Media\ArtistFactory::class,
             Media\AudioPlayerFactory::class,
@@ -50,20 +39,10 @@ class MediaFactory implements ColumnFactories
         ];
 
         if (function_exists('exif_read_data')) {
-            $factoryClasses[] = Media\ExifDataFactory::class;
+            $factories[] = Media\ExifDataFactory::class;
         }
 
-        foreach ($factoryClasses as $factoryClass) {
-            $factories[$factoryClass] = $this->container->make($factoryClass);
-        }
-
-        $collection = new Collection\ColumnFactories();
-
-        foreach ($factories as $factory) {
-            $collection->add($factory->get_column_type(), $factory);
-        }
-
-        return $collection;
+        return $factories;
     }
 
 }

@@ -15,7 +15,7 @@ use AC\Vendor\DI\Container;
 abstract class BaseFactory implements ColumnFactories
 {
 
-    private $container;
+    protected $container;
 
     public function __construct(Container $container)
     {
@@ -34,8 +34,13 @@ abstract class BaseFactory implements ColumnFactories
 
         $collection = new Collection\ColumnFactories();
 
+        if (count($this->get_factories($table_screen)) === 0) {
+            return $collection;
+        }
+
         foreach ($this->get_factories($table_screen) as $factory => $parameters) {
             // Allow for lazy definition
+
             if (is_numeric($factory)) {
                 $factory = $parameters;
                 $parameters = [];
