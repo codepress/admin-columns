@@ -7,7 +7,6 @@ namespace AC\Type;
 use AC;
 use AC\MetaType;
 use AC\TableScreen;
-use LogicException;
 
 final class TableScreenContext
 {
@@ -19,7 +18,7 @@ final class TableScreenContext
     private $taxonomy;
 
     public function __construct(
-        MetaType $meta_type,
+        MetaType $meta_type = null,
         PostTypeSlug $post_type = null,
         TaxonomySlug $taxonomy = null
     ) {
@@ -28,16 +27,16 @@ final class TableScreenContext
         $this->taxonomy = $taxonomy;
     }
 
-    public static function from_table_screen(TableScreen $screen): self
+    public static function from_table_screen(TableScreen $screen): ?self
     {
-        if ( ! $screen instanceof AC\TableScreen\MetaType) {
-            throw new LogicException('Could not get meta type from table screen: ' . get_class($screen));
+        if ( ! $screen instanceof TableScreen\MetaType) {
+            return null;
         }
 
         return new self(
             $screen->get_meta_type(),
-            $screen instanceof AC\PostType ? new PostTypeSlug($screen->get_post_type()) : null,
-            $screen instanceof AC\Taxonomy ? new TaxonomySlug($screen->get_taxonomy()) : null
+            $screen instanceof AC\PostType ? $screen->get_post_type() : null,
+            $screen instanceof AC\Taxonomy ? $screen->get_taxonomy() : null
         );
     }
 

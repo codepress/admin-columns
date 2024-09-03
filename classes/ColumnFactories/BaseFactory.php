@@ -6,7 +6,9 @@ namespace AC\ColumnFactories;
 
 use AC\Collection;
 use AC\ColumnFactories;
+use AC\PostType;
 use AC\TableScreen;
+use AC\Taxonomy;
 use AC\Type\TableScreenContext;
 use AC\Vendor\DI\Container;
 
@@ -22,14 +24,12 @@ abstract class BaseFactory implements ColumnFactories
 
     public function create(TableScreen $table_screen): Collection\ColumnFactories
     {
-        $context = TableScreenContext::from_table_screen($table_screen);
-
         $defaults = [
             'list_key'  => $table_screen->get_key(),
-            'meta_type' => $context->get_meta_type(),
-            'context'   => $context,
-            'post_type' => $context->has_post_type() ? $context->get_post_type() : null,
-            'taxonomy'  => $context->has_taxonomy() ? $context->get_taxonomy() : null,
+            'context'   => TableScreenContext::from_table_screen($table_screen),
+            'meta_type' => $table_screen instanceof TableScreen\MetaType ? $table_screen->get_meta_type() : null,
+            'post_type' => $table_screen instanceof PostType ? $table_screen->get_post_type() : null,
+            'taxonomy'  => $table_screen instanceof Taxonomy ? $table_screen->get_taxonomy() : null,
         ];
 
         $collection = new Collection\ColumnFactories();

@@ -17,7 +17,7 @@ final class PostFactory extends BaseFactory
             return [];
         }
 
-        $post_type = $table_screen->get_post_type();
+        $post_type = (string)$table_screen->get_post_type();
 
         $factories = [
             AC\ColumnFactory\CustomFieldFactory::class,

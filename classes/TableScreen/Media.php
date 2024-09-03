@@ -14,6 +14,7 @@ use AC\Table\ColumnRenderable;
 use AC\TableScreen;
 use AC\Type\Labels;
 use AC\Type\ListKey;
+use AC\Type\PostTypeSlug;
 use AC\Type\Uri;
 use AC\Type\Url;
 
@@ -45,9 +46,9 @@ class Media extends TableScreen implements ListTable, PostType, TableScreen\Meta
         return new MetaType(MetaType::POST);
     }
 
-    public function get_post_type(): string
+    public function get_post_type(): PostTypeSlug
     {
-        return 'attachment';
+        return new PostTypeSlug('attachment');
     }
 
     public function get_attr_id(): string
