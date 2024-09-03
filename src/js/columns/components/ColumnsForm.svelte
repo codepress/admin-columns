@@ -9,7 +9,7 @@
     import ListKeys from "../utils/ListKeys";
     import {ListScreenColumnData, ListScreenData} from "../../types/requests";
     import {listScreenDataStore} from "../store/list-screen-data";
-    import {tick} from "svelte";
+    import {onMount, tick} from "svelte";
     import ColumnTypeDropdown from "./ColumnTypeDropdown.svelte";
     import {currentListKey} from "../store/current-list-screen";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
@@ -134,8 +134,7 @@
         })
     }
 
-
-    listScreenDataStore.subscribe(() => {
+    const makeSortable = () => {
         jQuery(sortableContainer).sortable({
             axis: 'y',
             containment: jQuery(sortableContainer),
@@ -153,8 +152,16 @@
                 }
             }
         });
+	}
 
+
+    listScreenDataStore.subscribe(() => {
+        makeSortable();
     })
+
+	onMount( () => {
+       setTimeout( makeSortable, 1000 );
+	});
 
 </script>
 
