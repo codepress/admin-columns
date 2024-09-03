@@ -15,7 +15,7 @@ class IntegrationFactory implements ColumnFactories
 
     private $container;
 
-    private $integration_repository;
+    private $repository;
 
     public function __construct(Container $container, AC\IntegrationRepository $integration_repository)
     {
