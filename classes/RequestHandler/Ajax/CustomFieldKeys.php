@@ -50,7 +50,7 @@ class CustomFieldKeys implements RequestAjaxHandler
               ->order_by('meta_key');
 
         if ($table_screen instanceof TableScreen\Post) {
-            $query->where_post_type($table_screen->get_post_type());
+            $query->where_post_type((string)$table_screen->get_post_type());
         }
 
         if ($table_screen instanceof TableScreen\Media) {
