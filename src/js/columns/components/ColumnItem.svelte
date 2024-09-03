@@ -16,6 +16,7 @@
     import {debugMode} from "../store/debug";
     import ColumnLabel from "./ColumnLabel.svelte";
     import {columnTypesStore} from "../store/column-types";
+    import {showColumnName} from "../store/screen-options";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
@@ -23,7 +24,7 @@
     const dispatch = createEventDispatcher();
     const originalsColumns = ColumnTypesUtils.getOriginalColumnTypes();
 
-    let columnTypeLabel:string;
+    let columnTypeLabel: string;
 
     const toggle = () => {
         openedColumnsStore.toggle(data.name);
@@ -42,8 +43,8 @@
     onMount(() => {
         isOriginalColumn = typeof originalsColumns.find(c => c.value === data.type) !== 'undefined';
 
-        columnTypeLabel = $columnTypesStore.find( c => c.value === data.type)?.label ?? 'ff'
-		console.log('LABEL', columnTypeLabel)
+        columnTypeLabel = $columnTypesStore.find(c => c.value === data.type)?.label ?? 'ff'
+        console.log('LABEL', columnTypeLabel)
     })
 
     const checkCondition = (condition: AC.Specification.Rule, parent: string) => {
@@ -103,7 +104,7 @@
 		</div>
 		<div class="ac-column-header__label">
 			<strong on:click={toggle} on:keydown role="none">
-				<ColumnLabel bind:value={data.label} fallback={columnTypeLabel} />
+				<ColumnLabel bind:value={data.label} fallback={columnTypeLabel}/>
 			</strong>
 			<div class="ac-column-row-actions">
 				<a class="ac-column-row-action -edit" href={'#'} on:click|preventDefault={toggle}>Edit</a>
@@ -113,6 +114,11 @@
 				<a class="ac-column-row-action -delete" href={'#'} on:click|preventDefault={handleDelete}>Delete</a>
 			</div>
 		</div>
+		{#if $showColumnName}
+			<div>
+				<small>{columnTypeLabel}</small> | <small>{data.name}</small>
+			</div>
+		{/if}
 		<div class="ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end">
 			{#if data.width && data.width_unit}
 				{data.width} {data.width_unit}

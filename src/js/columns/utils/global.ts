@@ -2,7 +2,6 @@ export const getColumnSettingsConfig = () => {
     return ac_admin_columns;
 }
 
-
 type AdminColumnsI18n = {
     errors: {
         ajax_unknown: string

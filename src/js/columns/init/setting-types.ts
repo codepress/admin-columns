@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import {registerSettingType} from "../helper";
 import LabelInput from "../components/settings/input/LabelInput.svelte";
 import WidthInput from "../components/settings/input/WidthInput.svelte";

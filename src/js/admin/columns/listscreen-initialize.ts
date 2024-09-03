@@ -1,10 +1,12 @@
 import Nanobus from "nanobus";
 import {AxiosPromise, AxiosResponse} from "axios";
-import {LocalizedAcColumnSettings, UninitializedListScreen, UninitializedListScreens} from "../../types/admin-columns";
+
 
 import axios from "axios";
+import UninitializedListScreens = AC.Vars.Admin.Columns.UninitializedListScreens;
+import UninitializedListScreen = AC.Vars.Admin.Columns.UninitializedListScreen;
 
-declare const AC: LocalizedAcColumnSettings
+
 
 class ListScreenInitializer {
 
@@ -62,12 +64,12 @@ class ListScreenInitializer {
 
 }
 
-export const initUninitializedListScreens = (listScreens: UninitializedListScreens) => {
+export const initUninitializedListScreens = (listScreens: UninitializedListScreens, listKey: string) => {
     if (Object.keys(listScreens).length > 0) {
 
         // Only load main screen first if unitialized, otherwise do the rest in background
-        if (listScreens.hasOwnProperty(AC.list_screen)) {
-            const main_initializer = new ListScreenInitializer({[AC.list_screen]: listScreens[AC.list_screen]});
+        if (listScreens.hasOwnProperty(listKey)) {
+            const main_initializer = new ListScreenInitializer({[listKey]: listScreens[listKey]});
 
             main_initializer.events.on('error', () => {
                 document.querySelectorAll('.ac-loading-msg-wrapper').forEach(el => el.remove());
