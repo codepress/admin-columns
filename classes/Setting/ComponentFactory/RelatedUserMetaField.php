@@ -17,14 +17,18 @@ class RelatedUserMetaField extends CustomField
     public function __construct(FieldType $field_type)
     {
         parent::__construct(new ListKey('wp-users'));
+
         $this->field_type = $field_type;
     }
 
     protected function get_children(Config $config): ?Children
     {
-        return new Children(new ComponentCollection([
-            $this->field_type->create($config),
-        ]));
+        return new Children(
+            new ComponentCollection([
+                // TODO huge performance issue
+                $this->field_type->create($config),
+            ])
+        );
     }
 
 }

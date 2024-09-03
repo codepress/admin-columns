@@ -13,6 +13,7 @@ use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 
+// TODO huge performance issue see usages RelatedUserMetaField and CustomFieldFactory
 class FieldType extends Builder
 {
 
@@ -197,8 +198,8 @@ class FieldType extends Builder
                 $formatters->add(new AC\Value\Formatter\YesNoIcon());
                 break;
             case self::TYPE_USER:
-            case self::TYPE_MEDIA: // TODo check for string also
-            case self::TYPE_IMAGE: // TODo check for string also
+            case self::TYPE_MEDIA: // TODO check for string also
+            case self::TYPE_IMAGE: // TODO check for string also
             case self::TYPE_POST:
                 $formatters->add(new AC\Value\Formatter\ForeignId());
                 break;
@@ -209,6 +210,7 @@ class FieldType extends Builder
 
     protected function get_children(Config $config): ?Children
     {
+        // TODO huge performance issue
         return new Children(
             new AC\Setting\ComponentCollection([
                 $this->string_limit->create(
@@ -219,10 +221,12 @@ class FieldType extends Builder
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_NUMERIC)
                 ),
+                // TODO huge performance issue
                 $this->post->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_POST)
                 ),
+                // TODO huge performance issue
                 $this->user->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_USER)
