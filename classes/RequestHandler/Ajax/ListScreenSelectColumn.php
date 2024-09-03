@@ -25,7 +25,7 @@ class ListScreenSelectColumn implements RequestAjaxHandler
 
     public function __construct(
         Aggregate $table_screen_factory,
-        AC\ColumnFactory $column_factory,
+        AC\ColumnFactories\Aggregate $column_factory,
         AC\Response\JsonColumnFactory $json_response_factory
     ) {
         $this->table_screen_factory = $table_screen_factory;

@@ -5,25 +5,29 @@ namespace AC\ColumnFactory;
 use AC\Column\BaseColumnFactory;
 use AC\MetaType;
 use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactory\CustomField;
+use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactory\FieldType;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
+use AC\Type\ListKey;
 use AC\Value\Formatter\Meta;
 
 class CustomFieldFactory extends BaseColumnFactory
 {
 
-    private $custom_field;
+    private $custom_field_factory;
 
     private $meta_type;
+
+    private $list_key;
 
     private $field_type;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
-        CustomField $custom_field,
+        ComponentFactory\CustomFieldFactory $custom_field_factory,
+        ListKey $list_key,
         FieldType $field_type,
         MetaType $meta_type
     ) {
@@ -31,7 +35,8 @@ class CustomFieldFactory extends BaseColumnFactory
             $component_factory_registry
         );
 
-        $this->custom_field = $custom_field;
+        $this->custom_field_factory = $custom_field_factory;
+        $this->list_key = $list_key;
         $this->meta_type = $meta_type;
         $this->field_type = $field_type;
     }
@@ -40,7 +45,7 @@ class CustomFieldFactory extends BaseColumnFactory
     {
         parent::add_component_factories($config);
 
-        $this->add_component_factory($this->custom_field);
+        $this->add_component_factory($this->custom_field_factory->create($this->list_key));
         $this->add_component_factory($this->field_type);
     }
 

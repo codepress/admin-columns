@@ -7,7 +7,7 @@ namespace AC\RequestHandler\Ajax;
 use AC\Capabilities;
 use AC\Column\LabelEncoder;
 use AC\ColumnCollection;
-use AC\ColumnFactory;
+use AC\ColumnFactories\Aggregate;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Nonce;
@@ -32,7 +32,7 @@ class ListScreenSave implements RequestAjaxHandler
 
     public function __construct(
         Storage $storage,
-        ColumnFactory $column_factory,
+        Aggregate $column_factory,
         TableScreenFactory $table_screen_factory
     ) {
         $this->storage = $storage;
@@ -108,7 +108,9 @@ class ListScreenSave implements RequestAjaxHandler
 
     private function decode_columns(TableScreen $table_screen, array $columndata): ColumnCollection
     {
-        $columns = [];
+        $columns = new ColumnCollection();
+
+        $factories = $this->column_factory->create($table_screen);
 
         foreach ($columndata as $data) {
             if ( ! isset($data['type'])) {
@@ -120,14 +122,15 @@ class ListScreenSave implements RequestAjaxHandler
                 $data['label'] = (new LabelEncoder())->encode($data['label']);
             }
 
-            $columns[] = $this->column_factory->create(
-                $table_screen,
-                $data['type'],
-                new Config($data)
-            );
+            // TODO performance. Filter factories by type once then iterate.
+            foreach ($factories as $factory) {
+                if ($data['type'] === $factory->get_column_type()) {
+                    $columns->add($factory->create(new Config($data)));
+                }
+            }
         }
 
-        return new ColumnCollection(array_filter($columns));
+        return $columns;
     }
 
 }

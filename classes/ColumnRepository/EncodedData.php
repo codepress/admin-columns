@@ -4,47 +4,32 @@ declare(strict_types=1);
 
 namespace AC\ColumnRepository;
 
+use AC\Collection\ColumnFactories;
+use AC\Column;
 use AC\ColumnCollection;
-use AC\ColumnFactory;
 use AC\ColumnRepository;
 use AC\Setting\Config;
-use AC\TableScreen;
+use AC\Setting\ConfigCollection;
 
 class EncodedData implements ColumnRepository
 {
 
-    private $column_factory;
+    private $factories;
 
-    private $table_screen;
-
-    /**
-     * @var Config[]
-     */
     private $configs;
 
-    public function __construct(ColumnFactory $column_factory, TableScreen $table_screen, array $configs)
+    public function __construct(ColumnFactories $factories, ConfigCollection $configs)
     {
-        $this->column_factory = $column_factory;
-        $this->table_screen = $table_screen;
         $this->configs = $configs;
+        $this->factories = $factories;
     }
 
     public function find_all(): ColumnCollection
     {
-        // TODO test
         $columns = new ColumnCollection();
 
         foreach ($this->configs as $config) {
-            // TODO $config is sometimes config or an array when it comes from local storage
-            $config = $config instanceof Config
-                ? $config
-                : new Config($config);
-
-            $column = $this->column_factory->create(
-                $this->table_screen,
-                (string)$config->get('type'),
-                $config
-            );
+            $column = $this->find((string)$config->get('type'), $config);
 
             if ($column) {
                 $columns->add($column);
@@ -54,28 +39,15 @@ class EncodedData implements ColumnRepository
         return $columns;
     }
 
-    //        foreach ($factories as $factory) {
-    //            if ( $factory->can_create('column-meta') ) {
-    //                $column = $factory->create(
-    //        }
-    //}
+    private function find(string $type, Config $config): ?Column
+    {
+        foreach ($this->factories as $factory) {
+            if ($type === $factory->get_column_type()) {
+                return $factory->create($config);
+            }
+        }
 
-    //    public function find_all(): ColumnCollection
-    //    {
-    //        $columns = new ColumnCollection();
-    //
-    //        foreach ($this->columns_data as $column_data) {
-    //            $column = $this->column_factory->create(
-    //                $this->table_screen,
-    //                new Config($column_data)
-    //            );
-    //
-    //            if ($column) {
-    //                $columns->add($column);
-    //            }
-    //        }
-    //
-    //        return $columns;
-    //    }
+        return null;
+    }
 
 }

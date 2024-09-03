@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace AC\ListScreenRepository;
 
-use AC\ColumnFactory;
+use AC\ColumnFactories\Aggregate;
 use AC\ColumnIterator;
 use AC\ColumnIterator\ProxyColumnIterator;
+use AC\ColumnRepository\ColumnRepository;
 use AC\ColumnRepository\EncodedData;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepositoryWritable;
 use AC\Setting\Config;
+use AC\Setting\ConfigCollection;
 use AC\Storage\EncoderFactory;
 use AC\TableScreen;
 use AC\TableScreenFactory;
@@ -38,7 +40,7 @@ class Database implements ListScreenRepositoryWritable
     public function __construct(
         TableScreenFactory $table_screen_factory,
         EncoderFactory $encoder_factory,
-        ColumnFactory $column_factory,
+        Aggregate $column_factory,
         ListScreenStorageType $storage_type = null
     ) {
         $this->table_screen_factory = $table_screen_factory;
@@ -212,14 +214,13 @@ class Database implements ListScreenRepositoryWritable
     {
         return new ProxyColumnIterator(
             new EncodedData(
-                $this->column_factory,
-                $table_screen,
+                $this->column_factory->create($table_screen),
                 $this->create_configs($data)
             )
         );
     }
 
-    private function create_configs(object $data): array
+    private function create_configs(object $data): ConfigCollection
     {
         $configs = [];
 
@@ -235,7 +236,7 @@ class Database implements ListScreenRepositoryWritable
             $configs[] = new Config($config);
         }
 
-        return $configs;
+        return new ConfigCollection($configs);
     }
 
     private function create_list_screens(array $rows): ListScreenCollection

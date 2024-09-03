@@ -2,9 +2,12 @@
 
 namespace AC;
 
+use AC\Type\TaxonomySlug;
+
 interface Taxonomy
 {
 
-    public function get_taxonomy(): string;
+    // TODO check usages
+    public function get_taxonomy(): TaxonomySlug;
 
 }

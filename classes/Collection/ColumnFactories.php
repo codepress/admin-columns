@@ -17,6 +17,7 @@ class ColumnFactories extends Iterator
         }
     }
 
+    // TODO Stefan remove string $type and let the $factory resolve it for you
     public function add(string $type, ColumnFactory $factory): void
     {
         $this->data[$type] = $factory;

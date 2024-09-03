@@ -12,6 +12,7 @@ use AC\Table;
 use AC\TableScreen;
 use AC\Type\Labels;
 use AC\Type\ListKey;
+use AC\Type\PostTypeSlug;
 use AC\Type\Uri;
 use AC\Type\Url;
 use WP_Post_Type;
@@ -41,9 +42,9 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
         return new Table\ManageValue\Post($this->post_type->name, new Table\ColumnRenderable($list_screen));
     }
 
-    public function get_post_type(): string
+    public function get_post_type(): PostTypeSlug
     {
-        return $this->post_type->name;
+        return new PostTypeSlug($this->post_type->name);
     }
 
     public function get_query_type(): string

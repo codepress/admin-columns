@@ -5,69 +5,21 @@ declare(strict_types=1);
 namespace AC\ColumnFactories;
 
 use AC;
-use AC\Collection;
-use AC\ColumnFactories;
 use AC\ColumnFactory\Post;
-use AC\MetaType;
-use AC\Relation;
 use AC\TableScreen;
-use AC\Type\ListKey;
-use AC\Type\PostTypeSlug;
-use AC\Vendor\DI\Container;
 
-class PostFactory implements ColumnFactories
+final class PostFactory extends BaseFactory
 {
 
-    private $container;
-
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
-
-    public function create(TableScreen $table_screen): ?Collection\ColumnFactories
+    public function get_factories(TableScreen $table_screen): array
     {
         if ( ! $table_screen instanceof AC\PostType) {
-            return null;
+            return [];
         }
 
-        $post_type = $table_screen->get_post_type();
+        $post_type = (string)$table_screen->get_post_type();
 
-        // TODO is this necessary and the way to go?
-        $this->container->set(PostTypeSlug::class, new PostTypeSlug($table_screen->get_post_type()));
-        $this->container->set(Relation::class, new AC\Relation\Post($table_screen->get_post_type()));
-        $this->container->set(MetaType::class, MetaType::create_post_type());
-        $this->container->set(ListKey::class, $table_screen->get_key());
-
-        // TODO remove
-        //        $meta_type = new MetaType(MetaType::POST);
-        //
-        //        $meta_key_factory = $this->container->make(
-        //            Settings\Column\MetaKeyFactory::class,
-        //            [
-        //                'meta_type' => $meta_type,
-        //            ]
-        //        );
-        //
-        //        // TODO Test
-        //        $factories[] = $this->container->make(CustomField\TextFactory::class, [
-        //            'meta_key_factory' => $meta_key_factory,
-        //        ]);
-        //        $factories[] = $this->container->make(CustomField\NumberFactory::class, [
-        //            'meta_key_factory' => $meta_key_factory,
-        //        ]);
-        //
-        //                $factories[] = $this->container->make(
-        //                    CustomFieldFactory::class,
-        //                    [
-        //                        'custom_field_factory' => new Settings\Column\CustomFieldFactory(
-        //                            new MetaType(MetaType::POST),
-        //                            $this->container->get(CustomFieldTypeFactory::class)
-        //                        ),
-        //                    ]
-        //                );
-
-        $fqn_classes = [
+        $factories = [
             AC\ColumnFactory\CustomFieldFactory::class,
             AC\ColumnFactory\ActionsFactory::class,
             Post\AttachmentFactory::class,
@@ -93,50 +45,39 @@ class PostFactory implements ColumnFactories
             Post\ShortLinkFactory::class,
             Post\SlugFactory::class,
             Post\StatusFactory::class,
+            Post\WordCountFactory::class,
         ];
 
-        foreach ($fqn_classes as $fqn_class) {
-            $factories[] = $this->container->make($fqn_class);
+        if (post_type_supports($post_type, 'thumbnail')) {
+            $factories[] = Post\FeaturedImageFactory::class;
         }
 
         if (post_type_supports($post_type, 'title')) {
-            $factories[] = $this->container->make(Post\TitleRawFactory::class);
-        }
-
-        if (post_type_supports($post_type, 'thumbnail')) {
-            $factories[] = $this->container->make(Post\FeaturedImageFactory::class);
+            $factories[] = Post\TitleRawFactory::class;
         }
 
         if (post_type_supports($post_type, 'post-formats')) {
-            $factories[] = $this->container->make(Post\FormatsFactory::class);
+            $factories[] = Post\FormatsFactory::class;
         }
 
-        // TODO does this do an additional DB call?
+        // TODO Stefan does this do an additional DB call?
         if (count(ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)) > 0) {
-            $factories[] = $this->container->make(Post\TaxonomyFactory::class);
+            $factories[] = Post\TaxonomyFactory::class;
         }
 
         if ('post' === $post_type) {
-            $factories[] = $this->container->make(Post\StickyFactory::class);
+            $factories[] = Post\StickyFactory::class;
         }
 
-        $factories[] = $this->container->make(Post\WordCountFactory::class);
-
         if (post_type_supports($post_type, 'comments')) {
-            $factories[] = $this->container->make(Post\CommentCountFactory::class);
+            $factories[] = Post\CommentCountFactory::class;
         }
 
         if (post_type_supports($post_type, 'excerpt')) {
-            $factories[] = $this->container->make(Post\ExcerptFactory::class);
+            $factories[] = Post\ExcerptFactory::class;
         }
 
-        $collection = new Collection\ColumnFactories();
-
-        foreach ($factories as $factory) {
-            $collection->add($factory->get_column_type(), $factory);
-        }
-
-        return $collection;
+        return $factories;
     }
 
 }

@@ -15,7 +15,7 @@ class DefaultGroups implements MenuGroupFactory
     {
         switch ($table_screen) {
             case $table_screen instanceof TableScreen\Post :
-                $post_type = get_post_type_object($table_screen->get_post_type());
+                $post_type = get_post_type_object((string)$table_screen->get_post_type());
 
                 if ($post_type->show_in_menu) {
                     return new MenuGroup('post', __('Post Type'), 5, 'cpacicon-gf-article');
