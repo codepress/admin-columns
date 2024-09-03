@@ -8,6 +8,7 @@ use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
+use AC\Type\PostTypeSlug;
 use AC\Value\Formatter\Collection\Separator;
 use AC\Value\Formatter\Post\PostTerms;
 
@@ -22,12 +23,15 @@ class TaxonomyFactory extends BaseColumnFactory
 
     private $separator_factory;
 
+    private $post_type;
+
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
-        ComponentFactory\Taxonomy $taxonomy_factory,
+        ComponentFactory\TaxonomyFactory $taxonomy_factory,
         ComponentFactory\TermLink $term_link_factory,
         ComponentFactory\NumberOfItems $number_of_items_factory,
-        ComponentFactory\Separator $separator_factory
+        ComponentFactory\Separator $separator_factory,
+        PostTypeSlug $post_type
     ) {
         parent::__construct($component_factory_registry);
 
@@ -35,13 +39,14 @@ class TaxonomyFactory extends BaseColumnFactory
         $this->term_link_factory = $term_link_factory;
         $this->number_of_items_factory = $number_of_items_factory;
         $this->separator_factory = $separator_factory;
+        $this->post_type = $post_type;
     }
 
     protected function add_component_factories(Config $config): void
     {
         parent::add_component_factories($config);
 
-        $this->add_component_factory($this->taxonomy_factory);
+        $this->add_component_factory($this->taxonomy_factory->create($this->post_type));
         $this->add_component_factory($this->term_link_factory);
         $this->add_component_factory($this->number_of_items_factory);
         $this->add_component_factory($this->separator_factory);

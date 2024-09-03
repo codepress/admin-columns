@@ -6,7 +6,7 @@ namespace AC\Type;
 
 use InvalidArgumentException;
 
-class PostTypeSlug
+final class PostTypeSlug
 {
 
     private $post_type;
@@ -20,7 +20,7 @@ class PostTypeSlug
 
     private function validate(): void
     {
-        if ('' === $this->post_type) {
+        if ($this->post_type === '') {
             throw new InvalidArgumentException('Post type slug cannot be empty');
         }
     }
