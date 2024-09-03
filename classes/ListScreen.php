@@ -173,7 +173,7 @@ final class ListScreen
     public function get_post_type(): ?string
     {
         return $this->table_screen instanceof PostType
-            ? $this->table_screen->get_post_type()
+            ? (string)$this->table_screen->get_post_type()
             : null;
     }
 

@@ -30,4 +30,9 @@ final class PostTypeSlug
         return $this->post_type;
     }
 
+    public function equals(string $other): bool
+    {
+        return $this->post_type === $other;
+    }
+
 }
