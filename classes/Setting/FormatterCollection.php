@@ -41,7 +41,7 @@ final class FormatterCollection extends Collection implements Countable
      */
     public function current()
     {
-        return parent::current();
+        return current($this->data);
     }
 
     public function count(): int

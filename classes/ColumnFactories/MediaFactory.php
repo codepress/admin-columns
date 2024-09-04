@@ -6,16 +6,15 @@ namespace AC\ColumnFactories;
 
 use AC;
 use AC\ColumnFactory\Media;
+use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 
 class MediaFactory extends BaseFactory
 {
 
-    protected function get_factories(TableScreen $table_screen): array
+    protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
-        if ( ! $table_screen instanceof AC\TableScreen\Media) {
-            return [];
-        }
+        $collection = new ColumnFactoryDefinitionCollection();
 
         $factories = [
             Media\AlbumFactory::class,
@@ -42,7 +41,13 @@ class MediaFactory extends BaseFactory
             $factories[] = Media\ExifDataFactory::class;
         }
 
-        return $factories;
+        foreach ($factories as $factory) {
+            $collection->add(
+                new AC\Type\ColumnFactoryDefinition($factory)
+            );
+        }
+
+        return $collection;
     }
 
 }

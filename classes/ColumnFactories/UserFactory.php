@@ -7,16 +7,15 @@ namespace AC\ColumnFactories;
 use AC;
 use AC\ColumnFactory;
 use AC\ColumnFactory\User;
+use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 
 class UserFactory extends BaseFactory
 {
 
-    protected function get_factories(TableScreen $table_screen): array
+    protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
-        if ( ! $table_screen instanceof AC\TableScreen\User) {
-            return [];
-        }
+        $collection = new ColumnFactoryDefinitionCollection();
 
         $factories = [
             ColumnFactory\ActionsFactory::class,
@@ -46,7 +45,21 @@ class UserFactory extends BaseFactory
             User\UserUrlFactory::class,
         ];
 
-        return $factories;
+        foreach ($factories as $factory => $parameters) {
+            if (is_numeric($factory)) {
+                $factory = $parameters;
+                $parameters = [];
+            }
+
+            $collection->add(
+                new AC\Type\ColumnFactoryDefinition(
+                    $factory,
+                    $parameters ?? []
+                )
+            );
+        }
+
+        return $collection;
     }
 
 }

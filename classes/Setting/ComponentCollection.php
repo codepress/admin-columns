@@ -21,7 +21,7 @@ class ComponentCollection extends Collection implements Countable
 
     public function current(): Component
     {
-        return parent::current();
+        return current($this->data);
     }
 
     public function count(): int

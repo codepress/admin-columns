@@ -4,43 +4,42 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactories;
 
-use AC\Collection;
-use AC\ColumnFactories;
 use AC\ColumnFactory;
+use AC\ColumnFactoryDefinitionCollection;
 use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\TableScreen;
+use AC\Type\ColumnFactoryDefinition;
 use AC\Vendor\DI\Container;
 
-class OriginalFactory implements ColumnFactories
+final class OriginalFactory extends BaseFactory
 {
 
     private $repository;
 
-    private $container;
-
     public function __construct(DefaultColumnsRepository $repository, Container $container)
     {
         $this->repository = $repository;
-        $this->container = $container;
+
+        parent::__construct($container);
     }
 
-    public function create(TableScreen $table_screen): ?Collection\ColumnFactories
+    protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
-        $factories = [];
+        $collection = new ColumnFactoryDefinitionCollection();
 
         foreach ($this->repository->find_all($table_screen->get_key()) as $type => $label) {
-            $factories[$type] = $this->container->make(
-                ColumnFactory\OriginalFactory::class,
-                [
-                    'type' => $type,
-                    'label' => $label,
-                ]
+            $collection->add(
+                new ColumnFactoryDefinition(
+                    ColumnFactory\OriginalFactory::class,
+                    [
+                        'type'  => $type,
+                        'label' => $label,
+                    ]
+                )
             );
         }
 
-        return $factories
-            ? new Collection\ColumnFactories($factories)
-            : null;
+        return $collection;
     }
 
 }

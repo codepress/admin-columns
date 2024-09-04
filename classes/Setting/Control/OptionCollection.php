@@ -53,7 +53,7 @@ final class OptionCollection extends Collection
 
     public function current(): Option
     {
-        return parent::current();
+        return current($this->data);
     }
 
 }
