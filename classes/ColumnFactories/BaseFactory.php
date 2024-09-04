@@ -34,11 +34,13 @@ abstract class BaseFactory implements ColumnFactories
 
         $collection = new Collection\ColumnFactories();
 
-        if (count($this->get_factories($table_screen)) === 0) {
+        $factories = $this->get_factories($table_screen);
+
+        if (count($factories) === 0) {
             return $collection;
         }
 
-        foreach ($this->get_factories($table_screen) as $factory => $parameters) {
+        foreach ($factories as $factory => $parameters) {
             // Allow for lazy definition
 
             if (is_numeric($factory)) {

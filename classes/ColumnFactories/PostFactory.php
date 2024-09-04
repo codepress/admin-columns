@@ -25,7 +25,7 @@ final class PostFactory extends BaseFactory
         }
 
         // TODO
-        $this->container->set(TableScreenContext::class, TableScreenContext::from_table_screen($table_screen));
+        $this->container->set(TableScreenContext::class, $table_screen_context);
 
         $post_type = (string)$table_screen->get_post_type();
 
