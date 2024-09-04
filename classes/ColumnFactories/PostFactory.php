@@ -12,7 +12,7 @@ use AC\Type\TableScreenContext;
 final class PostFactory extends BaseFactory
 {
 
-    public function get_factories(TableScreen $table_screen): array
+    protected function get_factories(TableScreen $table_screen): array
     {
         if ( ! $table_screen instanceof AC\PostType) {
             return [];
@@ -70,7 +70,6 @@ final class PostFactory extends BaseFactory
             $factories[] = Post\FormatsFactory::class;
         }
 
-        // TODO Stefan does this do an additional DB call?
         if (count(ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)) > 0) {
             $factories[] = Post\TaxonomyFactory::class;
         }
