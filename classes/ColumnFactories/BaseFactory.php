@@ -25,10 +25,11 @@ abstract class BaseFactory implements ColumnFactories
     public function create(TableScreen $table_screen): Collection\ColumnFactories
     {
         $collection = new Collection\ColumnFactories();
+
         $factories = $this->get_factories($table_screen);
 
         if ($factories->count()) {
-            $parameters = [
+            $defaults = [
                 'list_key'  => $table_screen->get_key(),
                 'meta_type' => $table_screen instanceof TableScreen\MetaType ? $table_screen->get_meta_type() : null,
                 'post_type' => $table_screen instanceof PostType ? $table_screen->get_post_type() : null,
@@ -36,11 +37,9 @@ abstract class BaseFactory implements ColumnFactories
             ];
 
             foreach ($this->get_factories($table_screen) as $factory) {
-                $parameters += $factory->get_parameters();
-
                 $instance = $this->container->make(
                     $factory->get_factory(),
-                    $parameters
+                    $defaults + $factory->get_parameters()
                 );
 
                 $collection->add(

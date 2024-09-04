@@ -29,8 +29,6 @@ final class PostFactory extends BaseFactory
         // TODO
         $this->container->set(TableScreenContext::class, TableScreenContext::from_table_screen($table_screen));
 
-        $post_type = (string)$table_screen->get_post_type();
-
         $factories = [
             AC\ColumnFactory\CustomFieldFactory::class,
             AC\ColumnFactory\ActionsFactory::class,
@@ -59,6 +57,8 @@ final class PostFactory extends BaseFactory
             Post\StatusFactory::class,
             Post\WordCountFactory::class,
         ];
+
+        $post_type = (string)$table_screen->get_post_type();
 
         if (post_type_supports($post_type, 'thumbnail')) {
             $factories[] = Post\FeaturedImageFactory::class;
