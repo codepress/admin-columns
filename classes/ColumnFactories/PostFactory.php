@@ -12,16 +12,18 @@ use AC\Type\TableScreenContext;
 final class PostFactory extends BaseFactory
 {
 
-    protected function get_factories(TableScreen $table_screen): array
+    protected function get_factories(TableScreen $table_screen): AC\ColumnFactoryDefinitionCollection
     {
+        $collection = new AC\ColumnFactoryDefinitionCollection();
+
         if ( ! $table_screen instanceof AC\PostType) {
-            return [];
+            return $collection;
         }
 
         $table_screen_context = TableScreenContext::from_table_screen($table_screen);
 
         if ( ! $table_screen_context) {
-            return [];
+            return $collection;
         }
 
         // TODO
@@ -86,7 +88,11 @@ final class PostFactory extends BaseFactory
             $factories[] = Post\ExcerptFactory::class;
         }
 
-        return $factories;
+        foreach ($factories as $factory) {
+            $collection->add(new AC\Type\ColumnFactoryDefinition($factory));
+        }
+
+        return $collection;
     }
 
 }
