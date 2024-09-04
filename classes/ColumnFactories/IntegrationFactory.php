@@ -5,34 +5,35 @@ declare(strict_types=1);
 namespace AC\ColumnFactories;
 
 use AC;
-use AC\Collection;
-use AC\ColumnFactories;
+use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 use AC\Vendor\DI\Container;
 
-class IntegrationFactory implements ColumnFactories
+class IntegrationFactory extends BaseFactory
 {
-
-    private $container;
 
     private $repository;
 
     public function __construct(Container $container, AC\IntegrationRepository $integration_repository)
     {
-        $this->container = $container;
         $this->repository = $integration_repository;
+        parent::__construct($container);
     }
 
-    public function create(TableScreen $table_screen): ?Collection\ColumnFactories
+    protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
-        $collection = new Collection\ColumnFactories();
+        $collection = new ColumnFactoryDefinitionCollection();
 
         foreach ($this->repository->find_all_by_active_plugins() as $integration) {
             if ($integration->show_placeholder($table_screen)) {
-                $factory = $this->container->make(AC\ColumnFactory\IntegrationPlaceholder::class, [
-                    'integration' => $integration,
-                ]);
-                $collection->add($factory->get_column_type(), $factory);
+                $collection->add(
+                    new AC\Type\ColumnFactoryDefinition(
+                        AC\ColumnFactory\IntegrationPlaceholder::class,
+                        [
+                            'integration' => $integration,
+                        ]
+                    )
+                );
             }
         }
 

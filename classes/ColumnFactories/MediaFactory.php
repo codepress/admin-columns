@@ -16,16 +16,6 @@ class MediaFactory extends BaseFactory
     {
         $collection = new ColumnFactoryDefinitionCollection();
 
-        //todo 
-        return $collection;
-    }
-
-    protected function get_fdactories(TableScreen $table_screen): array
-    {
-        if ( ! $table_screen instanceof AC\TableScreen\Media) {
-            return [];
-        }
-
         $factories = [
             Media\AlbumFactory::class,
             Media\ArtistFactory::class,
@@ -51,7 +41,13 @@ class MediaFactory extends BaseFactory
             $factories[] = Media\ExifDataFactory::class;
         }
 
-        return $factories;
+        foreach ($factories as $factory) {
+            $collection->add(
+                new AC\Type\ColumnFactoryDefinition($factory)
+            );
+        }
+
+        return $collection;
     }
 
 }

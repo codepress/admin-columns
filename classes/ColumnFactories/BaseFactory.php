@@ -39,7 +39,7 @@ abstract class BaseFactory implements ColumnFactories
             foreach ($this->get_factories($table_screen) as $factory) {
                 $instance = $this->container->make(
                     $factory->get_factory(),
-                    $defaults + $factory->get_parameters()
+                    array_merge($defaults, $factory->get_parameters())
                 );
 
                 $collection->add(

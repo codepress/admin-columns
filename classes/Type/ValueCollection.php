@@ -44,7 +44,7 @@ final class ValueCollection extends Collection implements Countable
 
     public function current(): Value
     {
-        return parent::current();
+        return current($this->data);
     }
 
     public function count(): int
