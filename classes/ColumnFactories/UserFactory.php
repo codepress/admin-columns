@@ -7,12 +7,18 @@ namespace AC\ColumnFactories;
 use AC;
 use AC\ColumnFactory;
 use AC\ColumnFactory\User;
+use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 
 class UserFactory extends BaseFactory
 {
 
-    protected function get_factories(TableScreen $table_screen): array
+    protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
+    {
+        return new ColumnFactoryDefinitionCollection();
+    }
+
+    protected function get_fadctories(TableScreen $table_screen): array
     {
         if ( ! $table_screen instanceof AC\TableScreen\User) {
             return [];

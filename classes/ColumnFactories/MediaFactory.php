@@ -6,12 +6,21 @@ namespace AC\ColumnFactories;
 
 use AC;
 use AC\ColumnFactory\Media;
+use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 
 class MediaFactory extends BaseFactory
 {
 
-    protected function get_factories(TableScreen $table_screen): array
+    protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
+    {
+        $collection = new ColumnFactoryDefinitionCollection();
+
+        //todo 
+        return $collection;
+    }
+
+    protected function get_fdactories(TableScreen $table_screen): array
     {
         if ( ! $table_screen instanceof AC\TableScreen\Media) {
             return [];

@@ -6,18 +6,21 @@ namespace AC\ColumnFactories;
 
 use AC;
 use AC\ColumnFactory\Comment;
+use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 
 class CommentFactory extends BaseFactory
 {
 
-    protected function get_factories(TableScreen $table_screen): array
+    protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
+        $collection = new ColumnFactoryDefinitionCollection();
+
         if ( ! $table_screen instanceof AC\TableScreen\Comment) {
-            return [];
+            return $collection;
         }
 
-        return [
+        $factories = [
             AC\ColumnFactory\CustomFieldFactory::class,
             AC\ColumnFactory\ActionsFactory::class,
             Comment\AgentFactory::class,
@@ -37,6 +40,12 @@ class CommentFactory extends BaseFactory
             Comment\UserFactory::class,
             Comment\WordCountFactory::class,
         ];
+
+        foreach ($factories as $factory) {
+            $collection->add(new AC\Type\ColumnFactoryDefinition($factory));
+        }
+
+        return $collection;
     }
 
 }
