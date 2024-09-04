@@ -18,7 +18,7 @@ final class ConditionalComponentFactoryCollection extends Collection
 
     public function current(): ConditionalComponentFactory
     {
-        return parent::current();
+        return current($this->data);
     }
 
 }

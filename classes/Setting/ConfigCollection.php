@@ -41,7 +41,7 @@ class ConfigCollection extends Collection implements Countable
 
     public function current(): Config
     {
-        return parent::current();
+        return current($this->data);
     }
 
 }

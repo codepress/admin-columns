@@ -32,7 +32,7 @@ final class AttributeCollection extends Collection
 
     public function current(): Attribute
     {
-        return parent::current();
+        return current($this->data);
     }
 
 }
