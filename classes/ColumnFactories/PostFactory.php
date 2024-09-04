@@ -27,7 +27,7 @@ final class PostFactory extends BaseFactory
         }
 
         // TODO
-        $this->container->set(TableScreenContext::class, TableScreenContext::from_table_screen($table_screen));
+        $this->container->set(TableScreenContext::class, $table_screen_context);
 
         $factories = [
             AC\ColumnFactory\CustomFieldFactory::class,

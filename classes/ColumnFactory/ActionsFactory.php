@@ -5,7 +5,6 @@ namespace AC\ColumnFactory;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
-use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Message;
@@ -14,9 +13,9 @@ use AC\Value\Formatter\Message;
 class ActionsFactory extends BaseColumnFactory
 {
 
-    public function __construct(ComponentFactoryRegistry $component_factory_registry)
+    protected function add_common_component_factories(): void
     {
-        parent::__construct($component_factory_registry);
+        parent::add_common_component_factories();
 
         $this->add_component_factory(new ComponentFactory\ActionIcons());
     }

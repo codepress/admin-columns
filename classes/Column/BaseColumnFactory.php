@@ -30,7 +30,6 @@ abstract class BaseColumnFactory implements ColumnFactory
         ComponentFactoryRegistry $component_factory_registry
     ) {
         $this->component_factory_registry = $component_factory_registry;
-        $this->component_factories = new ConditionalComponentFactoryCollection();
     }
 
     protected function add_component_factory(ComponentFactory $factory, Specification $conditions = null): void
@@ -100,6 +99,8 @@ abstract class BaseColumnFactory implements ColumnFactory
 
     public function create(Config $config): Column
     {
+        $this->component_factories = new ConditionalComponentFactoryCollection();
+
         $this->add_component_factories($config);
 
         $components = $this->create_components($config);
