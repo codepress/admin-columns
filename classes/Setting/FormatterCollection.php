@@ -6,6 +6,7 @@ namespace AC\Setting;
 
 use Countable;
 use InvalidArgumentException;
+use ReturnTypeWillChange;
 
 final class FormatterCollection extends Collection implements Countable
 {
@@ -39,6 +40,7 @@ final class FormatterCollection extends Collection implements Countable
     /**
      * @return Formatter|CollectionFormatter
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         return current($this->data);
