@@ -28,7 +28,6 @@ class ProcessFormatters
     public function format(Value $value): Value
     {
         if (0 === $this->formatters->count()) {
-            // TODO test
             return $value;
         }
 

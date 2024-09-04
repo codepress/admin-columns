@@ -5,10 +5,11 @@ namespace AC\Storage\Repository;
 use AC\Storage\Option;
 use AC\Type\ListKey;
 
-class DefaultColumnsRepository
+// TODO create cached version
+final class DefaultColumnsRepository
 {
 
-    public function get_storage(ListKey $key): Option
+    private function get_storage(ListKey $key): Option
     {
         return new Option(
             sprintf('cpac_options_%s__default', $key)
@@ -34,16 +35,27 @@ class DefaultColumnsRepository
 
     public function find(string $type, ListKey $key): ?string
     {
-        return $this->get($key)[$type] ?? null;
+        return $this->get_cached_storage($key)[$type] ?? null;
     }
 
     public function find_all(ListKey $key): array
     {
-        $columns = $this->get($key);
+        $columns = $this->get_cached_storage($key);
 
         unset($columns['cb']);
 
         return $columns;
+    }
+
+    private function get_cached_storage(ListKey $key): array
+    {
+        static $cached_storage;
+
+        if ( ! isset($cached_storage[(string)$key])) {
+            $cached_storage[(string)$key] = $this->get($key);
+        }
+
+        return $cached_storage[(string)$key];
     }
 
     private function get(ListKey $key): array

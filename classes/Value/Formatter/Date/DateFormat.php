@@ -19,7 +19,15 @@ final class DateFormat implements Formatter
 
     public function format(Value $value): Value
     {
-        return $value->with_value(ac_helper()->date->format_date($this->format, $value->get_value()));
+        $timestamp = $value->get_value();
+
+        if ( ! is_numeric($timestamp)) {
+            return $value;
+        }
+
+        return $value->with_value(
+            wp_date($this->format, (int)$timestamp)
+        );
     }
 
 }

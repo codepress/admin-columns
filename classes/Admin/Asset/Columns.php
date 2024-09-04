@@ -146,7 +146,7 @@ class Columns extends Script
                             'codepress-admin-columns'
                         ),
                         'get_started'          => __(
-                            'Get started by adding columns to your list table.',
+                            'Start by adding columns to your list table.',
                             'codepress-admin-columns'
                         ),
                         'documentation'        => sprintf(

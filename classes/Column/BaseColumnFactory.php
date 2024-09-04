@@ -80,6 +80,7 @@ abstract class BaseColumnFactory implements ColumnFactory
         return $formatters;
     }
 
+    // TODO change return to void because the FormatterCollection is already a reference
     protected function get_formatters(
         ComponentCollection $components,
         Config $config,
