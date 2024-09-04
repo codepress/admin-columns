@@ -6,6 +6,7 @@ namespace AC\Setting\ComponentFactory;
 
 use AC;
 use AC\Expression\StringComparisonSpecification;
+use AC\Setting\AttributeFactory;
 use AC\Setting\Children;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
@@ -95,7 +96,7 @@ class FieldType extends Builder
             __('Select the field type', 'codepress-admin-columns'),
             false,
             new AC\Setting\AttributeCollection([
-                AC\Setting\AttributeFactory::create_refresh(),
+                AttributeFactory::create_refresh(),
             ])
         );
     }
@@ -211,6 +212,9 @@ class FieldType extends Builder
     protected function get_children(Config $config): ?Children
     {
         // TODO huge performance issue
+        // test with
+        //        return null;
+
         return new Children(
             new AC\Setting\ComponentCollection([
                 $this->string_limit->create(

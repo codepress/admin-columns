@@ -7,6 +7,7 @@ namespace AC\ColumnFactories;
 use AC;
 use AC\ColumnFactory\Post;
 use AC\TableScreen;
+use AC\Type\TableScreenContext;
 
 final class PostFactory extends BaseFactory
 {
@@ -16,6 +17,15 @@ final class PostFactory extends BaseFactory
         if ( ! $table_screen instanceof AC\PostType) {
             return [];
         }
+
+        $table_screen_context = TableScreenContext::from_table_screen($table_screen);
+
+        if ( ! $table_screen_context) {
+            return [];
+        }
+
+        // TODO
+        $this->container->set(TableScreenContext::class, TableScreenContext::from_table_screen($table_screen));
 
         $post_type = (string)$table_screen->get_post_type();
 

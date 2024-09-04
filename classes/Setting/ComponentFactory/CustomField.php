@@ -7,18 +7,18 @@ namespace AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
-use AC\Type\ListKey;
+use AC\Type\TableScreenContext;
 
 class CustomField extends Builder
 {
 
     private const NAME = 'field';
 
-    private $list_key;
+    private $table_screen_context;
 
-    public function __construct(ListKey $list_key)
+    public function __construct(TableScreenContext $table_screen_context)
     {
-        $this->list_key = $list_key;
+        $this->table_screen_context = $table_screen_context;
     }
 
     protected function get_label(Config $config): ?string
@@ -47,12 +47,19 @@ class CustomField extends Builder
             );
         }
 
+        // TODO fix request handler
         return OptionFactory::create_select_remote(
             self::NAME,
             'ac-custom-field-keys',
             $config->get('field', ''),
             [
-                'list_key' => (string)$this->list_key,
+                'meta_type' => (string)$this->table_screen_context->get_meta_type(),
+                'post_type' => $this->table_screen_context->has_post_type()
+                    ? (string)$this->table_screen_context->get_post_type()
+                    : '',
+                'taxonomy'  => $this->table_screen_context->has_taxonomy()
+                    ? (string)$this->table_screen_context->get_taxonomy()
+                    : '',
             ],
             __('Select', 'codepress-admin-columns')
         );

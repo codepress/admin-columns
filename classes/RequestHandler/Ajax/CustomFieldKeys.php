@@ -10,19 +10,9 @@ use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
-use AC\TableScreen;
-use AC\TableScreenFactory\Aggregate;
-use AC\Type\ListKey;
 
 class CustomFieldKeys implements RequestAjaxHandler
 {
-
-    private $table_screen_factory;
-
-    public function __construct(Aggregate $table_screen_factory)
-    {
-        $this->table_screen_factory = $table_screen_factory;
-    }
 
     public function handle(): void
     {
@@ -37,24 +27,18 @@ class CustomFieldKeys implements RequestAjaxHandler
             $response->error();
         }
 
-        $table_screen = $this->table_screen_factory->create(new ListKey($request->get('list_key')));
+        $meta_type = $request->get('meta_type');
+        $post_type = $request->get('post_type');
 
-        if ( ! $table_screen instanceof TableScreen\MetaType) {
-            $response->error();
-        }
-
-        $query = new Query((string)$table_screen->get_meta_type());
+        $query = new Query((string)$meta_type);
 
         $query->select('meta_key')
               ->distinct()
               ->order_by('meta_key');
 
-        if ($table_screen instanceof TableScreen\Post) {
-            $query->where_post_type((string)$table_screen->get_post_type());
-        }
-
-        if ($table_screen instanceof TableScreen\Media) {
-            $query->where_post_type('attachment');
+        if ($post_type) {
+            // TODO test Media 'attachment'
+            $query->where_post_type((string)$post_type);
         }
 
         // TODO David continue

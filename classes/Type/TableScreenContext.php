@@ -18,7 +18,7 @@ final class TableScreenContext
     private $taxonomy;
 
     public function __construct(
-        MetaType $meta_type = null,
+        MetaType $meta_type,
         PostTypeSlug $post_type = null,
         TaxonomySlug $taxonomy = null
     ) {
