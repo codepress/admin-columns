@@ -26,7 +26,6 @@ class RegisteredDateFactory extends BaseColumnFactory
     protected function add_component_factories(Config $config): void
     {
         parent::add_component_factories($config);
-
         $this->add_component_factory($this->date_format);
     }
 
@@ -46,6 +45,7 @@ class RegisteredDateFactory extends BaseColumnFactory
         FormatterCollection $formatters
     ): FormatterCollection {
         $formatters->add(new Formatter\User\Property('user_registered'));
+        $formatters->add(new Formatter\Timestamp());
 
         return parent::get_formatters($components, $config, $formatters);
     }

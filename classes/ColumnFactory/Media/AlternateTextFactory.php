@@ -8,7 +8,7 @@ use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\MetaValue;
 
-class AternateTextFactory extends BaseColumnFactory
+class AlternateTextFactory extends BaseColumnFactory
 {
 
     // Group to group: 'media-audio'
