@@ -6,12 +6,13 @@ namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
 use AC\Collection;
+use AC\Collection\ColumnFactories;
 use AC\ColumnFactory;
 use AC\TableScreen;
 use AC\ThirdParty\MediaLibraryAssistant;
 use AC\Vendor\DI\Container;
 
-class ColumnTypesFactory implements AC\ColumnFactories
+class ColumnTypesFactory implements AC\ColumnFactoryCollectionFactory
 {
 
     private $container;
@@ -21,10 +22,12 @@ class ColumnTypesFactory implements AC\ColumnFactories
         $this->container = $container;
     }
 
-    public function create(TableScreen $table_screen): ?Collection\ColumnFactories
+    public function create(TableScreen $table_screen): ColumnFactories
     {
+        $collection = new Collection\ColumnFactories();
+
         if ( ! $table_screen instanceof MediaLibraryAssistant\TableScreen) {
-            return null;
+            return $collection;
         }
 
         //TODO add Actionfactory
@@ -45,8 +48,6 @@ class ColumnTypesFactory implements AC\ColumnFactories
         $factories[] = $this->container->make(ColumnFactory\Media\PreviewFactory::class);
         $factories[] = $this->container->make(ColumnFactory\Media\VideoPlayerFactory::class);
         $factories[] = $this->container->make(ColumnFactory\Media\WidthFactory::class);
-
-        $collection = new Collection\ColumnFactories();
 
         foreach ($factories as $factory) {
             $collection->add($factory->get_column_type(), $factory);

@@ -10,7 +10,7 @@ use AC\ColumnFactory\User;
 use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 
-class UserFactory extends BaseFactory
+final class UserFactory extends BaseFactory
 {
 
     protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection

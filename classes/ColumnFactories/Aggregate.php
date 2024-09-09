@@ -5,24 +5,25 @@ declare(strict_types=1);
 namespace AC\ColumnFactories;
 
 use AC\Collection;
-use AC\ColumnFactories;
+use AC\Collection\ColumnFactories;
+use AC\ColumnFactoryCollectionFactory;
 use AC\TableScreen;
 
 // TODO Proof-of-concept POC
-class Aggregate implements ColumnFactories
+class Aggregate implements ColumnFactoryCollectionFactory
 {
 
     /**
-     * @var ColumnFactories[]
+     * @var ColumnFactoryCollectionFactory[]
      */
     private static $factories = [];
 
-    public static function add(ColumnFactories $factory): void
+    public static function add(ColumnFactoryCollectionFactory $factory): void
     {
         self::$factories[] = $factory;
     }
 
-    public function create(TableScreen $table_screen): Collection\ColumnFactories
+    public function create(TableScreen $table_screen): ColumnFactories
     {
         $factories = [];
 

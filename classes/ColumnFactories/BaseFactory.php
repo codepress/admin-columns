@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace AC\ColumnFactories;
 
 use AC\Collection;
-use AC\ColumnFactories;
+use AC\Collection\ColumnFactories;
+use AC\ColumnFactoryCollectionFactory;
 use AC\ColumnFactoryDefinitionCollection;
 use AC\PostType;
 use AC\TableScreen;
 use AC\Taxonomy;
 use AC\Vendor\DI\Container;
 
-abstract class BaseFactory implements ColumnFactories
+abstract class BaseFactory implements ColumnFactoryCollectionFactory
 {
 
     protected $container;
@@ -22,7 +23,7 @@ abstract class BaseFactory implements ColumnFactories
         $this->container = $container;
     }
 
-    public function create(TableScreen $table_screen): Collection\ColumnFactories
+    public function create(TableScreen $table_screen): ColumnFactories
     {
         $collection = new Collection\ColumnFactories();
 

@@ -9,7 +9,7 @@ use AC\ColumnFactory\Media;
 use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 
-class MediaFactory extends BaseFactory
+final class MediaFactory extends BaseFactory
 {
 
     protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection

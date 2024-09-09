@@ -9,7 +9,7 @@ use AC\ColumnFactory\Comment;
 use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 
-class CommentFactory extends BaseFactory
+final class CommentFactory extends BaseFactory
 {
 
     protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
