@@ -20,16 +20,6 @@ class ColumnFactories extends Iterator
         $this->data[$factory->get_column_type()] = $factory;
     }
 
-    public function with_collection(ColumnFactories $factories): self
-    {
-        return new self(
-            array_merge(
-                $this->data,
-                iterator_to_array($factories)
-            )
-        );
-    }
-
     public function current(): ColumnFactory
     {
         return parent::current();
