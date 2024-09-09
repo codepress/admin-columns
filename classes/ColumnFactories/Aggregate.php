@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactories;
 
-use AC\Collection;
 use AC\Collection\ColumnFactories;
 use AC\ColumnFactoryCollectionFactory;
 use AC\TableScreen;
 
-// TODO Proof-of-concept POC
 class Aggregate implements ColumnFactoryCollectionFactory
 {
 
@@ -25,19 +23,14 @@ class Aggregate implements ColumnFactoryCollectionFactory
 
     public function create(TableScreen $table_screen): ColumnFactories
     {
-        $factories = [];
+        $factories = new ColumnFactories();
 
-        foreach (self::$factories as $factory) {
-            $column_factories = $factory->create($table_screen);
-
-            if ($column_factories) {
-                $factories[] = iterator_to_array($column_factories);
+        foreach (self::$factories as $collection_factory) {
+            foreach ($collection_factory->create($table_screen) as $factory) {
+                $factories->add($factory);
             }
         }
 
-        return new Collection\ColumnFactories(
-            array_merge(...$factories)
-        );
+        return $factories;
     }
-
 }

@@ -6,15 +6,17 @@ namespace AC\ColumnFactories;
 
 use AC;
 use AC\ColumnFactory\Post;
+use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
+use AC\Type\ColumnFactoryDefinition;
 use AC\Type\TableScreenContext;
 
 final class PostFactory extends BaseFactory
 {
 
-    protected function get_factories(TableScreen $table_screen): AC\ColumnFactoryDefinitionCollection
+    protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
-        $collection = new AC\ColumnFactoryDefinitionCollection();
+        $collection = new ColumnFactoryDefinitionCollection();
 
         if ( ! $table_screen instanceof AC\PostType) {
             return $collection;
@@ -27,7 +29,7 @@ final class PostFactory extends BaseFactory
         }
 
         $collection->add(
-            new AC\Type\ColumnFactoryDefinition(
+            new ColumnFactoryDefinition(
                 AC\ColumnFactory\CustomFieldFactory::class,
                 [
                     'table_screen_context' => $table_screen_context,
@@ -94,7 +96,7 @@ final class PostFactory extends BaseFactory
         }
 
         foreach ($factories as $factory) {
-            $collection->add(new AC\Type\ColumnFactoryDefinition($factory));
+            $collection->add(new ColumnFactoryDefinition($factory));
         }
 
         return $collection;

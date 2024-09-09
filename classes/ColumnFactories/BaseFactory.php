@@ -38,14 +38,11 @@ abstract class BaseFactory implements ColumnFactoryCollectionFactory
             ];
 
             foreach ($this->get_factories($table_screen) as $factory) {
-                $instance = $this->container->make(
-                    $factory->get_factory(),
-                    array_merge($defaults, $factory->get_parameters())
-                );
-
                 $collection->add(
-                    $instance->get_column_type(),
-                    $instance
+                    $this->container->make(
+                        $factory->get_factory(),
+                        array_merge($defaults, $factory->get_parameters())
+                    )
                 );
             }
         }

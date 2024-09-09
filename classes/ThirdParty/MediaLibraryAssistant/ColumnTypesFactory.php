@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
-use AC\Collection;
 use AC\Collection\ColumnFactories;
 use AC\ColumnFactory;
 use AC\TableScreen;
@@ -24,33 +23,37 @@ class ColumnTypesFactory implements AC\ColumnFactoryCollectionFactory
 
     public function create(TableScreen $table_screen): ColumnFactories
     {
-        $collection = new Collection\ColumnFactories();
+        $collection = new ColumnFactories();
 
         if ( ! $table_screen instanceof MediaLibraryAssistant\TableScreen) {
             return $collection;
         }
 
-        //TODO add Actionfactory
-        //TODO add MenuFactory
-        $factories[] = $this->container->make(ColumnFactory\Post\SlugFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Post\TitleRawFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Post\AuthorFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\AlbumFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\ArtistFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\AvailableSizesFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\DimensionsFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\ExifDataFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\FileMetaAudioFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\FileMetaVideoFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\FileSizeFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\HeightFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\ImageFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\PreviewFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\VideoPlayerFactory::class);
-        $factories[] = $this->container->make(ColumnFactory\Media\WidthFactory::class);
+        $factories = [
+
+            //TODO add ActionFactory
+            //TODO add MenuFactory
+            ColumnFactory\Post\SlugFactory::class,
+            ColumnFactory\Post\TitleRawFactory::class,
+            ColumnFactory\Post\AuthorFactory::class,
+            ColumnFactory\Media\AlbumFactory::class,
+            ColumnFactory\Media\ArtistFactory::class,
+            ColumnFactory\Media\AvailableSizesFactory::class,
+            ColumnFactory\Media\DimensionsFactory::class,
+            ColumnFactory\Media\ExifDataFactory::class,
+            ColumnFactory\Media\FileMetaAudioFactory::class,
+            ColumnFactory\Media\FileMetaVideoFactory::class,
+            ColumnFactory\Media\FileSizeFactory::class,
+            ColumnFactory\Media\HeightFactory::class,
+            ColumnFactory\Media\ImageFactory::class,
+            ColumnFactory\Media\PreviewFactory::class,
+            ColumnFactory\Media\VideoPlayerFactory::class,
+            ColumnFactory\Media\WidthFactory::class,
+
+        ];
 
         foreach ($factories as $factory) {
-            $collection->add($factory->get_column_type(), $factory);
+            $collection->add($this->container->make($factory));
         }
 
         return $collection;

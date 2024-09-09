@@ -156,14 +156,6 @@ class AdminColumns
             'translations.global'                   => static function (Plugin $plugin): Translation {
                 return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
             },
-            // TODO
-            //            ComponentCollectionBuilder::class       => function (
-            //                NameFactory $name_factory,
-            //                WidthFactory $width_factory,
-            //                LabelFactory $label_factory
-            //            ): ComponentCollectionBuilder {
-            //                return new ComponentCollectionBuilder($name_factory, $width_factory, $label_factory);
-            //            },
             Storage::class                          => static function (Database $database): Storage {
                 $storage = new Storage();
                 $storage->set_repositories([
