@@ -135,7 +135,6 @@ class AdminColumns
         $request_ajax_handlers->add('ac-admin-screen-options', $container->get(Ajax\ScreenOptions::class));
         $request_ajax_handlers->add('ac-extended-value', $container->get(Ajax\ExtendedValue::class));
         $request_ajax_handlers->add('ac-admin-general-options', $container->get(Ajax\AdminGeneralOptions::class));
-        // TODO Stefan create ajax call in JS
         $request_ajax_handlers->add('ac-restore-settings', $container->get(Ajax\RestoreSettingsRequest::class));
 
         $services->add(
