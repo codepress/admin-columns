@@ -26,11 +26,16 @@ final class PostFactory extends BaseFactory
             return $collection;
         }
 
-        // TODO
-        $this->container->set(TableScreenContext::class, $table_screen_context);
+        $collection->add(
+            new AC\Type\ColumnFactoryDefinition(
+                AC\ColumnFactory\CustomFieldFactory::class,
+                [
+                    'table_screen_context' => $table_screen_context,
+                ]
+            )
+        );
 
         $factories = [
-            AC\ColumnFactory\CustomFieldFactory::class,
             AC\ColumnFactory\ActionsFactory::class,
             Post\AttachmentFactory::class,
             Post\AuthorFactory::class,

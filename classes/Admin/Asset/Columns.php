@@ -59,48 +59,19 @@ class Columns extends Script
     {
         parent::register();
 
-        // TODO Remove AC variable and use more specific
-        $params = [
-            //            '_ajax_nonce'                => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
-            //            'list_screen'                => $this->table_screen->get_key(),
-            //            'layout'                     => (string)$this->list_id,
-            'uninitialized_list_screens' => [],
-            //'column_types'               => $this->encode_column_types(),
-            //            'column_groups'              => AC\ColumnGroups::get_groups()->get_all(),
-            'i18n'                       => [
-                'value'  => __('Value', 'codepress-admin-columns'),
-                'label'  => __('Label', 'codepress-admin-columns'),
-                'clone'  => __('%s column is already present and can not be duplicated.', 'codepress-admin-columns'),
-                'error'  => __('Invalid response.', 'codepress-admin-columns'),
-                'errors' => [
-                    'save_settings'  => __(
-                        'There was an error during the saving of the column settings.',
-                        'codepress-admin-columns'
-                    ),
-                    'loading_column' => __(
-                        'The column could not be loaded because of an unknown error',
-                        'codepress-admin-columns'
-                    ),
-                ],
-            ],
-        ];
-
-        $unitialized_list_screens = [];
+        $uninitialized_list_screens = [];
 
         foreach ($this->table_screens as $table_screen) {
-            $unitialized_list_screens[(string)$table_screen->get_key()] = [
+            $uninitialized_list_screens[(string)$table_screen->get_key()] = [
                 'screen_link' => (string)$table_screen->get_url()->with_arg(DefaultColumns::QUERY_PARAM, '1'),
             ];
         }
 
-        wp_localize_script('ac-admin-page-columns', 'AC', $params);
-
-        // TODO Needed for UI2 Remove part above
         $this->add_inline_variable('ac_admin_columns', [
             'nonce'                      => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
             'list_key'                   => (string)$this->table_screen->get_key(),
             'list_id'                    => (string)$this->list_id,
-            'uninitialized_list_screens' => $unitialized_list_screens,
+            'uninitialized_list_screens' => $uninitialized_list_screens,
             'column_groups'              => AC\ColumnGroups::get_groups()->get_all(),
             'menu_items'                 => $this->get_menu_items(),
             'menu_items_favorites'       => $this->encode_favorites(

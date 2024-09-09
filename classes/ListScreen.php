@@ -87,37 +87,6 @@ final class ListScreen
         return $this->columns;
     }
 
-    // TODO remove
-    //    public function get_columns(Filter $filter = null, Sort $sort = null): ColumnIterator
-    //    {
-    //        $columns = $this->columns;
-    //
-    //        if ($filter) {
-    //            $columns = $filter->filter($columns);
-    //        }
-    //        if ($sort) {
-    //            $columns = $sort->sort($columns);
-    //        }
-    //
-    //        return $columns;
-    //    }
-    //
-    //    public function set_columns(ColumnIterator $columns): void
-    //    {
-    //        $this->columns = $columns;
-    //    }
-    //
-    //    public function get_column(string $name): ?Column
-    //    {
-    //        foreach ($this->columns as $column) {
-    //            if ($column->get_name() === $name) {
-    //                return $column;
-    //            }
-    //        }
-    //
-    //        return null;
-    //    }
-
     public function get_preferences(): array
     {
         return $this->preferences;

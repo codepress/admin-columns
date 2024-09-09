@@ -1,5 +1,6 @@
 import {fadeIn, fadeOut} from "../../helpers/animations";
 
+//TODO implement feedback
 class Feedback {
 
     constructor(public element: HTMLElement) {
