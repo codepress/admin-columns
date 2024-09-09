@@ -187,7 +187,11 @@ class AdminColumns
                 Absolute $location,
                 Plugin $plugin
             ): SetupFactory\AdminColumns {
-                return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $location);
+                return new SetupFactory\AdminColumns(
+                    'ac_version',
+                    $plugin->get_version(),
+                    $location
+                );
             },
             GlobalTranslationFactory::class         => autowire()
                 ->constructorParameter(1, DI\get('translations.global')),
