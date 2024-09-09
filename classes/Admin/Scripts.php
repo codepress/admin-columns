@@ -3,6 +3,7 @@
 namespace AC\Admin;
 
 use AC\Asset\Location\Absolute;
+use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Registerable;
 
@@ -24,7 +25,13 @@ class Scripts implements Registerable
     public function register_scripts(): void
     {
         $assets = [
-            // TODO check if this is still used
+            new Script('ac-select2-core', $this->location->with_suffix('assets/js/select2.js')),
+            new Script(
+                'ac-select2',
+                $this->location->with_suffix('assets/js/select2_conflict_fix.js'),
+                ['jquery', 'ac-select2-core']
+            ),
+            new Style('ac-select2', $this->location->with_suffix('assets/css/select2.css')),
             new Style('ac-jquery-ui', $this->location->with_suffix('assets/css/ac-jquery-ui.css')),
         ];
 
