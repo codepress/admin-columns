@@ -48,7 +48,7 @@ final class BeforeMoreFactory extends BaseColumnFactory
         Config $config,
         FormatterCollection $formatters
     ): FormatterCollection {
-        $formatters->add(new BeforeMoreContent);
+        $formatters->add(new BeforeMoreContent());
 
         return parent::get_formatters($components, $config, $formatters);
     }
