@@ -2,7 +2,6 @@
 
 namespace AC\Meta;
 
-use AC\Column\Meta;
 use AC\MetaType;
 
 final class QueryMetaFactory
@@ -31,17 +30,6 @@ final class QueryMetaFactory
     {
         return $this->create($meta_key, new MetaType(MetaType::POST))
                     ->where_post_types($post_types);
-    }
-
-    // TODO remove
-    public function create_by_meta_column(Meta $column): Query
-    {
-        switch ((string)$column->get_meta_type()) {
-            case MetaType::POST:
-                return $this->create_with_post_type($column->get_meta_key(), $column->get_post_type());
-            default:
-                return $this->create($column->get_meta_key(), $column->get_meta_type());
-        }
     }
 
 }

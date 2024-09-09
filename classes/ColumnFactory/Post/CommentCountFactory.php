@@ -48,8 +48,8 @@ class CommentCountFactory extends BaseColumnFactory
         Config $config,
         FormatterCollection $formatters
     ): FormatterCollection {
-        //TODO implement linkable as in setting
         $formatters->add(new AC\Value\Formatter\Post\CommentCount((string)$config->get('comment_status')));
+        $formatters->add(new AC\Value\Formatter\Post\CommentsForPostLink((string)$config->get('comment_status')));
 
         return parent::get_formatters($components, $config, $formatters);
     }

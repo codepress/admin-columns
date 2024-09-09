@@ -37,7 +37,18 @@ export const getListScreenSettings = (listKey: string, listId: string = '', abor
     })
 }
 
-export const getColumnSettings = (listKey: string, columnType: string) => {
+
+type AddColumnSuccessResponse = {
+    data : {
+        column : {
+            id: string
+            settings: ColumnSettingCollection
+        }
+    },
+    success: true
+}
+
+export const getColumnSettings = (listKey: string, columnType: string) : AxiosPromise<AddColumnSuccessResponse> => {
     const nonce = getColumnSettingsConfig().nonce;
 
     return axios.get(ajaxurl, {

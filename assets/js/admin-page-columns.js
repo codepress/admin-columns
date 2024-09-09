@@ -3315,7 +3315,7 @@ function instance($$self, $$props, $$invalidate) {
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_3__.getColumnSettings)($currentListKey, column_type).then(d => {
       var _a;
       const columnLabel = (_a = _utils_column_types__WEBPACK_IMPORTED_MODULE_7__.ColumnTypesUtils.getColumnType(column_type)) === null || _a === void 0 ? void 0 : _a.label;
-      $$invalidate(1, config[name] = d.data.data.columns.settings, config);
+      $$invalidate(1, config[name] = d.data.data.column.settings, config);
       data['columns'].push({
         name,
         type: column_type,
@@ -9788,7 +9788,7 @@ function instance($$self, $$props, $$invalidate) {
     }
     _store_opened_columns__WEBPACK_IMPORTED_MODULE_11__.openedColumnsStore.open(data.name);
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_3__.getColumnSettings)($currentListKey, selectValue).then(response => {
-      $$invalidate(7, columnConfig = response.data.data.columns.settings);
+      $$invalidate(7, columnConfig = response.data.data.column.settings);
       setTimeout(() => {
         $$invalidate(7, columnConfig);
       }, 500);
