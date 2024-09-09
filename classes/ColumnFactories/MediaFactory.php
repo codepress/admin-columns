@@ -16,6 +16,10 @@ final class MediaFactory extends BaseFactory
     {
         $collection = new ColumnFactoryDefinitionCollection();
 
+        if ( ! $table_screen instanceof AC\TableScreen\Media) {
+            return $collection;
+        }
+
         $factories = [
             Media\AlbumFactory::class,
             Media\ArtistFactory::class,

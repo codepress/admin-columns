@@ -37,7 +37,7 @@ abstract class BaseFactory implements ColumnFactoryCollectionFactory
                 'taxonomy'  => $table_screen instanceof Taxonomy ? $table_screen->get_taxonomy() : null,
             ];
 
-            foreach ($this->get_factories($table_screen) as $factory) {
+            foreach ($factories as $factory) {
                 $collection->add(
                     $this->container->make(
                         $factory->get_factory(),
