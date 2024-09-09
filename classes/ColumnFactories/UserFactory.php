@@ -17,6 +17,10 @@ final class UserFactory extends BaseFactory
     {
         $collection = new ColumnFactoryDefinitionCollection();
 
+        if ( ! $table_screen instanceof TableScreen\User) {
+            return $collection;
+        }
+
         $factories = [
             ColumnFactory\ActionsFactory::class,
             ColumnFactory\ActionsFactory::class,
