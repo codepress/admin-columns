@@ -13,7 +13,7 @@ class PostTitle implements Formatter
     public function format(Value $value): Value
     {
         return $value->with_value(
-            get_the_title($value->get_id()) // TODO fallback?
+            get_the_title($value->get_id())
         );
     }
 

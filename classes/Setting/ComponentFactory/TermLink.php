@@ -16,8 +16,7 @@ final class TermLink extends Builder
 {
 
     private $post_type;
-
-    // TODO test when post_type null
+    
     public function __construct(PostTypeSlug $post_type = null)
     {
         $this->post_type = $post_type;
