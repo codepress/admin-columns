@@ -28,14 +28,11 @@ class CommentCountFactory extends BaseColumnFactory
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($factories);
-
         $factories->add($this->comment_status);
     }
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        // TODO test
         $formatters->add(new Formatter\Post\CommentCount((string)$config->get('comment_status')));
         $formatters->add(new Formatter\Post\CommentsForPostLink((string)$config->get('comment_status')));
     }

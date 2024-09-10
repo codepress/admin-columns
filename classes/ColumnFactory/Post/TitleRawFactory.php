@@ -41,8 +41,6 @@ class TitleRawFactory extends BaseColumnFactory
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($factories);
-
         $factories->add($this->character_limit_factory);
         $factories->add($this->post_link_factory);
     }

@@ -3,7 +3,6 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -21,15 +20,10 @@ class ShowToolbarFactory extends BaseColumnFactory
         return 'column-user_show_toolbar';
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
         $formatters->add(new Formatter\User\ShowToolbar());
         $formatters->add(new Formatter\YesNoIcon());
-
-        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

@@ -38,8 +38,6 @@ class CustomFieldFactory extends BaseColumnFactory
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($factories);
-
         $factories->add($this->custom_field_factory->create($this->table_screen_context));
         $factories->add($this->field_type);
     }

@@ -34,16 +34,14 @@ class ContentFactory extends BaseColumnFactory
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($factories);
-
         $factories->add($this->string_limit_factory);
         $factories->add($this->before_after_factory);
     }
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters->prepend(new PostContent());
         $formatters->prepend(new StripTags());
+        $formatters->prepend(new PostContent());
     }
 
     public function get_column_type(): string

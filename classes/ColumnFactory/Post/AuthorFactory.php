@@ -33,8 +33,6 @@ class AuthorFactory extends BaseColumnFactory
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($factories);
-
         $factories->add($this->user_factory)
                   ->add($this->before_after_factory);
     }

@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -28,14 +28,6 @@ class DescriptionFactory extends BaseColumnFactory
         $this->before_after_factory = $before_after_factory;
     }
 
-    protected function add_component_factories(Config $config): void
-    {
-        parent::add_component_factories($config);
-
-        $this->add_component_factory($this->word_limit_factory);
-        $this->add_component_factory($this->before_after_factory);
-    }
-
     public function get_label(): string
     {
         return __('Description', 'codepress-admin-columns');
@@ -46,14 +38,15 @@ class DescriptionFactory extends BaseColumnFactory
         return 'column-user_description';
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
         $formatters->add(new Formatter\User\Meta('description'));
+    }
 
-        return parent::get_formatters($components, $config, $formatters);
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    {
+        $factories->add($this->word_limit_factory);
+        $factories->add($this->before_after_factory);
     }
 
 }

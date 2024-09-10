@@ -29,14 +29,6 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
         $this->user_link = $user_link;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
-    {
-        parent::add_component_factories($factories);
-
-        $factories->add($this->user_factory);
-        $factories->add($this->user_link);
-    }
-
     public function get_column_type(): string
     {
         return 'column-last_modified_author';
@@ -45,6 +37,12 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
     public function get_label(): string
     {
         return __('Last Modified Author', 'codepress-admin-columns');
+    }
+
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    {
+        $factories->add($this->user_factory);
+        $factories->add($this->user_link);
     }
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void

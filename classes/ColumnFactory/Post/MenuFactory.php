@@ -48,16 +48,14 @@ class MenuFactory extends BaseColumnFactory
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($factories);
-
         $factories->add($this->link_to_menu_factory);
     }
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
         // TODO test
-        $formatters->prepend(new UsedByMenu($this->post_type));
         $formatters->prepend(new TermProperty('name'));
+        $formatters->prepend(new UsedByMenu($this->post_type));
         $formatters->add(new LocalizeSeparator());
     }
 

@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter;
 
 class ExcerptFactory extends BaseColumnFactory
 {
@@ -40,15 +40,13 @@ class ExcerptFactory extends BaseColumnFactory
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($factories);
-
         $factories->add($this->string_limit);
         $factories->add($this->before_after);
     }
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters->prepend(new AC\Value\Formatter\Post\Excerpt());
+        $formatters->prepend(new Formatter\Post\Excerpt());
     }
 
 }

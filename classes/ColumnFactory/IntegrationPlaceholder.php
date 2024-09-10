@@ -6,7 +6,7 @@ use AC\Column\BaseColumnFactory;
 use AC\Integration;
 use AC\Setting\ComponentFactory\Message;
 use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\Config;
+use AC\Setting\ConditionalComponentFactoryCollection;
 
 class IntegrationPlaceholder extends BaseColumnFactory
 {
@@ -22,16 +22,12 @@ class IntegrationPlaceholder extends BaseColumnFactory
         $this->integration = $integration;
     }
 
-    protected function add_component_factories(Config $config): void
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($config);
-
-        $message_factory = new Message(__('Integration', 'codepress-admin-columns'), $this->get_message_body());
-
-        $this->add_component_factory($message_factory);
+        $factories->add(new Message(__('Integration', 'codepress-admin-columns'), $this->get_message_body()));
     }
 
-    private function get_message_body()
+    private function get_message_body(): string
     {
         ob_start();
         ?>

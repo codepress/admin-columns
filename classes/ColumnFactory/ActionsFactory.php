@@ -25,15 +25,11 @@ class ActionsFactory extends BaseColumnFactory
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($factories);
-
         $factories->add(new ComponentFactory\ActionIcons());
     }
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        parent::add_formatters($formatters, $config);
-
         $formatters->add(new Message('<span></span>'));
     }
 

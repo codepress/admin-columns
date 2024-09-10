@@ -54,8 +54,6 @@ class TaxonomyFactory extends BaseColumnFactory
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($factories);
-
         $factories->add($this->taxonomy_factory->create($this->post_type));
         $factories->add($this->term_link_factory);
         $factories->add($this->number_of_items_factory);

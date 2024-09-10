@@ -27,8 +27,6 @@ class DatePublishFactory extends BaseColumnFactory
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($factories);
-        
         $factories->add($this->date_factory);
     }
 

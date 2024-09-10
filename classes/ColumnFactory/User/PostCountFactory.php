@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -28,14 +28,6 @@ class PostCountFactory extends BaseColumnFactory
         $this->post_status = $post_status;
     }
 
-    protected function add_component_factories(Config $config): void
-    {
-        parent::add_component_factories($config);
-
-        $this->add_component_factory($this->post_type);
-        $this->add_component_factory($this->post_status);
-    }
-
     public function get_label(): string
     {
         return __('Post Count', 'codepress-admin-columns');
@@ -46,17 +38,15 @@ class PostCountFactory extends BaseColumnFactory
         return 'column-user_postcount';
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $post_type = $config->has('post_type') ? (string)$config->get('post_type') : 'any';
-        $post_status = $config->has('post_status') ? (array)$config->get('post_status') : null;
-
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
         $formatters->add(new Formatter\User\PostCount($post_type, $post_status));
+    }
 
-        return parent::get_formatters($components, $config, $formatters);
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    {
+        $factories->add($this->post_type);
+        $factories->add($this->post_status);
     }
 
 }
