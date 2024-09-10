@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\ColumnFactories;
 
 use AC;
+use AC\ColumnFactory\ActionsFactory;
 use AC\ColumnFactory\Post;
 use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
@@ -38,7 +39,7 @@ final class PostFactory extends BaseFactory
         );
 
         $factories = [
-            AC\ColumnFactory\ActionsFactory::class,
+            ActionsFactory::class,
             Post\AttachmentFactory::class,
             Post\AuthorFactory::class,
             Post\IdFactory::class,

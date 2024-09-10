@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PostStatusIcon;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -24,13 +24,6 @@ class StatusFactory extends BaseColumnFactory
         $this->post_status_icon = $post_status_icon;
     }
 
-    protected function add_component_factories(Config $config): void
-    {
-        parent::add_component_factories($config);
-
-        $this->add_component_factory($this->post_status_icon);
-    }
-
     public function get_label(): string
     {
         return __('Status', 'codepress-admin-columns');
@@ -41,14 +34,16 @@ class StatusFactory extends BaseColumnFactory
         return 'column-status';
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new Formatter\Post\PostStatus());
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    {
+        parent::add_component_factories($factories);
 
-        return parent::get_formatters($components, $config, $formatters);
+        $factories->add($this->post_status_icon);
+    }
+
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->prepend(new Formatter\Post\PostStatus());
     }
 
 }

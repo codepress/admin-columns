@@ -12,4 +12,6 @@ interface ColumnFactory
 
     public function get_column_type(): string;
 
+    public function get_label(): string;
+
 }

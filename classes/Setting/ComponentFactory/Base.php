@@ -11,6 +11,7 @@ use AC\Setting\FormatterCollection;
 abstract class Base implements ComponentFactory
 {
 
+    // TODO is not recursive
     protected function get_formatters_recursive(
         ComponentCollection $components,
         FormatterCollection $formatters,

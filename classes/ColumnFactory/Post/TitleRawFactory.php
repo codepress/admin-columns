@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\CharacterLimit;
 use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\PostTitle;
@@ -29,14 +29,6 @@ class TitleRawFactory extends BaseColumnFactory
         $this->post_link_factory = $post_link_factory;
     }
 
-    protected function add_component_factories(Config $config): void
-    {
-        parent::add_component_factories($config);
-
-        $this->add_component_factory($this->character_limit_factory);
-        $this->add_component_factory($this->post_link_factory);
-    }
-
     public function get_column_type(): string
     {
         return 'column-title_raw';
@@ -47,14 +39,17 @@ class TitleRawFactory extends BaseColumnFactory
         return __('Title Only', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new PostTitle());
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    {
+        parent::add_component_factories($factories);
 
-        return parent::get_formatters($components, $config, $formatters);
+        $factories->add($this->character_limit_factory);
+        $factories->add($this->post_link_factory);
+    }
+
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->prepend(new PostTitle());
     }
 
 }

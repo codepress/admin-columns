@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\CharacterLimit;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\Slug;
@@ -24,13 +24,6 @@ class SlugFactory extends BaseColumnFactory
         $this->character_limit = $character_limit;
     }
 
-    protected function add_component_factories(Config $config): void
-    {
-        parent::add_component_factories($config);
-
-        $this->add_component_factory($this->character_limit);
-    }
-
     public function get_label(): string
     {
         return __('Slug', 'codepress-admin-columns');
@@ -41,14 +34,16 @@ class SlugFactory extends BaseColumnFactory
         return 'column-slug';
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new Slug());
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    {
+        parent::add_component_factories($factories);
 
-        return parent::get_formatters($components, $config, $formatters);
+        $factories->add($this->character_limit);
+    }
+
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->prepend(new Slug());
     }
 
 }

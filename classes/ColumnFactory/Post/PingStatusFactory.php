@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\PingStatus;
@@ -23,14 +22,9 @@ class PingStatusFactory extends BaseColumnFactory
         return 'column-ping_status';
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
         $formatters->add(new PingStatus());
-
-        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

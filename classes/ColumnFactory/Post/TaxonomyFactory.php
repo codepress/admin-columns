@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
@@ -42,16 +42,6 @@ class TaxonomyFactory extends BaseColumnFactory
         $this->post_type = $post_type;
     }
 
-    protected function add_component_factories(Config $config): void
-    {
-        parent::add_component_factories($config);
-
-        $this->add_component_factory($this->taxonomy_factory->create($this->post_type));
-        $this->add_component_factory($this->term_link_factory);
-        $this->add_component_factory($this->number_of_items_factory);
-        $this->add_component_factory($this->separator_factory);
-    }
-
     public function get_column_type(): string
     {
         return 'column-taxonomy';
@@ -62,16 +52,20 @@ class TaxonomyFactory extends BaseColumnFactory
         return __('Taxonomy', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new PostTerms((string)$config->get('taxonomy', '')));
-        $formatters = parent::get_formatters($components, $config, $formatters);
-        $formatters->add(Separator::create_from_config($config));
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    {
+        parent::add_component_factories($factories);
 
-        return $formatters;
+        $factories->add($this->taxonomy_factory->create($this->post_type));
+        $factories->add($this->term_link_factory);
+        $factories->add($this->number_of_items_factory);
+        $factories->add($this->separator_factory);
+    }
+
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->prepend(new PostTerms((string)$config->get('taxonomy', '')));
+        $formatters->add(Separator::create_from_config($config));
     }
 
 }

@@ -27,7 +27,5 @@ class PathFactory extends BaseColumnFactory
         FormatterCollection $formatters
     ): FormatterCollection {
         $formatters->add(new Path());
-
-        return parent::get_formatters($components, $config, $formatters);
     }
 }
