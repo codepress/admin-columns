@@ -3,7 +3,6 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\Download;
@@ -21,14 +20,9 @@ class DownloadFactory extends BaseColumnFactory
         return __('Download', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
         $formatters->add(new Download());
-
-        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

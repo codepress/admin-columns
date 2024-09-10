@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactory\PostProperty;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Comment\Property;
@@ -35,12 +35,10 @@ class PostFactory extends BaseColumnFactory
         return __('Post', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(Config $config): void
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        $this->add_component_factory($this->post_property);
-        $this->add_component_factory($this->post_link);
-
-        parent::add_component_factories($config);
+        $factories->add($this->post_property);
+        $factories->add($this->post_link);
     }
 
     public function get_column_type(): string
@@ -48,13 +46,9 @@ class PostFactory extends BaseColumnFactory
         return 'column-post';
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new MapToId(new Property('comment_post_ID')));
-
-        return parent::get_formatters($components, $config, $formatters);
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->prepend(new MapToId(new Property('comment_post_ID')));
     }
+
 }

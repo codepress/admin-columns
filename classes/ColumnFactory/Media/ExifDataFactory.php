@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ExifData;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -24,11 +24,9 @@ class ExifDataFactory extends BaseColumnFactory
         $this->exif_data = $exif_data;
     }
 
-    protected function add_component_factories(Config $config): void
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($config);
-
-        $this->add_component_factory($this->exif_data);
+        $factories->add($this->exif_data);
     }
 
     protected function get_group(): ?string
@@ -46,15 +44,10 @@ class ExifDataFactory extends BaseColumnFactory
         return __('Image Meta (EXIF)', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new Formatter\Media\AttachmentMetaData('image_meta'));
-        $formatters->add(new Formatter\Media\ExifData((string)$config->get('exif_data')));
-
-        return parent::get_formatters($components, $config, $formatters);
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->prepend(new Formatter\Media\ExifData((string)$config->get('exif_data')));
+        $formatters->prepend(new Formatter\Media\AttachmentMetaData('image_meta'));
     }
 
 }

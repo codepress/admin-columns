@@ -4,9 +4,9 @@ namespace AC\ColumnFactory\Comment;
 
 use AC;
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 
@@ -24,11 +24,11 @@ class ExcerptFactory extends BaseColumnFactory
         $this->string_limit = $string_limit;
     }
 
-    protected function add_component_factories(Config $config): void
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($config);
+        parent::add_component_factories($factories);
 
-        $this->add_component_factory($this->string_limit);
+        $factories->add($this->string_limit);
     }
 
     public function get_label(): string
@@ -41,14 +41,9 @@ class ExcerptFactory extends BaseColumnFactory
         return 'column-excerpt';
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new AC\Value\Formatter\Comment\Property('comment_content'));
-
-        return parent::get_formatters($components, $config, $formatters);
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->prepend(new AC\Value\Formatter\Comment\Property('comment_content'));
     }
 
 }
