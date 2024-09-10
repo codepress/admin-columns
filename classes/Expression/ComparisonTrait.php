@@ -9,9 +9,12 @@ use AC\Expression\Exception\OperatorNotFoundException;
 trait ComparisonTrait
 {
 
-    use OperatorTrait;
+    use OperatorsTrait;
     use TypeTrait;
 
+    /**
+     * @var mixed
+     */
     protected $fact;
 
     protected function get_operators(): array
@@ -46,13 +49,12 @@ trait ComparisonTrait
         throw new OperatorNotFoundException($operator);
     }
 
-    public function get_rules(string $value): array
+    public function get_rules(): array
     {
         return [
-            Rules::TYPE     => $this->get_type() . '_comparison',
-            Rules::VALUE    => $value,
-            Rules::FACT     => $this->fact,
             Rules::OPERATOR => $this->operator,
+            Rules::TYPE     => $this->get_type(),
+            Rules::FACT     => $this->fact,
         ];
     }
 

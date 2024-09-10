@@ -16,21 +16,21 @@ abstract class DateSpecification implements Specification
     public const MYSQL_DATE = 'Y-m-d';
     public const MYSQL_DATE_TIME = 'Y-m-d H:i:s';
 
-    private $format;
+    protected string $format;
 
-    private $timezone;
+    protected DateTimeZone $timezone;
 
-    public function __construct(string $format = null, DateTimeZone $time_zone = null)
+    public function __construct(string $format = null, DateTimeZone $timezone = null)
     {
         if (null === $format) {
             $format = self::MYSQL_DATE;
         }
-        if (null === $time_zone) {
-            $time_zone = wp_timezone();
+        if (null === $timezone) {
+            $timezone = wp_timezone();
         }
 
         $this->format = $format;
-        $this->timezone = $time_zone;
+        $this->timezone = $timezone;
     }
 
     /**
@@ -67,7 +67,7 @@ abstract class DateSpecification implements Specification
         return (new DateTime())->setTimezone($this->timezone);
     }
 
-    public function get_rules(string $value): array
+    public function get_rules(): array
     {
         return [
             'timezone' => $this->timezone->getName(),

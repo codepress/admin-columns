@@ -11,7 +11,7 @@ use DateTimeZone;
 final class DateRelativeDaysSpecification extends DateSpecification
 {
 
-    use OperatorTrait;
+    use OperatorsTrait;
 
     protected $fact;
 
@@ -69,18 +69,16 @@ final class DateRelativeDaysSpecification extends DateSpecification
         throw new OperatorNotFoundException($this->operator);
     }
 
-    public function get_rules(string $value): array
+    public function get_rules(): array
     {
         $rules = [
-            Rules::TYPE     => 'date_relative_days',
-            Rules::VALUE    => $value,
             Rules::FACT     => $this->fact,
             Rules::OPERATOR => $this->operator,
         ];
 
         return array_merge(
             $rules,
-            parent::get_rules($value)
+            parent::get_rules()
         );
     }
 

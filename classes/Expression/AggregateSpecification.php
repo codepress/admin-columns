@@ -8,12 +8,12 @@ abstract class AggregateSpecification implements Specification
 {
 
     use SpecificationTrait;
-    use TypeTrait;
+    use OperatorTrait;
 
     /**
      * @var Specification[]
      */
-    protected $specifications;
+    protected array $specifications;
 
     public function __construct(array $specifications)
     {
@@ -25,17 +25,17 @@ abstract class AggregateSpecification implements Specification
         $this->specifications[] = $specification;
     }
 
-    public function get_rules(string $value): array
+    public function get_rules(): array
     {
         $rules = [];
 
         foreach ($this->specifications as $specification) {
-            $rules[] = $specification->get_rules($value);
+            $rules[] = $specification->get_rules();
         }
 
         return [
-            Rules::TYPE  => $this->get_type(),
-            Rules::RULES => $rules,
+            Rules::OPERATOR => $this->get_operator(),
+            'rules'         => $rules,
         ];
     }
 

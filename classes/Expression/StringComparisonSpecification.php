@@ -30,7 +30,7 @@ class StringComparisonSpecification implements Specification
 
     protected function get_type(): string
     {
-        return 'string';
+        return Types::STRING;
     }
 
 }

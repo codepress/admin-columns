@@ -14,9 +14,9 @@ final class StartsWithSpecification extends FactSpecification
         return $this->fact !== '' && str_starts_with($value, $this->fact);
     }
 
-    protected function get_type(): string
+    protected function get_operator(): string
     {
-        return 'starts_with';
+        return StringOperators::STARTS_WITH;
     }
 
 }

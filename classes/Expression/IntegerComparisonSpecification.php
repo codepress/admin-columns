@@ -25,7 +25,7 @@ class IntegerComparisonSpecification implements Specification
 
     protected function get_type(): string
     {
-        return 'integer';
+        return Types::INTEGER;
     }
 
 }

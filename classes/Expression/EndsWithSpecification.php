@@ -14,9 +14,9 @@ final class EndsWithSpecification extends FactSpecification
         return $this->fact !== '' && str_ends_with($value, $this->fact);
     }
 
-    protected function get_type(): string
+    protected function get_operator(): string
     {
-        return 'ends_with';
+        return StringOperators::ENDS_WITH;
     }
 
 }

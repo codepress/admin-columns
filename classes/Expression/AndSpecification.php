@@ -18,9 +18,9 @@ final class AndSpecification extends AggregateSpecification
         return true;
     }
 
-    protected function get_type(): string
+    protected function get_operator(): string
     {
-        return 'and';
+        return LogicalOperators::LOGICAL_AND;
     }
 
 }

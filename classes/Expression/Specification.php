@@ -9,7 +9,7 @@ interface Specification
 
     public function is_satisfied_by(string $value): bool;
 
-    public function get_rules(string $value): array;
+    public function get_rules(): array;
 
     public function and_specification(Specification $specification): self;
 

@@ -14,10 +14,10 @@ final class NullSpecification implements Specification
         return true;
     }
 
-    public function get_rules(string $value): array
+    public function get_rules(): array
     {
         return [
-            Rules::TYPE => 'null',
+            Rules::OPERATOR => 'null',
         ];
     }
 

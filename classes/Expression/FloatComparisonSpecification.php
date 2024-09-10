@@ -25,7 +25,7 @@ class FloatComparisonSpecification implements Specification
 
     protected function get_type(): string
     {
-        return 'float';
+        return Types::FLOAT;
     }
 
 }

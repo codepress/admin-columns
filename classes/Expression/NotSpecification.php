@@ -9,7 +9,7 @@ final class NotSpecification implements Specification
 
     use SpecificationTrait;
 
-    private $specification;
+    private Specification $specification;
 
     public function __construct(Specification $specification)
     {
@@ -21,11 +21,11 @@ final class NotSpecification implements Specification
         return ! $this->specification->is_satisfied_by($value);
     }
 
-    public function get_rules(string $value): array
+    public function get_rules(): array
     {
         return [
-            Rules::TYPE => 'not',
-            Rules::RULE => $this->specification->get_rules($value),
+            Rules::OPERATOR => LogicalOperators::LOGICAL_NOT,
+            'rule'          => $this->specification->get_rules(),
         ];
     }
 

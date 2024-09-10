@@ -18,9 +18,9 @@ final class OrSpecification extends AggregateSpecification
         return false;
     }
 
-    protected function get_type(): string
+    protected function get_operator(): string
     {
-        return 'or';
+        return LogicalOperators::LOGICAL_OR;
     }
 
 }

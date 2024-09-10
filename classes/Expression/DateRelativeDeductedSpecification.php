@@ -10,7 +10,7 @@ use DateTimeZone;
 final class DateRelativeDeductedSpecification extends DateSpecification
 {
 
-    use OperatorTrait;
+    use OperatorsTrait;
 
     public function __construct(string $operator, string $format = null, DateTimeZone $time_zone = null)
     {
@@ -51,17 +51,16 @@ final class DateRelativeDeductedSpecification extends DateSpecification
         throw new OperatorNotFoundException($this->operator);
     }
 
-    public function get_rules(string $value): array
+    public function get_rules(): array
     {
         $rules = [
             Rules::TYPE     => 'date_relative_deducted',
-            Rules::VALUE    => $value,
             Rules::OPERATOR => $this->operator,
         ];
 
         return array_merge(
             $rules,
-            parent::get_rules($value)
+            parent::get_rules()
         );
     }
 

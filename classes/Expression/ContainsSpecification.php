@@ -14,9 +14,9 @@ final class ContainsSpecification extends FactSpecification
         return $this->fact !== '' && str_contains($value, $this->fact);
     }
 
-    protected function get_type(): string
+    protected function get_operator(): string
     {
-        return 'contains';
+        return StringOperators::CONTAINS;
     }
 
 }

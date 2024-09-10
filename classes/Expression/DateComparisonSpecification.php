@@ -21,25 +21,14 @@ class DateComparisonSpecification extends Expression\DateSpecification
         string $fact,
         string $operator,
         string $format = null,
-        DateTimeZone $time_zone = null
+        DateTimeZone $timezone = null
     ) {
-        parent::__construct($format, $time_zone);
+        parent::__construct($format, $timezone);
 
         $this->fact = (int)$this->create_date_from_value($fact)->format('U');
-        $this->operator = $this->map_operator($operator);
+        $this->operator = $operator;
 
         $this->validate_operator();
-    }
-
-    private function map_operator($operator)
-    {
-        $map = [
-            DateOperators::DATE_IS        => ComparisonOperators::EQUAL,
-            DateOperators::DATE_IS_AFTER  => ComparisonOperators::GREATER_THAN,
-            DateOperators::DATE_IS_BEFORE => ComparisonOperators::LESS_THAN,
-        ];
-
-        return $map[$operator] ?? $operator;
     }
 
     /**
@@ -55,14 +44,14 @@ class DateComparisonSpecification extends Expression\DateSpecification
 
     protected function get_type(): string
     {
-        return 'date';
+        return Types::DATE;
     }
 
-    public function get_rules(string $value): array
+    public function get_rules(): array
     {
         return array_merge(
-            $this->get_comparison_rules($value),
-            parent::get_rules($value)
+            $this->get_comparison_rules(),
+            parent::get_rules()
         );
     }
 
