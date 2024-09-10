@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\LinkToMenu;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
@@ -36,13 +36,6 @@ class MenuFactory extends BaseColumnFactory
         return $this->post_type;
     }
 
-    protected function add_component_factories(Config $config): void
-    {
-        parent::add_component_factories($config);
-
-        $this->add_component_factory($this->link_to_menu_factory);
-    }
-
     public function get_column_type(): string
     {
         return 'column-used_by_menu';
@@ -53,17 +46,19 @@ class MenuFactory extends BaseColumnFactory
         return __('Menu', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new UsedByMenu($this->post_type));
-        $formatters->add(new TermProperty('name'));
-        $formatters = parent::get_formatters($components, $config, $formatters);
-        $formatters->add(new LocalizeSeparator());
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    {
+        parent::add_component_factories($factories);
 
-        return $formatters;
+        $factories->add($this->link_to_menu_factory);
+    }
+
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        // TODO test
+        $formatters->prepend(new UsedByMenu($this->post_type));
+        $formatters->prepend(new TermProperty('name'));
+        $formatters->add(new LocalizeSeparator());
     }
 
 }

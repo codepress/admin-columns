@@ -41,8 +41,6 @@ class AuthorFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        parent::add_formatters($formatters, $config);
-
         $formatters->prepend(new Formatter\Post\Author());
     }
 

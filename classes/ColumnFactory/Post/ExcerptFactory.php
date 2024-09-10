@@ -4,9 +4,9 @@ namespace AC\ColumnFactory\Post;
 
 use AC;
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 
@@ -28,14 +28,6 @@ class ExcerptFactory extends BaseColumnFactory
         $this->before_after = $before_after;
     }
 
-    protected function add_component_factories(Config $config): void
-    {
-        parent::add_component_factories($config);
-
-        $this->add_component_factory($this->string_limit);
-        $this->add_component_factory($this->before_after);
-    }
-
     public function get_column_type(): string
     {
         return 'column-excerpt';
@@ -46,14 +38,17 @@ class ExcerptFactory extends BaseColumnFactory
         return __('Excerpt', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new AC\Value\Formatter\Post\Excerpt());
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    {
+        parent::add_component_factories($factories);
 
-        return parent::get_formatters($components, $config, $formatters);
+        $factories->add($this->string_limit);
+        $factories->add($this->before_after);
+    }
+
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->prepend(new AC\Value\Formatter\Post\Excerpt());
     }
 
 }
