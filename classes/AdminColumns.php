@@ -51,8 +51,9 @@ class AdminColumns
 
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\OriginalFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\PostFactory::class));
+        ColumnFactories\Aggregate::add($container->get(ColumnFactories\CommentFactory::class));
         // TODO
-        //        ColumnFactories\Aggregate::add($container->get(ColumnFactories\CommentFactory::class));
+
         //        ColumnFactories\Aggregate::add($container->get(ColumnFactories\MediaFactory::class));
         //        ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
         //        ColumnFactories\Aggregate::add($container->get(ColumnFactories\IntegrationFactory::class));

@@ -21,6 +21,12 @@ class ApprovedFactory extends BaseColumnFactory
         return 'column-approved';
     }
 
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->prepend(new Formatter\YesNoIcon());
+        $formatters->prepend(new Formatter\Comment\Property('comment_approved'));
+    }
+
     protected function get_formatters(
         ComponentCollection $components,
         Config $config,

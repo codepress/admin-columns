@@ -3,7 +3,6 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Comment\Property;
@@ -22,14 +21,10 @@ class AuthorUrlFactory extends BaseColumnFactory
         return 'column-author_url';
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
         $formatters->add(new Property('comment_author_url'));
         $formatters->add(new Linkable());
-
-        return parent::get_formatters($components, $config, $formatters);
     }
+
 }
