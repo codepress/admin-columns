@@ -23,7 +23,7 @@ abstract class BaseColumnFactory implements ColumnFactory
         $this->component_factory_registry = $component_factory_registry;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function add_required_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
         $factories
             ->add($this->component_factory_registry->get_width())
@@ -37,6 +37,7 @@ abstract class BaseColumnFactory implements ColumnFactory
         $factories = new ConditionalComponentFactoryCollection();
         $formatters = new FormatterCollection();
 
+        $this->add_required_component_factories($factories);
         $this->add_component_factories($factories);
         $this->add_components($components, $factories, $config);
         $this->add_component_formatters($formatters, $components);

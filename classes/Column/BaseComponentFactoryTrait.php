@@ -33,6 +33,10 @@ trait BaseComponentFactoryTrait
     {
     }
 
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    {
+    }
+
     protected function get_group(): ?string
     {
         return null;
