@@ -18,9 +18,9 @@ class IntegerRangeSpecification implements Specification
         $this->validate_operator();
     }
 
-    protected function get_comparison_specification(int $fact, string $operator): Specification
+    protected function get_comparison_specification($fact, string $operator): Specification
     {
-        return new IntegerComparisonSpecification($fact, $operator);
+        return new IntegerComparisonSpecification((int)$fact, $operator);
     }
 
     public function is_satisfied_by($value): bool

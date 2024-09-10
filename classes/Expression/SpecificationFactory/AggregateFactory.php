@@ -41,17 +41,21 @@ final class AggregateFactory implements SpecificationFactory
         }
 
         $operator = (string)$rule[Rules::OPERATOR];
-        $fact = $rule[Rules::FACT] ?? null;
         $type = $rule[Rules::TYPE] ?? null;
+        $fact = $rule[Rules::FACT] ?? null;
+
+        if ($fact !== null) {
+            $fact = strtolower((string)$fact);
+        }
 
         switch ($operator) {
             case StringOperators::STARTS_WITH:
-                return new StartsWithSpecification($this->sanitize_fact($fact));
+                return new StartsWithSpecification($fact);
             case StringOperators::ENDS_WITH:
-                return new EndsWithSpecification($this->sanitize_fact($fact));
+                return new EndsWithSpecification($fact);
             case StringOperators::CONTAINS:
             case StringOperators::NOT_CONTAINS:
-                $specification = new ContainsSpecification($this->sanitize_fact($fact));
+                $specification = new ContainsSpecification($fact);
 
                 if ($operator === StringOperators::NOT_CONTAINS) {
                     $specification = $specification->not();
@@ -78,19 +82,17 @@ final class AggregateFactory implements SpecificationFactory
                     case Types::FLOAT:
                         return new FloatComparisonSpecification((float)$fact, $operator);
                     case Types::DATE:
-                        // TODO David find out why we support floats as well
-                        if (false !== filter_var($fact, FILTER_SANITIZE_NUMBER_INT)) {
+                        if (
+                            false !== filter_var($fact, FILTER_SANITIZE_NUMBER_INT) ||
+                            false !== filter_var($fact, FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_THOUSAND)
+                        ) {
                             return new IntegerComparisonSpecification((int)$fact, $operator);
-                        }
-
-                        if (false !== filter_var($fact, FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_THOUSAND)) {
-                            return new FloatComparisonSpecification((int)$fact, $operator);
                         }
 
                         return new DateComparisonSpecification($fact, $operator);
                 }
 
-                return new StringComparisonSpecification($this->sanitize_fact($fact), $operator);
+                return new StringComparisonSpecification($fact, $operator);
             case RangeOperators::BETWEEN:
             case RangeOperators::NOT_BETWEEN:
                 switch ($type) {
@@ -140,12 +142,6 @@ final class AggregateFactory implements SpecificationFactory
         }
 
         throw new OperatorNotFoundException($operator);
-    }
-
-    // TODO David this feels weird
-    private function sanitize_fact($fact): string
-    {
-        return strtolower((string)$fact);
     }
 
 }

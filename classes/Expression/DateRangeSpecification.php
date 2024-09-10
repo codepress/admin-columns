@@ -31,9 +31,9 @@ class DateRangeSpecification extends DateSpecification
     /**
      * @throws InvalidDateFormatException
      */
-    protected function get_comparison_specification(string $fact, string $operator): Specification
+    protected function get_comparison_specification($fact, string $operator): Specification
     {
-        return new DateComparisonSpecification($fact, $operator, $this->format, $this->timezone);
+        return new DateComparisonSpecification((string)$fact, $operator, $this->format, $this->timezone);
     }
 
     public function is_satisfied_by(string $value): bool

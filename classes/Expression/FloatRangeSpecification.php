@@ -18,9 +18,9 @@ class FloatRangeSpecification implements Specification
         $this->validate_operator();
     }
 
-    protected function get_comparison_specification(float $fact, string $operator): Specification
+    protected function get_comparison_specification($fact, string $operator): Specification
     {
-        return new FloatComparisonSpecification($fact, $operator);
+        return new FloatComparisonSpecification((float)$fact, $operator);
     }
 
     public function is_satisfied_by($value): bool

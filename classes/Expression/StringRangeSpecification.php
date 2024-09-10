@@ -18,9 +18,9 @@ class StringRangeSpecification implements Specification
         $this->validate_operator();
     }
 
-    protected function get_comparison_specification(string $fact, string $operator): Specification
+    protected function get_comparison_specification($fact, string $operator): Specification
     {
-        return new StringComparisonSpecification($fact, $operator);
+        return new StringComparisonSpecification((string)$fact, $operator);
     }
 
     public function is_satisfied_by(string $value): bool

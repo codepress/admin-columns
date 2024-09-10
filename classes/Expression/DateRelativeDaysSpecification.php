@@ -6,6 +6,7 @@ namespace AC\Expression;
 
 use AC\Expression\Exception\InvalidDateFormatException;
 use AC\Expression\Exception\OperatorNotFoundException;
+use DateTime;
 use DateTimeZone;
 
 final class DateRelativeDaysSpecification extends DateSpecification
@@ -13,7 +14,7 @@ final class DateRelativeDaysSpecification extends DateSpecification
 
     use OperatorsTrait;
 
-    protected $fact;
+    protected DateTime $fact;
 
     public function __construct(int $fact, string $operator, string $format = null, DateTimeZone $time_zone = null)
     {
