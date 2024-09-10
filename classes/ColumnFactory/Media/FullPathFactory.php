@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PathScope;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\AttachmentUrl;
@@ -24,11 +24,9 @@ class FullPathFactory extends BaseColumnFactory
         $this->path_scope = $path_scope;
     }
 
-    protected function add_component_factories(Config $config): void
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        $this->add_component_factory($this->path_scope);
-
-        parent::add_component_factories($config);
+        $factories->add($this->path_scope);
     }
 
     public function get_column_type(): string
@@ -41,14 +39,9 @@ class FullPathFactory extends BaseColumnFactory
         return __('File Path', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new AttachmentUrl());
-
-        return parent::get_formatters($components, $config, $formatters);
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->prepend(new AttachmentUrl());
     }
 
 }
