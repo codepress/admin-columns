@@ -2,6 +2,7 @@
 
 namespace AC\Plugin\Update;
 
+use AC\Plugin\Install\Database;
 use AC\Plugin\Update;
 use AC\Plugin\Version;
 
@@ -19,12 +20,15 @@ class V5000 extends Update
     /** @var int */
     private $next_step;
 
-    public function __construct()
+    private $database;
+
+    public function __construct(Database $database)
     {
         // because `get_option` could be cached we only fetch the next step from the DB on initialisation.
         $this->next_step = $this->get_next_step();
 
         parent::__construct(new Version('5.0.0'));
+        $this->database = $database;
     }
 
     public function apply_update(): void
@@ -35,6 +39,9 @@ class V5000 extends Update
         }
 
         global $wpdb;
+
+        //TODO just for convenience remove
+        $this->update_database();
 
         // Apply update in chunks to minimize the impact of a timeout.
         switch ($this->next_step) {
@@ -70,27 +77,31 @@ class V5000 extends Update
 
         global $wpdb;
 
-        $collate = $wpdb->get_charset_collate();
+        // TODO use install since it uses dbDelta for creating and updating tables?
+        $this->database->install();
 
-        $table_name = $wpdb->prefix . 'admin_columns';
-
-        $sql = "
-		CREATE TABLE {$table_name} (
-			id bigint(20) unsigned NOT NULL auto_increment,
-			list_id varchar(20) NOT NULL default '',
-			list_key varchar(100) NOT NULL default '',
-			title varchar(255) NOT NULL default '',
-			columns mediumtext,
-			settings mediumtext,
-			date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-			date_modified datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-			type varchar(20) DEFAULT '' NOT NULL,
-			PRIMARY KEY (id),
-			UNIQUE KEY `list_id` (`list_id`)
-		) $collate;
-		";
-
-        dbDelta($sql);
+        //
+        //        $collate = $wpdb->get_charset_collate();
+        //
+        //        $table_name = $wpdb->prefix . 'admin_columns';
+        //
+        //        $sql = "
+        //		CREATE TABLE {$table_name} (
+        //			id bigint(20) unsigned NOT NULL auto_increment,
+        //			list_id varchar(20) NOT NULL default '',
+        //			list_key varchar(100) NOT NULL default '',
+        //			title varchar(255) NOT NULL default '',
+        //			columns mediumtext,
+        //			settings mediumtext,
+        //			date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        //			date_modified datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        //			type varchar(20) DEFAULT '' NOT NULL,
+        //			PRIMARY KEY (id),
+        //			UNIQUE KEY `list_id` (`list_id`)
+        //		) $collate;
+        //		";
+        //
+        //        dbDelta($sql);
     }
 
 }
