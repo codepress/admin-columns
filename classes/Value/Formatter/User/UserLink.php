@@ -11,9 +11,9 @@ use AC\Type\Value;
 class UserLink implements Formatter
 {
 
-    private $link_to;
+    private string $link_to;
 
-    private $post_type;
+    private ?PostTypeSlug $post_type;
 
     public function __construct(string $link_to, PostTypeSlug $post_type = null)
     {
@@ -23,7 +23,16 @@ class UserLink implements Formatter
 
     public function format(Value $value): Value
     {
-        $user_id = $value->get_id();
+        // TODO test
+        $user_id = (int)$value->get_id();
+
+        $user = get_userdata($user_id);
+
+        if ( ! $user) {
+            return new Value(null);
+        }
+
+        $link = '';
 
         switch ($this->link_to) {
             case 'edit_user':
@@ -53,9 +62,10 @@ class UserLink implements Formatter
             default:
                 return $value;
         }
+        var_dump($user_id);
 
         return $link
-            ? $value->with_value(ac_helper()->html->link($link, $value->get_value()))
+            ? $value->with_value(ac_helper()->html->link($link, (string)$value))
             : $value;
     }
 
