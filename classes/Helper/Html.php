@@ -163,10 +163,7 @@ class Html
             $max_chars
         );
 
-        return sprintf(
-            '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>%s</textarea>',
-            $contents
-        );
+        return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . $contents . '</textarea>';
     }
 
     private function get_attributes(array $attributes): string
