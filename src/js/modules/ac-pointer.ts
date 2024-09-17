@@ -129,7 +129,11 @@ export const initPointers = (elements: NodeListOf<HTMLElement> | null = null) =>
     }
 
     elements.forEach(element => {
-        let relElement = document.querySelector<HTMLElement>(`#${element.getAttribute('rel')}` ?? '#n');
+        let rel = element.getAttribute('rel');
+        if( rel === null ){
+            rel = 'n'
+        }
+        let relElement = document.querySelector<HTMLElement>(`#${rel}`);
 
         if (relElement) {
             new Pointer(element, relElement);

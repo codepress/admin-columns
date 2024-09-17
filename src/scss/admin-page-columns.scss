@@ -1495,6 +1495,13 @@ div.ac-column-header {
 	#{$e}__dialog {
 		&__list {
 			li {
+				position: relative;
+				padding-left: 25px;
+				font-weight: 400;
+				font-size: 16px;
+				letter-spacing: 0.5px;
+				margin-bottom: 10px;
+
 				&:before {
 					content: '\f147';
 					font-family: Dashicons, sans-serif;
@@ -1508,12 +1515,7 @@ div.ac-column-header {
 					color: $ac-pink;
 				}
 
-				position: relative;
-				padding-left: 25px;
-				font-weight: 400;
-				font-size: 16px;
-				letter-spacing: 0.5px;
-				margin-bottom: 10px;
+
 			}
 		}
 
