@@ -53,7 +53,6 @@ class MenuFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        // TODO test
         $formatters->prepend(new TermProperty('name'));
         $formatters->prepend(new UsedByMenu($this->post_type));
         $formatters->add(new LocalizeSeparator());

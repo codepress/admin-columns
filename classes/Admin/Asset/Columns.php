@@ -157,7 +157,6 @@ class Columns extends Script
 
     public function get_menu_items(): array
     {
-        // TODO
         $options = [];
 
         foreach ($this->menu_items->all() as $item) {
