@@ -250,7 +250,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (135:5) {#if editLink }
+// (134:5) {#if editLink }
 function create_if_block_2(ctx) {
   let a;
   let t_value = /*translation*/ctx[9].edit + "";
@@ -279,7 +279,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (138:5) {#if downloadLink }
+// (137:5) {#if downloadLink }
 function create_if_block_1(ctx) {
   let a;
   let t_value = /*translation*/ctx[9].download + "";
@@ -309,7 +309,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (142:4) {#if items.length > 1 }
+// (141:4) {#if items.length > 1 }
 function create_if_block(ctx) {
   let div;
   let button0;
@@ -597,7 +597,6 @@ function instance($$self, $$props, $$invalidate) {
       source.cancel();
     }
     source = CancelToken.source();
-    console.log(item);
     return (0,axios__WEBPACK_IMPORTED_MODULE_4__["default"])({
       method: 'get',
       url: ajaxurl,
@@ -17249,7 +17248,6 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
     });
     Object.keys(items).forEach(i => new _modules_value_modals__WEBPACK_IMPORTED_MODULE_12__["default"](items[i]));
     document.querySelectorAll('[data-component="ac-json"]').forEach(el => {
-        alert('HAA');
         new _modules_json_viewer__WEBPACK_IMPORTED_MODULE_14__["default"](el);
     });
     (_a = event.table.Actions) === null || _a === void 0 ? void 0 : _a.refresh();

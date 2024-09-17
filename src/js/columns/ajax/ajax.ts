@@ -6,7 +6,6 @@ import JsonSuccessResponse = AC.Ajax.JsonSuccessResponse;
 import JsonDefaultFailureResponse = AC.Ajax.JsonDefaultFailureResponse;
 import ColumnSettingCollection = AC.Column.Settings.ColumnSettingCollection;
 
-
 declare const ajaxurl: string;
 
 export type listScreenSettingsResponse = {

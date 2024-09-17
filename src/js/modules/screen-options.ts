@@ -1,5 +1,5 @@
 import axios from "axios";
-import {mapDataToFormData} from "../../helpers/global";
+import {mapDataToFormData} from "../helpers/global";
 import {Writable} from "svelte/store";
 
 

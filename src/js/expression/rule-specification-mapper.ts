@@ -42,7 +42,6 @@ export default class RuleSpecificationMapper {
             case 'or':
                 return new OrSpecification(specifications);
             case 'and':
-                console.log('ANDDDD', specifications)
                 return new AndSpecification(specifications);
         }
 

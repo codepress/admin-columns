@@ -12,8 +12,8 @@
     export let objectId: number;
     export let destroyHandler: Function;
 
-    let modalClass:string = '';
-    let columnTitle:string;
+    let modalClass: string = '';
+    let columnTitle: string;
     let title: string;
     let content: string;
     let editLink: string;
@@ -30,7 +30,7 @@
         destroyHandler();
     }
 
-    const initKeyPress = (e:KeyboardEvent) => {
+    const initKeyPress = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
             destroyHandler();
         }
@@ -62,8 +62,6 @@
 
         source = CancelToken.source();
 
-        console.log( item );
-
         return axios({
             method: 'get',
             url: ajaxurl,
@@ -73,17 +71,17 @@
                 list_id: AC.layout,
                 column_name: item.columnName,
                 object_id: item.objectId,
-				view: item.view,
-				params: item.params,
+                view: item.view,
+                params: item.params,
                 _ajax_nonce: AC.ajax_nonce
             }
         }).then((response: AxiosResponse<string>) => {
             content = response.data
             title = getTitle(item);
-        }).catch( r => {
+        }).catch(r => {
             content = 'Content could not be loaded.';
             title = 'Error loading content.';
-		});
+        });
     }
 
 
@@ -115,7 +113,7 @@
     onMount(() => {
         let item = items.find(i => i.objectId === objectId);
 
-        if( item ){
+        if (item) {
             index = items.findIndex(item => item.objectId === objectId);
             columnTitle = item.element.closest('td')!.dataset.colname as string;
 
@@ -128,7 +126,7 @@
 
             updateData(item);
             determineSiblings();
-		}
+        }
 
     });
 
