@@ -10,7 +10,7 @@ use AC\Setting\FormatterCollection;
 trait BaseComponentFactoryTrait
 {
 
-    private function add_component_formatters(FormatterCollection $formatters, ComponentCollection $components): void
+    protected function add_component_formatters(FormatterCollection $formatters, ComponentCollection $components): void
     {
         foreach ($components as $component) {
             foreach ($component->get_formatters() as $formatter) {

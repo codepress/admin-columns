@@ -62,7 +62,6 @@ class UserLink implements Formatter
             default:
                 return $value;
         }
-        var_dump($user_id);
 
         return $link
             ? $value->with_value(ac_helper()->html->link($link, (string)$value))
