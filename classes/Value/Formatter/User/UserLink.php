@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter\User;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\PostTypeSlug;
 use AC\Type\Value;
@@ -23,13 +24,12 @@ class UserLink implements Formatter
 
     public function format(Value $value): Value
     {
-        // TODO test
         $user_id = (int)$value->get_id();
 
         $user = get_userdata($user_id);
 
         if ( ! $user) {
-            return new Value(null);
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         $link = '';

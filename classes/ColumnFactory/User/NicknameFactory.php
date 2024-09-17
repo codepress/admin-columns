@@ -34,7 +34,7 @@ class NicknameFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters->add(new Formatter\User\Meta('nickname'));
+        $formatters->prepend(new Formatter\User\Meta('nickname'));
     }
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
