@@ -11,7 +11,7 @@ import {favoriteListKeysStore} from "./columns/store/favorite-listkeys";
 import {debugMode} from "./columns/store/debug";
 import {initUninitializedListScreens} from "./admin/columns/listscreen-initialize";
 import InfoScreenOption from "./admin/columns/screen-options";
-import {showColumnName, showColumnType} from "./columns/store/screen-options";
+import {showColumnInfo, showColumnName, showColumnType} from "./columns/store/screen-options";
 
 const AcServices = initAcServices();
 const localConfig = getColumnSettingsConfig();
@@ -74,11 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
         initUninitializedListScreens(localConfig.uninitialized_list_screens, localConfig.list_key);
     }
 
-    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_id"] input').forEach(el =>
-        new InfoScreenOption('show_column_id', el, showColumnName)
-    );
-    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_type"] input').forEach(el =>
-        new InfoScreenOption('show_column_type', el, showColumnType)
+    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_info"] input').forEach(el =>
+        new InfoScreenOption('show_column_info', el, showColumnInfo)
     );
 
 });

@@ -5,7 +5,7 @@ namespace AC\Admin\ScreenOption;
 use AC\Admin\Preference\ScreenOptions;
 use AC\Admin\ScreenOption;
 
-class ColumnId extends ScreenOption
+class ColumnInfo extends ScreenOption
 {
 
     private $preference;
@@ -17,7 +17,7 @@ class ColumnId extends ScreenOption
 
     public function is_active(): bool
     {
-        return $this->preference->is_active('show_column_id');
+        return $this->preference->is_active('show_column_info');
     }
 
     public function render(): string
@@ -25,10 +25,10 @@ class ColumnId extends ScreenOption
         ob_start();
         ?>
 
-		<label for="ac-column-id" data-ac-screen-option="show_column_id">
-			<input id="ac-column-id" type="checkbox" <?php
+		<label for="ac-column-info" data-ac-screen-option="show_column_info">
+			<input id="ac-column-info" type="checkbox" <?php
             checked($this->is_active()); ?>>
-            <?= __('Column Name', 'codepress-admin-columns'); ?>
+            <?= __('Column Info', 'codepress-admin-columns'); ?>
 		</label>
         <?php
         return ob_get_clean();

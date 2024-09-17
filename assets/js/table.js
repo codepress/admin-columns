@@ -6743,7 +6743,6 @@ class Pointer {
                 content: this.target.innerHTML,
                 position: this.position,
                 closeHandler: () => this.closeHandler(),
-                destroyHandler: () => this.destroyComponent()
             }
         });
     }
