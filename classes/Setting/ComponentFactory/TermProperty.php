@@ -34,11 +34,9 @@ class TermProperty extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $formatters->add(new Formatter\Term\TermProperty($this->get_term_property($config->get(self::NAME, ''))));
-
-        return parent::get_formatters($config, $formatters);
     }
 
     private function get_term_property(string $value): string

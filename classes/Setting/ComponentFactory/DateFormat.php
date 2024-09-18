@@ -70,7 +70,7 @@ abstract class DateFormat extends Builder
         }
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $format = (string)$config->get('date_format');
         $formatters->add(new TimeStamp());
@@ -80,8 +80,6 @@ abstract class DateFormat extends Builder
         if ($date_format) {
             $formatters->add($date_format);
         }
-
-        return parent::get_formatters($config, $formatters);
     }
 
 }

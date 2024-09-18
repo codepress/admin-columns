@@ -34,7 +34,7 @@ final class ImageSize extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $size = $config->get('image_size') ?: 'cpac-custom';
 
@@ -46,8 +46,6 @@ final class ImageSize extends Builder
         }
 
         $formatters->add(new Image($size));
-
-        return $formatters;
     }
 
     protected function get_children(Config $config): ?Children

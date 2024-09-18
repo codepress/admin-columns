@@ -9,16 +9,20 @@ use AC\Setting\AttributeCollection;
 use AC\Setting\Children;
 use AC\Setting\Component;
 use AC\Setting\ComponentBuilder;
+use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\FormatterCollection;
 
-abstract class Builder extends Base
+abstract class Builder implements ComponentFactory
 {
 
     public function create(Config $config, Specification $conditions = null): Component
     {
         $builder = new ComponentBuilder();
+        $formatters = new FormatterCollection();
+        $attributes = new AttributeCollection();
 
         if ($conditions !== null) {
             $builder->set_conditions($conditions);
@@ -42,18 +46,27 @@ abstract class Builder extends Base
             $builder->set_input($input);
         }
 
-        $builder->set_formatters(
-            $this->get_formatters($config, new FormatterCollection())
-        );
+        $this->add_formatters($config, $formatters);
 
         $children = $this->get_children($config);
 
         if ($children !== null) {
             $builder->set_children($children);
+
+            $this->add_component_formatters(
+                $formatters,
+                $children->get_iterator(),
+                // TODO is this a condition? Test.
+                $input
+                    ? (string)$input->get_value()
+                    : null
+            );
         }
 
+        $builder->set_formatters($formatters);
+
         $builder->set_attributes(
-            $this->get_attributes($config, new AttributeCollection())
+            $this->get_attributes($config, $attributes)
         );
 
         $type = $this->get_type($config);
@@ -80,22 +93,22 @@ abstract class Builder extends Base
         return null;
     }
 
-    // TODO $formatters do not need to be returned
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
-    {
-        $children = $this->get_children($config);
-
-        if ($children) {
-            $input = $this->get_input($config);
-
-            $formatters = $this->get_formatters_recursive(
-                $children->get_iterator(),
-                $formatters,
-                $input ? (string)$input->get_value() : null
-            );
+    private function add_component_formatters(
+        FormatterCollection $formatters,
+        ComponentCollection $components,
+        string $condition = null
+    ): void {
+        foreach ($components as $component) {
+            if ($component->get_conditions()->is_satisfied_by((string)$condition)) {
+                foreach ($component->get_formatters() as $formatter) {
+                    $formatters->add($formatter);
+                }
+            }
         }
+    }
 
-        return $formatters;
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
+    {
     }
 
     protected function get_children(Config $config): ?Children

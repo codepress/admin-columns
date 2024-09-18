@@ -55,7 +55,7 @@ class UserProperty extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         switch ($config->get('display_author_as')) {
             case self::PROPERTY_GRAVATAR:
@@ -77,8 +77,6 @@ class UserProperty extends Builder
                 $formatters->add(new Formatter\User\Property((string)$config->get('display_author_as')));
                 break;
         }
-
-        return parent::get_formatters($config, $formatters);
     }
 
     protected function get_children(Config $config): ?Children

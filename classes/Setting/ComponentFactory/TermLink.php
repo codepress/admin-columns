@@ -15,8 +15,8 @@ use AC\Value\Formatter;
 final class TermLink extends Builder
 {
 
-    private $post_type;
-    
+    private ?PostTypeSlug $post_type;
+
     public function __construct(PostTypeSlug $post_type = null)
     {
         $this->post_type = $post_type;
@@ -36,11 +36,9 @@ final class TermLink extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $formatters->add(new Formatter\Term\TermLink((string)$config->get('term_link_to'), $this->post_type));
-
-        return parent::get_formatters($config, $formatters);
     }
 
     protected function get_input_options(): array

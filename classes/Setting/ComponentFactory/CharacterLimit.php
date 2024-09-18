@@ -45,11 +45,9 @@ final class CharacterLimit extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $formatters->add(new AC\Value\Formatter\CharacterLimit((int)$config->get('character_limit')));
-
-        return $formatters;
     }
 
     public function create(Config $config, Specification $conditions = null): Component

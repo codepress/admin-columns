@@ -67,15 +67,13 @@ final class AttachmentDisplay extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $formatters->add(new Formatter\Post\Attachments());
 
         if ($config->get(self::NAME) === self::OPTION_COUNT) {
             $formatters->add(new Formatter\Count());
         }
-
-        return parent::get_formatters($config, $formatters);
     }
 
 }
