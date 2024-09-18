@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-final class StartsWithSpecification extends FactSpecification
+final class StartsWithSpecification extends StringCOmparisonSpecification
 {
 
-    use SpecificationTrait;
-
-    public function is_satisfied_by(string $value): bool
+    public function __construct(string $fact)
     {
-        return $this->fact !== '' && str_starts_with($value, $this->fact);
+        parent::__construct(StringOperators::STARTS_WITH, $fact);
     }
 
-    protected function get_type(): string
+    public function is_satisfied_by($value): bool
     {
-        return 'starts_with';
+        return $this->fact !== '' && str_starts_with((string)$value, $this->fact);
     }
 
 }

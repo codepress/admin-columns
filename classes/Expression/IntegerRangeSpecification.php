@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-class IntegerComparisonSpecification extends ComparisonSpecification implements TypeSpecification
+class IntegerRangeSpecification extends RangeSpecification implements TypeSpecification
 {
 
-    public function __construct(string $operator, int $fact)
+    public function __construct(string $operator, int $a, int $b)
     {
-        parent::__construct($operator, $fact);
+        parent::__construct($operator, $a, $b);
     }
 
     public function is_satisfied_by($value): bool

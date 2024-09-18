@@ -7,7 +7,7 @@ namespace AC\Expression;
 use AC\Expression\Exception\InvalidDateFormatException;
 use DateTimeZone;
 
-class DateComparisonSpecification extends ComparisonSpecification implements TypeSpecification
+class DateRangeSpecification extends RangeSpecification implements TypeSpecification, DateSpecification
 {
 
     use DateTrait;
@@ -17,27 +17,24 @@ class DateComparisonSpecification extends ComparisonSpecification implements Typ
      */
     public function __construct(
         string $operator,
-        string $fact,
+        string $a,
+        string $b,
         ?string $format = null,
         ?DateTimeZone $timezone = null
     ) {
         parent::__construct(
             $operator,
-            $this->create_date_from_value($fact)->getTimestamp()
+            DateTimeFactory::create_from_format($a, $format, $timezone)->getTimestamp(),
+            DateTimeFactory::create_from_format($b, $format, $timezone)->getTimestamp()
         );
 
         $this->format = $format;
         $this->timezone = $timezone;
     }
 
-    /**
-     * @throws InvalidDateFormatException
-     */
     public function is_satisfied_by($value): bool
     {
-        return parent::is_satisfied_by(
-            $this->create_date_from_value((string)$value)->getTimestamp()
-        );
+        return parent::is_satisfied_by((string)$value);
     }
 
     public function export(): array

@@ -13,7 +13,5 @@ interface ComparisonOperators
     public const LESS_THAN_EQUAL = 'less_than_equal';
     public const EQUAL = 'equal';
     public const NOT_EQUAL = 'not_equal';
-    public const BETWEEN = 'between';
-    public const NOT_BETWEEN = 'not_between';
 
 }

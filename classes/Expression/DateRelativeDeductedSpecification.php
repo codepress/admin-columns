@@ -4,40 +4,34 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
+use AC\Expression\Exception\InvalidDateFormatException;
 use AC\Expression\Exception\OperatorNotFoundException;
 use DateTimeZone;
 
-final class DateRelativeDeductedSpecification extends DateSpecification
+final class DateRelativeDeductedSpecification extends Specification
 {
 
-    use OperatorTrait;
+    use DateTrait;
 
-    public function __construct(string $operator, string $format = null, DateTimeZone $time_zone = null)
+
+    public function __construct(string $operator, ?string $format = null, ?DateTimeZone $timezone = null)
     {
-        parent::__construct($format, $time_zone);
+        parent::__construct($operator);
 
-        $this->operator = $operator;
-
-        $this->validate_operator();
-    }
-
-    protected function get_operators(): array
-    {
-        return [
-            DateOperators::TODAY,
-            DateOperators::PAST,
-            DateOperators::FUTURE,
-        ];
+        $this->format = $format;
+        $this->timezone = $timezone;
     }
 
     /**
-     * @throws Exception\InvalidDateFormatException
+     * @throws InvalidDateFormatException
      */
-    public function is_satisfied_by(string $value): bool
+    public function is_satisfied_by($value): bool
     {
-        // Format date to discard time
-        $date = $this->create_date_from_value($value)->format(self::MYSQL_DATE);
-        $today = $this->get_current_date()->format(self::MYSQL_DATE);
+        // Format that discards time
+        $format = DateFormats::MYSQL_DATE;
+
+        $date = $this->create_date_from_value($value)->format($format);
+        $today = DateTimeFactory::create( $this->timezone )->format($format);
 
         switch ($this->operator) {
             case DateOperators::TODAY:
@@ -49,20 +43,6 @@ final class DateRelativeDeductedSpecification extends DateSpecification
         }
 
         throw new OperatorNotFoundException($this->operator);
-    }
-
-    public function get_rules(string $value): array
-    {
-        $rules = [
-            Rules::TYPE     => 'date_relative_deducted',
-            Rules::VALUE    => $value,
-            Rules::OPERATOR => $this->operator,
-        ];
-
-        return array_merge(
-            $rules,
-            parent::get_rules($value)
-        );
     }
 
 }

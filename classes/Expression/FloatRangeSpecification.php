@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-class FloatComparisonSpecification extends ComparisonSpecification implements TypeSpecification
+class FloatRangeSpecification extends RangeSpecification implements TypeSpecification
 {
 
-    public function __construct(string $operator, float $fact)
+    public function __construct(string $operator, float $a, float $b)
     {
-        parent::__construct($operator, $fact);
+        parent::__construct($operator, $a, $b);
     }
 
     public function is_satisfied_by($value): bool

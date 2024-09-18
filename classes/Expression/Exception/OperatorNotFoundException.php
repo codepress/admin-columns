@@ -10,11 +10,11 @@ use Throwable;
 final class OperatorNotFoundException extends InvalidArgumentException
 {
 
-    public function __construct(string $operator, $code = 0, Throwable $previous = null)
+    public function __construct(string $operator, Throwable $previous = null)
     {
         $message = sprintf('Operator %s was not found.', $operator);
 
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message, 0, $previous);
     }
 
 }

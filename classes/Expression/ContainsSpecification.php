@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-final class ContainsSpecification extends FactSpecification
+final class ContainsSpecification extends StringComparisonSpecification
 {
 
-    use SpecificationTrait;
-
-    public function is_satisfied_by(string $value): bool
+    public function __construct(string $fact)
     {
-        return $this->fact !== '' && str_contains($value, $this->fact);
+        parent::__construct(StringOperators::CONTAINS, $fact);
     }
 
-    protected function get_type(): string
+    public function is_satisfied_by($value): bool
     {
-        return 'contains';
+        return $this->fact !== '' && str_contains((string)$value, $this->fact);
     }
 
 }

@@ -7,7 +7,15 @@ namespace AC\Expression;
 final class AndSpecification extends AggregateSpecification
 {
 
-    public function is_satisfied_by(string $value): bool
+    public function __construct(array $specifications)
+    {
+        parent::__construct(
+            LogicalOperators::LOGICAL_AND,
+            $specifications
+        );
+    }
+
+    public function is_satisfied_by($value): bool
     {
         foreach ($this->specifications as $specification) {
             if ( ! $specification->is_satisfied_by($value)) {
@@ -16,11 +24,6 @@ final class AndSpecification extends AggregateSpecification
         }
 
         return true;
-    }
-
-    protected function get_type(): string
-    {
-        return 'and';
     }
 
 }

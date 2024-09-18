@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-interface FactSpecification
+interface TypeSpecification
 {
 
-    public const FACT = 'fact';
+    public const TYPE = 'type';
 
 }
