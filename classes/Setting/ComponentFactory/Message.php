@@ -23,7 +23,6 @@ class Message extends Builder
         return $this->label;
     }
 
-    //TODO
     protected function get_input(Config $config): ?Input
     {
         return new Input\Custom('message', null, [

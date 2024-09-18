@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter\User;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\PostTypeSlug;
 use AC\Type\Value;
@@ -11,9 +12,9 @@ use AC\Type\Value;
 class UserLink implements Formatter
 {
 
-    private $link_to;
+    private string $link_to;
 
-    private $post_type;
+    private ?PostTypeSlug $post_type;
 
     public function __construct(string $link_to, PostTypeSlug $post_type = null)
     {
@@ -23,7 +24,15 @@ class UserLink implements Formatter
 
     public function format(Value $value): Value
     {
-        $user_id = $value->get_id();
+        $user_id = (int)$value->get_id();
+
+        $user = get_userdata($user_id);
+
+        if ( ! $user) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
+
+        $link = '';
 
         switch ($this->link_to) {
             case 'edit_user':
@@ -55,7 +64,7 @@ class UserLink implements Formatter
         }
 
         return $link
-            ? $value->with_value(ac_helper()->html->link($link, $value->get_value()))
+            ? $value->with_value(ac_helper()->html->link($link, (string)$value))
             : $value;
     }
 

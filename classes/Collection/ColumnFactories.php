@@ -12,15 +12,12 @@ class ColumnFactories extends Iterator
 
     public function __construct(array $factories = [])
     {
-        foreach ($factories as $type => $factory) {
-            $this->add($type, $factory);
-        }
+        array_map([$this, 'add'], $factories);
     }
 
-    // TODO Stefan remove string $type and let the $factory resolve it for you
-    public function add(string $type, ColumnFactory $factory): void
+    public function add(ColumnFactory $factory): void
     {
-        $this->data[$type] = $factory;
+        $this->data[$factory->get_column_type()] = $factory;
     }
 
     public function current(): ColumnFactory

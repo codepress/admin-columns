@@ -103,14 +103,9 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         ]);
     }
 
-    private function get_column_id(): ScreenOption\ColumnId
+    private function get_column_info(): ScreenOption\ColumnInfo
     {
-        return new ScreenOption\ColumnId(new Admin\Preference\ScreenOptions());
-    }
-
-    private function get_column_type(): ScreenOption\ColumnType
-    {
-        return new ScreenOption\ColumnType(new Admin\Preference\ScreenOptions());
+        return new ScreenOption\ColumnInfo(new Admin\Preference\ScreenOptions());
     }
 
     private function get_list_screen_id(): ScreenOption\ListScreenId
@@ -126,10 +121,10 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
     public function get_screen_options(): array
     {
         return [
-            $this->get_column_id(),
-            $this->get_column_type(),
-            $this->get_list_screen_id(),
-            $this->get_list_screen_type(),
+            $this->get_column_info(),
+            //TODO still have this available?
+            //            $this->get_list_screen_id(),
+            //            $this->get_list_screen_type(),
         ];
     }
 

@@ -37,7 +37,6 @@ class CustomFieldKeys implements RequestAjaxHandler
               ->order_by('meta_key');
 
         if ($post_type) {
-            // TODO test Media 'attachment'
             $query->where_post_type((string)$post_type);
         }
 

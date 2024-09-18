@@ -53,12 +53,15 @@ class AdminColumns
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\PostFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\CommentFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\MediaFactory::class));
-        ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
-        ColumnFactories\Aggregate::add($container->get(ColumnFactories\IntegrationFactory::class));
+        // TODO
+
+        //        ColumnFactories\Aggregate::add($container->get(ColumnFactories\MediaFactory::class));
+        //        ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
+        //        ColumnFactories\Aggregate::add($container->get(ColumnFactories\IntegrationFactory::class));
 
         ExtendedValueRegistry::add($container->get(MediaPreview::class));
 
-        //
+        // TODO
         //        if ( ! defined('ACP_FILE')) {
         //            ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\IntegrationsFactory::class));
         //        }
@@ -135,7 +138,6 @@ class AdminColumns
         $request_ajax_handlers->add('ac-admin-screen-options', $container->get(Ajax\ScreenOptions::class));
         $request_ajax_handlers->add('ac-extended-value', $container->get(Ajax\ExtendedValue::class));
         $request_ajax_handlers->add('ac-admin-general-options', $container->get(Ajax\AdminGeneralOptions::class));
-        // TODO Stefan create ajax call in JS
         $request_ajax_handlers->add('ac-restore-settings', $container->get(Ajax\RestoreSettingsRequest::class));
 
         $services->add(
@@ -157,14 +159,6 @@ class AdminColumns
             'translations.global'                   => static function (Plugin $plugin): Translation {
                 return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
             },
-            // TODO
-            //            ComponentCollectionBuilder::class       => function (
-            //                NameFactory $name_factory,
-            //                WidthFactory $width_factory,
-            //                LabelFactory $label_factory
-            //            ): ComponentCollectionBuilder {
-            //                return new ComponentCollectionBuilder($name_factory, $width_factory, $label_factory);
-            //            },
             Storage::class                          => static function (Database $database): Storage {
                 $storage = new Storage();
                 $storage->set_repositories([

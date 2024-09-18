@@ -5,7 +5,7 @@ namespace AC\ColumnFactory\Post;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\AttachmentDisplay;
 use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\Config;
+use AC\Setting\ConditionalComponentFactoryCollection;
 
 class AttachmentFactory extends BaseColumnFactory
 {
@@ -21,11 +21,9 @@ class AttachmentFactory extends BaseColumnFactory
         $this->attachments_factory = $attachments_factory;
     }
 
-    protected function add_component_factories(Config $config): void
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($config);
-
-        $this->add_component_factory($this->attachments_factory);
+        $factories->add($this->attachments_factory);
     }
 
     public function get_column_type(): string

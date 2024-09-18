@@ -3,7 +3,6 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\PostMimeType;
@@ -21,13 +20,9 @@ class MimeTypeFactory extends BaseColumnFactory
         return __('Mime Type', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
         $formatters->add(new PostMimeType());
-
-        return parent::get_formatters($components, $config, $formatters);
     }
+
 }

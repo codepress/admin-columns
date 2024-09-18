@@ -14,15 +14,15 @@ class DottedPassword implements Formatter
     {
         $raw_value = $value->get_value();
 
-        if ($raw_value) {
-            $char = '&#8226;';
-
-            return $value->with_value(
-                str_pad('', strlen($raw_value) * strlen($char), $char)
-            );
+        if ( ! $raw_value || ! is_string($raw_value)) {
+            return $value;
         }
 
-        return $value;
+        $char = '&#8226;';
+
+        return $value->with_value(
+            str_pad('', strlen($raw_value) * strlen($char), $char)
+        );
     }
 
 }

@@ -1,9 +1,11 @@
 <script lang="ts">
+    import {Callback} from "webpack-cli";
+
     export let content = '';
     export let position = '';
     let onElement = false;
 
-    export let closeHandler;
+    export let closeHandler: Callback<any>;
 
     export const isOnElement = (): boolean => {
         return onElement;

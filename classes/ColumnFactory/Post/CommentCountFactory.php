@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
-use AC;
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\CommentStatus;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter;
 
 class CommentCountFactory extends BaseColumnFactory
 {
@@ -26,11 +26,15 @@ class CommentCountFactory extends BaseColumnFactory
         $this->comment_status = $comment_status;
     }
 
-    protected function add_component_factories(Config $config): void
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($config);
+        $factories->add($this->comment_status);
+    }
 
-        $this->add_component_factory($this->comment_status);
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->add(new Formatter\Post\CommentCount((string)$config->get('comment_status')));
+        $formatters->add(new Formatter\Post\CommentsForPostLink((string)$config->get('comment_status')));
     }
 
     public function get_column_type(): string
@@ -41,17 +45,6 @@ class CommentCountFactory extends BaseColumnFactory
     public function get_label(): string
     {
         return __('Comment Count', 'codepress-admin-columns');
-    }
-
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        //TODO implement linkable as in setting
-        $formatters->add(new AC\Value\Formatter\Post\CommentCount((string)$config->get('comment_status')));
-
-        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

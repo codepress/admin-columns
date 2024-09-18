@@ -57,7 +57,7 @@
 
         getColumnSettings($currentListKey, column_type).then(d => {
             const columnLabel = ColumnTypesUtils.getColumnType(column_type)?.label;
-            config[name] = d.data.data.columns.settings;
+            config[name] = d.data.data.column.settings;
 
             data['columns'].push({
                 name: name,

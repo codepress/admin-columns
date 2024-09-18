@@ -9,9 +9,11 @@ import {columnTypesStore} from "./columns/store/column-types";
 import {listScreenIsReadOnly} from "./columns/store/read_only";
 import {favoriteListKeysStore} from "./columns/store/favorite-listkeys";
 import {debugMode} from "./columns/store/debug";
-import {initUninitializedListScreens} from "./admin/columns/listscreen-initialize";
-import InfoScreenOption from "./admin/columns/screen-options";
-import {showColumnName, showColumnType} from "./columns/store/screen-options";
+import {showColumnInfo} from "./columns/store/screen-options";
+import {initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
+import InfoScreenOption from "./modules/screen-options";
+import {Writable} from "svelte/store";
+import ColumnPageBridge from "./columns/utils/page-bridge";
 
 const AcServices = initAcServices();
 const localConfig = getColumnSettingsConfig();
@@ -35,6 +37,10 @@ currentListId.subscribe((d) => {
 })
 
 
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('admin-columns__columns')
     // TODO make something more affording
@@ -50,7 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ListScreenSections,
     }
 
-    AcServices.registerService('ColumnPage', ConfigService);
+
+    const pageBridge = new ColumnPageBridge();
+
+
+    AcServices.registerService('ColumnPage', pageBridge);
 
     currentListId.set(localConfig.list_id)
     currentListKey.set(localConfig.list_key);
@@ -70,15 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (localConfig.uninitialized_list_screens ) {
+    if (localConfig.uninitialized_list_screens) {
         initUninitializedListScreens(localConfig.uninitialized_list_screens, localConfig.list_key);
     }
 
-    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_id"] input').forEach(el =>
-        new InfoScreenOption('show_column_id', el, showColumnName)
-    );
-    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_type"] input').forEach(el =>
-        new InfoScreenOption('show_column_type', el, showColumnType)
+    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_info"] input').forEach(el =>
+        new InfoScreenOption('show_column_info', el, showColumnInfo)
     );
 
 });

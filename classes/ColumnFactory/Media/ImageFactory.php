@@ -5,7 +5,7 @@ namespace AC\ColumnFactory\Media;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\ImageSize;
 use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\Config;
+use AC\Setting\ConditionalComponentFactoryCollection;
 
 class ImageFactory extends BaseColumnFactory
 {
@@ -21,11 +21,9 @@ class ImageFactory extends BaseColumnFactory
         $this->image_size = $image_size;
     }
 
-    protected function add_component_factories(Config $config): void
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        $this->add_component_factory($this->image_size);
-
-        parent::add_component_factories($config);
+        $factories->add($this->image_size);
     }
 
     public function get_column_type(): string

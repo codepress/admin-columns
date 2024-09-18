@@ -35,7 +35,6 @@
 	} )
 
 	$: if ( cmp ) {
-		console.log( 'restPropes' );
 		//cmp.$set( $$restProps )
 	}
 

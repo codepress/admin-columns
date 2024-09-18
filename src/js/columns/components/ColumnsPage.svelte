@@ -10,8 +10,8 @@
     import {columnTypeSorter, columnTypesStore} from "../store/column-types";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {listScreenIsReadOnly} from "../store/read_only";
-    import AdminHeaderBar from "../../admin/component/AdminHeaderBar.svelte";
     import AcButton from "ACUi/element/AcButton.svelte";
+    import AdminHeaderBar from "../../components/AdminHeaderBar.svelte";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -93,7 +93,6 @@
 		<AcButton type="primary" on:click={() => form.saveSettings()}>Save Changes</AcButton>
 	</div>
 </AdminHeaderBar>
-
 
 <div class="ac-admin-page acu-flex acu-flex-col acu-min-h-[calc(100vh_-_70px)] acu-w-full acu-transform
 			2xl:acu-flex-row ">

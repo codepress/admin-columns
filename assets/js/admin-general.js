@@ -1153,7 +1153,6 @@ class Pointer {
                 content: this.target.innerHTML,
                 position: this.position,
                 closeHandler: () => this.closeHandler(),
-                destroyHandler: () => this.destroyComponent()
             }
         });
     }
@@ -6359,10 +6358,6 @@ __webpack_require__.r(__webpack_exports__);
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.ac-section').forEach(el => {
         new _modules_ac_section__WEBPACK_IMPORTED_MODULE_0__["default"](el);
-    });
-    jQuery(document).on('select2:open', () => {
-        var _a;
-        (_a = document.querySelector('.select2-container--open .select2-search__field')) === null || _a === void 0 ? void 0 : _a.focus();
     });
     (0,_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_1__.initPointers)();
     (0,_ui_wrapper_functions__WEBPACK_IMPORTED_MODULE_3__.initUiToggleButtons)();

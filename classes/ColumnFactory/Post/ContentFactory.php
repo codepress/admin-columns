@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\PostContent;
@@ -32,12 +32,16 @@ class ContentFactory extends BaseColumnFactory
         $this->before_after_factory = $before_after_factory;
     }
 
-    protected function add_component_factories(Config $config): void
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($config);
+        $factories->add($this->string_limit_factory);
+        $factories->add($this->before_after_factory);
+    }
 
-        $this->add_component_factory($this->string_limit_factory);
-        $this->add_component_factory($this->before_after_factory);
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->prepend(new StripTags());
+        $formatters->prepend(new PostContent());
     }
 
     public function get_column_type(): string
@@ -48,17 +52,6 @@ class ContentFactory extends BaseColumnFactory
     public function get_label(): string
     {
         return __('Content', 'codepress-admin-columns');
-    }
-
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new PostContent());
-        $formatters->add(new StripTags());
-
-        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

@@ -80,6 +80,7 @@ abstract class Builder extends Base
         return null;
     }
 
+    // TODO $formatters do not need to be returned
     protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
     {
         $children = $this->get_children($config);

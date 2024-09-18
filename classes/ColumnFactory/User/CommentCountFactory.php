@@ -4,7 +4,6 @@ namespace AC\ColumnFactory\User;
 
 use AC;
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 
@@ -21,14 +20,9 @@ class CommentCountFactory extends BaseColumnFactory
         return 'column-user_commentcount';
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
         $formatters->add(new AC\Value\Formatter\User\CommentCount());
-
-        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

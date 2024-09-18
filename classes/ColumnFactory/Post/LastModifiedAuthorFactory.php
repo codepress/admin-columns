@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UserLink;
 use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\LastModifiedAuthor;
@@ -29,14 +29,6 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
         $this->user_link = $user_link;
     }
 
-    protected function add_component_factories(Config $config): void
-    {
-        parent::add_component_factories($config);
-
-        $this->add_component_factory($this->user_factory);
-        $this->add_component_factory($this->user_link);
-    }
-
     public function get_column_type(): string
     {
         return 'column-last_modified_author';
@@ -47,14 +39,15 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
         return __('Last Modified Author', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new LastModifiedAuthor());
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    {
+        $factories->add($this->user_factory);
+        $factories->add($this->user_link);
+    }
 
-        return parent::get_formatters($components, $config, $formatters);
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        $formatters->prepend(new LastModifiedAuthor());
     }
 
 }

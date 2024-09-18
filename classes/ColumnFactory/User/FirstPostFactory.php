@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\User;
 
-use AC;
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter;
 
 class FirstPostFactory extends BaseColumnFactory
 {
@@ -36,16 +36,6 @@ class FirstPostFactory extends BaseColumnFactory
         $this->post_link = $post_link;
     }
 
-    protected function add_component_factories(Config $config): void
-    {
-        parent::add_component_factories($config);
-
-        $this->add_component_factory($this->post_type);
-        $this->add_component_factory($this->post_status);
-        $this->add_component_factory($this->post_property);
-        $this->add_component_factory($this->post_link);
-    }
-
     public function get_label(): string
     {
         return __('First Post', 'codepress-admin-columns');
@@ -56,17 +46,20 @@ class FirstPostFactory extends BaseColumnFactory
         return 'column-first_post';
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
         $post_type = $config->has('post_type') ? (array)$config->get('post_type') : null;
         $post_status = $config->has('post_status') ? (array)$config->get('post_status') : null;
 
-        $formatters->add(new AC\Value\Formatter\User\FirstPost($post_type, $post_status));
+        $formatters->add(new Formatter\User\FirstPost($post_type, $post_status));
+    }
 
-        return parent::get_formatters($components, $config, $formatters);
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    {
+        $factories->add($this->post_type);
+        $factories->add($this->post_status);
+        $factories->add($this->post_property);
+        $factories->add($this->post_link);
     }
 
 }

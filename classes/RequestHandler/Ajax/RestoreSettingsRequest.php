@@ -38,7 +38,7 @@ class RestoreSettingsRequest implements RequestAjaxHandler
         $repository = $this->repository->get_list_screen_repository();
 
         if ( ! $repository instanceof ListScreenRepositoryWritable) {
-            return;
+            $response->error();
         }
 
         foreach ($repository->find_all() as $list_screen) {
@@ -52,6 +52,7 @@ class RestoreSettingsRequest implements RequestAjaxHandler
 
         $notice = new Notice(__('Default settings successfully restored.', 'codepress-admin-columns'));
         $notice->register();
+        $response->success();
     }
 
     private function delete_user_preferences(): void

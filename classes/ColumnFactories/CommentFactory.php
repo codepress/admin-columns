@@ -9,7 +9,7 @@ use AC\ColumnFactory\Comment;
 use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 
-class CommentFactory extends BaseFactory
+final class CommentFactory extends BaseFactory
 {
 
     protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
@@ -20,8 +20,13 @@ class CommentFactory extends BaseFactory
             return $collection;
         }
 
+        $table_screen_context = AC\Type\TableScreenContext::from_table_screen($table_screen);
+
+        $collection->add(new AC\Type\ColumnFactoryDefinition(AC\ColumnFactory\CustomFieldFactory::class, [
+            'table_screen_context' => $table_screen_context,
+        ]));
+
         $factories = [
-            AC\ColumnFactory\CustomFieldFactory::class,
             AC\ColumnFactory\ActionsFactory::class,
             Comment\AgentFactory::class,
             Comment\ApprovedFactory::class,

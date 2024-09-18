@@ -49,7 +49,7 @@
         openedColumnsStore.open(data.name);
 
         getColumnSettings($currentListKey, selectValue).then(response => {
-            columnConfig = response.data.data.columns.settings;
+            columnConfig = response.data.data.column.settings;
 
             setTimeout(() => {
                 columnConfig = columnConfig;

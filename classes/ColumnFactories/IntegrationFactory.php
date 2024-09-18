@@ -9,7 +9,7 @@ use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 use AC\Vendor\DI\Container;
 
-class IntegrationFactory extends BaseFactory
+final class IntegrationFactory extends BaseFactory
 {
 
     private $repository;

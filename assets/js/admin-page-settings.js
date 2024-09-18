@@ -9992,10 +9992,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./plugin/ajax-loader */ "./js/plugin/ajax-loader.ts");
 /* harmony import */ var _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plugin/ac-confirmation */ "./js/plugin/ac-confirmation.ts");
 /* harmony import */ var _ajax_settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ajax/settings */ "./js/ajax/settings.ts");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 
 
 
 
+
+const restoreSettings = () => {
+    let data = new FormData();
+    data.append('_ajax_nonce', AC._ajax_nonce);
+    data.append('action', 'ac-restore-settings');
+    return axios__WEBPACK_IMPORTED_MODULE_4__["default"].post(ajaxurl, data);
+};
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.ac-settings-box input[data-ajax-setting]').forEach(el => {
         var _a;
@@ -10005,11 +10013,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (restoreFormButton) {
         restoreFormButton.addEventListener('click', (e) => {
             e.preventDefault();
+            let loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__["default"]();
             new _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_2__["default"]({
                 message: AC_I18N.restore_settings,
                 confirm: () => {
                     var _a;
-                    (_a = restoreFormButton === null || restoreFormButton === void 0 ? void 0 : restoreFormButton.closest('form')) === null || _a === void 0 ? void 0 : _a.submit();
+                    loader === null || loader === void 0 ? void 0 : loader.getElement().remove();
+                    loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__["default"]();
+                    (_a = restoreFormButton.parentElement) === null || _a === void 0 ? void 0 : _a.append(loader.getElement());
+                    loader.setActive(true).setLoading(true);
+                    restoreSettings().then(() => {
+                        loader.finish();
+                    });
                 },
                 lastFocus: restoreFormButton
             }).create();

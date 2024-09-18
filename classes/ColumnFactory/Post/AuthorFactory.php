@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -31,13 +31,17 @@ class AuthorFactory extends BaseColumnFactory
         $this->before_after_factory = $before_after_factory;
     }
 
-    protected function add_component_factories(Config $config): void
+    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        parent::add_component_factories($config);
+        $factories->add($this->user_factory)
+                  ->add($this->before_after_factory);
+    }
 
-        $this->component_factories
-            ->add($this->user_factory)
-            ->add($this->before_after_factory);
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    {
+        parent::add_formatters($formatters, $config);
+
+        $formatters->prepend(new Formatter\Post\Author());
     }
 
     public function get_column_type(): string
@@ -48,16 +52,6 @@ class AuthorFactory extends BaseColumnFactory
     public function get_label(): string
     {
         return __('Author', 'codepress-admin-columns');
-    }
-
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new Formatter\Post\Author());
-
-        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

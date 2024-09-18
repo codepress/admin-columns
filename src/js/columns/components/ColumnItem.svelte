@@ -16,7 +16,7 @@
     import {debugMode} from "../store/debug";
     import ColumnLabel from "./ColumnLabel.svelte";
     import {columnTypesStore} from "../store/column-types";
-    import {showColumnName} from "../store/screen-options";
+    import {showColumnInfo} from "../store/screen-options";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
@@ -25,6 +25,7 @@
     const originalsColumns = ColumnTypesUtils.getOriginalColumnTypes();
 
     let columnTypeLabel: string;
+    let columnTypeName: string;
 
     const toggle = () => {
         openedColumnsStore.toggle(data.name);
@@ -42,9 +43,9 @@
 
     onMount(() => {
         isOriginalColumn = typeof originalsColumns.find(c => c.value === data.type) !== 'undefined';
-
-        columnTypeLabel = $columnTypesStore.find(c => c.value === data.type)?.label ?? 'ff'
-        console.log('LABEL', columnTypeLabel)
+        let columnInfo = $columnTypesStore.find(c => c.value === data.type);
+        columnTypeLabel = columnInfo?.label ?? ''
+        columnTypeName = columnInfo?.value ?? ''
     })
 
     const checkCondition = (condition: AC.Specification.Rule, parent: string) => {
@@ -114,9 +115,10 @@
 				<a class="ac-column-row-action -delete" href={'#'} on:click|preventDefault={handleDelete}>Delete</a>
 			</div>
 		</div>
-		{#if $showColumnName}
-			<div>
-				<small>{columnTypeLabel}</small> | <small>{data.name}</small>
+		{#if $showColumnInfo}
+			<div class="acu-flex acu-flex-col acu-text-right acu-pr-2 acu-text-[#999] acu-leading-snug">
+				<small><strong class="acu-text-[#777] acu-pr-1">type:</strong>{columnTypeName}</small>
+				<small><strong class="acu-text-[#777] acu-pr-1">name:</strong>{data.name}</small>
 			</div>
 		{/if}
 		<div class="ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end">
@@ -141,7 +143,6 @@
 			<ColumnSetting description="" label="Type" extraClass="-type">
 				<TypeSetting bind:data={data} bind:columnConfig={config} disabled={$listScreenIsReadOnly}/>
 			</ColumnSetting>
-
 
 			<ColumnSettings
 				bind:data={data}

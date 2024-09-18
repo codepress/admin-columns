@@ -3,10 +3,21 @@ import {AcGeneralSettingsI18N, LocalizedAcGeneralSettings} from "./types/admin-c
 import AjaxLoader from "./plugin/ajax-loader";
 import AcConfirmation from "./plugin/ac-confirmation";
 import {persistGeneralSetting} from "./ajax/settings";
+import axios from "axios";
 
 declare const ajaxurl: string;
 declare const AC: LocalizedAcGeneralSettings
 declare const AC_I18N: AcGeneralSettingsI18N
+
+
+
+const restoreSettings = () => {
+    let data = new FormData();
+    data.append('_ajax_nonce', AC._ajax_nonce);
+    data.append('action', 'ac-restore-settings');
+
+    return axios.post(ajaxurl, data);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll<HTMLInputElement>('.ac-settings-box input[data-ajax-setting]').forEach(el => {
@@ -18,10 +29,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (restoreFormButton) {
         restoreFormButton.addEventListener('click', (e) => {
             e.preventDefault();
+            let loader = new AjaxLoader();
+
             new AcConfirmation({
                 message: AC_I18N.restore_settings,
                 confirm: () => {
-                    restoreFormButton?.closest('form')?.submit();
+                    loader?.getElement().remove();
+                    loader = new AjaxLoader();
+                    restoreFormButton!.parentElement?.append(loader.getElement());
+                    loader.setActive(true).setLoading(true);
+
+                    restoreSettings().then(() => {
+                        loader.finish();
+                    })
                 },
                 lastFocus: restoreFormButton
             }).create();
