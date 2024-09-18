@@ -15,6 +15,7 @@ declare namespace AC.Specification {
     interface Rule {
         type: string
         fact: string
+        specification: string
         operator: string
     }
 

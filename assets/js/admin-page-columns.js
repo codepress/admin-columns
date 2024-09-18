@@ -18084,7 +18084,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class RuleSpecificationMapper {
     static map(rule) {
-        switch (rule.type) {
+        switch (rule.specification) {
             case 'null':
                 return new _null_specification__WEBPACK_IMPORTED_MODULE_4__["default"]();
             case 'or':

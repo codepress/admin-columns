@@ -13,7 +13,7 @@ import NullSpecification from "./null-specification";
 export default class RuleSpecificationMapper {
 
     static map(rule: Rule): Specification {
-        switch (rule.type) {
+        switch (rule.specification) {
             case 'null':
                 return new NullSpecification();
             case 'or':
