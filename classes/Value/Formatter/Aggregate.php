@@ -12,7 +12,7 @@ use AC\Type\Value;
 final class Aggregate implements Formatter
 {
 
-    private $formatters;
+    private FormatterCollection $formatters;
 
     public function __construct(FormatterCollection $formatters)
     {
