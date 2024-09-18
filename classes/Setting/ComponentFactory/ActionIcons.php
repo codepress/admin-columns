@@ -32,13 +32,11 @@ final class ActionIcons extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         if ('on' === $config->get('use_icons')) {
             $formatters->add(new Actions());
         }
-
-        return parent::get_formatters($config, $formatters);
     }
 
 }

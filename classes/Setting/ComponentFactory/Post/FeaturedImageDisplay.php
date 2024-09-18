@@ -58,13 +58,11 @@ class FeaturedImageDisplay extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         if ('filesize' === $this->get_input($config)->get_value()) {
             $formatters->add(new FileSize());
         }
-
-        return parent::get_formatters($config, $formatters);
     }
 
 }

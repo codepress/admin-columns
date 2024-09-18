@@ -33,7 +33,7 @@ class PostStatusIcon extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         if ((string)$config->get('use_icon') === 'on') {
             $formatters->add(new Formatter\Post\PostStatusIcon());
@@ -42,8 +42,6 @@ class PostStatusIcon extends Builder
         if ((string)$config->get('use_icon') === 'off') {
             $formatters->add(new Formatter\Post\DescriptivePostStatus());
         }
-
-        return parent::get_formatters($config, $formatters);
     }
 
 }

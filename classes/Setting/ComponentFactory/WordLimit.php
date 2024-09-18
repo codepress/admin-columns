@@ -42,13 +42,9 @@ final class WordLimit extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        $formatters->add(
-            new AC\Value\Formatter\WordLimit((int)$this->get_input($config)->get_value())
-        );
-
-        return $formatters;
+        $formatters->add(new AC\Value\Formatter\WordLimit((int)$this->get_input($config)->get_value()));
     }
 
 }

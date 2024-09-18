@@ -60,7 +60,7 @@ class FileMetaVideo extends Builder
         return OptionCollection::from_array($types);
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         switch ($config->get('media_meta_key', '')) {
             case 'height':
@@ -82,8 +82,6 @@ class FileMetaVideo extends Builder
                 );
                 break;
         }
-
-        return parent::get_formatters($config, $formatters);
     }
 
     private function wrap_audio_string($string): string

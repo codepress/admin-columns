@@ -92,7 +92,7 @@ class PostProperty extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         switch ($this->get_input($config)->get_value()) {
             case self::PROPERTY_TITLE:
@@ -111,8 +111,6 @@ class PostProperty extends Builder
                 $formatters->add(new Formatter\Post\GmtDate());
                 break;
         }
-
-        return parent::get_formatters($config, $formatters);
     }
 
     protected function get_display_options(): OptionCollection

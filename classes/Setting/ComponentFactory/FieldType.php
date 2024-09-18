@@ -178,7 +178,7 @@ class FieldType extends Builder
         return $grouped_types;
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $field_type = $config->get(self::NAME, self::TYPE_DEFAULT);
 
@@ -205,8 +205,6 @@ class FieldType extends Builder
                 $formatters->add(new AC\Value\Formatter\ForeignId());
                 break;
         }
-
-        return parent::get_formatters($config, $formatters);
     }
 
     protected function get_children(Config $config): ?Children
