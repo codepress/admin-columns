@@ -18104,7 +18104,7 @@ class RuleSpecificationMapper {
     static createAggregate(aggregateRule) {
         let specifications = [];
         aggregateRule.rules.forEach(rule => specifications.push(this.map(rule)));
-        switch (aggregateRule.type) {
+        switch (aggregateRule.specification) {
             case 'or':
                 return new _or_specification__WEBPACK_IMPORTED_MODULE_0__["default"](specifications);
             case 'and':
