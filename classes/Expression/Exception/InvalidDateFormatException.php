@@ -10,9 +10,9 @@ use Throwable;
 final class InvalidDateFormatException extends RuntimeException
 {
 
-    public function __construct(string $date, string $format, Throwable $previous = null)
+    public function __construct(string $date_time, string $format, Throwable $previous = null)
     {
-        $message = sprintf('Could not create date with format %s from date %s.', $format, $date);
+        $message = sprintf('Could parse format %s for %s.', $format, $date_time);
 
         parent::__construct($message, 0, $previous);
     }

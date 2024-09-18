@@ -4,27 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-abstract class FactSpecification implements Specification
+interface FactSpecification
 {
 
-    use OperatorTrait;
-
-    /**
-     * @var mixed
-     */
-    protected $fact;
-
-    public function __construct($fact)
-    {
-        $this->fact = $fact;
-    }
-
-    public function get_rules(): array
-    {
-        return [
-            Rules::OPERATOR => $this->get_operator(),
-            Rules::FACT     => $this->fact,
-        ];
-    }
+    public const FACT = 'fact';
 
 }

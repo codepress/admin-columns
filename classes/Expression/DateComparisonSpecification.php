@@ -4,55 +4,47 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-use AC\Expression;
+use AC\Expression\Exception\InvalidDateFormatException;
 use DateTimeZone;
 
-class DateComparisonSpecification extends Expression\DateSpecification
+class DateComparisonSpecification extends ComparisonSpecification implements TypeSpecification
 {
 
-    use ComparisonTrait {
-        get_rules as get_comparison_rules;
-    }
+    use DateTrait;
 
     /**
-     * @throws Exception\InvalidDateFormatException
+     * @throws InvalidDateFormatException
      */
     public function __construct(
-        string $fact,
         string $operator,
-        string $format = null,
-        DateTimeZone $timezone = null
+        string $fact,
+        ?string $format = null,
+        ?DateTimeZone $timezone = null
     ) {
-        parent::__construct($format, $timezone);
+        parent::__construct(
+            $operator,
+            $this->create_date_from_value($fact)->getTimestamp()
+        );
 
-        $this->fact = (int)$this->create_date_from_value($fact)->format('U');
-        $this->operator = $operator;
-
-        $this->validate_operator();
+        $this->format = $format;
+        $this->timezone = $timezone;
     }
 
     /**
-     * @throws Exception\InvalidDateFormatException
+     * @throws InvalidDateFormatException
      */
-    public function is_satisfied_by(string $value): bool
+    public function is_satisfied_by($value): bool
     {
-        return $this->compare(
-            $this->operator,
-            (int)$this->create_date_from_value($value)->format('U')
+        return parent::is_satisfied_by(
+            $this->create_date_from_value((string)$value)->getTimestamp()
         );
     }
 
-    protected function get_type(): string
+    public function export(): array
     {
-        return Types::DATE;
-    }
-
-    public function get_rules(): array
-    {
-        return array_merge(
-            $this->get_comparison_rules(),
-            parent::get_rules()
-        );
+        return array_merge([
+            self::TYPE => Types::DATE,
+        ], parent::export(), $this->get_date_rules());
     }
 
 }

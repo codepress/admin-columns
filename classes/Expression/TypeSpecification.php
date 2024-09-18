@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-interface Rules
+interface TypeSpecification
 {
 
-    public const OPERATOR = 'operator';
     public const TYPE = 'type';
-    public const FACT = 'fact';
 
 }

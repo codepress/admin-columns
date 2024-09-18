@@ -4,21 +4,17 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-final class NullSpecification implements Specification
+final class NullSpecification extends Specification
 {
 
-    use SpecificationTrait;
-
-    public function is_satisfied_by(string $value): bool
+    public function __construct()
     {
-        return true;
+        parent::__construct('null');
     }
 
-    public function get_rules(): array
+    public function is_satisfied_by($value): bool
     {
-        return [
-            Rules::OPERATOR => 'null',
-        ];
+        return true;
     }
 
 }

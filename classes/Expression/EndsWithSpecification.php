@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-final class EndsWithSpecification extends FactSpecification
+final class EndsWithSpecification extends StringComparisonSpecification
 {
 
-    use SpecificationTrait;
-
-    public function is_satisfied_by(string $value): bool
+    public function __construct(string $fact)
     {
-        return $this->fact !== '' && str_ends_with($value, $this->fact);
+        parent::__construct(StringOperators::ENDS_WITH, $fact);
     }
 
-    protected function get_operator(): string
+    public function is_satisfied_by($value): bool
     {
-        return StringOperators::ENDS_WITH;
+        return $this->fact !== '' && str_ends_with((string)$value, $this->fact);
     }
 
 }

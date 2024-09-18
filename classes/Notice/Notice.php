@@ -26,17 +26,9 @@ final class Notice
         string $type = null,
         Specification $specification = null
     ) {
-        if ($specification === null) {
-            $specification = new NullSpecification();
-        }
-
-        if ($type === null) {
-            $type = self::SUCCESS;
-        }
-
         $this->message = $message;
-        $this->type = $type;
-        $this->specification = $specification;
+        $this->type = $type ?? self::SUCCESS;
+        $this->specification = $specification ?? new NullSpecification();
     }
 
     public function get_message(): string

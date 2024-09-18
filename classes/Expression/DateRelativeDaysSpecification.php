@@ -9,21 +9,20 @@ use AC\Expression\Exception\OperatorNotFoundException;
 use DateTime;
 use DateTimeZone;
 
-final class DateRelativeDaysSpecification extends DateSpecification
+final class DateRelativeDaysSpecification extends Specification implements FactSpecification
 {
 
-    use OperatorsTrait;
+    use DateTrait;
 
     protected DateTime $fact;
 
-    public function __construct(int $fact, string $operator, string $format = null, DateTimeZone $time_zone = null)
+    public function __construct(string $operator, int $fact, string $format = null, DateTimeZone $timezone = null)
     {
-        parent::__construct($format, $time_zone);
+        parent::__construct($operator);
 
-        $this->fact = $this->create_modified_date($this->get_modifier_string($fact, $operator));
-        $this->operator = $operator;
-
-        $this->validate_operator();
+        $this->fact = DateTimeFactory::create($timezone)->modify($this->get_modifier_string($fact, $operator));
+        $this->format = $format;
+        $this->timezone = $timezone;
     }
 
     private function get_modifier_string(int $fact, $operator): string
@@ -34,29 +33,22 @@ final class DateRelativeDaysSpecification extends DateSpecification
             case DateOperators::GT_DAYS_AGO:
             case DateOperators::LT_DAYS_AGO:
                 return sprintf('-%d days', $fact);
-            default:
-                return 'now';
         }
-    }
 
-    protected function get_operators(): array
-    {
-        return [
-            DateOperators::WITHIN_DAYS,
-            DateOperators::LT_DAYS_AGO,
-            DateOperators::GT_DAYS_AGO,
-        ];
+        throw new OperatorNotFoundException($operator);
     }
 
     /**
      * @throws InvalidDateFormatException
      */
-    public function is_satisfied_by(string $value): bool
+    public function is_satisfied_by($value): bool
     {
-        // Format date to discard time
-        $today = $this->get_current_date()->format(self::MYSQL_DATE);
-        $date = $this->create_date_from_value($value)->format(self::MYSQL_DATE);
-        $fact = $this->fact->format(self::MYSQL_DATE);
+        // Format that discards time
+        $format = DateFormats::MYSQL_DATE;
+
+        $today = DateTimeFactory::create($this->timezone)->format($format);
+        $date = DateTimeFactory::create_from_format($this->format, $value, $this->timezone)->format($format);
+        $fact = $this->fact->format($format);
 
         switch ($this->operator) {
             case DateOperators::WITHIN_DAYS:
@@ -70,17 +62,11 @@ final class DateRelativeDaysSpecification extends DateSpecification
         throw new OperatorNotFoundException($this->operator);
     }
 
-    public function get_rules(): array
+    public function export(): array
     {
-        $rules = [
-            Rules::FACT     => $this->fact,
-            Rules::OPERATOR => $this->operator,
-        ];
-
-        return array_merge(
-            $rules,
-            parent::get_rules()
-        );
+        return array_merge([
+            self::FACT => $this->fact,
+        ], parent::export(), $this->get_date_rules());
     }
 
 }

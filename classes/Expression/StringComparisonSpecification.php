@@ -4,18 +4,12 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-class StringComparisonSpecification implements Specification
+class StringComparisonSpecification extends ComparisonSpecification implements TypeSpecification
 {
-
-    use SpecificationTrait;
-    use ComparisonTrait;
 
     public function __construct(string $fact, string $operator)
     {
-        $this->fact = $fact;
-        $this->operator = $operator;
-
-        $this->validate_operator();
+        parent::__construct($fact, $operator);
     }
 
     public static function equal(string $fact): self
@@ -23,14 +17,16 @@ class StringComparisonSpecification implements Specification
         return new self($fact, ComparisonOperators::EQUAL);
     }
 
-    public function is_satisfied_by(string $value): bool
+    public function is_satisfied_by($value): bool
     {
-        return $this->compare($this->operator, $value);
+        return parent::is_satisfied_by((string)$value);
     }
 
-    protected function get_type(): string
+    public function export(): array
     {
-        return Types::STRING;
+        return array_merge([
+            self::TYPE => Types::STRING,
+        ], parent::export());
     }
 
 }

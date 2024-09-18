@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-abstract class AggregateSpecification implements Specification
+abstract class AggregateSpecification extends Specification
 {
 
-    use SpecificationTrait;
-    use OperatorTrait;
+    public const RULES = 'rules';
 
     /**
      * @var Specification[]
      */
     protected array $specifications;
 
-    public function __construct(array $specifications)
+    public function __construct(string $operator, array $specifications)
     {
+        parent::__construct($operator);
+
         array_map([$this, 'add'], $specifications);
     }
 
@@ -25,18 +26,17 @@ abstract class AggregateSpecification implements Specification
         $this->specifications[] = $specification;
     }
 
-    public function get_rules(): array
+    public function export(): array
     {
         $rules = [];
 
         foreach ($this->specifications as $specification) {
-            $rules[] = $specification->get_rules();
+            $rules[] = $specification->export();
         }
 
-        return [
-            Rules::OPERATOR => $this->get_operator(),
-            'rules'         => $rules,
-        ];
+        return array_merge([
+            self::RULES => $rules,
+        ], parent::export());
     }
 
 }

@@ -4,33 +4,24 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-class FloatRangeSpecification implements Specification
+class FloatRangeSpecification extends RangeSpecification implements TypeSpecification
 {
-
-    use RangeTrait;
 
     public function __construct(string $operator, float $a, float $b)
     {
-        $this->a = $a;
-        $this->b = $b;
-        $this->operator = $operator;
-
-        $this->validate_operator();
-    }
-
-    protected function get_comparison_specification($fact, string $operator): Specification
-    {
-        return new FloatComparisonSpecification((float)$fact, $operator);
+        parent::__construct($operator, $a, $b);
     }
 
     public function is_satisfied_by($value): bool
     {
-        return $this->compare((float)$value);
+        return parent::is_satisfied_by((float)$value);
     }
 
-    protected function get_type(): string
+    public function export(): array
     {
-        return Types::FLOAT;
+        return array_merge([
+            self::TYPE => Types::FLOAT,
+        ], parent::export());
     }
 
 }

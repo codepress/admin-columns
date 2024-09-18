@@ -4,28 +4,24 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-class IntegerComparisonSpecification implements Specification
+class IntegerComparisonSpecification extends ComparisonSpecification implements TypeSpecification
 {
 
-    use SpecificationTrait;
-    use ComparisonTrait;
-
-    public function __construct(int $fact, string $operator)
+    public function __construct(string $operator, int $fact)
     {
-        $this->fact = $fact;
-        $this->operator = $operator;
-
-        $this->validate_operator();
+        parent::__construct($operator, $fact);
     }
 
-    public function is_satisfied_by(string $value): bool
+    public function is_satisfied_by($value): bool
     {
-        return $this->compare($this->operator, (int)$value);
+        return parent::is_satisfied_by((int)$value);
     }
 
-    protected function get_type(): string
+    public function export(): array
     {
-        return Types::INTEGER;
+        return array_merge([
+            self::TYPE => Types::INTEGER,
+        ], parent::export());
     }
 
 }

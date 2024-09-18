@@ -4,33 +4,24 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-class IntegerRangeSpecification implements Specification
+class IntegerRangeSpecification extends RangeSpecification implements TypeSpecification
 {
-
-    use RangeTrait;
 
     public function __construct(string $operator, int $a, int $b)
     {
-        $this->a = $a;
-        $this->b = $b;
-        $this->operator = $operator;
-
-        $this->validate_operator();
-    }
-
-    protected function get_comparison_specification($fact, string $operator): Specification
-    {
-        return new IntegerComparisonSpecification((int)$fact, $operator);
+        parent::__construct($operator, $a, $b);
     }
 
     public function is_satisfied_by($value): bool
     {
-        return $this->compare((int)$value);
+        return parent::is_satisfied_by((int)$value);
     }
 
-    protected function get_type(): string
+    public function export(): array
     {
-        return Types::INTEGER;
+        return array_merge([
+            self::TYPE => Types::INTEGER,
+        ], parent::export());
     }
 
 }

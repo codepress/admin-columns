@@ -49,7 +49,7 @@ final class Encoder
         if ($component->has_input()) {
             $input = $component->get_input();
 
-            $encoded['conditions'] = $component->get_conditions()->get_rules($input->get_name());
+            $encoded['conditions'] = $component->get_conditions()->export($input->get_name());
 
             $encoded['input'] = [
                 'type' => $input->get_type(),

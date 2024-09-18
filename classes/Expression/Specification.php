@@ -4,17 +4,63 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-interface Specification
+use ReflectionClass;
+
+abstract class Specification
 {
 
-    public function is_satisfied_by(string $value): bool;
+    public const OPERATOR = 'operator';
+    public const SPECIFICATION = 'specification';
 
-    public function get_rules(): array;
+    protected string $operator;
 
-    public function and_specification(Specification $specification): self;
+    public function __construct(string $operator)
+    {
+        $this->operator = $operator;
+    }
 
-    public function or_specification(Specification $specification): self;
+    abstract public function is_satisfied_by($value): bool;
 
-    public function not(): self;
+    public function and_specification(Specification $specification): self
+    {
+        return new AndSpecification([$this, $specification]);
+    }
+
+    public function or_specification(Specification $specification): self
+    {
+        return new OrSpecification([$this, $specification]);
+    }
+
+    public function not(): self
+    {
+        return new NotSpecification($this);
+    }
+
+    public function export(): array
+    {
+        return [
+            self::SPECIFICATION => $this->get_specification(),
+            self::OPERATOR      => $this->operator,
+        ];
+    }
+
+    private function get_specification(): string
+    {
+        $specification = strtolower(
+            preg_replace(
+                '/(?<!^)[A-Z]/',
+                '_$0',
+                (new ReflectionClass($this))->getShortName()
+            )
+        );
+
+        $needle = '_specification';
+
+        if (str_ends_with($specification, $needle)) {
+            $specification = substr($specification, 0, -strlen($needle));
+        }
+
+        return $specification;
+    }
 
 }

@@ -4,28 +4,24 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-class FloatComparisonSpecification implements Specification
+class FloatComparisonSpecification extends ComparisonSpecification implements TypeSpecification
 {
 
-    use SpecificationTrait;
-    use ComparisonTrait;
-
-    public function __construct(float $fact, string $operator)
+    public function __construct(string $operator, float $fact)
     {
-        $this->fact = $fact;
-        $this->operator = $operator;
-
-        $this->validate_operator();
+        parent::__construct($operator, $fact);
     }
 
-    public function is_satisfied_by(string $value): bool
+    public function is_satisfied_by($value): bool
     {
-        return $this->compare($this->operator, (float)$value);
+        return parent::is_satisfied_by((float)$value);
     }
 
-    protected function get_type(): string
+    public function export(): array
     {
-        return Types::FLOAT;
+        return array_merge([
+            self::TYPE => Types::FLOAT,
+        ], parent::export());
     }
 
 }

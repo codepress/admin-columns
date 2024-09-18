@@ -6,32 +6,29 @@ namespace AC\Expression;
 
 use AC\Expression\Exception\OperatorNotFoundException;
 
-trait ComparisonTrait
+class ComparisonSpecification extends Specification implements FactSpecification
 {
-
-    use OperatorsTrait;
-    use TypeTrait;
 
     /**
      * @var mixed
      */
     protected $fact;
 
-    protected function get_operators(): array
-    {
-        return [
-            ComparisonOperators::EQUAL,
-            ComparisonOperators::NOT_EQUAL,
-            ComparisonOperators::LESS_THAN,
-            ComparisonOperators::LESS_THAN_EQUAL,
-            ComparisonOperators::GREATER_THAN,
-            ComparisonOperators::GREATER_THAN_EQUAL,
-        ];
+    /**
+     * @param $fact mixed
+     */
+    public function __construct(
+        string $operator,
+        $fact
+    ) {
+        parent::__construct($operator);
+
+        $this->fact = $fact;
     }
 
-    protected function compare(string $operator, $value): bool
+    public function is_satisfied_by($value): bool
     {
-        switch ($operator) {
+        switch ($this->operator) {
             case ComparisonOperators::EQUAL:
                 return $value === $this->fact;
             case ComparisonOperators::NOT_EQUAL:
@@ -46,16 +43,14 @@ trait ComparisonTrait
                 return $value <= $this->fact;
         }
 
-        throw new OperatorNotFoundException($operator);
+        throw new OperatorNotFoundException($this->operator);
     }
 
-    public function get_rules(): array
+    public function export(): array
     {
-        return [
-            Rules::OPERATOR => $this->operator,
-            Rules::TYPE     => $this->get_type(),
-            Rules::FACT     => $this->fact,
-        ];
+        return array_merge([
+            self::FACT => $this->fact,
+        ], parent::export());
     }
 
 }
