@@ -10,7 +10,7 @@ use WP_Post;
 class PostLink implements Formatter
 {
 
-    private $link_type;
+    private string $link_type;
 
     public function __construct(string $link_type)
     {

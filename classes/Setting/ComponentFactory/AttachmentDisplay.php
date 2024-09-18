@@ -22,9 +22,9 @@ final class AttachmentDisplay extends Builder
     private const OPTION_THUMBNAIL = 'thumbnail';
     private const OPTION_COUNT = 'count';
 
-    private $image_size_factory;
+    private ImageSize $image_size_factory;
 
-    private $media_link_factory;
+    private MediaLink $media_link_factory;
 
     public function __construct(
         ImageSize $image_size_factory,

@@ -17,7 +17,7 @@ class PostLink extends Builder
 
     protected const NAME = 'post_link_to';
 
-    private $relation;
+    private ?Relation $relation;
 
     public function __construct(Relation $relation = null)
     {

@@ -93,7 +93,7 @@ abstract class Builder implements ComponentFactory
         return null;
     }
 
-    private function add_component_formatters(
+    protected function add_component_formatters(
         FormatterCollection $formatters,
         ComponentCollection $components,
         string $condition = null

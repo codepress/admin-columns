@@ -14,7 +14,7 @@ class CustomField extends Builder
 
     private const NAME = 'field';
 
-    private $table_screen_context;
+    private TableScreenContext $table_screen_context;
 
     public function __construct(TableScreenContext $table_screen_context)
     {

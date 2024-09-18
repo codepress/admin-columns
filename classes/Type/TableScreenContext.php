@@ -11,11 +11,11 @@ use AC\TableScreen;
 final class TableScreenContext
 {
 
-    private $meta_type;
+    private MetaType $meta_type;
 
-    private $post_type;
+    private ?PostTypeSlug $post_type;
 
-    private $taxonomy;
+    private ?TaxonomySlug $taxonomy;
 
     public function __construct(
         MetaType $meta_type,
