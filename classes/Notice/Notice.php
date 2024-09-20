@@ -15,20 +15,29 @@ final class Notice
     public const WARNING = 'warning';
     public const INFO = 'info';
 
-    private $message;
+    private string $id;
 
-    private $type;
+    private string $message;
 
-    private $specification;
+    private string $type;
+
+    private Specification $specification;
 
     public function __construct(
+        string $id,
         string $message,
         string $type = null,
         Specification $specification = null
     ) {
+        $this->id = $id;
         $this->message = $message;
         $this->type = $type ?? self::SUCCESS;
         $this->specification = $specification ?? new NullSpecification();
+    }
+
+    public function get_id(): string
+    {
+        return $this->id;
     }
 
     public function get_message(): string

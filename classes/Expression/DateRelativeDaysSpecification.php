@@ -9,7 +9,7 @@ use AC\Expression\Exception\OperatorNotFoundException;
 use DateTime;
 use DateTimeZone;
 
-final class DateRelativeDaysSpecification extends Specification implements FactSpecification
+final class DateRelativeDaysSpecification extends OperatorExpression implements FactSpecification
 {
 
     use DateTrait;

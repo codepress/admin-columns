@@ -4,13 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-final class EndsWithSpecification extends StringComparisonSpecification
+final class EndsWithSpecification extends StringMatchSpecification
 {
-
-    public function __construct(string $fact)
-    {
-        parent::__construct(StringOperators::ENDS_WITH, $fact);
-    }
 
     public function is_satisfied_by($value): bool
     {

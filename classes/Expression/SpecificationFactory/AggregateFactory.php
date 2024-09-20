@@ -6,6 +6,7 @@ namespace AC\Expression\SpecificationFactory;
 
 use AC\Expression\AggregateSpecification;
 use AC\Expression\AndSpecification;
+use AC\Expression\CollectionSpecification;
 use AC\Expression\ContainsSpecification;
 use AC\Expression\DateComparisonSpecification;
 use AC\Expression\DateRangeSpecification;
@@ -20,6 +21,7 @@ use AC\Expression\FloatComparisonSpecification;
 use AC\Expression\FloatRangeSpecification;
 use AC\Expression\IntegerComparisonSpecification;
 use AC\Expression\IntegerRangeSpecification;
+use AC\Expression\OperatorExpression;
 use AC\Expression\OrSpecification;
 use AC\Expression\RangeSpecification;
 use AC\Expression\Specification;
@@ -35,16 +37,12 @@ final class AggregateFactory implements SpecificationFactory
      */
     public function create(array $rule): Specification
     {
-        if ( $rule[Specification::OPERATOR] ?? null ) {
+        if ( $rule[Specification::SPECIFICATION] ?? null ) {
             throw new InvalidArgumentException('Missing specification.');
         }
 
-        if ( $rule[Specification::OPERATOR] ?? null ) {
-            throw new InvalidArgumentException('Missing operator.');
-        }
-
-        $operator = $rule[Specification::OPERATOR];
         $specification = $rule[Specification::SPECIFICATION];
+        $operator = $rule[OperatorExpression::OPERATOR] ?? null;
         $fact = $rule[FactSpecification::FACT] ?? null;
         $format = $rule[DateSpecification::FORMAT] ?? null;
         $timezone = $rule[DateSpecification::TIMEZONE] ?? null;
@@ -76,6 +74,9 @@ final class AggregateFactory implements SpecificationFactory
                 return new IntegerRangeSpecification($operator, (int)$a, (int)$b);
             case 'range_date_time':
                 return new DateRangeSpecification($operator, (string)$a, (string)$b, $format, $timezone);
+            case 'collection':
+                // TODO David test for traversing traversable?
+                return new CollectionSpecification($operator, $fact);
             case 'and':
             case 'or':
                 $rules = [];

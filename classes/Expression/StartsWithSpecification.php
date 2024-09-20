@@ -4,13 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
-final class StartsWithSpecification extends StringCOmparisonSpecification
+final class StartsWithSpecification extends StringMatchSpecification
 {
-
-    public function __construct(string $fact)
-    {
-        parent::__construct(StringOperators::STARTS_WITH, $fact);
-    }
 
     public function is_satisfied_by($value): bool
     {

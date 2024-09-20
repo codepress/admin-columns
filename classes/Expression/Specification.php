@@ -9,15 +9,7 @@ use ReflectionClass;
 abstract class Specification
 {
 
-    public const OPERATOR = 'operator';
     public const SPECIFICATION = 'specification';
-
-    protected string $operator;
-
-    public function __construct(string $operator)
-    {
-        $this->operator = $operator;
-    }
 
     abstract public function is_satisfied_by($value): bool;
 
@@ -40,11 +32,10 @@ abstract class Specification
     {
         return [
             self::SPECIFICATION => $this->get_specification(),
-            self::OPERATOR      => $this->operator,
         ];
     }
 
-    private function get_specification(): string
+    protected function get_specification(): string
     {
         $specification = strtolower(
             preg_replace(

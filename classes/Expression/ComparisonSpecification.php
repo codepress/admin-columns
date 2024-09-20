@@ -6,7 +6,7 @@ namespace AC\Expression;
 
 use AC\Expression\Exception\OperatorNotFoundException;
 
-class ComparisonSpecification extends Specification implements FactSpecification
+class ComparisonSpecification extends OperatorExpression implements FactSpecification
 {
 
     /**
