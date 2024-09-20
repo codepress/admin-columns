@@ -6,6 +6,7 @@ namespace AC\Notice;
 
 use AC\Expression\NullSpecification;
 use AC\Expression\Specification;
+use BadMethodCallException;
 
 final class Notice
 {
@@ -23,6 +24,8 @@ final class Notice
 
     private Specification $specification;
 
+    private ?string $action_id;
+
     public function __construct(
         string $id,
         string $message,
@@ -33,6 +36,7 @@ final class Notice
         $this->message = $message;
         $this->type = $type ?? self::SUCCESS;
         $this->specification = $specification ?? new NullSpecification();
+        $this->action_id = null;
     }
 
     public function get_id(): string
@@ -53,6 +57,20 @@ final class Notice
     public function get_conditions(): Specification
     {
         return $this->specification;
+    }
+
+    public function has_action_id(): bool
+    {
+        return $this->action_id !== null;
+    }
+
+    public function get_action_id(): string
+    {
+        if ( ! $this->has_action_id()) {
+            throw new BadMethodCallException();
+        }
+
+        return $this->action_id;
     }
 
 }

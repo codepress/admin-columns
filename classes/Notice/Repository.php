@@ -40,6 +40,13 @@ final class Repository
         $this->update($notices);
     }
 
+    public function find(string $id): ?Notice
+    {
+        $notices = $this->read();
+
+        return $notices[$id] ?? null;
+    }
+
     /**
      * @param array $context Can contain AC\Screen, current user or other relevant information
      *
@@ -57,19 +64,19 @@ final class Repository
                 $this->specification_factory->create($dto[self::CONDITIONS])
             );
 
-            $notices[$notice->get_id()] = $notice;
+            if ( ! $context || $notice->get_conditions()->is_satisfied_by($context)) {
+                $notices[$notice->get_id()] = $notice;
+            }
         }
-
-        // TODO David parse context
 
         return $notices;
     }
 
-    public function delete(Notice $notice): void
+    public function delete(string $id): void
     {
         $notices = $this->read();
 
-        unset($notices[$notice->get_id()]);
+        unset($notices[$id]);
 
         $this->update($notices);
     }
