@@ -10,7 +10,7 @@ use Traversable;
 class CollectionSpecification extends OperatorExpression implements FactSpecification
 {
 
-    protected Traversable $fact;
+    use FactTrait;
 
     public function __construct(
         string $operator,
@@ -40,9 +40,10 @@ class CollectionSpecification extends OperatorExpression implements FactSpecific
 
     public function export(): array
     {
-        return array_merge([
-            self::FACT => $this->fact,
-        ], parent::export());
+        return array_merge(
+            parent::export(),
+            $this->export_fact()
+        );
     }
 
 }

@@ -37,7 +37,7 @@ final class AggregateFactory implements SpecificationFactory
      */
     public function create(array $rule): Specification
     {
-        if ( $rule[Specification::SPECIFICATION] ?? null ) {
+        if ($rule[Specification::SPECIFICATION] ?? null) {
             throw new InvalidArgumentException('Missing specification.');
         }
 
@@ -75,7 +75,6 @@ final class AggregateFactory implements SpecificationFactory
             case 'range_date_time':
                 return new DateRangeSpecification($operator, (string)$a, (string)$b, $format, $timezone);
             case 'collection':
-                // TODO David test for traversing traversable?
                 return new CollectionSpecification($operator, $fact);
             case 'and':
             case 'or':

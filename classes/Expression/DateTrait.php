@@ -29,7 +29,7 @@ trait DateTrait
         return $date_time;
     }
 
-    protected function get_date_rules(): array
+    protected function export_date(): array
     {
         return [
             DateSpecification::TIMEZONE => $this->timezone ? $this->timezone->getName() : null,

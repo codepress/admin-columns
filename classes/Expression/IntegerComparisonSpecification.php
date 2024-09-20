@@ -7,9 +7,13 @@ namespace AC\Expression;
 class IntegerComparisonSpecification extends ComparisonSpecification implements TypeSpecification
 {
 
+    use TypeTrait;
+
     public function __construct(string $operator, int $fact)
     {
         parent::__construct($operator, $fact);
+
+        $this->type = Types::INTEGER;
     }
 
     public function is_satisfied_by($value): bool
@@ -19,9 +23,10 @@ class IntegerComparisonSpecification extends ComparisonSpecification implements 
 
     public function export(): array
     {
-        return array_merge([
-            self::TYPE => Types::INTEGER,
-        ], parent::export());
+        return array_merge(
+            parent::export(),
+            $this->export_type()
+        );
     }
 
 }

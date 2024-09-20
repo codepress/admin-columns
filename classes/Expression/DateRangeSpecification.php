@@ -11,6 +11,7 @@ class DateRangeSpecification extends RangeSpecification implements TypeSpecifica
 {
 
     use DateTrait;
+    use TypeTrait;
 
     /**
      * @throws InvalidDateFormatException
@@ -30,6 +31,7 @@ class DateRangeSpecification extends RangeSpecification implements TypeSpecifica
 
         $this->format = $format;
         $this->timezone = $timezone;
+        $this->type = Types::DATE;
     }
 
     public function is_satisfied_by($value): bool
@@ -39,9 +41,11 @@ class DateRangeSpecification extends RangeSpecification implements TypeSpecifica
 
     public function export(): array
     {
-        return array_merge([
-            self::TYPE => Types::DATE,
-        ], parent::export(), $this->get_date_rules());
+        return array_merge(
+            parent::export(),
+            $this->export_type(),
+            $this->export_date()
+        );
     }
 
 }

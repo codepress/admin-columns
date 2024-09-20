@@ -7,7 +7,7 @@ namespace AC\Expression;
 abstract class StringMatchSpecification extends Specification implements FactSpecification
 {
 
-    protected string $fact;
+    use FactTrait;
 
     public function __construct(string $fact)
     {
@@ -16,9 +16,10 @@ abstract class StringMatchSpecification extends Specification implements FactSpe
 
     public function export(): array
     {
-        return array_merge([
-            self::FACT => $this->fact,
-        ], parent::export());
+        return array_merge(
+            parent::export(),
+            $this->export_fact()
+        );
     }
 
 }
