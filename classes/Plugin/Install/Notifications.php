@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace AC\Plugin\Install;
 
-use AC\NoticeRepository;
+use AC\Notice\Repository;
 use AC\Plugin\Install;
-use AC\Type\Notice;
 
 class Notifications implements Install
 {
 
     private $repository;
 
-    public function __construct(NoticeRepository $repository)
+    public function __construct(Repository $repository)
     {
         $this->repository = $repository;
     }
@@ -29,6 +28,7 @@ class Notifications implements Install
         }
     }
 
+    // TODO David
     private function create_notice(int $user_id): Notice
     {
         return new Notice(

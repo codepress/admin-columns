@@ -7,6 +7,7 @@ namespace AC\Service;
 use AC\Registerable;
 use AC\Type\Notice;
 
+// TODO David implement
 class NoticesNetwork implements Registerable
 {
 

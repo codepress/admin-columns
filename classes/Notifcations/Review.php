@@ -5,18 +5,17 @@ declare(strict_types=1);
 namespace AC\Notifcations;
 
 use AC\Capabilities;
-use AC\NoticeRepository;
+use AC\Notice\Repository;
 use AC\Registerable;
 use AC\Screen;
-use AC\Type\Notice;
-use AC\Type\NoticeConditions;
 
+// TODO David remove
 class Review implements Registerable
 {
 
     private $repository;
 
-    public function __construct(NoticeRepository $repository)
+    public function __construct(Repository $repository)
     {
         $this->repository = $repository;
     }
@@ -41,18 +40,21 @@ class Review implements Registerable
             return;
         }
 
-        $conditions = new NoticeConditions();
-        $conditions->set_screens([$screen->get_id()])
-                   ->set_user(1);
+        // TODO David set screen id
+        // TODO David set user id (1?)
 
-        $this->repository->save(
-            new Notice(
-                'check-review',
-                'Review Message',
-                Notice::INFO,
-                $conditions
-            )
-        );
+//        $conditions = new NoticeConditions();
+//        $conditions->set_screens([$screen->get_id()])
+//                   ->set_user(1);
+//
+//        $this->repository->save(
+//            new Notice(
+//                'check-review',
+//                'Review Message',
+//                Notice::INFO,
+//                $conditions
+//            )
+//        );
     }
 
 }

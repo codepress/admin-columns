@@ -6,6 +6,7 @@ namespace AC\Service;
 
 use AC\Registerable;
 
+// TODO David implement
 class NoticesPlugin implements Registerable
 {
 

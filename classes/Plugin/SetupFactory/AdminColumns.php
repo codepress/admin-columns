@@ -3,7 +3,8 @@
 namespace AC\Plugin\SetupFactory;
 
 use AC\Asset\Location\Absolute;
-use AC\NoticeRepository;
+use AC\Expression\SpecificationFactory\AggregateFactory;
+use AC\Notice\Repository;
 use AC\Plugin\Install;
 use AC\Plugin\InstallCollection;
 use AC\Plugin\Setup;
@@ -11,7 +12,6 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Update;
 use AC\Plugin\UpdateCollection;
 use AC\Plugin\Version;
-use AC\Storage\OptionFactory;
 
 final class AdminColumns extends SetupFactory
 {
@@ -42,7 +42,8 @@ final class AdminColumns extends SetupFactory
                 $this->installers = new InstallCollection([
                     new Install\Capabilities(),
                     new Install\Database(),
-                    new Install\Notifications(new NoticeRepository(new OptionFactory())),
+                    // TODO David test
+                    new Install\Notifications( new Repository( new AggregateFactory() ) ),
                 ]);
                 $this->updates = new UpdateCollection([
                     new Update\V3005(),
