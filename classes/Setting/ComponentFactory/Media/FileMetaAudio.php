@@ -57,7 +57,7 @@ final class FileMetaAudio extends Builder
         return OptionCollection::from_array($types);
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         switch ($config->get('media_meta_key', '')) {
             case 'bitrate':
@@ -86,8 +86,6 @@ final class FileMetaAudio extends Builder
                 $formatters->add(new Formatter\Media\NumberFormat(0, '', ' Hz'));
                 break;
         }
-
-        return parent::get_formatters($config, $formatters);
     }
 
 }

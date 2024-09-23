@@ -17,7 +17,7 @@ class PostLink extends Builder
 
     protected const NAME = 'post_link_to';
 
-    private $relation;
+    private ?Relation $relation;
 
     public function __construct(Relation $relation = null)
     {
@@ -38,11 +38,9 @@ class PostLink extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $formatters->add(new Formatter\Post\PostLink((string)$config->get(self::NAME)));
-
-        return parent::get_formatters($config, $formatters);
     }
 
     protected function get_display_options(): array

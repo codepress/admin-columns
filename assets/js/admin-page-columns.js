@@ -18084,7 +18084,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class RuleSpecificationMapper {
     static map(rule) {
-        switch (rule.type) {
+        switch (rule.specification) {
             case 'null':
                 return new _null_specification__WEBPACK_IMPORTED_MODULE_4__["default"]();
             case 'or':
@@ -18104,7 +18104,7 @@ class RuleSpecificationMapper {
     static createAggregate(aggregateRule) {
         let specifications = [];
         aggregateRule.rules.forEach(rule => specifications.push(this.map(rule)));
-        switch (aggregateRule.type) {
+        switch (aggregateRule.specification) {
             case 'or':
                 return new _or_specification__WEBPACK_IMPORTED_MODULE_0__["default"](specifications);
             case 'and':

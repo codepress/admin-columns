@@ -12,12 +12,12 @@ use AC\Type\ValueCollection;
 class Count implements CollectionFormatter
 {
 
-    public function format(ValueCollection $collection)
+    public function format(ValueCollection $collection): Value
     {
         $count = count($collection);
 
         if ($count === 0) {
-            throw new ValueNotFoundException('');
+            throw new ValueNotFoundException('Collection can not be empty');
         }
 
         return new Value($count);

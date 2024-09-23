@@ -53,18 +53,13 @@ class AdminColumns
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\PostFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\CommentFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\MediaFactory::class));
-        // TODO
+        ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
 
-        //        ColumnFactories\Aggregate::add($container->get(ColumnFactories\MediaFactory::class));
-        //        ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
-        //        ColumnFactories\Aggregate::add($container->get(ColumnFactories\IntegrationFactory::class));
+        if ( ! defined('ACP_FILE')) {
+            ColumnFactories\Aggregate::add($container->get(ColumnFactories\IntegrationFactory::class));
+        }
 
         ExtendedValueRegistry::add($container->get(MediaPreview::class));
-
-        // TODO
-        //        if ( ! defined('ACP_FILE')) {
-        //            ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\IntegrationsFactory::class));
-        //        }
 
         MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
         ListKeysFactory\Aggregate::add($container->get(ListKeysFactory\BaseFactory::class));

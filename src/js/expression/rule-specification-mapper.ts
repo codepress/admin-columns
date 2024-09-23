@@ -2,25 +2,25 @@ import OrSpecification from "./or-specification";
 import AndSpecification from "./and-specification";
 import NotSpecification from "./not-specification";
 import ComparisonSpecification from "./comparison-specification";
+import NullSpecification from "./null-specification";
 import Specification = AC.Specification.Specification;
 import Rule = AC.Specification.Rule;
 import AggregateRule = AC.Specification.AggregateRule;
 import ComparisonRule = AC.Specification.ComparisonRule;
 import NotRule = AC.Specification.NotRule;
-import NullSpecification from "./null-specification";
 
 
 export default class RuleSpecificationMapper {
 
     static map(rule: Rule): Specification {
-        switch (rule.type) {
+        switch (rule.specification) {
             case 'null':
                 return new NullSpecification();
             case 'or':
             case 'and':
                 return this.createAggregate(rule as AggregateRule);
             case 'not':
-                return new NotSpecification(this.map((rule as unknown as NotRule ).rule));
+                return new NotSpecification(this.map((rule as unknown as NotRule).rule));
             case 'string_comparison':
             case 'comparison':
                 return this.createComparison(rule as ComparisonRule)
@@ -38,7 +38,7 @@ export default class RuleSpecificationMapper {
 
         aggregateRule.rules.forEach(rule => specifications.push(this.map(rule)));
 
-        switch (aggregateRule.type) {
+        switch (aggregateRule.specification) {
             case 'or':
                 return new OrSpecification(specifications);
             case 'and':

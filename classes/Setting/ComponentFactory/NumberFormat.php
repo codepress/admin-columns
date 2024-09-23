@@ -80,7 +80,7 @@ class NumberFormat extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         if ($config->get(self::NAME, '') === 'formatted') {
             $formatters->add(
@@ -91,8 +91,6 @@ class NumberFormat extends Builder
                 )
             );
         }
-
-        return parent::get_formatters($config, $formatters);
     }
 
 }

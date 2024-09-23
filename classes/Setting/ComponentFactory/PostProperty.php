@@ -26,15 +26,15 @@ class PostProperty extends Builder
     public const PROPERTY_DATE = 'date';
     public const PROPERTY_STATUS = 'status';
 
-    private $string_limit;
+    private StringLimit $string_limit;
 
-    private $image_size;
+    private ImageSize $image_size;
 
-    private $user_property;
+    private UserProperty $user_property;
 
-    private $post_status_icon;
+    private PostStatusIcon $post_status_icon;
 
-    private $date;
+    private Date $date;
 
     public function __construct(
         StringLimit $string_limit,
@@ -92,7 +92,7 @@ class PostProperty extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         switch ($this->get_input($config)->get_value()) {
             case self::PROPERTY_TITLE:
@@ -111,8 +111,6 @@ class PostProperty extends Builder
                 $formatters->add(new Formatter\Post\GmtDate());
                 break;
         }
-
-        return parent::get_formatters($config, $formatters);
     }
 
     protected function get_display_options(): OptionCollection

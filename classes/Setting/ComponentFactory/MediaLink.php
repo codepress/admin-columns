@@ -34,11 +34,9 @@ final class MediaLink extends Builder
         );
     }
 
-    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $formatters->add(new Formatter\Media\Link((string)$config->get(self::NAME)));
-
-        return parent::get_formatters($config, $formatters);
     }
 
 }

@@ -7,9 +7,9 @@ namespace AC\Setting;
 class Children
 {
 
-    private $components;
+    private ComponentCollection $components;
 
-    private $parent;
+    private bool $parent;
 
     public function __construct(ComponentCollection $components, bool $parent = false)
     {
