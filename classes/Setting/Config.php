@@ -7,7 +7,7 @@ namespace AC\Setting;
 final class Config
 {
 
-    private $config;
+    private array $config;
 
     public function __construct(array $config = [])
     {
