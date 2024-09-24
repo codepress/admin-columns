@@ -40,7 +40,7 @@ class PostCountFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters->add(new Formatter\User\PostCount($post_type, $post_status));
+        $formatters->add(new Formatter\User\PostCount($config->get('post_type'), $config->get('post_status')));
     }
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void

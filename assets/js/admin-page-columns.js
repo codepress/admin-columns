@@ -9292,13 +9292,15 @@ __webpack_require__.r(__webpack_exports__);
 
 function create_default_slot(ctx) {
   let input;
+  let input_placeholder_value;
   let mounted;
   let dispose;
   return {
     c() {
       input = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("input");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "type", "text");
-      input.disabled = /*disabled*/ctx[1];
+      input.disabled = /*disabled*/ctx[2];
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "placeholder", input_placeholder_value = /*config*/ctx[1].input.placeholder);
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, input, anchor);
@@ -9309,8 +9311,11 @@ function create_default_slot(ctx) {
       }
     },
     p(ctx, dirty) {
-      if (dirty & /*disabled*/2) {
-        input.disabled = /*disabled*/ctx[1];
+      if (dirty & /*disabled*/4) {
+        input.disabled = /*disabled*/ctx[2];
+      }
+      if (dirty & /*config*/2 && input_placeholder_value !== (input_placeholder_value = /*config*/ctx[1].input.placeholder)) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "placeholder", input_placeholder_value);
       }
       if (dirty & /*value*/1 && input.value !== /*value*/ctx[0]) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*value*/ctx[0]);
@@ -9348,7 +9353,7 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       const acinputgroup_changes = {};
-      if (dirty & /*$$scope, disabled, value*/35) {
+      if (dirty & /*$$scope, disabled, config, value*/39) {
         acinputgroup_changes.$$scope = {
           dirty,
           ctx
@@ -9394,19 +9399,19 @@ function instance($$self, $$props, $$invalidate) {
     $$invalidate(0, value);
   }
   $$self.$$set = $$props => {
-    if ('config' in $$props) $$invalidate(2, config = $$props.config);
+    if ('config' in $$props) $$invalidate(1, config = $$props.config);
     if ('value' in $$props) $$invalidate(0, value = $$props.value);
-    if ('disabled' in $$props) $$invalidate(1, disabled = $$props.disabled);
+    if ('disabled' in $$props) $$invalidate(2, disabled = $$props.disabled);
   };
-  return [value, disabled, config, input_input_handler];
+  return [value, config, disabled, input_input_handler];
 }
 class TextInput extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      config: 2,
+      config: 1,
       value: 0,
-      disabled: 1
+      disabled: 2
     });
   }
 }

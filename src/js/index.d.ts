@@ -89,7 +89,15 @@ declare namespace AC.Column.Settings {
     let t : WidthSetting;
 
     type LabelSetting = AbstractColumnSetting;
-    type TextSetting = AbstractColumnSetting;
+
+
+    interface TextSetting extends AbstractColumnSetting {
+        input: {
+            type: 'date_format'
+            default: string,
+            placeholder: string
+        }
+    }
 
     interface DateFormatSetting extends AbstractColumnSetting {
         input: {
