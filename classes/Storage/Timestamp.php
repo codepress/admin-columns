@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Storage;
 
 use AC\Expirable;
 use LogicException;
 
-final class Timestamp implements Expirable
+final class Timestamp implements Expirable, KeyValue
 {
 
-    private $storage;
+    private KeyValue $storage;
 
-    public function __construct(KeyValuePair $storage)
+    public function __construct(KeyValue $storage)
     {
         $this->storage = $storage;
     }
@@ -24,14 +26,14 @@ final class Timestamp implements Expirable
         return $value > (int)$this->get();
     }
 
-    public function validate(int $value): bool
+    public function validate($value): bool
     {
-        return $value > 0;
+        return preg_match('/^[1-9]\d*$/', $value);
     }
 
-    public function get(array $args = [])
+    public function get()
     {
-        return $this->storage->get($args);
+        return $this->storage->get();
     }
 
     public function delete(): void
@@ -39,13 +41,13 @@ final class Timestamp implements Expirable
         $this->storage->delete();
     }
 
-    public function save(int $value): void
+    public function save($value): void
     {
         if ( ! $this->validate($value)) {
             throw new LogicException('Value needs to be a positive integer.');
         }
 
-        $this->storage->save($value);
+        $this->storage->save((int)$value);
     }
 
 }

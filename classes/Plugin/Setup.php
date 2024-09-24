@@ -2,13 +2,13 @@
 
 namespace AC\Plugin;
 
-use AC\Storage\KeyValuePair;
+use AC\Storage\KeyValue;
 
 abstract class Setup
 {
 
     /**
-     * @var KeyValuePair
+     * @var KeyValue
      */
     private $storage;
 
@@ -28,7 +28,7 @@ abstract class Setup
     private $updates;
 
     public function __construct(
-        KeyValuePair $storage,
+        KeyValue $storage,
         Version $version,
         InstallCollection $installers,
         UpdateCollection $updates

@@ -1,26 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Storage;
 
 class Option implements OptionData
 {
 
-    protected $key;
+    protected string $key;
 
     public function __construct(string $key)
     {
         $this->key = $key;
     }
 
-    public function get(array $args = [])
+    public function get()
     {
-        $args = array_merge([
-            'default' => false,
-        ], $args);
-
         wp_cache_delete($this->key, 'options');
 
-        return get_option($this->key, $args['default']);
+        return get_option($this->key, false);
     }
 
     public function save($value): void

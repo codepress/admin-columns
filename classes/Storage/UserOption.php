@@ -10,9 +10,9 @@ namespace AC\Storage;
 class UserOption implements UserData
 {
 
-    private $key;
+    private string $key;
 
-    private $user_id;
+    private int $user_id;
 
     public function __construct(string $key, int $user_id = null)
     {
@@ -24,7 +24,7 @@ class UserOption implements UserData
         $this->user_id = $user_id;
     }
 
-    public function get(array $args = [])
+    public function get()
     {
         return get_user_option($this->key, $this->user_id);
     }

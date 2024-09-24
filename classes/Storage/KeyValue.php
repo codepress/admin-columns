@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Storage;
 
-interface KeyValuePair
+interface KeyValue
 {
 
-    public function get(array $args = []);
+    public function get();
 
     public function save($value): void;
 

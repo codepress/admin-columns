@@ -1,15 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Storage;
 
 class UserMeta implements UserData
 {
 
-    protected $user_id;
+    protected int $user_id;
 
-    protected $key;
+    protected string $key;
 
-    public function __construct(string $key, int $user_id = null)
+    private bool $single;
+
+    public function __construct(string $key, int $user_id = null, bool $single = true)
     {
         if (null === $user_id) {
             $user_id = get_current_user_id();
@@ -17,15 +21,12 @@ class UserMeta implements UserData
 
         $this->user_id = $user_id;
         $this->key = $key;
+        $this->single = $single;
     }
 
-    public function get(array $args = [])
+    public function get()
     {
-        $args = array_merge([
-            'single' => true,
-        ], $args);
-
-        return get_user_meta($this->user_id, $this->key, $args['single']);
+        return get_user_meta($this->user_id, $this->key, $this->single);
     }
 
     public function save($value): void
