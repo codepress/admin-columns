@@ -22,5 +22,5 @@
 
 
 <AcInputGroup>
-	<input type="text" bind:value={value} {disabled}>
+	<input type="text" bind:value={value} {disabled} placeholder={config.input.placeholder}>
 </AcInputGroup>
