@@ -7,9 +7,13 @@ namespace AC\Expression;
 class IntegerRangeSpecification extends RangeSpecification implements TypeSpecification
 {
 
+    use TypeTrait;
+
     public function __construct(string $operator, int $a, int $b)
     {
         parent::__construct($operator, $a, $b);
+
+        $this->type = Types::INTEGER;
     }
 
     public function is_satisfied_by($value): bool
@@ -19,9 +23,10 @@ class IntegerRangeSpecification extends RangeSpecification implements TypeSpecif
 
     public function export(): array
     {
-        return array_merge([
-            self::TYPE => Types::INTEGER,
-        ], parent::export());
+        return array_merge(
+            parent::export(),
+            $this->export_type()
+        );
     }
 
 }

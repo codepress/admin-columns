@@ -14,10 +14,8 @@ abstract class AggregateSpecification extends Specification
      */
     protected array $specifications;
 
-    public function __construct(string $operator, array $specifications)
+    public function __construct(array $specifications)
     {
-        parent::__construct($operator);
-
         array_map([$this, 'add'], $specifications);
     }
 

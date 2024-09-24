@@ -8,7 +8,7 @@ use AC\Expression\Exception\InvalidDateFormatException;
 use AC\Expression\Exception\OperatorNotFoundException;
 use DateTimeZone;
 
-final class DateRelativeDeductedSpecification extends Specification
+final class DateRelativeDeductedSpecification extends OperatorExpression
 {
 
     use DateTrait;

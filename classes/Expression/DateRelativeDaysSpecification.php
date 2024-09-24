@@ -6,15 +6,13 @@ namespace AC\Expression;
 
 use AC\Expression\Exception\InvalidDateFormatException;
 use AC\Expression\Exception\OperatorNotFoundException;
-use DateTime;
 use DateTimeZone;
 
-final class DateRelativeDaysSpecification extends Specification implements FactSpecification
+final class DateRelativeDaysSpecification extends OperatorExpression implements FactSpecification
 {
 
     use DateTrait;
-
-    protected DateTime $fact;
+    use FactTrait;
 
     public function __construct(string $operator, int $fact, string $format = null, DateTimeZone $timezone = null)
     {
@@ -64,9 +62,11 @@ final class DateRelativeDaysSpecification extends Specification implements FactS
 
     public function export(): array
     {
-        return array_merge([
-            self::FACT => $this->fact,
-        ], parent::export(), $this->get_date_rules());
+        return array_merge(
+            parent::export(),
+            $this->export_date(),
+            $this->export_fact()
+        );
     }
 
 }

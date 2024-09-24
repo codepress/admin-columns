@@ -7,9 +7,13 @@ namespace AC\Expression;
 class StringComparisonSpecification extends ComparisonSpecification implements TypeSpecification
 {
 
+    use TypeTrait;
+
     public function __construct(string $fact, string $operator)
     {
         parent::__construct($fact, $operator);
+
+        $this->type = Types::STRING;
     }
 
     public static function equal(string $fact): self
@@ -24,9 +28,10 @@ class StringComparisonSpecification extends ComparisonSpecification implements T
 
     public function export(): array
     {
-        return array_merge([
-            self::TYPE => Types::STRING,
-        ], parent::export());
+        return array_merge(
+            parent::export(),
+            $this->export_type()
+        );
     }
 
 }

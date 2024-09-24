@@ -11,6 +11,7 @@ class DateComparisonSpecification extends ComparisonSpecification implements Typ
 {
 
     use DateTrait;
+    use TypeTrait;
 
     /**
      * @throws InvalidDateFormatException
@@ -28,6 +29,7 @@ class DateComparisonSpecification extends ComparisonSpecification implements Typ
 
         $this->format = $format;
         $this->timezone = $timezone;
+        $this->type = Types::DATE;
     }
 
     /**
@@ -42,9 +44,11 @@ class DateComparisonSpecification extends ComparisonSpecification implements Typ
 
     public function export(): array
     {
-        return array_merge([
-            self::TYPE => Types::DATE,
-        ], parent::export(), $this->get_date_rules());
+        return array_merge(
+            parent::export(),
+            $this->export_type(),
+            $this->export_date()
+        );
     }
 
 }

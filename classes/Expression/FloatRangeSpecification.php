@@ -7,9 +7,13 @@ namespace AC\Expression;
 class FloatRangeSpecification extends RangeSpecification implements TypeSpecification
 {
 
+    use TypeTrait;
+
     public function __construct(string $operator, float $a, float $b)
     {
         parent::__construct($operator, $a, $b);
+
+        $this->type = Types::FLOAT;
     }
 
     public function is_satisfied_by($value): bool
@@ -19,9 +23,10 @@ class FloatRangeSpecification extends RangeSpecification implements TypeSpecific
 
     public function export(): array
     {
-        return array_merge([
-            self::TYPE => Types::FLOAT,
-        ], parent::export());
+        return array_merge(
+            parent::export(),
+            $this->export_type()
+        );
     }
 
 }

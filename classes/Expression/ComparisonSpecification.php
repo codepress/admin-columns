@@ -6,17 +6,11 @@ namespace AC\Expression;
 
 use AC\Expression\Exception\OperatorNotFoundException;
 
-class ComparisonSpecification extends Specification implements FactSpecification
+class ComparisonSpecification extends OperatorExpression implements FactSpecification
 {
 
-    /**
-     * @var mixed
-     */
-    protected $fact;
+    use FactTrait;
 
-    /**
-     * @param $fact mixed
-     */
     public function __construct(
         string $operator,
         $fact
@@ -48,9 +42,10 @@ class ComparisonSpecification extends Specification implements FactSpecification
 
     public function export(): array
     {
-        return array_merge([
-            self::FACT => $this->fact,
-        ], parent::export());
+        return array_merge(
+            parent::export(),
+            $this->export_fact()
+        );
     }
 
 }

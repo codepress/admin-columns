@@ -7,9 +7,13 @@ namespace AC\Expression;
 class FloatComparisonSpecification extends ComparisonSpecification implements TypeSpecification
 {
 
+    use TypeTrait;
+
     public function __construct(string $operator, float $fact)
     {
         parent::__construct($operator, $fact);
+
+        $this->type = Types::FLOAT;
     }
 
     public function is_satisfied_by($value): bool
@@ -19,9 +23,10 @@ class FloatComparisonSpecification extends ComparisonSpecification implements Ty
 
     public function export(): array
     {
-        return array_merge([
-            self::TYPE => Types::FLOAT,
-        ], parent::export());
+        return array_merge(
+            parent::export(),
+            $this->export_type()
+        );
     }
 
 }

@@ -6,7 +6,7 @@ namespace AC\Expression;
 
 use AC\Expression\Exception\OperatorNotFoundException;
 
-class RangeSpecification extends Specification
+class RangeSpecification extends OperatorExpression
 {
 
     public const A = 'a';
@@ -29,7 +29,6 @@ class RangeSpecification extends Specification
         $this->a = $a;
         $this->b = $b;
     }
-
 
     public function is_satisfied_by($value): bool
     {
@@ -74,8 +73,8 @@ class RangeSpecification extends Specification
     public function export(): array
     {
         return array_merge([
-            self::A             => $this->a,
-            self::B             => $this->b,
+            self::A => $this->a,
+            self::B => $this->b,
         ], parent::export());
     }
 
