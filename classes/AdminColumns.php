@@ -54,6 +54,7 @@ class AdminColumns
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\CommentFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\MediaFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
+        ColumnFactories\Aggregate::add($container->get(ColumnFactories\ThirdPartyFactory::class));
 
         if ( ! defined('ACP_FILE')) {
             ColumnFactories\Aggregate::add($container->get(ColumnFactories\IntegrationFactory::class));
