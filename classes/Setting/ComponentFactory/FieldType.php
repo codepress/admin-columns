@@ -55,6 +55,8 @@ class FieldType extends Builder
 
     private $media_link;
 
+    private SelectOptions $select_options;
+
     public function __construct(
         StringLimit $string_limit,
         NumberFormat $number_format,
@@ -64,7 +66,8 @@ class FieldType extends Builder
         DateSaveFormat $date_format,
         LinkLabel $link_label,
         ImageSize $image,
-        MediaLink $media_link
+        MediaLink $media_link,
+        SelectOptions $select_options
     ) {
         $this->string_limit = $string_limit;
         $this->number_format = $number_format;
@@ -75,6 +78,7 @@ class FieldType extends Builder
         $this->link_label = $link_label;
         $this->image = $image;
         $this->media_link = $media_link;
+        $this->select_options = $select_options;
     }
 
     protected function get_label(Config $config): ?string
@@ -145,6 +149,7 @@ class FieldType extends Builder
             'choice'     => [
                 self::TYPE_NON_EMPTY => __('Has Content', 'codepress-admin-columns'),
                 self::TYPE_BOOLEAN   => __('True / False', 'codepress-admin-columns'),
+                self::TYPE_SELECT    => __('Select', 'codepress-admin-columns'),
             ],
             'relational' => [
                 self::TYPE_MEDIA => __('Media', 'codepress-admin-columns'),
@@ -236,6 +241,10 @@ class FieldType extends Builder
                 $this->date->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_DATE)
+                ),
+                $this->select_options->create(
+                    $config,
+                    StringComparisonSpecification::equal(self::TYPE_SELECT)
                 ),
                 $this->date_format->create(
                     $config,

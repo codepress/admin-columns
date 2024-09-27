@@ -1,7 +1,6 @@
 <script lang="ts">
-    import ColumnSetting from "../../ColumnSetting.svelte";
+
     import {createEventDispatcher, onDestroy, onMount} from "svelte";
-    import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
     import { uniqid } from "../../../../helpers/string";
     import { getColumnSettingsTranslation } from "../../../utils/global";
 
@@ -12,7 +11,7 @@
     }
 
     export let config: AC.Column.Settings.NumberSettings;
-    export let value: string = '';
+    export let value: string|null = '';
 
 
     const dispatch = createEventDispatcher();
@@ -63,15 +62,15 @@
         if( activeOptions.length ){
             value = JSON.stringify(getMappedValue());
         }
-        
+
     }
 
     onMount(() => {
         let data:selectOptionType[] = [];
-        
-        if( value.length> 0 ){
+
+        if( value !== null && value.length> 0 ){
             data = JSON.parse( value );
-        }
+		}
 
         activeOptions = data.map(o => {
             return Object.assign(o, {id: uniqid()})

@@ -8898,7 +8898,7 @@ function instance($$self, $$props, $$invalidate) {
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
     let data = [];
-    if (value.length > 0) {
+    if (value !== null && value.length > 0) {
       data = JSON.parse(value);
     }
     $$invalidate(0, activeOptions = data.map(o => {

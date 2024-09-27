@@ -48,6 +48,7 @@ abstract class CustomColumnFactory implements ColumnFactory
         ];
     }
 
+    // TODO component formatters
     public function create(Config $config): Column
     {
         $components = new ComponentCollection([
