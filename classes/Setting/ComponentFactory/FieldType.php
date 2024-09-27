@@ -186,8 +186,12 @@ class FieldType extends Builder
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $field_type = $config->get(self::NAME, self::TYPE_DEFAULT);
+        // TODO Filters don't work
 
         switch ($field_type) {
+            case self::TYPE_SELECT:
+                $formatters->add(new AC\Value\Formatter\SelectOptionMapper($config));
+                break;
             case self::TYPE_COLOR:
                 $formatters->add(new AC\Value\Formatter\Color());
                 break;

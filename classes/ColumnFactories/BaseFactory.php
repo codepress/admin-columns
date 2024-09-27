@@ -11,6 +11,7 @@ use AC\ColumnFactoryDefinitionCollection;
 use AC\PostType;
 use AC\TableScreen;
 use AC\Taxonomy;
+use AC\Type\TableScreenContext;
 use AC\Vendor\DI\Container;
 
 abstract class BaseFactory implements ColumnFactoryCollectionFactory
@@ -36,6 +37,10 @@ abstract class BaseFactory implements ColumnFactoryCollectionFactory
                 'post_type' => $table_screen instanceof PostType ? $table_screen->get_post_type() : null,
                 'taxonomy'  => $table_screen instanceof Taxonomy ? $table_screen->get_taxonomy() : null,
             ];
+
+            if ($table_screen instanceof TableScreen\MetaType) {
+                $defaults['table_screen_context'] = TableScreenContext::from_table_screen($table_screen);
+            }
 
             foreach ($factories as $factory) {
                 $collection->add(

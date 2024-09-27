@@ -54,7 +54,7 @@ class CustomFieldFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters->add(new Meta($this->table_screen_context->get_meta_type(), $config->get('field', '')));
+        $formatters->prepend(new Meta($this->table_screen_context->get_meta_type(), $config->get('field', '')));
     }
 
 }

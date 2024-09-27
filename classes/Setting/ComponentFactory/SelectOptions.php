@@ -17,9 +17,9 @@ final class SelectOptions extends Builder
         return __('Select Options', 'codepress-admin-columns');
     }
 
-    protected function get_input(Config $config): ?Input
+    protected function get_input(Config $config): Input
     {
-        return new Input\Custom('select_options', self::NAME, [], $config->get(self::NAME));
+        return new Input\Custom('select_options', self::NAME, [], $config->get(self::NAME, ''));
     }
 
 }
