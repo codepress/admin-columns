@@ -2,7 +2,7 @@
 Contributors: codepress, tschutter, davidmosterd, dungengronovius, engelen
 Tags: admin, column, columns, table, tables
 Requires at least: 4.7.3
-Tested up to: 6.5.4
+Tested up to: 6.6.2
 Requires PHP: 7.2
 Stable tag: 4.7.7
 License: GPLv2
