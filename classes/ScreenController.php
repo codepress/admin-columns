@@ -35,8 +35,9 @@ class ScreenController implements Registerable
         if ($this->list_screen) {
             add_filter($this->table_screen->get_heading_hookname(), [$this, 'add_headings'], 200);
 
+            // TODO remove see AC\Table\Service\Posts
             // Values
-            $this->table_screen->manage_value($this->list_screen)->register();
+            //$this->table_screen->manage_value($this->list_screen)->register();
         }
     }
 

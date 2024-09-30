@@ -6,29 +6,22 @@ namespace AC\Table;
 
 use AC\ApplyFilter\ColumnValueSanitize;
 use AC\Column;
-use AC\ListScreen;
 use AC\Sanitize\Kses;
 use AC\Type\Value;
 
 class ColumnRenderable
 {
 
-    private $list_screen;
+    private Column $column;
 
-    public function __construct(ListScreen $list_screen)
+    public function __construct(Column $column)
     {
-        $this->list_screen = $list_screen;
+        $this->column = $column;
     }
 
-    public function render(string $column_name, int $id): ?string
+    public function render(int $id): ?string
     {
-        $column = $this->list_screen->get_column($column_name);
-
-        if ( ! $column) {
-            return null;
-        }
-
-        $formatters = $column->get_formatters();
+        $formatters = $this->column->get_formatters();
 
         // TODO Test, how to bail on original columns? a column always need to have a formatter?
         if ($formatters->count() === 0) {
@@ -41,9 +34,10 @@ class ColumnRenderable
             new Value($id)
         );
 
-        $value = (string)$this->sanitize_value($value, $column, $id);
+        $value = (string)$this->sanitize_value($value, $this->column, $id);
 
-        return (string)apply_filters('ac/column/value', $value, $id, $column, $this->list_screen);
+        // TODO rename filter
+        return (string)apply_filters('ac/column/value', $value, $id, $this->column);
     }
 
     private function use_sanitize(Column $column, int $id): bool

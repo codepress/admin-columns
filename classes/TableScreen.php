@@ -11,13 +11,11 @@ use AC\Type\Uri;
 abstract class TableScreen
 {
 
-    protected $key;
+    protected ListKey $key;
 
-    protected $screen_id;
+    protected string $screen_id;
 
-    protected $network;
-
-    protected $columns;
+    protected bool $network;
 
     public function __construct(ListKey $key, string $screen_id, bool $network = false)
     {
@@ -26,6 +24,7 @@ abstract class TableScreen
         $this->network = $network;
     }
 
+    // TODO remove
     abstract public function get_heading_hookname(): string;
 
     abstract public function get_labels(): Labels;
@@ -36,6 +35,7 @@ abstract class TableScreen
 
     abstract public function get_url(): Uri;
 
+    // TODO remove
     abstract public function manage_value(ListScreen $list_screen): Table\ManageValue;
 
     public function get_key(): ListKey

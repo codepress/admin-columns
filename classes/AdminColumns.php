@@ -96,6 +96,7 @@ class AdminColumns
             Service\CommonAssets::class,
             Service\Colors::class,
             Service\TableRows::class,
+            Table\Service\ColumnRenderer::class,
         ];
 
         if ( ! defined('ACP_FILE')) {
