@@ -4,18 +4,23 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
+use AC\Column;
+use AC\Registerable;
 use AC\Table\ColumnRenderable;
-use AC\Table\ManageValue;
 use DomainException;
 
-class User extends ManageValue
+// TODO Proof-of-concept
+class User implements Registerable
 {
 
-    private $renderable;
+    private Column $column;
 
-    public function __construct(ColumnRenderable $renderable)
+    private int $priority;
+
+    public function __construct(Column $column, int $priority = 100)
     {
-        $this->renderable = $renderable;
+        $this->column = $column;
+        $this->priority = $priority;
     }
 
     public function register(): void
@@ -24,11 +29,16 @@ class User extends ManageValue
             throw new DomainException("Method should be called before the filter triggers.");
         }
 
-        add_filter('manage_users_custom_column', [$this, 'render_value'], 100, 3);
+        add_filter('manage_users_custom_column', [$this, 'render_value'], $this->priority, 3);
     }
 
-    public function render_value($value, $column_name, $id): ?string
+    public function render_value($value, $column_id, $row_id): ?string
     {
-        return $this->renderable->render((string)$column_name, (int)$id) ?? (string)$value;
+        if ((string)$this->column->get_id() !== (string)$column_id) {
+            return (string)$value;
+        }
+
+        return ColumnRenderable::render($this->column, (int)$row_id);
     }
+
 }

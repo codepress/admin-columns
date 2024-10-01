@@ -12,16 +12,9 @@ use AC\Type\Value;
 class ColumnRenderable
 {
 
-    private Column $column;
-
-    public function __construct(Column $column)
+    public static function render(Column $column, int $id): ?string
     {
-        $this->column = $column;
-    }
-
-    public function render(int $id): ?string
-    {
-        $formatters = $this->column->get_formatters();
+        $formatters = $column->get_formatters();
 
         // TODO Test, how to bail on original columns? a column always need to have a formatter?
         if ($formatters->count() === 0) {
@@ -34,20 +27,20 @@ class ColumnRenderable
             new Value($id)
         );
 
-        $value = (string)$this->sanitize_value($value, $this->column, $id);
+        $value = (string)self::sanitize_value($value, $column, $id);
 
         // TODO rename filter
-        return (string)apply_filters('ac/column/value', $value, $id, $this->column);
+        return (string)apply_filters('__ac/column/value', $value, $id, $column);
     }
 
-    private function use_sanitize(Column $column, int $id): bool
+    private static function use_sanitize(Column $column, int $id): bool
     {
         return (new ColumnValueSanitize($column, $id))->apply_filter();
     }
 
-    private function sanitize_value(Value $value, Column $column, int $id): Value
+    private static function sanitize_value(Value $value, Column $column, int $id): Value
     {
-        if ( ! $this->use_sanitize($column, $id)) {
+        if ( ! self::use_sanitize($column, $id)) {
             return $value;
         }
 

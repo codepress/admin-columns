@@ -4,26 +4,29 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
+use AC\Column;
+use AC\Registerable;
 use AC\Table\ColumnRenderable;
-use AC\Table\ManageValue;
+use AC\Type\PostTypeSlug;
 use DomainException;
 
-class Post extends ManageValue
+// TODO Proof-of-concept
+class Post implements Registerable
 {
 
-    private $post_type;
+    private Column $column;
 
-    private $renderable;
+    private PostTypeSlug $post_type;
 
-    public function __construct(string $post_type, ColumnRenderable $renderable)
+    private int $priority;
+
+    public function __construct(PostTypeSlug $post_type, Column $column, int $priority = 100)
     {
+        $this->column = $column;
         $this->post_type = $post_type;
-        $this->renderable = $renderable;
+        $this->priority = $priority;
     }
 
-    /**
-     * @see WP_Posts_List_Table::column_default
-     */
     public function register(): void
     {
         $action = sprintf("manage_%s_posts_custom_column", $this->post_type);
@@ -32,12 +35,16 @@ class Post extends ManageValue
             throw new DomainException(sprintf("Method should be called before the %s action.", $action));
         }
 
-        add_action($action, [$this, 'manage_value'], 100, 2);
+        add_action($action, [$this, 'manage_value'], $this->priority, 2);
     }
 
-    public function manage_value($column_name, $id): void
+    public function manage_value($column_id, $row_id): void
     {
-        echo $this->renderable->render((string)$column_name, (int)$id);
+        if ((string)$this->column->get_id() !== (string)$column_id) {
+            return;
+        }
+
+        echo ColumnRenderable::render($this->column, (int)$row_id);
     }
 
 }
