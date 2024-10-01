@@ -11,6 +11,7 @@ use AC\Table\ProcessFormatters;
 use AC\Table\Renderable;
 use AC\Type\Value;
 
+// TODO check usages
 class ColumnRenderable implements Renderable
 {
 
