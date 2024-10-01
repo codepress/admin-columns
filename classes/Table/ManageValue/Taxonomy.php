@@ -4,22 +4,24 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
+use AC\Column;
+use AC\Registerable;
 use AC\Table\ColumnRenderable;
-use AC\Table\ManageValue;
+use AC\Type\TaxonomySlug;
 use DomainException;
 
 // TODO move to PRO
-class Taxonomy extends ManageValue
+class Taxonomy implements Registerable
 {
 
-    private $taxonomy;
+    private TaxonomySlug $taxonomy;
 
-    private $renderable;
+    private Column $column;
 
-    public function __construct(string $taxonomy, ColumnRenderable $renderable)
+    public function __construct(TaxonomySlug $taxonomy, Column $column)
     {
         $this->taxonomy = $taxonomy;
-        $this->renderable = $renderable;
+        $this->column = $column;
     }
 
     /**
@@ -29,16 +31,20 @@ class Taxonomy extends ManageValue
     {
         $action = sprintf("manage_%s_custom_column", $this->taxonomy);
 
-        if (did_action($action)) {
+        if (did_filter($action)) {
             throw new DomainException("Method should be called before the %s action.", $action);
         }
 
-        add_action($action, [$this, 'render_value'], 100, 3);
+        add_filter($action, [$this, 'render_value'], 100, 3);
     }
 
-    public function render_value($value, $column_name, $term_id): void
+    public function render_value($value, $column_id, $row_id): ?string
     {
-        echo $this->renderable->render((string)$column_name, (int)$term_id) ?? (string)$value;
+        if ((string)$this->column->get_id() !== (string)$column_id) {
+            return (string)$value;
+        }
+
+        return ColumnRenderable::render($this->column, (int)$row_id);
     }
 
 }

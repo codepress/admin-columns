@@ -11,21 +11,21 @@ use AC\TableScreen;
 use LogicException;
 
 // TODO move to PRO
-class TaxonomyFactory implements ManageValueFactory
+class NetworkSiteFactory implements ManageValueFactory
 {
 
     public function can_create(TableScreen $table_screen): bool
     {
-        return $table_screen instanceof \ACP\TableScreen\Taxonomy;
+        return $table_screen instanceof \ACP\TableScreen\NetworkSite;
     }
 
     public function create(TableScreen $table_screen, Column $column): Registerable
     {
-        if ( ! $table_screen instanceof \AC\Taxonomy) {
+        if ( ! $this->can_create($table_screen)) {
             throw new LogicException('Invalid table screen.');
         }
 
-        return new Taxonomy($table_screen->get_taxonomy(), $column);
+        return new NetworkSite($column);
     }
 
 }
