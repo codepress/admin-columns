@@ -27,7 +27,7 @@ class ManageValue implements Registerable
 
     public function handle(ListScreen $list_screen, TableScreen $table_screen): void
     {
-        $service = $this->aggregate->create($table_screen, $list_screen->get_columns());
+        $service = $this->aggregate->create($table_screen, $list_screen);
 
         if ($service) {
             $service->register();
