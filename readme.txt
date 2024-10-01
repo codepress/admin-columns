@@ -2,9 +2,9 @@
 Contributors: codepress, tschutter, davidmosterd, dungengronovius, engelen
 Tags: admin, column, columns, table, tables
 Requires at least: 4.7.3
-Tested up to: 6.5.4
+Tested up to: 6.6.2
 Requires PHP: 7.2
-Stable tag: 4.7.7
+Stable tag: 4.7.8
 License: GPLv2
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.7.8 =
+Release Date: October 1st, 2024
+
+* [Improved] WordPress tested up to 6.6.2
 
 = 4.7.7 =
 Release Date: June 10th, 2024
