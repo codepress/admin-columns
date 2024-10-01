@@ -57,6 +57,8 @@ class FieldType extends Builder
 
     private SelectOptions $select_options;
 
+    private SerializedDisplay $serialized_display;
+
     public function __construct(
         StringLimit $string_limit,
         NumberFormat $number_format,
@@ -67,7 +69,8 @@ class FieldType extends Builder
         LinkLabel $link_label,
         ImageSize $image,
         MediaLink $media_link,
-        SelectOptions $select_options
+        SelectOptions $select_options,
+        SerializedDisplay $serialized_display
     ) {
         $this->string_limit = $string_limit;
         $this->number_format = $number_format;
@@ -79,6 +82,7 @@ class FieldType extends Builder
         $this->image = $image;
         $this->media_link = $media_link;
         $this->select_options = $select_options;
+        $this->serialized_display = $serialized_display;
     }
 
     protected function get_label(Config $config): ?string
@@ -265,6 +269,7 @@ class FieldType extends Builder
                         StringComparisonSpecification::equal(self::TYPE_MEDIA),
                     ])
                 ),
+                $this->serialized_display->create($config, StringComparisonSpecification::equal(self::TYPE_ARRAY)),
                 $this->media_link->create(
                     $config,
                     new AC\Expression\OrSpecification([
