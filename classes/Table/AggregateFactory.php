@@ -38,18 +38,10 @@ class AggregateFactory
             }
 
             foreach ($columns as $column) {
-                $formatters = $column->get_formatters();
+                $renderable = new ColumnRenderable($column->get_formatters());
 
-                $renderable = $formatters->valid()
-                    ? new ColumnRenderable($formatters)
-                    : null;
-
-                // TODO.. should we wrap $renderable in a filter for external access?
-                $renderable = apply_filters('ac/v2/column/value', $renderable, $column, $factory);
-
-                if ( ! $renderable) {
-                    continue;
-                }
+                // TODO.. should we wrap it in a filter for external access?
+                // $renderable = apply_filters('ac/v2/column/renderable', $renderable, $column, $factory);
 
                 $service = $factory->create(
                     $column->get_id(),
