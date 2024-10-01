@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
+use AC\Column;
+use AC\Registerable;
 use AC\Table\ColumnRenderable;
-use AC\Table\ManageValue;
 use DomainException;
 
-// TODO
-class Media extends ManageValue
+class Media implements Registerable
 {
 
-    private $renderable;
+    private Column $column;
 
-    public function __construct(ColumnRenderable $renderable)
+    public function __construct(Column $column)
     {
-        $this->renderable = $renderable;
+        $this->column = $column;
     }
 
     public function register(): void
@@ -28,9 +28,13 @@ class Media extends ManageValue
         add_action('manage_media_custom_column', [$this, 'render_value'], 100, 2);
     }
 
-    public function render_value($column_name, $id): void
+    public function render_value($column_id, $row_id): void
     {
-        echo $this->renderable->render((string)$column_name, (int)$id);
+        if ((string)$this->column->get_id() !== (string)$column_id) {
+            return;
+        }
+
+        echo ColumnRenderable::render($this->column, (int)$row_id);
     }
 
 }

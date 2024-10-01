@@ -6,16 +6,16 @@ namespace AC\Service;
 
 use AC\ListScreen;
 use AC\Registerable;
-use AC\Table\ManageValueFactory\Aggregate;
+use AC\Table\ManageValue\AggregateFactory;
 use AC\TableScreen;
 
 // TODO Proof-of-concept
 class ManageValue implements Registerable
 {
 
-    private Aggregate $aggregate;
+    private AggregateFactory $aggregate;
 
-    public function __construct(Aggregate $aggregate)
+    public function __construct(AggregateFactory $aggregate)
     {
         $this->aggregate = $aggregate;
     }

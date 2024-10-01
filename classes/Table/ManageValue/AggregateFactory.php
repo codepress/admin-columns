@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\Table\ManageValueFactory;
+namespace AC\Table\ManageValue;
 
 use AC\ColumnIterator;
 use AC\Registerable;
@@ -10,7 +10,7 @@ use AC\Services;
 use AC\Table\ManageValueFactory;
 use AC\TableScreen;
 
-class Aggregate
+class AggregateFactory
 {
 
     private static array $factories = [];

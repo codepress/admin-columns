@@ -21,9 +21,11 @@ use AC\Plugin\Version;
 use AC\RequestHandler\Ajax;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
 use AC\Storage\EncoderFactory;
-use AC\Table\ManageValueFactory\Aggregate;
-use AC\Table\ManageValueFactory\PostFactory;
-use AC\Table\ManageValueFactory\UserFactory;
+use AC\Table\ManageValue\AggregateFactory;
+use AC\Table\ManageValue\CommentFactory;
+use AC\Table\ManageValue\MediaFactory;
+use AC\Table\ManageValue\PostFactory;
+use AC\Table\ManageValue\UserFactory;
 use AC\Value\Extended\MediaPreview;
 use AC\Value\ExtendedValueRegistry;
 use AC\Vendor\DI;
@@ -59,8 +61,10 @@ class AdminColumns
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\ThirdPartyFactory::class));
 
-        Aggregate::add($container->get(PostFactory::class));
-        Aggregate::add($container->get(UserFactory::class));
+        AggregateFactory::add($container->get(PostFactory::class));
+        AggregateFactory::add($container->get(UserFactory::class));
+        AggregateFactory::add($container->get(MediaFactory::class));
+        AggregateFactory::add($container->get(CommentFactory::class));
 
         if ( ! defined('ACP_FILE')) {
             ColumnFactories\Aggregate::add($container->get(ColumnFactories\IntegrationFactory::class));

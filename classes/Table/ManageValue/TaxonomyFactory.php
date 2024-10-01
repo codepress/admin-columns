@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace AC\Table\ManageValueFactory;
+namespace AC\Table\ManageValue;
 
 use AC\Column;
+use AC\PostType;
 use AC\Registerable;
-use AC\Table\ManageValue\User;
 use AC\Table\ManageValueFactory;
 use AC\TableScreen;
 use LogicException;
 
-class UserFactory implements ManageValueFactory
+class TaxonomyFactory implements ManageValueFactory
 {
 
     public function can_create(TableScreen $table_screen): bool
     {
-        return $table_screen instanceof TableScreen\User;
+        return $table_screen instanceof Taxono;
     }
 
     public function create(TableScreen $table_screen, Column $column): Registerable
     {
-        if ( ! $this->can_create($table_screen)) {
+        if ( ! $table_screen instanceof PostType) {
             throw new LogicException('Invalid table screen.');
         }
 
-        return new User($column);
+        return new Post($table_screen->get_post_type(), $column);
     }
 
 }
