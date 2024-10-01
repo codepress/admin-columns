@@ -90,19 +90,19 @@
         openedColumnsStore.close(foundColumn.name);
         openedColumnsStore.open(clonedName);
         config[clonedName] = config[foundColumn.name];
-        scrollToColumn( columnName );
+        scrollToColumn(columnName);
     }
 
-    const scrollToColumn = ( columnName: string ) => {
+    const scrollToColumn = (columnName: string) => {
         let columnElement = document.querySelector<HTMLElement>(`.ac-column[data-name="${columnName}"]`);
 
-        if( columnElement ){
-			window.scroll({
-				top: columnElement.offsetTop,
-				behavior: "smooth"
-			})
-		}
-	}
+        if (columnElement) {
+            window.scroll({
+                top: columnElement.offsetTop,
+                behavior: "smooth"
+            })
+        }
+    }
 
     const deleteColumn = (columnName: string) => {
         listScreenDataStore.deleteColumn(columnName);
@@ -152,21 +152,21 @@
                 }
             }
         });
-	}
+    }
 
 
     listScreenDataStore.subscribe(() => {
         makeSortable();
     })
 
-	onMount( () => {
-       setTimeout( makeSortable, 1000 );
-	});
+    onMount(() => {
+        setTimeout(makeSortable, 1000);
+    });
 
 </script>
 
 
-<!--<DebugToolbar bind:data={data} bind:config={config}/>-->
+<DebugToolbar bind:data={data} bind:config={config}/>
 
 {#if data }
 	<div class="ac-columns acu-shadow">
@@ -222,7 +222,7 @@
 			</div>
 		</div>
 		<footer class="ac-columns__footer">
-		{#if !$listScreenIsReadOnly}
+			{#if !$listScreenIsReadOnly}
 				<div>
 					{#if data.columns.length > 0}
 						<AcButton type="text" on:click={clearColumns}>{i18n.editor.label.clear_columns}</AcButton>
@@ -235,7 +235,7 @@
 					</AcDropdown>
 				</div>
 
-		{/if}
+			{/if}
 		</footer>
 	</div>
 {:else}

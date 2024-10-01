@@ -881,7 +881,7 @@ html.wp-toolbar .ac-tooltip {
 /* =Available Sizes column
 -------------------------------------------------------------- */
 .ac-image-sizes .ac-missing-size {
-  color: #929292;
+  color: rgb(145.65, 145.65, 145.65);
 }
 
 table .column-audio_player {
@@ -1427,7 +1427,7 @@ table.ac-table-items.-user-posts .col-post-type {
 }
 .ac-progress-bar .ac-bar-container .ac-bar {
   height: 100%;
-  background-color: #69c471;
+  background-color: rgb(104.52, 196.48, 112.88);
   border-right: 1px solid #fff;
 }
 .ac-progress-bar .ac-bar-container .ac-label-left,

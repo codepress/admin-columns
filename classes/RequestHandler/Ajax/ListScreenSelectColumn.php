@@ -6,6 +6,7 @@ namespace AC\RequestHandler\Ajax;
 
 use AC;
 use AC\Capabilities;
+use AC\Column\ColumnFactory;
 use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
@@ -33,6 +34,18 @@ class ListScreenSelectColumn implements RequestAjaxHandler
         $this->json_response_factory = $json_response_factory;
     }
 
+    private function get_column_factory($table_screen, $column_type): ?ColumnFactory
+    {
+        $factories = $this->column_factory->create($table_screen);
+        foreach ($factories as $factory) {
+            if ($factory->get_column_type() === $column_type) {
+                return $factory;
+            }
+        }
+
+        return null;
+    }
+
     public function handle(): void
     {
         if ( ! current_user_can(Capabilities::MANAGE)) {
@@ -52,15 +65,13 @@ class ListScreenSelectColumn implements RequestAjaxHandler
 
         $column_data = json_decode((string)$request->get('data'), true);
 
-        $column = $this->column_factory->create(
-            $table_screen,
-            $column_data['type'],
-            new AC\Setting\Config($column_data)
-        );
+        $factory = $this->get_column_factory($table_screen, $column_data['type']);
 
-        if ( ! $column) {
+        if ( ! $factory) {
             $response->error();
         }
+
+        $column = $factory->create(new AC\Setting\Config($column_data));
 
         $this->json_response_factory->create_by_column($column)
                                     ->success();
