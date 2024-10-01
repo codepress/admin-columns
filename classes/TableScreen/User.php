@@ -5,11 +5,7 @@ declare(strict_types=1);
 namespace AC\TableScreen;
 
 use AC;
-use AC\ListScreen;
 use AC\ListTableFactory;
-use AC\Table;
-use AC\Table\ColumnRenderable;
-use AC\Table\ManageValue;
 use AC\TableScreen;
 use AC\Type\Labels;
 use AC\Type\ListKey;
@@ -22,11 +18,6 @@ class User extends TableScreen implements ListTable, MetaType
     public function __construct()
     {
         parent::__construct(new ListKey('wp-users'), 'users');
-    }
-
-    public function manage_value(ListScreen $list_screen): ManageValue
-    {
-        return new Table\ManageValue\User(new ColumnRenderable($list_screen));
     }
 
     public function list_table(): AC\ListTable

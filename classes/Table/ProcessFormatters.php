@@ -12,12 +12,13 @@ use AC\Type\Value;
 use AC\Type\ValueCollection;
 use AC\Value\Formatter\Collection\Separator;
 
+// TODO what is the purpose?
 class ProcessFormatters
 {
 
-    private $formatters;
+    private FormatterCollection $formatters;
 
-    private $empty_value;
+    private string $empty_value;
 
     public function __construct(FormatterCollection $formatters, string $empty_value = '&ndash;')
     {
@@ -46,16 +47,6 @@ class ProcessFormatters
                         $collection = new ValueCollection($value->get_id());
 
                         foreach ($value as $item) {
-                            // TODO
-                            //                            $_value = $formatter->format($item);
-                            //
-                            //                            if ( ! $_value instanceof Value) {
-                            //                                echo '<pre>';
-                            //                                print_r($_value);
-                            //                                echo '</pre>';
-                            //                                exit;
-                            //                            }
-
                             $collection->add($formatter->format($item));
                         }
 

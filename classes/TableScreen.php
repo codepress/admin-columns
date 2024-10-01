@@ -36,7 +36,9 @@ abstract class TableScreen
     abstract public function get_url(): Uri;
 
     // TODO remove
-    abstract public function manage_value(ListScreen $list_screen): Table\ManageValue;
+    public function manage_value(ListScreen $list_screen)
+    {
+    }
 
     public function get_key(): ListKey
     {

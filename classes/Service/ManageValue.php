@@ -6,7 +6,7 @@ namespace AC\Service;
 
 use AC\ListScreen;
 use AC\Registerable;
-use AC\Table\ManageValue\AggregateFactory;
+use AC\Table\AggregateFactory;
 use AC\TableScreen;
 
 // TODO Proof-of-concept

@@ -40,7 +40,7 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
 
     public function manage_value(AC\ListScreen $list_screen): AC\Table\ManageValue
     {
-        return new ManageValue(new AC\Table\ColumnRenderable($list_screen));
+        return new ManageValue(new AC\Table\Renderable\ColumnRenderable($list_screen));
     }
 
     public function get_query_type(): string

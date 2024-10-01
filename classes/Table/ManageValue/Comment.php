@@ -4,19 +4,28 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
-use AC\Column;
 use AC\Registerable;
-use AC\Table\ColumnRenderable;
+use AC\Table\Renderable;
+use AC\Type\ColumnId;
 use DomainException;
 
 class Comment implements Registerable
 {
 
-    private Column $column;
+    private ColumnId $column_id;
 
-    public function __construct(Column $column)
-    {
-        $this->column = $column;
+    private Renderable $renderable;
+
+    private int $priority;
+
+    public function __construct(
+        ColumnId $column_id,
+        Renderable $renderable,
+        int $priority = 100
+    ) {
+        $this->column_id = $column_id;
+        $this->renderable = $renderable;
+        $this->priority = $priority;
     }
 
     public function register(): void
@@ -25,16 +34,16 @@ class Comment implements Registerable
             throw new DomainException("Method should be called before the action triggers.");
         }
 
-        add_action('manage_comments_custom_column', [$this, 'render_value'], 100, 2);
+        add_action('manage_comments_custom_column', [$this, 'render_value'], $this->priority, 2);
     }
 
     public function render_value($column_id, $row_id): void
     {
-        if ((string)$this->column->get_id() !== (string)$column_id) {
+        if ((string)$this->column_id !== (string)$column_id) {
             return;
         }
 
-        echo ColumnRenderable::render($this->column, (int)$row_id);
+        echo $this->renderable->render((int)$row_id);
     }
 
 }

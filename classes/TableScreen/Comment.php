@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace AC\TableScreen;
 
 use AC;
-use AC\ListScreen;
 use AC\ListTableFactory;
-use AC\Table;
-use AC\Table\ColumnRenderable;
 use AC\TableScreen;
 use AC\Type\Labels;
 use AC\Type\ListKey;
@@ -26,11 +23,6 @@ class Comment extends TableScreen implements ListTable, MetaType
     public function get_heading_hookname(): string
     {
         return sprintf('manage_%s_columns', $this->screen_id);
-    }
-
-    public function manage_value(ListScreen $list_screen): AC\Table\ManageValue
-    {
-        return new Table\ManageValue\Comment(new ColumnRenderable($list_screen));
     }
 
     public function list_table(): AC\ListTable

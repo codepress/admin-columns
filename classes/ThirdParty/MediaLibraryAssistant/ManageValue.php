@@ -11,7 +11,7 @@ class ManageValue extends AC\Table\ManageValue
 
     private $renderable;
 
-    public function __construct(AC\Table\ColumnRenderable $renderable)
+    public function __construct(AC\Table\Renderable\ColumnRenderable $renderable)
     {
         $this->renderable = $renderable;
     }

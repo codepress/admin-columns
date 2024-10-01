@@ -9,7 +9,7 @@ use AC\Column;
 class ColumnValueSanitize
 {
 
-    private $column;
+    private Column $column;
 
     private $id;
 

@@ -4,22 +4,27 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
-use AC\Column;
 use AC\Registerable;
-use AC\Table\ColumnRenderable;
+use AC\Table\Renderable;
+use AC\Type\ColumnId;
 use DomainException;
 
-// TODO Proof-of-concept
 class User implements Registerable
 {
 
-    private Column $column;
+    private ColumnId $column_id;
+
+    private Renderable $renderable;
 
     private int $priority;
 
-    public function __construct(Column $column, int $priority = 100)
-    {
-        $this->column = $column;
+    public function __construct(
+        ColumnId $column_id,
+        Renderable $renderable,
+        int $priority = 100
+    ) {
+        $this->column_id = $column_id;
+        $this->renderable = $renderable;
         $this->priority = $priority;
     }
 
@@ -34,11 +39,11 @@ class User implements Registerable
 
     public function render_value($value, $column_id, $row_id): ?string
     {
-        if ((string)$this->column->get_id() !== (string)$column_id) {
+        if ((string)$this->column_id !== (string)$column_id) {
             return (string)$value;
         }
 
-        return ColumnRenderable::render($this->column, (int)$row_id);
+        return $this->renderable->render($row_id) ?? $value;
     }
 
 }

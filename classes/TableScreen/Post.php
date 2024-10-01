@@ -8,7 +8,6 @@ use AC;
 use AC\ListTableFactory;
 use AC\MetaType;
 use AC\PostType;
-use AC\Table;
 use AC\TableScreen;
 use AC\Type\Labels;
 use AC\Type\ListKey;
@@ -35,11 +34,6 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
     public function list_table(): AC\ListTable
     {
         return ListTableFactory::create_post($this->screen_id);
-    }
-
-    public function manage_value(AC\ListScreen $list_screen): AC\Table\ManageValue
-    {
-        return new Table\ManageValue\Post($this->post_type->name, new Table\ColumnRenderable($list_screen));
     }
 
     public function get_post_type(): PostTypeSlug
