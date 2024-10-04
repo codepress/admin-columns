@@ -6,10 +6,9 @@ namespace AC\Table\ManageValue;
 
 use AC\PostType;
 use AC\Registerable;
+use AC\Table\GridRenderable;
 use AC\Table\ManageValueFactory;
-use AC\Table\Renderable;
 use AC\TableScreen;
-use AC\Type\ColumnId;
 use LogicException;
 
 class PostFactory implements ManageValueFactory
@@ -21,8 +20,7 @@ class PostFactory implements ManageValueFactory
     }
 
     public function create(
-        ColumnId $column_id,
-        Renderable $renderable,
+        GridRenderable $renderable,
         TableScreen $table_screen,
         int $priority = 100
     ): Registerable {
@@ -32,7 +30,6 @@ class PostFactory implements ManageValueFactory
 
         return new Post(
             $table_screen->get_post_type(),
-            $column_id,
             $renderable,
             $priority
         );

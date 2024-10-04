@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace AC\Table\ManageValue;
 
 use AC\Registerable;
+use AC\Table\GridRenderable;
 use AC\Table\ManageValueFactory;
-use AC\Table\Renderable;
 use AC\TableScreen;
-use AC\Type\ColumnId;
 use LogicException;
 
 class MediaFactory implements ManageValueFactory
@@ -19,13 +18,13 @@ class MediaFactory implements ManageValueFactory
         return $table_screen instanceof TableScreen\Media;
     }
 
-    public function create(ColumnId $column_id, Renderable $renderable, TableScreen $table_screen): Registerable
+    public function create(GridRenderable $renderable, TableScreen $table_screen): Registerable
     {
-        if ( ! $table_screen instanceof TableScreen\Media) {
+        if ( ! $this->can_create($table_screen)) {
             throw new LogicException('Invalid table screen.');
         }
 
-        return new Media($column_id, $renderable);
+        return new Media($renderable);
     }
 
 }

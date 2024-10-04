@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace AC\Table\ManageValue;
 
 use AC\Registerable;
-use AC\Table\Renderable;
-use AC\Type\ColumnId;
+use AC\Table\GridRenderable;
 use AC\Type\PostTypeSlug;
 use DomainException;
 
@@ -18,18 +17,14 @@ class Post implements Registerable
 
     private int $priority;
 
-    private Renderable $renderable;
-
-    private ColumnId $column_id;
+    private GridRenderable $renderable;
 
     public function __construct(
         PostTypeSlug $post_type,
-        ColumnId $column_id,
-        Renderable $renderable,
+        GridRenderable $renderable,
         int $priority = 100
     ) {
         $this->post_type = $post_type;
-        $this->column_id = $column_id;
         $this->renderable = $renderable;
         $this->priority = $priority;
     }
@@ -47,11 +42,7 @@ class Post implements Registerable
 
     public function manage_value($column_id, $row_id): void
     {
-        if ((string)$this->column_id !== (string)$column_id) {
-            return;
-        }
-
-        echo $this->renderable->render($row_id);
+        echo $this->renderable->render($column_id, $row_id);
     }
 
 }

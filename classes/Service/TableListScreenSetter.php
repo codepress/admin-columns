@@ -89,6 +89,7 @@ class TableListScreenSetter implements Registerable
             $this->default_columns_repository,
             $list_screen
         );
+
         $table->register();
 
         do_action('ac/table', $table);
