@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC;
 
-use AC\ApplyFilter\PostTypes;
 use LogicException;
 
 class PostTypeRepository
@@ -39,7 +38,7 @@ class PostTypeRepository
             }
         }
 
-        return (new PostTypes())->apply_filters($post_types);
+        return (array)apply_filters('ac/post_types', $post_types);
     }
 
 }

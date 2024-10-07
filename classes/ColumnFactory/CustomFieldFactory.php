@@ -19,7 +19,7 @@ class CustomFieldFactory extends BaseColumnFactory
 
     private $field_type;
 
-    private $table_screen_context;
+    private TableScreenContext $table_screen_context;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,

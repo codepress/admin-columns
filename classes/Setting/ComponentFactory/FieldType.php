@@ -59,11 +59,14 @@ class FieldType extends Builder
 
     private SerializedDisplay $serialized_display;
 
+    private UserLink $user_link;
+
     public function __construct(
         StringLimit $string_limit,
         NumberFormat $number_format,
-        PostProperty $post,
+        LinkablePostProperty $post,
         UserProperty $user,
+        UserLink $user_link,
         DateFormat\Date $date,
         DateSaveFormat $date_format,
         LinkLabel $link_label,
@@ -83,6 +86,7 @@ class FieldType extends Builder
         $this->media_link = $media_link;
         $this->select_options = $select_options;
         $this->serialized_display = $serialized_display;
+        $this->user_link = $user_link;
     }
 
     protected function get_label(Config $config): ?string
@@ -193,6 +197,9 @@ class FieldType extends Builder
         // TODO Filters don't work
 
         switch ($field_type) {
+            case self::TYPE_BOOLEAN:
+                $formatters->add(new AC\Value\Formatter\YesNoIcon());
+                break;
             case self::TYPE_SELECT:
                 $formatters->add(new AC\Value\Formatter\SelectOptionMapper($config));
                 break;
@@ -209,13 +216,14 @@ class FieldType extends Builder
                 );
                 break;
             case self::TYPE_NON_EMPTY:
+                $formatters->add(new AC\Value\Formatter\HasValue());
                 $formatters->add(new AC\Value\Formatter\YesNoIcon());
                 break;
             case self::TYPE_USER:
-            case self::TYPE_MEDIA: // TODO check for string also
-            case self::TYPE_IMAGE: // TODO check for string also
+            case self::TYPE_MEDIA:
+            case self::TYPE_IMAGE:
             case self::TYPE_POST:
-                $formatters->add(new AC\Value\Formatter\ForeignId());
+                $formatters->add(new AC\Value\Formatter\IdCollectionFromArrayOrString());
                 break;
         }
     }
@@ -243,6 +251,10 @@ class FieldType extends Builder
                 ),
                 // TODO huge performance issue
                 $this->user->create(
+                    $config,
+                    StringComparisonSpecification::equal(self::TYPE_USER)
+                ),
+                $this->user_link->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_USER)
                 ),
