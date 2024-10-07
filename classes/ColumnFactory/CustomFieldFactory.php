@@ -21,11 +21,14 @@ class CustomFieldFactory extends BaseColumnFactory
 
     private TableScreenContext $table_screen_context;
 
+    private ComponentFactory\BeforeAfter $before_after;
+
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
         ComponentFactory\CustomFieldFactory $custom_field_factory,
         TableScreenContext $table_screen_context,
-        FieldType $field_type
+        FieldType $field_type,
+        ComponentFactory\BeforeAfter $before_after
     ) {
         parent::__construct(
             $component_factory_registry
@@ -34,12 +37,14 @@ class CustomFieldFactory extends BaseColumnFactory
         $this->custom_field_factory = $custom_field_factory;
         $this->field_type = $field_type;
         $this->table_screen_context = $table_screen_context;
+        $this->before_after = $before_after;
     }
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
         $factories->add($this->custom_field_factory->create($this->table_screen_context));
         $factories->add($this->field_type);
+        $factories->add($this->before_after);
     }
 
     public function get_column_type(): string
