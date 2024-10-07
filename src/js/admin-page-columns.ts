@@ -12,7 +12,6 @@ import {debugMode} from "./columns/store/debug";
 import {showColumnInfo} from "./columns/store/screen-options";
 import {initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
 import InfoScreenOption from "./modules/screen-options";
-import {Writable} from "svelte/store";
 import ColumnPageBridge from "./columns/utils/page-bridge";
 
 const AcServices = initAcServices();
