@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AC\Table\ManageValue;
+namespace AC\TableScreen\ManageValue;
 
 use AC\Registerable;
-use AC\Table\GridRenderable;
 use DomainException;
 
 class User implements Registerable

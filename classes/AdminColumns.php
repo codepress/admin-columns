@@ -21,7 +21,7 @@ use AC\Plugin\Version;
 use AC\RequestHandler\Ajax;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
 use AC\Storage\EncoderFactory;
-use AC\Table\ManageValue;
+use AC\Table\ManageValue\ListScreenServiceFactory;
 use AC\Value\Extended\MediaPreview;
 use AC\Value\ExtendedValueRegistry;
 use AC\Vendor\DI;
@@ -57,10 +57,16 @@ class AdminColumns
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\ThirdPartyFactory::class));
 
-        Table\AggregateFactory::add($container->get(ManageValue\PostFactory::class));
-        Table\AggregateFactory::add($container->get(ManageValue\UserFactory::class));
-        Table\AggregateFactory::add($container->get(ManageValue\MediaFactory::class));
-        Table\AggregateFactory::add($container->get(ManageValue\CommentFactory::class));
+        foreach (
+            [
+                $container->get(TableScreen\ManageValue\PostFactory::class),
+                $container->get(TableScreen\ManageValue\UserFactory::class),
+                $container->get(TableScreen\ManageValue\MediaFactory::class),
+                $container->get(TableScreen\ManageValue\CommentFactory::class),
+            ] as $factory
+        ) {
+            Table\ManageValue\AggregateServiceFactory::add(new ListScreenServiceFactory($factory));
+        }
 
         if ( ! defined('ACP_FILE')) {
             ColumnFactories\Aggregate::add($container->get(ColumnFactories\IntegrationFactory::class));

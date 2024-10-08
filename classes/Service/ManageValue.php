@@ -6,18 +6,17 @@ namespace AC\Service;
 
 use AC\ListScreen;
 use AC\Registerable;
-use AC\Table\AggregateFactory;
+use AC\Table\ManageValue\AggregateServiceFactory;
 use AC\TableScreen;
 
-// TODO Proof-of-concept
 class ManageValue implements Registerable
 {
 
-    private AggregateFactory $aggregate;
+    private AggregateServiceFactory $factory;
 
-    public function __construct(AggregateFactory $aggregate)
+    public function __construct(AggregateServiceFactory $factory)
     {
-        $this->aggregate = $aggregate;
+        $this->factory = $factory;
     }
 
     public function register(): void
@@ -27,7 +26,7 @@ class ManageValue implements Registerable
 
     public function handle(ListScreen $list_screen, TableScreen $table_screen): void
     {
-        $service = $this->aggregate->create($table_screen, $list_screen);
+        $service = $this->factory->create($table_screen, $list_screen);
 
         if ($service) {
             $service->register();

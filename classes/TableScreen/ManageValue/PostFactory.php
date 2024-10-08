@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AC\Table\ManageValue;
+namespace AC\TableScreen\ManageValue;
 
 use AC\PostType;
 use AC\Registerable;
-use AC\Table\GridRenderable;
-use AC\Table\ManageValueFactory;
 use AC\TableScreen;
-use LogicException;
+use AC\TableScreen\ManageValueFactory;
+use InvalidArgumentException;
 
 class PostFactory implements ManageValueFactory
 {
@@ -20,12 +19,12 @@ class PostFactory implements ManageValueFactory
     }
 
     public function create(
-        GridRenderable $renderable,
         TableScreen $table_screen,
+        GridRenderable $renderable,
         int $priority = 100
     ): Registerable {
         if ( ! $table_screen instanceof PostType) {
-            throw new LogicException('Invalid table screen.');
+            throw new InvalidArgumentException('Invalid table screen.');
         }
 
         return new Post(

@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AC\Table\GridRenderable;
+namespace AC\Table\ManageValue;
 
 use AC\ListScreen;
-use AC\Table\GridRenderable;
-use AC\Table\Renderable;
+use AC\TableScreen\ManageValue\GridRenderable;
 
-class ColumnRenderable implements GridRenderable
+class ListScreenRenderable implements GridRenderable
 {
 
     private ListScreen $list_screen;
@@ -26,7 +25,7 @@ class ColumnRenderable implements GridRenderable
             return null;
         }
 
-        return (new Renderable\ColumnRenderable($column->get_formatters()))->render($row_id);
+        return (new ColumnRenderable($column->get_formatters()))->render($row_id);
     }
 
 }

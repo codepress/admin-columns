@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\Table\Renderable;
+namespace AC\Table\ManageValue;
 
 use AC\Column;
 use AC\Sanitize\Kses;
@@ -11,7 +11,7 @@ use AC\Table\ProcessFormatters;
 use AC\Table\Renderable;
 use AC\Type\Value;
 
-// TODO check usages
+// TODO check usages, obsolete mayvbe.
 class ColumnRenderable implements Renderable
 {
 

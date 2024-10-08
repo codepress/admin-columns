@@ -38,9 +38,9 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
         );
     }
 
-    public function manage_value(AC\ListScreen $list_screen): AC\Table\ManageValue
+    public function manage_value(AC\ListScreen $list_screen): AC\Service\ManageValue
     {
-        return new ManageValue(new AC\Table\Renderable\ColumnRenderable($list_screen));
+        return new ManageValue(new AC\Table\ManageValue\ColumnRenderable($list_screen));
     }
 
     public function get_query_type(): string

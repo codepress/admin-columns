@@ -6,12 +6,12 @@ namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
 
-class ManageValue extends AC\Table\ManageValue
+class ManageValue extends AC\Service\ManageValue
 {
 
     private $renderable;
 
-    public function __construct(AC\Table\Renderable\ColumnRenderable $renderable)
+    public function __construct(AC\Table\ManageValue\ColumnRenderable $renderable)
     {
         $this->renderable = $renderable;
     }
