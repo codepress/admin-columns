@@ -29,9 +29,22 @@ abstract class CustomColumnFactory implements ColumnFactory
         $this->width = $width;
     }
 
-    protected function get_formatters(Config $config): FormatterCollection
+    protected function get_formatters(Config $config, ComponentCollection $components): FormatterCollection
     {
-        return new FormatterCollection();
+        return $this->get_setting_formatters($components);
+    }
+
+    protected function get_setting_formatters(ComponentCollection $components): FormatterCollection
+    {
+        $formatters = new FormatterCollection();
+
+        foreach ($components as $component) {
+            foreach ($component->get_formatters() as $formatter) {
+                $formatters->add($formatter);
+            }
+        }
+
+        return $formatters;
     }
 
     protected function get_group(): ?string
@@ -48,7 +61,6 @@ abstract class CustomColumnFactory implements ColumnFactory
         ];
     }
 
-    // TODO component formatters
     public function create(Config $config): Column
     {
         $components = new ComponentCollection([
@@ -65,7 +77,7 @@ abstract class CustomColumnFactory implements ColumnFactory
             $this->get_column_type(),
             $this->get_label(),
             $components,
-            $this->get_formatters($config),
+            $this->get_formatters($config, $components),
             $this->get_group()
         );
     }

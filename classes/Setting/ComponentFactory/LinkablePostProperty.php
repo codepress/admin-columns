@@ -6,6 +6,7 @@ namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Children;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\Config;
 
@@ -35,7 +36,7 @@ class LinkablePostProperty extends PostProperty
     {
         $children = parent::get_children($config);
 
-        $components = $children->get_iterator();
+        $components = $children ? $children->get_iterator() : new Children(new ComponentCollection());
 
         $components->add(
             $this->user_link->create($config, StringComparisonSpecification::equal(self::PROPERTY_AUTHOR))

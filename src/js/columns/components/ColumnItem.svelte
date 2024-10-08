@@ -75,7 +75,7 @@
         return config.filter(c => c.input && proFeatureNames.includes(c.input.name)).length > 0
     }
 
-    const checkAppliedSettings = () => {
+    export const checkAppliedSettings = () => {
         let settings: string[] = checkAppliedSubSettings(['name', 'type'], config, '');
 
         Object.keys(data).forEach(settingName => {
@@ -88,9 +88,10 @@
     }
 
     const refreshSetting = () => {
+        checkAppliedSettings();
         refreshColumn(data, $currentListKey).then(d => {
             if (d.data.success) {
-                config = d.data.data.columns.settings;
+                config = d.data.data.column.settings;
             }
         })
     }
@@ -149,6 +150,7 @@
 				bind:settings={config}
 				on:refresh={refreshSetting}
 			/>
+			<button class="button" on:click={checkAppliedSettings}>Check settings</button>
 			{#if $debugMode}
 				<div style="padding: 10px; background: #FFDCDCFF">
 					<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>

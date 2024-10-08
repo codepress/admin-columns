@@ -57,17 +57,23 @@ class FieldType extends Builder
 
     private SelectOptions $select_options;
 
+    private SerializedDisplay $serialized_display;
+
+    private UserLink $user_link;
+
     public function __construct(
         StringLimit $string_limit,
         NumberFormat $number_format,
-        PostProperty $post,
+        LinkablePostProperty $post,
         UserProperty $user,
+        UserLink $user_link,
         DateFormat\Date $date,
         DateSaveFormat $date_format,
         LinkLabel $link_label,
         ImageSize $image,
         MediaLink $media_link,
-        SelectOptions $select_options
+        SelectOptions $select_options,
+        SerializedDisplay $serialized_display
     ) {
         $this->string_limit = $string_limit;
         $this->number_format = $number_format;
@@ -79,6 +85,8 @@ class FieldType extends Builder
         $this->image = $image;
         $this->media_link = $media_link;
         $this->select_options = $select_options;
+        $this->serialized_display = $serialized_display;
+        $this->user_link = $user_link;
     }
 
     protected function get_label(Config $config): ?string
@@ -186,8 +194,15 @@ class FieldType extends Builder
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $field_type = $config->get(self::NAME, self::TYPE_DEFAULT);
+        // TODO Filters don't work
 
         switch ($field_type) {
+            case self::TYPE_BOOLEAN:
+                $formatters->add(new AC\Value\Formatter\YesNoIcon());
+                break;
+            case self::TYPE_SELECT:
+                $formatters->add(new AC\Value\Formatter\SelectOptionMapper($config));
+                break;
             case self::TYPE_COLOR:
                 $formatters->add(new AC\Value\Formatter\Color());
                 break;
@@ -201,13 +216,14 @@ class FieldType extends Builder
                 );
                 break;
             case self::TYPE_NON_EMPTY:
+                $formatters->add(new AC\Value\Formatter\HasValue());
                 $formatters->add(new AC\Value\Formatter\YesNoIcon());
                 break;
             case self::TYPE_USER:
-            case self::TYPE_MEDIA: // TODO check for string also
-            case self::TYPE_IMAGE: // TODO check for string also
+            case self::TYPE_MEDIA:
+            case self::TYPE_IMAGE:
             case self::TYPE_POST:
-                $formatters->add(new AC\Value\Formatter\ForeignId());
+                $formatters->add(new AC\Value\Formatter\IdCollectionFromArrayOrString());
                 break;
         }
     }
@@ -238,6 +254,10 @@ class FieldType extends Builder
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_USER)
                 ),
+                $this->user_link->create(
+                    $config,
+                    StringComparisonSpecification::equal(self::TYPE_USER)
+                ),
                 $this->date->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_DATE)
@@ -261,6 +281,7 @@ class FieldType extends Builder
                         StringComparisonSpecification::equal(self::TYPE_MEDIA),
                     ])
                 ),
+                $this->serialized_display->create($config, StringComparisonSpecification::equal(self::TYPE_ARRAY)),
                 $this->media_link->create(
                     $config,
                     new AC\Expression\OrSpecification([

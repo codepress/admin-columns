@@ -37,6 +37,15 @@ final class FormatterCollection extends Collection implements Countable
         array_unshift($this->data, $formatter);
     }
 
+    public function merge(FormatterCollection $formatters): self
+    {
+        foreach ($formatters as $formatter) {
+            $this->add($formatter);
+        }
+
+        return $this;
+    }
+
     /**
      * @return Formatter|CollectionFormatter
      */
