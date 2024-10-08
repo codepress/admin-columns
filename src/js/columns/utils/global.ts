@@ -7,6 +7,20 @@ type AdminColumnsI18n = {
         ajax_unknown: string
         original_exist: string
     }
+    pro: {
+        modal: {
+            title: string
+            subtitle: string
+            sort_filter: string
+            search: string
+            bulk_edit: string
+            inline_edit: string
+            export: string
+            list_tables: string
+            addon: string
+            upgrade: string
+        }
+    }
     global: {
         search: string
         select: string

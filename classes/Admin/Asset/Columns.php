@@ -90,6 +90,32 @@ class Columns extends Script
                         'codepress-admin-columns'
                     ),
                 ],
+                'pro'      => [
+                    'modal' => [
+                        'title'       => __('Do you like Admin Columns?', 'codepress-admin-columns'),
+                        'subtitle'    => __(
+                            'Upgrade to PRO, and take Admin Columns to the next level:',
+                            'codepress-admin-columns'
+                        ),
+                        'sort_filter' => __('Sort & Filter on all your content.', 'codepress-admin-columns'),
+                        'search'      => __('Search the contents of your columns.', 'codepress-admin-columns'),
+                        'bulk_edit'   => __(
+                            'Bulk edit any content, including custom fields.',
+                            'codepress-admin-columns'
+                        ),
+                        'inline_edit' => __('Quick edit any content with Inline Editing, including custom fields.'),
+                        'export'      => __('Export all column data to CSV.', 'codepress-admin-columns'),
+                        'list_tables' => __(
+                            'Create multiple list table views with different columns.',
+                            'codepress-admin-columns'
+                        ),
+                        'addons'      => __(
+                            'Get add-ons for ACF, WooCommerce and many more',
+                            'codepress-admin-columns'
+                        ),
+                        'upgrade'     => __('Upgrade', 'codepress-admin-columns'),
+                    ],
+                ],
                 'global'   => [
                     'search' => __('Search', 'codepress-admin-columns'),
                     'select' => __('Select', 'codepress-admin-columns'),
