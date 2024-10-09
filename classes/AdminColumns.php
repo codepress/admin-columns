@@ -21,7 +21,9 @@ use AC\Plugin\Version;
 use AC\RequestHandler\Ajax;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
 use AC\Storage\EncoderFactory;
+use AC\Table\ManageHeading;
 use AC\Table\ManageValue\ListScreenServiceFactory;
+use AC\Table\SaveHeading;
 use AC\Value\Extended\MediaPreview;
 use AC\Value\ExtendedValueRegistry;
 use AC\Vendor\DI;
@@ -85,6 +87,9 @@ class AdminColumns
                      ->add('help', $container->get(PageFactory\Help::class));
 
         PageRequestHandlers::add_handler($page_handler);
+
+        Service\ManageHeadings::add($container->get(ManageHeading\WpListTableFactory::class));
+        Service\SaveHeadings::add($container->get(SaveHeading\WpListTableFactory::class));
     }
 
     private function create_services(DI\Container $container): Services
@@ -109,6 +114,8 @@ class AdminColumns
             Service\Colors::class,
             Service\TableRows::class,
             Service\ManageValue::class,
+            Service\ManageHeadings::class,
+            Service\SaveHeadings::class,
         ];
 
         if ( ! defined('ACP_FILE')) {

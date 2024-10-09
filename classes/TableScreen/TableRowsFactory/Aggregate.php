@@ -14,7 +14,7 @@ class Aggregate implements TableRowsFactory
     /**
      * @var TableRowsFactory[]
      */
-    private static $factories = [];
+    private static array $factories = [];
 
     public static function add(TableRowsFactory $factory): void
     {

@@ -19,7 +19,7 @@ use WP_Post_Type;
 class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaType
 {
 
-    protected $post_type;
+    protected WP_Post_Type $post_type;
 
     public function __construct(WP_Post_Type $post_type)
     {
@@ -54,11 +54,6 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
     public function get_attr_id(): string
     {
         return '#the-list';
-    }
-
-    public function get_heading_hookname(): string
-    {
-        return sprintf('manage_%s_columns', $this->screen_id);
     }
 
     public function get_url(): Uri

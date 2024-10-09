@@ -5,6 +5,8 @@ namespace AC;
 use AC\ColumnRepository\Sort\ManualOrder;
 use AC\Storage\Repository\DefaultColumnsRepository;
 
+// TODO remove
+
 class ScreenController implements Registerable
 {
 
@@ -16,6 +18,7 @@ class ScreenController implements Registerable
 
     private $list_screen;
 
+    // TODO split into separate classes for storing headings and adding headings
     public function __construct(
         DefaultColumnsRepository $default_column_repository,
         TableScreen $table_screen,
@@ -29,11 +32,12 @@ class ScreenController implements Registerable
     public function register(): void
     {
         // Headings
-        add_filter($this->table_screen->get_heading_hookname(), [$this, 'save_headings'], 199);
+        // TODO
+        //add_filter($this->table_screen->get_heading_hookname(), [$this, 'save_headings'], 199);
 
         // Headings
         if ($this->list_screen) {
-            add_filter($this->table_screen->get_heading_hookname(), [$this, 'add_headings'], 200);
+            // add_filter($this->table_screen->get_heading_hookname(), [$this, 'add_headings'], 200);
 
             // TODO remove see AC\Table\Service\Posts
             // Values

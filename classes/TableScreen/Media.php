@@ -61,9 +61,4 @@ class Media extends TableScreen implements ListTable, PostType, TableScreen\Meta
         );
     }
 
-    public function get_heading_hookname(): string
-    {
-        return sprintf('manage_%s_columns', $this->screen_id);
-    }
-
 }

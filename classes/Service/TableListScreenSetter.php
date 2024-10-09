@@ -86,7 +86,6 @@ class TableListScreenSetter implements Registerable
             new ColumnSize\ListStorage($this->storage),
             new ColumnSize\UserStorage(),
             $this->primary_column_factory,
-            $this->default_columns_repository,
             $list_screen
         );
 

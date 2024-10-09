@@ -25,20 +25,25 @@ abstract class TableScreen
     }
 
     // TODO remove
-    abstract public function get_heading_hookname(): string;
+    public function get_heading_hookname(): string
+    {
+        return '';
+    }
+
+    // TODO remove
+    public function manage_value(ListScreen $list_screen)
+    {
+    }
 
     abstract public function get_labels(): Labels;
+
+    // TODO should this be a string without context?
 
     abstract public function get_query_type(): string;
 
     abstract public function get_attr_id(): string;
 
     abstract public function get_url(): Uri;
-
-    // TODO remove
-    public function manage_value(ListScreen $list_screen)
-    {
-    }
 
     public function get_key(): ListKey
     {

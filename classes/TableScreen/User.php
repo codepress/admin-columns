@@ -45,11 +45,6 @@ class User extends TableScreen implements ListTable, MetaType
         return new Url\ListTable('users.php');
     }
 
-    public function get_heading_hookname(): string
-    {
-        return sprintf('manage_%s_columns', $this->screen_id);
-    }
-
     public function get_labels(): Labels
     {
         return new Labels(

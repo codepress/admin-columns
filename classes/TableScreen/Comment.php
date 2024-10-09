@@ -20,11 +20,6 @@ class Comment extends TableScreen implements ListTable, MetaType
         parent::__construct(new ListKey('wp-comments'), 'edit-comments');
     }
 
-    public function get_heading_hookname(): string
-    {
-        return sprintf('manage_%s_columns', $this->screen_id);
-    }
-
     public function list_table(): AC\ListTable
     {
         return ListTableFactory::create_comment($this->screen_id);

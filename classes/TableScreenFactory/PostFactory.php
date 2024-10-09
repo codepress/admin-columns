@@ -15,7 +15,7 @@ use WP_Screen;
 class PostFactory implements TableScreenFactory
 {
 
-    protected $post_type_repository;
+    protected PostTypeRepository $post_type_repository;
 
     public function __construct(PostTypeRepository $post_type_repository)
     {
