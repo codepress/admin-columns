@@ -26,7 +26,7 @@ class WpListTable implements Registerable
     }
 
     /**
-     * @see WP_List_Table::__construct()
+     * @see get_column_headers()
      */
     public function register(): void
     {
@@ -39,7 +39,7 @@ class WpListTable implements Registerable
         $checkbox = $current_headings['cb'] ?? null;
 
         if ($checkbox) {
-            $headings = array_merge(['cb' => $checkbox], $headings);
+            $headings = ['cb' => $checkbox] + $headings;
         }
 
         return $headings;

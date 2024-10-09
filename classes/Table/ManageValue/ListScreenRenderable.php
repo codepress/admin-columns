@@ -29,10 +29,12 @@ class ListScreenRenderable implements GridRenderable
         if ( ! isset($renderables[(string)$column->get_id()])) {
             $formatters = $column->get_formatters();
 
-            $renderables[(string)$column->get_id()] = new ColumnRenderable(
+            $renderable = new ColumnRenderable(
                 $formatters,
                 $this->context_factory->create($column)
             );
+
+            $renderables[(string)$column->get_id()] = $renderable;
         }
 
         return $renderables[(string)$column->get_id()];
@@ -40,13 +42,14 @@ class ListScreenRenderable implements GridRenderable
 
     public function render($column_id, $row_id): ?string
     {
-        $column = $this->list_screen->get_column($column_id);
+        $column = $this->list_screen->get_column((string)$column_id);
 
         if ( ! $column) {
             return null;
         }
 
-        return $this->get_renderable($column)->render($row_id);
+        return $this->get_renderable($column)
+                    ->render($row_id);
     }
 
 }

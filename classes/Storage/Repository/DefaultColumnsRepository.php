@@ -5,7 +5,6 @@ namespace AC\Storage\Repository;
 use AC\Storage\Option;
 use AC\Type\ListKey;
 
-// TODO create cached version
 final class DefaultColumnsRepository
 {
 

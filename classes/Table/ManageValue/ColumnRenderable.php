@@ -19,18 +19,21 @@ class ColumnRenderable
 
     private Context $context;
 
-    public function __construct(FormatterCollection $formatters, Context $context)
+    private ?string $default;
+
+    public function __construct(FormatterCollection $formatters, Context $context, string $default = null)
     {
         $this->formatters = $formatters;
         $this->context = $context;
+        $this->default = $default;
     }
 
     public function render($row_id): ?string
     {
         $value = null;
 
-        if ($this->formatters->count() > 1) {
-            $formatter = new ProcessFormatters($this->formatters);
+        if ($this->formatters->count() > 0) {
+            $formatter = new ProcessFormatters($this->formatters, $this->default);
 
             $value = (string)$this->sanitize_value(
                 $formatter->format(new Value($row_id)),

@@ -17,7 +17,7 @@ use AC\Vendor\DI\Container;
 abstract class BaseFactory implements ColumnFactoryCollectionFactory
 {
 
-    protected $container;
+    protected Container $container;
 
     public function __construct(Container $container)
     {

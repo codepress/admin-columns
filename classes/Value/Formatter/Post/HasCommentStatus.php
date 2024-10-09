@@ -10,7 +10,7 @@ use AC\Type\Value;
 class HasCommentStatus implements Formatter
 {
 
-    private $status;
+    private string $status;
 
     public function __construct(string $status)
     {
