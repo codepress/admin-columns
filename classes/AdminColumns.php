@@ -67,7 +67,9 @@ class AdminColumns
                 $container->get(TableScreen\ManageValue\CommentFactory::class),
             ] as $factory
         ) {
-            Table\ManageValue\AggregateServiceFactory::add(new ListScreenServiceFactory($factory));
+            Table\ManageValue\AggregateServiceFactory::add(
+                $container->make(ListScreenServiceFactory::class, ['factory' => $factory])
+            );
         }
 
         if ( ! defined('ACP_FILE')) {

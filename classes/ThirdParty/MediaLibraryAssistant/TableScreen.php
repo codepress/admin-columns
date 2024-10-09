@@ -25,23 +25,12 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
         return new ListTable((new WpListTableFactory())->create());
     }
 
-    public function get_heading_hookname(): string
-    {
-        return sprintf('manage_%s_columns', $this->screen_id);
-    }
-
     public function get_labels(): Labels
     {
         return new Labels(
             __('Assistant', 'codepress-admin-columns'),
             __('Media Library Assistant', 'codepress-admin-columns')
         );
-    }
-
-    // TODO
-    public function manage_value(AC\ListScreen $list_screen): AC\Service\ManageValue
-    {
-        return new ManageValue(new AC\Table\ManageValue\ColumnRenderable($list_screen));
     }
 
     public function get_query_type(): string
