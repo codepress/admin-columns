@@ -79,7 +79,8 @@ class TermLink extends Settings\Column
                 }
                 break;
             case 'edit' :
-                $link = get_edit_term_link($original_value);
+                $term = get_term($original_value);
+                $link = get_edit_term_link($term, $term->taxonomy);
 
                 break;
         }

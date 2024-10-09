@@ -210,6 +210,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.7.9 =
+Release Date: tbd
+
+* [Improved] Better edit term link with taxonomy as parameter
+
+
 = 4.7.8 =
 Release Date: October 1st, 2024
 
