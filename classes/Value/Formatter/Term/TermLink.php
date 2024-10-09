@@ -38,7 +38,8 @@ class TermLink implements Formatter
                 }
                 break;
             case 'edit' :
-                $link = get_edit_term_link($value->get_id());
+                $term = get_term($value->get_id());
+                $link = get_edit_term_link($term, $term->taxonomy);
 
                 break;
         }
