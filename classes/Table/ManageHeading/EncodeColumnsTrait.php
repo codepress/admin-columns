@@ -8,7 +8,7 @@ use AC\ListScreen;
 trait EncodeColumnsTrait
 {
 
-    private function encode_columns(ListScreen $list_screen): array
+    protected function encode_columns(ListScreen $list_screen): array
     {
         $headings = [];
 

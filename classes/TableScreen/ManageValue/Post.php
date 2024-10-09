@@ -8,7 +8,6 @@ use AC\Registerable;
 use AC\Type\PostTypeSlug;
 use DomainException;
 
-// TODO Proof-of-concept
 class Post implements Registerable
 {
 

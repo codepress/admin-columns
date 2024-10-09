@@ -186,14 +186,6 @@ final class Screen implements Registerable
             ->add_inline_variable('AC', $args)
             ->localize('AC_I18N', $table_translation)
             ->enqueue();
-
-        // Column specific scripts
-        // TODO
-        //        if ($this->list_screen) {
-        //            foreach ($this->list_screen->get_columns() as $column) {
-        //                $column->scripts();
-        //            }
-        //        }
     }
 
     private function get_local_number_format(string $var)

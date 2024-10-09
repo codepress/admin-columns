@@ -11,6 +11,9 @@ class WpListTable implements Registerable
 
     private string $screen_id;
 
+    /**
+     * @var array [ $column_id => $label, ... ]
+     */
     private array $headings;
 
     private int $priority;
