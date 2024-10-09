@@ -6,7 +6,7 @@ namespace AC\TableScreen\ManageHeading;
 
 use AC\Registerable;
 
-class WpListTable implements Registerable
+class ScreenColumns implements Registerable
 {
 
     private string $screen_id;

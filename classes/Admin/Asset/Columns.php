@@ -5,7 +5,6 @@ namespace AC\Admin\Asset;
 use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
-use AC\ColumnCollection;
 use AC\Service\DefaultColumns;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Storage\Repository\EditorMenuStatus;
@@ -201,38 +200,6 @@ class Columns extends Script
         }
 
         return $options;
-    }
-
-    private function get_original_types(): array
-    {
-        $types = [];
-        foreach ($this->column_type_repository->find_all_by_orginal($this->table_screen) as $column) {
-            $types[] = $column->get_type();
-        }
-
-        return $types;
-    }
-
-    private function encode_column_types(ColumnCollection $collection): array
-    {
-        $encode = [];
-
-        $original_types = $this->get_original_types();
-
-        // TODO cache
-        $groups = AC\ColumnGroups::get_groups();
-
-        foreach ($collection as $column) {
-            $encode[] = [
-                'label'     => $column->get_label(),
-                'value'     => $column->get_type(),
-                'group'     => $groups->get($column->get_group())['label'] ?? 'default',
-                'group_key' => $column->get_group(),
-                'original'  => in_array($column->get_type(), $original_types, true),
-            ];
-        }
-
-        return $encode;
     }
 
 }

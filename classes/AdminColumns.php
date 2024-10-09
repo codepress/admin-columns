@@ -20,6 +20,7 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
+use AC\Service\ManageValue;
 use AC\Setting\ContextFactory;
 use AC\Storage\EncoderFactory;
 use AC\Table\ManageHeading;
@@ -68,7 +69,7 @@ class AdminColumns
                 $container->get(TableScreen\ManageValue\CommentFactory::class),
             ] as $factory
         ) {
-            Table\ManageValue\AggregateServiceFactory::add(
+            ManageValue::add(
                 $container->make(ListScreenServiceFactory::class, ['factory' => $factory])
             );
         }

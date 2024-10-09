@@ -6,8 +6,8 @@ namespace AC\Service;
 
 use AC\ListScreen;
 use AC\Registerable;
-use AC\Table\ManageHeadingFactory;
 use AC\TableScreen;
+use AC\TableScreen\ManageHeadingFactory;
 
 class ManageHeadings implements Registerable
 {
@@ -26,7 +26,7 @@ class ManageHeadings implements Registerable
 
     private function get_factory(TableScreen $table_screen): ?ManageHeadingFactory
     {
-        foreach (self::$factories as $factory) {
+        foreach (array_reverse(self::$factories) as $factory) {
             if ($factory->can_create($table_screen)) {
                 return $factory;
             }

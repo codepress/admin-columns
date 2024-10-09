@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Table;
+namespace AC\TableScreen;
 
 use AC\ListScreen;
 use AC\Registerable;

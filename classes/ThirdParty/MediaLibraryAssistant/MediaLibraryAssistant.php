@@ -27,7 +27,7 @@ class MediaLibraryAssistant implements Registerable
         AC\ColumnFactories\Aggregate::add(new ColumnTypesFactory($this->container));
 
         // TODO test
-        AC\Table\ManageValue\AggregateServiceFactory::add($this->container->get(ManageValueFactory::class));
+        AC\Service\ManageValue::add($this->container->get(ManageValueFactory::class));
         // TODO ManageHeading and SaveHeading
     }
 
