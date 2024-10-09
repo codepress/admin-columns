@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
+use AC\ApplyFilter\ColumnValue;
 use AC\ApplyFilter\ColumnValueSanitize;
 use AC\Sanitize\Kses;
 use AC\Setting\Context;
@@ -26,23 +27,29 @@ class ColumnRenderable
 
     public function render($row_id): ?string
     {
-        $formatter = (new ProcessFormatters($this->formatters));
+        $value = null;
 
-        $value = $formatter->format(new Value($row_id));
+        if ($this->formatters->count() > 1) {
+            $formatter = new ProcessFormatters($this->formatters);
 
-        $value = (string)self::sanitize_value($value, $this->context, $row_id);
+            $value = (string)$this->sanitize_value(
+                $formatter->format(new Value($row_id)),
+                $this->context,
+                $row_id
+            );
+        }
 
-        return (string)apply_filters('ac/v2/column/value', $value, $row_id, $this->context);
+        return (new ColumnValue($this->context, $row_id))->apply_filter($value);
     }
 
-    private function use_sanitize(Context $context, int $id): bool
+    private function use_sanitize(Context $context, $id): bool
     {
         return (new ColumnValueSanitize($context, $id))->apply_filter();
     }
 
-    private function sanitize_value(Value $value, Context $context, int $id): Value
+    private function sanitize_value(Value $value, Context $context, $id): Value
     {
-        if ( ! self::use_sanitize($context, $id)) {
+        if ( ! $this->use_sanitize($context, $id)) {
             return $value;
         }
 

@@ -6,7 +6,7 @@ namespace AC\ApplyFilter;
 
 use AC\Setting\Context;
 
-class ColumnValueSanitize
+class ColumnValue
 {
 
     private $id;
@@ -19,9 +19,13 @@ class ColumnValueSanitize
         $this->context = $context;
     }
 
-    public function apply_filter(bool $sanitize = true): bool
+    public function apply_filter(string $value = null): ?string
     {
-        return (bool)apply_filters('ac/v2/column/value/sanitize', $sanitize, $this->context, $this->id);
+        $value = apply_filters('ac/v2/column/value', $value, $this->id, $this->context);
+
+        return is_scalar($value)
+            ? (string)$value
+            : null;
     }
 
 }
