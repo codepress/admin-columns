@@ -20,6 +20,7 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
+use AC\Setting\ContextFactory;
 use AC\Storage\EncoderFactory;
 use AC\Table\ManageHeading;
 use AC\Table\ManageValue\ListScreenServiceFactory;
@@ -216,6 +217,8 @@ class AdminColumns
             EncoderFactory::class                   => static function (Plugin $plugin) {
                 return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
             },
+            ContextFactory::class                   => autowire(ContextFactory\Aggregate::class)
+                ->constructorParameter(0, new ContextFactory\Column()),
         ];
 
         return (new ContainerBuilder())

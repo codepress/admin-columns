@@ -32,7 +32,7 @@ class ColumnRenderable
 
         $value = (string)self::sanitize_value($value, $this->context, $row_id);
 
-        return (string)apply_filters('ac/column/value', $value, $row_id, $this->context);
+        return (string)apply_filters('ac/v2/column/value', $value, $row_id, $this->context);
     }
 
     private function use_sanitize(Context $context, int $id): bool

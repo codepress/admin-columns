@@ -15,11 +15,11 @@ class ListScreenServiceFactory implements AC\Table\ManageValueServiceFactory
 
     private TableScreen\ManageValueFactory $factory;
 
-    private ContextFactory\Column $context_factory;
+    private ContextFactory $context_factory;
 
     public function __construct(
         TableScreen\ManageValueFactory $factory,
-        ContextFactory\Column $context_factory
+        ContextFactory $context_factory
     ) {
         $this->factory = $factory;
         $this->context_factory = $context_factory;

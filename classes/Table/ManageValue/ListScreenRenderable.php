@@ -14,9 +14,9 @@ class ListScreenRenderable implements GridRenderable
 
     private ListScreen $list_screen;
 
-    private ContextFactory\Column $context_factory;
+    private ContextFactory $context_factory;
 
-    public function __construct(ListScreen $list_screen, ContextFactory\Column $context_factory)
+    public function __construct(ListScreen $list_screen, ContextFactory $context_factory)
     {
         $this->list_screen = $list_screen;
         $this->context_factory = $context_factory;
