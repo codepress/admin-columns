@@ -13,6 +13,7 @@ import HiddenInput from "../components/settings/input/HiddenInput.svelte";
 import SelectRemoteInput from "../components/settings/input/SelectRemoteInput.svelte";
 import SelectOptionsInput from "../components/settings/input/SelectOptionsInput.svelte";
 import SelectMultipleInput from "../components/settings/input/SelectMultipleInput.svelte";
+import ProFeature from "../components/settings/input/ProFeature.svelte";
 
 
 registerSettingType('label', LabelInput)
@@ -28,3 +29,4 @@ registerSettingType('hidden', HiddenInput)
 registerSettingType('select_remote', SelectRemoteInput)
 registerSettingType('select_multiple', SelectMultipleInput)
 registerSettingType('select_options', SelectOptionsInput)
+registerSettingType('pro_feature', ProFeature)

@@ -23,7 +23,7 @@
 			</slot>
 
 			{#if description}
-				<small class="acp-column-setting__description acu-block acu-py-1 acu-text-[#888] acu-text-[12px]">{description}</small>
+				<small class="acp-column-setting__description acu-block acu-py-1 acu-text-[#888] acu-text-[12px]">{@html description}</small>
 			{/if}
 
 		</div>
@@ -42,7 +42,7 @@
 			</slot>
 
 			{#if description}
-				<small class="acp-column-setting__description acu-block acu-py-1 acu-text-[#888] acu-text-[12px]">{description}</small>
+				<small class="acp-column-setting__description acu-block acu-py-1 acu-text-[#888] acu-text-[12px]">{@html description}</small>
 			{/if}
 
 		</div>

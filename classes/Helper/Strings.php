@@ -215,39 +215,17 @@ class Strings
      * @return array
      * @since 3.0
      */
-    public function comma_separated_to_array($string)
+    public function comma_separated_to_array(string $string)
     {
         $array = [];
-        if (is_scalar($string)) {
-            if (strpos($string, ',') !== false) {
-                $array = array_filter(explode(',', ac_helper()->string->strip_trim(str_replace(' ', '', $string))));
-            } else {
-                $array = [$string];
-            }
-        } elseif (is_array($string)) {
-            $array = $string;
-        }
 
+        if (strpos($string, ',') !== false) {
+            $array = array_filter(explode(',', ac_helper()->string->strip_trim(str_replace(' ', '', $string))));
+        } else {
+            $array = [$string];
+        }
+        
         return $array;
-    }
-
-    /**
-     * @param string $string
-     *
-     * @return array
-     * @since 3.0
-     */
-    public function string_to_array_integers($string)
-    {
-        $integers = [];
-
-        foreach ($this->comma_separated_to_array($string) as $k => $value) {
-            if (is_numeric(trim($value))) {
-                $integers[] = $value;
-            }
-        }
-
-        return $integers;
     }
 
     /**

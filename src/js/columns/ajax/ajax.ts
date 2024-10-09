@@ -76,7 +76,7 @@ export const saveListScreen = (data: ListScreenData, listKey: string) => {
 
 
 type columnConfigPayload = {
-    columns: {
+    column: {
         settings: ColumnSettingCollection,
     }
 }
