@@ -1,3 +1,4 @@
+@use "sass:color";
 @import 'wordpress-vars';
 @import 'articles';
 @import 'admin-variables';
@@ -319,7 +320,7 @@ span.dashicons {
 
 .wp-core-ui .button-primary.-pink {
 	background: $ac-pink;
-	border-color: darken($ac-pink, 3);
+	border-color: color.adjust( $ac-pink, $lightness: -3%);
 }
 
 /**

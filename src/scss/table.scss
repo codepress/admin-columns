@@ -1,5 +1,6 @@
 //@import 'webfont';
 //@import 'iconfont';
+@use "sass:color";
 @import 'wordpress-vars';
 @import 'colors';
 @import 'webfont';
@@ -40,7 +41,7 @@
 -------------------------------------------------------------- */
 .ac-image-sizes {
 	.ac-missing-size {
-		color: lighten(#8a8a8a, 3);
+		color: color.scale( #8a8a8a, $lightness:3% );
 	}
 }
 
@@ -711,7 +712,7 @@ table.ac-table-items.-user-posts {
 
 		.ac-bar {
 			height: 100%;
-			background-color: lighten(#46b450, 10);
+			background-color: color.scale( #46b450, $lightness: 10%);
 			border-right: 1px solid #fff;
 		}
 

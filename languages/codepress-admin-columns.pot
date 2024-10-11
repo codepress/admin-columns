@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2024-10-08 07:37+0000\n"
+"POT-Creation-Date: 2024-10-11 07:29+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -316,7 +316,7 @@ msgstr ""
 msgid "Select type"
 msgstr ""
 
-#: templates/admin/edit-menu.php:35, classes/Admin/Asset/Columns.php:112, classes/Setting/ComponentFactory/MediaLink.php:30, classes/Value/Formatter/Media/PreviewViewLink.php:49
+#: templates/admin/edit-menu.php:35, classes/Admin/Asset/Columns.php:138, classes/Setting/ComponentFactory/MediaLink.php:30, classes/Value/Formatter/Media/PreviewViewLink.php:49
 msgid "View"
 msgstr ""
 
@@ -328,7 +328,7 @@ msgstr ""
 msgid "Unlock with Admin Columns Pro"
 msgstr ""
 
-#: templates/admin/list-screen-settings-mockup.php:29, templates/admin/modal-pro.php:41
+#: templates/admin/list-screen-settings-mockup.php:29, templates/admin/modal-pro.php:41, classes/Admin/Asset/Columns.php:116
 msgid "Upgrade"
 msgstr ""
 
@@ -380,7 +380,7 @@ msgstr ""
 msgid "Status (Quick Links)"
 msgstr ""
 
-#: templates/admin/list-screen-settings-mockup.php:79, classes/Admin/Asset/Columns.php:94
+#: templates/admin/list-screen-settings-mockup.php:79, classes/Admin/Asset/Columns.php:120
 msgid "Search"
 msgstr ""
 
@@ -420,35 +420,35 @@ msgstr ""
 msgid "Loading Columns"
 msgstr ""
 
-#: templates/admin/modal-pro.php:12
+#: templates/admin/modal-pro.php:12, classes/Admin/Asset/Columns.php:95
 msgid "Do you like Admin Columns?"
 msgstr ""
 
-#: templates/admin/modal-pro.php:20
+#: templates/admin/modal-pro.php:20, classes/Admin/Asset/Columns.php:96
 msgid "Upgrade to PRO, and take Admin Columns to the next level:"
 msgstr ""
 
-#: templates/admin/modal-pro.php:24
+#: templates/admin/modal-pro.php:24, classes/Admin/Asset/Columns.php:100
 msgid "Sort & Filter on all your content."
 msgstr ""
 
-#: templates/admin/modal-pro.php:26
+#: templates/admin/modal-pro.php:26, classes/Admin/Asset/Columns.php:101
 msgid "Search the contents of your columns."
 msgstr ""
 
-#: templates/admin/modal-pro.php:28
+#: templates/admin/modal-pro.php:28, classes/Admin/Asset/Columns.php:102
 msgid "Bulk edit any content, including custom fields."
 msgstr ""
 
-#: templates/admin/modal-pro.php:32
+#: templates/admin/modal-pro.php:32, classes/Admin/Asset/Columns.php:107
 msgid "Export all column data to CSV."
 msgstr ""
 
-#: templates/admin/modal-pro.php:34
+#: templates/admin/modal-pro.php:34, classes/Admin/Asset/Columns.php:108
 msgid "Create multiple list table views with different columns."
 msgstr ""
 
-#: templates/admin/modal-pro.php:36
+#: templates/admin/modal-pro.php:36, classes/Admin/Asset/Columns.php:112
 msgid "Get add-ons for ACF, WooCommerce and many more"
 msgstr ""
 
@@ -576,7 +576,7 @@ msgstr ""
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>."
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:33, classes/Admin/Asset/Columns.php:102
+#: templates/settings/setting-label-icons.php:33, classes/Admin/Asset/Columns.php:128
 msgid "Select Icon"
 msgstr ""
 
@@ -816,47 +816,47 @@ msgstr ""
 msgid "%s column is already present and can not be duplicated."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:95, classes/Setting/ComponentFactory/CustomField.php:64, classes/Setting/ComponentFactory/FieldType.php:160
+#: classes/Admin/Asset/Columns.php:121, classes/Setting/ComponentFactory/CustomField.php:64, classes/Setting/ComponentFactory/FieldType.php:160
 msgid "Select"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:98
+#: classes/Admin/Asset/Columns.php:124
 msgid "Favorites"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:107
+#: classes/Admin/Asset/Columns.php:133
 msgid "Save"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:108
+#: classes/Admin/Asset/Columns.php:134
 msgid "Add Column"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:109
+#: classes/Admin/Asset/Columns.php:135
 msgid "Add Columns"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:110
+#: classes/Admin/Asset/Columns.php:136
 msgid "Clear columns"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:111
+#: classes/Admin/Asset/Columns.php:137
 msgid "Load default columns"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:115
+#: classes/Admin/Asset/Columns.php:141
 msgid "The default columns will be shown on the list table when no columns are added."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:119
+#: classes/Admin/Asset/Columns.php:145
 msgid "Start by adding columns to your list table."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:124
+#: classes/Admin/Asset/Columns.php:150
 msgid "New to Admin Columns? Take a look at our %s"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:130
+#: classes/Admin/Asset/Columns.php:156
 msgid "getting started guide"
 msgstr ""
 
