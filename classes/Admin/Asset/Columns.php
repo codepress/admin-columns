@@ -15,25 +15,22 @@ use AC\Type\ListScreenId;
 class Columns extends Script
 {
 
-    private $table_screen;
+    private TableScreen $table_screen;
 
-    private $table_screens;
+    private TableScreenCollection $table_screens;
 
-    private $list_id;
+    private AC\Admin\MenuListItems $menu_items;
 
-    private $menu_items;
+    private EditorFavorites $favorite_repository;
 
-    private $favorite_repository;
+    private AC\Table\TableScreenRepository $table_screen_repository;
 
-    private $table_screen_repository;
-
-    private $column_type_repository;
+    private ?ListScreenId $list_id;
 
     public function __construct(
         string $handle,
         Location $location,
         TableScreen $table_screen,
-        AC\ColumnTypeRepository $column_type_repository,
         TableScreenCollection $table_screens,
         AC\Admin\MenuListItems $menu_items,
         AC\Table\TableScreenRepository $table_screen_repository,
@@ -46,21 +43,20 @@ class Columns extends Script
 
         $this->table_screen = $table_screen;
         $this->table_screens = $table_screens;
-        $this->column_type_repository = $column_type_repository;
-        $this->list_id = $list_id;
         $this->menu_items = $menu_items;
         $this->favorite_repository = $favorite_repository;
         $this->table_screen_repository = $table_screen_repository;
+        $this->list_id = $list_id;
     }
 
     public function register(): void
     {
         parent::register();
 
-        $uninitialized_list_screens = [];
+        $uninitialized_table_screens = [];
 
         foreach ($this->table_screens as $table_screen) {
-            $uninitialized_list_screens[(string)$table_screen->get_key()] = [
+            $uninitialized_table_screens[(string)$table_screen->get_key()] = [
                 'screen_link' => (string)$table_screen->get_url()->with_arg('save-default-headings', '1'),
             ];
         }
@@ -69,7 +65,7 @@ class Columns extends Script
             'nonce'                      => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
             'list_key'                   => (string)$this->table_screen->get_key(),
             'list_id'                    => (string)$this->list_id,
-            'uninitialized_list_screens' => $uninitialized_list_screens,
+            'uninitialized_list_screens' => $uninitialized_table_screens,
             'column_groups'              => AC\ColumnGroups::get_groups()->get_all(),
             'menu_items'                 => $this->get_menu_items(),
             'menu_items_favorites'       => $this->encode_favorites(
