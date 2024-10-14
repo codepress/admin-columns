@@ -22,7 +22,7 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
 
     public function list_table(): AC\ListTable
     {
-        return new ListTable((new WpListTableFactory())->create());
+        return new ListTable(new WpListTableFactory());
     }
 
     public function get_labels(): Labels

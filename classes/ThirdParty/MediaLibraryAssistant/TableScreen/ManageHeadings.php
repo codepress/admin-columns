@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AC\ThirdParty\MediaLibraryAssistant\TableScreen;
 
 use AC\Table\ManageHeading\EncodeColumnsTrait;
-use AC\Table\ManageHeading\WpListTableFactory;
+use AC\Table\ManageHeading\ScreenColumnsFactory;
 use AC\TableScreen;
 use AC\ThirdParty\MediaLibraryAssistant;
 
-class ManageHeadings extends WpListTableFactory
+class ManageHeadings extends ScreenColumnsFactory
 {
 
     use EncodeColumnsTrait;

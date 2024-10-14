@@ -28,7 +28,6 @@ class MediaLibraryAssistant implements Registerable
         AC\ListKeysFactory\Aggregate::add(new ListKeysFactory());
         AC\ColumnFactories\Aggregate::add(new ColumnTypesFactory($this->container));
 
-        // TODO test
         AC\Service\ManageValue::add(
             $this->container->make(
                 ListScreenServiceFactory::class,
