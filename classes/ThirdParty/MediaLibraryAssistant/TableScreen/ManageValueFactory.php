@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AC\ThirdParty\MediaLibraryAssistant;
+namespace AC\ThirdParty\MediaLibraryAssistant\TableScreen;
 
 use AC;
 use AC\Registerable;
 use AC\TableScreen\ManageValue\GridRenderable;
+use AC\ThirdParty\MediaLibraryAssistant\TableScreen;
 
 class ManageValueFactory implements AC\TableScreen\ManageValueFactory
 {

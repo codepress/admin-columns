@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AC\ThirdParty\MediaLibraryAssistant\ManageHeadings;
+namespace AC\ThirdParty\MediaLibraryAssistant\TableScreen;
 
 use AC\Table\ManageHeading\EncodeColumnsTrait;
 use AC\Table\ManageHeading\WpListTableFactory;
 use AC\TableScreen;
 use AC\ThirdParty\MediaLibraryAssistant;
 
-class MediaFactory extends WpListTableFactory
+class ManageHeadings extends WpListTableFactory
 {
 
     use EncodeColumnsTrait;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\ThirdParty\MediaLibraryAssistant;
+namespace AC\ThirdParty\MediaLibraryAssistant\TableScreen;
 
 use AC;
 use AC\TableScreen\ManageValue\GridRenderable;
