@@ -35,6 +35,7 @@ class ScreenColumns implements Registerable
 
     public function handle($current_headings): array
     {
+        exit;
         $headings = $this->headings;
         $checkbox = $current_headings['cb'] ?? null;
 

@@ -4,6 +4,7 @@ namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
 use AC\Registerable;
+use AC\Table\ManageValue\ListScreenServiceFactory;
 use AC\Vendor\DI\Container;
 
 class MediaLibraryAssistant implements Registerable
@@ -27,7 +28,13 @@ class MediaLibraryAssistant implements Registerable
         AC\ColumnFactories\Aggregate::add(new ColumnTypesFactory($this->container));
 
         // TODO test
-        AC\Service\ManageValue::add($this->container->get(ManageValueFactory::class));
+        AC\Service\ManageValue::add(
+            $this->container->make(
+                ListScreenServiceFactory::class,
+                ['factory' => $this->container->get(ManageValueFactory::class)]
+            )
+        );
+        AC\Service\ManageHeadings::add($this->container->get(ManageHeadings\MediaFactory::class));
         // TODO ManageHeading and SaveHeading
     }
 
