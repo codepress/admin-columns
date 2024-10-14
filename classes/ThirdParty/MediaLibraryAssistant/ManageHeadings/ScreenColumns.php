@@ -2,27 +2,22 @@
 
 declare(strict_types=1);
 
-namespace AC\TableScreen\ManageHeading;
+namespace AC\ThirdParty\MediaLibraryAssistant\ManageHeadings;
 
 use AC\Registerable;
 
+//TODO probably not neede anymore since the default ScreenColumns should work also
 class ScreenColumns implements Registerable
 {
-
-    private string $screen_id;
 
     /**
      * @var array [ $column_id => $label, ... ]
      */
     private array $headings;
 
-    private int $priority;
-
-    public function __construct(string $screen_id, array $headings, int $priority = 200)
+    public function __construct(array $headings)
     {
-        $this->screen_id = $screen_id;
         $this->headings = $headings;
-        $this->priority = $priority;
     }
 
     /**
@@ -30,7 +25,8 @@ class ScreenColumns implements Registerable
      */
     public function register(): void
     {
-        add_filter(sprintf('manage_%s_columns', $this->screen_id), [$this, 'handle'], $this->priority);
+        // TODO this hook does not fire, even the manage-%s-columns does not work.
+        add_filter('mla_list_table_get_columns', [$this, 'handle'], 200);
     }
 
     public function handle($current_headings): array
