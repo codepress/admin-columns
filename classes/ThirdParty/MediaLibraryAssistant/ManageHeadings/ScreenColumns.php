@@ -26,7 +26,8 @@ class ScreenColumns implements Registerable
     public function register(): void
     {
         // TODO this hook does not fire, even the manage-%s-columns does not work.
-        add_filter('mla_list_table_get_columns', [$this, 'handle'], 200);
+        //        add_filter('mla_list_table_get_columns', [$this, 'handle'], 200);
+        add_filter("manage_media_page_mla-menu_columns", [$this, 'handle'], 200);
     }
 
     public function handle($current_headings): array
