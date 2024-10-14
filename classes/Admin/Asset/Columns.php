@@ -13,6 +13,8 @@ use AC\Table\TableScreenCollection;
 use AC\Table\TableScreenRepository\SortByLabel;
 use AC\TableScreen;
 use AC\Type\ListScreenId;
+use AC\Type\Url\Site;
+use AC\Type\Url\UtmTags;
 
 class Columns extends Script
 {
@@ -78,6 +80,9 @@ class Columns extends Script
                 $this->get_favorite_table_screens()
             ),
             'menu_groups_opened'         => (new EditorMenuStatus())->get_groups(),
+            'urls'                       => [
+                'upgrade' => (new UtmTags(new Site(Site::PAGE_ABOUT_PRO), 'upgrade'))->get_url(),
+            ],
         ]);
 
         $this->localize(

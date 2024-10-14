@@ -1,7 +1,6 @@
 import AcAdminColumnsVar = AC.Vars.Admin.Columns.AcAdminColumnsVar;
 
 
-
 declare namespace AC.Vars.Admin.Columns {
 
     type ColumnGroup = {
@@ -42,16 +41,19 @@ declare namespace AC.Vars.Admin.Columns {
         uninitialized_list_screens: UninitializedListScreens
         list_key: string
         list_id: string
+        urls: [
+            upgrade: string
+        ]
     }
 
 }
 
 declare namespace AC.Column.Settings.Input {
-    interface AbstractSettingInput<Type = string > {
+    interface AbstractSettingInput<Type = string> {
         type: Type
         name: string
         default: string
-        attributes?: { [key:string] : string }
+        attributes?: { [key: string]: string }
     }
 }
 
@@ -67,9 +69,9 @@ declare namespace AC.Column.Settings {
         label: string,
         description?: string
         attributes: {
-            [key:string] : any
+            [key: string]: any
         }
-        input ?: AbstractSettingInput
+        input?: AbstractSettingInput
         conditions?: Rule
         children?: ColumnSettingCollection
         is_parent?: boolean
@@ -80,13 +82,13 @@ declare namespace AC.Column.Settings {
         input: AbstractSettingInput
     }
 
-    interface WidthSetting extends AbstractColumnSetting{
+    interface WidthSetting extends AbstractColumnSetting {
         type: 'width'
         input: AbstractSettingInput,
         children: AbstractSettingInput[]
     }
 
-    let t : WidthSetting;
+    let t: WidthSetting;
 
     type LabelSetting = AbstractColumnSetting;
 
@@ -169,7 +171,6 @@ declare namespace AC.Column.Settings {
             options: SettingOption[]
         }
     }
-
 
 
 }

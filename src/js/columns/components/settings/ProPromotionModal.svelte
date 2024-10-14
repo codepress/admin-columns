@@ -1,10 +1,13 @@
 <script lang="ts">
     import AcModal from "ACUi/AcModal.svelte";
-    import {getColumnSettingsTranslation} from "../../utils/global";
+    import {getColumnSettingsConfig, getColumnSettingsTranslation} from "../../utils/global";
+    import AcButton from "ACUi/element/AcButton.svelte";
 
     export let title: string = "";
 
+    const config = getColumnSettingsConfig();
     const i18n = getColumnSettingsTranslation().pro.modal;
+    console.log( config.urls )
 </script>
 
 
@@ -26,8 +29,9 @@
 	</div>
 	<div slot="footer" class="acu-flex acu-items-center">
 		<div class="acu-flex-grow">
-			sddsf
+			<a href="{config.urls.upgrade}" target="_blank" class="button button-primary">
+				{i18n.upgrade}
+			</a>
 		</div>
-
 	</div>
 </AcModal>
