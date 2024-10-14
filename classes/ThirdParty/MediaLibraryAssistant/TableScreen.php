@@ -17,20 +17,19 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
 
     public function __construct()
     {
-        parent::__construct(new ListKey('mla-media-assistant'), 'media_page_' . MLACore::ADMIN_PAGE_SLUG);
+        parent::__construct(
+            new ListKey('mla-media-assistant'),
+            'media_page_' . MLACore::ADMIN_PAGE_SLUG,
+            new Labels(
+                __('Assistant', 'codepress-admin-columns'),
+                __('Media Library Assistant', 'codepress-admin-columns')
+            )
+        );
     }
 
     public function list_table(): AC\ListTable
     {
         return new ListTable(new WpListTableFactory());
-    }
-
-    public function get_labels(): Labels
-    {
-        return new Labels(
-            __('Assistant', 'codepress-admin-columns'),
-            __('Media Library Assistant', 'codepress-admin-columns')
-        );
     }
 
     public function get_query_type(): string

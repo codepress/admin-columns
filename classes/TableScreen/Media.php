@@ -20,7 +20,14 @@ class Media extends TableScreen implements ListTable, PostType, TableScreen\Meta
 
     public function __construct()
     {
-        parent::__construct(new ListKey('wp-media'), 'upload');
+        parent::__construct(
+            new ListKey('wp-media'),
+            'upload',
+            new Labels(
+                __('Media'),
+                __('Media')
+            )
+        );
     }
 
     public function list_table(): AC\ListTable
@@ -51,14 +58,6 @@ class Media extends TableScreen implements ListTable, PostType, TableScreen\Meta
     public function get_url(): Uri
     {
         return new Url\ListTable\Media();
-    }
-
-    public function get_labels(): Labels
-    {
-        return new Labels(
-            __('Media'),
-            __('Media')
-        );
     }
 
 }

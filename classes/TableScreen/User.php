@@ -17,7 +17,14 @@ class User extends TableScreen implements ListTable, MetaType
 
     public function __construct()
     {
-        parent::__construct(new ListKey('wp-users'), 'users');
+        parent::__construct(
+            new ListKey('wp-users'),
+            'users',
+            new Labels(
+                __('Users'),
+                __('User')
+            )
+        );
     }
 
     public function list_table(): AC\ListTable
@@ -43,14 +50,6 @@ class User extends TableScreen implements ListTable, MetaType
     public function get_url(): Uri
     {
         return new Url\ListTable('users.php');
-    }
-
-    public function get_labels(): Labels
-    {
-        return new Labels(
-            __('Users'),
-            __('User')
-        );
     }
 
 }

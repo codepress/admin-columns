@@ -17,7 +17,14 @@ class Comment extends TableScreen implements ListTable, MetaType
 
     public function __construct()
     {
-        parent::__construct(new ListKey('wp-comments'), 'edit-comments');
+        parent::__construct(
+            new ListKey('wp-comments'),
+            'edit-comments',
+            new Labels(
+                __('Comments'),
+                __('Comment')
+            )
+        );
     }
 
     public function list_table(): AC\ListTable
@@ -43,14 +50,6 @@ class Comment extends TableScreen implements ListTable, MetaType
     public function get_url(): Uri
     {
         return new Url\ListTable('edit-comments.php');
-    }
-
-    public function get_labels(): Labels
-    {
-        return new Labels(
-            __('Comments'),
-            __('Comment')
-        );
     }
 
 }

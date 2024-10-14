@@ -25,7 +25,11 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
     {
         parent::__construct(
             new ListKey($post_type->name),
-            'edit-' . $post_type->name
+            'edit-' . $post_type->name,
+            new Labels(
+                $post_type->labels->singular_name ?? $post_type->name,
+                $post_type->labels->name ?? $post_type->name
+            )
         );
 
         $this->post_type = $post_type;
@@ -59,14 +63,6 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
     public function get_url(): Uri
     {
         return new Url\ListTable\Post($this->post_type->name);
-    }
-
-    public function get_labels(): Labels
-    {
-        return new Labels(
-            $this->post_type->labels->singular_name ?? '',
-            $this->post_type->labels->name ?? ''
-        );
     }
 
 }

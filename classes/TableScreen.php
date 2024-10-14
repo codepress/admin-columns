@@ -17,12 +17,14 @@ abstract class TableScreen
 
     protected bool $network;
 
-    // TODO add labels to __construct()
-    public function __construct(ListKey $key, string $screen_id, bool $network = false)
+    private Labels $labels;
+
+    public function __construct(ListKey $key, string $screen_id, Labels $labels, bool $network = false)
     {
         $this->key = $key;
         $this->screen_id = $screen_id;
         $this->network = $network;
+        $this->labels = $labels;
     }
 
     // TODO remove. check overrides
@@ -31,12 +33,10 @@ abstract class TableScreen
         return '';
     }
 
-    // TODO remove. check overrides
-    public function manage_value(ListScreen $list_screen)
+    public function get_labels(): Labels
     {
+        return $this->labels;
     }
-
-    abstract public function get_labels(): Labels;
 
     // TODO should this be a string without context?
 
