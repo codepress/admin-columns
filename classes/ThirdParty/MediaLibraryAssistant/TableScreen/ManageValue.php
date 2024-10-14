@@ -25,10 +25,10 @@ class ManageValue implements AC\Registerable
         add_filter('mla_list_table_column_default', [$this, 'render_value'], $this->priority, 3);
     }
 
-    public function render_value($value, $post, $column_name)
+    public function render_value($value, $post, $column_name): ?string
     {
         if (is_null($value)) {
-            $value = $this->renderable->render($column_name, $post->ID);
+            return $this->renderable->render($column_name, $post->ID);
         }
 
         return $value;
