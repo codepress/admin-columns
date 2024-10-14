@@ -5,7 +5,6 @@ namespace AC\Admin\Asset;
 use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
-use AC\Service\DefaultColumns;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Storage\Repository\EditorMenuStatus;
 use AC\Table\TableScreenCollection;
@@ -62,7 +61,7 @@ class Columns extends Script
 
         foreach ($this->table_screens as $table_screen) {
             $uninitialized_list_screens[(string)$table_screen->get_key()] = [
-                'screen_link' => (string)$table_screen->get_url()->with_arg(DefaultColumns::QUERY_PARAM, '1'),
+                'screen_link' => (string)$table_screen->get_url()->with_arg('save-default-headings', '1'),
             ];
         }
 

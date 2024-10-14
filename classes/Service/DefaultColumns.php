@@ -9,6 +9,7 @@ use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\TableScreenFactory;
 use WP_Screen;
 
+// TODO remove
 class DefaultColumns implements Registerable
 {
 
@@ -55,10 +56,25 @@ class DefaultColumns implements Registerable
             return;
         }
 
-        $this->table_screen = $this->table_screen_factory->create_from_wp_screen($screen);
+        $table_screen = $this->table_screen_factory->create_from_wp_screen($screen);
+
+        $factory = SaveHeadings::get_factory($this->table_screen);
+
+        if ( ! $factory || ! $factory->can_create($table_screen)) {
+            return;
+        }
 
         // Save an empty array in case the hook does not run properly.
         $this->default_columns_repository->update($this->table_screen->get_key(), []);
+
+        $service = $factory->create($table_screen);
+
+        $service->register();
+
+        // Save an empty array in case the hook does not run properly.
+        $this->default_columns_repository->update($this->table_screen->get_key(), []);
+
+        // TODO
 
         // Our custom columns are set at priority 200. Before they are added we need to store the default column headings.
         add_filter($this->table_screen->get_heading_hookname(), [$this, 'save_headings'], 199);

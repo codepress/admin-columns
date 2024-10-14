@@ -41,11 +41,10 @@ class ScreenColumns implements Registerable
 
     public function handle($headings): array
     {
-        if ( ! wp_doing_ajax() && $headings) {
-            $this->repository->update($this->list_key, $headings);
-        }
-
-        return $headings;
+        $this->repository->update(
+            $this->list_key,
+            $headings && is_array($headings) ? $headings : []
+        );
     }
 
 }
