@@ -8,7 +8,7 @@ use AC\Registerable;
 use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\Type\ListKey;
 
-class WpListTable implements Registerable
+class ScreenColumns implements Registerable
 {
 
     private string $screen_id;
@@ -32,7 +32,7 @@ class WpListTable implements Registerable
     }
 
     /**
-     * @see WP_List_Table::__construct()
+     * @see get_column_headers()
      */
     public function register(): void
     {

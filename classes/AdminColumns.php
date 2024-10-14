@@ -20,7 +20,6 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
-use AC\Service\ManageValue;
 use AC\Setting\ContextFactory;
 use AC\Storage\EncoderFactory;
 use AC\Table\ManageHeading;
@@ -61,19 +60,6 @@ class AdminColumns
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\ThirdPartyFactory::class));
 
-        foreach (
-            [
-                $container->get(TableScreen\ManageValue\PostFactory::class),
-                $container->get(TableScreen\ManageValue\UserFactory::class),
-                $container->get(TableScreen\ManageValue\MediaFactory::class),
-                $container->get(TableScreen\ManageValue\CommentFactory::class),
-            ] as $factory
-        ) {
-            ManageValue::add(
-                $container->make(ListScreenServiceFactory::class, ['factory' => $factory])
-            );
-        }
-
         if ( ! defined('ACP_FILE')) {
             ColumnFactories\Aggregate::add($container->get(ColumnFactories\IntegrationFactory::class));
         }
@@ -91,6 +77,19 @@ class AdminColumns
                      ->add('help', $container->get(PageFactory\Help::class));
 
         PageRequestHandlers::add_handler($page_handler);
+
+        foreach (
+            [
+                $container->get(TableScreen\ManageValue\PostFactory::class),
+                $container->get(TableScreen\ManageValue\UserFactory::class),
+                $container->get(TableScreen\ManageValue\MediaFactory::class),
+                $container->get(TableScreen\ManageValue\CommentFactory::class),
+            ] as $factory
+        ) {
+            Service\ManageValue::add(
+                $container->make(ListScreenServiceFactory::class, ['factory' => $factory])
+            );
+        }
 
         Service\ManageHeadings::add($container->get(ManageHeading\WpListTableFactory::class));
         Service\SaveHeadings::add($container->get(SaveHeading\WpListTableFactory::class));

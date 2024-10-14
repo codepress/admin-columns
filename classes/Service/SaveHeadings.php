@@ -25,7 +25,7 @@ class SaveHeadings implements Registerable
 
     private function get_factory(TableScreen $table_screen): ?SaveHeadingFactory
     {
-        foreach (self::$factories as $factory) {
+        foreach (array_reverse(self::$factories) as $factory) {
             if ($factory->can_create($table_screen)) {
                 return $factory;
             }

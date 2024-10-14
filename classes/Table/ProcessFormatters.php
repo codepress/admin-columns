@@ -12,7 +12,6 @@ use AC\Type\Value;
 use AC\Type\ValueCollection;
 use AC\Value\Formatter\Collection\Separator;
 
-// TODO what is the purpose?
 class ProcessFormatters
 {
 

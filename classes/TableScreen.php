@@ -17,6 +17,7 @@ abstract class TableScreen
 
     protected bool $network;
 
+    // TODO add labels to __construct()
     public function __construct(ListKey $key, string $screen_id, bool $network = false)
     {
         $this->key = $key;
@@ -24,13 +25,13 @@ abstract class TableScreen
         $this->network = $network;
     }
 
-    // TODO remove
+    // TODO remove. check overrides
     public function get_heading_hookname(): string
     {
         return '';
     }
 
-    // TODO remove
+    // TODO remove. check overrides
     public function manage_value(ListScreen $list_screen)
     {
     }
