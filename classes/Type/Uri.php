@@ -7,7 +7,7 @@ namespace AC\Type;
 class Uri implements Url
 {
 
-    private $url;
+    private string $url;
 
     public function __construct(string $url)
     {
