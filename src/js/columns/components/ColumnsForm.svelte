@@ -182,9 +182,7 @@
 			<div class="ac-columns__header__title">
 				<input bind:value={data.title} disabled={$listScreenIsReadOnly}/>
 			</div>
-			<div class="ac-columns__header__action">
-				<a href={tableUrl} class="acui-button acui-button-default">{i18n.editor.label.view}</a>
-			</div>
+
 		</header>
 
 		<div class="ac-columns__body">

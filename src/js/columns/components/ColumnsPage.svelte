@@ -13,7 +13,7 @@
     import AcButton from "ACUi/element/AcButton.svelte";
     import AdminHeaderBar from "../../components/AdminHeaderBar.svelte";
     import ProSideBanner from "./sidebar/pro-banner/ProSideBanner.svelte";
-    import {getColumnSettingsConfig} from "../utils/global";
+    import {getColumnSettingsConfig, getColumnSettingsTranslation} from "../utils/global";
     import ReviewComponent from "./sidebar/review/ReviewComponent.svelte";
     import SupportPanel from "./sidebar/SupportPanel.svelte";
 
@@ -31,6 +31,7 @@
     let queuedListId: string | null = null;
     let queuedListKey: string | null = null;
 
+    const i18n = getColumnSettingsTranslation();
     const localConfig = getColumnSettingsConfig();
 
     const handleMenuSelect = (e: CustomEvent<string>) => {
@@ -96,7 +97,8 @@
 
 <AdminHeaderBar title="Columns">
 	<div class="acu-flex acu-justify-end">
-		<AcButton type="primary" on:click={() => form.saveSettings()}>Save Changes</AcButton>
+		<a href="{tableUrl}" class="acui-button acui-button-default acu-mr-2">{i18n.editor.label.view}</a>
+		<AcButton type="primary" on:click={() => form.saveSettings()}>{i18n.editor.label.save}</AcButton>
 	</div>
 </AdminHeaderBar>
 
@@ -129,7 +131,7 @@
 				{/if}
 
 				<ReviewComponent/>
-				<SupportPanel />
+				<SupportPanel/>
 			</aside>
 		</div>
 	</main>

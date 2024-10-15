@@ -229,7 +229,7 @@ class Columns extends Script
                 ],
                 'editor'   => [
                     'label'    => [
-                        'save'                 => __('Save', 'codepress-admin-columns'),
+                        'save'                 => __('Save Changes', 'codepress-admin-columns'),
                         'add_column'           => __('Add Column', 'codepress-admin-columns'),
                         'add_columns'          => __('Add Columns', 'codepress-admin-columns'),
                         'clear_columns'        => __('Clear columns', 'codepress-admin-columns'),

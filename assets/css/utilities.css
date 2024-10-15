@@ -196,6 +196,14 @@
   max-width: 100%
 }
 
+.acu-max-w-\[1600px\] {
+  max-width: 1600px
+}
+
+.acu-max-w-\[1490px\] {
+  max-width: 1490px
+}
+
 .acu-flex-1 {
   flex: 1 1 0%
 }
@@ -285,6 +293,10 @@
 
 .acu-gap-4 {
   gap: 20px
+}
+
+.acu-gap-6 {
+  gap: 30px
 }
 
 .acu-overflow-hidden {
@@ -570,6 +582,14 @@
   padding-top: 0
 }
 
+.acu-pl-6 {
+  padding-left: 30px
+}
+
+.acu-pr-\[40px\] {
+  padding-right: 40px
+}
+
 .acu-text-center {
   text-align: center
 }
@@ -782,6 +802,26 @@
 }
 
 @media (min-width: 1280px) {
+  .xl\:acu-mr-\[320px\] {
+    margin-right: 320px
+  }
+
+  .xl\:acu-mr-\[400px\] {
+    margin-right: 400px
+  }
+
+  .xl\:acu-mr-\[3800px\] {
+    margin-right: 3800px
+  }
+
+  .xl\:acu-mr-\[380px\] {
+    margin-right: 380px
+  }
+
+  .xl\:acu-mr-\[360px\] {
+    margin-right: 360px
+  }
+
   .xl\:acu-block {
     display: block
   }
@@ -798,6 +838,14 @@
     width: 200px
   }
 
+  .xl\:acu-w-\[320px\] {
+    width: 320px
+  }
+
+  .xl\:acu-max-w-\[720px\] {
+    max-width: 720px
+  }
+
   .xl\:acu-flex-row {
     flex-direction: row
   }
@@ -808,6 +856,14 @@
 }
 
 @media (min-width: 1450px) {
+  .\32xl\:acu-mr-\[400px\] {
+    margin-right: 400px
+  }
+
+  .\32xl\:acu-mr-\[390px\] {
+    margin-right: 390px
+  }
+
   .\32xl\:acu-block {
     display: block
   }
