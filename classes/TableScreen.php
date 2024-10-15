@@ -6,6 +6,7 @@ namespace AC;
 
 use AC\Type\Labels;
 use AC\Type\ListKey;
+use AC\Type\Uri;
 use AC\Type\Url;
 
 class TableScreen
@@ -27,7 +28,7 @@ class TableScreen
         ListKey $key,
         string $screen_id,
         Labels $labels,
-        Url $url,
+        Uri $url,
         string $attr_id = null,
         bool $network = false
     ) {
@@ -39,7 +40,7 @@ class TableScreen
         $this->attr_id = $attr_id ?? '#the-list';
     }
 
-    public function get_url(): Url
+    public function get_url(): Uri
     {
         return $this->url;
     }
