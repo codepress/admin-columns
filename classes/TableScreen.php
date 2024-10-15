@@ -8,7 +8,7 @@ use AC\Type\Labels;
 use AC\Type\ListKey;
 use AC\Type\Url;
 
-abstract class TableScreen
+class TableScreen
 {
 
     protected ListKey $key;
