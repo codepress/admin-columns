@@ -34,21 +34,19 @@
 	</div>
 </div>
 {#if promo}
-	<div class="acu-bg-[white] acu-p-[20px] acu-rounded-b-[10px] acu-border acu-border-solid acu-border-ui-border">
-		<h3>{promo.title}</h3>
+	<AcPanel title={promo.title}>
 		<a target="_blank"
 			href="{promo.url}" class="acui-button acui-button-pink acu-block acu-text-center acu-text-[15px]">
 			{promo.button_label}</a>
-		<p class="nomargin">
+		<p>
 			{promo.discount_until}
 		</p>
-
-	</div>
+	</AcPanel>
 {:else}
 	<AcPanel title={sprintf( i18n.get_percentage_off, proBannerConfig.discount + '%' )} rounded={false}
 		classNames={['acu-rounded-b-[10px]']}>
 
-		<p>
+		<p class="acu-mt-[0]">
 			{sprintf( i18n.submit_email, proBannerConfig.discount + '%' )}
 		</p>
 		<form method="post" action="https://www.admincolumns.com/admin-columns-pro/?utm_source=plugin-installation&utm_medium=send-coupon">

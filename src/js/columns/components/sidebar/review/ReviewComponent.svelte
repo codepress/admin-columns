@@ -23,7 +23,7 @@
     $: title = i18n.review.happy;
 </script>
 
-<AcPanel title={title} classNames={['acu-px-[10px]']}>
+<AcPanel title={title}>
 	{#if initial}
 		<div out:fade>
 			<div class="acu-flex acu-gap-2">

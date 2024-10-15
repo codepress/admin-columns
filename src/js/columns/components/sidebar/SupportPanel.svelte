@@ -7,5 +7,5 @@
 </script>
 
 <AcPanel title={i18n.title}>
-	<p>{@html config.support.description}</p>
+	<p class="acu-mt-[0]">{@html config.support.description}</p>
 </AcPanel>

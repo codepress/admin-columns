@@ -1,11 +1,14 @@
 <script lang="ts">
+    import AcPanelBody from "ACUi/acui-panel/AcPanelBody.svelte";
+    import AcPanelHeader from "ACUi/acui-panel/AcPanelHeader.svelte";
+
     export let shadow: boolean = true;
     export let border: boolean = true;
     export let rounded: boolean = true;
     export let title: string | undefined = '';
     export let classNames: string[] = [];
 
-    let classes = ['acu-bg-[white]', 'acu-p-[20px]', 'acu-border', 'acu-border-solid', 'acu-border-ui-border', 'acu-mb-[15px]'];
+    let classes = ['acu-bg-[white]', 'acu-border', 'acu-border-solid', 'acu-border-ui-border', 'acu-mb-[15px]'];
 
     if (shadow) {
         classes.push('acu-shadow');
@@ -23,7 +26,11 @@
 </script>
 <div class="{classes.join(' ')}">
 	{#if title }
-		<h3 class="acu-mt-[0]">{title}</h3>
+		<AcPanelHeader title={title}/>
 	{/if}
-	<slot></slot>
+	<slot name="header"></slot>
+	<AcPanelBody>
+		<slot></slot>
+	</AcPanelBody>
+	<slot name="footer"></slot>
 </div>
