@@ -11,11 +11,11 @@ use AC\Type\ColumnWidth;
 class ColumnSize implements Renderable
 {
 
-    private $list_screen;
+    private ListScreen $list_screen;
 
-    private $list_storage;
+    private ListStorage $list_storage;
 
-    private $user_storage;
+    private UserStorage $user_storage;
 
     public function __construct(ListScreen $list_screen, ListStorage $list_storage, UserStorage $user_storage)
     {

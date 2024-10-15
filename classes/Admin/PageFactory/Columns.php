@@ -2,7 +2,6 @@
 
 namespace AC\Admin\PageFactory;
 
-use AC;
 use AC\Admin;
 use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
@@ -31,16 +30,13 @@ class Columns implements PageFactoryInterface
 
     private $favorite_repository;
 
-    private $column_type_repository;
-
     public function __construct(
         Location\Absolute $location,
         MenuFactoryInterface $menu_factory,
         Admin\UninitializedScreens $uninitialized_screens,
         Admin\MenuListFactory $menu_list_factory,
         TableScreenRepository $table_screen_repository,
-        EditorFavorites $favorite_repository,
-        AC\ColumnTypeRepository $column_type_repository
+        EditorFavorites $favorite_repository
     ) {
         $this->location = $location;
         $this->menu_factory = $menu_factory;
@@ -48,7 +44,6 @@ class Columns implements PageFactoryInterface
         $this->menu_list_factory = $menu_list_factory;
         $this->table_screen_repository = $table_screen_repository;
         $this->favorite_repository = $favorite_repository;
-        $this->column_type_repository = $column_type_repository;
     }
 
     public function create(): Page\Columns
@@ -77,7 +72,6 @@ class Columns implements PageFactoryInterface
             $this->uninitialized_screens->find_all_site(),
             new Admin\View\Menu($this->menu_factory->create('columns')),
             $table_screen,
-            $this->column_type_repository,
             $this->menu_list_factory->create($this->table_screen_repository->find_all_site()),
             $this->favorite_repository,
             $this->table_screen_repository,

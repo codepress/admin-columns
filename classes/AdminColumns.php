@@ -20,7 +20,11 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
+use AC\Setting\ContextFactory;
 use AC\Storage\EncoderFactory;
+use AC\Table\ManageHeading;
+use AC\Table\ManageValue\ListScreenServiceFactory;
+use AC\Table\SaveHeading;
 use AC\Value\Extended\MediaPreview;
 use AC\Value\ExtendedValueRegistry;
 use AC\Vendor\DI;
@@ -73,6 +77,22 @@ class AdminColumns
                      ->add('help', $container->get(PageFactory\Help::class));
 
         PageRequestHandlers::add_handler($page_handler);
+
+        foreach (
+            [
+                $container->get(TableScreen\ManageValue\PostFactory::class),
+                $container->get(TableScreen\ManageValue\UserFactory::class),
+                $container->get(TableScreen\ManageValue\MediaFactory::class),
+                $container->get(TableScreen\ManageValue\CommentFactory::class),
+            ] as $factory
+        ) {
+            Service\ManageValue::add(
+                $container->make(ListScreenServiceFactory::class, ['factory' => $factory])
+            );
+        }
+
+        Service\ManageHeadings::add($container->get(ManageHeading\WpListTableFactory::class));
+        Service\SaveHeadings::add($container->get(SaveHeading\WpListTableFactory::class));
     }
 
     private function create_services(DI\Container $container): Services
@@ -89,13 +109,15 @@ class AdminColumns
             ThirdParty\MediaLibraryAssistant\MediaLibraryAssistant::class,
             ThirdParty\WooCommerce::class,
             ThirdParty\WPML::class,
-            Service\DefaultColumns::class,
-            Screen\QuickEdit::class,
+            Service\QuickEdit::class,
             Capabilities\Manage::class,
             Service\TableListScreenSetter::class,
             Service\CommonAssets::class,
             Service\Colors::class,
             Service\TableRows::class,
+            Service\ManageValue::class,
+            Service\ManageHeadings::class,
+            Service\SaveHeadings::class,
         ];
 
         if ( ! defined('ACP_FILE')) {
@@ -194,6 +216,8 @@ class AdminColumns
             EncoderFactory::class                   => static function (Plugin $plugin) {
                 return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
             },
+            ContextFactory::class                   => autowire(ContextFactory\Aggregate::class)
+                ->constructorParameter(0, new ContextFactory\Column()),
         ];
 
         return (new ContainerBuilder())

@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
-use MLA_List_Table;
 use MLAData;
 
 class ListTable implements AC\ListTable
 {
 
-    private $table;
+    private WpListTableFactory $factory;
 
-    public function __construct(MLA_List_Table $table)
+    public function __construct(WpListTableFactory $factory)
     {
-        $this->table = $table;
+        $this->factory = $factory;
     }
 
     public function render_cell(string $column_id, $row_id): string
@@ -28,23 +27,25 @@ class ListTable implements AC\ListTable
 
         $method = 'column_' . $column_id;
 
-        if (method_exists($this->table, $method)) {
-            return (string)call_user_func([$this->table, $method], $item);
+        $table = $this->factory->create();
+
+        if (method_exists($table, $method)) {
+            return (string)call_user_func([$table, $method], $item);
         }
 
-        return (string)$this->table->column_default($item, $column_id);
+        return (string)$table->column_default($item, $column_id);
     }
 
     public function get_total_items(): int
     {
-        return $this->table->get_pagination_arg('total_items');
+        return $this->factory->create()->get_pagination_arg('total_items');
     }
 
     public function render_row($id): string
     {
         ob_start();
 
-        $this->table->single_row($this->get_attachment($id));
+        $this->factory->create()->single_row($this->get_attachment($id));
 
         return ob_get_clean();
     }

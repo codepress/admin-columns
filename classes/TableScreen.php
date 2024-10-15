@@ -6,41 +6,57 @@ namespace AC;
 
 use AC\Type\Labels;
 use AC\Type\ListKey;
-use AC\Type\Uri;
+use AC\Type\Url;
 
-abstract class TableScreen
+class TableScreen
 {
 
-    protected $key;
+    protected ListKey $key;
 
-    protected $screen_id;
+    protected string $screen_id;
 
-    protected $network;
+    protected Labels $labels;
 
-    protected $columns;
+    private Url $url;
 
-    public function __construct(ListKey $key, string $screen_id, bool $network = false)
-    {
+    protected bool $network;
+
+    private ?string $attr_id;
+
+    public function __construct(
+        ListKey $key,
+        string $screen_id,
+        Labels $labels,
+        Url $url,
+        string $attr_id = null,
+        bool $network = false
+    ) {
         $this->key = $key;
         $this->screen_id = $screen_id;
+        $this->labels = $labels;
+        $this->url = $url;
         $this->network = $network;
+        $this->attr_id = $attr_id ?? '#the-list';
     }
 
-    abstract public function get_heading_hookname(): string;
-
-    abstract public function get_labels(): Labels;
-
-    abstract public function get_query_type(): string;
-
-    abstract public function get_attr_id(): string;
-
-    abstract public function get_url(): Uri;
-
-    abstract public function manage_value(ListScreen $list_screen): Table\ManageValue;
+    public function get_url(): Url
+    {
+        return $this->url;
+    }
 
     public function get_key(): ListKey
     {
         return $this->key;
+    }
+
+    public function get_labels(): Labels
+    {
+        return $this->labels;
+    }
+
+    public function get_screen_id(): string
+    {
+        return $this->screen_id;
     }
 
     public function is_network(): bool
@@ -48,9 +64,9 @@ abstract class TableScreen
         return $this->network;
     }
 
-    public function get_screen_id(): string
+    public function get_attr_id(): string
     {
-        return $this->screen_id;
+        return $this->attr_id;
     }
 
 }

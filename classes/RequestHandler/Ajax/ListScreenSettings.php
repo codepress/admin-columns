@@ -102,7 +102,7 @@ class ListScreenSettings implements RequestAjaxHandler
     private function get_original_types(AC\TableScreen $table_screen): array
     {
         $types = [];
-        foreach ($this->type_repository->find_all_by_orginal($table_screen) as $column) {
+        foreach ($this->type_repository->find_all_by_original($table_screen) as $column) {
             $types[] = $column->get_type();
         }
 

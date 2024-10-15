@@ -14,19 +14,19 @@ use WP_User;
 final class ListScreen
 {
 
-    private $id;
+    private ListScreenId $id;
 
-    private $title;
+    private string $title;
 
-    private $table_screen;
+    private TableScreen $table_screen;
 
-    private $columns;
+    private ColumnIterator $columns;
 
-    private $preferences;
+    private array $preferences;
 
-    private $updated;
+    private ?DateTime $updated;
 
-    private $read_only = false;
+    private bool $read_only = false;
 
     public function __construct(
         ListScreenId $id,
@@ -107,11 +107,6 @@ final class ListScreen
         $this->read_only = $read_only;
     }
 
-    public function get_heading_hookname(): string
-    {
-        return $this->table_screen->get_heading_hookname();
-    }
-
     public function get_key(): ListKey
     {
         return $this->table_screen->get_key();
@@ -127,11 +122,6 @@ final class ListScreen
         return $this->table_screen instanceof TableScreen\MetaType
             ? (string)$this->table_screen->get_meta_type()
             : '';
-    }
-
-    public function get_query_type(): string
-    {
-        return $this->table_screen->get_query_type();
     }
 
     public function get_screen_id(): string

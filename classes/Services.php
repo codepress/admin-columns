@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AC;
 
-class Services
+class Services implements Registerable
 {
 
-    private $services;
+    private array $services;
 
     public function __construct(array $services = [])
     {

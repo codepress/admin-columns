@@ -15,14 +15,14 @@ use AC\Value\Formatter\Collection\Separator;
 class ProcessFormatters
 {
 
-    private $formatters;
+    private FormatterCollection $formatters;
 
-    private $empty_value;
+    private string $default;
 
-    public function __construct(FormatterCollection $formatters, string $empty_value = '&ndash;')
+    public function __construct(FormatterCollection $formatters, string $default = null)
     {
         $this->formatters = $formatters;
-        $this->empty_value = $empty_value;
+        $this->default = $default ?? '&ndash;';
     }
 
     public function format(Value $value): Value
@@ -46,16 +46,6 @@ class ProcessFormatters
                         $collection = new ValueCollection($value->get_id());
 
                         foreach ($value as $item) {
-                            // TODO
-                            //                            $_value = $formatter->format($item);
-                            //
-                            //                            if ( ! $_value instanceof Value) {
-                            //                                echo '<pre>';
-                            //                                print_r($_value);
-                            //                                echo '</pre>';
-                            //                                exit;
-                            //                            }
-
                             $collection->add($formatter->format($item));
                         }
 
@@ -68,7 +58,7 @@ class ProcessFormatters
                 }
             }
         } catch (ValueNotFoundException $e) {
-            $value = new Value($id, $this->empty_value);
+            $value = new Value($id, $this->default);
         }
 
         if ($value instanceof ValueCollection) {
@@ -76,7 +66,7 @@ class ProcessFormatters
         }
 
         if ($value->get_value() !== null && '' === (string)$value) {
-            $value = $value->with_value($this->empty_value);
+            $value = $value->with_value($this->default);
         }
 
         return $value;

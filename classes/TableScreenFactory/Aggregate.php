@@ -16,7 +16,7 @@ class Aggregate implements TableScreenFactory
     /**
      * @var TableScreenFactory[]
      */
-    private static $factories = [];
+    private static array $factories = [];
 
     public static function add(TableScreenFactory $factory): void
     {

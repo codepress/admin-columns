@@ -11,14 +11,14 @@ use AC\Registerable;
 class WPML implements Registerable
 {
 
-    private $storage;
+    private Storage $storage;
 
     public function __construct(Storage $storage)
     {
         $this->storage = $storage;
     }
 
-    function register(): void
+    public function register(): void
     {
         // Display correct flags on the list tables
         add_action('ac/table/list_screen', [$this, 'replace_flags']);

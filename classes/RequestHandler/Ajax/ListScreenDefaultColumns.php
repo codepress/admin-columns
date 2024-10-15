@@ -18,9 +18,9 @@ use AC\Type\ListKey;
 class ListScreenDefaultColumns implements RequestAjaxHandler
 {
 
-    private $table_screen_factory;
+    private Aggregate $table_screen_factory;
 
-    private $column_type_repository;
+    private ColumnTypeRepository $column_type_repository;
 
     public function __construct(
         Aggregate $table_screen_factory,
@@ -60,7 +60,7 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
     {
         $settings = [];
 
-        foreach ($this->column_type_repository->find_all_by_orginal($table_screen) as $column) {
+        foreach ($this->column_type_repository->find_all_by_original($table_screen) as $column) {
             $settings[$column->get_type()] = (new Encoder($column->get_settings()))->encode();
         }
 
@@ -71,8 +71,7 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
     {
         $columns = [];
 
-        // TODO test
-        foreach ($this->column_type_repository->find_all_by_orginal($table_screen) as $column) {
+        foreach ($this->column_type_repository->find_all_by_original($table_screen) as $column) {
             $columns[] = [
                 'type'  => $column->get_type(),
                 'label' => $column->get_label(),

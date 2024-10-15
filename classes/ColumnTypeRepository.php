@@ -10,9 +10,9 @@ use AC\Storage\Repository\DefaultColumnsRepository;
 class ColumnTypeRepository
 {
 
-    private $aggregate;
+    private Aggregate $aggregate;
 
-    private $default_columns_repository;
+    private DefaultColumnsRepository $default_columns_repository;
 
     public function __construct(Aggregate $aggregate, DefaultColumnsRepository $default_columns_repository)
     {
@@ -40,7 +40,7 @@ class ColumnTypeRepository
         return $columns;
     }
 
-    public function find_all_by_orginal(TableScreen $table_screen): ColumnCollection
+    public function find_all_by_original(TableScreen $table_screen): ColumnCollection
     {
         $columns = new ColumnCollection();
 
