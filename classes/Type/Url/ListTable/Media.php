@@ -13,10 +13,10 @@ class Media extends ListTable
     {
         parent::__construct('upload.php');
 
-        $this->add_arg('mode', 'list');
+        $this->add('mode', 'list');
 
         if ($page) {
-            $this->add_arg('page', $page);
+            $this->add('page', $page);
         }
     }
 }

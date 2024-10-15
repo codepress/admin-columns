@@ -16,7 +16,7 @@ abstract class BaseColumnFactory implements ColumnFactory
 
     use BaseComponentFactoryTrait;
 
-    protected $component_factory_registry;
+    protected ComponentFactoryRegistry $component_factory_registry;
 
     public function __construct(ComponentFactoryRegistry $component_factory_registry)
     {
@@ -48,7 +48,8 @@ abstract class BaseColumnFactory implements ColumnFactory
             $this->get_label(),
             $components,
             $formatters,
-            $this->get_group()
+            $this->get_group(),
+            $this->get_column_id($components),
         );
     }
 

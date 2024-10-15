@@ -13,22 +13,25 @@ use AC\Type\ColumnId;
 class Base implements Column
 {
 
-    protected $type;
+    protected string $type;
 
-    protected $label;
+    protected string $label;
 
-    protected $settings;
+    protected ComponentCollection $settings;
 
-    protected $group;
+    protected string $group;
 
-    private $formatters;
+    private FormatterCollection $formatters;
+
+    private ColumnId $id;
 
     public function __construct(
         string $type,
         string $label,
         ComponentCollection $settings,
         FormatterCollection $formatters = null,
-        string $group = null
+        string $group = null,
+        ColumnId $id = null
     ) {
         if ($formatters === null) {
             $formatters = new FormatterCollection();
@@ -43,6 +46,7 @@ class Base implements Column
         $this->settings = $settings;
         $this->formatters = $formatters;
         $this->group = $group;
+        $this->id = $id ?? ColumnId::generate();
     }
 
     public function get_type(): string
@@ -52,14 +56,7 @@ class Base implements Column
 
     public function get_id(): ColumnId
     {
-        // TODO add ColumnId to constructor?
-        $id = $this->get_setting('name')
-                   ->get_input()
-                   ->get_value();
-
-        return ColumnId::is_valid_id($id)
-            ? new ColumnId($id)
-            : ColumnId::generate();
+        return $this->id;
     }
 
     public function get_label(): string

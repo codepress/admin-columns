@@ -18,10 +18,10 @@ class Tweet implements QueryAware
     public function __construct(string $text, Url $url, string $via, string $hastags)
     {
         $this->url = 'https://twitter.com/intent/tweet';
-        $this->add_one('text', urlencode($text));
-        $this->add_one('url', urlencode($url->get_url()));
-        $this->add_one('via', $via);
-        $this->add_one('hashtags', $hastags);
+        $this->add('text', urlencode($text));
+        $this->add('url', urlencode($url->get_url()));
+        $this->add('via', $via);
+        $this->add('hashtags', $hastags);
     }
 
 }

@@ -10,6 +10,7 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 
+// TODO no usage
 abstract class CustomColumnFactory implements ColumnFactory
 {
 
