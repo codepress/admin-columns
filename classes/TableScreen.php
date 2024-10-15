@@ -15,30 +15,19 @@ abstract class TableScreen
 
     protected string $screen_id;
 
-    protected bool $network;
+    protected Labels $labels;
 
-    private Labels $labels;
+    protected bool $network;
 
     public function __construct(ListKey $key, string $screen_id, Labels $labels, bool $network = false)
     {
         $this->key = $key;
         $this->screen_id = $screen_id;
-        $this->network = $network;
         $this->labels = $labels;
+        $this->network = $network;
     }
 
-    // TODO remove. check overrides
-    public function get_heading_hookname(): string
-    {
-        return '';
-    }
-
-    public function get_labels(): Labels
-    {
-        return $this->labels;
-    }
-
-    // TODO should this be a string without context?
+    // TODO remove query type
 
     abstract public function get_query_type(): string;
 
@@ -54,6 +43,11 @@ abstract class TableScreen
     public function is_network(): bool
     {
         return $this->network;
+    }
+
+    public function get_labels(): Labels
+    {
+        return $this->labels;
     }
 
     public function get_screen_id(): string

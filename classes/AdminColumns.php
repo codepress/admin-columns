@@ -109,7 +109,7 @@ class AdminColumns
             ThirdParty\MediaLibraryAssistant\MediaLibraryAssistant::class,
             ThirdParty\WooCommerce::class,
             ThirdParty\WPML::class,
-            Screen\QuickEdit::class,
+            Service\QuickEdit::class,
             Capabilities\Manage::class,
             Service\TableListScreenSetter::class,
             Service\CommonAssets::class,

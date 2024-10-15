@@ -39,12 +39,17 @@ class ManageHeadings implements Registerable
     {
         $factory = $this->get_factory($table_screen);
 
-        if ($factory) {
-            $service = $factory->create($table_screen, $list_screen);
-            if ($service) {
-                $service->register();
-            }
+        if ( ! $factory) {
+            return;
         }
+
+        $service = $factory->create($table_screen, $list_screen);
+ 
+        if ( ! $service) {
+            return;
+        }
+
+        $service->register();
     }
 
 }
