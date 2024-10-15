@@ -14,7 +14,7 @@ class CouponCode extends Uri
     {
         parent::__construct($url->get_url());
 
-        $this->add_arg(self::ARG_COUPON, $coupon_code);
+        $this->add(self::ARG_COUPON, $coupon_code);
     }
 
 }

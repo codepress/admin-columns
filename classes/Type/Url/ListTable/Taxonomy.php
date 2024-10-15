@@ -13,10 +13,10 @@ class Taxonomy extends ListTable
     {
         parent::__construct('edit-tags.php');
 
-        $this->add_arg('taxonomy', $taxonomy);
+        $this->add('taxonomy', $taxonomy);
 
         if ($post_type) {
-            $this->add_arg('post_type', $post_type);
+            $this->add('post_type', $post_type);
         }
     }
 }

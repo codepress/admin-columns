@@ -14,10 +14,10 @@ class EditorColumns extends Editor
     {
         parent::__construct('columns');
 
-        $this->add_arg('list_screen', (string)$list_key);
+        $this->add('list_screen', (string)$list_key);
 
         if ($list_id) {
-            $this->add_arg('layout_id', (string)$list_id);
+            $this->add('layout_id', (string)$list_id);
         }
     }
 

@@ -13,10 +13,10 @@ class EditorNetwork extends Uri
     {
         parent::__construct(network_admin_url('settings.php'));
 
-        $this->add_arg(RequestHandlerInterface::PARAM_PAGE, Admin\Admin::NAME);
+        $this->add(RequestHandlerInterface::PARAM_PAGE, Admin\Admin::NAME);
 
         if ($slug) {
-            $this->add_arg(RequestHandlerInterface::PARAM_TAB, $slug);
+            $this->add(RequestHandlerInterface::PARAM_TAB, $slug);
         }
     }
 
