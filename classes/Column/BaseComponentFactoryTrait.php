@@ -6,6 +6,7 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
+use AC\Type\ColumnId;
 
 trait BaseComponentFactoryTrait
 {
@@ -40,6 +41,15 @@ trait BaseComponentFactoryTrait
     protected function get_group(): ?string
     {
         return null;
+    }
+
+    protected function get_column_id(ComponentCollection $components): ColumnId
+    {
+        $id = $components->find('name')->get_input()->get_value();
+
+        return ColumnId::is_valid_id($id)
+            ? new ColumnId($id)
+            : ColumnId::generate();
     }
 
 }
