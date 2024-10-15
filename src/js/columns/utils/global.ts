@@ -20,6 +20,18 @@ type AdminColumnsI18n = {
             addon: string
             upgrade: string
         }
+        banner: {
+            title: string
+            title_pro: string
+            sub_title: string
+            integrations: string
+            get_acp: string
+            get_percentage_off: string
+            submit_email: string
+            your_first_name: string
+            your_email: string
+            send_discount: string
+        }
     }
     global: {
         search: string
@@ -47,6 +59,23 @@ type AdminColumnsI18n = {
             get_started: string
             documentation: string
         }
+    }
+    review: {
+        happy: string
+        yes: string
+        no: string
+        glad: string
+        give_rating: string
+        whats_wrong: string
+        checkdocs: string
+        docs: string
+        forum: string
+        rate: string
+        tweet: string
+        buy: string
+    },
+    support: {
+        title: string
     }
 }
 

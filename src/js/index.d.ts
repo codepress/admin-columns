@@ -39,6 +39,8 @@ declare namespace AC.Vars.Admin.Columns {
             button_label: string
             discount_until: string
         }
+        promo_url: string
+        discount: number
     }
     type ProBannerFeature = {
         url: string
@@ -59,6 +61,13 @@ declare namespace AC.Vars.Admin.Columns {
             upgrade: string
         ],
         pro_banner?: ProBanner
+        review: {
+            doc_url: string
+            upgrade_url: string
+        },
+        support: {
+            description: string
+        }
     }
 
 }
