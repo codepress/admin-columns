@@ -13,15 +13,15 @@ use AC\Type\ColumnId;
 class Base implements Column
 {
 
-    protected $type;
+    protected string $type;
 
-    protected $label;
+    protected string $label;
 
-    protected $settings;
+    protected ComponentCollection $settings;
 
-    protected $group;
+    protected string $group;
 
-    private $formatters;
+    private FormatterCollection $formatters;
 
     public function __construct(
         string $type,
