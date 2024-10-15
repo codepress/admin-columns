@@ -15,7 +15,7 @@ class ListTableNetwork extends Uri
         parent::__construct(network_admin_url($path));
 
         if ($list_id) {
-            $this->add_arg('layout', (string)$list_id);
+            $this->add('layout', (string)$list_id);
         }
     }
 }

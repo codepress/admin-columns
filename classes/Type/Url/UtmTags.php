@@ -17,18 +17,18 @@ class UtmTags extends Uri
     {
         parent::__construct($url->get_url());
 
-        $this->add_arg(self::ARG_SOURCE, 'plugin-installation');
+        $this->add(self::ARG_SOURCE, 'plugin-installation');
 
         if ($medium) {
-            $this->add_arg(self::ARG_MEDIUM, $medium);
+            $this->add(self::ARG_MEDIUM, $medium);
         }
 
         if ($content) {
-            $this->add_arg(self::ARG_CONTENT, $content);
+            $this->add(self::ARG_CONTENT, $content);
         }
 
         if ($campaign) {
-            $this->add_arg(self::ARG_CAMPAIGN, $campaign);
+            $this->add(self::ARG_CAMPAIGN, $campaign);
         }
     }
 
