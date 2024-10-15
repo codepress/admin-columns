@@ -100,6 +100,14 @@
   margin-top: 0
 }
 
+.acu-mb-\[10px\] {
+  margin-bottom: 10px
+}
+
+.acu-mb-\[15px\] {
+  margin-bottom: 15px
+}
+
 .acu-block {
   display: block
 }
@@ -174,6 +182,10 @@
 
 .acu-w-full {
   width: 100%
+}
+
+.acu-w-1\/2 {
+  width: 50%
 }
 
 .acu-max-w-\[1200px\] {
@@ -293,10 +305,6 @@
   border-radius: 0.25rem
 }
 
-.acu-rounded-\[10px\] {
-  border-radius: 10px
-}
-
 .acu-rounded-\[3px\] {
   border-radius: 3px
 }
@@ -309,6 +317,15 @@
   border-radius: 0.5rem
 }
 
+.acu-rounded-\[10px\] {
+  border-radius: 10px
+}
+
+.acu-rounded-b-\[10px\] {
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px
+}
+
 .acu-rounded-b-lg {
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem
@@ -317,11 +334,6 @@
 .acu-rounded-t-\[10px\] {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px
-}
-
-.acu-rounded-b-\[10px\] {
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px
 }
 
 .acu-border {
@@ -493,6 +505,11 @@
   padding-bottom: 2px
 }
 
+.acu-px-\[10px\] {
+  padding-left: 10px;
+  padding-right: 10px
+}
+
 .acu-pb-4 {
   padding-bottom: 20px
 }
@@ -565,6 +582,10 @@
   font-size: 12px
 }
 
+.acu-text-\[15px\] {
+  font-size: 15px
+}
+
 .acu-text-\[22px\] {
   font-size: 22px
 }
@@ -580,14 +601,6 @@
 .acu-text-base {
   font-size: 1rem;
   line-height: 1.5rem
-}
-
-.acu-text-\[14px\] {
-  font-size: 14px
-}
-
-.acu-text-\[15px\] {
-  font-size: 15px
 }
 
 .acu-font-bold {
@@ -698,6 +711,20 @@
   --tw-shadow: 0 0 0 2px #2271b1;
   --tw-shadow-colored: 0 0 0 2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+}
+
+.hover\:acu-bg-\[\#eee\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 238 238 / var(--tw-bg-opacity))
+}
+
+.hover\:acu-bg-\[\#\#fafafa\]:hover {
+  background-color: ##fafafa
+}
+
+.hover\:acu-bg-\[\#fafafa\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 250 250 / var(--tw-bg-opacity))
 }
 
 .hover\:acu-text-\[\#fff\]:hover {

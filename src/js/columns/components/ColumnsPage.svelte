@@ -12,7 +12,10 @@
     import {listScreenIsReadOnly} from "../store/read_only";
     import AcButton from "ACUi/element/AcButton.svelte";
     import AdminHeaderBar from "../../components/AdminHeaderBar.svelte";
-    import ProSideBanner from "./pro-banner/ProSideBanner.svelte";
+    import ProSideBanner from "./sidebar/pro-banner/ProSideBanner.svelte";
+    import {getColumnSettingsConfig} from "../utils/global";
+    import ReviewComponent from "./sidebar/review/ReviewComponent.svelte";
+    import SupportPanel from "./sidebar/SupportPanel.svelte";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -27,6 +30,8 @@
     let abortController: AbortController;
     let queuedListId: string | null = null;
     let queuedListKey: string | null = null;
+
+    const localConfig = getColumnSettingsConfig();
 
     const handleMenuSelect = (e: CustomEvent<string>) => {
         if ($currentListKey === e.detail) {
@@ -118,10 +123,13 @@
 				{#each ListScreenSections.getSections( 'sidebar' ) as component}
 					<HtmlSection component={component}></HtmlSection>
 				{/each}
-				<ProSideBanner>
-					s
-				</ProSideBanner>
 
+				{#if localConfig.pro_banner}
+					<ProSideBanner proBannerConfig={localConfig.pro_banner}/>
+				{/if}
+
+				<ReviewComponent/>
+				<SupportPanel />
 			</aside>
 		</div>
 	</main>
