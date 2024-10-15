@@ -731,4 +731,20 @@ body.admin-columns__columns #cpac {
   transform: translateY(-1px);
 }
 
+.ac-probanner ul li a {
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  padding-left: 25px;
+  font-size: 13px;
+}
+.ac-probanner ul li a:before {
+  font-weight: bold;
+  content: "✓";
+  font-size: 16px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
 /*# sourceMappingURL=admin-page-columns.css.map */

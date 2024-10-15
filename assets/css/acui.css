@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 @layer acui, acui-components;
 @keyframes spin {
   from {
@@ -67,6 +67,14 @@
 .acui-button-primary:hover, .acui-button-primary:active, .acui-button-primary:focus {
   background-color: var(--ac-primary-color-hover);
   color: #fff;
+}
+
+.acui-button-pink {
+	background-color: var(--ac-pink-color);
+	color: #fff;
+}
+.acui-button-pink:hover, .acui-button-pink:active, .acui-button-pink:focus {
+	color: #fff;
 }
 
 .acui-dropdown {

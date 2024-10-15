@@ -31,6 +31,20 @@ declare namespace AC.Vars.Admin.Columns {
         screen_link: string
     }
 
+    type ProBanner = {
+        features: ProBannerFeature[],
+        promo?: {
+            title: string
+            url: string
+            button_label: string
+            discount_until: string
+        }
+    }
+    type ProBannerFeature = {
+        url: string
+        label: string
+    }
+
     type AcAdminColumnsVar = {
         nonce: string
         column_groups: ColumnGroup[]
@@ -43,7 +57,8 @@ declare namespace AC.Vars.Admin.Columns {
         list_id: string
         urls: [
             upgrade: string
-        ]
+        ],
+        pro_banner?: ProBanner
     }
 
 }

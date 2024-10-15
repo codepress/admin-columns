@@ -57,6 +57,50 @@ class Columns extends Script
         $this->table_screen_repository = $table_screen_repository;
     }
 
+    public function get_pro_modal_arguments(): array
+    {
+        $arguments = [];
+        $upgrade_page_url = new UtmTags(new Site(Site::PAGE_ABOUT_PRO), 'banner');
+
+        //if not pro, bail early
+
+        $items = [
+            'search'      => __('Search any content', 'codepress-admin-columns'),
+            'editing'     => __('Inline Edit any content', 'codepress-admin-columns'),
+            'bulk-edit'   => __('Bulk Edit any content', 'codepress-admin-columns'),
+            'sorting'     => __('Sort any content', 'codepress-admin-columns'),
+            'filter'      => __('Filter any content', 'codepress-admin-columns'),
+            'column-sets' => __('Create multiple columns sets', 'codepress-admin-columns'),
+            'export'      => __('Export table contents to CSV', 'codepress-admin-columns'),
+        ];
+
+        $promo = (new AC\PromoCollection())->find_active();
+        if ($promo) {
+            $arguments['promo'] = [
+                'title'          => $promo->get_title(),
+                'url'            => (string)$promo->get_url(),
+                'button_label'   => sprintf(__('Get %s Off!', 'codepress-admin-columns'), $promo->get_discount() . '%'),
+                'discount_until' => sprintf(
+                    __("Discount is valid until %s", 'codepress-admin-columns'),
+                    $promo->get_date_range()->get_end()->format('j F Y')
+                ),
+            ];
+        }
+        
+        $features = [];
+
+        foreach ($items as $utm_content => $label) {
+            $features[] = [
+                'url'   => $upgrade_page_url->add_content('usp-' . $utm_content)->get_url(),
+                'label' => $label,
+            ];
+        }
+
+        $arguments['features'] = $features;
+
+        return $arguments;
+    }
+
     public function register(): void
     {
         parent::register();
@@ -83,19 +127,20 @@ class Columns extends Script
             'urls'                       => [
                 'upgrade' => (new UtmTags(new Site(Site::PAGE_ABOUT_PRO), 'upgrade'))->get_url(),
             ],
+            'pro_banner'                 => $this->get_pro_modal_arguments(),
         ]);
 
         $this->localize(
             'ac_admin_columns_i18n',
             new Script\Localize\Translation([
-                'errors'   => [
+                'errors'     => [
                     'ajax_unknown'   => __('Something went wrong.', 'codepress-admin-columns'),
                     'original_exist' => __(
                         '%s column is already present and can not be duplicated.',
                         'codepress-admin-columns'
                     ),
                 ],
-                'pro'      => [
+                'pro'        => [
                     'modal' => [
                         'title'       => __('Do you like Admin Columns?', 'codepress-admin-columns'),
                         'subtitle'    => __(
@@ -121,19 +166,25 @@ class Columns extends Script
                         'upgrade'     => __('Upgrade', 'codepress-admin-columns'),
                     ],
                 ],
-                'global'   => [
+                'global'     => [
                     'search' => __('Search', 'codepress-admin-columns'),
                     'select' => __('Select', 'codepress-admin-columns'),
                 ],
-                'menu'     => [
+                'menu'       => [
                     'favorites' => __('Favorites', 'codepress-admin-columns'),
                 ],
-                'settings' => [
+                'settings'   => [
                     'label' => [
                         'select-icon' => __('Select Icon', 'codepress-admin-columns'),
                     ],
                 ],
-                'editor'   => [
+                'pro_banner' => [
+                    'title'        => __('Upgrade to', 'codepress-admin-columns'),
+                    'title_pro'    => __('Pro', 'codepress-admin-columns'),
+                    'sub_title'    => __('Take Admin Columns to the next level:', 'codepress-admin-columns'),
+                    'integrations' => __('Includes special integrations for:', 'codepress-admin-columns'),
+                ],
+                'editor'     => [
                     'label'    => [
                         'save'                 => __('Save', 'codepress-admin-columns'),
                         'add_column'           => __('Add Column', 'codepress-admin-columns'),

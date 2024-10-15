@@ -12,6 +12,7 @@
     import {listScreenIsReadOnly} from "../store/read_only";
     import AcButton from "ACUi/element/AcButton.svelte";
     import AdminHeaderBar from "../../components/AdminHeaderBar.svelte";
+    import ProSideBanner from "./pro-banner/ProSideBanner.svelte";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -113,10 +114,14 @@
 						tableUrl={tableUrl}></ListScreenForm>
 				{/if}
 			</div>
-			<aside class="acu-hidden xl:acu-block">
+			<aside class="acu-hidden xl:acu-block acu-w-[320px]">
 				{#each ListScreenSections.getSections( 'sidebar' ) as component}
 					<HtmlSection component={component}></HtmlSection>
 				{/each}
+				<ProSideBanner>
+					s
+				</ProSideBanner>
+
 			</aside>
 		</div>
 	</main>
