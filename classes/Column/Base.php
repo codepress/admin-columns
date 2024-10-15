@@ -23,7 +23,7 @@ class Base implements Column
 
     private FormatterCollection $formatters;
 
-    private ?ColumnId $id;
+    private ColumnId $id;
 
     public function __construct(
         string $type,
