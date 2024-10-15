@@ -12,7 +12,6 @@ use AC\TableScreen;
 use AC\Type\Labels;
 use AC\Type\ListKey;
 use AC\Type\PostTypeSlug;
-use AC\Type\Uri;
 use AC\Type\Url;
 
 class Media extends TableScreen implements ListTable, PostType, TableScreen\MetaType
@@ -26,18 +25,14 @@ class Media extends TableScreen implements ListTable, PostType, TableScreen\Meta
             new Labels(
                 __('Media'),
                 __('Media')
-            )
+            ),
+            new Url\ListTable\Media()
         );
     }
 
     public function list_table(): AC\ListTable
     {
         return ListTableFactory::create_media($this->screen_id);
-    }
-
-    public function get_query_type(): string
-    {
-        return 'post';
     }
 
     public function get_meta_type(): MetaType
@@ -48,16 +43,6 @@ class Media extends TableScreen implements ListTable, PostType, TableScreen\Meta
     public function get_post_type(): PostTypeSlug
     {
         return new PostTypeSlug('attachment');
-    }
-
-    public function get_attr_id(): string
-    {
-        return '#the-list';
-    }
-
-    public function get_url(): Uri
-    {
-        return new Url\ListTable\Media();
     }
 
 }

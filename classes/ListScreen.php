@@ -124,11 +124,6 @@ final class ListScreen
             : '';
     }
 
-    public function get_query_type(): string
-    {
-        return $this->table_screen->get_query_type();
-    }
-
     public function get_screen_id(): string
     {
         return $this->table_screen->get_screen_id();

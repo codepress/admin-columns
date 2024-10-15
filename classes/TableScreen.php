@@ -6,7 +6,7 @@ namespace AC;
 
 use AC\Type\Labels;
 use AC\Type\ListKey;
-use AC\Type\Uri;
+use AC\Type\Url;
 
 abstract class TableScreen
 {
@@ -17,32 +17,36 @@ abstract class TableScreen
 
     protected Labels $labels;
 
+    private Url $url;
+
     protected bool $network;
 
-    public function __construct(ListKey $key, string $screen_id, Labels $labels, bool $network = false)
-    {
+    private ?string $attr_id;
+
+    public function __construct(
+        ListKey $key,
+        string $screen_id,
+        Labels $labels,
+        Url $url,
+        string $attr_id = null,
+        bool $network = false
+    ) {
         $this->key = $key;
         $this->screen_id = $screen_id;
         $this->labels = $labels;
+        $this->url = $url;
         $this->network = $network;
+        $this->attr_id = $attr_id ?? '#the-list';
     }
 
-    // TODO remove query type
-
-    abstract public function get_query_type(): string;
-
-    abstract public function get_attr_id(): string;
-
-    abstract public function get_url(): Uri;
+    public function get_url(): Url
+    {
+        return $this->url;
+    }
 
     public function get_key(): ListKey
     {
         return $this->key;
-    }
-
-    public function is_network(): bool
-    {
-        return $this->network;
     }
 
     public function get_labels(): Labels
@@ -53,6 +57,16 @@ abstract class TableScreen
     public function get_screen_id(): string
     {
         return $this->screen_id;
+    }
+
+    public function is_network(): bool
+    {
+        return $this->network;
+    }
+
+    public function get_attr_id(): string
+    {
+        return $this->attr_id;
     }
 
 }

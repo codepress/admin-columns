@@ -12,7 +12,6 @@ use AC\TableScreen;
 use AC\Type\Labels;
 use AC\Type\ListKey;
 use AC\Type\PostTypeSlug;
-use AC\Type\Uri;
 use AC\Type\Url;
 use WP_Post_Type;
 
@@ -29,7 +28,8 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
             new Labels(
                 $post_type->labels->singular_name ?? $post_type->name,
                 $post_type->labels->name ?? $post_type->name
-            )
+            ),
+            new Url\ListTable\Post($post_type->name)
         );
 
         $this->post_type = $post_type;
@@ -45,24 +45,9 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
         return new PostTypeSlug($this->post_type->name);
     }
 
-    public function get_query_type(): string
-    {
-        return 'post';
-    }
-
     public function get_meta_type(): MetaType
     {
         return new MetaType(MetaType::POST);
-    }
-
-    public function get_attr_id(): string
-    {
-        return '#the-list';
-    }
-
-    public function get_url(): Uri
-    {
-        return new Url\ListTable\Post($this->post_type->name);
     }
 
 }

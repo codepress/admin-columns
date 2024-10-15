@@ -9,7 +9,6 @@ use AC\ListTableFactory;
 use AC\TableScreen;
 use AC\Type\Labels;
 use AC\Type\ListKey;
-use AC\Type\Uri;
 use AC\Type\Url;
 
 class User extends TableScreen implements ListTable, MetaType
@@ -23,7 +22,8 @@ class User extends TableScreen implements ListTable, MetaType
             new Labels(
                 __('Users'),
                 __('User')
-            )
+            ),
+            new Url\ListTable('users.php')
         );
     }
 
@@ -32,24 +32,9 @@ class User extends TableScreen implements ListTable, MetaType
         return ListTableFactory::create_user($this->screen_id);
     }
 
-    public function get_query_type(): string
-    {
-        return 'user';
-    }
-
     public function get_meta_type(): AC\MetaType
     {
         return AC\MetaType::create_user_type();
-    }
-
-    public function get_attr_id(): string
-    {
-        return '#the-list';
-    }
-
-    public function get_url(): Uri
-    {
-        return new Url\ListTable('users.php');
     }
 
 }
