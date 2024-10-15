@@ -14,19 +14,19 @@ use WP_User;
 final class ListScreen
 {
 
-    private $id;
+    private ListScreenId $id;
 
-    private $title;
+    private string $title;
 
-    private $table_screen;
+    private TableScreen $table_screen;
 
-    private $columns;
+    private ColumnIterator $columns;
 
-    private $preferences;
+    private array $preferences;
 
-    private $updated;
+    private ?DateTime $updated;
 
-    private $read_only = false;
+    private bool $read_only = false;
 
     public function __construct(
         ListScreenId $id,
@@ -105,11 +105,6 @@ final class ListScreen
     public function set_read_only(bool $read_only): void
     {
         $this->read_only = $read_only;
-    }
-
-    public function get_heading_hookname(): string
-    {
-        return $this->table_screen->get_heading_hookname();
     }
 
     public function get_key(): ListKey

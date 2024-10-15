@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace AC\ApplyFilter;
 
-use AC\Column;
+use AC\Setting\Context;
 
 class ColumnValueSanitize
 {
 
-    private $column;
-
     private $id;
 
-    public function __construct(Column $column, $id)
+    private Context $context;
+
+    public function __construct(Context $context, $id)
     {
-        $this->column = $column;
         $this->id = $id;
+        $this->context = $context;
     }
 
     public function apply_filter(bool $sanitize = true): bool
     {
-        return (bool)apply_filters('ac/column/value/sanitize', $sanitize, $this->column, $this->id);
+        return (bool)apply_filters('ac/v2/column/value/sanitize', $sanitize, $this->context, $this->id);
     }
 
 }

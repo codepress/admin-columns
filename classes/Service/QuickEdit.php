@@ -1,11 +1,9 @@
 <?php
 
-namespace AC\Screen;
+namespace AC\Service;
 
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
-use AC\ScreenController;
-use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\Table\LayoutPreference;
 use AC\Table\PrimaryColumnFactory;
 use AC\TableScreenFactory;
@@ -22,20 +20,16 @@ class QuickEdit implements Registerable
 
     private $table_screen_factory;
 
-    private $default_columns_repository;
-
     public function __construct(
         Storage $storage,
         LayoutPreference $preference,
         PrimaryColumnFactory $primary_column_factory,
         TableScreenFactory $table_screen_factory,
-        DefaultColumnsRepository $default_columns_repository
     ) {
         $this->storage = $storage;
         $this->preference = $preference;
         $this->primary_column_factory = $primary_column_factory;
         $this->table_screen_factory = $table_screen_factory;
-        $this->default_columns_repository = $default_columns_repository;
     }
 
     public function register(): void
@@ -94,12 +88,8 @@ class QuickEdit implements Registerable
             20
         );
 
-        $screen_controller = new ScreenController(
-            $this->default_columns_repository,
-            $table_screen,
-            $list_screen
-        );
-        $screen_controller->register();
+        (new ManageHeadings())->handle($list_screen, $table_screen);
+        (new ManageValue())->handle($list_screen, $table_screen);
     }
 
 }

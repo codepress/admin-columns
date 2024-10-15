@@ -103,7 +103,7 @@ class ListScreenAdmin implements Middleware
 
     private function get_default_columns(): ColumnCollection
     {
-        return $this->column_type_repository->find_all_by_orginal($this->table_screen);
+        return $this->column_type_repository->find_all_by_original($this->table_screen);
 
         // TODO
         //        $columns = [];

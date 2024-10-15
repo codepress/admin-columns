@@ -12,7 +12,6 @@ use AC\Asset\Enqueueables;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
-use AC\ColumnTypeRepository;
 use AC\Renderable;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Table\TableScreenCollection;
@@ -39,8 +38,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $table_screen_repository;
 
-    private $column_type_repository;
-
     private $uninitialized_screens;
 
     public function __construct(
@@ -48,7 +45,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         TableScreenCollection $uninitialized_screens,
         Renderable $head,
         TableScreen $table_screen,
-        ColumnTypeRepository $column_type_repository,
         Admin\MenuListItems $menu_items,
         EditorFavorites $favorite_repository,
         TableScreenRepository $table_screen_repository,
@@ -57,12 +53,11 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         $this->location = $location;
         $this->head = $head;
         $this->table_screen = $table_screen;
-        $this->column_type_repository = $column_type_repository;
-        $this->list_id = $list_id;
         $this->menu_items = $menu_items;
         $this->favorite_repository = $favorite_repository;
         $this->table_screen_repository = $table_screen_repository;
         $this->uninitialized_screens = $uninitialized_screens;
+        $this->list_id = $list_id;
     }
 
     public function get_table_screen(): TableScreen
@@ -86,7 +81,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 'ac-admin-page-columns',
                 $this->location->with_suffix('assets/js/admin-page-columns.js'),
                 $this->table_screen,
-                $this->column_type_repository,
                 $this->uninitialized_screens,
                 $this->menu_items,
                 $this->table_screen_repository,
@@ -108,23 +102,10 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         return new ScreenOption\ColumnInfo(new Admin\Preference\ScreenOptions());
     }
 
-    private function get_list_screen_id(): ScreenOption\ListScreenId
-    {
-        return new ScreenOption\ListScreenId(new Admin\Preference\ScreenOptions());
-    }
-
-    private function get_list_screen_type(): ScreenOption\ListScreenType
-    {
-        return new ScreenOption\ListScreenType(new Admin\Preference\ScreenOptions());
-    }
-
     public function get_screen_options(): array
     {
         return [
             $this->get_column_info(),
-            //TODO still have this available?
-            //            $this->get_list_screen_id(),
-            //            $this->get_list_screen_type(),
         ];
     }
 

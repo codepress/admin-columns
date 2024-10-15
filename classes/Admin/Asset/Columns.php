@@ -5,8 +5,6 @@ namespace AC\Admin\Asset;
 use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
-use AC\ColumnCollection;
-use AC\Service\DefaultColumns;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Storage\Repository\EditorMenuStatus;
 use AC\Table\TableScreenCollection;
@@ -19,25 +17,22 @@ use AC\Type\Url\UtmTags;
 class Columns extends Script
 {
 
-    private $table_screen;
+    private TableScreen $table_screen;
 
-    private $table_screens;
+    private TableScreenCollection $table_screens;
 
-    private $list_id;
+    private AC\Admin\MenuListItems $menu_items;
 
-    private $menu_items;
+    private EditorFavorites $favorite_repository;
 
-    private $favorite_repository;
+    private AC\Table\TableScreenRepository $table_screen_repository;
 
-    private $table_screen_repository;
-
-    private $column_type_repository;
+    private ?ListScreenId $list_id;
 
     public function __construct(
         string $handle,
         Location $location,
         TableScreen $table_screen,
-        AC\ColumnTypeRepository $column_type_repository,
         TableScreenCollection $table_screens,
         AC\Admin\MenuListItems $menu_items,
         AC\Table\TableScreenRepository $table_screen_repository,
@@ -50,11 +45,10 @@ class Columns extends Script
 
         $this->table_screen = $table_screen;
         $this->table_screens = $table_screens;
-        $this->column_type_repository = $column_type_repository;
-        $this->list_id = $list_id;
         $this->menu_items = $menu_items;
         $this->favorite_repository = $favorite_repository;
         $this->table_screen_repository = $table_screen_repository;
+        $this->list_id = $list_id;
     }
 
     public function get_pro_modal_arguments(): array
@@ -105,11 +99,11 @@ class Columns extends Script
     {
         parent::register();
 
-        $uninitialized_list_screens = [];
+        $uninitialized_table_screens = [];
 
         foreach ($this->table_screens as $table_screen) {
-            $uninitialized_list_screens[(string)$table_screen->get_key()] = [
-                'screen_link' => (string)$table_screen->get_url()->with_arg(DefaultColumns::QUERY_PARAM, '1'),
+            $uninitialized_table_screens[(string)$table_screen->get_key()] = [
+                'screen_link' => (string)$table_screen->get_url()->with_arg('save-default-headings', '1'),
             ];
         }
 
@@ -117,7 +111,7 @@ class Columns extends Script
             'nonce'                      => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
             'list_key'                   => (string)$this->table_screen->get_key(),
             'list_id'                    => (string)$this->list_id,
-            'uninitialized_list_screens' => $uninitialized_list_screens,
+            'uninitialized_list_screens' => $uninitialized_table_screens,
             'column_groups'              => AC\ColumnGroups::get_groups()->get_all(),
             'menu_items'                 => $this->get_menu_items(),
             'menu_items_favorites'       => $this->encode_favorites(
@@ -257,38 +251,6 @@ class Columns extends Script
         }
 
         return $options;
-    }
-
-    private function get_original_types(): array
-    {
-        $types = [];
-        foreach ($this->column_type_repository->find_all_by_orginal($this->table_screen) as $column) {
-            $types[] = $column->get_type();
-        }
-
-        return $types;
-    }
-
-    private function encode_column_types(ColumnCollection $collection): array
-    {
-        $encode = [];
-
-        $original_types = $this->get_original_types();
-
-        // TODO cache
-        $groups = AC\ColumnGroups::get_groups();
-
-        foreach ($collection as $column) {
-            $encode[] = [
-                'label'     => $column->get_label(),
-                'value'     => $column->get_type(),
-                'group'     => $groups->get($column->get_group())['label'] ?? 'default',
-                'group_key' => $column->get_group(),
-                'original'  => in_array($column->get_type(), $original_types, true),
-            ];
-        }
-
-        return $encode;
     }
 
 }

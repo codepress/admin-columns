@@ -11,32 +11,29 @@ use AC\Type\Uri;
 abstract class TableScreen
 {
 
-    protected $key;
+    protected ListKey $key;
 
-    protected $screen_id;
+    protected string $screen_id;
 
-    protected $network;
+    protected Labels $labels;
 
-    protected $columns;
+    protected bool $network;
 
-    public function __construct(ListKey $key, string $screen_id, bool $network = false)
+    public function __construct(ListKey $key, string $screen_id, Labels $labels, bool $network = false)
     {
         $this->key = $key;
         $this->screen_id = $screen_id;
+        $this->labels = $labels;
         $this->network = $network;
     }
 
-    abstract public function get_heading_hookname(): string;
-
-    abstract public function get_labels(): Labels;
+    // TODO remove query type
 
     abstract public function get_query_type(): string;
 
     abstract public function get_attr_id(): string;
 
     abstract public function get_url(): Uri;
-
-    abstract public function manage_value(ListScreen $list_screen): Table\ManageValue;
 
     public function get_key(): ListKey
     {
@@ -46,6 +43,11 @@ abstract class TableScreen
     public function is_network(): bool
     {
         return $this->network;
+    }
+
+    public function get_labels(): Labels
+    {
+        return $this->labels;
     }
 
     public function get_screen_id(): string

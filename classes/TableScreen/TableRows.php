@@ -13,7 +13,7 @@ use AC\Response;
 abstract class TableRows implements Registerable, RequestHandler
 {
 
-    private $list_table;
+    private ListTable $list_table;
 
     public function __construct(ListTable $list_table)
     {

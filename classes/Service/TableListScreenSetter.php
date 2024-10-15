@@ -4,6 +4,7 @@ namespace AC\Service;
 
 use AC\Asset\Location\Absolute;
 use AC\ColumnSize;
+use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Request;
@@ -70,7 +71,7 @@ class TableListScreenSetter implements Registerable
 
         $list_screen = $request->get('list_screen');
 
-        if ($list_screen) {
+        if ($list_screen instanceof ListScreen) {
             $this->preference->save(
                 $table_screen->get_key(),
                 $list_screen->get_id()
@@ -85,9 +86,9 @@ class TableListScreenSetter implements Registerable
             new ColumnSize\ListStorage($this->storage),
             new ColumnSize\UserStorage(),
             $this->primary_column_factory,
-            $this->default_columns_repository,
             $list_screen
         );
+
         $table->register();
 
         do_action('ac/table', $table);
