@@ -13,7 +13,7 @@ class ListScreenInitializer {
     success: Array<UninitializedListScreen>;
     batchSize: number;
 
-    constructor(list_screens: UninitializedListScreens, batchSize = 2) {
+    constructor(list_screens: UninitializedListScreens, batchSize = 3) {
         this.listScreens = list_screens;
         this.processed = [];
         this.errors = [];
@@ -78,6 +78,13 @@ class ListScreenInitializer {
 }
 
 export const initUninitializedListScreens = (listScreens: UninitializedListScreens, listKey: string) => {
+    const initializeSideListScreens = () => {
+        new ListScreenInitializer(listScreens);
+        // setTimeout(() => {
+        //
+        // }, 0)
+    }
+
     if (Object.keys(listScreens).length > 0) {
 
         // Only load main screen first if unitialized, otherwise do the rest in background
@@ -85,17 +92,17 @@ export const initUninitializedListScreens = (listScreens: UninitializedListScree
             const main_initializer = new ListScreenInitializer({[listKey]: listScreens[listKey]});
 
             main_initializer.events.on('error', () => {
-                document.querySelectorAll('.ac-loading-msg-wrapper').forEach(el => el.remove());
-                document.querySelectorAll('.menu').forEach(el => el.classList.remove('hidden'));
+                // TODO Show notice
             });
 
             main_initializer.events.on('success', () => {
-                //window.location.href = `${location.href}&t=${Date.now()}`;
+                // This is a side process that must not prevent any other calls from running
+                initializeSideListScreens()
+
             });
 
         } else {
-            new ListScreenInitializer(listScreens);
+            initializeSideListScreens()
         }
-
     }
 }
