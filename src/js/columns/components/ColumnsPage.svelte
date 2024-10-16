@@ -57,6 +57,7 @@
             $columnTypesStore = response.data.data.column_types.sort(columnTypeSorter);
             listScreenIsReadOnly.set(response.data.data.read_only);
             $listScreenDataStore = response.data.data.settings.list_screen;
+            $currentListId = loadedListId;
         }).catch((response) => {
             NotificationProgrammatic.open({message: response.message, type: 'error'})
         });
@@ -76,6 +77,7 @@
 
     const debounceFetch = (delay: number = 400) => {
         clearTimeout(debounceTimeout);
+
         debounceTimeout = setTimeout(processQueuedChanges, delay);
     }
 

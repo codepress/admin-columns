@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let title: string|undefined|null;
+	export let title: string|undefined|null = null
 	export let border: boolean = false;
 
     let classes = ['acu-px-[20px] acu-pt-[20px]'];

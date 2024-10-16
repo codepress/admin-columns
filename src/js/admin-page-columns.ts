@@ -36,24 +36,8 @@ currentListId.subscribe((d) => {
 })
 
 
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('admin-columns__columns')
-    // TODO make something more affording
-    const ConfigService = {
-        stores: {
-            currentListId,
-            currentListKey,
-            listScreenDataStore,
-            listScreenIsReadOnly,
-            debugMode,
-        },
-        registerSettingType,
-        ListScreenSections,
-    }
 
 
     const pageBridge = new ColumnPageBridge();
