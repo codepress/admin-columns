@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\TableScreen\ManageValue;
 
 use AC\Registerable;
+use AC\Type\ColumnId;
 use AC\Type\PostTypeSlug;
 use DomainException;
 
@@ -40,7 +41,7 @@ class Post implements Registerable
 
     public function manage_value($column_id, $row_id): void
     {
-        echo $this->renderable->render($column_id, $row_id);
+        echo $this->renderable->render(new ColumnId((string)$column_id), $row_id);
     }
 
 }

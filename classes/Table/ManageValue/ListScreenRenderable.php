@@ -8,6 +8,7 @@ use AC\Column;
 use AC\ListScreen;
 use AC\Setting\ContextFactory;
 use AC\TableScreen\ManageValue\GridRenderable;
+use AC\Type\ColumnId;
 
 class ListScreenRenderable implements GridRenderable
 {
@@ -40,9 +41,9 @@ class ListScreenRenderable implements GridRenderable
         return $renderables[(string)$column->get_id()];
     }
 
-    public function render($column_id, $row_id): ?string
+    public function render(ColumnId $column_id, $row_id): ?string
     {
-        $column = $this->list_screen->get_column((string)$column_id);
+        $column = $this->list_screen->get_column($column_id);
 
         if ( ! $column) {
             return null;

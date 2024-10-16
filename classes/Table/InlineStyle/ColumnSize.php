@@ -6,6 +6,7 @@ use AC\ColumnSize\ListStorage;
 use AC\ColumnSize\UserStorage;
 use AC\ListScreen;
 use AC\Renderable;
+use AC\Type\ColumnId;
 use AC\Type\ColumnWidth;
 
 class ColumnSize implements Renderable
@@ -24,28 +25,28 @@ class ColumnSize implements Renderable
         $this->user_storage = $user_storage;
     }
 
-    private function render_style($column_name, ColumnWidth $column_width, $type)
+    private function render_style(ColumnId $column_id, ColumnWidth $column_width, $type)
     {
         $css_width = $column_width->get_value() . $column_width->get_unit();
 
         $css = sprintf(
             '.ac-%1$s .wrap table th.column-%2$s, .ac-%1$s .wrap table td.column-%2$s   { width: %3$s !important; }',
             esc_attr((string)$this->list_screen->get_key()),
-            esc_attr($column_name),
+            esc_attr((string)$column_id),
             $css_width
         );
 
         $css .= sprintf(
             'body.acp-overflow-table.ac-%1$s .wrap th.column-%2$s, body.acp-overflow-table.ac-%1$s .wrap td.column-%2$s { min-width: %3$s !important; max-width: %3$s !important }',
             esc_attr((string)$this->list_screen->get_key()),
-            esc_attr($column_name),
+            esc_attr((string)$column_id),
             $css_width
         );
 
         $id = sprintf(
             'ac-column-size-%s-%s',
             $type,
-            $column_name
+            $column_id
         );
 
         ob_start();
@@ -64,14 +65,14 @@ class ColumnSize implements Renderable
         $html = '';
 
         foreach ($this->list_screen->get_columns() as $column) {
-            $width = $this->list_storage->get($this->list_screen, (string)$column->get_id());
+            $width = $this->list_storage->get($this->list_screen, $column->get_id());
             if ($width) {
-                $html .= $this->render_style((string)$column->get_id(), $width, 'list');
+                $html .= $this->render_style($column->get_id(), $width, 'list');
             }
 
-            $width = $this->user_storage->get($this->list_screen->get_id(), (string)$column->get_id());
+            $width = $this->user_storage->get($this->list_screen->get_id(), $column->get_id());
             if ($width) {
-                $html .= $this->render_style((string)$column->get_id(), $width, 'user');
+                $html .= $this->render_style($column->get_id(), $width, 'user');
             }
         }
 

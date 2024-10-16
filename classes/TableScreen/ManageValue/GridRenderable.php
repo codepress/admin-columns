@@ -2,6 +2,8 @@
 
 namespace AC\TableScreen\ManageValue;
 
+use AC\Type\ColumnId;
+
 /**
  * Any class that wants to render specific content within the table grid
  * needs to define the render method.
@@ -9,6 +11,6 @@ namespace AC\TableScreen\ManageValue;
 interface GridRenderable
 {
 
-    public function render($column_id, $row_id): ?string;
+    public function render(ColumnId $column_id, $row_id): ?string;
 
 }

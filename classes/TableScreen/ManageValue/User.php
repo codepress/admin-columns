@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\TableScreen\ManageValue;
 
 use AC\Registerable;
+use AC\Type\ColumnId;
 use DomainException;
 
 class User implements Registerable
@@ -33,7 +34,7 @@ class User implements Registerable
 
     public function render_value($value, $column_id, $row_id): ?string
     {
-        return $this->renderable->render($column_id, $row_id) ?? $value;
+        return $this->renderable->render(new ColumnId((string)$column_id), $row_id) ?? $value;
     }
 
 }
