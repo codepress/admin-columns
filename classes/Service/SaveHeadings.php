@@ -60,8 +60,6 @@ class SaveHeadings implements Registerable
             $factory->create($table_screen)
                     ->register();
         }
-
-        exit('ac_success');
     }
 
 }

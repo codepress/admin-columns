@@ -39,12 +39,14 @@ class ScreenColumns implements Registerable
         add_filter(sprintf('manage_%s_columns', $this->screen_id), [$this, 'handle'], $this->priority);
     }
 
-    public function handle($headings): array
+    public function handle($headings): void
     {
         $this->repository->update(
             $this->list_key,
             $headings && is_array($headings) ? $headings : []
         );
+
+        exit('ac_success');
     }
 
 }
