@@ -47,9 +47,9 @@ abstract class BaseColumnFactory implements ColumnFactory
             $this->get_column_type(),
             $this->get_label(),
             $components,
+            $this->get_column_id($config),
             $formatters,
             $this->get_group(),
-            $this->get_column_id($components),
         );
     }
 

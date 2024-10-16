@@ -29,24 +29,16 @@ class Base implements Column
         string $type,
         string $label,
         ComponentCollection $settings,
+        ColumnId $id,
         FormatterCollection $formatters = null,
-        string $group = null,
-        ColumnId $id = null
+        string $group = null
     ) {
-        if ($formatters === null) {
-            $formatters = new FormatterCollection();
-        }
-
-        if ($group === null) {
-            $group = 'custom';
-        }
-
         $this->type = $type;
         $this->label = $label;
         $this->settings = $settings;
-        $this->formatters = $formatters;
-        $this->group = $group;
-        $this->id = $id ?? ColumnId::generate();
+        $this->id = $id;
+        $this->formatters = $formatters ?? new FormatterCollection();
+        $this->group = $group ?? 'custom';
     }
 
     public function get_type(): string

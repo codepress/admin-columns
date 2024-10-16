@@ -43,9 +43,9 @@ trait BaseComponentFactoryTrait
         return null;
     }
 
-    protected function get_column_id(ComponentCollection $components): ColumnId
+    protected function get_column_id(Config $config): ColumnId
     {
-        $id = $components->find('name')->get_input()->get_value();
+        $id = $config->get('name');
 
         return ColumnId::is_valid_id($id)
             ? new ColumnId($id)
