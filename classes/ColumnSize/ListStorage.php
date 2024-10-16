@@ -99,23 +99,28 @@ class ListStorage
         $results = [];
 
         foreach ($list_screen->get_columns() as $column) {
-            $results[(string)$column->get_id()] = $this->create($column);
+            $width = $this->create($column);
+
+            if ($width) {
+                $results[(string)$column->get_id()] = $width;
+            }
         }
 
-        return array_filter($results);
+        return $results;
     }
 
     private function create(Column $column): ?ColumnWidth
     {
-        $unit = (string)$column->get_setting('width_unit')->get_input()->get_value();
         $width = (int)$column->get_setting('width')->get_input()->get_value();
 
         if ($width < 1) {
             return null;
         }
 
+        $unit = (string)$column->get_setting('width_unit')->get_input()->get_value();
+
         try {
-            $width = new ColumnWidth($unit, $width,);
+            $width = new ColumnWidth($unit, $width);
         } catch (InvalidArgumentException $e) {
             return null;
         }
