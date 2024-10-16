@@ -28,13 +28,19 @@ class TableListScreenSetter implements Registerable
 
     private $default_columns_repository;
 
+    private ColumnSize\ListStorage $size_storage;
+
+    private ColumnSize\UserStorage $size_user_storage;
+
     public function __construct(
         Storage $storage,
         Absolute $location,
         TableScreenFactory $table_screen_factory,
         Table\LayoutPreference $preference,
         Table\PrimaryColumnFactory $primary_column_factory,
-        DefaultColumnsRepository $default_columns_repository
+        DefaultColumnsRepository $default_columns_repository,
+        ColumnSize\ListStorage $size_storage,
+        ColumnSize\UserStorage $size_user_storage
     ) {
         $this->storage = $storage;
         $this->location = $location;
@@ -42,6 +48,8 @@ class TableListScreenSetter implements Registerable
         $this->primary_column_factory = $primary_column_factory;
         $this->table_screen_factory = $table_screen_factory;
         $this->default_columns_repository = $default_columns_repository;
+        $this->size_storage = $size_storage;
+        $this->size_user_storage = $size_user_storage;
     }
 
     public function register(): void
@@ -83,8 +91,8 @@ class TableListScreenSetter implements Registerable
         $table = new Table\Screen(
             $this->location,
             $table_screen,
-            new ColumnSize\ListStorage($this->storage),
-            new ColumnSize\UserStorage(),
+            $this->size_storage,
+            $this->size_user_storage,
             $this->primary_column_factory,
             $list_screen
         );

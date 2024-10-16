@@ -88,6 +88,11 @@ final class ListScreen
         return $this->columns;
     }
 
+    public function set_columns(ColumnCollection $columns): void
+    {
+        $this->columns = $columns;
+    }
+
     public function get_preferences(): array
     {
         return $this->preferences;

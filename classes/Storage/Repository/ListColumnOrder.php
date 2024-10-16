@@ -3,15 +3,15 @@
 namespace AC\Storage\Repository;
 
 use AC\ColumnCollection;
+use AC\ColumnIterator;
 use AC\ColumnRepository\Sort\ColumnNames;
-use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Type\ListScreenId;
 
 class ListColumnOrder
 {
 
-    private $storage;
+    private Storage $storage;
 
     public function __construct(Storage $storage)
     {
@@ -27,15 +27,15 @@ class ListColumnOrder
         }
 
         $list_screen->set_columns(
-            $this->create_sorted_columns($list_screen, $column_names)
+            $this->modify_columns($list_screen->get_columns(), $column_names)
         );
 
         $this->storage->save($list_screen);
     }
 
-    private function create_sorted_columns(ListScreen $list_screen, array $names): ColumnCollection
+    private function modify_columns(ColumnIterator $columns, array $names): ColumnCollection
     {
-        return new ColumnCollection(iterator_to_array($list_screen->get_columns(null, new ColumnNames($names))));
+        return (new ColumnNames($names))->sort($columns);
     }
 
 }
