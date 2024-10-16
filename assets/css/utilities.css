@@ -235,6 +235,10 @@
           appearance: none
 }
 
+.acu-flex-row {
+  flex-direction: row
+}
+
 .acu-flex-row-reverse {
   flex-direction: row-reverse
 }
