@@ -5010,7 +5010,7 @@ function create_default_slot_1(ctx) {
 // (206:6) <AcButton slot="trigger" type="primary">
 function create_default_slot(ctx) {
   let t0;
-  let t1_value = /*i18n*/ctx[5].editor.label.add_columns + "";
+  let t1_value = /*i18n*/ctx[5].editor.label.add_column + "";
   let t1;
   return {
     c() {
