@@ -11,7 +11,7 @@ use AC\ColumnRepository\Sort;
 class ColumnNames implements Sort
 {
 
-    private $column_names;
+    private array $column_names;
 
     public function __construct(array $column_names)
     {

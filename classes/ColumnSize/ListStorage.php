@@ -68,7 +68,6 @@ class ListStorage
         $config['width'] = (string)$column_width->get_value();
         $config['width_unit'] = $column_width->get_unit();
 
-        // TODO test
         $column = $factory->create(new Config($config));
         $columns = $this->modify_collection($list_screen->get_columns(), $column);
 
