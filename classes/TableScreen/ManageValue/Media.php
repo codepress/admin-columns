@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\TableScreen\ManageValue;
 
 use AC\Registerable;
+use AC\Type\ColumnId;
 use DomainException;
 
 class Media implements Registerable
@@ -33,7 +34,7 @@ class Media implements Registerable
 
     public function render_value($column_id, $row_id): void
     {
-        echo $this->renderable->render($column_id, $row_id);
+        echo $this->renderable->render(new ColumnId((string)$column_id), $row_id);
     }
 
 }

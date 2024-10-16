@@ -5,6 +5,7 @@ namespace AC\ColumnSize;
 use AC;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
+use AC\Type\ColumnId;
 use AC\Type\ColumnWidth;
 use AC\Type\ListScreenId;
 
@@ -18,7 +19,7 @@ class ListStorage
         $this->storage = $storage;
     }
 
-    public function save(ListScreenId $list_id, string $column_name, ColumnWidth $column_width): void
+    public function save(ListScreenId $list_id, ColumnId $column_id, ColumnWidth $column_width): void
     {
         $list_screen = $this->storage->find($list_id);
 
@@ -26,13 +27,13 @@ class ListStorage
             return;
         }
 
-        $column = $list_screen->get_column($column_name);
+        $column = $list_screen->get_column($column_id);
 
         if ( ! $column) {
             return;
         }
 
-        // TODO
+        // TODO next
         $column->set_option('width', (string)$column_width->get_value());
         $column->set_option('width_unit', $column_width->get_unit());
 
@@ -49,17 +50,15 @@ class ListStorage
         $results = [];
 
         foreach ($list_screen->get_columns() as $column) {
-            $name = (string)$column->get_id();
-
-            $results[$name] = $this->get($list_screen, $name);
+            $results[(string)$column->get_id()] = $this->get($list_screen, $column->get_id());
         }
 
         return array_filter($results);
     }
 
-    public function get(ListScreen $list_screen, string $column_name): ?ColumnWidth
+    public function get(ListScreen $list_screen, ColumnId $column_id): ?ColumnWidth
     {
-        $column = $list_screen->get_column($column_name);
+        $column = $list_screen->get_column($column_id);
 
         if ( ! $column) {
             return null;

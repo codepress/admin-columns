@@ -9,6 +9,7 @@ use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
+use AC\Type\ColumnId;
 use AC\Type\ListScreenId;
 use AC\Value\ExtendedValueRegistry;
 
@@ -54,7 +55,7 @@ class ExtendedValue implements RequestAjaxHandler
             wp_send_json_error(__('Invalid list screen.', 'codepress-admin-columns'), 400);
         }
 
-        $column = $list_screen->get_column($column_name);
+        $column = $list_screen->get_column(new ColumnId($column_name));
 
         if ( ! $column) {
             wp_send_json_error(__('Invalid column.', 'codepress-admin-columns'), 400);

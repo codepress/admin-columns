@@ -3,6 +3,7 @@
 namespace AC\ColumnSize;
 
 use AC\Preferences\SiteFactory;
+use AC\Type\ColumnId;
 use AC\Type\ColumnWidth;
 use AC\Type\ListScreenId;
 
@@ -39,17 +40,19 @@ class UserStorage
         return null !== $this->storage->find((string)$list_id);
     }
 
-    public function get(ListScreenId $list_id, string $column_name): ?ColumnWidth
+    public function get(ListScreenId $list_id, ColumnId $column_id): ?ColumnWidth
     {
         $widths = $this->storage->find((string)$list_id);
 
-        if ( ! isset($widths[$column_name])) {
+        $name = (string)$column_id;
+
+        if ( ! isset($widths[$name])) {
             return null;
         }
 
         return new ColumnWidth(
-            $widths[$column_name][self::OPTION_UNIT],
-            $widths[$column_name][self::OPTION_VALUE]
+            $widths[$name][self::OPTION_UNIT],
+            $widths[$name][self::OPTION_VALUE]
         );
     }
 

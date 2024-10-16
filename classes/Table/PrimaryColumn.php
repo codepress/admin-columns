@@ -6,6 +6,7 @@ use AC\ListScreen;
 use AC\ListTable\Comment;
 use AC\PostType;
 use AC\TableScreen\Media;
+use AC\Type\ColumnId;
 use WP_Post;
 
 class PrimaryColumn
@@ -20,7 +21,7 @@ class PrimaryColumn
 
     public function set_primary_column(string $default): string
     {
-        $default_column = $this->list_screen->get_column($default);
+        $default_column = $this->list_screen->get_column(new ColumnId($default));
 
         $columns = $this->list_screen->get_columns();
         $column = $columns->first();

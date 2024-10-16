@@ -5,6 +5,7 @@ use AC\Container;
 use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\Type\ColumnId;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use AC\Type\Url;
@@ -73,9 +74,7 @@ if ( ! function_exists('ac_get_column')) {
             return null;
         }
 
-        $column = $list_screen->get_column($column_name);
-
-        return $column ?: null;
+        return $list_screen->get_column(new ColumnId($column_name));
     }
 }
 

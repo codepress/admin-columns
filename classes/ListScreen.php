@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Type\ColumnId;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use AC\Type\Uri;
@@ -71,10 +72,10 @@ final class ListScreen
         return $this->title;
     }
 
-    public function get_column(string $name): ?Column
+    public function get_column(ColumnId $id): ?Column
     {
         foreach ($this->columns as $column) {
-            if ((string)$column->get_id() === $name) {
+            if ($column->get_id()->equals($id)) {
                 return $column;
             }
         }
@@ -215,7 +216,7 @@ final class ListScreen
     {
         _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_column()');
 
-        return $this->get_column($name);
+        return $this->get_column(new ColumnId($name));
     }
 
     /**
