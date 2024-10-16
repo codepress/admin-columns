@@ -22579,14 +22579,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 
 
 class ListScreenInitializer {
-    constructor(list_screens) {
+    constructor(list_screens, batchSize = 2) {
         this.listScreens = list_screens;
         this.processed = [];
         this.errors = [];
         this.success = [];
+        this.batchSize = batchSize;
         this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
         this.run();
     }
@@ -22594,7 +22604,22 @@ class ListScreenInitializer {
         return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(listScreen.screen_link);
     }
     run() {
-        Object.values(this.listScreens).forEach((l) => this.processListScreen(l));
+        return __awaiter(this, void 0, void 0, function* () {
+            const listScreenArray = Object.values(this.listScreens);
+            let currentIndex = 0;
+            // Process items in batches
+            while (currentIndex < listScreenArray.length) {
+                const batch = listScreenArray.slice(currentIndex, currentIndex + this.batchSize);
+                yield this.processBatch(batch);
+                currentIndex += this.batchSize;
+            }
+        });
+    }
+    processBatch(batch) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const promises = batch.map(listScreen => this.processListScreen(listScreen));
+            yield Promise.all(promises);
+        });
     }
     onFinish() {
         if (this.success.length === Object.keys(this.listScreens).length) {
@@ -22610,15 +22635,23 @@ class ListScreenInitializer {
         }
     }
     processListScreen(listScreen) {
-        this.doAjaxCall(listScreen).then((response) => {
-            response.data === 'ac_success'
-                ? this.success.push(listScreen)
-                : this.errors.push(listScreen);
-        }).catch(() => {
-            this.errors.push(listScreen);
-        }).finally(() => {
-            this.processed.push(listScreen);
-            this.checkFinish();
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield this.doAjaxCall(listScreen);
+                if (response.data === 'ac_success') {
+                    this.success.push(listScreen);
+                }
+                else {
+                    this.errors.push(listScreen);
+                }
+            }
+            catch (_a) {
+                this.errors.push(listScreen);
+            }
+            finally {
+                this.processed.push(listScreen);
+                this.checkFinish();
+            }
         });
     }
 }
@@ -22632,7 +22665,7 @@ const initUninitializedListScreens = (listScreens, listKey) => {
                 document.querySelectorAll('.menu').forEach(el => el.classList.remove('hidden'));
             });
             main_initializer.events.on('success', () => {
-                window.location.href = `${location.href}&t=${Date.now()}`;
+                //window.location.href = `${location.href}&t=${Date.now()}`;
             });
         }
         else {

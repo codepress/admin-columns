@@ -1,36 +1,47 @@
 import Nanobus from "nanobus";
-import {AxiosPromise, AxiosResponse} from "axios";
-
-
-import axios from "axios";
+import axios, {AxiosPromise} from "axios";
 import UninitializedListScreens = AC.Vars.Admin.Columns.UninitializedListScreens;
 import UninitializedListScreen = AC.Vars.Admin.Columns.UninitializedListScreen;
 
 
-
 class ListScreenInitializer {
 
-    listScreens: UninitializedListScreens
-    events: Nanobus
-    processed: Array<UninitializedListScreen>
-    errors: Array<UninitializedListScreen>
-    success: Array<UninitializedListScreen>
+    listScreens: UninitializedListScreens;
+    events: Nanobus;
+    processed: Array<UninitializedListScreen>;
+    errors: Array<UninitializedListScreen>;
+    success: Array<UninitializedListScreen>;
+    batchSize: number;
 
-    constructor(list_screens: UninitializedListScreens) {
+    constructor(list_screens: UninitializedListScreens, batchSize = 2) {
         this.listScreens = list_screens;
         this.processed = [];
         this.errors = [];
         this.success = [];
+        this.batchSize = batchSize;
         this.events = new Nanobus();
         this.run();
     }
 
     doAjaxCall(listScreen: UninitializedListScreen): AxiosPromise {
-        return axios.get(listScreen.screen_link)
+        return axios.get(listScreen.screen_link);
     }
 
-    run() {
-        Object.values(this.listScreens).forEach((l:UninitializedListScreen) => this.processListScreen(l));
+    async run() {
+        const listScreenArray = Object.values(this.listScreens);
+        let currentIndex = 0;
+
+        // Process items in batches
+        while (currentIndex < listScreenArray.length) {
+            const batch = listScreenArray.slice(currentIndex, currentIndex + this.batchSize);
+            await this.processBatch(batch);
+            currentIndex += this.batchSize;
+        }
+    }
+
+    async processBatch(batch: Array<UninitializedListScreen>) {
+        const promises = batch.map(listScreen => this.processListScreen(listScreen));
+        await Promise.all(promises);
     }
 
     onFinish() {
@@ -49,19 +60,21 @@ class ListScreenInitializer {
         }
     }
 
-    processListScreen(listScreen: UninitializedListScreen) {
-        this.doAjaxCall(listScreen).then((response: AxiosResponse<string>) => {
-            response.data === 'ac_success'
-                ? this.success.push(listScreen)
-                : this.errors.push(listScreen)
-        }).catch(() => {
+    async processListScreen(listScreen: UninitializedListScreen) {
+        try {
+            const response = await this.doAjaxCall(listScreen);
+            if (response.data === 'ac_success') {
+                this.success.push(listScreen);
+            } else {
+                this.errors.push(listScreen);
+            }
+        } catch {
             this.errors.push(listScreen);
-        }).finally(() => {
+        } finally {
             this.processed.push(listScreen);
             this.checkFinish();
-        });
+        }
     }
-
 }
 
 export const initUninitializedListScreens = (listScreens: UninitializedListScreens, listKey: string) => {
@@ -77,7 +90,7 @@ export const initUninitializedListScreens = (listScreens: UninitializedListScree
             });
 
             main_initializer.events.on('success', () => {
-                window.location.href = `${location.href}&t=${Date.now()}`;
+                //window.location.href = `${location.href}&t=${Date.now()}`;
             });
 
         } else {
