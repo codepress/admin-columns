@@ -2,6 +2,7 @@
 
 namespace AC\ColumnSize;
 
+use AC\Preferences\Preference;
 use AC\Preferences\SiteFactory;
 use AC\Type\ColumnId;
 use AC\Type\ColumnWidth;
@@ -13,23 +14,28 @@ class UserStorage
     private const OPTION_UNIT = 'unit';
     private const OPTION_VALUE = 'value';
 
-    private $storage;
+    private SiteFactory $storage_factory;
 
-    public function __construct()
+    public function __construct(SiteFactory $storage_factory)
     {
-        $this->storage = (new SiteFactory())->create('column_widths');
+        $this->storage_factory = $storage_factory;
+    }
+
+    private function create_storage(): Preference
+    {
+        return $this->storage_factory->create('column_widths');
     }
 
     public function save(ListScreenId $list_id, string $column_name, ColumnWidth $column_width): void
     {
-        $widths = $this->storage->find((string)$list_id) ?: [];
+        $widths = $this->create_storage()->find((string)$list_id) ?: [];
 
         $widths[$column_name] = [
             self::OPTION_UNIT  => $column_width->get_unit(),
             self::OPTION_VALUE => $column_width->get_value(),
         ];
 
-        $this->storage->save(
+        $this->create_storage()->save(
             (string)$list_id,
             $widths
         );
@@ -37,12 +43,12 @@ class UserStorage
 
     public function exists(ListScreenId $list_id): bool
     {
-        return null !== $this->storage->find((string)$list_id);
+        return null !== $this->create_storage()->find((string)$list_id);
     }
 
     public function get(ListScreenId $list_id, ColumnId $column_id): ?ColumnWidth
     {
-        $widths = $this->storage->find((string)$list_id);
+        $widths = $this->create_storage()->find((string)$list_id);
 
         $name = (string)$column_id;
 
@@ -63,7 +69,7 @@ class UserStorage
      */
     public function get_all(ListScreenId $list_id): array
     {
-        $widths = $this->storage->find((string)$list_id);
+        $widths = $this->create_storage()->find((string)$list_id);
 
         if ( ! $widths) {
             return [];
@@ -83,7 +89,7 @@ class UserStorage
 
     public function delete(ListScreenId $list_id, string $column_name): void
     {
-        $widths = $this->storage->find(
+        $widths = $this->create_storage()->find(
             (string)$list_id
         );
 
@@ -94,13 +100,13 @@ class UserStorage
         unset($widths[$column_name]);
 
         $widths
-            ? $this->storage->save((string)$list_id, $widths)
+            ? $this->create_storage()->save((string)$list_id, $widths)
             : $this->delete_by_list_id($list_id);
     }
 
     public function delete_by_list_id(ListScreenId $list_id): void
     {
-        $this->storage->delete(
+        $this->create_storage()->delete(
             (string)$list_id
         );
     }

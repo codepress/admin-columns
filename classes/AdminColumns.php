@@ -217,7 +217,7 @@ class AdminColumns
                 return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
             },
             ContextFactory::class                   => autowire(ContextFactory\Aggregate::class)
-                ->constructorParameter(0, new ContextFactory\Column()),
+                ->constructorParameter(0, DI\get(ContextFactory\Column::class)),
         ];
 
         return (new ContainerBuilder())

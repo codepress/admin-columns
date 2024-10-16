@@ -14,9 +14,9 @@ use AC\Setting\ConfigCollection;
 class EncodedData implements ColumnRepository
 {
 
-    private $factories;
+    private ColumnFactories $factories;
 
-    private $configs;
+    private ConfigCollection $configs;
 
     public function __construct(ColumnFactories $factories, ConfigCollection $configs)
     {

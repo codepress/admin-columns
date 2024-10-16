@@ -36,8 +36,7 @@ class ListScreenSelectColumn implements RequestAjaxHandler
 
     private function get_column_factory($table_screen, $column_type): ?ColumnFactory
     {
-        $factories = $this->column_factory->create($table_screen);
-        foreach ($factories as $factory) {
+        foreach ($this->column_factory->create($table_screen) as $factory) {
             if ($factory->get_column_type() === $column_type) {
                 return $factory;
             }
