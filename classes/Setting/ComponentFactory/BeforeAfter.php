@@ -20,11 +20,11 @@ final class BeforeAfter implements ComponentFactory
     private const BEFORE = 'before';
     private const AFTER = 'after';
 
-    private string $before;
+    private ?string $before;
 
-    private string $after;
+    private ?string $after;
 
-    public function __construct(string $before, string $after)
+    public function __construct(string $before = null, string $after = null)
     {
         $this->before = $before;
         $this->after = $after;
