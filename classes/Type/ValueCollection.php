@@ -12,9 +12,9 @@ final class ValueCollection extends Collection implements Countable
 
     private $id;
 
-    public function __construct(int $id, array $data = [])
+    public function __construct($id, array $data = [])
     {
-        $this->id = $id;
+        $this->id = (int)$id;
 
         array_map([$this, 'add'], $data);
     }
@@ -24,7 +24,7 @@ final class ValueCollection extends Collection implements Countable
         return $this->id;
     }
 
-    public static function from_ids(int $id, array $data): self
+    public static function from_ids($id, array $data): self
     {
         $self = new self($id);
 
