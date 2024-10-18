@@ -23,7 +23,7 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
                 __('Assistant', 'codepress-admin-columns'),
                 __('Media Library Assistant', 'codepress-admin-columns')
             ),
-            new Url\ListTable\Media(null, MLACore::ADMIN_PAGE_SLUG)
+            new Url\ListTable\Media(MLACore::ADMIN_PAGE_SLUG)
         );
     }
 
