@@ -23,7 +23,7 @@ class CustomFieldFactory extends BaseColumnFactory
 
     private ComponentFactory\BeforeAfter $before_after;
 
-    private ComponentFactory\Pro\Sorting $sorting_pro;
+    private ComponentFactory\Pro\TogglePromotionFactory $pro_promotion_factory;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
@@ -31,7 +31,7 @@ class CustomFieldFactory extends BaseColumnFactory
         TableScreenContext $table_screen_context,
         FieldType $field_type,
         ComponentFactory\BeforeAfter $before_after,
-        ComponentFactory\Pro\Sorting $sorting_pro
+        ComponentFactory\Pro\TogglePromotionFactory $pro_promotion_factory
     ) {
         parent::__construct(
             $component_factory_registry
@@ -41,7 +41,7 @@ class CustomFieldFactory extends BaseColumnFactory
         $this->field_type = $field_type;
         $this->table_screen_context = $table_screen_context;
         $this->before_after = $before_after;
-        $this->sorting_pro = $sorting_pro;
+        $this->pro_promotion_factory = $pro_promotion_factory;
     }
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
@@ -49,7 +49,11 @@ class CustomFieldFactory extends BaseColumnFactory
         $factories->add($this->custom_field_factory->create($this->table_screen_context));
         $factories->add($this->field_type);
         $factories->add($this->before_after);
-        $factories->add($this->sorting_pro);
+        $factories->add($this->pro_promotion_factory->create(__('Enable Editing', 'codepress-admin-columns')));
+        $factories->add($this->pro_promotion_factory->create(__('Enable Bulk Editing', 'codepress-admin-columns')));
+        $factories->add($this->pro_promotion_factory->create(__('Enable Export', 'codepress-admin-columns')));
+        $factories->add($this->pro_promotion_factory->create(__('Enable Smart Filtering', 'codepress-admin-columns')));
+        $factories->add($this->pro_promotion_factory->create(__('Enable Filtering', 'codepress-admin-columns')));
     }
 
     public function get_column_type(): string

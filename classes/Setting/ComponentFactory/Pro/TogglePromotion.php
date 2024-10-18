@@ -8,12 +8,19 @@ use AC\Setting\ComponentFactory\Builder;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 
-class Sorting extends Builder
+class TogglePromotion extends Builder
 {
+
+    private string $label;
+
+    public function __construct(string $label)
+    {
+        $this->label = $label;
+    }
 
     protected function get_label(Config $config): ?string
     {
-        return __('Sorting', 'codepress-admin-columns');
+        return $this->label;;
     }
 
     protected function get_input(Config $config): ?Input
