@@ -13,7 +13,7 @@ final class MetaType
     public const TERM = 'term';
     public const SITE = 'site';
 
-    private $meta_type;
+    private string $meta_type;
 
     public function __construct(string $meta_type)
     {
@@ -58,6 +58,11 @@ final class MetaType
         if ( ! in_array($this->meta_type, $types)) {
             throw new LogicException('Invalid meta type ' . $this->meta_type);
         }
+    }
+
+    public function equals(MetaType $meta_type): bool
+    {
+        return $this->meta_type === (string)$meta_type;
     }
 
     public function __toString(): string
