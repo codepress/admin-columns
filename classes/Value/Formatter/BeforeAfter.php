@@ -10,9 +10,9 @@ use AC\Type\Value;
 final class BeforeAfter implements Formatter
 {
 
-    private $before;
+    private string $before;
 
-    private $after;
+    private string $after;
 
     public function __construct(string $before = null, string $after = null)
     {
