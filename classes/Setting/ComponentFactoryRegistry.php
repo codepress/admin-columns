@@ -9,11 +9,11 @@ use AC\Setting;
 class ComponentFactoryRegistry
 {
 
-    private $name;
+    private ComponentFactory\Name $name;
 
-    private $label;
+    private ComponentFactory\Label $label;
 
-    private $width;
+    private ComponentFactory\Width $width;
 
     public function __construct(
         Setting\ComponentFactory\Name $name,

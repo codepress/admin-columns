@@ -13,9 +13,9 @@ use AC\Value\Formatter;
 class DescriptionFactory extends BaseColumnFactory
 {
 
-    private $word_limit_factory;
+    private ComponentFactory\WordLimit $word_limit_factory;
 
-    private $before_after_factory;
+    private ComponentFactory\BeforeAfter $before_after_factory;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
