@@ -20,20 +20,10 @@ final class BeforeAfter implements ComponentFactory
     private const BEFORE = 'before';
     private const AFTER = 'after';
 
-    private ?string $before;
-
-    private ?string $after;
-
-    public function __construct(string $before = null, string $after = null)
-    {
-        $this->before = $before;
-        $this->after = $after;
-    }
-
     public function create(Config $config, Specification $conditions = null): Component
     {
-        $before = $config->get(self::BEFORE, $this->before);
-        $after = $config->get(self::AFTER, $this->after);
+        $before = $config->get(self::BEFORE);
+        $after = $config->get(self::AFTER);
 
         return (new ComponentBuilder())
             ->set_label(
