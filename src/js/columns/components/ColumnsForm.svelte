@@ -13,11 +13,11 @@
     import ColumnTypeDropdown from "./ColumnTypeDropdown.svelte";
     import {currentListKey} from "../store/current-list-screen";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
-    import DebugToolbar from "./DebugToolbar.svelte";
     import {listScreenIsReadOnly} from "../store/read_only";
     import {columnTypesStore} from "../store/column-types";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {getColumnSettingsTranslation} from "../utils/global";
+    import {sprintf} from "@wordpress/i18n";
 
     const i18n = getColumnSettingsTranslation();
 
@@ -25,7 +25,6 @@
 
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
-    export let tableUrl: string;
 
     let start: number | null = 0;
     let end: number | null = 0;
@@ -49,7 +48,7 @@
 
             if (data.columns.find(c => c.name === name)) {
                 return NotificationProgrammatic.open({
-                    message: 'Original column already available',
+                    message: i18n.editor.sentence.original_already_exists,
                     type: 'warning'
                 });
             }
@@ -78,7 +77,7 @@
         let foundIndex = data.columns.findIndex(c => c.name === columnName) ?? null;
 
         if (!foundColumn) {
-            throw new Error(`Column ${columnName} could not be duplicated`);
+            throw new Error(sprintf(i18n.editor.sentence.column_no_duplicate, columnName));
         }
 
         const clonedName = ColumnUtils.generateId();
@@ -211,10 +210,10 @@
 			<div bind:this={sortableContainer}>
 				{#each data.columns as column_data(column_data.name)}
 					<ColumnItem
-						bind:config={ config[column_data.name ?? column_data.type] }
-						bind:data={ column_data }
-						on:delete={ ( e ) => deleteColumn( e.detail ) }
-						on:duplicate={ ( e ) => duplicateColumn( e.detail ) }
+							bind:config={ config[column_data.name ?? column_data.type] }
+							bind:data={ column_data }
+							on:delete={ ( e ) => deleteColumn( e.detail ) }
+							on:duplicate={ ( e ) => duplicateColumn( e.detail ) }
 					/>
 				{/each}
 			</div>

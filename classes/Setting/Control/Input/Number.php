@@ -9,11 +9,11 @@ use AC\Setting\AttributeCollection;
 final class Number extends Open
 {
 
-    private $min;
+    private ?string $min;
 
-    private $max;
+    private ?string $max;
 
-    private $step;
+    private ?string $step;
 
     public function __construct(
         string $name,

@@ -12,21 +12,21 @@ use InvalidArgumentException;
 class Component
 {
 
-    private $label;
+    private ?string $label;
 
-    private $description;
+    private ?string $description;
 
-    private $input;
+    private ?Input $input;
 
-    private $formatters;
+    private ?FormatterCollection $formatters;
 
-    private $children;
+    private ?Children $children;
 
     private $conditions;
 
-    private $attributes;
+    private ?AttributeCollection $attributes;
 
-    private $type;
+    private ?string $type;
 
     public function __construct(
         string $label = null,

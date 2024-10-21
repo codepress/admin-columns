@@ -10,11 +10,11 @@ use AC\Type\Value;
 class Linkable implements Formatter
 {
 
-    private $target;
+    private string $target;
 
-    private $custom_label;
+    private ?string $custom_label;
 
-    private $strip_protocol;
+    private bool $strip_protocol;
 
     public function __construct(string $custom_label = null, string $target = '_self', bool $strip_protocol = false)
     {

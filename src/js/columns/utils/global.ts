@@ -55,6 +55,8 @@ type AdminColumnsI18n = {
             view: string
         }
         sentence: {
+            column_no_duplicate: string
+            original_already_exists: string
             show_default_columns: string
             get_started: string
             documentation: string

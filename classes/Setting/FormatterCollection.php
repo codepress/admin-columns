@@ -19,22 +19,26 @@ final class FormatterCollection extends Collection implements Countable
     /**
      * @param Formatter|CollectionFormatter $formatter
      */
-    public function add($formatter): void
+    public function add($formatter): self
     {
         if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
             throw new InvalidArgumentException();
         }
 
         $this->data[] = $formatter;
+
+        return $this;
     }
 
-    public function prepend($formatter): void
+    public function prepend($formatter): self
     {
         if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
             throw new InvalidArgumentException();
         }
 
         array_unshift($this->data, $formatter);
+
+        return $this;
     }
 
     public function merge(FormatterCollection $formatters): self

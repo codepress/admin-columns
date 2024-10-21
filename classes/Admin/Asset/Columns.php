@@ -237,15 +237,17 @@ class Columns extends Script
                         'view'                 => __('View', 'codepress-admin-columns'),
                     ],
                     'sentence' => [
-                        'show_default_columns' => __(
+                        'column_no_duplicate'     => __('Column %s could not be duplicated', 'codepress-admin-columns'),
+                        'original_already_exists' => __('Original column already exists.', 'codepress-admin-columns'),
+                        'show_default_columns'    => __(
                             'The default columns will be shown on the list table when no columns are added.',
                             'codepress-admin-columns'
                         ),
-                        'get_started'          => __(
+                        'get_started'             => __(
                             'Start by adding columns to your list table.',
                             'codepress-admin-columns'
                         ),
-                        'documentation'        => sprintf(
+                        'documentation'           => sprintf(
                             __('New to Admin Columns? Take a look at our %s', 'codepress-admin-columns'),
                             sprintf(
                                 '<a target="_blank" href="%s">%s</a>',

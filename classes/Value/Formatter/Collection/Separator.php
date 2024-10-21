@@ -14,9 +14,9 @@ use AC\Type\ValueCollection;
 class Separator implements CollectionFormatter
 {
 
-    private $separator;
+    private ?string $separator;
 
-    private $limit;
+    private int $limit;
 
     public function __construct(string $separator = null, int $limit = 0)
     {

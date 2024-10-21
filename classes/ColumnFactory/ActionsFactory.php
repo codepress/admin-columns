@@ -9,7 +9,6 @@ use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Message;
 
-// TODO Allow only one
 class ActionsFactory extends BaseColumnFactory
 {
 
