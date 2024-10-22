@@ -2,7 +2,6 @@
 
 use AC\Column;
 use AC\Container;
-use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\Type\ColumnId;
@@ -105,7 +104,7 @@ if ( ! function_exists('ac_get_columns')) {
 if ( ! function_exists('ac_format_date')) {
     function ac_format_date(string $format, int $timestamp = null, DateTimeZone $timezone = null): ?string
     {
-        return (new Helper\Date())->format_date($format, $timestamp, $timezone) ?: null;
+        return wp_date($format, $timestamp, $timezone) ?: null;
     }
 }
 

@@ -15,17 +15,6 @@ class Html
             : $key;
     }
 
-    public function get_attributes_as_string(array $attributes): string
-    {
-        $output = [];
-
-        foreach ($attributes as $key => $value) {
-            $output[] = $this->get_attribute_as_string($key, $value);
-        }
-
-        return implode(' ', $output);
-    }
-
     public function get_style_attributes_as_string(array $attributes): string
     {
         $style = '';
@@ -99,56 +88,6 @@ class Html
         }
 
         return $label;
-    }
-
-    /**
-     * Display a toggle box which trigger an ajax event on click. The ajax callback calls AC\Column::get_ajax_value.
-     */
-    public function get_ajax_toggle_box_link(int $id, string $label, string $column_name): string
-    {
-        return ac_helper()->html->link('#', $label . '<div class="spinner"></div>', [
-            'class'              => 'ac-toggle-box-link',
-            'data-column'        => $column_name,
-            'data-item-id'       => $id,
-            'data-ajax-populate' => 1,
-            'data-label'         => $label,
-            'data-label-close'   => false,
-        ]);
-    }
-
-    /**
-     * Display a modal which trigger an ajax event on click. The ajax callback calls AC\Column::get_ajax_value.
-     */
-    public function get_ajax_modal_link(
-        string $label,
-        string $view,
-        array $attributes = []
-    ): string {
-        $attribute_markup = [];
-
-        if (isset($attributes['title']) && $attributes['title']) {
-            $attribute_markup[] = sprintf('data-modal-title="%s"', esc_attr($attributes['title']));
-        }
-        if (isset($attributes['edit_link']) && $attributes['edit_link']) {
-            $attribute_markup[] = sprintf('data-modal-edit-link="%s"', esc_url($attributes['edit_link']));
-        }
-        if (isset($attributes['download_link']) && $attributes['download_link']) {
-            $attribute_markup[] = sprintf('data-modal-download-link="%s"', esc_url($attributes['download_link']));
-        }
-        if (isset($attributes['class']) && $attributes['class']) {
-            $attribute_markup[] = sprintf('data-modal-class="%s"', esc_attr($attributes['class']));
-        }
-        if (isset($attributes['id']) && $attributes['id']) {
-            $attribute_markup[] = sprintf('data-modal-id="%s"', esc_attr($attributes['id']));
-        }
-
-        $attribute_markup[] = sprintf('data-view="%s"', esc_attr($view));
-
-        return sprintf(
-            '<a style="border-bottom: 1px dotted;" data-modal-value %s>%s</a>',
-            implode(' ', $attribute_markup),
-            $label
-        );
     }
 
     public function codearea(string $string, int $max_chars = 1000): string

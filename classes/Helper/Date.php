@@ -77,12 +77,6 @@ class Date
         return wp_date($date_format, $timestamp) ?: null;
     }
 
-    // TODO remove
-    public function format_date(string $format, int $timestamp = null, DateTimeZone $timezone = null)
-    {
-        return wp_date($format, $timestamp, $timezone);
-    }
-
     public function timezone(): ?DateTimeZone
     {
         return wp_timezone();
@@ -101,6 +95,13 @@ class Date
         }
 
         return wp_date($format, $timestamp) ?: null;
+    }
+
+    public function format_date(string $format, int $timestamp = null, DateTimeZone $timezone = null)
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION', 'wp_date()');
+
+        return wp_date($format, $timestamp, $timezone);
     }
 
 }

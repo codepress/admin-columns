@@ -12,7 +12,8 @@ class Kses
 
     private function get_allowed_html(): array
     {
-        $html = wp_kses_allowed_html();
+        // TODO test javascript injection prevention
+        $html = wp_kses_allowed_html('post');
 
         $html['iframe'] = [
             'src'             => true,

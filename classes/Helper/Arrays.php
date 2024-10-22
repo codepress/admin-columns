@@ -5,21 +5,6 @@ namespace AC\Helper;
 class Arrays
 {
 
-    public function is_associative($array): bool
-    {
-        if ( ! is_array($array)) {
-            return false;
-        }
-
-        foreach ($array as $key => $value) {
-            if (is_string($key)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public function add_nested_value(array $keys, $value, array $result = []): array
     {
         $key = array_shift($keys);
@@ -121,6 +106,23 @@ class Arrays
         }
 
         return $new;
+    }
+
+    public function is_associative($array): bool
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION');
+
+        if ( ! is_array($array)) {
+            return false;
+        }
+
+        foreach ($array as $key => $value) {
+            if (is_string($key)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function get_duplicates(array $array): array

@@ -7,17 +7,9 @@ use WP_User;
 class User
 {
 
-    /**
-     * @param string $field
-     * @param int    $user_id
-     *
-     * @return bool|string|array
-     */
-    public function get_user_field($field, $user_id)
+    public function get_user_field(string $field, int $user_id)
     {
-        $user = get_user_by('id', $user_id);
-
-        return $user->{$field} ?? false;
+        return get_user_by('id', $user_id)->{$field} ?? null;
     }
 
     public function get_user($user): ?WP_User
@@ -31,18 +23,13 @@ class User
             : null;
     }
 
-    /**
-     * @param array $role_names
-     *
-     * @return array
-     */
-    public function translate_roles($role_names)
+    public function translate_roles(array $role_names): array
     {
         $roles = [];
 
         $wp_roles = wp_roles()->roles;
 
-        foreach ((array)$role_names as $role) {
+        foreach ($role_names as $role) {
             if (isset($wp_roles[$role])) {
                 $roles[$role] = translate_user_role($wp_roles[$role]['name']);
             }
@@ -79,73 +66,38 @@ class User
                     ? implode(' ', $name_parts)
                     : $user->display_name;
             case 'roles' :
-                return ac_helper()->string->enumeration_list($this->get_roles_names($user->roles), 'and');
+                return ac_helper()->string->enumeration_list(
+                    $this->get_roles_names($user->roles),
+                    'and'
+                );
             default :
                 return $user->{$format} ?? $user->display_name;
         }
     }
 
-    /**
-     * @param array $roles Role keys
-     *
-     * @return array Role nice names
-     */
-    public function get_roles_names($roles)
+    public function get_roles_names(array $names): array
     {
-        $role_names = [];
+        $labels = [];
 
-        foreach ($roles as $role) {
-            $name = $this->get_role_name($role);
+        $roles = $this->get_roles();
 
-            if ($name) {
-                $role_names[$role] = $name;
+        foreach ($names as $name) {
+            $label = $roles[$name] ?? null;
+
+            if ($label) {
+                $labels[$name] = $label;
             }
         }
 
-        return $role_names;
+        return $labels;
     }
 
-    /**
-     * @param string $role
-     *
-     * @return string
-     */
-    public function get_role_name($role)
+    public function get_role_name(string $role): ?string
     {
-        $roles = $this->get_roles();
-
-        if ( ! array_key_exists($role, $roles)) {
-            return false;
-        }
-
-        return $roles[$role];
+        return $this->get_roles()[$role] ?? null;
     }
 
-    /**
-     * @param int    $user_id
-     * @param string $post_type
-     *
-     * @return string
-     * @since 3.4.4
-     */
-    public function get_postcount($user_id, $post_type)
-    {
-        global $wpdb;
-        $sql = "
-			SELECT COUNT(ID)
-			FROM {$wpdb->posts}
-			WHERE post_status = 'publish'
-			AND post_author = %d
-			AND post_type = %s
-		";
-
-        return $wpdb->get_var($wpdb->prepare($sql, $user_id, $post_type));
-    }
-
-    /**
-     * @return array Translatable roles
-     */
-    public function get_roles()
+    public function get_roles(): array
     {
         $roles = [];
         foreach (wp_roles()->roles as $k => $role) {
@@ -156,40 +108,9 @@ class User
     }
 
     /**
-     * @param array $roles
-     *
-     * @return array Role Names
-     */
-    public function get_role_names($roles)
-    {
-        $role_names = [];
-
-        $labels = $this->get_roles();
-
-        foreach ($roles as $role) {
-            if (isset($labels[$role])) {
-                $role_names[$role] = $labels[$role];
-            }
-        }
-
-        return $role_names;
-    }
-
-    /**
-     * @return array
-     */
-    public function get_ids()
-    {
-        global $wpdb;
-
-        return $wpdb->get_col("SELECT {$wpdb->users}.ID FROM {$wpdb->users}");
-    }
-
-    /**
      * Fetches remote translations. Expires in 7 days.
-     * @return array[]
      */
-    public function get_translations_remote()
+    public function get_translations_remote(): array
     {
         $translations = get_site_transient('ac_available_translations');
 

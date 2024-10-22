@@ -68,7 +68,6 @@ class Icon
         ]);
     }
 
-    // TODO check usages for `bool`
     public function yes_or_no(bool $is_true, string $tooltip = null): string
     {
         return $is_true

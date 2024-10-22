@@ -5,7 +5,7 @@ namespace AC;
 final class Groups
 {
 
-    private $groups;
+    private array $groups;
 
     public const SORT_PRIORITY = 1;
     public const SORT_SLUG = 2;

@@ -5,11 +5,6 @@ namespace AC\Helper;
 class Strings
 {
 
-    public function shorten_url(string $url): string
-    {
-        return ac_helper()->html->link($url, url_shorten($url), ['title' => $url]);
-    }
-
     public function contains(string $haystack, string $needle): bool
     {
         return '' === $needle || false !== strpos($haystack, $needle);
@@ -224,7 +219,7 @@ class Strings
         } else {
             $array = [$string];
         }
-        
+
         return $array;
     }
 
