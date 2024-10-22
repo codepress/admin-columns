@@ -37,23 +37,23 @@ class FieldType extends Builder
 
     public const TYPE_SELECT = 'select';
 
-    private $string_limit;
+    private StringLimit $string_limit;
 
-    private $number_format;
+    private NumberFormat $number_format;
 
-    private $post;
+    private LinkablePostProperty $post;
 
-    private $user;
+    private UserProperty $user;
 
-    private $date;
+    private DateFormat\Date $date;
 
-    private $date_format;
+    private DateSaveFormat $date_format;
 
-    private $link_label;
+    private LinkLabel $link_label;
 
-    private $image;
+    private ImageSize $image;
 
-    private $media_link;
+    private MediaLink $media_link;
 
     private SelectOptions $select_options;
 
@@ -174,16 +174,6 @@ class FieldType extends Builder
             ],
         ];
 
-        /**
-         * Filter the available custom field types for the meta (custom field) field
-         *
-         * @param array $field_types Available custom field types ([type] => [label])
-         *
-         * @since 3.0
-         */
-        //TODO remove?
-        $grouped_types['custom'] = apply_filters('ac/column/custom_field/field_types', []);
-
         foreach ($grouped_types as $k => $fields) {
             natcasesort($grouped_types[$k]);
         }
@@ -230,10 +220,6 @@ class FieldType extends Builder
 
     protected function get_children(Config $config): ?Children
     {
-        // TODO huge performance issue
-        // test with
-        //        return null;
-
         return new Children(
             new AC\Setting\ComponentCollection([
                 $this->string_limit->create(
@@ -244,12 +230,11 @@ class FieldType extends Builder
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_NUMERIC)
                 ),
-                // TODO huge performance issue
+                // TODO still a performance issue?
                 $this->post->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_POST)
                 ),
-                // TODO huge performance issue
                 $this->user->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_USER)
