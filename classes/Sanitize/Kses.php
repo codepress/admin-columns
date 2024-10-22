@@ -12,7 +12,6 @@ class Kses
 
     private function get_allowed_html(): array
     {
-        // TODO test javascript injection prevention
         $html = wp_kses_allowed_html('post');
 
         $html['iframe'] = [
@@ -30,7 +29,9 @@ class Kses
     {
         return array_merge(
             wp_allowed_protocols(),
-            ['data']
+            [
+                'data',
+            ]
         );
     }
 
