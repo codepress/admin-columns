@@ -15,7 +15,7 @@ use AC\Response;
 class RestoreSettingsRequest implements RequestAjaxHandler
 {
 
-    private $repository;
+    private ListScreenRepository\Storage\ListScreenRepository $repository;
 
     public function __construct(ListScreenRepository\Storage\ListScreenRepository $repository)
     {

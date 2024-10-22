@@ -24,6 +24,11 @@ final class Config
         return $this->config[$key] ?? $default;
     }
 
+    public function set($key, $value): void
+    {
+        $this->config[$key] = $value;
+    }
+
     public function all(): array
     {
         return $this->config;

@@ -15,6 +15,7 @@ use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
 use AC\Setting\Config;
+use AC\Setting\ConfigCollection;
 use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
@@ -24,20 +25,24 @@ use InvalidArgumentException;
 class ListScreenSave implements RequestAjaxHandler
 {
 
-    private $storage;
+    private Storage $storage;
 
-    private $column_factory;
+    private Aggregate $column_factory;
 
-    private $table_screen_factory;
+    private TableScreenFactory $table_screen_factory;
+
+    private LabelEncoder $label_encoder;
 
     public function __construct(
         Storage $storage,
         Aggregate $column_factory,
-        TableScreenFactory $table_screen_factory
+        TableScreenFactory $table_screen_factory,
+        LabelEncoder $label_encoder
     ) {
         $this->storage = $storage;
         $this->column_factory = $column_factory;
         $this->table_screen_factory = $table_screen_factory;
+        $this->label_encoder = $label_encoder;
     }
 
     public function handle(): void
@@ -77,7 +82,7 @@ class ListScreenSave implements RequestAjaxHandler
                 $id,
                 (string)$data['title'],
                 $table_screen,
-                $this->decode_columns($table_screen, (array)$data['columns']),
+                $this->decode_columns($table_screen, $this->decode_configs((array)$data['columns'])),
                 (array)$data['settings']
             );
         } else {
@@ -106,27 +111,38 @@ class ListScreenSave implements RequestAjaxHandler
             )->success();
     }
 
-    private function decode_columns(TableScreen $table_screen, array $columndata): ColumnCollection
+    private function decode_configs(array $config_data): ConfigCollection
     {
-        $columns = new ColumnCollection();
+        $configs = new ConfigCollection();
 
-        $factories = $this->column_factory->create($table_screen);
+        foreach ($config_data as $data) {
+            $config = new Config($data);
 
-        foreach ($columndata as $data) {
-            if ( ! isset($data['type'])) {
+            if ( ! $config->has('type')) {
                 throw new InvalidArgumentException('Missing column type.');
             }
 
-            // TODO
-            if (isset($data['label'])) {
-                $data['label'] = (new LabelEncoder())->encode($data['label']);
+            if ($config->has('label')) {
+                $config->set('label', $this->label_encoder->encode($config->get('label')));
             }
 
-            // TODO performance. Filter factories by type once then iterate.
-            foreach ($factories as $factory) {
-                if ($data['type'] === $factory->get_column_type()) {
-                    $columns->add($factory->create(new Config($data)));
-                }
+            $configs->add($config);
+        }
+
+        return $configs;
+    }
+
+    private function decode_columns(TableScreen $table_screen, ConfigCollection $configs): ColumnCollection
+    {
+        $columns = new ColumnCollection();
+
+        $factories = iterator_to_array($this->column_factory->create($table_screen));
+
+        foreach ($configs as $config) {
+            $factory = $factories[$config->get('type')] ?? null;
+
+            if ($factory) {
+                $columns->add($factory->create($config));
             }
         }
 

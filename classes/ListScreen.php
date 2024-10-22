@@ -204,13 +204,13 @@ final class ListScreen
         $this->preferences[$key] = $value;
     }
 
-    // TODO remove
-
     /**
      * @deprecated NEWVERSION
      */
     public function get_layout_id(): ?string
     {
+        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_id()');
+
         return (string)$this->id;
     }
 

@@ -3,7 +3,6 @@
 namespace AC\Request\Middleware;
 
 use AC\Admin\Preference;
-use AC\ColumnCollection;
 use AC\ColumnTypeRepository;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
@@ -17,13 +16,13 @@ use Exception;
 class ListScreenAdmin implements Middleware
 {
 
-    private $storage;
+    private Storage $storage;
 
-    private $table_screen;
+    private TableScreen $table_screen;
 
-    private $preference;
+    private Preference\ListScreen $preference;
 
-    private $column_type_repository;
+    private ColumnTypeRepository $column_type_repository;
 
     public function __construct(
         Storage $storage,
@@ -94,43 +93,11 @@ class ListScreenAdmin implements Middleware
                 ListScreenId::generate(),
                 (string)$this->table_screen->get_labels(),
                 $this->table_screen,
-                $this->get_default_columns()
+                $this->column_type_repository->find_all_by_original($this->table_screen)
             );
         }
 
         return $list_screen;
-    }
-
-    private function get_default_columns(): ColumnCollection
-    {
-        return $this->column_type_repository->find_all_by_original($this->table_screen);
-
-        // TODO
-        //        $columns = [];
-        //
-        //
-        //        $column_types = $this->column_types_factory->create($this->table_screen);
-        //
-        //        foreach ($column_types as $column_type) {
-        //            if ( ! $column_type->is_original()) {
-        //                continue;
-        //            }
-        //
-        //            $column = $this->column_factory->create(
-        //                $this->table_screen,
-        //                [
-        //                    'type' => $column_type->get_type(),
-        //                    'label' => $column_type->get_label(),
-        //                    'name' => $column_type->get_type(),
-        //                ]
-        //            );
-        //
-        //            if ($column) {
-        //                $columns[] = $column;
-        //            }
-        //        }
-        //
-        //        return new ColumnCollection($columns);
     }
 
     public function handle(Request $request): void

@@ -14,15 +14,14 @@ use AC\Response\Json;
 use AC\TableScreenFactory\Aggregate;
 use AC\Type\ListKey;
 
-// TODO is this in use?
 class ListScreenSelectColumn implements RequestAjaxHandler
 {
 
-    private $table_screen_factory;
+    private Aggregate $table_screen_factory;
 
-    private $column_factory;
+    private AC\ColumnFactories\Aggregate $column_factory;
 
-    private $json_response_factory;
+    private AC\Response\JsonColumnFactory $json_response_factory;
 
     public function __construct(
         Aggregate $table_screen_factory,

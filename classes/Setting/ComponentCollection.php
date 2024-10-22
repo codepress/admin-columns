@@ -29,17 +29,17 @@ class ComponentCollection extends Collection implements Countable
         return count($this->data);
     }
 
-    public function merge(ComponentCollection $collection): ComponentCollection {
-        $merged = new ComponentCollection( $this->data );
+    public function merge(ComponentCollection $collection): ComponentCollection
+    {
+        $merged = new ComponentCollection($this->data);
 
-        foreach( $collection as $component) {
-            $merged->add( $component );
+        foreach ($collection as $component) {
+            $merged->add($component);
         }
 
         return $merged;
     }
 
-    // TODO move outside this scope
     public function find(string $name, ComponentCollection $settings = null): ?Component
     {
         $settings = $settings ?: $this;

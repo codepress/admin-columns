@@ -40,11 +40,9 @@ class CustomFieldKeys implements RequestAjaxHandler
             $query->where_post_type((string)$post_type);
         }
 
-        // TODO David continue
-        $meta_keys = $query->get();
         $encoded = [];
 
-        foreach ($meta_keys as $meta_key) {
+        foreach ($query->get() as $meta_key) {
             $encoded[] = [
                 'value' => $meta_key,
                 'label' => $meta_key,
