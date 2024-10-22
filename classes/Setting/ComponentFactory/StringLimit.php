@@ -18,9 +18,9 @@ final class StringLimit extends Builder
     private const OPTION_CHARACTER_LIMIT = 'character_limit';
     private const OPTION_EXCERPT_LENGTH = 'excerpt_length';
 
-    private $character_limit;
+    private CharacterLimit $character_limit;
 
-    private $word_limit;
+    private WordLimit $word_limit;
 
     public function __construct(CharacterLimit $character_limit, WordLimit $word_limit)
     {

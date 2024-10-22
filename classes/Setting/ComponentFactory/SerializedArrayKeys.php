@@ -15,7 +15,7 @@ class SerializedArrayKeys extends Builder
         return __('Array Keys', 'codepress-admin-columns');
     }
 
-    // TODO missing instruction modal as in told version
+    // TODO missing instruction modal as in old version
 
     protected function get_input(Config $config): ?Input
     {
