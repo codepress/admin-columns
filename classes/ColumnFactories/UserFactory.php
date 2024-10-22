@@ -9,6 +9,8 @@ use AC\ColumnFactory;
 use AC\ColumnFactory\User;
 use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
+use AC\Type\ColumnFactoryDefinition;
+use AC\Type\TableScreenContext;
 
 final class UserFactory extends BaseFactory
 {
@@ -20,6 +22,21 @@ final class UserFactory extends BaseFactory
         if ( ! $table_screen instanceof TableScreen\User) {
             return $collection;
         }
+
+        $table_screen_context = TableScreenContext::from_table_screen($table_screen);
+
+        if ( ! $table_screen_context) {
+            return $collection;
+        }
+
+        $collection->add(
+            new ColumnFactoryDefinition(
+                AC\ColumnFactory\CustomFieldFactory::class,
+                [
+                    'table_screen_context' => $table_screen_context,
+                ]
+            )
+        );
 
         $factories = [
             ColumnFactory\ActionsFactory::class,

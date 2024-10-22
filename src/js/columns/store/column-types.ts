@@ -12,9 +12,16 @@ function createColumnTypesStore(): Writable<ColumnConfig[]> {
     };
 }
 
+export const getSortedColumnGroups = () => {
+    return getColumnSettingsConfig().column_groups.sort((a, b) => {
+        return a.priority > b.priority ? 1 : -1;
+    });
+}
+
+
 export const columnTypeSorter = (a: ColumnConfig, b: ColumnConfig) => {
     // Compare based on group priority
-    const sortedColumnGroups = getColumnSettingsConfig().column_groups.map(g => g.slug);
+    const sortedColumnGroups = getSortedColumnGroups().map(g => g.slug);
     const groupPriorityA = sortedColumnGroups.indexOf(a.group_key);
     const groupPriorityB = sortedColumnGroups.indexOf(b.group_key);
 

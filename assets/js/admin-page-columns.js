@@ -3102,7 +3102,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (11:0) {#if isSubComponent}
+// (12:0) {#if isSubComponent}
 function create_if_block(ctx) {
   let div2;
   let div0;
@@ -3184,7 +3184,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (43:3) {#if description}
+// (44:3) {#if description}
 function create_if_block_2(ctx) {
   let small;
   return {
@@ -3208,7 +3208,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (24:3) {#if description}
+// (25:3) {#if description}
 function create_if_block_1(ctx) {
   let small;
   return {
@@ -22204,7 +22204,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   columnTypeSorter: () => (/* binding */ columnTypeSorter),
-/* harmony export */   columnTypesStore: () => (/* binding */ columnTypesStore)
+/* harmony export */   columnTypesStore: () => (/* binding */ columnTypesStore),
+/* harmony export */   getSortedColumnGroups: () => (/* binding */ getSortedColumnGroups)
 /* harmony export */ });
 /* harmony import */ var svelte_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/store */ "./node_modules/svelte/src/runtime/store/index.js");
 /* harmony import */ var _utils_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/global */ "./js/columns/utils/global.ts");
@@ -22218,9 +22219,14 @@ function createColumnTypesStore() {
         update
     };
 }
+const getSortedColumnGroups = () => {
+    return (0,_utils_global__WEBPACK_IMPORTED_MODULE_1__.getColumnSettingsConfig)().column_groups.sort((a, b) => {
+        return a.priority > b.priority ? 1 : -1;
+    });
+};
 const columnTypeSorter = (a, b) => {
     // Compare based on group priority
-    const sortedColumnGroups = (0,_utils_global__WEBPACK_IMPORTED_MODULE_1__.getColumnSettingsConfig)().column_groups.map(g => g.slug);
+    const sortedColumnGroups = getSortedColumnGroups().map(g => g.slug);
     const groupPriorityA = sortedColumnGroups.indexOf(a.group_key);
     const groupPriorityB = sortedColumnGroups.indexOf(b.group_key);
     if (groupPriorityA !== groupPriorityB) {
