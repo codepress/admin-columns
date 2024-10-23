@@ -28,6 +28,8 @@ class Columns extends Script
 
     private AC\Table\TableScreenRepository $table_screen_repository;
 
+    private AC\ColumnGroups $column_groups;
+
     private ?ListScreenId $list_id;
 
     public function __construct(
@@ -38,6 +40,7 @@ class Columns extends Script
         AC\Admin\MenuListItems $menu_items,
         AC\Table\TableScreenRepository $table_screen_repository,
         EditorFavorites $favorite_repository,
+        AC\ColumnGroups $column_groups,
         ListScreenId $list_id = null
     ) {
         parent::__construct($handle, $location, [
@@ -50,6 +53,7 @@ class Columns extends Script
         $this->favorite_repository = $favorite_repository;
         $this->table_screen_repository = $table_screen_repository;
         $this->list_id = $list_id;
+        $this->column_groups = $column_groups;
     }
 
     public function get_pro_modal_arguments(): array
@@ -98,6 +102,22 @@ class Columns extends Script
         return $arguments;
     }
 
+    private function encode_groups(AC\Type\Groups $groups): array
+    {
+        $encode = [];
+
+        foreach ($groups as $group) {
+            $encode[] = [
+                'slug'     => $group->get_slug(),
+                'label'    => $group->get_label(),
+                'priority' => $group->get_priority(),
+                'icon'     => $group->has_icon() ? $group->get_icon() : '',
+            ];
+        }
+
+        return $encode;
+    }
+
     public function register(): void
     {
         parent::register();
@@ -115,7 +135,7 @@ class Columns extends Script
             'list_key'                   => (string)$this->table_screen->get_key(),
             'list_id'                    => (string)$this->list_id,
             'uninitialized_list_screens' => $uninitialized_table_screens,
-            'column_groups'              => AC\ColumnGroups::get_groups()->get_all(),
+            'column_groups'              => $this->encode_groups($this->column_groups->find_all()),
             'menu_items'                 => $this->get_menu_items(),
             'menu_items_favorites'       => $this->encode_favorites(
                 $this->get_favorite_table_screens()

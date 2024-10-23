@@ -12,6 +12,7 @@ use AC\Asset\Enqueueables;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
+use AC\ColumnGroups;
 use AC\Renderable;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Table\TableScreenCollection;
@@ -24,21 +25,23 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     public const NAME = 'columns';
 
-    private $location;
+    private Absolute $location;
 
-    private $head;
+    private Renderable $head;
 
-    private $table_screen;
+    private TableScreen $table_screen;
 
-    private $list_id;
+    private Admin\MenuListItems $menu_items;
 
-    private $menu_items;
+    private EditorFavorites $favorite_repository;
 
-    private $favorite_repository;
+    private TableScreenRepository $table_screen_repository;
 
-    private $table_screen_repository;
+    private TableScreenCollection $uninitialized_screens;
 
-    private $uninitialized_screens;
+    private ColumnGroups $column_groups;
+
+    private ?ListScreenId $list_id;
 
     public function __construct(
         Absolute $location,
@@ -48,6 +51,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         Admin\MenuListItems $menu_items,
         EditorFavorites $favorite_repository,
         TableScreenRepository $table_screen_repository,
+        ColumnGroups $column_groups,
         ListScreenId $list_id = null
     ) {
         $this->location = $location;
@@ -58,6 +62,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         $this->table_screen_repository = $table_screen_repository;
         $this->uninitialized_screens = $uninitialized_screens;
         $this->list_id = $list_id;
+        $this->column_groups = $column_groups;
     }
 
     public function get_table_screen(): TableScreen
@@ -85,6 +90,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 $this->menu_items,
                 $this->table_screen_repository,
                 $this->favorite_repository,
+                $this->column_groups,
                 $this->list_id
             ),
             new Style(

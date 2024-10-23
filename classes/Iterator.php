@@ -2,33 +2,41 @@
 
 namespace AC;
 
-abstract class Iterator implements \Iterator {
+use ReturnTypeWillChange;
 
-	protected $data = [];
+abstract class Iterator implements \Iterator
+{
 
-	#[\ReturnTypeWillChange]
-	public function current() {
-		return current( $this->data );
-	}
+    protected array $data = [];
 
-	#[\ReturnTypeWillChange]
-	public function next() {
-		return next( $this->data );
-	}
+    #[ReturnTypeWillChange]
+    public function current()
+    {
+        return current($this->data);
+    }
 
-	#[\ReturnTypeWillChange]
-	public function key() {
-		return key( $this->data );
-	}
+    #[ReturnTypeWillChange]
+    public function next()
+    {
+        return next($this->data);
+    }
 
-	#[\ReturnTypeWillChange]
-	public function valid() {
-		return $this->key() !== null;
-	}
+    #[ReturnTypeWillChange]
+    public function key()
+    {
+        return key($this->data);
+    }
 
-	#[\ReturnTypeWillChange]
-	public function rewind() {
-		reset( $this->data );
-	}
+    #[ReturnTypeWillChange]
+    public function valid()
+    {
+        return $this->key() !== null;
+    }
+
+    #[ReturnTypeWillChange]
+    public function rewind()
+    {
+        reset($this->data);
+    }
 
 }

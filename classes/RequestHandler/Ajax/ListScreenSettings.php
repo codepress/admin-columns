@@ -20,24 +20,28 @@ use InvalidArgumentException;
 class ListScreenSettings implements RequestAjaxHandler
 {
 
-    private $storage;
+    private Storage $storage;
 
-    private $table_factory;
+    private AC\TableScreenFactory\Aggregate $table_factory;
 
-    private $preference;
+    private Preference\ListScreen $preference;
 
-    private $type_repository;
+    private AC\ColumnTypeRepository $type_repository;
+
+    private AC\ColumnGroups $column_groups;
 
     public function __construct(
         Storage $storage,
         AC\TableScreenFactory\Aggregate $table_factory,
         AC\ColumnTypeRepository $type_repository,
-        Preference\ListScreen $preference
+        Preference\ListScreen $preference,
+        AC\ColumnGroups $column_groups
     ) {
         $this->storage = $storage;
         $this->table_factory = $table_factory;
         $this->preference = $preference;
         $this->type_repository = $type_repository;
+        $this->column_groups = $column_groups;
     }
 
     public function handle(): void
@@ -113,14 +117,15 @@ class ListScreenSettings implements RequestAjaxHandler
     {
         $column_types = [];
 
-        $groups = AC\ColumnGroups::get_groups();
         $original_types = $this->get_original_types($table_screen);
 
         foreach ($this->type_repository->find_all($table_screen) as $column) {
+            $group = $this->column_groups->find($column->get_group());
+
             $column_types[] = [
                 'label'     => $this->get_clean_label($column),
                 'value'     => $column->get_type(),
-                'group'     => $groups->get($column->get_group())['label'],
+                'group'     => $group ? $group->get_label() : __('Default', 'codepress-admin-columns'),
                 'group_key' => $column->get_group(),
                 'original'  => in_array($column->get_type(), $original_types, true),
             ];
