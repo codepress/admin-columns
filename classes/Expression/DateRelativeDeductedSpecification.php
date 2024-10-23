@@ -13,7 +13,6 @@ final class DateRelativeDeductedSpecification extends OperatorExpression
 
     use DateTrait;
 
-
     public function __construct(string $operator, ?string $format = null, ?DateTimeZone $timezone = null)
     {
         parent::__construct($operator);
@@ -29,9 +28,8 @@ final class DateRelativeDeductedSpecification extends OperatorExpression
     {
         // Format that discards time
         $format = DateFormats::MYSQL_DATE;
-
-        $date = $this->create_date_from_value($value)->format($format);
-        $today = DateTimeFactory::create( $this->timezone )->format($format);
+        $date = $this->create_date_from_value($value);
+        $today = DateTimeFactory::create($this->timezone)->format($format);
 
         switch ($this->operator) {
             case DateOperators::TODAY:

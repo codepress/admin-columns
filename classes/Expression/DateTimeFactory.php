@@ -13,7 +13,7 @@ final class DateTimeFactory
 
     public static function create(?DateTimeZone $timezone = null): DateTime
     {
-        return new DateTime(null, self::resolve_timezone($timezone));
+        return new DateTime('now', self::resolve_timezone($timezone));
     }
 
     /**
