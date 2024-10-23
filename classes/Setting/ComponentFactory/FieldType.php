@@ -14,7 +14,6 @@ use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 
-// TODO huge performance issue see usages RelatedUserMetaField and CustomFieldFactory
 class FieldType extends Builder
 {
 
@@ -196,15 +195,7 @@ class FieldType extends Builder
             case self::TYPE_COLOR:
                 $formatters->add(new AC\Value\Formatter\Color());
                 break;
-            case self::TYPE_NUMERIC:
-                $formatters->add(
-                    new AC\Value\Formatter\NumberFormat(
-                        (int)$config->get('number_decimals', 0),
-                        $config->get('number_decimal_point', '.'),
-                        $config->get('number_thousands_separator', ',')
-                    )
-                );
-                break;
+
             case self::TYPE_NON_EMPTY:
                 $formatters->add(new AC\Value\Formatter\HasValue());
                 $formatters->add(new AC\Value\Formatter\YesNoIcon());
@@ -230,7 +221,6 @@ class FieldType extends Builder
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_NUMERIC)
                 ),
-                // TODO still a performance issue?
                 $this->post->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_POST)
