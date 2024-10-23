@@ -20,14 +20,9 @@ final class CommentFactory extends BaseFactory
             return $collection;
         }
 
-        $table_screen_context = AC\Type\TableScreenContext::from_table_screen($table_screen);
-
-        $collection->add(new AC\Type\ColumnFactoryDefinition(AC\ColumnFactory\CustomFieldFactory::class, [
-            'table_screen_context' => $table_screen_context,
-        ]));
-
         $factories = [
             AC\ColumnFactory\ActionsFactory::class,
+            AC\ColumnFactory\CustomFieldFactory::class,
             Comment\AgentFactory::class,
             Comment\ApprovedFactory::class,
             Comment\AuthorAvatarFactory::class,
