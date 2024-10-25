@@ -22,14 +22,14 @@ class DateComparisonSpecification extends ComparisonSpecification implements Typ
         ?string $format = null,
         ?DateTimeZone $timezone = null
     ) {
+        $this->format = $format;
+        $this->timezone = $timezone;
+        $this->type = Types::DATE;
+
         parent::__construct(
             $operator,
             $this->create_date_from_value($fact)->getTimestamp()
         );
-
-        $this->format = $format;
-        $this->timezone = $timezone;
-        $this->type = Types::DATE;
     }
 
     /**

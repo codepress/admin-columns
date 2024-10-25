@@ -31,7 +31,7 @@ final class DateTimeFactory
         );
 
         if ( ! $parsed) {
-            throw new InvalidDateFormatException($date_time, $format);
+            throw new InvalidDateFormatException($date_time, (string)$format);
         }
 
         return $parsed;

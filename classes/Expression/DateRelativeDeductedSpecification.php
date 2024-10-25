@@ -28,7 +28,7 @@ final class DateRelativeDeductedSpecification extends OperatorExpression
     {
         // Format that discards time
         $format = DateFormats::MYSQL_DATE;
-        $date = $this->create_date_from_value($value);
+        $date = $this->create_date_from_value($value)->format($format);
         $today = DateTimeFactory::create($this->timezone)->format($format);
 
         switch ($this->operator) {
