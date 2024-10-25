@@ -45,7 +45,7 @@ final class DateRelativeDaysSpecification extends OperatorExpression implements 
         $format = DateFormats::MYSQL_DATE;
 
         $today = DateTimeFactory::create($this->timezone)->format($format);
-        $date = DateTimeFactory::create_from_format($this->format, $value, $this->timezone)->format($format);
+        $date = DateTimeFactory::create_from_format($value, $this->format, $this->timezone)->format($format);
         $fact = $this->fact->format($format);
 
         switch ($this->operator) {

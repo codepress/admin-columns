@@ -35,8 +35,8 @@ class RegisteredDateFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters->add(new Formatter\Timestamp());
-        $formatters->add(new Formatter\User\Property('user_registered'));
+        $formatters->prepend(new Formatter\Timestamp());
+        $formatters->prepend(new Formatter\User\Property('user_registered'));
     }
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void

@@ -48,7 +48,9 @@ class LastPostFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters->add(new AC\Value\Formatter\User\LastPost($post_type, $post_status));
+        $post_type = $config->has('post_type') ? (array)$config->get('post_type') : null;
+        $post_status = $config->has('post_status') ? (array)$config->get('post_status') : null;
+        $formatters->prepend(new AC\Value\Formatter\User\LastPost($post_type, $post_status));
     }
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
