@@ -85,7 +85,6 @@ final class ImageSize extends Builder
     {
         $default_group = __('Default', 'codepress-admin-columns');
 
-        // TODO
         $options = new OptionCollection([
             new Option(__('Thumbnail', 'codepress-admin-columns'), 'thumbnail', $default_group),
             new Option(__('Medium', 'codepress-admin-columns'), 'medium', $default_group),
@@ -102,7 +101,7 @@ final class ImageSize extends Builder
 
             $options->add(
                 new Option(
-                    ucwords(str_replace('-', ' ', $size)),
+                    ucwords(str_replace(['-', '_'], ' ', $size)),
                     $size,
                     $custom_group
                 )

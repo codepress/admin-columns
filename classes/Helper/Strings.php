@@ -187,15 +187,9 @@ class Strings
         return $this->hex_format($contrast, true);
     }
 
-    /**
-     * @param string $url
-     *
-     * @return bool
-     * @since 1.2.0
-     */
-    public function is_image($url)
+    public function is_image(string $url): bool
     {
-        if ( ! $url || ! is_string($url)) {
+        if ( ! $url) {
             return false;
         }
 

@@ -15,7 +15,7 @@ class Image implements Formatter
      */
     private $size;
 
-    private $skip_image_check;
+    private bool $skip_image_check;
 
     public function __construct($size, bool $skip_image_check = false)
     {

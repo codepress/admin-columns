@@ -13,7 +13,7 @@ use AC\Value\Formatter;
 class FeaturedImageFactory extends BaseColumnFactory
 {
 
-    private $featured_image_component;
+    private FeaturedImageDisplay $featured_image_component;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,

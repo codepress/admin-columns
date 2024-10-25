@@ -21,11 +21,10 @@ class FeaturedImageDisplay extends Builder
 
     public const NAME = 'featured_image_display';
 
-    private $image_size;
+    private ImageSize $image_size;
 
-    public function __construct(
-        ImageSize $image_size
-    ) {
+    public function __construct(ImageSize $image_size)
+    {
         $this->image_size = $image_size;
     }
 
