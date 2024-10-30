@@ -11,9 +11,9 @@ use AC\Setting\Control\OptionCollection;
 class Option extends Input
 {
 
-    protected $options;
+    protected OptionCollection $options;
 
-    protected $multiple;
+    protected bool $multiple;
 
     public function __construct(
         string $name,
