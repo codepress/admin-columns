@@ -5,15 +5,9 @@ namespace AC;
 class View implements Renderable
 {
 
-    /**
-     * @var array
-     */
-    private $data = [];
+    private array $data = [];
 
-    /**
-     * @var string|null
-     */
-    private $template;
+    private ?string $template;
 
     public function __construct(array $data = [])
     {
