@@ -11,11 +11,11 @@ use AC\Type\ValueCollection;
 class LocalizeSeparator implements CollectionFormatter
 {
 
-    public function format(ValueCollection $value): Value
+    public function format(ValueCollection $collection): Value
     {
         $values = [];
 
-        foreach ($value as $_value) {
+        foreach ($collection as $_value) {
             $values[] = (string)$_value;
         }
 
