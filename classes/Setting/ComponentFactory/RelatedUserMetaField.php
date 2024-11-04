@@ -13,7 +13,7 @@ use AC\Type\TableScreenContext;
 class RelatedUserMetaField extends CustomField
 {
 
-    private $field_type;
+    private FieldType $field_type;
 
     public function __construct(FieldType $field_type)
     {
@@ -26,7 +26,6 @@ class RelatedUserMetaField extends CustomField
     {
         return new Children(
             new ComponentCollection([
-                // TODO huge performance issue
                 $this->field_type->create($config),
             ])
         );
