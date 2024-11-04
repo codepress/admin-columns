@@ -12,7 +12,6 @@ class FileSize implements Formatter
 
     public function format(Value $value): Value
     {
-        // TODO based on which size has been selected...
         $file = get_attached_file($value->get_id());
 
         if ( ! file_exists($file)) {

@@ -9,7 +9,6 @@ use AC;
 interface ListTable
 {
 
-    // TODO should we remove this from the TableScreen?
     public function list_table(): AC\ListTable;
 
 }

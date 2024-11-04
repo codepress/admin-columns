@@ -36,7 +36,9 @@ final class MediaLink extends Builder
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        $formatters->add(new Formatter\Media\Link((string)$config->get(self::NAME)));
+        $formatters->add(
+            new Formatter\Media\Link((string)$config->get(self::NAME))
+        );
     }
 
 }

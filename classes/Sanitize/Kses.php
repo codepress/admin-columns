@@ -14,6 +14,7 @@ class Kses
     {
         $html = wp_kses_allowed_html('post');
 
+        $html['a']['download'] = true;
         $html['iframe'] = [
             'src'             => true,
             'height'          => true,

@@ -7,13 +7,13 @@ namespace AC\Value\Formatter;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
-abstract class  ContentTypeLink implements Formatter
+abstract class ContentTypeLink implements Formatter
 {
 
     public const VIEW = 'view';
     public const EDIT = 'edit';
 
-    protected $type;
+    protected string $type;
 
     public function __construct(string $type)
     {
@@ -40,9 +40,9 @@ abstract class  ContentTypeLink implements Formatter
                 return $this->get_view_link($value);
             case self::EDIT:
                 return $this->get_edit_link($value);
+            default :
+                return null;
         }
-
-        return null;
     }
 
     protected function create_link(string $url, string $value): string

@@ -10,7 +10,7 @@ use AC\Setting\ConditionalComponentFactoryCollection;
 class AttachmentFactory extends BaseColumnFactory
 {
 
-    private $attachments_factory;
+    private AttachmentDisplay $attachments_factory;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
