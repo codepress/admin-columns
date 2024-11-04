@@ -10,21 +10,16 @@ use AC\Setting\Config;
 use AC\Type\Value;
 use AC\Type\ValueCollection;
 
-// TODO make it available as constants here or in setting
 class Separator implements CollectionFormatter
 {
 
-    private ?string $separator;
+    private string $separator;
 
     private int $limit;
 
     public function __construct(string $separator = null, int $limit = 0)
     {
-        if (null === $separator) {
-            $separator = self::get_separator(', ');
-        }
-
-        $this->separator = $separator;
+        $this->separator = $separator ?? ', ';
         $this->limit = $limit;
     }
 

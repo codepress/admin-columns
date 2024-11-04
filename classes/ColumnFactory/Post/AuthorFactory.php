@@ -16,9 +16,9 @@ use AC\Value\Formatter;
 class AuthorFactory extends BaseColumnFactory
 {
 
-    private $user_factory;
+    private UserProperty $user_factory;
 
-    private $before_after_factory;
+    private BeforeAfter $before_after_factory;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,

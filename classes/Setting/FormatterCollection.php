@@ -30,6 +30,14 @@ final class FormatterCollection extends Collection implements Countable
         return $this;
     }
 
+    public function with_formatter(Formatter $formatter): self
+    {
+        $formatters = $this->data;
+        $formatters[] = $formatter;
+
+        return new self($formatters);
+    }
+
     public function prepend($formatter): self
     {
         if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {

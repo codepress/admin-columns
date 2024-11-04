@@ -11,21 +11,18 @@ use BadMethodCallException;
 class Component extends AC\Setting\Component
 {
 
-    private $type;
+    private string $type;
 
-    private $label;
+    private string $label;
 
-    private $description;
+    private string $description;
 
-    private $control;
-
-    private $attributes;
+    private AttributeCollection $attributes;
 
     public function ____construct(
         string $type,
         string $label,
         string $description = null,
-        Control $control = null,
         AttributeCollection $attributes = null
     ) {
         if (null === $attributes) {
@@ -35,7 +32,6 @@ class Component extends AC\Setting\Component
         $this->type = $type;
         $this->label = $label;
         $this->description = $description;
-        $this->control = $control;
         $this->attributes = $attributes;
     }
 
@@ -66,11 +62,6 @@ class Component extends AC\Setting\Component
         }
 
         return $this->description;
-    }
-
-    public function has_control(): bool
-    {
-        return $this->control instanceof Control;
     }
 
 }

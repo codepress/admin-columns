@@ -50,7 +50,6 @@ final class StringLimit extends Builder
 
     protected function get_children(Config $config): ?Children
     {
-        // TODO test
         return new Children(
             new ComponentCollection([
                 $this->character_limit->create(

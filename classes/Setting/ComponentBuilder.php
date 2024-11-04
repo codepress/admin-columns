@@ -64,7 +64,6 @@ final class ComponentBuilder
         return $this;
     }
 
-    // TODO David decide if this shortcut is worth it
     public function set_formatter(Formatter $formatter): self
     {
         $formatters = new FormatterCollection();
