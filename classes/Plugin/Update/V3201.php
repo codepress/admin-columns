@@ -14,10 +14,7 @@ use RecursiveIteratorIterator;
 class V3201 extends Update
 {
 
-    /**
-     * @var Absolute
-     */
-    private $location;
+    private Absolute $location;
 
     public function __construct(Absolute $location)
     {
