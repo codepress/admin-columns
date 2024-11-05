@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-07-30 12:43:22+0000\n"
+"PO-Revision-Date: 2024-10-23 19:20:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2329,7 +2329,7 @@ msgstr "Bijlagen"
 #: classes/Column/Media/Preview.php:14
 #: classes/Settings/Column/NumberFormat.php:78
 msgid "Preview"
-msgstr "Voorvertoning"
+msgstr "Voorbeeld"
 
 #: classes/Column/Media/Width.php:17
 #: classes/Settings/Column/FileMetaVideo.php:18
