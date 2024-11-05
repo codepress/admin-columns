@@ -10,7 +10,7 @@ use AC\Type\Value;
 final class WordLimit implements Formatter
 {
 
-    private $word_limit;
+    private int $word_limit;
 
     public function __construct(int $word_limit)
     {
@@ -19,10 +19,12 @@ final class WordLimit implements Formatter
 
     public function format(Value $value): Value
     {
-        if ($this->word_limit) {
+        $string = (string)$value->get_value();
+
+        if ($this->word_limit > 0 && '' !== $string) {
             $value = $value->with_value(
-                ac_helper()->string->trim_words(
-                    (string)$value->get_value(),
+                wp_trim_words(
+                    $string,
                     $this->word_limit
                 )
             );

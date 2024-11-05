@@ -2,12 +2,13 @@
 
 namespace AC\Helper;
 
+use WP_Taxonomy;
 use WP_Term;
 
 class Taxonomy
 {
 
-    private $html;
+    private Html $html;
 
     public function __construct()
     {
@@ -53,69 +54,32 @@ class Taxonomy
         );
     }
 
-    /**
-     * @param WP_Term $term
-     *
-     * @return false|string
-     */
-    public function get_term_display_name($term)
+    public function get_term_display_name(WP_Term $term): string
     {
-        if ( ! $term || is_wp_error($term)) {
-            return false;
-        }
-
-        return sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'display');
+        return (string)sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'display');
     }
 
-    /**
-     * @param string $object_type post, page, user etc.
-     * @param string $taxonomy    Taxonomy Name
-     *
-     * @return bool
-     */
-    public function is_taxonomy_registered($object_type, $taxonomy = '')
-    {
-        if ( ! $object_type || ! $taxonomy) {
-            return false;
-        }
-
-        return is_object_in_taxonomy($object_type, $taxonomy);
-    }
-
-    /**
-     * @param string $field
-     * @param int    $term_id
-     * @param string $taxonomy
-     *
-     * @return bool|mixed
-     * @since 3.0
-     */
-    public function get_term_field($field, $term_id, $taxonomy)
+    public function get_term_field(string $field, int $term_id, string $taxonomy): ?string
     {
         $term = get_term_by('id', $term_id, $taxonomy);
 
-        if ( ! $term || is_wp_error($term)) {
-            return false;
+        if ( ! $term instanceof WP_Term) {
+            return null;
         }
 
         if ( ! isset($term->{$field})) {
-            return false;
+            return null;
         }
 
-        return $term->{$field};
+        return (string)$term->{$field};
     }
 
-    /**
-     * @param $post_type
-     *
-     * @return array
-     * @since 3.0
-     */
-    public function get_taxonomy_selection_options($post_type)
+    public function get_taxonomy_selection_options($post_type): array
     {
         $taxonomies = get_object_taxonomies($post_type, 'objects');
 
         $options = [];
+
         foreach ($taxonomies as $index => $taxonomy) {
             if ($taxonomy->name == 'post_format') {
                 unset($taxonomies[$index]);
@@ -128,19 +92,14 @@ class Taxonomy
         return $options;
     }
 
-    /**
-     * @param int    $term_ids
-     * @param string $taxonomy
-     *
-     * @return WP_Term[]
-     */
-    public function get_terms_by_ids($term_ids, $taxonomy)
+    public function get_terms_by_ids(array $term_ids, string $taxonomy): array
     {
         $terms = [];
 
-        foreach ((array)$term_ids as $term_id) {
-            $term = get_term($term_id, $taxonomy);
-            if ($term && ! is_wp_error($term)) {
+        foreach ($term_ids as $term_id) {
+            $term = get_term((int)$term_id, $taxonomy);
+
+            if ($term instanceof WP_Term) {
                 $terms[] = $term;
             }
         }
@@ -148,22 +107,15 @@ class Taxonomy
         return $terms;
     }
 
-    public function get_taxonomy_label($taxonomy, $key = 'name')
+    public function get_taxonomy_label(string $taxonomy, string $property = 'name'): string
     {
-        $label = $taxonomy;
         $taxonomy_object = get_taxonomy($taxonomy);
 
-        if ( ! $taxonomy_object) {
-            return $label;
+        if ( ! $taxonomy_object instanceof WP_Taxonomy) {
+            return $taxonomy;
         }
 
-        $labels = get_taxonomy_labels($taxonomy_object);
-
-        if (property_exists($labels, $key)) {
-            $label = $labels->$key;
-        }
-
-        return $label;
+        return get_taxonomy_labels($taxonomy_object)->$property ?? $taxonomy;
     }
 
 }

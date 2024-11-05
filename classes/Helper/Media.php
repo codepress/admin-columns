@@ -5,29 +5,22 @@ namespace AC\Helper;
 class Media
 {
 
-    /**
-     * @param string $image_url
-     * @param bool   $check_cropped_versions Checks for cropped version of the image. e.g. file-name-320x60.jpg
-     *
-     * @return false|int
-     */
-    // TODO
-    public function get_attachment_id_by_url($image_url, $check_cropped_versions = false)
+    public function get_attachment_id_by_url(string $image_url, bool $check_cropped_versions = false): ?int
     {
         if ( ! $image_url) {
-            return false;
+            return null;
         }
 
         $upload_dir = wp_get_upload_dir();
 
         // Is image in upload folder?
         if (false === strpos($image_url, $upload_dir['baseurl'])) {
-            return false;
+            return null;
         }
 
         $file_with_relative_path = ltrim(str_replace($upload_dir['baseurl'], '', $image_url), '/');
 
-        $image_id = false;
+        $image_id = null;
 
         $images = get_posts([
             'post_type'      => 'attachment',

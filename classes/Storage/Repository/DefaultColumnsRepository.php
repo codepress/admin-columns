@@ -5,8 +5,6 @@ namespace AC\Storage\Repository;
 use AC\Storage\Option;
 use AC\Type\ListKey;
 
-// TODO return ColumnCollection and Column instead of array
-
 final class DefaultColumnsRepository
 {
 
@@ -32,11 +30,6 @@ final class DefaultColumnsRepository
     {
         $this->get_storage($key)
              ->delete();
-    }
-
-    public function find(string $type, ListKey $key): ?string
-    {
-        return $this->get_cached_storage($key)[$type] ?? null;
     }
 
     public function find_all(ListKey $key): array

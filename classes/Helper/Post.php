@@ -47,7 +47,7 @@ class Post
             setup_postdata($post);
         }
 
-        return ac_helper()->string->trim_words($excerpt, $words);
+        return wp_trim_words($excerpt, $words);
     }
 
     public function get_raw_field(string $field, int $id): ?string

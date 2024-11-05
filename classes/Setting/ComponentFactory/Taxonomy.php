@@ -16,7 +16,7 @@ use AC\Type\PostTypeSlug;
 class Taxonomy implements ComponentFactory
 {
 
-    private $post_type;
+    private PostTypeSlug $post_type;
 
     public function __construct(PostTypeSlug $post_type)
     {
@@ -48,11 +48,12 @@ class Taxonomy implements ComponentFactory
 
         $options = [];
 
-        foreach ($taxonomies as $index => $taxonomy) {
+        foreach ($taxonomies as $taxonomy) {
             if ('post_format' === $taxonomy->name) {
-                unset($taxonomies[$index]);
+                continue;
             }
-            $options[$taxonomy->name] = $taxonomy->label;
+
+            $options[$taxonomy->name] = sprintf('%s (%s)', $taxonomy->label, $taxonomy->name);
         }
 
         natcasesort($options);

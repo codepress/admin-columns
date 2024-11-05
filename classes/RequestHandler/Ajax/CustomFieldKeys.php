@@ -50,6 +50,10 @@ class CustomFieldKeys implements RequestAjaxHandler
             ];
         }
 
+        usort($encoded, static function ($a, $b) {
+            return strcasecmp($a['group'], $b['group']);
+        });
+
         $response->set_header(
             'Cache-Control',
             'max-age=120'

@@ -47,7 +47,6 @@ class CustomField extends Builder
             );
         }
 
-        // TODO fix request handler
         return OptionFactory::create_select_remote(
             self::NAME,
             'ac-custom-field-keys',
