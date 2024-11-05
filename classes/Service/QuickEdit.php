@@ -24,7 +24,7 @@ class QuickEdit implements Registerable
         Storage $storage,
         LayoutPreference $preference,
         PrimaryColumnFactory $primary_column_factory,
-        TableScreenFactory $table_screen_factory,
+        TableScreenFactory $table_screen_factory
     ) {
         $this->storage = $storage;
         $this->preference = $preference;
