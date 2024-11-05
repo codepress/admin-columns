@@ -83,7 +83,7 @@ final class CommentDisplay extends Builder
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        switch ($config->get('comment')) {
+        switch ($config->get('comment', 'comment')) {
             case self::PROPERTY_DATE:
                 $formatters->add(new Formatter\Comment\Property('comment_date'));
                 break;
@@ -99,9 +99,6 @@ final class CommentDisplay extends Builder
             case self::PROPERTY_FULL:
                 $formatters->add(new Formatter\Comment\FullComment());
                 break;
-            case self::PROPERTY_ID:
-            default:
-                $formatters->add(new Formatter\NullFormatter());
         }
     }
 
