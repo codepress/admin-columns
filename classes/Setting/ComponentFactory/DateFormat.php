@@ -15,7 +15,7 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 use AC\Value;
-use AC\Value\Formatter\TimeStamp;
+use AC\Value\Formatter\Timestamp;
 
 // TODO formatter
 // TODO do we still want the extra description/tooltips as in the old version?
@@ -73,7 +73,7 @@ abstract class DateFormat extends Builder
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $format = (string)$config->get('date_format');
-        $formatters->add(new TimeStamp());
+        $formatters->add(new Timestamp());
 
         $date_format = $this->get_date_formatter($format);
 
