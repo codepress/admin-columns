@@ -15,7 +15,7 @@ use AC\Type\ListScreenId;
 class ListScreenDelete implements RequestAjaxHandler
 {
 
-    private $storage;
+    private Storage $storage;
 
     public function __construct(Storage $storage)
     {
