@@ -9,15 +9,15 @@ use AC\Setting\AttributeCollection;
 class Input
 {
 
-    private $name;
+    private string $name;
 
-    private $type;
+    private string $type;
 
     private $value;
 
-    private $placeholder;
+    private ?string $placeholder;
 
-    private $attributes;
+    private ?AttributeCollection $attributes;
 
     public function __construct(
         string $name,
