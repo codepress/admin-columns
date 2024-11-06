@@ -26,4 +26,7 @@ interface Column
 
     public function get_formatters(): FormatterCollection;
 
+    // TODO necessary?
+    //public function get_config(): Config;
+
 }

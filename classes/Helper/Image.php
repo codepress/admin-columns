@@ -146,20 +146,18 @@ class Image
         return $this->markup_cover($image_path, $width, $height);
     }
 
-    // TODO check usages
-    public function get_image($image_id_or_url, $size = 'thumbnail', bool $skip_image_check = false): ?string
+    public function get_image(string $image_id_or_url, $size = 'thumbnail', bool $skip_image_check = false): ?string
     {
         if ( ! $image_id_or_url) {
             return null;
         }
 
-        if (is_string($image_id_or_url) && ($skip_image_check || ac_helper()->string->is_image($image_id_or_url))) {
-            return $this->get_image_by_url($image_id_or_url, $size);
-        }
-
-        // Media Attachment
         if (is_numeric($image_id_or_url)) {
             return $this->get_image_by_id($image_id_or_url, $size);
+        }
+
+        if ($skip_image_check || ac_helper()->string->is_image($image_id_or_url)) {
+            return $this->get_image_by_url($image_id_or_url, $size);
         }
 
         return null;

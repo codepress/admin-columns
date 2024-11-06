@@ -8,9 +8,9 @@ use AC\Setting\Control\Input;
 class Message extends Builder
 {
 
-    private $label;
+    private string $label;
 
-    private $message;
+    private string $message;
 
     public function __construct(string $label, string $message)
     {

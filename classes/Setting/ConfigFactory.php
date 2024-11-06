@@ -17,6 +17,8 @@ class ConfigFactory
             $data = $this->get_data($component, $data);
         }
 
+        $data['type'] = $column->get_type();
+
         return new Config($data);
     }
 

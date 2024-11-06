@@ -19,15 +19,14 @@ class V4000 extends Update
     public const PROGRESS_KEY = 'ac_update_progress';
     public const REPLACEMENT_IDS_KEY = 'ac_update_replacement_ids';
 
-    /** @var int */
-    private $next_step;
+    private int $next_step;
 
     public function __construct()
     {
+        parent::__construct(new Version('4.0.0'));
+
         // because `get_option` could be cached we only fetch the next step from the DB on initialisation.
         $this->next_step = $this->get_next_step();
-
-        parent::__construct(new Version('4.0.0'));
     }
 
     public function apply_update(): void
@@ -123,27 +122,24 @@ class V4000 extends Update
         }
     }
 
-    private function update_replacement_ids(array $ids)
+    private function update_replacement_ids(array $ids): void
     {
         update_option(self::REPLACEMENT_IDS_KEY, $ids, false);
     }
 
-    private function get_replacement_ids()
+    private function get_replacement_ids(): array
     {
         return (array)get_option(self::REPLACEMENT_IDS_KEY, []);
     }
 
-    /**
-     * @return int
-     */
-    private function get_next_step()
+    private function get_next_step(): int
     {
         return (int)get_option(self::PROGRESS_KEY, 1);
     }
 
-    private function update_next_step($step)
+    private function update_next_step(int $step): self
     {
-        $this->next_step = (int)$step;
+        $this->next_step = $step;
 
         update_option(self::PROGRESS_KEY, $this->next_step, false);
 
@@ -166,7 +162,7 @@ class V4000 extends Update
         $sql = "
 			SELECT *
 			FROM $wpdb->usermeta
-			WHERE meta_key LIKE '{$prefix}%'
+			WHERE meta_key LIKE '$prefix%'
 			ORDER BY `umeta_id` DESC
 		";
 
@@ -220,12 +216,7 @@ class V4000 extends Update
         }
     }
 
-    /**
-     * @param array $list_ids
-     *
-     * @return array
-     */
-    private function map_to_storage_keys(array $list_ids)
+    private function map_to_storage_keys(array $list_ids): array
     {
         $map = [];
 
@@ -241,11 +232,11 @@ class V4000 extends Update
         return $map;
     }
 
-    private function update_user_preference_by_key($meta_key, array $list_ids)
+    private function update_user_preference_by_key(string $meta_key, array $list_ids): void
     {
         global $wpdb;
 
-        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->usermeta} WHERE meta_key = %s", $meta_key));
+        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->usermeta WHERE meta_key = %s", $meta_key));
 
         $storage_keys = $this->map_to_storage_keys($list_ids);
 
@@ -274,7 +265,7 @@ class V4000 extends Update
 
             $wpdb->query(
                 $wpdb->prepare(
-                    "UPDATE {$wpdb->usermeta} SET meta_value = %s WHERE umeta_id = %d",
+                    "UPDATE $wpdb->usermeta SET meta_value = %s WHERE umeta_id = %d",
                     serialize($data),
                     $row->umeta_id
                 )
@@ -287,7 +278,7 @@ class V4000 extends Update
         global $wpdb;
 
         $meta_key = $wpdb->get_blog_prefix() . 'ac_preferences_layout_table';
-        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->usermeta} WHERE meta_key = %s", $meta_key));
+        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->usermeta WHERE meta_key = %s", $meta_key));
 
         foreach ($results as $row) {
             $data = maybe_unserialize($row->meta_value);
@@ -318,7 +309,7 @@ class V4000 extends Update
 
             $wpdb->query(
                 $wpdb->prepare(
-                    "UPDATE {$wpdb->usermeta} SET meta_value = %s WHERE umeta_id = %d",
+                    "UPDATE $wpdb->usermeta SET meta_value = %s WHERE umeta_id = %d",
                     serialize($data),
                     $row->umeta_id
                 )
@@ -369,7 +360,7 @@ class V4000 extends Update
     /**
      * Since Network list screens have their own preference, we have to remove any network list screens from the preferences
      */
-    private function migrate_invalid_network_settings()
+    private function migrate_invalid_network_settings(): void
     {
         global $wpdb;
 
@@ -377,7 +368,7 @@ class V4000 extends Update
             $wpdb->prepare(
                 "
 			SELECT * 
-			FROM {$wpdb->usermeta} 
+			FROM $wpdb->usermeta
 			WHERE meta_key = %s
 			",
                 $wpdb->get_blog_prefix() . 'ac_preferences_settings'
@@ -392,7 +383,7 @@ class V4000 extends Update
             }
 
             if (isset($data['list_screen']) && in_array($data['list_screen'], ['wp-ms_sites', 'wp-ms_users'], true)) {
-                $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->usermeta} WHERE umeta_id = %d", $row->umeta_id));
+                $wpdb->query($wpdb->prepare("DELETE FROM $wpdb->usermeta WHERE umeta_id = %d", $row->umeta_id));
             }
         }
     }
@@ -421,7 +412,7 @@ class V4000 extends Update
     /**
      * @return object[]
      */
-    private function get_layouts_data()
+    private function get_layouts_data(): array
     {
         global $wpdb;
 
@@ -429,8 +420,8 @@ class V4000 extends Update
 
         $sql = "
 			SELECT option_name, option_value
-			FROM {$wpdb->options}
-			WHERE option_name LIKE '{$prefix}%'
+			FROM $wpdb->options
+			WHERE option_name LIKE '$prefix%'
 			ORDER BY `option_id` DESC
 		";
 
@@ -445,7 +436,7 @@ class V4000 extends Update
                 $list_id = $data->id;
 
                 $list_key = $this->remove_prefix(self::LAYOUT_PREFIX, $row->option_name);
-                $list_key = $this->remove_suffix($list_id, $list_key);
+                $list_key = $this->remove_suffix((string)$list_id, $list_key);
 
                 if ( ! $list_key) {
                     continue;
@@ -476,7 +467,7 @@ class V4000 extends Update
         return $layouts;
     }
 
-    private function get_columns_data()
+    private function get_columns_data(): array
     {
         global $wpdb;
 
@@ -485,7 +476,7 @@ class V4000 extends Update
         $sql = "
 			SELECT option_name, option_value
 			FROM {$wpdb->options}
-			WHERE option_name LIKE '{$prefix}%'
+			WHERE option_name LIKE '$prefix%'
 			ORDER BY `option_id` DESC
 		";
 
@@ -511,12 +502,12 @@ class V4000 extends Update
     /**
      * @return array List of replaced id's
      */
-    private function migrate_list_screen_settings()
+    private function migrate_list_screen_settings(): array
     {
         $migrate = [];
 
         /**
-         * @var array $replaced_list_ids array( $list_key => array( $deprecated_list_id => $new_list_id ) )
+         * $replaced_list_ids [ $list_key => [ $deprecated_list_id => $new_list_id ] ]
          */
         $replaced_list_ids = [];
 
@@ -608,12 +599,7 @@ class V4000 extends Update
         return $replaced_list_ids;
     }
 
-    /**
-     * @param array $migrate
-     *
-     * @return array
-     */
-    private function unique_ids(array $migrate)
+    private function unique_ids(array $migrate): array
     {
         $ids = [];
 
@@ -631,7 +617,7 @@ class V4000 extends Update
         return $migrate;
     }
 
-    private function create_database()
+    private function create_database(): void
     {
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
@@ -642,7 +628,7 @@ class V4000 extends Update
         $table_name = $wpdb->prefix . 'admin_columns';
 
         $sql = "
-		CREATE TABLE {$table_name} (
+		CREATE TABLE $table_name (
 			id bigint(20) unsigned NOT NULL auto_increment,
 			list_id varchar(20) NOT NULL default '',
 			list_key varchar(100) NOT NULL default '',
@@ -688,12 +674,7 @@ class V4000 extends Update
         );
     }
 
-    /**
-     * @param string $storage_key
-     *
-     * @return string|false ID
-     */
-    private function contains_list_id($storage_key)
+    private function contains_list_id(string $storage_key): bool
     {
         $prefixes = [
             'wp-users',
@@ -708,7 +689,7 @@ class V4000 extends Update
                 $layout_id = $this->remove_prefix($prefix, $storage_key);
                 $layout_id = substr($layout_id, -13);
 
-                return $this->is_layout_id($layout_id);
+                return $this->is_layout_id((string)$layout_id);
             }
         }
 
@@ -722,7 +703,7 @@ class V4000 extends Update
 
             $layout_id = substr($taxonomy, -13);
 
-            return $this->is_layout_id($layout_id);
+            return $this->is_layout_id((string)$layout_id);
         }
 
         // is it a post?
@@ -732,63 +713,37 @@ class V4000 extends Update
 
         $layout_id = substr($storage_key, -13);
 
-        return $this->is_layout_id($layout_id);
+        return (bool)$this->is_layout_id((string)$layout_id);
     }
 
-    /**
-     * @param string $id
-     *
-     * @return string|false
-     */
-    private function is_layout_id($id)
+    private function is_layout_id(string $id): ?string
     {
-        return $id && is_string($id) && (strlen($id) === 13) && $this->is_hex($id) ? $id : false;
+        return $id && (strlen($id) === 13) && $this->is_hex($id)
+            ? $id
+            : null;
     }
 
-    /**
-     * @param string $string
-     *
-     * @return bool
-     */
-    private function is_hex($string)
+    private function is_hex(string $string): bool
     {
         return '' == trim(substr($string, -13), '0..9A..Fa..f');
     }
 
-    private function remove_prefix($prefix, $string)
+    private function remove_prefix(string $prefix, string $string): string
     {
         return (string)preg_replace('/^' . preg_quote($prefix, '/') . '/', '', $string);
     }
 
-    /**
-     * @param string $string
-     * @param string $end
-     *
-     * @return string
-     */
-    private function remove_suffix($suffix, $string)
+    private function remove_suffix(string $suffix, string $string): string
     {
         return (string)preg_replace('/' . preg_quote($suffix, '/') . '$/', '', $string);
     }
 
-    /**
-     * @param string $prefix
-     * @param string $string
-     *
-     * @return bool
-     */
-    private function has_prefix($prefix, $string)
+    private function has_prefix(string $prefix, string $string): bool
     {
         return substr($string, 0, strlen($prefix)) === $prefix;
     }
 
-    /**
-     * @param string $suffix
-     * @param string $string
-     *
-     * @return bool
-     */
-    private function has_suffix($suffix, $string)
+    private function has_suffix(string $suffix, string $string): bool
     {
         return substr($string, strlen($suffix) * -1) === $suffix;
     }
