@@ -19,7 +19,7 @@ class ListTable implements AC\ListTable
 
     public function render_cell(string $column_id, $row_id): string
     {
-        $item = (object)MLAData::mla_get_attachment_by_id($row_id);
+        $item = $this->get_attachment($row_id);
 
         if ( ! $item) {
             return '';
