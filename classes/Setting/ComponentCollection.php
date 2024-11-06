@@ -14,9 +14,11 @@ class ComponentCollection extends Collection implements Countable
         array_map([$this, 'add'], $data);
     }
 
-    public function add(Component $component): void
+    public function add(Component $component): ComponentCollection
     {
         $this->data[] = $component;
+
+        return $this;
     }
 
     public function current(): Component
