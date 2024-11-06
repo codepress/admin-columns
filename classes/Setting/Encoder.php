@@ -51,8 +51,6 @@ final class Encoder
 
             $encoded['conditions'] = $component->get_conditions()->export();
 
-            // TODO David check we are missing value now
-
             $encoded['input'] = [
                 'type' => $input->get_type(),
                 'name' => $input->get_name(),
