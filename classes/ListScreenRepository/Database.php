@@ -227,7 +227,7 @@ class Database implements ListScreenRepositoryWritable
         $columns = $data->columns
             ? unserialize($data->columns, ['allowed_classes' => false])
             : [];
-
+ 
         foreach ($columns as $name => $config) {
             if ( ! isset($config['name'])) {
                 $config['name'] = $name;
