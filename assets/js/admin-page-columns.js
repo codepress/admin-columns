@@ -9503,29 +9503,79 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (55:2) <AcRadio bind:group={selectedOption}    value={option.value}    {disabled}    on:change={handleSelection}    --AcuiRadioMarginBottom="5px">
-function create_default_slot_1(ctx) {
-  let t_value = /*option*/ctx[16].label + "";
+// (61:3) {#if option.value === 'wp_default' && config.input?.data[ 'wp_date_format' ] }
+function create_if_block_1(ctx) {
+  let code;
+  let t_value = /*config*/ctx[0].input?.data['wp_date_format'] + "";
   let t;
   return {
     c() {
+      code = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("code");
       t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t_value);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(code, "class", "acu-bg-[#eee]");
     },
     m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, code, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(code, t);
     },
     p(ctx, dirty) {
-      if (dirty & /*options*/4 && t_value !== (t_value = /*option*/ctx[16].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, t_value);
+      if (dirty & /*config*/1 && t_value !== (t_value = /*config*/ctx[0].input?.data['wp_date_format'] + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, t_value);
     },
     d(detaching) {
       if (detaching) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(code);
       }
     }
   };
 }
 
-// (54:1) {#each options as option}
+// (56:2) <AcRadio bind:group={selectedOption}    value={option.value}    {disabled}    on:change={handleSelection}    --AcuiRadioMarginBottom="5px">
+function create_default_slot_1(ctx) {
+  let t0_value = /*option*/ctx[16].label + "";
+  let t0;
+  let t1;
+  let if_block_anchor;
+  let if_block = /*option*/ctx[16].value === 'wp_default' && /*config*/ctx[0].input?.data['wp_date_format'] && create_if_block_1(ctx);
+  return {
+    c() {
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block) if_block.c();
+      if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t0, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t1, anchor);
+      if (if_block) if_block.m(target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
+    },
+    p(ctx, dirty) {
+      if (dirty & /*options*/8 && t0_value !== (t0_value = /*option*/ctx[16].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, t0_value);
+      if (/*option*/ctx[16].value === 'wp_default' && /*config*/ctx[0].input?.data['wp_date_format']) {
+        if (if_block) {
+          if_block.p(ctx, dirty);
+        } else {
+          if_block = create_if_block_1(ctx);
+          if_block.c();
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
+      }
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t0);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t1);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(if_block_anchor);
+      }
+      if (if_block) if_block.d(detaching);
+    }
+  };
+}
+
+// (55:1) {#each options as option}
 function create_each_block(ctx) {
   let acradio;
   let div;
@@ -9536,7 +9586,7 @@ function create_each_block(ctx) {
   }
   let acradio_props = {
     value: /*option*/ctx[16].value,
-    disabled: /*disabled*/ctx[0],
+    disabled: /*disabled*/ctx[1],
     $$slots: {
       default: [create_default_slot_1]
     },
@@ -9544,14 +9594,14 @@ function create_each_block(ctx) {
       ctx
     }
   };
-  if (/*selectedOption*/ctx[1] !== void 0) {
-    acradio_props.group = /*selectedOption*/ctx[1];
+  if (/*selectedOption*/ctx[2] !== void 0) {
+    acradio_props.group = /*selectedOption*/ctx[2];
   }
   acradio = new ACUi_element_AcRadio_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
     props: acradio_props
   });
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(acradio, 'group', acradio_group_binding));
-  acradio.$on("change", /*handleSelection*/ctx[7]);
+  acradio.$on("change", /*handleSelection*/ctx[8]);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -9566,17 +9616,17 @@ function create_each_block(ctx) {
     },
     p(ctx, dirty) {
       const acradio_changes = {};
-      if (dirty & /*options*/4) acradio_changes.value = /*option*/ctx[16].value;
-      if (dirty & /*disabled*/1) acradio_changes.disabled = /*disabled*/ctx[0];
-      if (dirty & /*$$scope, options*/524292) {
+      if (dirty & /*options*/8) acradio_changes.value = /*option*/ctx[16].value;
+      if (dirty & /*disabled*/2) acradio_changes.disabled = /*disabled*/ctx[1];
+      if (dirty & /*$$scope, config, options*/524297) {
         acradio_changes.$$scope = {
           dirty,
           ctx
         };
       }
-      if (!updating_group && dirty & /*selectedOption*/2) {
+      if (!updating_group && dirty & /*selectedOption*/4) {
         updating_group = true;
-        acradio_changes.group = /*selectedOption*/ctx[1];
+        acradio_changes.group = /*selectedOption*/ctx[2];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_group = false);
       }
       acradio.$set(acradio_changes);
@@ -9597,7 +9647,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (62:2) <AcRadio bind:group={selectedOption} value="custom" {disabled}>
+// (67:2) <AcRadio bind:group={selectedOption} value="custom" {disabled}>
 function create_default_slot(ctx) {
   let t;
   return {
@@ -9610,6 +9660,31 @@ function create_default_slot(ctx) {
     d(detaching) {
       if (detaching) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+      }
+    }
+  };
+}
+
+// (75:1) {#if config.input.data[ 'wp_date_info' ] && selectedOption === 'wp_default' }
+function create_if_block(ctx) {
+  let div;
+  let raw_value = /*config*/ctx[0].input.data['wp_date_info'] + "";
+  return {
+    c() {
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acu-my-2");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      div.innerHTML = raw_value;
+    },
+    p(ctx, dirty) {
+      if (dirty & /*config*/1 && raw_value !== (raw_value = /*config*/ctx[0].input.data['wp_date_info'] + "")) div.innerHTML = raw_value;
+      ;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
       }
     }
   };
@@ -9627,10 +9702,11 @@ function create_fragment(ctx) {
   let t2;
   let div0;
   let t3;
+  let t4;
   let current;
   let mounted;
   let dispose;
-  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*options*/ctx[2]);
+  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*options*/ctx[3]);
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
@@ -9643,7 +9719,7 @@ function create_fragment(ctx) {
   }
   let acradio_props = {
     value: "custom",
-    disabled: /*disabled*/ctx[0],
+    disabled: /*disabled*/ctx[1],
     $$slots: {
       default: [create_default_slot]
     },
@@ -9651,13 +9727,14 @@ function create_fragment(ctx) {
       ctx
     }
   };
-  if (/*selectedOption*/ctx[1] !== void 0) {
-    acradio_props.group = /*selectedOption*/ctx[1];
+  if (/*selectedOption*/ctx[2] !== void 0) {
+    acradio_props.group = /*selectedOption*/ctx[2];
   }
   acradio = new ACUi_element_AcRadio_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
     props: acradio_props
   });
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(acradio, 'group', acradio_group_binding_1));
+  let if_block = /*config*/ctx[0].input.data['wp_date_info'] && /*selectedOption*/ctx[2] === 'wp_default' && create_if_block(ctx);
   return {
     c() {
       div3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -9672,9 +9749,11 @@ function create_fragment(ctx) {
       input = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("input");
       t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*customDateExample*/ctx[5]);
+      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*customDateExample*/ctx[6]);
+      t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block) if_block.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "type", "text");
-      input.disabled = input_disabled_value = ! /*isCustom*/ctx[3] || /*disabled*/ctx[0];
+      input.disabled = input_disabled_value = ! /*isCustom*/ctx[4] || /*disabled*/ctx[1];
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "custom-input svelte-171t23n");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "custom svelte-171t23n");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div3, "padding-top", "5px");
@@ -9692,19 +9771,21 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, input);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*customDateFormat*/ctx[4]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*customDateFormat*/ctx[5]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, div0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, t3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, t4);
+      if (if_block) if_block.m(div3, null);
       current = true;
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[12]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "keyup", /*debounceInput*/ctx[6])];
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[12]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "keyup", /*debounceInput*/ctx[7])];
         mounted = true;
       }
     },
     p(ctx, [dirty]) {
-      if (dirty & /*options, disabled, selectedOption, handleSelection*/135) {
-        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*options*/ctx[2]);
+      if (dirty & /*options, disabled, selectedOption, handleSelection, config*/271) {
+        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*options*/ctx[3]);
         let i;
         for (i = 0; i < each_value.length; i += 1) {
           const child_ctx = get_each_context(ctx, each_value, i);
@@ -9725,26 +9806,38 @@ function create_fragment(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
       const acradio_changes = {};
-      if (dirty & /*disabled*/1) acradio_changes.disabled = /*disabled*/ctx[0];
+      if (dirty & /*disabled*/2) acradio_changes.disabled = /*disabled*/ctx[1];
       if (dirty & /*$$scope*/524288) {
         acradio_changes.$$scope = {
           dirty,
           ctx
         };
       }
-      if (!updating_group && dirty & /*selectedOption*/2) {
+      if (!updating_group && dirty & /*selectedOption*/4) {
         updating_group = true;
-        acradio_changes.group = /*selectedOption*/ctx[1];
+        acradio_changes.group = /*selectedOption*/ctx[2];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_group = false);
       }
       acradio.$set(acradio_changes);
-      if (!current || dirty & /*isCustom, disabled*/9 && input_disabled_value !== (input_disabled_value = ! /*isCustom*/ctx[3] || /*disabled*/ctx[0])) {
+      if (!current || dirty & /*isCustom, disabled*/18 && input_disabled_value !== (input_disabled_value = ! /*isCustom*/ctx[4] || /*disabled*/ctx[1])) {
         input.disabled = input_disabled_value;
       }
-      if (dirty & /*customDateFormat*/16 && input.value !== /*customDateFormat*/ctx[4]) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*customDateFormat*/ctx[4]);
+      if (dirty & /*customDateFormat*/32 && input.value !== /*customDateFormat*/ctx[5]) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*customDateFormat*/ctx[5]);
       }
-      if (!current || dirty & /*customDateExample*/32) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t3, /*customDateExample*/ctx[5]);
+      if (!current || dirty & /*customDateExample*/64) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t3, /*customDateExample*/ctx[6]);
+      if (/*config*/ctx[0].input.data['wp_date_info'] && /*selectedOption*/ctx[2] === 'wp_default') {
+        if (if_block) {
+          if_block.p(ctx, dirty);
+        } else {
+          if_block = create_if_block(ctx);
+          if_block.c();
+          if_block.m(div3, null);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
+      }
     },
     i(local) {
       if (current) return;
@@ -9768,6 +9861,7 @@ function create_fragment(ctx) {
       }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acradio);
+      if (if_block) if_block.d();
       mounted = false;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
     }
@@ -9792,7 +9886,7 @@ function instance($$self, $$props, $$invalidate) {
   const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_2__.createEventDispatcher)();
   const debounceInput = () => {
     clearTimeout(timer);
-    $$invalidate(8, value = customDateFormat);
+    $$invalidate(9, value = customDateFormat);
     timer = setTimeout(() => {
       retrieveDateExample();
     }, 750);
@@ -9802,60 +9896,61 @@ function instance($$self, $$props, $$invalidate) {
     data.set('action', 'date_format');
     data.set('date', customDateFormat);
     axios__WEBPACK_IMPORTED_MODULE_4__["default"].post(ajaxurl, data).then(response => {
-      $$invalidate(5, customDateExample = response.data);
+      $$invalidate(6, customDateExample = response.data);
     });
   };
-  const handleSelection = e => {
-    $$invalidate(8, value = selectedOption);
+  const handleSelection = () => {
+    $$invalidate(9, value = selectedOption);
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
     var _a, _b;
-    $$invalidate(2, options = config.children[0].input.options);
+    $$invalidate(3, options = config.children[0].input.options);
     if (value === '' || typeof value === 'undefined') {
       let defaultValue = (_b = (_a = config.children[0].input) === null || _a === void 0 ? void 0 : _a.default) !== null && _b !== void 0 ? _b : null;
-      $$invalidate(8, value = defaultValue ? defaultValue : options[0].value);
+      $$invalidate(9, value = defaultValue ? defaultValue : options[0].value);
     }
-    $$invalidate(1, selectedOption = value);
+    $$invalidate(2, selectedOption = value);
     if (!options.find(o => o.value === selectedOption)) {
-      $$invalidate(1, selectedOption = 'custom');
-      $$invalidate(4, customDateFormat = value);
+      $$invalidate(2, selectedOption = 'custom');
+      $$invalidate(5, customDateFormat = value);
       retrieveDateExample();
     }
+    console.log(config.input.data);
   });
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onDestroy)(() => {
     dispatch('destroy', config);
   });
   function acradio_group_binding(value) {
     selectedOption = value;
-    $$invalidate(1, selectedOption);
+    $$invalidate(2, selectedOption);
   }
   function acradio_group_binding_1(value) {
     selectedOption = value;
-    $$invalidate(1, selectedOption);
+    $$invalidate(2, selectedOption);
   }
   function input_input_handler() {
     customDateFormat = this.value;
-    $$invalidate(4, customDateFormat);
+    $$invalidate(5, customDateFormat);
   }
   $$self.$$set = $$props => {
-    if ('config' in $$props) $$invalidate(9, config = $$props.config);
-    if ('value' in $$props) $$invalidate(8, value = $$props.value);
-    if ('disabled' in $$props) $$invalidate(0, disabled = $$props.disabled);
+    if ('config' in $$props) $$invalidate(0, config = $$props.config);
+    if ('value' in $$props) $$invalidate(9, value = $$props.value);
+    if ('disabled' in $$props) $$invalidate(1, disabled = $$props.disabled);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & /*selectedOption*/2) {
-      $: $$invalidate(3, isCustom = selectedOption === 'custom');
+    if ($$self.$$.dirty & /*selectedOption*/4) {
+      $: $$invalidate(4, isCustom = selectedOption === 'custom');
     }
   };
-  return [disabled, selectedOption, options, isCustom, customDateFormat, customDateExample, debounceInput, handleSelection, value, config, acradio_group_binding, acradio_group_binding_1, input_input_handler];
+  return [config, disabled, selectedOption, options, isCustom, customDateFormat, customDateExample, debounceInput, handleSelection, value, acradio_group_binding, acradio_group_binding_1, input_input_handler];
 }
 class DateFormatInput extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      config: 9,
-      value: 8,
-      disabled: 0
+      config: 0,
+      value: 9,
+      disabled: 1
     }, add_css);
   }
 }

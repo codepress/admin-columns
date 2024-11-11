@@ -17,7 +17,6 @@ use AC\Setting\FormatterCollection;
 use AC\Value;
 use AC\Value\Formatter\Timestamp;
 
-// TODO formatter
 // TODO do we still want the extra description/tooltips as in the old version?
 abstract class DateFormat extends Builder
 {
@@ -36,9 +35,24 @@ abstract class DateFormat extends Builder
         return __('This will determine how the date will be displayed.', 'codepress-admin-columns');
     }
 
+    protected function get_wp_date_format(): string
+    {
+        return get_option('date_format');
+    }
+
     protected function get_input(Config $config): ?Input
     {
-        return new Custom('date_format');
+        return new Custom('date_format', null, [
+            'wp_date_format' => $this->get_wp_date_format(),
+            'wp_date_info'   => sprintf(
+                __('The %s can be changed in %s.', 'codepress-admin-columns'),
+                __('WordPress Date Format', 'codepress-admin-columns'),
+                ac_helper()->html->link(
+                    admin_url('options-general.php') . '#date_format_custom_radio',
+                    strtolower(__('General Settings'))
+                )
+            ),
+        ]);
     }
 
     protected function get_children(Config $config): ?Children

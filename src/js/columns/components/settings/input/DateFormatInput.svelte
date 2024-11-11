@@ -36,7 +36,7 @@
         });
     }
 
-    const handleSelection = (e) => {
+    const handleSelection = () => {
         value = selectedOption;
     }
 
@@ -54,6 +54,7 @@
             customDateFormat = value;
             retrieveDateExample();
         }
+        console.log(config.input.data);
     });
 
     onDestroy(() => {
@@ -71,7 +72,11 @@
 			value={option.value}
 			{disabled}
 			on:change={handleSelection}
-			--AcuiRadioMarginBottom="5px">{option.label}</AcRadio>
+			--AcuiRadioMarginBottom="5px">{option.label}
+			{#if option.value === 'wp_default' && config.input?.data[ 'wp_date_format' ] }
+				<code class="acu-bg-[#eee]">{config.input?.data[ 'wp_date_format' ]}</code>
+			{/if}
+		</AcRadio>
 	{/each}
 	<div class="custom">
 		<AcRadio bind:group={selectedOption} value="custom" {disabled}>Custom</AcRadio>
@@ -82,8 +87,10 @@
 			</div>
 		</div>
 	</div>
+	{#if config.input.data[ 'wp_date_info' ] && selectedOption === 'wp_default' }
+		<div class="acu-my-2">{@html config.input.data[ 'wp_date_info' ]}</div>
+	{/if}
 </div>
-
 
 <style>
 	.custom {

@@ -127,6 +127,10 @@ declare namespace AC.Column.Settings {
 
     interface DateFormatSetting extends AbstractColumnSetting {
         input: {
+            data: {
+                wp_date_format: string
+                wp_date_info: string
+            }
             type: 'date_format'
             default: string,
             children: [
