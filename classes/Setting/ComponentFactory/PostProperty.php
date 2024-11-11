@@ -124,7 +124,7 @@ class PostProperty extends Builder
             self::PROPERTY_STATUS         => __('Status'),
         ];
 
-        asort($options);
+        natcasesort($options);
 
         return OptionCollection::from_array($options);
     }

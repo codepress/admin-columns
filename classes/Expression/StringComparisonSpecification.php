@@ -9,9 +9,9 @@ class StringComparisonSpecification extends ComparisonSpecification implements T
 
     use TypeTrait;
 
-    public function __construct(string $fact, string $operator)
+    public function __construct(string $operator, string $fact)
     {
-        parent::__construct($fact, $operator);
+        parent::__construct($operator, $fact);
 
         $this->type = Types::STRING;
     }

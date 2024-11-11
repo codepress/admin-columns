@@ -51,8 +51,8 @@ class RangeSpecification extends OperatorExpression
                 }
 
                 $specification = new AndSpecification([
-                    new ComparisonSpecification($this->a, $operator_a),
-                    new ComparisonSpecification($this->b, $operator_b),
+                    new ComparisonSpecification($operator_a, $this->a),
+                    new ComparisonSpecification($operator_b, $this->b),
                 ]);
 
                 $not = [
