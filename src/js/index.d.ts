@@ -196,7 +196,8 @@ declare namespace AC.Column.Settings {
     interface ToggleSetting extends SelectSetting {
         input: {
             type: 'toggle'
-            options: SettingOption[]
+            options: SettingOption[],
+            attributes?: { [key: string]: string }
         }
     }
 

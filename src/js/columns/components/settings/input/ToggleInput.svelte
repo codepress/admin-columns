@@ -1,15 +1,24 @@
 <script lang="ts">
     import AcToggle from "ACUi/element/AcToggle.svelte";
-    import {afterUpdate, onMount} from "svelte";
+    import {afterUpdate, createEventDispatcher, onMount} from "svelte";
 
     export let value: string;
     export let config: AC.Column.Settings.ToggleSetting;
     export let disabled: boolean = false;
 
+    const dispatch = createEventDispatcher();
+
     let checked = false;
 
     const check = (e: CustomEvent<string>) => {
         value = e.detail ? config.input.options[0].value : config.input.options[1].value;
+        if (mustRefresh()) {
+            dispatch('refresh');
+        }
+    }
+
+    const mustRefresh = () => {
+        return config.input.attributes?.refresh === 'config';
     }
 
     afterUpdate(() => {

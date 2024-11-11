@@ -11030,13 +11030,13 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[17] = list[i];
-  child_ctx[18] = list;
-  child_ctx[19] = i;
+  child_ctx[16] = list[i];
+  child_ctx[17] = list;
+  child_ctx[18] = i;
   return child_ctx;
 }
 
-// (79:8) {#each activeOptions as option, index(option.id)}
+// (75:8) {#each activeOptions as option, index(option.id)}
 function create_each_block(key_1, ctx) {
   let div4;
   let div0;
@@ -11056,16 +11056,16 @@ function create_each_block(key_1, ctx) {
   let mounted;
   let dispose;
   function input0_input_handler() {
-    /*input0_input_handler*/ctx[6].call(input0, /*each_value*/ctx[18], /*index*/ctx[19]);
+    /*input0_input_handler*/ctx[6].call(input0, /*each_value*/ctx[17], /*index*/ctx[18]);
   }
   function input1_input_handler() {
-    /*input1_input_handler*/ctx[7].call(input1, /*each_value*/ctx[18], /*index*/ctx[19]);
+    /*input1_input_handler*/ctx[7].call(input1, /*each_value*/ctx[17], /*index*/ctx[18]);
   }
   function click_handler() {
-    return /*click_handler*/ctx[8](/*option*/ctx[17]);
+    return /*click_handler*/ctx[8](/*option*/ctx[16]);
   }
   function click_handler_1() {
-    return /*click_handler_1*/ctx[9](/*option*/ctx[17]);
+    return /*click_handler_1*/ctx[9](/*option*/ctx[16]);
   }
   return {
     key: key_1,
@@ -11101,7 +11101,7 @@ function create_each_block(key_1, ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button1, "class", "ac-setting-selectoptions-row__add acu-border-none acu-cursor-pointer acu-p-[0] acu-bg-[transparent] acu-text-[#B4B4B4] hover:acu-text-notification-blue");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div3, "class", "ac-setting-selectoptions-row__actions");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "class", "ac-setting-selectoptions-row acu-flex acu-gap-2 acu-items-center acu-py-1");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "data-id", div4_data_id_value = /*option*/ctx[17].id);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "data-id", div4_data_id_value = /*option*/ctx[16].id);
       this.first = div4;
     },
     m(target, anchor) {
@@ -11110,11 +11110,11 @@ function create_each_block(key_1, ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, t0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, div1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, input0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input0, /*option*/ctx[17].value);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input0, /*option*/ctx[16].value);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, div2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, input1);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input1, /*option*/ctx[17].label);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input1, /*option*/ctx[16].label);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, t2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, div3);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, button0);
@@ -11128,13 +11128,13 @@ function create_each_block(key_1, ctx) {
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & /*activeOptions*/1 && input0.value !== /*option*/ctx[17].value) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input0, /*option*/ctx[17].value);
+      if (dirty & /*activeOptions*/1 && input0.value !== /*option*/ctx[16].value) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input0, /*option*/ctx[16].value);
       }
-      if (dirty & /*activeOptions*/1 && input1.value !== /*option*/ctx[17].label) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input1, /*option*/ctx[17].label);
+      if (dirty & /*activeOptions*/1 && input1.value !== /*option*/ctx[16].label) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input1, /*option*/ctx[16].label);
       }
-      if (dirty & /*activeOptions*/1 && div4_data_id_value !== (div4_data_id_value = /*option*/ctx[17].id)) {
+      if (dirty & /*activeOptions*/1 && div4_data_id_value !== (div4_data_id_value = /*option*/ctx[16].id)) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "data-id", div4_data_id_value);
       }
     },
@@ -11152,7 +11152,7 @@ function create_fragment(ctx) {
   let each_blocks = [];
   let each_1_lookup = new Map();
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*activeOptions*/ctx[0]);
-  const get_key = ctx => /*option*/ctx[17].id;
+  const get_key = ctx => /*option*/ctx[16].id;
   for (let i = 0; i < each_value.length; i += 1) {
     let child_ctx = get_each_context(ctx, each_value, i);
     let key = get_key(child_ctx);
@@ -11215,10 +11215,6 @@ function instance($$self, $$props, $$invalidate) {
       label: '',
       id: (0,_helpers_string__WEBPACK_IMPORTED_MODULE_3__.uniqid)()
     };
-  };
-  const addRow = () => {
-    activeOptions.push(createRow());
-    $$invalidate(0, activeOptions);
   };
   const removeRow = id => {
     $$invalidate(0, activeOptions = activeOptions.filter(f => f.id !== id));
@@ -11842,9 +11838,17 @@ function instance($$self, $$props, $$invalidate) {
   let {
     disabled = false
   } = $$props;
+  const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_3__.createEventDispatcher)();
   let checked = false;
   const check = e => {
     $$invalidate(3, value = e.detail ? config.input.options[0].value : config.input.options[1].value);
+    if (mustRefresh()) {
+      dispatch('refresh');
+    }
+  };
+  const mustRefresh = () => {
+    var _a;
+    return ((_a = config.input.attributes) === null || _a === void 0 ? void 0 : _a.refresh) === 'config';
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.afterUpdate)(() => {
     $$invalidate(1, checked = value === config.input.options[0].value);
