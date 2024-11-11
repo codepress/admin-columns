@@ -459,7 +459,7 @@ table.ac-table-items.-user-posts {
 			color: var(--ac-link);
 
 			span.dashicons {
-				color: $ac-dark;
+				color: colors.$ac-dark;
 			}
 		}
 	}
@@ -955,13 +955,12 @@ div.cpac-color span {
 			}
 
 			&.resetpassword a:before {
-				content: $cpacicon-reset-password;
+				content: webfont.$cpacicon-reset-password;
 			}
 
 			&.switch_to_user a:before {
-				content: $cpacicon-user-switch;
+				content: webfont.$cpacicon-user-switch;
 			}
-
 			&.copy {
 				background: red;
 

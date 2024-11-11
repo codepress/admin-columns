@@ -7787,7 +7787,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (17:0) {#if config}
+// (20:0) {#if config}
 function create_if_block(ctx) {
   let div;
   let current;
@@ -7817,7 +7817,7 @@ function create_if_block(ctx) {
       current = true;
     },
     p(ctx, dirty) {
-      if (dirty & /*proFeatures, $listScreenIsReadOnly, data, config*/15) {
+      if (dirty & /*getConfig, proFeatures, $listScreenIsReadOnly, data*/29) {
         each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*proFeatures*/ctx[3]);
         let i;
         for (i = 0; i < each_value.length; i += 1) {
@@ -7862,7 +7862,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (24:3) {:else}
+// (29:3) {:else}
 function create_else_block(ctx) {
   let div;
   return {
@@ -7884,7 +7884,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (20:3) {#if config.find( c => c.input && c.input.name === feature.feature )}
+// (23:3) {#if getConfig( feature ) }
 function create_if_block_1(ctx) {
   let headertoggle;
   let updating_value;
@@ -7893,6 +7893,7 @@ function create_if_block_1(ctx) {
     /*headertoggle_value_binding*/ctx[5](value, /*feature*/ctx[6]);
   }
   let headertoggle_props = {
+    defaultValue: /*getConfig*/ctx[4](/*feature*/ctx[6]).input.default,
     title: /*feature*/ctx[6].title,
     disabled: /*$listScreenIsReadOnly*/ctx[2],
     $$slots: {
@@ -7949,7 +7950,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (21:4) <HeaderToggle bind:value={data[feature.feature]} title={feature.title} disabled={$listScreenIsReadOnly}>
+// (24:4) <HeaderToggle defaultValue={getConfig( feature ).input.default} bind:value={data[feature.feature]}      title={feature.title}      disabled={$listScreenIsReadOnly}>
 function create_default_slot(ctx) {
   let span;
   let span_class_value;
@@ -7974,22 +7975,17 @@ function create_default_slot(ctx) {
   };
 }
 
-// (19:2) {#each proFeatures as feature}
+// (22:2) {#each proFeatures as feature}
 function create_each_block(ctx) {
   let show_if;
   let current_block_type_index;
   let if_block;
   let if_block_anchor;
   let current;
-  function func(...args) {
-    return /*func*/ctx[4](/*feature*/ctx[6], ...args);
-  }
   const if_block_creators = [create_if_block_1, create_else_block];
   const if_blocks = [];
   function select_block_type(ctx, dirty) {
-    if (dirty & /*config*/2) show_if = null;
-    if (show_if == null) show_if = !! /*config*/ctx[1].find(func);
-    if (show_if) return 0;
+    if (/*getConfig*/ctx[4](/*feature*/ctx[6])) return 0;
     return 1;
   }
   current_block_type_index = select_block_type(ctx, -1);
@@ -8004,28 +8000,8 @@ function create_each_block(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
       current = true;
     },
-    p(new_ctx, dirty) {
-      ctx = new_ctx;
-      let previous_block_index = current_block_type_index;
-      current_block_type_index = select_block_type(ctx, dirty);
-      if (current_block_type_index === previous_block_index) {
-        if_blocks[current_block_type_index].p(ctx, dirty);
-      } else {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_blocks[previous_block_index], 1, 1, () => {
-          if_blocks[previous_block_index] = null;
-        });
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
-        if_block = if_blocks[current_block_type_index];
-        if (!if_block) {
-          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-          if_block.c();
-        } else {
-          if_block.p(ctx, dirty);
-        }
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
-        if_block.m(if_block_anchor.parentNode, if_block_anchor);
-      }
+    p(ctx, dirty) {
+      if_block.p(ctx, dirty);
     },
     i(local) {
       if (current) return;
@@ -8130,8 +8106,10 @@ function instance($$self, $$props, $$invalidate) {
     title: 'Enable Filtering',
     iconClass: 'dashicons dashicons-filter'
   }];
+  const getConfig = feature => {
+    return config.find(c => c.input && c.input.name === feature.feature);
+  };
   (0,svelte__WEBPACK_IMPORTED_MODULE_4__.onMount)(() => {});
-  const func = (feature, c) => c.input && c.input.name === feature.feature;
   function headertoggle_value_binding(value, feature) {
     if ($$self.$$.not_equal(data[feature.feature], value)) {
       data[feature.feature] = value;
@@ -8142,7 +8120,7 @@ function instance($$self, $$props, $$invalidate) {
     if ('data' in $$props) $$invalidate(0, data = $$props.data);
     if ('config' in $$props) $$invalidate(1, config = $$props.config);
   };
-  return [data, config, $listScreenIsReadOnly, proFeatures, func, headertoggle_value_binding];
+  return [data, config, $listScreenIsReadOnly, proFeatures, getConfig, headertoggle_value_binding];
 }
 class ProFeatureToggles extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -8170,7 +8148,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
 /* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/src/runtime/index.js");
 /* js/columns/components/settings/HeaderToggle.svelte generated by Svelte v4.2.0 */
+
 
 
 function create_fragment(ctx) {
@@ -8178,8 +8158,8 @@ function create_fragment(ctx) {
   let current;
   let mounted;
   let dispose;
-  const default_slot_template = /*#slots*/ctx[6].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[5], null);
+  const default_slot_template = /*#slots*/ctx[7].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[6], null);
   return {
     c() {
       button = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
@@ -8202,8 +8182,8 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/32)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[5], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[5]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[5], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/64)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[6], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[6]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[6], dirty, null), null);
         }
       }
       if (!current || dirty & /*disabled*/2) {
@@ -8242,7 +8222,7 @@ function instance($$self, $$props, $$invalidate) {
     $$scope
   } = $$props;
   let {
-    value = 'off'
+    value = ''
   } = $$props;
   let {
     title
@@ -8250,24 +8230,33 @@ function instance($$self, $$props, $$invalidate) {
   let {
     disabled = false
   } = $$props;
+  let {
+    defaultValue
+  } = $$props;
   const toggle = () => {
     if (disabled) {
       return;
     }
     $$invalidate(4, value = value === 'on' ? 'off' : 'on');
   };
+  (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
+    if (value === '') {
+      $$invalidate(4, value = defaultValue);
+    }
+  });
   $$self.$$set = $$props => {
     if ('value' in $$props) $$invalidate(4, value = $$props.value);
     if ('title' in $$props) $$invalidate(0, title = $$props.title);
     if ('disabled' in $$props) $$invalidate(1, disabled = $$props.disabled);
-    if ('$$scope' in $$props) $$invalidate(5, $$scope = $$props.$$scope);
+    if ('defaultValue' in $$props) $$invalidate(5, defaultValue = $$props.defaultValue);
+    if ('$$scope' in $$props) $$invalidate(6, $$scope = $$props.$$scope);
   };
   $$self.$$.update = () => {
     if ($$self.$$.dirty & /*value*/16) {
       $: $$invalidate(2, isOn = value === 'on');
     }
   };
-  return [title, disabled, isOn, toggle, value, $$scope, slots];
+  return [title, disabled, isOn, toggle, value, defaultValue, $$scope, slots];
 }
 class HeaderToggle extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -8275,7 +8264,8 @@ class HeaderToggle extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteCo
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       value: 4,
       title: 0,
-      disabled: 1
+      disabled: 1,
+      defaultValue: 5
     });
   }
 }

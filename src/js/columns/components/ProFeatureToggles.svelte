@@ -7,7 +7,13 @@
     export let data: any = {};
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
 
-    let proFeatures = [
+    type Feature = {
+        feature: string
+        title: string
+        iconClass: string
+	}
+
+    let proFeatures: Feature[] = [
         {feature: 'export', title: 'Enable Export', iconClass: 'cpacicon cpacicon-download'},
         {feature: 'sort', title: 'Enable Sorting', iconClass: 'dashicons dashicons-sort'},
         {feature: 'edit', title: 'Enable Editing', iconClass: 'dashicons dashicons-edit'},
@@ -15,6 +21,11 @@
         {feature: 'search', title: 'Enable Smart Filter', iconClass: 'cpacicon-smart-filter'},
         {feature: 'filter', title: 'Enable Filtering', iconClass: 'dashicons dashicons-filter'},
     ];
+
+    const getConfig = ( feature: Feature ) => {
+        return config.find( c => c.input && c.input.name === feature.feature );
+	}
+
 
     onMount(() => {
 
@@ -24,8 +35,10 @@
 {#if config}
 	<div class="acu-flex acu-items-center acu-gap-1">
 		{#each proFeatures as feature}
-			{#if config.find( c => c.input && c.input.name === feature.feature )}
-				<HeaderToggle bind:value={data[feature.feature]} title={feature.title} disabled={$listScreenIsReadOnly}>
+			{#if getConfig( feature ) }
+				<HeaderToggle defaultValue={getConfig( feature ).input.default} bind:value={data[feature.feature]}
+					title={feature.title}
+					disabled={$listScreenIsReadOnly}>
 					<span class="{feature.iconClass}"></span>
 				</HeaderToggle>
 			{:else}
