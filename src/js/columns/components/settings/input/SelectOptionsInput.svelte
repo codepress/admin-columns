@@ -28,11 +28,6 @@
         }
     }
 
-    const addRow = () => {
-        activeOptions.push(createRow());
-        activeOptions = activeOptions;
-    }
-
     const removeRow = (id: string) => {
         activeOptions = activeOptions.filter(f => f.id !== id);
 

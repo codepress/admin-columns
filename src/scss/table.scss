@@ -1,17 +1,15 @@
-//@import 'webfont';
-//@import 'iconfont';
 @use "sass:color";
-@import 'wordpress-vars';
-@import 'colors';
-@import 'webfont';
-@import 'modals';
-@import 'animations';
-@import 'components/confirmation';
-@import 'components/tooltip';
-@import 'components/toggle';
-@import 'components/pointer';
-@import 'components/value-modal';
-@import 'components/json-viewer';
+@use 'wordpress-vars';
+@use 'colors';
+@use 'webfont';
+@use 'modals';
+@use 'animations';
+@use 'components/confirmation';
+@use 'components/tooltip';
+@use 'components/toggle';
+@use 'components/pointer';
+@use 'components/value-modal';
+@use 'components/json-viewer';
 
 
 [data-modal-value] {
@@ -461,7 +459,7 @@ table.ac-table-items.-user-posts {
 			color: var(--ac-link);
 
 			span.dashicons {
-				color: $ac-dark;
+				color: colors.$ac-dark;
 			}
 		}
 	}
@@ -957,13 +955,12 @@ div.cpac-color span {
 			}
 
 			&.resetpassword a:before {
-				content: $cpacicon-reset-password;
+				content: webfont.$cpacicon-reset-password;
 			}
 
 			&.switch_to_user a:before {
-				content: $cpacicon-user-switch;
+				content: webfont.$cpacicon-user-switch;
 			}
-
 			&.copy {
 				background: red;
 

@@ -1,3 +1,5 @@
+@use "../colors";
+
 .ac-input-group {
 	display: flex;
 	margin-bottom: 20px;
@@ -23,8 +25,8 @@
 
 .ac-btn-primary {
 	@extend .ac-btn;
-	background: $ac-pink;
-	border: 1px solid $ac-pink;
+	background: colors.$ac-pink;
+	border: 1px solid colors.$ac-pink;
 	color: #fff;
 
 	&:hover, &:focus, &:active {

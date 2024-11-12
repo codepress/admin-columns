@@ -38,6 +38,11 @@
   z-index: 10
 }
 
+.acu-my-2 {
+  margin-top: 10px;
+  margin-bottom: 10px
+}
+
 .acu-my-6 {
   margin-top: 30px;
   margin-bottom: 30px
@@ -235,10 +240,6 @@
           appearance: none
 }
 
-.acu-flex-row {
-  flex-direction: row
-}
-
 .acu-flex-row-reverse {
   flex-direction: row-reverse
 }
@@ -373,6 +374,11 @@
 .acu-bg-\[\#e9426e\] {
   --tw-bg-opacity: 1;
   background-color: rgb(233 66 110 / var(--tw-bg-opacity))
+}
+
+.acu-bg-\[\#eee\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 238 238 / var(--tw-bg-opacity))
 }
 
 .acu-bg-\[\#fff\] {

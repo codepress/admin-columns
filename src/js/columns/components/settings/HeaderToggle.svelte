@@ -1,7 +1,10 @@
 <script lang="ts">
-    export let value: string = 'off';
+    import {onMount} from "svelte";
+
+    export let value: string = '';
     export let title: string;
     export let disabled: boolean = false
+	export let defaultValue: string;
 
     const toggle = () => {
         if (disabled) {
@@ -9,6 +12,12 @@
         }
         value = value === 'on' ? 'off' : 'on';
     }
+
+    onMount( () => {
+        if( value === '' ){
+         	value = defaultValue
+		}
+	})
 
     $: isOn = value === 'on';
 

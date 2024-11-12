@@ -1,11 +1,10 @@
-@import 'admin-variables';
-//@import 'settings';
-@import 'components/svelte-select';
-
-@import 'list-screen-settings/buttons';
-@import 'list-screen-settings/columns';
-@import 'list-screen-settings/column';
-@import 'list-screen-settings/column-settings';
+@use 'admin-variables';
+@use 'webfont';
+@use 'components/svelte-select';
+@use 'list-screen-settings/buttons';
+@use 'list-screen-settings/columns';
+@use 'list-screen-settings/column';
+@use 'list-screen-settings/column-settings';
 
 body.admin-columns__columns {
 	background-color: #F1F5F9;

@@ -654,6 +654,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _createCurrentHook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./createCurrentHook */ "./node_modules/@wordpress/hooks/build-module/createCurrentHook.js");
 /* harmony import */ var _createDoingHook__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./createDoingHook */ "./node_modules/@wordpress/hooks/build-module/createDoingHook.js");
 /* harmony import */ var _createDidHook__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./createDidHook */ "./node_modules/@wordpress/hooks/build-module/createDidHook.js");
+/* wp:polyfill */
 /**
  * Internal dependencies
  */
@@ -1094,6 +1095,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   createI18n: () => (/* binding */ createI18n)
 /* harmony export */ });
 /* harmony import */ var tannin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tannin */ "./node_modules/tannin/index.js");
+/* wp:polyfill */
 /**
  * External dependencies
  */
@@ -1373,9 +1375,7 @@ const createI18n = (initialData, initialDomain, hooks) => {
      */
     translation = /** @type {string} */
     /** @type {*} */hooks.applyFilters('i18n.gettext', translation, text, domain);
-    return /** @type {string} */(
-      /** @type {*} */hooks.applyFilters('i18n.gettext_' + getFilterDomain(domain), translation, text, domain)
-    );
+    return /** @type {string} */ /** @type {*} */hooks.applyFilters('i18n.gettext_' + getFilterDomain(domain), translation, text, domain);
   };
 
   /** @type {_x} */
@@ -1395,9 +1395,7 @@ const createI18n = (initialData, initialDomain, hooks) => {
      */
     translation = /** @type {string} */
     /** @type {*} */hooks.applyFilters('i18n.gettext_with_context', translation, text, context, domain);
-    return /** @type {string} */(
-      /** @type {*} */hooks.applyFilters('i18n.gettext_with_context_' + getFilterDomain(domain), translation, text, context, domain)
-    );
+    return /** @type {string} */ /** @type {*} */hooks.applyFilters('i18n.gettext_with_context_' + getFilterDomain(domain), translation, text, context, domain);
   };
 
   /** @type {_n} */
@@ -1418,9 +1416,7 @@ const createI18n = (initialData, initialDomain, hooks) => {
      */
     translation = /** @type {string} */
     /** @type {*} */hooks.applyFilters('i18n.ngettext', translation, single, plural, number, domain);
-    return /** @type {string} */(
-      /** @type {*} */hooks.applyFilters('i18n.ngettext_' + getFilterDomain(domain), translation, single, plural, number, domain)
-    );
+    return /** @type {string} */ /** @type {*} */hooks.applyFilters('i18n.ngettext_' + getFilterDomain(domain), translation, single, plural, number, domain);
   };
 
   /** @type {_nx} */
@@ -1442,9 +1438,7 @@ const createI18n = (initialData, initialDomain, hooks) => {
      */
     translation = /** @type {string} */
     /** @type {*} */hooks.applyFilters('i18n.ngettext_with_context', translation, single, plural, number, context, domain);
-    return /** @type {string} */(
-      /** @type {*} */hooks.applyFilters('i18n.ngettext_with_context_' + getFilterDomain(domain), translation, single, plural, number, context, domain)
-    );
+    return /** @type {string} */ /** @type {*} */hooks.applyFilters('i18n.ngettext_with_context_' + getFilterDomain(domain), translation, single, plural, number, context, domain);
   };
 
   /** @type {IsRtl} */
@@ -1723,7 +1717,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   sprintf: () => (/* binding */ sprintf)
 /* harmony export */ });
 /* harmony import */ var memize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! memize */ "./node_modules/memize/dist/index.js");
-/* harmony import */ var sprintf_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sprintf-js */ "./node_modules/@wordpress/i18n/node_modules/sprintf-js/src/sprintf.js");
+/* harmony import */ var sprintf_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sprintf-js */ "./node_modules/sprintf-js/src/sprintf.js");
 /* harmony import */ var sprintf_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sprintf_js__WEBPACK_IMPORTED_MODULE_1__);
 /**
  * External dependencies
@@ -1762,248 +1756,6 @@ function sprintf(format, ...args) {
   }
 }
 //# sourceMappingURL=sprintf.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/i18n/node_modules/sprintf-js/src/sprintf.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@wordpress/i18n/node_modules/sprintf-js/src/sprintf.js ***!
-  \*****************************************************************************/
-/***/ ((module, exports, __webpack_require__) => {
-
-var __WEBPACK_AMD_DEFINE_RESULT__;/* global window, exports, define */
-
-!function() {
-    'use strict'
-
-    var re = {
-        not_string: /[^s]/,
-        not_bool: /[^t]/,
-        not_type: /[^T]/,
-        not_primitive: /[^v]/,
-        number: /[diefg]/,
-        numeric_arg: /[bcdiefguxX]/,
-        json: /[j]/,
-        not_json: /[^j]/,
-        text: /^[^\x25]+/,
-        modulo: /^\x25{2}/,
-        placeholder: /^\x25(?:([1-9]\d*)\$|\(([^)]+)\))?(\+)?(0|'[^$])?(-)?(\d+)?(?:\.(\d+))?([b-gijostTuvxX])/,
-        key: /^([a-z_][a-z_\d]*)/i,
-        key_access: /^\.([a-z_][a-z_\d]*)/i,
-        index_access: /^\[(\d+)\]/,
-        sign: /^[+-]/
-    }
-
-    function sprintf(key) {
-        // `arguments` is not an array, but should be fine for this call
-        return sprintf_format(sprintf_parse(key), arguments)
-    }
-
-    function vsprintf(fmt, argv) {
-        return sprintf.apply(null, [fmt].concat(argv || []))
-    }
-
-    function sprintf_format(parse_tree, argv) {
-        var cursor = 1, tree_length = parse_tree.length, arg, output = '', i, k, ph, pad, pad_character, pad_length, is_positive, sign
-        for (i = 0; i < tree_length; i++) {
-            if (typeof parse_tree[i] === 'string') {
-                output += parse_tree[i]
-            }
-            else if (typeof parse_tree[i] === 'object') {
-                ph = parse_tree[i] // convenience purposes only
-                if (ph.keys) { // keyword argument
-                    arg = argv[cursor]
-                    for (k = 0; k < ph.keys.length; k++) {
-                        if (arg == undefined) {
-                            throw new Error(sprintf('[sprintf] Cannot access property "%s" of undefined value "%s"', ph.keys[k], ph.keys[k-1]))
-                        }
-                        arg = arg[ph.keys[k]]
-                    }
-                }
-                else if (ph.param_no) { // positional argument (explicit)
-                    arg = argv[ph.param_no]
-                }
-                else { // positional argument (implicit)
-                    arg = argv[cursor++]
-                }
-
-                if (re.not_type.test(ph.type) && re.not_primitive.test(ph.type) && arg instanceof Function) {
-                    arg = arg()
-                }
-
-                if (re.numeric_arg.test(ph.type) && (typeof arg !== 'number' && isNaN(arg))) {
-                    throw new TypeError(sprintf('[sprintf] expecting number but found %T', arg))
-                }
-
-                if (re.number.test(ph.type)) {
-                    is_positive = arg >= 0
-                }
-
-                switch (ph.type) {
-                    case 'b':
-                        arg = parseInt(arg, 10).toString(2)
-                        break
-                    case 'c':
-                        arg = String.fromCharCode(parseInt(arg, 10))
-                        break
-                    case 'd':
-                    case 'i':
-                        arg = parseInt(arg, 10)
-                        break
-                    case 'j':
-                        arg = JSON.stringify(arg, null, ph.width ? parseInt(ph.width) : 0)
-                        break
-                    case 'e':
-                        arg = ph.precision ? parseFloat(arg).toExponential(ph.precision) : parseFloat(arg).toExponential()
-                        break
-                    case 'f':
-                        arg = ph.precision ? parseFloat(arg).toFixed(ph.precision) : parseFloat(arg)
-                        break
-                    case 'g':
-                        arg = ph.precision ? String(Number(arg.toPrecision(ph.precision))) : parseFloat(arg)
-                        break
-                    case 'o':
-                        arg = (parseInt(arg, 10) >>> 0).toString(8)
-                        break
-                    case 's':
-                        arg = String(arg)
-                        arg = (ph.precision ? arg.substring(0, ph.precision) : arg)
-                        break
-                    case 't':
-                        arg = String(!!arg)
-                        arg = (ph.precision ? arg.substring(0, ph.precision) : arg)
-                        break
-                    case 'T':
-                        arg = Object.prototype.toString.call(arg).slice(8, -1).toLowerCase()
-                        arg = (ph.precision ? arg.substring(0, ph.precision) : arg)
-                        break
-                    case 'u':
-                        arg = parseInt(arg, 10) >>> 0
-                        break
-                    case 'v':
-                        arg = arg.valueOf()
-                        arg = (ph.precision ? arg.substring(0, ph.precision) : arg)
-                        break
-                    case 'x':
-                        arg = (parseInt(arg, 10) >>> 0).toString(16)
-                        break
-                    case 'X':
-                        arg = (parseInt(arg, 10) >>> 0).toString(16).toUpperCase()
-                        break
-                }
-                if (re.json.test(ph.type)) {
-                    output += arg
-                }
-                else {
-                    if (re.number.test(ph.type) && (!is_positive || ph.sign)) {
-                        sign = is_positive ? '+' : '-'
-                        arg = arg.toString().replace(re.sign, '')
-                    }
-                    else {
-                        sign = ''
-                    }
-                    pad_character = ph.pad_char ? ph.pad_char === '0' ? '0' : ph.pad_char.charAt(1) : ' '
-                    pad_length = ph.width - (sign + arg).length
-                    pad = ph.width ? (pad_length > 0 ? pad_character.repeat(pad_length) : '') : ''
-                    output += ph.align ? sign + arg + pad : (pad_character === '0' ? sign + pad + arg : pad + sign + arg)
-                }
-            }
-        }
-        return output
-    }
-
-    var sprintf_cache = Object.create(null)
-
-    function sprintf_parse(fmt) {
-        if (sprintf_cache[fmt]) {
-            return sprintf_cache[fmt]
-        }
-
-        var _fmt = fmt, match, parse_tree = [], arg_names = 0
-        while (_fmt) {
-            if ((match = re.text.exec(_fmt)) !== null) {
-                parse_tree.push(match[0])
-            }
-            else if ((match = re.modulo.exec(_fmt)) !== null) {
-                parse_tree.push('%')
-            }
-            else if ((match = re.placeholder.exec(_fmt)) !== null) {
-                if (match[2]) {
-                    arg_names |= 1
-                    var field_list = [], replacement_field = match[2], field_match = []
-                    if ((field_match = re.key.exec(replacement_field)) !== null) {
-                        field_list.push(field_match[1])
-                        while ((replacement_field = replacement_field.substring(field_match[0].length)) !== '') {
-                            if ((field_match = re.key_access.exec(replacement_field)) !== null) {
-                                field_list.push(field_match[1])
-                            }
-                            else if ((field_match = re.index_access.exec(replacement_field)) !== null) {
-                                field_list.push(field_match[1])
-                            }
-                            else {
-                                throw new SyntaxError('[sprintf] failed to parse named argument key')
-                            }
-                        }
-                    }
-                    else {
-                        throw new SyntaxError('[sprintf] failed to parse named argument key')
-                    }
-                    match[2] = field_list
-                }
-                else {
-                    arg_names |= 2
-                }
-                if (arg_names === 3) {
-                    throw new Error('[sprintf] mixing positional and named placeholders is not (yet) supported')
-                }
-
-                parse_tree.push(
-                    {
-                        placeholder: match[0],
-                        param_no:    match[1],
-                        keys:        match[2],
-                        sign:        match[3],
-                        pad_char:    match[4],
-                        align:       match[5],
-                        width:       match[6],
-                        precision:   match[7],
-                        type:        match[8]
-                    }
-                )
-            }
-            else {
-                throw new SyntaxError('[sprintf] unexpected placeholder')
-            }
-            _fmt = _fmt.substring(match[0].length)
-        }
-        return sprintf_cache[fmt] = parse_tree
-    }
-
-    /**
-     * export to either browser or node.js
-     */
-    /* eslint-disable quote-props */
-    if (true) {
-        exports.sprintf = sprintf
-        exports.vsprintf = vsprintf
-    }
-    if (typeof window !== 'undefined') {
-        window['sprintf'] = sprintf
-        window['vsprintf'] = vsprintf
-
-        if (true) {
-            !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
-                return {
-                    'sprintf': sprintf,
-                    'vsprintf': vsprintf
-                }
-            }).call(exports, __webpack_require__, exports, module),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
-        }
-    }
-    /* eslint-enable quote-props */
-}(); // eslint-disable-line
-
 
 /***/ }),
 
@@ -8035,7 +7787,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (17:0) {#if config}
+// (20:0) {#if config}
 function create_if_block(ctx) {
   let div;
   let current;
@@ -8065,7 +7817,7 @@ function create_if_block(ctx) {
       current = true;
     },
     p(ctx, dirty) {
-      if (dirty & /*proFeatures, $listScreenIsReadOnly, data, config*/15) {
+      if (dirty & /*getConfig, proFeatures, $listScreenIsReadOnly, data*/29) {
         each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*proFeatures*/ctx[3]);
         let i;
         for (i = 0; i < each_value.length; i += 1) {
@@ -8110,7 +7862,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (24:3) {:else}
+// (29:3) {:else}
 function create_else_block(ctx) {
   let div;
   return {
@@ -8132,7 +7884,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (20:3) {#if config.find( c => c.input && c.input.name === feature.feature )}
+// (23:3) {#if getConfig( feature ) }
 function create_if_block_1(ctx) {
   let headertoggle;
   let updating_value;
@@ -8141,6 +7893,7 @@ function create_if_block_1(ctx) {
     /*headertoggle_value_binding*/ctx[5](value, /*feature*/ctx[6]);
   }
   let headertoggle_props = {
+    defaultValue: /*getConfig*/ctx[4](/*feature*/ctx[6]).input.default,
     title: /*feature*/ctx[6].title,
     disabled: /*$listScreenIsReadOnly*/ctx[2],
     $$slots: {
@@ -8197,7 +7950,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (21:4) <HeaderToggle bind:value={data[feature.feature]} title={feature.title} disabled={$listScreenIsReadOnly}>
+// (24:4) <HeaderToggle defaultValue={getConfig( feature ).input.default} bind:value={data[feature.feature]}      title={feature.title}      disabled={$listScreenIsReadOnly}>
 function create_default_slot(ctx) {
   let span;
   let span_class_value;
@@ -8222,22 +7975,17 @@ function create_default_slot(ctx) {
   };
 }
 
-// (19:2) {#each proFeatures as feature}
+// (22:2) {#each proFeatures as feature}
 function create_each_block(ctx) {
   let show_if;
   let current_block_type_index;
   let if_block;
   let if_block_anchor;
   let current;
-  function func(...args) {
-    return /*func*/ctx[4](/*feature*/ctx[6], ...args);
-  }
   const if_block_creators = [create_if_block_1, create_else_block];
   const if_blocks = [];
   function select_block_type(ctx, dirty) {
-    if (dirty & /*config*/2) show_if = null;
-    if (show_if == null) show_if = !! /*config*/ctx[1].find(func);
-    if (show_if) return 0;
+    if (/*getConfig*/ctx[4](/*feature*/ctx[6])) return 0;
     return 1;
   }
   current_block_type_index = select_block_type(ctx, -1);
@@ -8252,28 +8000,8 @@ function create_each_block(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
       current = true;
     },
-    p(new_ctx, dirty) {
-      ctx = new_ctx;
-      let previous_block_index = current_block_type_index;
-      current_block_type_index = select_block_type(ctx, dirty);
-      if (current_block_type_index === previous_block_index) {
-        if_blocks[current_block_type_index].p(ctx, dirty);
-      } else {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_blocks[previous_block_index], 1, 1, () => {
-          if_blocks[previous_block_index] = null;
-        });
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
-        if_block = if_blocks[current_block_type_index];
-        if (!if_block) {
-          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-          if_block.c();
-        } else {
-          if_block.p(ctx, dirty);
-        }
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
-        if_block.m(if_block_anchor.parentNode, if_block_anchor);
-      }
+    p(ctx, dirty) {
+      if_block.p(ctx, dirty);
     },
     i(local) {
       if (current) return;
@@ -8378,8 +8106,10 @@ function instance($$self, $$props, $$invalidate) {
     title: 'Enable Filtering',
     iconClass: 'dashicons dashicons-filter'
   }];
+  const getConfig = feature => {
+    return config.find(c => c.input && c.input.name === feature.feature);
+  };
   (0,svelte__WEBPACK_IMPORTED_MODULE_4__.onMount)(() => {});
-  const func = (feature, c) => c.input && c.input.name === feature.feature;
   function headertoggle_value_binding(value, feature) {
     if ($$self.$$.not_equal(data[feature.feature], value)) {
       data[feature.feature] = value;
@@ -8390,7 +8120,7 @@ function instance($$self, $$props, $$invalidate) {
     if ('data' in $$props) $$invalidate(0, data = $$props.data);
     if ('config' in $$props) $$invalidate(1, config = $$props.config);
   };
-  return [data, config, $listScreenIsReadOnly, proFeatures, func, headertoggle_value_binding];
+  return [data, config, $listScreenIsReadOnly, proFeatures, getConfig, headertoggle_value_binding];
 }
 class ProFeatureToggles extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -8418,7 +8148,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
 /* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/src/runtime/index.js");
 /* js/columns/components/settings/HeaderToggle.svelte generated by Svelte v4.2.0 */
+
 
 
 function create_fragment(ctx) {
@@ -8426,8 +8158,8 @@ function create_fragment(ctx) {
   let current;
   let mounted;
   let dispose;
-  const default_slot_template = /*#slots*/ctx[6].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[5], null);
+  const default_slot_template = /*#slots*/ctx[7].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[6], null);
   return {
     c() {
       button = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
@@ -8450,8 +8182,8 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/32)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[5], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[5]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[5], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/64)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[6], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[6]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[6], dirty, null), null);
         }
       }
       if (!current || dirty & /*disabled*/2) {
@@ -8490,7 +8222,7 @@ function instance($$self, $$props, $$invalidate) {
     $$scope
   } = $$props;
   let {
-    value = 'off'
+    value = ''
   } = $$props;
   let {
     title
@@ -8498,24 +8230,33 @@ function instance($$self, $$props, $$invalidate) {
   let {
     disabled = false
   } = $$props;
+  let {
+    defaultValue
+  } = $$props;
   const toggle = () => {
     if (disabled) {
       return;
     }
     $$invalidate(4, value = value === 'on' ? 'off' : 'on');
   };
+  (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
+    if (value === '') {
+      $$invalidate(4, value = defaultValue);
+    }
+  });
   $$self.$$set = $$props => {
     if ('value' in $$props) $$invalidate(4, value = $$props.value);
     if ('title' in $$props) $$invalidate(0, title = $$props.title);
     if ('disabled' in $$props) $$invalidate(1, disabled = $$props.disabled);
-    if ('$$scope' in $$props) $$invalidate(5, $$scope = $$props.$$scope);
+    if ('defaultValue' in $$props) $$invalidate(5, defaultValue = $$props.defaultValue);
+    if ('$$scope' in $$props) $$invalidate(6, $$scope = $$props.$$scope);
   };
   $$self.$$.update = () => {
     if ($$self.$$.dirty & /*value*/16) {
       $: $$invalidate(2, isOn = value === 'on');
     }
   };
-  return [title, disabled, isOn, toggle, value, $$scope, slots];
+  return [title, disabled, isOn, toggle, value, defaultValue, $$scope, slots];
 }
 class HeaderToggle extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -8523,7 +8264,8 @@ class HeaderToggle extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteCo
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       value: 4,
       title: 0,
-      disabled: 1
+      disabled: 1,
+      defaultValue: 5
     });
   }
 }
@@ -9751,29 +9493,79 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (55:2) <AcRadio bind:group={selectedOption}    value={option.value}    {disabled}    on:change={handleSelection}    --AcuiRadioMarginBottom="5px">
-function create_default_slot_1(ctx) {
-  let t_value = /*option*/ctx[16].label + "";
+// (61:3) {#if option.value === 'wp_default' && config.input?.data[ 'wp_date_format' ] }
+function create_if_block_1(ctx) {
+  let code;
+  let t_value = /*config*/ctx[0].input?.data['wp_date_format'] + "";
   let t;
   return {
     c() {
+      code = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("code");
       t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t_value);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(code, "class", "acu-bg-[#eee]");
     },
     m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, code, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(code, t);
     },
     p(ctx, dirty) {
-      if (dirty & /*options*/4 && t_value !== (t_value = /*option*/ctx[16].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, t_value);
+      if (dirty & /*config*/1 && t_value !== (t_value = /*config*/ctx[0].input?.data['wp_date_format'] + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, t_value);
     },
     d(detaching) {
       if (detaching) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(code);
       }
     }
   };
 }
 
-// (54:1) {#each options as option}
+// (56:2) <AcRadio bind:group={selectedOption}    value={option.value}    {disabled}    on:change={handleSelection}    --AcuiRadioMarginBottom="5px">
+function create_default_slot_1(ctx) {
+  let t0_value = /*option*/ctx[16].label + "";
+  let t0;
+  let t1;
+  let if_block_anchor;
+  let if_block = /*option*/ctx[16].value === 'wp_default' && /*config*/ctx[0].input?.data['wp_date_format'] && create_if_block_1(ctx);
+  return {
+    c() {
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block) if_block.c();
+      if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t0, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t1, anchor);
+      if (if_block) if_block.m(target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
+    },
+    p(ctx, dirty) {
+      if (dirty & /*options*/8 && t0_value !== (t0_value = /*option*/ctx[16].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, t0_value);
+      if (/*option*/ctx[16].value === 'wp_default' && /*config*/ctx[0].input?.data['wp_date_format']) {
+        if (if_block) {
+          if_block.p(ctx, dirty);
+        } else {
+          if_block = create_if_block_1(ctx);
+          if_block.c();
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
+      }
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t0);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t1);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(if_block_anchor);
+      }
+      if (if_block) if_block.d(detaching);
+    }
+  };
+}
+
+// (55:1) {#each options as option}
 function create_each_block(ctx) {
   let acradio;
   let div;
@@ -9784,7 +9576,7 @@ function create_each_block(ctx) {
   }
   let acradio_props = {
     value: /*option*/ctx[16].value,
-    disabled: /*disabled*/ctx[0],
+    disabled: /*disabled*/ctx[1],
     $$slots: {
       default: [create_default_slot_1]
     },
@@ -9792,14 +9584,14 @@ function create_each_block(ctx) {
       ctx
     }
   };
-  if (/*selectedOption*/ctx[1] !== void 0) {
-    acradio_props.group = /*selectedOption*/ctx[1];
+  if (/*selectedOption*/ctx[2] !== void 0) {
+    acradio_props.group = /*selectedOption*/ctx[2];
   }
   acradio = new ACUi_element_AcRadio_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
     props: acradio_props
   });
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(acradio, 'group', acradio_group_binding));
-  acradio.$on("change", /*handleSelection*/ctx[7]);
+  acradio.$on("change", /*handleSelection*/ctx[8]);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -9814,17 +9606,17 @@ function create_each_block(ctx) {
     },
     p(ctx, dirty) {
       const acradio_changes = {};
-      if (dirty & /*options*/4) acradio_changes.value = /*option*/ctx[16].value;
-      if (dirty & /*disabled*/1) acradio_changes.disabled = /*disabled*/ctx[0];
-      if (dirty & /*$$scope, options*/524292) {
+      if (dirty & /*options*/8) acradio_changes.value = /*option*/ctx[16].value;
+      if (dirty & /*disabled*/2) acradio_changes.disabled = /*disabled*/ctx[1];
+      if (dirty & /*$$scope, config, options*/524297) {
         acradio_changes.$$scope = {
           dirty,
           ctx
         };
       }
-      if (!updating_group && dirty & /*selectedOption*/2) {
+      if (!updating_group && dirty & /*selectedOption*/4) {
         updating_group = true;
-        acradio_changes.group = /*selectedOption*/ctx[1];
+        acradio_changes.group = /*selectedOption*/ctx[2];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_group = false);
       }
       acradio.$set(acradio_changes);
@@ -9845,7 +9637,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (62:2) <AcRadio bind:group={selectedOption} value="custom" {disabled}>
+// (67:2) <AcRadio bind:group={selectedOption} value="custom" {disabled}>
 function create_default_slot(ctx) {
   let t;
   return {
@@ -9858,6 +9650,31 @@ function create_default_slot(ctx) {
     d(detaching) {
       if (detaching) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+      }
+    }
+  };
+}
+
+// (75:1) {#if config.input.data[ 'wp_date_info' ] && selectedOption === 'wp_default' }
+function create_if_block(ctx) {
+  let div;
+  let raw_value = /*config*/ctx[0].input.data['wp_date_info'] + "";
+  return {
+    c() {
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acu-my-2");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      div.innerHTML = raw_value;
+    },
+    p(ctx, dirty) {
+      if (dirty & /*config*/1 && raw_value !== (raw_value = /*config*/ctx[0].input.data['wp_date_info'] + "")) div.innerHTML = raw_value;
+      ;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
       }
     }
   };
@@ -9875,10 +9692,11 @@ function create_fragment(ctx) {
   let t2;
   let div0;
   let t3;
+  let t4;
   let current;
   let mounted;
   let dispose;
-  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*options*/ctx[2]);
+  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*options*/ctx[3]);
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
@@ -9891,7 +9709,7 @@ function create_fragment(ctx) {
   }
   let acradio_props = {
     value: "custom",
-    disabled: /*disabled*/ctx[0],
+    disabled: /*disabled*/ctx[1],
     $$slots: {
       default: [create_default_slot]
     },
@@ -9899,13 +9717,14 @@ function create_fragment(ctx) {
       ctx
     }
   };
-  if (/*selectedOption*/ctx[1] !== void 0) {
-    acradio_props.group = /*selectedOption*/ctx[1];
+  if (/*selectedOption*/ctx[2] !== void 0) {
+    acradio_props.group = /*selectedOption*/ctx[2];
   }
   acradio = new ACUi_element_AcRadio_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
     props: acradio_props
   });
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(acradio, 'group', acradio_group_binding_1));
+  let if_block = /*config*/ctx[0].input.data['wp_date_info'] && /*selectedOption*/ctx[2] === 'wp_default' && create_if_block(ctx);
   return {
     c() {
       div3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -9920,9 +9739,11 @@ function create_fragment(ctx) {
       input = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("input");
       t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*customDateExample*/ctx[5]);
+      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*customDateExample*/ctx[6]);
+      t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block) if_block.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "type", "text");
-      input.disabled = input_disabled_value = ! /*isCustom*/ctx[3] || /*disabled*/ctx[0];
+      input.disabled = input_disabled_value = ! /*isCustom*/ctx[4] || /*disabled*/ctx[1];
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "custom-input svelte-171t23n");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "custom svelte-171t23n");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div3, "padding-top", "5px");
@@ -9940,19 +9761,21 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, input);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*customDateFormat*/ctx[4]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*customDateFormat*/ctx[5]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, div0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, t3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, t4);
+      if (if_block) if_block.m(div3, null);
       current = true;
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[12]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "keyup", /*debounceInput*/ctx[6])];
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[12]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "keyup", /*debounceInput*/ctx[7])];
         mounted = true;
       }
     },
     p(ctx, [dirty]) {
-      if (dirty & /*options, disabled, selectedOption, handleSelection*/135) {
-        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*options*/ctx[2]);
+      if (dirty & /*options, disabled, selectedOption, handleSelection, config*/271) {
+        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*options*/ctx[3]);
         let i;
         for (i = 0; i < each_value.length; i += 1) {
           const child_ctx = get_each_context(ctx, each_value, i);
@@ -9973,26 +9796,38 @@ function create_fragment(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
       const acradio_changes = {};
-      if (dirty & /*disabled*/1) acradio_changes.disabled = /*disabled*/ctx[0];
+      if (dirty & /*disabled*/2) acradio_changes.disabled = /*disabled*/ctx[1];
       if (dirty & /*$$scope*/524288) {
         acradio_changes.$$scope = {
           dirty,
           ctx
         };
       }
-      if (!updating_group && dirty & /*selectedOption*/2) {
+      if (!updating_group && dirty & /*selectedOption*/4) {
         updating_group = true;
-        acradio_changes.group = /*selectedOption*/ctx[1];
+        acradio_changes.group = /*selectedOption*/ctx[2];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_group = false);
       }
       acradio.$set(acradio_changes);
-      if (!current || dirty & /*isCustom, disabled*/9 && input_disabled_value !== (input_disabled_value = ! /*isCustom*/ctx[3] || /*disabled*/ctx[0])) {
+      if (!current || dirty & /*isCustom, disabled*/18 && input_disabled_value !== (input_disabled_value = ! /*isCustom*/ctx[4] || /*disabled*/ctx[1])) {
         input.disabled = input_disabled_value;
       }
-      if (dirty & /*customDateFormat*/16 && input.value !== /*customDateFormat*/ctx[4]) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*customDateFormat*/ctx[4]);
+      if (dirty & /*customDateFormat*/32 && input.value !== /*customDateFormat*/ctx[5]) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*customDateFormat*/ctx[5]);
       }
-      if (!current || dirty & /*customDateExample*/32) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t3, /*customDateExample*/ctx[5]);
+      if (!current || dirty & /*customDateExample*/64) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t3, /*customDateExample*/ctx[6]);
+      if (/*config*/ctx[0].input.data['wp_date_info'] && /*selectedOption*/ctx[2] === 'wp_default') {
+        if (if_block) {
+          if_block.p(ctx, dirty);
+        } else {
+          if_block = create_if_block(ctx);
+          if_block.c();
+          if_block.m(div3, null);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
+      }
     },
     i(local) {
       if (current) return;
@@ -10016,6 +9851,7 @@ function create_fragment(ctx) {
       }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acradio);
+      if (if_block) if_block.d();
       mounted = false;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
     }
@@ -10040,7 +9876,7 @@ function instance($$self, $$props, $$invalidate) {
   const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_2__.createEventDispatcher)();
   const debounceInput = () => {
     clearTimeout(timer);
-    $$invalidate(8, value = customDateFormat);
+    $$invalidate(9, value = customDateFormat);
     timer = setTimeout(() => {
       retrieveDateExample();
     }, 750);
@@ -10050,60 +9886,61 @@ function instance($$self, $$props, $$invalidate) {
     data.set('action', 'date_format');
     data.set('date', customDateFormat);
     axios__WEBPACK_IMPORTED_MODULE_4__["default"].post(ajaxurl, data).then(response => {
-      $$invalidate(5, customDateExample = response.data);
+      $$invalidate(6, customDateExample = response.data);
     });
   };
-  const handleSelection = e => {
-    $$invalidate(8, value = selectedOption);
+  const handleSelection = () => {
+    $$invalidate(9, value = selectedOption);
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
     var _a, _b;
-    $$invalidate(2, options = config.children[0].input.options);
+    $$invalidate(3, options = config.children[0].input.options);
     if (value === '' || typeof value === 'undefined') {
       let defaultValue = (_b = (_a = config.children[0].input) === null || _a === void 0 ? void 0 : _a.default) !== null && _b !== void 0 ? _b : null;
-      $$invalidate(8, value = defaultValue ? defaultValue : options[0].value);
+      $$invalidate(9, value = defaultValue ? defaultValue : options[0].value);
     }
-    $$invalidate(1, selectedOption = value);
+    $$invalidate(2, selectedOption = value);
     if (!options.find(o => o.value === selectedOption)) {
-      $$invalidate(1, selectedOption = 'custom');
-      $$invalidate(4, customDateFormat = value);
+      $$invalidate(2, selectedOption = 'custom');
+      $$invalidate(5, customDateFormat = value);
       retrieveDateExample();
     }
+    console.log(config.input.data);
   });
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onDestroy)(() => {
     dispatch('destroy', config);
   });
   function acradio_group_binding(value) {
     selectedOption = value;
-    $$invalidate(1, selectedOption);
+    $$invalidate(2, selectedOption);
   }
   function acradio_group_binding_1(value) {
     selectedOption = value;
-    $$invalidate(1, selectedOption);
+    $$invalidate(2, selectedOption);
   }
   function input_input_handler() {
     customDateFormat = this.value;
-    $$invalidate(4, customDateFormat);
+    $$invalidate(5, customDateFormat);
   }
   $$self.$$set = $$props => {
-    if ('config' in $$props) $$invalidate(9, config = $$props.config);
-    if ('value' in $$props) $$invalidate(8, value = $$props.value);
-    if ('disabled' in $$props) $$invalidate(0, disabled = $$props.disabled);
+    if ('config' in $$props) $$invalidate(0, config = $$props.config);
+    if ('value' in $$props) $$invalidate(9, value = $$props.value);
+    if ('disabled' in $$props) $$invalidate(1, disabled = $$props.disabled);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & /*selectedOption*/2) {
-      $: $$invalidate(3, isCustom = selectedOption === 'custom');
+    if ($$self.$$.dirty & /*selectedOption*/4) {
+      $: $$invalidate(4, isCustom = selectedOption === 'custom');
     }
   };
-  return [disabled, selectedOption, options, isCustom, customDateFormat, customDateExample, debounceInput, handleSelection, value, config, acradio_group_binding, acradio_group_binding_1, input_input_handler];
+  return [config, disabled, selectedOption, options, isCustom, customDateFormat, customDateExample, debounceInput, handleSelection, value, acradio_group_binding, acradio_group_binding_1, input_input_handler];
 }
 class DateFormatInput extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      config: 9,
-      value: 8,
-      disabled: 0
+      config: 0,
+      value: 9,
+      disabled: 1
     }, add_css);
   }
 }
@@ -11183,13 +11020,13 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[17] = list[i];
-  child_ctx[18] = list;
-  child_ctx[19] = i;
+  child_ctx[16] = list[i];
+  child_ctx[17] = list;
+  child_ctx[18] = i;
   return child_ctx;
 }
 
-// (79:8) {#each activeOptions as option, index(option.id)}
+// (75:8) {#each activeOptions as option, index(option.id)}
 function create_each_block(key_1, ctx) {
   let div4;
   let div0;
@@ -11209,16 +11046,16 @@ function create_each_block(key_1, ctx) {
   let mounted;
   let dispose;
   function input0_input_handler() {
-    /*input0_input_handler*/ctx[6].call(input0, /*each_value*/ctx[18], /*index*/ctx[19]);
+    /*input0_input_handler*/ctx[6].call(input0, /*each_value*/ctx[17], /*index*/ctx[18]);
   }
   function input1_input_handler() {
-    /*input1_input_handler*/ctx[7].call(input1, /*each_value*/ctx[18], /*index*/ctx[19]);
+    /*input1_input_handler*/ctx[7].call(input1, /*each_value*/ctx[17], /*index*/ctx[18]);
   }
   function click_handler() {
-    return /*click_handler*/ctx[8](/*option*/ctx[17]);
+    return /*click_handler*/ctx[8](/*option*/ctx[16]);
   }
   function click_handler_1() {
-    return /*click_handler_1*/ctx[9](/*option*/ctx[17]);
+    return /*click_handler_1*/ctx[9](/*option*/ctx[16]);
   }
   return {
     key: key_1,
@@ -11254,7 +11091,7 @@ function create_each_block(key_1, ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button1, "class", "ac-setting-selectoptions-row__add acu-border-none acu-cursor-pointer acu-p-[0] acu-bg-[transparent] acu-text-[#B4B4B4] hover:acu-text-notification-blue");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div3, "class", "ac-setting-selectoptions-row__actions");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "class", "ac-setting-selectoptions-row acu-flex acu-gap-2 acu-items-center acu-py-1");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "data-id", div4_data_id_value = /*option*/ctx[17].id);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "data-id", div4_data_id_value = /*option*/ctx[16].id);
       this.first = div4;
     },
     m(target, anchor) {
@@ -11263,11 +11100,11 @@ function create_each_block(key_1, ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, t0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, div1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, input0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input0, /*option*/ctx[17].value);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input0, /*option*/ctx[16].value);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, div2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, input1);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input1, /*option*/ctx[17].label);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input1, /*option*/ctx[16].label);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, t2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, div3);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, button0);
@@ -11281,13 +11118,13 @@ function create_each_block(key_1, ctx) {
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & /*activeOptions*/1 && input0.value !== /*option*/ctx[17].value) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input0, /*option*/ctx[17].value);
+      if (dirty & /*activeOptions*/1 && input0.value !== /*option*/ctx[16].value) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input0, /*option*/ctx[16].value);
       }
-      if (dirty & /*activeOptions*/1 && input1.value !== /*option*/ctx[17].label) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input1, /*option*/ctx[17].label);
+      if (dirty & /*activeOptions*/1 && input1.value !== /*option*/ctx[16].label) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input1, /*option*/ctx[16].label);
       }
-      if (dirty & /*activeOptions*/1 && div4_data_id_value !== (div4_data_id_value = /*option*/ctx[17].id)) {
+      if (dirty & /*activeOptions*/1 && div4_data_id_value !== (div4_data_id_value = /*option*/ctx[16].id)) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "data-id", div4_data_id_value);
       }
     },
@@ -11305,7 +11142,7 @@ function create_fragment(ctx) {
   let each_blocks = [];
   let each_1_lookup = new Map();
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*activeOptions*/ctx[0]);
-  const get_key = ctx => /*option*/ctx[17].id;
+  const get_key = ctx => /*option*/ctx[16].id;
   for (let i = 0; i < each_value.length; i += 1) {
     let child_ctx = get_each_context(ctx, each_value, i);
     let key = get_key(child_ctx);
@@ -11368,10 +11205,6 @@ function instance($$self, $$props, $$invalidate) {
       label: '',
       id: (0,_helpers_string__WEBPACK_IMPORTED_MODULE_3__.uniqid)()
     };
-  };
-  const addRow = () => {
-    activeOptions.push(createRow());
-    $$invalidate(0, activeOptions);
   };
   const removeRow = id => {
     $$invalidate(0, activeOptions = activeOptions.filter(f => f.id !== id));
@@ -11995,9 +11828,17 @@ function instance($$self, $$props, $$invalidate) {
   let {
     disabled = false
   } = $$props;
+  const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_3__.createEventDispatcher)();
   let checked = false;
   const check = e => {
     $$invalidate(3, value = e.detail ? config.input.options[0].value : config.input.options[1].value);
+    if (mustRefresh()) {
+      dispatch('refresh');
+    }
+  };
+  const mustRefresh = () => {
+    var _a;
+    return ((_a = config.input.attributes) === null || _a === void 0 ? void 0 : _a.refresh) === 'config';
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.afterUpdate)(() => {
     $$invalidate(1, checked = value === config.input.options[0].value);
@@ -21738,6 +21579,248 @@ module.exports = function removeItems (arr, startIdx, removeCount) {
 
 /***/ }),
 
+/***/ "./node_modules/sprintf-js/src/sprintf.js":
+/*!************************************************!*\
+  !*** ./node_modules/sprintf-js/src/sprintf.js ***!
+  \************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/* global window, exports, define */
+
+!function() {
+    'use strict'
+
+    var re = {
+        not_string: /[^s]/,
+        not_bool: /[^t]/,
+        not_type: /[^T]/,
+        not_primitive: /[^v]/,
+        number: /[diefg]/,
+        numeric_arg: /[bcdiefguxX]/,
+        json: /[j]/,
+        not_json: /[^j]/,
+        text: /^[^\x25]+/,
+        modulo: /^\x25{2}/,
+        placeholder: /^\x25(?:([1-9]\d*)\$|\(([^)]+)\))?(\+)?(0|'[^$])?(-)?(\d+)?(?:\.(\d+))?([b-gijostTuvxX])/,
+        key: /^([a-z_][a-z_\d]*)/i,
+        key_access: /^\.([a-z_][a-z_\d]*)/i,
+        index_access: /^\[(\d+)\]/,
+        sign: /^[+-]/
+    }
+
+    function sprintf(key) {
+        // `arguments` is not an array, but should be fine for this call
+        return sprintf_format(sprintf_parse(key), arguments)
+    }
+
+    function vsprintf(fmt, argv) {
+        return sprintf.apply(null, [fmt].concat(argv || []))
+    }
+
+    function sprintf_format(parse_tree, argv) {
+        var cursor = 1, tree_length = parse_tree.length, arg, output = '', i, k, ph, pad, pad_character, pad_length, is_positive, sign
+        for (i = 0; i < tree_length; i++) {
+            if (typeof parse_tree[i] === 'string') {
+                output += parse_tree[i]
+            }
+            else if (typeof parse_tree[i] === 'object') {
+                ph = parse_tree[i] // convenience purposes only
+                if (ph.keys) { // keyword argument
+                    arg = argv[cursor]
+                    for (k = 0; k < ph.keys.length; k++) {
+                        if (arg == undefined) {
+                            throw new Error(sprintf('[sprintf] Cannot access property "%s" of undefined value "%s"', ph.keys[k], ph.keys[k-1]))
+                        }
+                        arg = arg[ph.keys[k]]
+                    }
+                }
+                else if (ph.param_no) { // positional argument (explicit)
+                    arg = argv[ph.param_no]
+                }
+                else { // positional argument (implicit)
+                    arg = argv[cursor++]
+                }
+
+                if (re.not_type.test(ph.type) && re.not_primitive.test(ph.type) && arg instanceof Function) {
+                    arg = arg()
+                }
+
+                if (re.numeric_arg.test(ph.type) && (typeof arg !== 'number' && isNaN(arg))) {
+                    throw new TypeError(sprintf('[sprintf] expecting number but found %T', arg))
+                }
+
+                if (re.number.test(ph.type)) {
+                    is_positive = arg >= 0
+                }
+
+                switch (ph.type) {
+                    case 'b':
+                        arg = parseInt(arg, 10).toString(2)
+                        break
+                    case 'c':
+                        arg = String.fromCharCode(parseInt(arg, 10))
+                        break
+                    case 'd':
+                    case 'i':
+                        arg = parseInt(arg, 10)
+                        break
+                    case 'j':
+                        arg = JSON.stringify(arg, null, ph.width ? parseInt(ph.width) : 0)
+                        break
+                    case 'e':
+                        arg = ph.precision ? parseFloat(arg).toExponential(ph.precision) : parseFloat(arg).toExponential()
+                        break
+                    case 'f':
+                        arg = ph.precision ? parseFloat(arg).toFixed(ph.precision) : parseFloat(arg)
+                        break
+                    case 'g':
+                        arg = ph.precision ? String(Number(arg.toPrecision(ph.precision))) : parseFloat(arg)
+                        break
+                    case 'o':
+                        arg = (parseInt(arg, 10) >>> 0).toString(8)
+                        break
+                    case 's':
+                        arg = String(arg)
+                        arg = (ph.precision ? arg.substring(0, ph.precision) : arg)
+                        break
+                    case 't':
+                        arg = String(!!arg)
+                        arg = (ph.precision ? arg.substring(0, ph.precision) : arg)
+                        break
+                    case 'T':
+                        arg = Object.prototype.toString.call(arg).slice(8, -1).toLowerCase()
+                        arg = (ph.precision ? arg.substring(0, ph.precision) : arg)
+                        break
+                    case 'u':
+                        arg = parseInt(arg, 10) >>> 0
+                        break
+                    case 'v':
+                        arg = arg.valueOf()
+                        arg = (ph.precision ? arg.substring(0, ph.precision) : arg)
+                        break
+                    case 'x':
+                        arg = (parseInt(arg, 10) >>> 0).toString(16)
+                        break
+                    case 'X':
+                        arg = (parseInt(arg, 10) >>> 0).toString(16).toUpperCase()
+                        break
+                }
+                if (re.json.test(ph.type)) {
+                    output += arg
+                }
+                else {
+                    if (re.number.test(ph.type) && (!is_positive || ph.sign)) {
+                        sign = is_positive ? '+' : '-'
+                        arg = arg.toString().replace(re.sign, '')
+                    }
+                    else {
+                        sign = ''
+                    }
+                    pad_character = ph.pad_char ? ph.pad_char === '0' ? '0' : ph.pad_char.charAt(1) : ' '
+                    pad_length = ph.width - (sign + arg).length
+                    pad = ph.width ? (pad_length > 0 ? pad_character.repeat(pad_length) : '') : ''
+                    output += ph.align ? sign + arg + pad : (pad_character === '0' ? sign + pad + arg : pad + sign + arg)
+                }
+            }
+        }
+        return output
+    }
+
+    var sprintf_cache = Object.create(null)
+
+    function sprintf_parse(fmt) {
+        if (sprintf_cache[fmt]) {
+            return sprintf_cache[fmt]
+        }
+
+        var _fmt = fmt, match, parse_tree = [], arg_names = 0
+        while (_fmt) {
+            if ((match = re.text.exec(_fmt)) !== null) {
+                parse_tree.push(match[0])
+            }
+            else if ((match = re.modulo.exec(_fmt)) !== null) {
+                parse_tree.push('%')
+            }
+            else if ((match = re.placeholder.exec(_fmt)) !== null) {
+                if (match[2]) {
+                    arg_names |= 1
+                    var field_list = [], replacement_field = match[2], field_match = []
+                    if ((field_match = re.key.exec(replacement_field)) !== null) {
+                        field_list.push(field_match[1])
+                        while ((replacement_field = replacement_field.substring(field_match[0].length)) !== '') {
+                            if ((field_match = re.key_access.exec(replacement_field)) !== null) {
+                                field_list.push(field_match[1])
+                            }
+                            else if ((field_match = re.index_access.exec(replacement_field)) !== null) {
+                                field_list.push(field_match[1])
+                            }
+                            else {
+                                throw new SyntaxError('[sprintf] failed to parse named argument key')
+                            }
+                        }
+                    }
+                    else {
+                        throw new SyntaxError('[sprintf] failed to parse named argument key')
+                    }
+                    match[2] = field_list
+                }
+                else {
+                    arg_names |= 2
+                }
+                if (arg_names === 3) {
+                    throw new Error('[sprintf] mixing positional and named placeholders is not (yet) supported')
+                }
+
+                parse_tree.push(
+                    {
+                        placeholder: match[0],
+                        param_no:    match[1],
+                        keys:        match[2],
+                        sign:        match[3],
+                        pad_char:    match[4],
+                        align:       match[5],
+                        width:       match[6],
+                        precision:   match[7],
+                        type:        match[8]
+                    }
+                )
+            }
+            else {
+                throw new SyntaxError('[sprintf] unexpected placeholder')
+            }
+            _fmt = _fmt.substring(match[0].length)
+        }
+        return sprintf_cache[fmt] = parse_tree
+    }
+
+    /**
+     * export to either browser or node.js
+     */
+    /* eslint-disable quote-props */
+    if (true) {
+        exports.sprintf = sprintf
+        exports.vsprintf = vsprintf
+    }
+    if (typeof window !== 'undefined') {
+        window['sprintf'] = sprintf
+        window['vsprintf'] = vsprintf
+
+        if (true) {
+            !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+                return {
+                    'sprintf': sprintf,
+                    'vsprintf': vsprintf
+                }
+            }).call(exports, __webpack_require__, exports, module),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
+        }
+    }
+    /* eslint-enable quote-props */
+}(); // eslint-disable-line
+
+
+/***/ }),
+
 /***/ "./node_modules/tannin/index.js":
 /*!**************************************!*\
   !*** ./node_modules/tannin/index.js ***!
@@ -24664,6 +24747,31 @@ function getBoundingClientRect(element, includeScale, isFixedStrategy, offsetPar
   });
 }
 
+// If <html> has a CSS width greater than the viewport, then this will be
+// incorrect for RTL.
+function getWindowScrollBarX(element, rect) {
+  const leftScroll = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getNodeScroll)(element).scrollLeft;
+  if (!rect) {
+    return getBoundingClientRect((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getDocumentElement)(element)).left + leftScroll;
+  }
+  return rect.left + leftScroll;
+}
+
+function getHTMLOffset(documentElement, scroll, ignoreScrollbarX) {
+  if (ignoreScrollbarX === void 0) {
+    ignoreScrollbarX = false;
+  }
+  const htmlRect = documentElement.getBoundingClientRect();
+  const x = htmlRect.left + scroll.scrollLeft - (ignoreScrollbarX ? 0 :
+  // RTL <body> scrollbar.
+  getWindowScrollBarX(documentElement, htmlRect));
+  const y = htmlRect.top + scroll.scrollTop;
+  return {
+    x,
+    y
+  };
+}
+
 function convertOffsetParentRelativeRectToViewportRelativeRect(_ref) {
   let {
     elements,
@@ -24695,26 +24803,17 @@ function convertOffsetParentRelativeRectToViewportRelativeRect(_ref) {
       offsets.y = offsetRect.y + offsetParent.clientTop;
     }
   }
+  const htmlOffset = documentElement && !isOffsetParentAnElement && !isFixed ? getHTMLOffset(documentElement, scroll, true) : (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.createCoords)(0);
   return {
     width: rect.width * scale.x,
     height: rect.height * scale.y,
-    x: rect.x * scale.x - scroll.scrollLeft * scale.x + offsets.x,
-    y: rect.y * scale.y - scroll.scrollTop * scale.y + offsets.y
+    x: rect.x * scale.x - scroll.scrollLeft * scale.x + offsets.x + htmlOffset.x,
+    y: rect.y * scale.y - scroll.scrollTop * scale.y + offsets.y + htmlOffset.y
   };
 }
 
 function getClientRects(element) {
   return Array.from(element.getClientRects());
-}
-
-// If <html> has a CSS width greater than the viewport, then this will be
-// incorrect for RTL.
-function getWindowScrollBarX(element, rect) {
-  const leftScroll = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getNodeScroll)(element).scrollLeft;
-  if (!rect) {
-    return getBoundingClientRect((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getDocumentElement)(element)).left + leftScroll;
-  }
-  return rect.left + leftScroll;
 }
 
 // Gets the entire size of the scrollable document area, even extending outside
@@ -24791,9 +24890,10 @@ function getClientRectFromClippingAncestor(element, clippingAncestor, strategy) 
   } else {
     const visualOffsets = getVisualOffsets(element);
     rect = {
-      ...clippingAncestor,
       x: clippingAncestor.x - visualOffsets.x,
-      y: clippingAncestor.y - visualOffsets.y
+      y: clippingAncestor.y - visualOffsets.y,
+      width: clippingAncestor.width,
+      height: clippingAncestor.height
     };
   }
   return (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.rectToClientRect)(rect);
@@ -24903,17 +25003,9 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
       offsets.x = getWindowScrollBarX(documentElement);
     }
   }
-  let htmlX = 0;
-  let htmlY = 0;
-  if (documentElement && !isOffsetParentAnElement && !isFixed) {
-    const htmlRect = documentElement.getBoundingClientRect();
-    htmlY = htmlRect.top + scroll.scrollTop;
-    htmlX = htmlRect.left + scroll.scrollLeft -
-    // RTL <body> scrollbar.
-    getWindowScrollBarX(documentElement, htmlRect);
-  }
-  const x = rect.left + scroll.scrollLeft - offsets.x - htmlX;
-  const y = rect.top + scroll.scrollTop - offsets.y - htmlY;
+  const htmlOffset = documentElement && !isOffsetParentAnElement && !isFixed ? getHTMLOffset(documentElement, scroll) : (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.createCoords)(0);
+  const x = rect.left + scroll.scrollLeft - offsets.x - htmlOffset.x;
+  const y = rect.top + scroll.scrollTop - offsets.y - htmlOffset.y;
   return {
     x,
     y,
@@ -36598,7 +36690,7 @@ module.exports = /*#__PURE__*/JSON.parse('[{"name":"Admin Menu","items":["menu",
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 /*!**********************************!*\

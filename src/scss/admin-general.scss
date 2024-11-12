@@ -1,16 +1,16 @@
 @use "sass:color";
-@import 'wordpress-vars';
-@import 'articles';
-@import 'admin-variables';
-@import 'colors';
-@import 'modals';
-@import 'admin-rtl';
-@import 'components/confirmation';
-@import 'components/tooltip';
-@import 'components/pointer';
-@import 'components/toggle';
-@import 'components/forms';
-@import 'components/ajax-loader';
+@use 'wordpress-vars';
+@use 'articles';
+@use 'admin-variables';
+@use 'colors';
+@use 'modals';
+@use 'admin-rtl';
+@use 'components/confirmation';
+@use 'components/tooltip';
+@use 'components/pointer';
+@use 'components/toggle';
+@use 'components/forms';
+@use 'components/ajax-loader';
 
 .ac-settings-box {
 	margin-bottom: 60px;
@@ -186,6 +186,7 @@ body.toplevel_page_codepress-admin-columns {
 
 	&__item {
 		margin: 0;
+
 		&.-active {
 			#{$e}__link {
 				background: #626979;
@@ -319,8 +320,8 @@ span.dashicons {
 }
 
 .wp-core-ui .button-primary.-pink {
-	background: $ac-pink;
-	border-color: color.adjust( $ac-pink, $lightness: -3%);
+	background: colors.$ac-pink;
+	border-color: color.adjust(colors.$ac-pink, $lightness: -3%);
 }
 
 /**
@@ -464,14 +465,14 @@ table.ac-form-table {
 	}
 }
 
-
 .ac-general-setting-row {
 	margin-bottom: 30px;
 
 	.ac-ajax-loading {
 		position: relative;
 	}
-	.ac-toggle-v2 .ac-ajax-loading{
+
+	.ac-toggle-v2 .ac-ajax-loading {
 		position: absolute;
 	}
 
@@ -483,6 +484,4 @@ table.ac-form-table {
 .ac-general-setting-row__layout {
 	display: flex;
 	align-items: center;
-
-
 }
