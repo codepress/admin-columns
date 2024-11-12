@@ -7,9 +7,9 @@ namespace AC\Type;
 final class ColumnFactoryDefinition
 {
 
-    private $factory;
+    private string $factory;
 
-    private $parameters;
+    private array $parameters;
 
     public function __construct(string $factory, array $parameters = [])
     {

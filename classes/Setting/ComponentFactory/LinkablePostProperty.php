@@ -6,10 +6,10 @@ namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Children;
-use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\Config;
 
+// TODO inject this as a dependency in PostProperty. remove the extends.
 class LinkablePostProperty extends PostProperty
 {
 
@@ -36,13 +36,19 @@ class LinkablePostProperty extends PostProperty
     {
         $children = parent::get_children($config);
 
-        $components = $children ? $children->get_iterator() : new Children(new ComponentCollection());
+        $components = $children->get_iterator();
 
         $components->add(
-            $this->user_link->create($config, StringComparisonSpecification::equal(self::PROPERTY_AUTHOR))
+            $this->user_link->create(
+                $config,
+                StringComparisonSpecification::equal(self::PROPERTY_AUTHOR)
+            )
         );
         $components->add(
-            $this->post_link->create($config, StringComparisonSpecification::equal(self::PROPERTY_TITLE))
+            $this->post_link->create(
+                $config,
+                StringComparisonSpecification::equal(self::PROPERTY_TITLE)
+            )
         );
 
         return $children;

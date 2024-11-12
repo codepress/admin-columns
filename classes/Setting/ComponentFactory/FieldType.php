@@ -12,6 +12,7 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
+use AC\Setting\Control\Type\Option;
 use AC\Setting\FormatterCollection;
 
 class FieldType extends Builder
@@ -124,13 +125,13 @@ class FieldType extends Builder
 
         $collection = new OptionCollection();
         $collection->add(
-            new AC\Setting\Control\Type\Option(__('Default', 'codepress-admin-columns'), '')
+            new Option(__('Default', 'codepress-admin-columns'), '')
         );
 
         foreach ($this->get_field_types() as $group => $options) {
             foreach ($options as $value => $label) {
                 $collection->add(
-                    new AC\Setting\Control\Type\Option(
+                    new Option(
                         $label,
                         $value,
                         $groups[$group] ?? $group
@@ -144,7 +145,7 @@ class FieldType extends Builder
 
     protected function get_field_types(): array
     {
-        $grouped_types = [
+        $options = [
             'basic'      => [
                 self::TYPE_COLOR   => __('Color', 'codepress-admin-columns'),
                 self::TYPE_DATE    => __('Date', 'codepress-admin-columns'),
@@ -173,11 +174,11 @@ class FieldType extends Builder
             ],
         ];
 
-        foreach ($grouped_types as $k => $fields) {
-            natcasesort($grouped_types[$k]);
+        foreach ($options as $k => $fields) {
+            natcasesort($options[$k]);
         }
 
-        return $grouped_types;
+        return $options;
     }
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void

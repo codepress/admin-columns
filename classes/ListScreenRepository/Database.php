@@ -29,13 +29,13 @@ class Database implements ListScreenRepositoryWritable
 
     private const TABLE = 'admin_columns';
 
-    private $table_screen_factory;
+    private TableScreenFactory $table_screen_factory;
 
-    private $encoder_factory;
+    private EncoderFactory $encoder_factory;
 
-    private $column_factory;
+    private Aggregate $column_factory;
 
-    private $storage_type;
+    private ListScreenStorageType $storage_type;
 
     public function __construct(
         TableScreenFactory $table_screen_factory,
@@ -227,7 +227,7 @@ class Database implements ListScreenRepositoryWritable
         $columns = $data->columns
             ? unserialize($data->columns, ['allowed_classes' => false])
             : [];
- 
+
         foreach ($columns as $name => $config) {
             if ( ! isset($config['name'])) {
                 $config['name'] = $name;
