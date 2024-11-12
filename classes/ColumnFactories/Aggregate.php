@@ -14,7 +14,7 @@ class Aggregate implements ColumnFactoryCollectionFactory
     /**
      * @var ColumnFactoryCollectionFactory[]
      */
-    private static $factories = [];
+    private static array $factories = [];
 
     public static function add(ColumnFactoryCollectionFactory $factory): void
     {

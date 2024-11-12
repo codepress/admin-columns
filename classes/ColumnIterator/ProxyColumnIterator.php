@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\ColumnIterator;
 
 use AC\Column;
+use AC\ColumnCollection;
 use AC\ColumnIterator;
 use AC\ColumnRepository;
 use ReturnTypeWillChange;
@@ -12,23 +13,18 @@ use ReturnTypeWillChange;
 class ProxyColumnIterator implements ColumnIterator
 {
 
-    private $repository;
+    private ColumnRepository $repository;
 
-    private $column_collection;
+    private ?ColumnCollection $column_collection = null;
 
     public function __construct(ColumnRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    protected function loaded(): bool
-    {
-        return null !== $this->column_collection;
-    }
-
     protected function forward(): ColumnIterator
     {
-        if ( ! $this->loaded()) {
+        if (null === $this->column_collection) {
             $this->column_collection = $this->repository->find_all();
         }
 
