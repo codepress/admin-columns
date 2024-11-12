@@ -29,8 +29,13 @@
 		<AcPanelHeader title={title}/>
 	{/if}
 	<slot name="header"></slot>
-	<AcPanelBody>
-		<slot></slot>
-	</AcPanelBody>
+
+	{#if $$slots.body}
+		<slot name="body"></slot>
+	{:else}
+		<AcPanelBody>
+			<slot name="body"></slot>
+		</AcPanelBody>
+	{/if}
 	<slot name="footer"></slot>
 </div>

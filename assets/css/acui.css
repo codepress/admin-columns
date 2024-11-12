@@ -366,12 +366,8 @@
   border-color: #E2E8F0;
   background: #F9FAFB;
   font-weight: bold;
-  padding-top: 8px;
-  padding-bottom: 8px;
 }
 .acui-table tbody td, .acui-table tbody th {
-  padding-top: 8px;
-  padding-bottom: 8px;
   border-bottom: 1px solid;
   border-color: #E2E8F0;
 }
