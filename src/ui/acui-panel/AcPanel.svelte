@@ -34,7 +34,7 @@
 		<slot name="body"></slot>
 	{:else}
 		<AcPanelBody>
-			<slot name="body"></slot>
+			<slot></slot>
 		</AcPanelBody>
 	{/if}
 	<slot name="footer"></slot>

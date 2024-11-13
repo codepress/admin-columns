@@ -19583,8 +19583,6 @@ __webpack_require__.r(__webpack_exports__);
 
 const get_footer_slot_changes = dirty => ({});
 const get_footer_slot_context = ctx => ({});
-const get_body_slot_changes_1 = dirty => ({});
-const get_body_slot_context_1 = ctx => ({});
 const get_body_slot_changes = dirty => ({});
 const get_body_slot_context = ctx => ({});
 const get_header_slot_changes = dirty => ({});
@@ -19714,36 +19712,36 @@ function create_if_block(ctx) {
 // (29:2) <AcPanelBody>
 function create_default_slot(ctx) {
   let current;
-  const body_slot_template = /*#slots*/ctx[7].body;
-  const body_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(body_slot_template, ctx, /*$$scope*/ctx[8], get_body_slot_context_1);
+  const default_slot_template = /*#slots*/ctx[7].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[8], null);
   return {
     c() {
-      if (body_slot) body_slot.c();
+      if (default_slot) default_slot.c();
     },
     m(target, anchor) {
-      if (body_slot) {
-        body_slot.m(target, anchor);
+      if (default_slot) {
+        default_slot.m(target, anchor);
       }
       current = true;
     },
     p(ctx, dirty) {
-      if (body_slot) {
-        if (body_slot.p && (!current || dirty & /*$$scope*/256)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(body_slot, body_slot_template, ctx, /*$$scope*/ctx[8], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[8]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(body_slot_template, /*$$scope*/ctx[8], dirty, get_body_slot_changes_1), get_body_slot_context_1);
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/256)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[8], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[8]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[8], dirty, null), null);
         }
       }
     },
     i(local) {
       if (current) return;
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(body_slot, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
       current = true;
     },
     o(local) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(body_slot, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
       current = false;
     },
     d(detaching) {
-      if (body_slot) body_slot.d(detaching);
+      if (default_slot) default_slot.d(detaching);
     }
   };
 }
