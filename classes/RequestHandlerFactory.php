@@ -10,9 +10,9 @@ class RequestHandlerFactory
     /**
      * @var RequestHandler[]
      */
-    private $request_handlers;
+    private array $request_handlers;
 
-    private $request;
+    private Request $request;
 
     public function __construct(Request $request)
     {
