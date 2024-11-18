@@ -18,7 +18,6 @@ export const persistMenuFavorite = (listKey: string, favorite: boolean): AxiosPr
     return axios.post(ajaxurl, data);
 }
 
-
 export const persistMenuStatus = (group: string, open: boolean): AxiosPromise<JsonDefaultFailureResponse | JsonSuccessResponse> => {
     let data = new FormData();
 

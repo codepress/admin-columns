@@ -10,8 +10,6 @@
     const features = proBannerConfig.features;
     const promo = proBannerConfig.promo;
 
-    //features = config.pro_modal.features;
-
 </script>
 
 <div class="acu-bg-gray-dark acu-p-[20px] ac-probanner acu-rounded-t-[10px]">

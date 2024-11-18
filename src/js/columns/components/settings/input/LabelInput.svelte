@@ -1,7 +1,5 @@
 <script lang="ts">
-    import dashicons from '../../../config/dashicons.json';
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
-    import {getColumnSettingsTranslation} from "../../../utils/global";
     import LabelIconModal from "../../LabelIconModal.svelte";
 
     export let value: string;
@@ -16,11 +14,11 @@
     const handleIconSelect = (event: CustomEvent) => {
         value = event.detail;
         showIconModal = false;
-	}
+    }
 
     const closeModal = () => {
         showIconModal = false;
-	}
+    }
 
 
 </script>

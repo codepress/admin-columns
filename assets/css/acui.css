@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@layer acui, acui-components;
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -291,6 +290,116 @@
   text-transform: uppercase;
 }
 
+.acui-list .acui-list-item {
+  display: flex;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 7px 10px;
+  margin-bottom: 6px;
+}
+.acui-list .acui-list-item:hover {
+  background: #fff;
+}
+.acui-list .acui-list-item:focus {
+  background: #fff;
+  box-shadow: 0 0 0 2px #2271b1;
+}
+.acui-list .acui-list-item.-active {
+  background: #E2E8F0;
+  color: var(--ac-pink-color);
+  font-weight: 500;
+}
+
+.ac-menu-group {
+  margin-bottom: 30px;
+  padding: 0;
+}
+.ac-menu-group__header {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 5px;
+  font-weight: bold;
+}
+.ac-menu-group__header__indicator {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  font-size: 16px;
+  color: #888;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  transition: all 0.2s;
+}
+.ac-menu-group__header.closed .ac-menu-group__header__indicator {
+  transform: rotate(180deg);
+}
+.ac-menu-group__header:hover {
+  background: #fff;
+}
+
+.ac-menu-group-list .ac-menu-group-list__item {
+  margin-left: 28px;
+}
+.ac-menu-group-list a {
+  text-decoration: none;
+}
+.ac-menu-group-list .ac-menu-group-list__container {
+  position: relative;
+  color: var(--ac-text-color);
+  display: block;
+  border-radius: 5px;
+}
+.ac-menu-group-list .ac-menu-group-list__container:hover {
+  background: #fff;
+}
+.ac-menu-group-list .ac-menu-group-list__link {
+  color: var(--ac-text-color);
+  display: block;
+  text-decoration: none;
+  padding: 7px 10px;
+  border-radius: 5px;
+  position: relative;
+}
+.ac-menu-group-list .ac-menu-group-list__link.active {
+  background: #E2E8F0;
+  color: #FE3D6C;
+  font-weight: 500;
+}
+.ac-menu-group-list .ac-menu-group-list__link:hover {
+  background: #fff;
+}
+.ac-menu-group-list .ac-menu-group-list__link:hover .ac-menu-group-list__favorite {
+  display: block;
+}
+.ac-menu-group-list__favorite {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-10px);
+}
+
+.ac-menu-image {
+  color: #aaa;
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: translateY(-1px);
+}
+
 .acui-progress {
   --containerWidth: 100%;
   --baseBackground: #ddd;
@@ -574,5 +683,7 @@
   align-items: center;
   gap: 6px;
 }
+
+@layer acui, acui-components;
 
 /*# sourceMappingURL=acui.css.map */
