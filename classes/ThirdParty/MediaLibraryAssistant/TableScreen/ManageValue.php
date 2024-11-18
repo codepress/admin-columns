@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace AC\ThirdParty\MediaLibraryAssistant\TableScreen;
 
 use AC;
-use AC\TableScreen\ManageValue\GridRenderable;
-use AC\Type\ColumnId;
 
 class ManageValue implements AC\Registerable
 {
 
-    private GridRenderable $renderable;
+    private AC\CellRenderer $renderable;
 
     private int $priority;
 
-    public function __construct(GridRenderable $renderable, int $priority = 100)
+    public function __construct(AC\CellRenderer $renderable, int $priority = 100)
     {
         $this->renderable = $renderable;
         $this->priority = $priority;
@@ -29,7 +27,7 @@ class ManageValue implements AC\Registerable
     public function render_value($value, $post, $column_name): ?string
     {
         if (is_null($value)) {
-            return $this->renderable->render(new ColumnId((string)$column_name), $post->ID) ?? $value;
+            return $this->renderable->render_cell((string)$column_name, $post->ID) ?? $value;
         }
 
         return $value;

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
+use AC\CellRenderer;
 use AC\Column;
 use AC\ListScreen;
 use AC\Setting\ContextFactory;
-use AC\TableScreen\ManageValue\GridRenderable;
 use AC\Type\ColumnId;
 
-class ListScreenRenderable implements GridRenderable
+class ListScreenRenderable implements CellRenderer
 {
 
     private ListScreen $list_screen;
@@ -41,9 +41,9 @@ class ListScreenRenderable implements GridRenderable
         return $renderables[(string)$column->get_id()];
     }
 
-    public function render(ColumnId $column_id, $row_id): ?string
+    public function render_cell(string $column_id, $row_id): ?string
     {
-        $column = $this->list_screen->get_column($column_id);
+        $column = $this->list_screen->get_column(new ColumnId($column_id));
 
         if ( ! $column) {
             return null;

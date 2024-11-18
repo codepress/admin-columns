@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\TableScreen\ManageValue;
 
+use AC\CellRenderer;
 use AC\PostType;
 use AC\Registerable;
 use AC\TableScreen;
@@ -20,7 +21,7 @@ class PostFactory implements ManageValueFactory
 
     public function create(
         TableScreen $table_screen,
-        GridRenderable $renderable,
+        CellRenderer $renderable,
         int $priority = 100
     ): Registerable {
         if ( ! $table_screen instanceof PostType) {

@@ -65,7 +65,7 @@ class ProcessFormatters
             $value = (new Separator())->format($value);
         }
 
-        if ($value->get_value() !== null && '' === (string)$value) {
+        if ('' === (string)$value && $value->get_value() !== null) {
             $value = $value->with_value($this->default);
         }
 

@@ -11,7 +11,7 @@ trait ColumnLabelTrait
     {
         $label = $column->get_setting('label')->get_input()->get_value();
 
-        if (false !== strpos($label, 'dashicons')) {
+        if (str_contains($label, 'dashicons')) {
             return trim($label);
         }
 
