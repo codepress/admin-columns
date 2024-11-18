@@ -10,38 +10,24 @@ class Request
     public const METHOD_POST = 'POST';
     public const METHOD_GET = 'GET';
 
-    /**
-     * @var string
-     */
-    protected $method;
+    protected string $method;
 
-    /**
-     * @var Parameters
-     */
-    protected $query;
+    protected Parameters $query;
 
-    /**
-     * @var Parameters
-     */
-    protected $request;
+    protected Parameters $request;
 
     /**
      * @var Middleware[]
      */
-    protected $middleware;
+    protected array $middleware;
 
     public function __construct()
     {
-        $this->method = $_SERVER['REQUEST_METHOD'];
+        $this->method = $_SERVER['REQUEST_METHOD'] ?? '';
         $this->query = new Parameters((array)filter_input_array(INPUT_GET));
         $this->request = new Parameters((array)filter_input_array(INPUT_POST));
     }
 
-    /**
-     * @param Middleware $middleware
-     *
-     * @return self
-     */
     public function add_middleware(Middleware $middleware): self
     {
         $this->middleware[] = $middleware;
@@ -49,11 +35,6 @@ class Request
         $middleware->handle($this);
 
         return $this;
-    }
-
-    public function is_request(): bool
-    {
-        return $this->request->count() > 0;
     }
 
     public function get_query(): Parameters
@@ -78,26 +59,12 @@ class Request
             : $this->get_query();
     }
 
-    /**
-     * @param string $key
-     * @param null   $default
-     *
-     * @return mixed
-     */
-    public function get($key, $default = null)
+    public function get(string $key, $default = null)
     {
         return $this->get_parameters()->get($key, $default);
     }
 
-    /**
-     * @param string    $key
-     * @param null      $default
-     * @param int       $filter
-     * @param array|int $options
-     *
-     * @return mixed
-     */
-    public function filter($key, $default = null, $filter = FILTER_DEFAULT, $options = 0)
+    public function filter(string $key, $default = null, int $filter = FILTER_DEFAULT, $options = 0)
     {
         return $this->get_parameters()->filter($key, $default, $filter, $options);
     }
