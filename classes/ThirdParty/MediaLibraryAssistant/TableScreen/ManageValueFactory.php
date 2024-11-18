@@ -6,7 +6,6 @@ namespace AC\ThirdParty\MediaLibraryAssistant\TableScreen;
 
 use AC;
 use AC\Registerable;
-use AC\TableScreen\ManageValue\GridRenderable;
 use AC\ThirdParty\MediaLibraryAssistant\TableScreen;
 
 class ManageValueFactory implements AC\TableScreen\ManageValueFactory
@@ -17,7 +16,7 @@ class ManageValueFactory implements AC\TableScreen\ManageValueFactory
         return $table_screen instanceof TableScreen;
     }
 
-    public function create(AC\TableScreen $table_screen, GridRenderable $renderable, int $priority = 100): Registerable
+    public function create(AC\TableScreen $table_screen, AC\CellRenderer $renderable, int $priority = 100): Registerable
     {
         return new ManageValue($renderable, $priority);
     }

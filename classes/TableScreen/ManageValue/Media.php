@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace AC\TableScreen\ManageValue;
 
+use AC\CellRenderer;
 use AC\Registerable;
-use AC\Type\ColumnId;
 use DomainException;
 
 class Media implements Registerable
 {
 
-    private GridRenderable $renderable;
+    private CellRenderer $renderable;
 
     private int $priority;
 
     public function __construct(
-        GridRenderable $renderable,
+        CellRenderer $renderable,
         int $priority = 100
     ) {
         $this->renderable = $renderable;
@@ -34,7 +34,7 @@ class Media implements Registerable
 
     public function render_value($column_id, $row_id): void
     {
-        echo $this->renderable->render(new ColumnId((string)$column_id), $row_id);
+        echo $this->renderable->render_cell((string)$column_id, $row_id);
     }
 
 }
