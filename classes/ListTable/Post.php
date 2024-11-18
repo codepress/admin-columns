@@ -24,7 +24,12 @@ class Post implements ListTable
         if (method_exists($this->table, $method)) {
             call_user_func([$this->table, $method], get_post($row_id));
         } else {
-            $this->table->column_default(get_post($row_id), $column_id);
+            $post = get_post($row_id);
+
+            // populate globals
+            setup_postdata($post);
+
+            $this->table->column_default($post, $column_id);
         }
 
         return ob_get_clean();
