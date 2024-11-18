@@ -20,7 +20,6 @@
 
 </script>
 
-
 <AcInputGroup>
 	<input type="text" bind:value={value} {disabled} placeholder={config.input.placeholder}>
 </AcInputGroup>

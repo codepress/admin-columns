@@ -1,8 +1,7 @@
 <script lang="ts">
 
     import {createEventDispatcher, onDestroy, onMount} from "svelte";
-    import { uniqid } from "../../../../helpers/string";
-    import { getColumnSettingsTranslation } from "../../../utils/global";
+    import {uniqid} from "../../../../helpers/string";
 
     type selectOptionType = {
         value: string
@@ -11,13 +10,11 @@
     }
 
     export let config: AC.Column.Settings.NumberSettings;
-    export let value: string|null = '';
-
+    export let value: string | null = '';
 
     const dispatch = createEventDispatcher();
-    const i18n = getColumnSettingsTranslation();
 
-    let sortEl: HTMLElement|null;
+    let sortEl: HTMLElement;
     let activeOptions: selectOptionType[] = [];
 
     const createRow = () => {
@@ -54,18 +51,18 @@
     }
 
     const dispatchValue = () => {
-        if( activeOptions.length ){
+        if (activeOptions.length) {
             value = JSON.stringify(getMappedValue());
         }
 
     }
 
     onMount(() => {
-        let data:selectOptionType[] = [];
+        let data: selectOptionType[] = [];
 
-        if( value !== null && value.length> 0 ){
-            data = JSON.parse( value );
-		}
+        if (value !== null && value.length > 0) {
+            data = JSON.parse(value);
+        }
 
         activeOptions = data.map(o => {
             return Object.assign(o, {id: uniqid()})
@@ -78,17 +75,20 @@
         activeOptions = activeOptions;
 
 
-        jQuery(sortEl).sortable({
+        (jQuery as any)(sortEl).sortable({
             axis: 'y',
             handle: '.-drag',
             stop: () => {
-                let newIndex = [];
-                let newItems = [];
+                let newIndex: string[] = [];
+                let newItems: selectOptionType[] = [];
 
-                sortEl.childNodes.forEach(el => newIndex.push(el.dataset.id))
+                sortEl.childNodes.forEach((el: HTMLElement) => newIndex.push(el.dataset.id ?? ''))
 
                 newIndex.forEach(id => {
-                    newItems.push(activeOptions.find(i => i.id === id));
+                    let item = activeOptions.find(i => i.id === id);
+                    if (item) {
+                        newItems.push(item);
+                    }
                 });
 
                 activeOptions = newItems;
@@ -106,26 +106,26 @@
 </script>
 
 
-    <div class="ac-setting-selectoptions" bind:this={sortEl}>
-        {#each activeOptions as option, index(option.id)}
-            <div class="ac-setting-selectoptions-row acu-flex acu-gap-2 acu-items-center acu-py-1" data-id={option.id}>
-                <div class="ac-setting-selectoptions-row__drag acu-cursor-pointer">
-                    <span class="cpacicon-move -drag"></span>
-                </div>
-                <div class="ac-setting-selectoptions-row__input acu-flex-grow">
-                    <input type="text" bind:value={option.value} placeholder="Value" class="acu-w-full">
-                </div>
-                <div class="ac-setting-selectoptions-row__input acu-flex-grow">
-                    <input type="text" bind:value={option.label} placeholder="Label" class="acu-w-full">
-                </div>
-                <div class="ac-setting-selectoptions-row__actions">
-                    <button class="ac-setting-selectoptions-row__remove acu-border-none acu-cursor-pointer acu-p-[0] acu-bg-[transparent] acu-text-[#B4B4B4] hover:acu-text-notification-red" on:click|preventDefault={() => removeRow(option.id)}>
-                        <span class="dashicons dashicons-remove acp-cf-delete-btn"></span>
-                    </button>
-                    <button class="ac-setting-selectoptions-row__add acu-border-none acu-cursor-pointer acu-p-[0] acu-bg-[transparent] acu-text-[#B4B4B4] hover:acu-text-notification-blue" on:click|preventDefault={() => addAfter(option.id)}>
-                        <span class="dashicons dashicons-insert"></span>
-                    </button>
-                </div>
-            </div>
-        {/each}
-    </div>
+<div class="ac-setting-selectoptions" bind:this={sortEl}>
+	{#each activeOptions as option, index(option.id)}
+		<div class="ac-setting-selectoptions-row acu-flex acu-gap-2 acu-items-center acu-py-1" data-id={option.id}>
+			<div class="ac-setting-selectoptions-row__drag acu-cursor-pointer">
+				<span class="cpacicon-move -drag"></span>
+			</div>
+			<div class="ac-setting-selectoptions-row__input acu-flex-grow">
+				<input type="text" bind:value={option.value} placeholder="Value" class="acu-w-full">
+			</div>
+			<div class="ac-setting-selectoptions-row__input acu-flex-grow">
+				<input type="text" bind:value={option.label} placeholder="Label" class="acu-w-full">
+			</div>
+			<div class="ac-setting-selectoptions-row__actions">
+				<button class="ac-setting-selectoptions-row__remove acu-border-none acu-cursor-pointer acu-p-[0] acu-bg-[transparent] acu-text-[#B4B4B4] hover:acu-text-notification-red" on:click|preventDefault={() => removeRow(option.id)}>
+					<span class="dashicons dashicons-remove acp-cf-delete-btn"></span>
+				</button>
+				<button class="ac-setting-selectoptions-row__add acu-border-none acu-cursor-pointer acu-p-[0] acu-bg-[transparent] acu-text-[#B4B4B4] hover:acu-text-notification-blue" on:click|preventDefault={() => addAfter(option.id)}>
+					<span class="dashicons dashicons-insert"></span>
+				</button>
+			</div>
+		</div>
+	{/each}
+</div>

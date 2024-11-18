@@ -12,9 +12,9 @@
 
 
 <AcModal visible className="acui2 -promotion" appendToBody on:close>
-	<span slot="header">
+	<div slot="header">
 		<h2>{title}</h2>
-	</span>
+	</div>
 	<div slot="content">
 		<p class="acu-pt-[0] acu-font-bold">{i18n.subtitle}</p>
 		<ul>

@@ -6,7 +6,6 @@ import {SvelteSelectItem} from "../../types/select";
 
 declare const ajaxurl: string;
 
-
 type remoteSelectOptionsPayload = {
     options: Array<SvelteSelectItem>
 }

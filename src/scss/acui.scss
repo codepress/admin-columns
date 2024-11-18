@@ -1,16 +1,17 @@
-@layer acui, acui-components;
+@use "acui/components/button";
+@use "acui/components/dropdown";
+@use "acui/components/datepicker";
+@use "acui/components/input";
+@use "acui/components/input-group";
+@use "acui/components/menu";
+@use "acui/components/progress";
+@use "acui/components/skeleton";
+@use "acui/components/table";
+@use "acui/components/toggle-buttons";
+@use "acui/components/tooltip";
+@use "acui/components/notification";
 
-@import "acui/components/button";
-@import "acui/components/dropdown";
-@import "acui/components/datepicker";
-@import "acui/components/input";
-@import "acui/components/input-group";
-@import "acui/components/progress";
-@import "acui/components/skeleton";
-@import "acui/components/table";
-@import "acui/components/toggle-buttons";
-@import "acui/components/tooltip";
-@import "acui/components/notification";
+@layer acui, acui-components;
 
 :root {
 

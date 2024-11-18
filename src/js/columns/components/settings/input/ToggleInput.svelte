@@ -35,5 +35,5 @@
 
 </script>
 <div class="acu-pt-1">
-<AcToggle checked={checked} on:input={check} {disabled}></AcToggle>
+	<AcToggle checked={checked} on:input={check} {disabled}></AcToggle>
 </div>

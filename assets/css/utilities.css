@@ -85,6 +85,10 @@
   margin-bottom: 15px
 }
 
+.acu-ml-\[28px\] {
+  margin-left: 28px
+}
+
 .acu-mr-1 {
   margin-right: 5px
 }
@@ -175,6 +179,14 @@
 
 .acu-w-full {
   width: 100%
+}
+
+.acu-min-w-\[200px\] {
+  min-width: 200px
+}
+
+.acu-min-w-\[300px\] {
+  min-width: 300px
 }
 
 .acu-max-w-\[1200px\] {
@@ -318,10 +330,6 @@
   border-radius: 0.5rem
 }
 
-.acu-rounded-\[1\] {
-  border-radius: 1
-}
-
 .acu-rounded-b-\[10px\] {
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px
@@ -369,11 +377,6 @@
   border-color: var(--acui-border)
 }
 
-.acu-border-\[\#CBD5E1\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(203 213 225 / var(--tw-border-opacity))
-}
-
 .acu-bg-\[\#E2E8F0\] {
   --tw-bg-opacity: 1;
   background-color: rgb(226 232 240 / var(--tw-bg-opacity))
@@ -411,11 +414,6 @@
 .acu-bg-gray-dark {
   --tw-bg-opacity: 1;
   background-color: rgb(61 67 80 / var(--tw-bg-opacity))
-}
-
-.acu-bg-\[red\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 0 0 / var(--tw-bg-opacity))
 }
 
 .acu-bg-none {
@@ -521,11 +519,6 @@
   padding-bottom: 2px
 }
 
-.acu-py-4 {
-  padding-top: 20px;
-  padding-bottom: 20px
-}
-
 .acu-pb-4 {
   padding-bottom: 20px
 }
@@ -554,8 +547,8 @@
   padding-left: 43px
 }
 
-.acu-pl-\[52px\] {
-  padding-left: 52px
+.acu-pl-\[50px\] {
+  padding-left: 50px
 }
 
 .acu-pr-1 {
@@ -602,10 +595,6 @@
   padding-top: 20px
 }
 
-.acu-pl-\[50px\] {
-  padding-left: 50px
-}
-
 .acu-text-left {
   text-align: left
 }
@@ -618,8 +607,9 @@
   text-align: right
 }
 
-.acu-align-top {
-  vertical-align: top
+.acu-text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem
 }
 
 .acu-text-\[12px\] {
@@ -645,11 +635,6 @@
 .acu-text-base {
   font-size: 1rem;
   line-height: 1.5rem
-}
-
-.acu-text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem
 }
 
 .acu-font-bold {
@@ -860,6 +845,10 @@
     display: block
   }
 
+  .\32xl\:acu-flex {
+    display: flex
+  }
+
   .\32xl\:acu-hidden {
     display: none
   }
@@ -879,6 +868,16 @@
 
   .\32xl\:acu-pt-\[30px\] {
     padding-top: 30px
+  }
+}
+
+@media (min-width: 1600px) {
+  .\33xl\:acu-min-w-\[500px\] {
+    min-width: 500px
+  }
+
+  .\33xl\:acu-min-w-\[450px\] {
+    min-width: 450px
   }
 }
 
