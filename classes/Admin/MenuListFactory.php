@@ -11,7 +11,7 @@ use AC\Table\TableScreenCollection;
 class MenuListFactory
 {
 
-    private $group_factory;
+    private Aggregate $group_factory;
 
     public function __construct(Aggregate $group_factory)
     {
