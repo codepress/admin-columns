@@ -8,7 +8,6 @@ use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Request;
-use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\Table;
 use AC\TableScreenFactory;
 use WP_Screen;
@@ -16,17 +15,15 @@ use WP_Screen;
 class TableListScreenSetter implements Registerable
 {
 
-    private $storage;
+    private Storage $storage;
 
-    private $location;
+    private Absolute $location;
 
-    private $preference;
+    private Table\LayoutPreference $preference;
 
-    private $primary_column_factory;
+    private Table\PrimaryColumnFactory $primary_column_factory;
 
-    private $table_screen_factory;
-
-    private $default_columns_repository;
+    private TableScreenFactory $table_screen_factory;
 
     private ColumnSize\ListStorage $size_storage;
 
@@ -38,7 +35,6 @@ class TableListScreenSetter implements Registerable
         TableScreenFactory $table_screen_factory,
         Table\LayoutPreference $preference,
         Table\PrimaryColumnFactory $primary_column_factory,
-        DefaultColumnsRepository $default_columns_repository,
         ColumnSize\ListStorage $size_storage,
         ColumnSize\UserStorage $size_user_storage
     ) {
@@ -47,7 +43,6 @@ class TableListScreenSetter implements Registerable
         $this->preference = $preference;
         $this->primary_column_factory = $primary_column_factory;
         $this->table_screen_factory = $table_screen_factory;
-        $this->default_columns_repository = $default_columns_repository;
         $this->size_storage = $size_storage;
         $this->size_user_storage = $size_user_storage;
     }
@@ -78,7 +73,7 @@ class TableListScreenSetter implements Registerable
         );
 
         $list_screen = $request->get('list_screen');
- 
+
         if ($list_screen instanceof ListScreen) {
             $this->preference->save(
                 $table_screen->get_key(),

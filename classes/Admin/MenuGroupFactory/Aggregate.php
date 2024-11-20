@@ -14,7 +14,7 @@ class Aggregate implements MenuGroupFactory
     /**
      * @var MenuGroupFactory[]
      */
-    private static $factories = [];
+    private static array $factories = [];
 
     public static function add(MenuGroupFactory $factory): void
     {

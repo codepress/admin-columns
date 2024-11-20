@@ -7,9 +7,9 @@ use AC\Asset\Location;
 final class Absolute implements Location
 {
 
-    private $url;
+    private string $url;
 
-    private $path;
+    private string $path;
 
     public function __construct(string $url, string $path)
     {

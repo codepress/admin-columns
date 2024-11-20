@@ -12,7 +12,7 @@ use AC\Type\ListKey;
 class BaseFactory implements ListKeysFactory
 {
 
-    private $post_type_repository;
+    private PostTypeRepository $post_type_repository;
 
     public function __construct(PostTypeRepository $post_type_repository)
     {

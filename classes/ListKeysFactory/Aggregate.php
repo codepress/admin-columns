@@ -13,7 +13,7 @@ class Aggregate implements ListKeysFactory
     /**
      * @var ListKeysFactory[]
      */
-    private static $factories = [];
+    private static array $factories = [];
 
     public static function add(ListKeysFactory $factory): void
     {

@@ -9,12 +9,9 @@ use WP_Screen;
 class Screen implements Registerable
 {
 
-    /**
-     * @var WP_Screen
-     */
-    protected $screen;
+    protected ?WP_Screen $screen = null;
 
-    private $table_screen_factory;
+    private TableScreenFactory $table_screen_factory;
 
     public function __construct(TableScreenFactory $table_screen_factory)
     {
