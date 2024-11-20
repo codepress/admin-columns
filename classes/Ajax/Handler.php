@@ -10,16 +10,16 @@ class Handler implements Registerable
 
     public const NONCE_ACTION = 'ac-ajax';
 
-    protected $params = [];
+    protected array $params = [];
 
     /**
      * @var callable
      */
     protected $callback;
 
-    protected $wp_ajax;
+    protected bool $wp_ajax;
 
-    protected $priority = 10;
+    protected int $priority = 10;
 
     public function __construct(bool $wp_ajax = null)
     {
