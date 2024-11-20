@@ -9,9 +9,13 @@ use AC\Nonce;
 class Addons extends Script
 {
 
-    public function __construct(string $handle, Location $location = null)
+    private Nonce\Ajax $nonce;
+
+    public function __construct(string $handle, Nonce\Ajax $nonce, Location $location)
     {
         parent::__construct($handle, $location, ['jquery']);
+
+        $this->nonce = $nonce;
     }
 
     public function register(): void
@@ -24,9 +28,10 @@ class Addons extends Script
 
         $this->localize('ACi18n', $translation)
              ->add_inline_variable(
-                 'AC', [
-                     Nonce\Ajax::NAME => (new Nonce\Ajax())->create(),
-                     'is_network_admin' => is_network_admin(),
+                 'AC',
+                 [
+                     $this->nonce->get_name() => $this->nonce->create(),
+                     'is_network_admin'       => is_network_admin(),
                  ]
              );
     }
