@@ -9,9 +9,9 @@ use AC\Request;
 class Nonce
 {
 
-    private $action;
+    private string $action;
 
-    private $name;
+    private string $name;
 
     public function __construct(string $action, string $name)
     {
