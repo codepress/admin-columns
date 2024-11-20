@@ -13,6 +13,6 @@ export type DataTableFieldDefinitionType = {
 export type DataTableActionsDefinitionType = {
     id: string,
     label: string,
-    action?: (item: any) => void,
+    callback?: (item: any) => void,
     primary?: boolean
 }

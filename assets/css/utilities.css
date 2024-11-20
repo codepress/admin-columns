@@ -181,14 +181,6 @@
   width: 100%
 }
 
-.acu-min-w-\[200px\] {
-  min-width: 200px
-}
-
-.acu-min-w-\[300px\] {
-  min-width: 300px
-}
-
 .acu-max-w-\[1200px\] {
   max-width: 1200px
 }
@@ -834,6 +826,10 @@
   .xl\:acu-gap-6 {
     gap: 30px
   }
+
+  .xl\:acu-gap-8 {
+    gap: 40px
+  }
 }
 
 @media (min-width: 1450px) {
@@ -872,10 +868,6 @@
 }
 
 @media (min-width: 1600px) {
-  .\33xl\:acu-min-w-\[500px\] {
-    min-width: 500px
-  }
-
   .\33xl\:acu-min-w-\[450px\] {
     min-width: 450px
   }
