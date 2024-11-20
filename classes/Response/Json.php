@@ -11,20 +11,11 @@ class Json
 
     public const MESSAGE = 'message';
 
-    /**
-     * @var array
-     */
-    protected $parameters = [];
+    protected array $parameters = [];
 
-    /**
-     * @var array
-     */
-    protected $headers = [];
+    protected array $headers = [];
 
-    /**
-     * @var int
-     */
-    protected $status_code = 200;
+    protected int $status_code = 200;
 
     public function __construct()
     {

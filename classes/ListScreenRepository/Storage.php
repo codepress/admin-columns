@@ -20,7 +20,7 @@ final class Storage implements ListScreenRepositoryWritable
     /**
      * @var Storage\ListScreenRepository[]
      */
-    private $repositories = [];
+    private array $repositories = [];
 
     /**
      * @return Storage\ListScreenRepository[]

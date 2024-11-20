@@ -7,7 +7,7 @@ namespace AC\Type;
 class ListScreenStorageType
 {
 
-    private $type;
+    private string $type;
 
     public function __construct(string $type = '')
     {
