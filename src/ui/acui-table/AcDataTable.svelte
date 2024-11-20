@@ -45,7 +45,7 @@
 					{#each fields as field}
 						<AcTableCell>
 							{#if field.getValue }
-								{field.getValue( itemRow ) }
+								{@html field.getValue( itemRow ) }
 							{:else if field.render }
 								<svelte:component this={field.render} item={itemRow}/>
 							{:else}
