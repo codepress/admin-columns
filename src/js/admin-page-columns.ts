@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_info"] input').forEach(el =>
-        new InfoScreenOption('show_column_info', el, showColumnInfo)
+        new InfoScreenOption('show_column_info', el, showColumnInfo, ac_admin_columns.nonce)
     );
 
 });

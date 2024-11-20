@@ -23,6 +23,18 @@
 		border-color: #111;
 	}
 
+	&:disabled {
+        border-color: #C4C4C4 !important;
+        background: #E6E6E6 !important;
+        cursor: not-allowed !important;
+		color: #aaa !important;
+    }
+
+	&.-small {
+		padding-top: 6px;
+		padding-bottom: 6px;
+	}
+
 }
 
 .acui-button.acui-button-text {

@@ -8,7 +8,7 @@ declare const ajaxurl: string;
 export default class InfoScreenOption {
 
 
-    constructor(private name: string, private input: HTMLInputElement, private store:Writable<boolean>) {
+    constructor(private name: string, private input: HTMLInputElement, private store:Writable<boolean>, private nonce: string) {
         this.initEvents();
     }
 
@@ -23,7 +23,7 @@ export default class InfoScreenOption {
     persist() {
         axios.post(ajaxurl, mapDataToFormData({
             action: 'ac-admin-screen-options',
-            _ajax_nonce: ac_admin_columns.nonce,
+            _ajax_nonce: this.nonce,
             option_name: this.name,
             option_value: this.input.checked ? 1 : 0
         }))

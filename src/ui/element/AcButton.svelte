@@ -10,11 +10,19 @@
     export let iconRightPack: string | null = null;
     export let loading: boolean = false;
     export let customClass: string | undefined = '';
+    export let size: 'small' | 'medium' | 'large' = 'medium';
 
-    let dynamicClass = ` acui-button-${type}`;
+    let classes = [
+        'acui-button',
+		customClass,
+		`acui-button-${type}`
+	]
+
+	if( size ==='small' ) classes.push('-small');
+
 </script>
 
-<button class="acui-button {customClass}{dynamicClass} "
+<button class="{classes.join(' ')}"
 		class:is-loading={loading}
 		{disabled}
 		on:click

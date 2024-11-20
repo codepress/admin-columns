@@ -21,6 +21,16 @@
 .acui-button:hover, .acui-button:focus, .acui-button:active {
   border-color: #111;
 }
+.acui-button:disabled {
+  border-color: #C4C4C4 !important;
+  background: #E6E6E6 !important;
+  cursor: not-allowed !important;
+  color: #aaa !important;
+}
+.acui-button.-small {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
 
 .acui-button.acui-button-text {
   border-color: transparent;
@@ -509,6 +519,11 @@
   display: inline-flex;
   position: relative;
 }
+.acui-tooltip .acui-tooltip-trigger.has-border {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 4px;
+}
 .acui-tooltip .acui-tooltip-content.is-top {
   bottom: calc(100% + 4px);
   left: 50%;
@@ -542,7 +557,10 @@
   font-size: 11px;
   line-height: 16px;
   z-index: 100000;
-  white-space: nowrap;
+  width: max-content;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 .acui-tooltip-content:before {
   content: "";

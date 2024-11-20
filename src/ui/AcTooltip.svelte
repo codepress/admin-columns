@@ -5,21 +5,18 @@
     export let label: string;
     export let active: boolean = false;
     export let appendToBody: boolean = false;
+    export let border: boolean = false;
     export let delay: number = 0;
     export let closeDelay: number = 0;
     export let position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
     export let multiline: boolean = false;
     export let size: 'small' | 'medium' | 'large' = 'medium';
+    export let maxWidth: string|null = '250px';
 
-    let hover: boolean = false;
     let contentEl: HTMLElement;
     let triggerEl: HTMLElement;
-    let timeoutIn: number;
-    let timeoutOut: number;
-
-    const wait = (milliseconds) => {
-        return new Promise(resolve => setTimeout(resolve, milliseconds));
-    }
+    let timeoutIn: ReturnType<typeof setTimeout>;
+    let timeoutOut: ReturnType<typeof setTimeout>;
 
     const toggleOn = async () => {
         active = true;
@@ -74,24 +71,28 @@
 </script>
 
 <div class="acui-tooltip">
-	<div class="acui-tooltip-trigger" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseOut} bind:this={triggerEl} role="none">
+	<div class="acui-tooltip-trigger"
+		class:has-border={border}
+		on:mouseenter={handleMouseEnter}
+		on:mouseleave={handleMouseOut} bind:this={triggerEl} role="none">
 		<slot></slot>
 	</div>
-	{#if active }
+	{#if active || 1 === 1 }
 		<div
-				class="acui-tooltip-content"
-				class:is-multiline={multiline}
-				class:is-top={ position === 'top'}
-				class:is-bottom={ position === 'bottom'}
-				class:is-right={ position === 'right'}
-				class:is-left={ position === 'left'}
-				class:is-small={ size === 'small'}
-				class:is-medium={ size === 'medium'}
-				class:is-large={ size === 'large'}
-				style:display={ active === true ? 'block' : 'none' }
-				bind:this={contentEl}
-				in:fade={{duration:200}}
-				out:fade={{duration:200}}>
+			class="acui-tooltip-content"
+			class:is-multiline={multiline}
+			class:is-top={ position === 'top'}
+			class:is-bottom={ position === 'bottom'}
+			class:is-right={ position === 'right'}
+			class:is-left={ position === 'left'}
+			class:is-small={ size === 'small'}
+			class:is-medium={ size === 'medium'}
+			class:is-large={ size === 'large'}
+			style:display={ active === true ? 'block' : 'none' }
+			style:max-width={maxWidth}
+			bind:this={contentEl}
+			in:fade={{duration:200}}
+			out:fade={{duration:200}}>
 			{label}
 		</div>
 	{/if}

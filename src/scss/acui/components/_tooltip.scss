@@ -2,6 +2,13 @@
 	display: inline-flex;
 	position: relative;
 
+	.acui-tooltip-trigger {
+		&.has-border {
+			text-decoration-line: underline;
+			text-decoration-style: dotted;
+			text-underline-offset: 4px;
+		}
+	}
 
 	.acui-tooltip-content {
 		&.is-top {
@@ -28,6 +35,8 @@
 			transform: translateY(-50%);
 		}
 	}
+
+
 }
 
 .acui-tooltip-content {
@@ -42,7 +51,10 @@
 	font-size: 11px;
 	line-height: 16px;
 	z-index: 100000;
-	white-space: nowrap;
+	width :max-content;
+	white-space: normal;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
 
 	&:before {
 		content: '';

@@ -20026,6 +20026,45 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function create_if_block(ctx) {
+  let if_block_anchor;
+  function select_block_type(ctx, dirty) {
+    if (/*type*/ctx[1] === 'h2') return create_if_block_1;
+    return create_else_block;
+  }
+  let current_block_type = select_block_type(ctx, -1);
+  let if_block = current_block_type(ctx);
+  return {
+    c() {
+      if_block.c();
+      if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+    },
+    m(target, anchor) {
+      if_block.m(target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
+    },
+    p(ctx, dirty) {
+      if (current_block_type === (current_block_type = select_block_type(ctx, dirty)) && if_block) {
+        if_block.p(ctx, dirty);
+      } else {
+        if_block.d(1);
+        if_block = current_block_type(ctx);
+        if (if_block) {
+          if_block.c();
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      }
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(if_block_anchor);
+      }
+      if_block.d(detaching);
+    }
+  };
+}
+
+// (16:2) {:else}
+function create_else_block(ctx) {
   let h3;
   let t;
   return {
@@ -20048,21 +20087,46 @@ function create_if_block(ctx) {
     }
   };
 }
+
+// (14:2) {#if type === 'h2' }
+function create_if_block_1(ctx) {
+  let h2;
+  let t;
+  return {
+    c() {
+      h2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h2");
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*title*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(h2, "class", "acu-my-[0] acu-text-2xl acu-font-normal");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, h2, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(h2, t);
+    },
+    p(ctx, dirty) {
+      if (dirty & /*title*/1) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*title*/ctx[0]);
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(h2);
+      }
+    }
+  };
+}
 function create_fragment(ctx) {
   let div;
   let t;
   let div_class_value;
   let current;
   let if_block = /*title*/ctx[0] && create_if_block(ctx);
-  const default_slot_template = /*#slots*/ctx[4].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[3], null);
+  const default_slot_template = /*#slots*/ctx[5].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[4], null);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       if (if_block) if_block.c();
       t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (default_slot) default_slot.c();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", div_class_value = /*classes*/ctx[1].join(' '));
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", div_class_value = /*classes*/ctx[2].join(' '));
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
@@ -20087,8 +20151,8 @@ function create_fragment(ctx) {
         if_block = null;
       }
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/8)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[3], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[3]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[3], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/16)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[4], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[4]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[4], dirty, null), null);
         }
       }
     },
@@ -20119,6 +20183,9 @@ function instance($$self, $$props, $$invalidate) {
     title = null
   } = $$props;
   let {
+    type = 'h3'
+  } = $$props;
+  let {
     border = false
   } = $$props;
   let classes = ['acu-px-[20px] acu-pt-[20px]'];
@@ -20127,17 +20194,19 @@ function instance($$self, $$props, $$invalidate) {
   } else {}
   $$self.$$set = $$props => {
     if ('title' in $$props) $$invalidate(0, title = $$props.title);
-    if ('border' in $$props) $$invalidate(2, border = $$props.border);
-    if ('$$scope' in $$props) $$invalidate(3, $$scope = $$props.$$scope);
+    if ('type' in $$props) $$invalidate(1, type = $$props.type);
+    if ('border' in $$props) $$invalidate(3, border = $$props.border);
+    if ('$$scope' in $$props) $$invalidate(4, $$scope = $$props.$$scope);
   };
-  return [title, classes, border, $$scope, slots];
+  return [title, type, classes, border, $$scope, slots];
 }
 class AcPanelHeader extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       title: 0,
-      border: 2
+      type: 1,
+      border: 3
     });
   }
 }
@@ -20202,7 +20271,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (22:1) {#if iconRight }
+// (29:1) {#if iconRight }
 function create_if_block(ctx) {
   let acicon;
   let current;
@@ -20250,8 +20319,8 @@ function create_fragment(ctx) {
   let mounted;
   let dispose;
   let if_block0 = /*iconLeft*/ctx[1] && create_if_block_1(ctx);
-  const default_slot_template = /*#slots*/ctx[10].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[9], null);
+  const default_slot_template = /*#slots*/ctx[11].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[10], null);
   let if_block1 = /*iconRight*/ctx[3] && create_if_block(ctx);
   return {
     c() {
@@ -20261,7 +20330,7 @@ function create_fragment(ctx) {
       if (default_slot) default_slot.c();
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block1) if_block1.c();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", button_class_value = "acui-button " + /*customClass*/ctx[6] + /*dynamicClass*/ctx[7] + "");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", button_class_value = /*classes*/ctx[6].join(' '));
       button.disabled = /*disabled*/ctx[0];
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "is-loading", /*loading*/ctx[5]);
     },
@@ -20276,7 +20345,7 @@ function create_fragment(ctx) {
       if (if_block1) if_block1.m(button, null);
       current = true;
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", /*click_handler*/ctx[11]);
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", /*click_handler*/ctx[12]);
         mounted = true;
       }
     },
@@ -20301,8 +20370,8 @@ function create_fragment(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/512)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[9], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[9]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[9], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/1024)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[10], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[10]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[10], dirty, null), null);
         }
       }
       if (/*iconRight*/ctx[3]) {
@@ -20324,13 +20393,10 @@ function create_fragment(ctx) {
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
-      if (!current || dirty & /*customClass*/64 && button_class_value !== (button_class_value = "acui-button " + /*customClass*/ctx[6] + /*dynamicClass*/ctx[7] + "")) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", button_class_value);
-      }
       if (!current || dirty & /*disabled*/1) {
         button.disabled = /*disabled*/ctx[0];
       }
-      if (!current || dirty & /*customClass, loading*/96) {
+      if (!current || dirty & /*loading*/32) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "is-loading", /*loading*/ctx[5]);
       }
     },
@@ -20388,35 +20454,41 @@ function instance($$self, $$props, $$invalidate) {
   let {
     customClass = ''
   } = $$props;
-  let dynamicClass = ` acui-button-${type}`;
+  let {
+    size = 'medium'
+  } = $$props;
+  let classes = ['acui-button', customClass, `acui-button-${type}`];
+  if (size === 'small') classes.push('-small');
   function click_handler(event) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
   }
   $$self.$$set = $$props => {
-    if ('type' in $$props) $$invalidate(8, type = $$props.type);
+    if ('type' in $$props) $$invalidate(7, type = $$props.type);
     if ('disabled' in $$props) $$invalidate(0, disabled = $$props.disabled);
     if ('iconLeft' in $$props) $$invalidate(1, iconLeft = $$props.iconLeft);
     if ('iconLeftPack' in $$props) $$invalidate(2, iconLeftPack = $$props.iconLeftPack);
     if ('iconRight' in $$props) $$invalidate(3, iconRight = $$props.iconRight);
     if ('iconRightPack' in $$props) $$invalidate(4, iconRightPack = $$props.iconRightPack);
     if ('loading' in $$props) $$invalidate(5, loading = $$props.loading);
-    if ('customClass' in $$props) $$invalidate(6, customClass = $$props.customClass);
-    if ('$$scope' in $$props) $$invalidate(9, $$scope = $$props.$$scope);
+    if ('customClass' in $$props) $$invalidate(8, customClass = $$props.customClass);
+    if ('size' in $$props) $$invalidate(9, size = $$props.size);
+    if ('$$scope' in $$props) $$invalidate(10, $$scope = $$props.$$scope);
   };
-  return [disabled, iconLeft, iconLeftPack, iconRight, iconRightPack, loading, customClass, dynamicClass, type, $$scope, slots, click_handler];
+  return [disabled, iconLeft, iconLeftPack, iconRight, iconRightPack, loading, classes, type, customClass, size, $$scope, slots, click_handler];
 }
 class AcButton extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      type: 8,
+      type: 7,
       disabled: 0,
       iconLeft: 1,
       iconLeftPack: 2,
       iconRight: 3,
       iconRightPack: 4,
       loading: 5,
-      customClass: 6
+      customClass: 8,
+      size: 9
     });
   }
 }
@@ -23522,10 +23594,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class InfoScreenOption {
-    constructor(name, input, store) {
+    constructor(name, input, store, nonce) {
         this.name = name;
         this.input = input;
         this.store = store;
+        this.nonce = nonce;
         this.initEvents();
     }
     initEvents() {
@@ -23538,7 +23611,7 @@ class InfoScreenOption {
     persist() {
         axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(ajaxurl, (0,_helpers_global__WEBPACK_IMPORTED_MODULE_0__.mapDataToFormData)({
             action: 'ac-admin-screen-options',
-            _ajax_nonce: ac_admin_columns.nonce,
+            _ajax_nonce: this.nonce,
             option_name: this.name,
             option_value: this.input.checked ? 1 : 0
         }));
@@ -36854,7 +36927,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localConfig.uninitialized_list_screens) {
         (0,_columns_utils_listscreen_initialize__WEBPACK_IMPORTED_MODULE_8__.initUninitializedListScreens)(localConfig.uninitialized_list_screens, localConfig.list_key);
     }
-    document.querySelectorAll('[data-ac-screen-option="show_column_info"] input').forEach(el => new _modules_screen_options__WEBPACK_IMPORTED_MODULE_9__["default"]('show_column_info', el, _columns_store_screen_options__WEBPACK_IMPORTED_MODULE_7__.showColumnInfo));
+    document.querySelectorAll('[data-ac-screen-option="show_column_info"] input').forEach(el => new _modules_screen_options__WEBPACK_IMPORTED_MODULE_9__["default"]('show_column_info', el, _columns_store_screen_options__WEBPACK_IMPORTED_MODULE_7__.showColumnInfo, ac_admin_columns.nonce));
 });
 
 })();
