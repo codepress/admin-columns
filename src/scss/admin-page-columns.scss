@@ -6,13 +6,6 @@
 @use 'list-screen-settings/column';
 @use 'list-screen-settings/column-settings';
 
-body.admin-columns__columns {
-	background-color: #F1F5F9;
-
-	#cpac {
-		padding: 0 !important;
-	}
-}
 
 #wpbody-content {
 	padding-bottom: 10px;

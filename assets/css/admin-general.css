@@ -709,6 +709,13 @@ input:disabled, textarea:disabled, button:disabled {
   display: block;
 }
 
+body {
+  background-color: #F1F5F9;
+}
+body #cpac {
+  padding: 0;
+}
+
 .ac-settings-box {
   margin-bottom: 60px;
   max-width: 800px;

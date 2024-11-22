@@ -12,6 +12,15 @@
 @use 'components/forms';
 @use 'components/ajax-loader';
 
+
+body {
+	background-color: #F1F5F9;
+
+	#cpac {
+		padding: 0;
+	}
+}
+
 .ac-settings-box {
 	margin-bottom: 60px;
 	max-width: 800px;

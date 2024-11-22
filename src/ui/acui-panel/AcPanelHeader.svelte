@@ -1,5 +1,6 @@
 <script lang="ts">
     export let title: string | undefined | null = null
+    export let subtitle: string | undefined | null = null
     export let type: 'h3' | 'h2' = 'h3'
     export let border: boolean = false;
 
@@ -21,5 +22,9 @@
 			<h3 class="acu-my-[0]">{title}</h3>
 		{/if}
 	{/if}
+	{#if subtitle }
+		<span>{subtitle}</span>
+	{/if}
+
 	<slot></slot>
 </div>

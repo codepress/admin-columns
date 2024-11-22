@@ -15,7 +15,6 @@
     export let loading: boolean = false;
     export let actions: Array<any> = [];
 
-
     const getButtonType = ( action: DataTableActionsDefinitionType ) => {
         return action.primary ? 'primary' : 'default';
 	}

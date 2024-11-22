@@ -615,13 +615,6 @@
   line-height: 49px;
 }
 
-body.admin-columns__columns {
-  background-color: #F1F5F9;
-}
-body.admin-columns__columns #cpac {
-  padding: 0 !important;
-}
-
 #wpbody-content {
   padding-bottom: 10px;
 }

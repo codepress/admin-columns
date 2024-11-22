@@ -53,6 +53,11 @@
   margin-bottom: 0
 }
 
+.acu-mx-\[50px\] {
+  margin-left: 50px;
+  margin-right: 50px
+}
+
 .acu-mb-1 {
   margin-bottom: 5px
 }
@@ -585,6 +590,10 @@
 
 .acu-pt-\[20px\] {
   padding-top: 20px
+}
+
+.acu-pt-\[100px\] {
+  padding-top: 100px
 }
 
 .acu-text-left {
