@@ -1,0 +1,33 @@
+// Values ( color , background )
+$variants : (
+	notify: ( var(--ac-color-info), #d1e5f9 ),
+	success: ( var(--ac-color-success), var(--ac-color-success-alt) ),
+	warning: ( var(--ac-color-warning), var(--ac-color-warning-alt) ),
+	error: ( var(--ac-color-error), var(--ac-color-error-alt) )
+);
+
+@layer acui {
+	.acui-badge {
+		display: inline-flex;
+		background: #eee;
+		font-weight: 400;
+		height: 26px;
+		line-height: 26px;
+		padding: 0 15px;
+		border-radius: 13px;
+		font-size: 13px;
+		border: 1px solid #777;
+	}
+
+	@each $name, $colors in $variants {
+		$color1: nth($colors, 1); // First color
+		$color2: nth($colors, 2); // Second color
+
+		.acui-badge.-#{$name} {
+			border-color: $color1;
+			color: $color1;
+			background: $color2;
+        }
+	}
+
+}

@@ -20280,7 +20280,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function create_if_block_1(ctx) {
+function create_if_block_2(ctx) {
   let acicon;
   let current;
   acicon = new _AcIcon_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
@@ -20319,7 +20319,67 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (29:1) {#if iconRight }
+// (31:1) {:else}
+function create_else_block(ctx) {
+  let current;
+  const default_slot_template = /*#slots*/ctx[12].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[11], null);
+  return {
+    c() {
+      if (default_slot) default_slot.c();
+    },
+    m(target, anchor) {
+      if (default_slot) {
+        default_slot.m(target, anchor);
+      }
+      current = true;
+    },
+    p(ctx, dirty) {
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/2048)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[11], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[11]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[11], dirty, null), null);
+        }
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (default_slot) default_slot.d(detaching);
+    }
+  };
+}
+
+// (29:1) {#if label }
+function create_if_block_1(ctx) {
+  let t;
+  return {
+    c() {
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*label*/ctx[6]);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
+    },
+    p(ctx, dirty) {
+      if (dirty & /*label*/64) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*label*/ctx[6]);
+    },
+    i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+      }
+    }
+  };
+}
+
+// (35:1) {#if iconRight }
 function create_if_block(ctx) {
   let acicon;
   let current;
@@ -20361,24 +20421,32 @@ function create_if_block(ctx) {
 function create_fragment(ctx) {
   let button;
   let t0;
+  let current_block_type_index;
+  let if_block1;
   let t1;
   let button_class_value;
   let current;
   let mounted;
   let dispose;
-  let if_block0 = /*iconLeft*/ctx[1] && create_if_block_1(ctx);
-  const default_slot_template = /*#slots*/ctx[11].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[10], null);
-  let if_block1 = /*iconRight*/ctx[3] && create_if_block(ctx);
+  let if_block0 = /*iconLeft*/ctx[1] && create_if_block_2(ctx);
+  const if_block_creators = [create_if_block_1, create_else_block];
+  const if_blocks = [];
+  function select_block_type(ctx, dirty) {
+    if (/*label*/ctx[6]) return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type(ctx, -1);
+  if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  let if_block2 = /*iconRight*/ctx[3] && create_if_block(ctx);
   return {
     c() {
       button = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
       if (if_block0) if_block0.c();
       t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      if (default_slot) default_slot.c();
+      if_block1.c();
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      if (if_block1) if_block1.c();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", button_class_value = /*classes*/ctx[6].join(' '));
+      if (if_block2) if_block2.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", button_class_value = /*classes*/ctx[7].join(' '));
       button.disabled = /*disabled*/ctx[0];
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "is-loading", /*loading*/ctx[5]);
     },
@@ -20386,14 +20454,12 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, button, anchor);
       if (if_block0) if_block0.m(button, null);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button, t0);
-      if (default_slot) {
-        default_slot.m(button, null);
-      }
+      if_blocks[current_block_type_index].m(button, null);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button, t1);
-      if (if_block1) if_block1.m(button, null);
+      if (if_block2) if_block2.m(button, null);
       current = true;
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", /*click_handler*/ctx[12]);
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", /*click_handler*/ctx[13]);
         mounted = true;
       }
     },
@@ -20405,7 +20471,7 @@ function create_fragment(ctx) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
           }
         } else {
-          if_block0 = create_if_block_1(ctx);
+          if_block0 = create_if_block_2(ctx);
           if_block0.c();
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
           if_block0.m(button, t0);
@@ -20417,27 +20483,42 @@ function create_fragment(ctx) {
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
-      if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/1024)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[10], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[10]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[10], dirty, null), null);
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx, dirty);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx, dirty);
+      } else {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+        if_block1 = if_blocks[current_block_type_index];
+        if (!if_block1) {
+          if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+          if_block1.c();
+        } else {
+          if_block1.p(ctx, dirty);
         }
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
+        if_block1.m(button, t1);
       }
       if (/*iconRight*/ctx[3]) {
-        if (if_block1) {
-          if_block1.p(ctx, dirty);
+        if (if_block2) {
+          if_block2.p(ctx, dirty);
           if (dirty & /*iconRight*/8) {
-            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
           }
         } else {
-          if_block1 = create_if_block(ctx);
-          if_block1.c();
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
-          if_block1.m(button, null);
+          if_block2 = create_if_block(ctx);
+          if_block2.c();
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
+          if_block2.m(button, null);
         }
-      } else if (if_block1) {
+      } else if (if_block2) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block1, 1, 1, () => {
-          if_block1 = null;
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block2, 1, 1, () => {
+          if_block2 = null;
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
@@ -20451,14 +20532,14 @@ function create_fragment(ctx) {
     i(local) {
       if (current) return;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2);
       current = true;
     },
     o(local) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block2);
       current = false;
     },
     d(detaching) {
@@ -20466,8 +20547,8 @@ function create_fragment(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(button);
       }
       if (if_block0) if_block0.d();
-      if (default_slot) default_slot.d(detaching);
-      if (if_block1) if_block1.d();
+      if_blocks[current_block_type_index].d();
+      if (if_block2) if_block2.d();
       mounted = false;
       dispose();
     }
@@ -20503,6 +20584,9 @@ function instance($$self, $$props, $$invalidate) {
     customClass = ''
   } = $$props;
   let {
+    label = undefined
+  } = $$props;
+  let {
     size = 'medium'
   } = $$props;
   let classes = ['acui-button', customClass, `acui-button-${type}`];
@@ -20511,32 +20595,34 @@ function instance($$self, $$props, $$invalidate) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
   }
   $$self.$$set = $$props => {
-    if ('type' in $$props) $$invalidate(7, type = $$props.type);
+    if ('type' in $$props) $$invalidate(8, type = $$props.type);
     if ('disabled' in $$props) $$invalidate(0, disabled = $$props.disabled);
     if ('iconLeft' in $$props) $$invalidate(1, iconLeft = $$props.iconLeft);
     if ('iconLeftPack' in $$props) $$invalidate(2, iconLeftPack = $$props.iconLeftPack);
     if ('iconRight' in $$props) $$invalidate(3, iconRight = $$props.iconRight);
     if ('iconRightPack' in $$props) $$invalidate(4, iconRightPack = $$props.iconRightPack);
     if ('loading' in $$props) $$invalidate(5, loading = $$props.loading);
-    if ('customClass' in $$props) $$invalidate(8, customClass = $$props.customClass);
-    if ('size' in $$props) $$invalidate(9, size = $$props.size);
-    if ('$$scope' in $$props) $$invalidate(10, $$scope = $$props.$$scope);
+    if ('customClass' in $$props) $$invalidate(9, customClass = $$props.customClass);
+    if ('label' in $$props) $$invalidate(6, label = $$props.label);
+    if ('size' in $$props) $$invalidate(10, size = $$props.size);
+    if ('$$scope' in $$props) $$invalidate(11, $$scope = $$props.$$scope);
   };
-  return [disabled, iconLeft, iconLeftPack, iconRight, iconRightPack, loading, classes, type, customClass, size, $$scope, slots, click_handler];
+  return [disabled, iconLeft, iconLeftPack, iconRight, iconRightPack, loading, label, classes, type, customClass, size, $$scope, slots, click_handler];
 }
 class AcButton extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      type: 7,
+      type: 8,
       disabled: 0,
       iconLeft: 1,
       iconLeftPack: 2,
       iconRight: 3,
       iconRightPack: 4,
       loading: 5,
-      customClass: 8,
-      size: 9
+      customClass: 9,
+      label: 6,
+      size: 10
     });
   }
 }

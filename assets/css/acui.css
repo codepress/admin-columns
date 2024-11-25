@@ -87,6 +87,39 @@
   color: #fff;
 }
 
+@layer acui {
+  .acui-badge {
+    display: inline-flex;
+    background: #eee;
+    font-weight: 400;
+    height: 26px;
+    line-height: 26px;
+    padding: 0 15px;
+    border-radius: 13px;
+    font-size: 13px;
+    border: 1px solid #777;
+  }
+  .acui-badge.-notify {
+    border-color: var(--ac-color-info);
+    color: var(--ac-color-info);
+    background: #d1e5f9;
+  }
+  .acui-badge.-success {
+    border-color: var(--ac-color-success);
+    color: var(--ac-color-success);
+    background: var(--ac-color-success-alt);
+  }
+  .acui-badge.-warning {
+    border-color: var(--ac-color-warning);
+    color: var(--ac-color-warning);
+    background: var(--ac-color-warning-alt);
+  }
+  .acui-badge.-error {
+    border-color: var(--ac-color-error);
+    color: var(--ac-color-error);
+    background: var(--ac-color-error-alt);
+  }
+}
 .acui-dropdown {
   --acui-dropdown-text-color: var(--ac-text-color);
   --acui-dropdown-hover-background: var(--ac-select-hover-bg);
