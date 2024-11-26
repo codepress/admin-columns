@@ -13,9 +13,9 @@ use AC\Value\Formatter;
 class ExcerptFactory extends BaseColumnFactory
 {
 
-    private $string_limit;
+    private ComponentFactory\StringLimit $string_limit;
 
-    private $before_after;
+    private ComponentFactory\BeforeAfter $before_after;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
@@ -46,7 +46,7 @@ class ExcerptFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters->prepend(new Formatter\Post\Excerpt());
+        $formatters->prepend(new Formatter\Post\ContentExcerpt());
     }
 
 }
