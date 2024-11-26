@@ -92,6 +92,7 @@ final class PostFactory extends BaseFactory
             $factories[] = Post\CommentCountFactory::class;
         }
 
+        // TODO test
         if (post_type_supports($post_type, 'excerpt')) {
             $factories[] = Post\ExcerptFactory::class;
         }

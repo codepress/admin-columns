@@ -131,6 +131,10 @@ class ListScreenSettings implements RequestAjaxHandler
             ];
         }
 
+        usort($column_types, function ($a, $b) {
+            return strcasecmp($a['label'], $b['label']);
+        });
+
         return $column_types;
     }
 
