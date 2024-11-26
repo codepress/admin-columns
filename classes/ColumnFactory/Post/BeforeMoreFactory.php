@@ -15,7 +15,7 @@ use AC\Value\Formatter\Post\BeforeMoreContent;
 final class BeforeMoreFactory extends BaseColumnFactory
 {
 
-    private $word_limit_factory;
+    private WordLimit $word_limit_factory;
 
     public function __construct(ComponentFactoryRegistry $component_factory_registry, WordLimit $word_limit_factory)
     {

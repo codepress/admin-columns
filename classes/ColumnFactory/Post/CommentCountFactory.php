@@ -15,7 +15,7 @@ use AC\Value\Formatter;
 class CommentCountFactory extends BaseColumnFactory
 {
 
-    private $comment_status;
+    private CommentStatus $comment_status;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
