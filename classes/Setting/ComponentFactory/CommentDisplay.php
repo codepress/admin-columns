@@ -20,15 +20,14 @@ final class CommentDisplay extends Builder
     public const PROPERTY_COMMENT = 'comment';
     public const PROPERTY_DATE = 'date';
     public const PROPERTY_ID = 'id';
-    public const PROPERTY_FULL = 'full';
     public const PROPERTY_AUTHOR = 'author';
     public const PROPERTY_AUTHOR_EMAIL = 'author_email';
 
-    private $string_limit;
+    private StringLimit $string_limit;
 
-    private $comment_link;
+    private CommentLink $comment_link;
 
-    private $user_display;
+    private UserProperty $user_display;
 
     public function __construct(
         StringLimit $string_limit,
@@ -50,7 +49,6 @@ final class CommentDisplay extends Builder
         return OptionFactory::create_select(
             'comment',
             OptionCollection::from_array([
-                self::PROPERTY_FULL         => __('Full comment', 'codepress-admin-column'),
                 self::PROPERTY_COMMENT      => __('Comment'),
                 self::PROPERTY_ID           => __('ID'),
                 self::PROPERTY_AUTHOR       => __('Author'),
@@ -83,7 +81,7 @@ final class CommentDisplay extends Builder
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        switch ($config->get('comment', 'comment')) {
+        switch ($config->get('comment')) {
             case self::PROPERTY_DATE:
                 $formatters->add(new Formatter\Comment\Property('comment_date'));
                 break;
@@ -93,12 +91,8 @@ final class CommentDisplay extends Builder
             case self::PROPERTY_AUTHOR_EMAIL:
                 $formatters->add(new Formatter\Comment\Property('comment_author_email'));
                 break;
-            case self::PROPERTY_COMMENT:
-                $formatters->add(new Formatter\Comment\Property('comment_content'));
-                break;
-            case self::PROPERTY_FULL:
-                $formatters->add(new Formatter\Comment\FullComment());
-                break;
+            default:
+                $formatters->add(new Formatter\Comment\Content());
         }
     }
 
