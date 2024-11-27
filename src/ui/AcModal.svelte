@@ -7,6 +7,7 @@
     export let hideContent: boolean = false;
     export let disableClose: boolean = false;
     export let className: string = '';
+    export let dialogClass: string = '';
     export let visible: boolean = false;
     export let disableScroll: boolean = false;
     export let appendToBody: boolean = false;
@@ -48,7 +49,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="ac-modal {className}" class:-active={visible} on:click={close} bind:this={element} role="none">
-	<div class="ac-modal__dialog" on:click|stopPropagation role="none">
+	<div class="ac-modal__dialog {dialogClass}" on:click|stopPropagation role="none">
 		<div class="ac-modal__dialog__header">
 			<slot name="header"></slot>
 			{#if !disableClose}

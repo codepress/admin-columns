@@ -52,7 +52,7 @@
 }
 
 .acui-button.is-loading:before {
-  border: 2px solid var(--acui-loading-color, #fff);
+  border: 2px solid var(--acui-loading-color, #1E293B);
   border-radius: 9999px;
   border-right-color: transparent;
   border-top-color: transparent;
@@ -76,6 +76,9 @@
 .acui-button-primary:hover, .acui-button-primary:active, .acui-button-primary:focus {
   background-color: var(--ac-primary-color-hover);
   color: #fff;
+}
+.acui-button-primary.is-loading:before {
+  border: 2px solid var(--acui-loading-color, #fff);
 }
 
 .acui-button-pink {
