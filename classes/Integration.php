@@ -7,17 +7,17 @@ use AC\Type\Url;
 abstract class Integration
 {
 
-    private $slug;
+    private string $slug;
 
-    private $title;
+    private string $title;
 
-    private $logo;
+    private string $logo;
 
-    private $url;
+    private Url $url;
 
-    private $plugin_link;
+    private Url $plugin_link;
 
-    private $description;
+    private string $description;
 
     public function __construct(
         string $slug,

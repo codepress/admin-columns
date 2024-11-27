@@ -7,7 +7,7 @@ use AC\Storage;
 class GeneralOption
 {
 
-    private $storage;
+    private Storage\OptionData $storage;
 
     public function __construct(Storage\OptionData $storage)
     {
