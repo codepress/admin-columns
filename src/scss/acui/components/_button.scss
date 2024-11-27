@@ -57,7 +57,7 @@
 }
 
 .acui-button.is-loading:before {
-	border: 2px solid var(--acui-loading-color, #fff);
+	border: 2px solid var(--acui-loading-color, #1E293B);
 	border-radius: 9999px;
 	border-right-color: transparent;
 	border-top-color: transparent;
@@ -81,6 +81,10 @@
 	&:hover, &:active, &:focus {
 		background-color: var(--ac-primary-color-hover);
 		color: #fff;
+	}
+
+	&.is-loading:before {
+		border: 2px solid var(--acui-loading-color, #fff);
 	}
 }
 
