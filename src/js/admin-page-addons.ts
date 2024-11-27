@@ -1,11 +1,14 @@
-import {AddonDownload} from "./modules/addon-download";
+import AddonsPage from "./addons/AddonsPage.svelte";
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    document.querySelectorAll<HTMLElement>('.ac-addon .acu-pt-3').forEach(element => {
-        if (!!element.dataset.slug) {
-            new AddonDownload(element, element.dataset.slug);
-        }
+    document.querySelectorAll('#cpac').forEach(el => {
+        new AddonsPage({
+            target: el,
+            props: {
+                pro: AC_ADDONS.pro_installed
+            }
+        })
     });
 
 });

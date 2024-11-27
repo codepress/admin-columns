@@ -8,8 +8,6 @@
 
     if (border) {
         classes.push('acu-pb-[20px] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border')
-    } else {
-
     }
 
 </script>
@@ -23,7 +21,7 @@
 		{/if}
 	{/if}
 	{#if subtitle }
-		<span>{subtitle}</span>
+		<span class={type==='h2'? 'acu-pt-1 acu-block' : ''}>{subtitle}</span>
 	{/if}
 
 	<slot></slot>

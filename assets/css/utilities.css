@@ -38,6 +38,10 @@
   z-index: 10
 }
 
+.acu-m-\[0\] {
+  margin: 0
+}
+
 .acu-mx-\[50px\] {
   margin-left: 50px;
   margin-right: 50px
@@ -122,6 +126,14 @@
   margin-top: 0
 }
 
+.acu-mt-8 {
+  margin-top: 40px
+}
+
+.acu-mt-\[4\] {
+  margin-top: 4
+}
+
 .acu-block {
   display: block
 }
@@ -152,6 +164,26 @@
 
 .acu-h-\[40px\] {
   height: 40px
+}
+
+.acu-h-\[150px\] {
+  height: 150px
+}
+
+.acu-h-\[100px\] {
+  height: 100px
+}
+
+.acu-h-\[140px\] {
+  height: 140px
+}
+
+.acu-max-h-\[60px\] {
+  max-height: 60px
+}
+
+.acu-max-h-\[80px\] {
+  max-height: 80px
 }
 
 .acu-min-h-\[calc\(100vh_-_70px\)\] {
@@ -220,6 +252,26 @@
 
 .acu-max-w-full {
   max-width: 100%
+}
+
+.acu-max-w-\[1300px\] {
+  max-width: 1300px
+}
+
+.acu-max-w-\[430px\] {
+  max-width: 430px
+}
+
+.acu-max-w-\[260px\] {
+  max-width: 260px
+}
+
+.acu-max-w-\[80\%\] {
+  max-width: 80%
+}
+
+.acu-max-w-\[1520px\] {
+  max-width: 1520px
 }
 
 .acu-flex-1 {
@@ -315,6 +367,10 @@
 
 .acu-gap-4 {
   gap: 20px
+}
+
+.acu-gap-8 {
+  gap: 40px
 }
 
 .acu-overflow-hidden {
@@ -463,6 +519,14 @@
 
 .acu-p-\[2px\] {
   padding: 2px
+}
+
+.acu-p-2 {
+  padding: 10px
+}
+
+.acu-p-6 {
+  padding: 30px
 }
 
 .acu-px-1 {
@@ -666,6 +730,11 @@
   line-height: 1.5rem
 }
 
+.acu-text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem
+}
+
 .acu-font-bold {
   font-weight: 700
 }
@@ -680,6 +749,10 @@
 
 .acu-font-semibold {
   font-weight: 600
+}
+
+.acu-font-light {
+  font-weight: 300
 }
 
 .acu-uppercase {

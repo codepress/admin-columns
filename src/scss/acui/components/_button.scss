@@ -36,6 +36,9 @@
 	}
 
 }
+a.acui-button {
+	box-sizing: border-box;
+}
 
 .acui-button.acui-button-text {
 	border-color: transparent;
@@ -85,11 +88,14 @@
 
 	&.is-loading:before {
 		border: 2px solid var(--acui-loading-color, #fff);
+		border-right-color: transparent;
+		border-top-color: transparent;
 	}
 }
 
 .acui-button-pink {
 	background-color: var(--ac-pink-color);
+	border-color: transparent;
 	color: #fff;
 
 	&:hover, &:active, &:focus {
