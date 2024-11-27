@@ -1,4 +1,5 @@
 import axios, {AxiosPromise} from "axios";
+import {mapDataToFormData} from "../../helpers/global";
 
 declare const ajaxurl: string;
 
@@ -27,5 +28,21 @@ export const fetchIntegrations = (): AxiosPromise<FetchIntegrationsResponse> => 
                 action: 'ac-integrations',
             }
         }
+    )
+}
+
+type ToggleIntegrationStatusArgs = {
+    integration: string
+    status: boolean
+}
+
+export const toggleIntegrationStatus = (args: ToggleIntegrationStatusArgs): AxiosPromise<FetchIntegrationsResponse> => {
+    return axios.post(ajaxurl,
+        mapDataToFormData({
+            action: 'acp-integration-toggle',
+            integrations: args.integration,
+            status: args.status,
+            _ajax_nonce: AC_ADDONS._ajax_nonce,
+        })
     )
 }

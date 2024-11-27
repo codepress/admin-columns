@@ -36,6 +36,9 @@
 	}
 
 }
+a.acui-button {
+	box-sizing: border-box;
+}
 
 .acui-button.acui-button-text {
 	border-color: transparent;
@@ -92,6 +95,7 @@
 
 .acui-button-pink {
 	background-color: var(--ac-pink-color);
+	border-color: transparent;
 	color: #fff;
 
 	&:hover, &:active, &:focus {

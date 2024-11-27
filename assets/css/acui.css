@@ -32,6 +32,10 @@
   padding-bottom: 6px;
 }
 
+a.acui-button {
+  box-sizing: border-box;
+}
+
 .acui-button.acui-button-text {
   border-color: transparent;
   background: transparent;
@@ -85,6 +89,7 @@
 
 .acui-button-pink {
   background-color: var(--ac-pink-color);
+  border-color: transparent;
   color: #fff;
 }
 .acui-button-pink:hover, .acui-button-pink:active, .acui-button-pink:focus {

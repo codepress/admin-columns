@@ -1,11 +1,19 @@
 <script lang="ts">
-    import {IntegrationItem} from "../ajax/requests";
+    import {IntegrationItem, toggleIntegrationStatus} from "../ajax/requests";
     import AcToggle from "ACUi/element/AcToggle.svelte";
+    import AcButton from "ACUi/element/AcButton.svelte";
 
     export let integration: IntegrationItem;
     export let isPro: boolean;
 
     let checked: boolean = integration.plugin_active;
+
+    const handleStatusChange = () => {
+        toggleIntegrationStatus({
+            integration: integration.slug,
+            status: checked
+        })
+    }
 
 
 </script>
@@ -17,7 +25,7 @@
 	</div>
 	<div class="acu-p-4">
 		<h3>{integration.title}</h3>
-		<div class="acu-h-[120px] acu-overflow-hidden">acp-
+		<div class="acu-h-[120px] acu-overflow-hidden">
 			<p>{integration.description}</p>
 		</div>
 		<div class="acu-mb-4">
@@ -26,16 +34,20 @@
 				&raquo;
 			</a>
 		</div>
+		<hr class="acu-mb-3"/>
 
 		{#if isPro }
-			<hr/>
 			<div class="acu-flex acu-pt-2">
 				<strong class="acu-flex-grow ">Enable Integration</strong>
 				<span class="acu-justify-end">
-				<AcToggle bind:checked={checked}/>
+				<AcToggle bind:checked={checked} on:input={handleStatusChange}/>
 				</span>
 			</div>
-
+		{:else}
+			<div>
+				<AcButton iconLeft="lock" iconLeftPack="dashicons" type="pink" label="Buy Admin Columns Pro"
+					customClass="acu-block acu-w-full" href={AC_ADDONS.buy_url} target="_blank"/>
+			</div>
 		{/if}
 	</div>
 </div>
