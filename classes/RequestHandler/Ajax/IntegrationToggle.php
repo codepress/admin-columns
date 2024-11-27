@@ -38,7 +38,7 @@ class IntegrationToggle implements RequestAjaxHandler
             wp_send_json_error();
         }
 
-        $is_active = $request->get('status') === 'true';
+        $is_active = (bool)$request->get('status');
 
         $is_active
             ? $this->repository->set_active($integration)
