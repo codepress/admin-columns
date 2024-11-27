@@ -22,26 +22,25 @@ class PostStatusIcon extends Builder
         return __('Use an icon instead of text for displaying the status.', 'codepress-admin-');
     }
 
+    private function use_icon(Config $config): bool
+    {
+        return (string)$config->get('use_icon') === 'on';
+    }
+
     protected function get_input(Config $config): ?Input
     {
-        $value = (string)$config->get('use_icon') === 'on';
-
         return OptionFactory::create_toggle(
             'use_icon',
             (new ToggleOptionCollection())->create(),
-            $value ? 'on' : 'off'
+            $this->use_icon($config) ? 'on' : 'off'
         );
     }
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        if ((string)$config->get('use_icon') === 'on') {
-            $formatters->add(new Formatter\Post\PostStatusIcon());
-        }
-
-        if ((string)$config->get('use_icon') === 'off') {
-            $formatters->add(new Formatter\Post\DescriptivePostStatus());
-        }
+        $this->use_icon($config)
+            ? $formatters->add(new Formatter\Post\PostStatusIcon())
+            : $formatters->add(new Formatter\Post\DescriptivePostStatus());
     }
 
 }
