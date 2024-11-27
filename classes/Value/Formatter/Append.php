@@ -10,9 +10,9 @@ use AC\Type\Value;
 final class Append implements Formatter
 {
 
-    private $formatter;
+    private Formatter $formatter;
 
-    private $separator;
+    private string $separator;
 
     public function __construct(Formatter $formatter, string $separator = '')
     {
