@@ -65,9 +65,4 @@ class IntegrationRepository
         return (new Filter\IsPluginActive())->filter($this->find_all());
     }
 
-    public function find_all_by_inactive_plugins(): Integrations
-    {
-        return (new Filter\IsPluginNotActive())->filter($this->find_all());
-    }
-
 }
