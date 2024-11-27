@@ -20072,7 +20072,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (17:2) {:else}
+// (15:2) {:else}
 function create_else_block(ctx) {
   let h3;
   let t;
@@ -20097,7 +20097,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (15:2) {#if type === 'h2' }
+// (13:2) {#if type === 'h2' }
 function create_if_block_2(ctx) {
   let h2;
   let t;
@@ -20122,14 +20122,16 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (21:1) {#if subtitle }
+// (19:1) {#if subtitle }
 function create_if_block(ctx) {
   let span;
   let t;
+  let span_class_value;
   return {
     c() {
       span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
       t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*subtitle*/ctx[1]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value = /*type*/ctx[2] === 'h2' ? 'acu-pt-1 acu-block' : '');
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
@@ -20137,6 +20139,9 @@ function create_if_block(ctx) {
     },
     p(ctx, dirty) {
       if (dirty & /*subtitle*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*subtitle*/ctx[1]);
+      if (dirty & /*type*/4 && span_class_value !== (span_class_value = /*type*/ctx[2] === 'h2' ? 'acu-pt-1 acu-block' : '')) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value);
+      }
     },
     d(detaching) {
       if (detaching) {
@@ -20246,7 +20251,7 @@ function instance($$self, $$props, $$invalidate) {
   let classes = ['acu-px-[20px] acu-pt-[20px]'];
   if (border) {
     classes.push('acu-pb-[20px] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border');
-  } else {}
+  }
   $$self.$$set = $$props => {
     if ('title' in $$props) $$invalidate(0, title = $$props.title);
     if ('subtitle' in $$props) $$invalidate(1, subtitle = $$props.subtitle);

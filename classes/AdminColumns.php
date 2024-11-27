@@ -157,6 +157,7 @@ class AdminColumns
         $request_ajax_handlers->add('ac-extended-value', $container->get(Ajax\ExtendedValue::class));
         $request_ajax_handlers->add('ac-admin-general-options', $container->get(Ajax\AdminGeneralOptions::class));
         $request_ajax_handlers->add('ac-restore-settings', $container->get(Ajax\RestoreSettingsRequest::class));
+        $request_ajax_handlers->add('ac-integrations', $container->get(Ajax\Integrations::class));
 
         $services->add(
             new RequestAjaxParser($request_ajax_handlers)

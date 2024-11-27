@@ -85,6 +85,8 @@
 
 	&.is-loading:before {
 		border: 2px solid var(--acui-loading-color, #fff);
+		border-right-color: transparent;
+		border-top-color: transparent;
 	}
 }
 
