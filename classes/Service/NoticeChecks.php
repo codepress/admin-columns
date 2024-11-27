@@ -5,7 +5,7 @@ namespace AC\Service;
 use AC\Asset\Location\Absolute;
 use AC\Capabilities;
 use AC\Check;
-use AC\IntegrationRepository;
+use AC\Integration\IntegrationRepository;
 use AC\Registerable;
 use AC\Services;
 

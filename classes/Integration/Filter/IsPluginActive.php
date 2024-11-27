@@ -4,7 +4,7 @@ namespace AC\Integration\Filter;
 
 use AC\Integration;
 use AC\Integration\Filter;
-use AC\Integrations;
+use AC\Type\Integrations;
 
 class IsPluginActive implements Filter
 {

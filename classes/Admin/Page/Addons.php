@@ -9,7 +9,7 @@ use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
 use AC\Asset\Style;
-use AC\IntegrationRepository;
+use AC\Integration\IntegrationRepository;
 use AC\Renderable;
 
 class Addons implements Enqueueables, Renderable, RenderableHead

@@ -7,7 +7,7 @@ use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
 use AC\Asset\Location;
-use AC\IntegrationRepository;
+use AC\Integration\IntegrationRepository;
 
 class Addons implements PageFactoryInterface
 {

@@ -12,9 +12,9 @@ use AC\Vendor\DI\Container;
 final class IntegrationFactory extends BaseFactory
 {
 
-    private AC\IntegrationRepository $repository;
+    private AC\Integration\IntegrationRepository $repository;
 
-    public function __construct(Container $container, AC\IntegrationRepository $integration_repository)
+    public function __construct(Container $container, AC\Integration\IntegrationRepository $integration_repository)
     {
         $this->repository = $integration_repository;
         parent::__construct($container);

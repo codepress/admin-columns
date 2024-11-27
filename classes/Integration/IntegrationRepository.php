@@ -1,19 +1,19 @@
 <?php
 
-namespace AC;
+namespace AC\Integration;
 
-use AC\Integration\Filter;
-use AC\Settings\GeneralOption;
-use AC\Settings\GeneralOptionFactory;
+use AC\Integration;
+use AC\Storage\Repository\IntegrationStatus;
+use AC\Type\Integrations;
 
 class IntegrationRepository
 {
 
-    private GeneralOptionFactory $general_option_factory;
+    private IntegrationStatus $storage;
 
-    public function __construct(GeneralOptionFactory $general_option_factory)
+    public function __construct(IntegrationStatus $storage)
     {
-        $this->general_option_factory = $general_option_factory;
+        $this->storage = $storage;
     }
 
     public function find_all(): Integrations
@@ -44,33 +44,12 @@ class IntegrationRepository
         return null;
     }
 
-    private function get_storge(): GeneralOption
-    {
-        return $this->general_option_factory->create();
-    }
-
-    public function save_status(Integration $integration, bool $status): void
-    {
-        $integrations = $this->get_storge()->get('intergrations') ?: [];
-
-        $integrations[$integration->get_slug()] = $status;
-
-        $this->get_storge()->save('intergrations', $integrations);
-    }
-
-    private function is_active(string $slug): bool
-    {
-        $status = $this->get_storge()->get('intergrations')[$slug] ?? null;
-
-        return $status !== '0';
-    }
-
     public function find_all_active(): Integrations
     {
         $integrations = new Integrations();
 
         foreach ($this->find_all() as $integration) {
-            $is_active = $this->is_active($integration->get_slug());
+            $is_active = $this->storage->is_status_active($integration->get_slug());
             $is_active = (bool)apply_filters('ac/integration/active', $is_active, $integration);
 
             if ($is_active) {

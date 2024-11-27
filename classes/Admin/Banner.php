@@ -2,10 +2,10 @@
 
 namespace AC\Admin;
 
-use AC\IntegrationRepository;
-use AC\Integrations;
+use AC\Integration\IntegrationRepository;
 use AC\Promo;
 use AC\PromoCollection;
+use AC\Type\Integrations;
 use AC\View;
 
 class Banner
