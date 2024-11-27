@@ -10,6 +10,7 @@ use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\PostTitle;
+use AC\Value\Formatter\Wrapper;
 
 class TitleRawFactory extends BaseColumnFactory
 {
@@ -48,6 +49,7 @@ class TitleRawFactory extends BaseColumnFactory
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
         $formatters->prepend(new PostTitle());
+        $formatters->add(new Wrapper('<span class="row-title">', '</span>'));
     }
 
 }
