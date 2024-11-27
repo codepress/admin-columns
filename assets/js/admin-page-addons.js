@@ -796,7 +796,7 @@ function instance($$self, $$props, $$invalidate) {
   let {
     isPro
   } = $$props;
-  let checked = integration.plugin_active;
+  let checked = integration.active;
   const handleStatusChange = () => {
     (0,_ajax_requests__WEBPACK_IMPORTED_MODULE_2__.toggleIntegrationStatus)({
       integration: integration.slug,
@@ -2758,69 +2758,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   fetchIntegrations: () => (/* binding */ fetchIntegrations),
 /* harmony export */   toggleIntegrationStatus: () => (/* binding */ toggleIntegrationStatus)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
-/* harmony import */ var _helpers_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../helpers/global */ "./js/helpers/global.ts");
-
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 
 const fetchIntegrations = () => {
-    return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(ajaxurl, {
+    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(ajaxurl, {
         params: {
             action: 'ac-integrations',
         }
     });
 };
 const toggleIntegrationStatus = (args) => {
-    return axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(ajaxurl, (0,_helpers_global__WEBPACK_IMPORTED_MODULE_0__.mapDataToFormData)({
-        action: 'acp-integration-toggle',
-        integrations: args.integration,
-        status: args.status,
-        _ajax_nonce: AC_ADDONS._ajax_nonce,
-    }));
-};
-
-
-/***/ }),
-
-/***/ "./js/helpers/global.ts":
-/*!******************************!*\
-  !*** ./js/helpers/global.ts ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   appendObjectToFormData: () => (/* binding */ appendObjectToFormData),
-/* harmony export */   getParamFromUrl: () => (/* binding */ getParamFromUrl),
-/* harmony export */   mapDataToFormData: () => (/* binding */ mapDataToFormData),
-/* harmony export */   sanitizeColumnSelector: () => (/* binding */ sanitizeColumnSelector)
-/* harmony export */ });
-const getParamFromUrl = (param, url) => {
-    if (!url.includes('?')) {
-        return null;
+    const data = new FormData();
+    data.append('action', 'acp-integration-toggle');
+    data.append('integration', args.integration);
+    data.append('_ajax_nonce', AC_ADDONS._ajax_nonce);
+    if (args.status) {
+        data.append('status', '1');
     }
-    const params = new URLSearchParams(url.split('?')[1]);
-    return params.get(param);
-};
-const mapDataToFormData = (data, formData = null) => {
-    let fData = formData !== null && formData !== void 0 ? formData : new FormData();
-    Object.keys(data).forEach(key => {
-        appendObjectToFormData(fData, data[key], key);
-    });
-    return fData;
-};
-const appendObjectToFormData = (formData, data, parentKey = '') => {
-    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
-        Object.keys(data).forEach(key => {
-            appendObjectToFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
-        });
-    }
-    else {
-        const value = data == null ? '' : data;
-        formData.append(parentKey, value);
-    }
-};
-const sanitizeColumnSelector = (name) => {
-    return name.replace(/\./g, '\\.');
+    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(ajaxurl, data);
 };
 
 

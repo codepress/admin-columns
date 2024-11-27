@@ -6,7 +6,7 @@
     export let integration: IntegrationItem;
     export let isPro: boolean;
 
-    let checked: boolean = integration.plugin_active;
+    let checked: boolean = integration.active;
 
     const handleStatusChange = () => {
         toggleIntegrationStatus({

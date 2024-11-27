@@ -28,7 +28,7 @@ class IntegrationToggle implements RequestAjaxHandler
         }
 
         $integration = $this->repository->find(
-            $request->get('integrations', '')
+            $request->get('integration', '')
         );
 
         if ( ! $integration) {
@@ -37,7 +37,7 @@ class IntegrationToggle implements RequestAjaxHandler
 
         $this->repository->save_status(
             $integration,
-            $request->get('status') === 'true'
+            (bool)$request->get('status')
         );
 
         wp_send_json_success();
