@@ -16,9 +16,9 @@ use AC\Value\ExtendedValueRegistry;
 class ExtendedValue implements RequestAjaxHandler
 {
 
-    private $repository;
+    private Storage $repository;
 
-    private $views;
+    private ExtendedValueRegistry $views;
 
     public function __construct(Storage $repository, ExtendedValueRegistry $views)
     {

@@ -26,6 +26,7 @@ use AC\Table\ManageHeading;
 use AC\Table\ManageValue\ListScreenServiceFactory;
 use AC\Table\SaveHeading;
 use AC\Value\Extended\MediaPreview;
+use AC\Value\Extended\Posts;
 use AC\Value\ExtendedValueRegistry;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
@@ -65,6 +66,7 @@ class AdminColumns
         }
 
         ExtendedValueRegistry::add($container->get(MediaPreview::class));
+        ExtendedValueRegistry::add($container->get(Posts::class));
 
         MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
         ListKeysFactory\Aggregate::add($container->get(ListKeysFactory\BaseFactory::class));

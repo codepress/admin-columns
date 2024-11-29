@@ -8,6 +8,7 @@ use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
+use AC\Value\Extended\Posts;
 use AC\Value\Formatter;
 
 class PostCountFactory extends BaseColumnFactory
@@ -40,7 +41,17 @@ class PostCountFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters->add(new Formatter\User\PostCount($config->get('post_type'), $config->get('post_status')));
+        $post_type = $config->get('post_type');
+
+        if (in_array($post_type, ['any', ''], true)) {
+            $post_type = null;
+        }
+
+        $formatters->add(
+            new Formatter\User\PostCount(
+                new Posts($post_type, $config->get('post_status'))
+            )
+        );
     }
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void

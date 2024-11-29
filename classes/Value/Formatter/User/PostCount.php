@@ -6,6 +6,7 @@ namespace AC\Value\Formatter\User;
 
 use AC\Setting\Formatter;
 use AC\Type\Value;
+use AC\Value\Extended\ExtendedValue;
 
 class PostCount implements Formatter
 {
@@ -14,17 +15,20 @@ class PostCount implements Formatter
 
     private ?array $post_stati;
 
-    public function __construct(string $post_type = null, array $post_stati = null)
+    private ExtendedValue $extended_value;
+
+    public function __construct(ExtendedValue $extended_value, string $post_type = null, array $post_stati = null)
     {
         $this->post_type = $post_type;
         $this->post_stati = $post_stati;
+        $this->extended_value = $extended_value;
     }
 
     public function format(Value $value): Value
     {
-        $post_id = (int)$value->get_id();
-
-        $count = $this->get_post_count($post_id);
+        $count = $this->get_post_count(
+            (int)$value->get_id()
+        );
 
         if ($count < 1) {
             return $value->with_value(false);
@@ -41,7 +45,9 @@ class PostCount implements Formatter
             return (new UserFilteredPostLink($post_types[0]))->format($value);
         }
 
-        return $value;
+        return $value->with_value(
+            $this->extended_value->get_link((int)$value->get_id(), (string)$count)->render()
+        );
     }
 
     private function get_post_count(int $user_id): ?int

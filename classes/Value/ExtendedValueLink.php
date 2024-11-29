@@ -7,17 +7,17 @@ namespace AC\Value;
 final class ExtendedValueLink
 {
 
-    private $view;
+    private string $view;
 
-    private $attributes;
+    private array $attributes;
 
-    private $id;
+    private int $id;
 
-    private $label;
+    private string $label;
 
-    private $params;
+    private array $params;
 
-    public function __construct(string $label, int $id, string $view, $attributes = [], $params = [])
+    public function __construct(string $label, int $id, string $view, array $attributes = [], array $params = [])
     {
         $this->view = $view;
         $this->attributes = $attributes;
