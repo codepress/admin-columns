@@ -41,15 +41,9 @@ class PostCountFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $post_type = $config->get('post_type');
-
-        if (in_array($post_type, ['any', ''], true)) {
-            $post_type = null;
-        }
-
         $formatters->add(
             new Formatter\User\PostCount(
-                new Posts($post_type, $config->get('post_status'))
+                new Posts($this->get_post_types($config), $config->get('post_status'))
             )
         );
     }
@@ -58,6 +52,17 @@ class PostCountFactory extends BaseColumnFactory
     {
         $factories->add($this->post_type_factory->create(true));
         $factories->add($this->post_status);
+    }
+
+    private function get_post_types(Config $config): ?array
+    {
+        $post_type = $config->get('post_type');
+
+        if (in_array($post_type, ['any', ''], true)) {
+            return null;
+        }
+
+        return [$post_type];
     }
 
 }
