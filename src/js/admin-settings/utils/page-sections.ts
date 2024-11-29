@@ -8,28 +8,28 @@ type SectionsCollection = {
     [key: string]: Section[]
 }
 
-type Location = 'before_columns' | 'after_columns' | 'sidebar';
+type Location = 'after_general' | 'inside_general'
 
-export default class ListScreenSections {
+export default class SettingSections {
 
     static sections: SectionsCollection = {}
 
     static registerSection(location: Location, component: HTMLElement, priority: number = 10) {
-        if (!ListScreenSections.sections.hasOwnProperty(location)) {
-            ListScreenSections.sections[location] = [];
+        if (!SettingSections.sections.hasOwnProperty(location)) {
+            SettingSections.sections[location] = [];
         }
 
-        ListScreenSections.sections[location].push({priority, component})
+        SettingSections.sections[location].push({priority, component})
     }
 
 
     //static getSections(location: Location): typeof SvelteComponent [] {
     static getSections(location: Location): HTMLElement [] {
-        if (!ListScreenSections.sections.hasOwnProperty(location)) {
+        if (!SettingSections.sections.hasOwnProperty(location)) {
             return [];
         }
 
-        let sections =  ListScreenSections.sections[location].sort((a, b) => {
+        let sections =  SettingSections.sections[location].sort((a, b) => {
             return a.priority > b.priority ? -1 : 1;
         });
 

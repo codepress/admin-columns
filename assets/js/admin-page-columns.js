@@ -5933,7 +5933,7 @@ function instance($$self, $$props, $$invalidate) {
   } = $$props;
   let container;
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
-    container.append(component);
+    container.replaceWith(component);
   });
   function div_binding($$value) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {

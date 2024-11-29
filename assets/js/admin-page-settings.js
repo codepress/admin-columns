@@ -1,6 +1,2739 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@tannin/compile/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/@tannin/compile/index.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ compile)
+/* harmony export */ });
+/* harmony import */ var _tannin_postfix__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tannin/postfix */ "./node_modules/@tannin/postfix/index.js");
+/* harmony import */ var _tannin_evaluate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @tannin/evaluate */ "./node_modules/@tannin/evaluate/index.js");
+
+
+
+/**
+ * Given a C expression, returns a function which can be called to evaluate its
+ * result.
+ *
+ * @example
+ *
+ * ```js
+ * import compile from '@tannin/compile';
+ *
+ * const evaluate = compile( 'n > 1' );
+ *
+ * evaluate( { n: 2 } );
+ * // ⇒ true
+ * ```
+ *
+ * @param {string} expression C expression.
+ *
+ * @return {(variables?:{[variable:string]:*})=>*} Compiled evaluator.
+ */
+function compile( expression ) {
+	var terms = (0,_tannin_postfix__WEBPACK_IMPORTED_MODULE_0__["default"])( expression );
+
+	return function( variables ) {
+		return (0,_tannin_evaluate__WEBPACK_IMPORTED_MODULE_1__["default"])( terms, variables );
+	};
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@tannin/evaluate/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/@tannin/evaluate/index.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ evaluate)
+/* harmony export */ });
+/**
+ * Operator callback functions.
+ *
+ * @type {Object}
+ */
+var OPERATORS = {
+	'!': function( a ) {
+		return ! a;
+	},
+	'*': function( a, b ) {
+		return a * b;
+	},
+	'/': function( a, b ) {
+		return a / b;
+	},
+	'%': function( a, b ) {
+		return a % b;
+	},
+	'+': function( a, b ) {
+		return a + b;
+	},
+	'-': function( a, b ) {
+		return a - b;
+	},
+	'<': function( a, b ) {
+		return a < b;
+	},
+	'<=': function( a, b ) {
+		return a <= b;
+	},
+	'>': function( a, b ) {
+		return a > b;
+	},
+	'>=': function( a, b ) {
+		return a >= b;
+	},
+	'==': function( a, b ) {
+		return a === b;
+	},
+	'!=': function( a, b ) {
+		return a !== b;
+	},
+	'&&': function( a, b ) {
+		return a && b;
+	},
+	'||': function( a, b ) {
+		return a || b;
+	},
+	'?:': function( a, b, c ) {
+		if ( a ) {
+			throw b;
+		}
+
+		return c;
+	},
+};
+
+/**
+ * Given an array of postfix terms and operand variables, returns the result of
+ * the postfix evaluation.
+ *
+ * @example
+ *
+ * ```js
+ * import evaluate from '@tannin/evaluate';
+ *
+ * // 3 + 4 * 5 / 6 ⇒ '3 4 5 * 6 / +'
+ * const terms = [ '3', '4', '5', '*', '6', '/', '+' ];
+ *
+ * evaluate( terms, {} );
+ * // ⇒ 6.333333333333334
+ * ```
+ *
+ * @param {string[]} postfix   Postfix terms.
+ * @param {Object}   variables Operand variables.
+ *
+ * @return {*} Result of evaluation.
+ */
+function evaluate( postfix, variables ) {
+	var stack = [],
+		i, j, args, getOperatorResult, term, value;
+
+	for ( i = 0; i < postfix.length; i++ ) {
+		term = postfix[ i ];
+
+		getOperatorResult = OPERATORS[ term ];
+		if ( getOperatorResult ) {
+			// Pop from stack by number of function arguments.
+			j = getOperatorResult.length;
+			args = Array( j );
+			while ( j-- ) {
+				args[ j ] = stack.pop();
+			}
+
+			try {
+				value = getOperatorResult.apply( null, args );
+			} catch ( earlyReturn ) {
+				return earlyReturn;
+			}
+		} else if ( variables.hasOwnProperty( term ) ) {
+			value = variables[ term ];
+		} else {
+			value = +term;
+		}
+
+		stack.push( value );
+	}
+
+	return stack[ 0 ];
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@tannin/plural-forms/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@tannin/plural-forms/index.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ pluralForms)
+/* harmony export */ });
+/* harmony import */ var _tannin_compile__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tannin/compile */ "./node_modules/@tannin/compile/index.js");
+
+
+/**
+ * Given a C expression, returns a function which, when called with a value,
+ * evaluates the result with the value assumed to be the "n" variable of the
+ * expression. The result will be coerced to its numeric equivalent.
+ *
+ * @param {string} expression C expression.
+ *
+ * @return {Function} Evaluator function.
+ */
+function pluralForms( expression ) {
+	var evaluate = (0,_tannin_compile__WEBPACK_IMPORTED_MODULE_0__["default"])( expression );
+
+	return function( n ) {
+		return +evaluate( { n: n } );
+	};
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@tannin/postfix/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/@tannin/postfix/index.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ postfix)
+/* harmony export */ });
+var PRECEDENCE, OPENERS, TERMINATORS, PATTERN;
+
+/**
+ * Operator precedence mapping.
+ *
+ * @type {Object}
+ */
+PRECEDENCE = {
+	'(': 9,
+	'!': 8,
+	'*': 7,
+	'/': 7,
+	'%': 7,
+	'+': 6,
+	'-': 6,
+	'<': 5,
+	'<=': 5,
+	'>': 5,
+	'>=': 5,
+	'==': 4,
+	'!=': 4,
+	'&&': 3,
+	'||': 2,
+	'?': 1,
+	'?:': 1,
+};
+
+/**
+ * Characters which signal pair opening, to be terminated by terminators.
+ *
+ * @type {string[]}
+ */
+OPENERS = [ '(', '?' ];
+
+/**
+ * Characters which signal pair termination, the value an array with the
+ * opener as its first member. The second member is an optional operator
+ * replacement to push to the stack.
+ *
+ * @type {string[]}
+ */
+TERMINATORS = {
+	')': [ '(' ],
+	':': [ '?', '?:' ],
+};
+
+/**
+ * Pattern matching operators and openers.
+ *
+ * @type {RegExp}
+ */
+PATTERN = /<=|>=|==|!=|&&|\|\||\?:|\(|!|\*|\/|%|\+|-|<|>|\?|\)|:/;
+
+/**
+ * Given a C expression, returns the equivalent postfix (Reverse Polish)
+ * notation terms as an array.
+ *
+ * If a postfix string is desired, simply `.join( ' ' )` the result.
+ *
+ * @example
+ *
+ * ```js
+ * import postfix from '@tannin/postfix';
+ *
+ * postfix( 'n > 1' );
+ * // ⇒ [ 'n', '1', '>' ]
+ * ```
+ *
+ * @param {string} expression C expression.
+ *
+ * @return {string[]} Postfix terms.
+ */
+function postfix( expression ) {
+	var terms = [],
+		stack = [],
+		match, operator, term, element;
+
+	while ( ( match = expression.match( PATTERN ) ) ) {
+		operator = match[ 0 ];
+
+		// Term is the string preceding the operator match. It may contain
+		// whitespace, and may be empty (if operator is at beginning).
+		term = expression.substr( 0, match.index ).trim();
+		if ( term ) {
+			terms.push( term );
+		}
+
+		while ( ( element = stack.pop() ) ) {
+			if ( TERMINATORS[ operator ] ) {
+				if ( TERMINATORS[ operator ][ 0 ] === element ) {
+					// Substitution works here under assumption that because
+					// the assigned operator will no longer be a terminator, it
+					// will be pushed to the stack during the condition below.
+					operator = TERMINATORS[ operator ][ 1 ] || operator;
+					break;
+				}
+			} else if ( OPENERS.indexOf( element ) >= 0 || PRECEDENCE[ element ] < PRECEDENCE[ operator ] ) {
+				// Push to stack if either an opener or when pop reveals an
+				// element of lower precedence.
+				stack.push( element );
+				break;
+			}
+
+			// For each popped from stack, push to terms.
+			terms.push( element );
+		}
+
+		if ( ! TERMINATORS[ operator ] ) {
+			stack.push( operator );
+		}
+
+		// Slice matched fragment from expression to continue match.
+		expression = expression.substr( match.index + operator.length );
+	}
+
+	// Push remainder of operand, if exists, to terms.
+	expression = expression.trim();
+	if ( expression ) {
+		terms.push( expression );
+	}
+
+	// Pop remaining items from stack into terms.
+	return terms.concat( stack.reverse() );
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/hooks/build-module/createAddHook.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@wordpress/hooks/build-module/createAddHook.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _validateNamespace_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validateNamespace.js */ "./node_modules/@wordpress/hooks/build-module/validateNamespace.js");
+/* harmony import */ var _validateHookName_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validateHookName.js */ "./node_modules/@wordpress/hooks/build-module/validateHookName.js");
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * @callback AddHook
+ *
+ * Adds the hook to the appropriate hooks container.
+ *
+ * @param {string}               hookName      Name of hook to add
+ * @param {string}               namespace     The unique namespace identifying the callback in the form `vendor/plugin/function`.
+ * @param {import('.').Callback} callback      Function to call when the hook is run
+ * @param {number}               [priority=10] Priority of this hook
+ */
+
+/**
+ * Returns a function which, when invoked, will add a hook.
+ *
+ * @param {import('.').Hooks}    hooks    Hooks instance.
+ * @param {import('.').StoreKey} storeKey
+ *
+ * @return {AddHook} Function that adds a new hook.
+ */
+function createAddHook(hooks, storeKey) {
+  return function addHook(hookName, namespace, callback, priority = 10) {
+    const hooksStore = hooks[storeKey];
+    if (!(0,_validateHookName_js__WEBPACK_IMPORTED_MODULE_1__["default"])(hookName)) {
+      return;
+    }
+    if (!(0,_validateNamespace_js__WEBPACK_IMPORTED_MODULE_0__["default"])(namespace)) {
+      return;
+    }
+    if ('function' !== typeof callback) {
+      // eslint-disable-next-line no-console
+      console.error('The hook callback must be a function.');
+      return;
+    }
+
+    // Validate numeric priority
+    if ('number' !== typeof priority) {
+      // eslint-disable-next-line no-console
+      console.error('If specified, the hook priority must be a number.');
+      return;
+    }
+    const handler = {
+      callback,
+      priority,
+      namespace
+    };
+    if (hooksStore[hookName]) {
+      // Find the correct insert index of the new hook.
+      const handlers = hooksStore[hookName].handlers;
+
+      /** @type {number} */
+      let i;
+      for (i = handlers.length; i > 0; i--) {
+        if (priority >= handlers[i - 1].priority) {
+          break;
+        }
+      }
+      if (i === handlers.length) {
+        // If append, operate via direct assignment.
+        handlers[i] = handler;
+      } else {
+        // Otherwise, insert before index via splice.
+        handlers.splice(i, 0, handler);
+      }
+
+      // We may also be currently executing this hook.  If the callback
+      // we're adding would come after the current callback, there's no
+      // problem; otherwise we need to increase the execution index of
+      // any other runs by 1 to account for the added element.
+      hooksStore.__current.forEach(hookInfo => {
+        if (hookInfo.name === hookName && hookInfo.currentIndex >= i) {
+          hookInfo.currentIndex++;
+        }
+      });
+    } else {
+      // This is the first hook of its type.
+      hooksStore[hookName] = {
+        handlers: [handler],
+        runs: 0
+      };
+    }
+    if (hookName !== 'hookAdded') {
+      hooks.doAction('hookAdded', hookName, namespace, callback, priority);
+    }
+  };
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createAddHook);
+//# sourceMappingURL=createAddHook.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/hooks/build-module/createCurrentHook.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@wordpress/hooks/build-module/createCurrentHook.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * Returns a function which, when invoked, will return the name of the
+ * currently running hook, or `null` if no hook of the given type is currently
+ * running.
+ *
+ * @param {import('.').Hooks}    hooks    Hooks instance.
+ * @param {import('.').StoreKey} storeKey
+ *
+ * @return {() => string | null} Function that returns the current hook name or null.
+ */
+function createCurrentHook(hooks, storeKey) {
+  return function currentHook() {
+    var _currentArray$at$name;
+    const hooksStore = hooks[storeKey];
+    const currentArray = Array.from(hooksStore.__current);
+    return (_currentArray$at$name = currentArray.at(-1)?.name) !== null && _currentArray$at$name !== void 0 ? _currentArray$at$name : null;
+  };
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createCurrentHook);
+//# sourceMappingURL=createCurrentHook.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/hooks/build-module/createDidHook.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@wordpress/hooks/build-module/createDidHook.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _validateHookName_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validateHookName.js */ "./node_modules/@wordpress/hooks/build-module/validateHookName.js");
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * @callback DidHook
+ *
+ * Returns the number of times an action has been fired.
+ *
+ * @param {string} hookName The hook name to check.
+ *
+ * @return {number | undefined} The number of times the hook has run.
+ */
+
+/**
+ * Returns a function which, when invoked, will return the number of times a
+ * hook has been called.
+ *
+ * @param {import('.').Hooks}    hooks    Hooks instance.
+ * @param {import('.').StoreKey} storeKey
+ *
+ * @return {DidHook} Function that returns a hook's call count.
+ */
+function createDidHook(hooks, storeKey) {
+  return function didHook(hookName) {
+    const hooksStore = hooks[storeKey];
+    if (!(0,_validateHookName_js__WEBPACK_IMPORTED_MODULE_0__["default"])(hookName)) {
+      return;
+    }
+    return hooksStore[hookName] && hooksStore[hookName].runs ? hooksStore[hookName].runs : 0;
+  };
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createDidHook);
+//# sourceMappingURL=createDidHook.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/hooks/build-module/createDoingHook.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@wordpress/hooks/build-module/createDoingHook.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * @callback DoingHook
+ * Returns whether a hook is currently being executed.
+ *
+ * @param {string} [hookName] The name of the hook to check for.  If
+ *                            omitted, will check for any hook being executed.
+ *
+ * @return {boolean} Whether the hook is being executed.
+ */
+
+/**
+ * Returns a function which, when invoked, will return whether a hook is
+ * currently being executed.
+ *
+ * @param {import('.').Hooks}    hooks    Hooks instance.
+ * @param {import('.').StoreKey} storeKey
+ *
+ * @return {DoingHook} Function that returns whether a hook is currently
+ *                     being executed.
+ */
+function createDoingHook(hooks, storeKey) {
+  return function doingHook(hookName) {
+    const hooksStore = hooks[storeKey];
+
+    // If the hookName was not passed, check for any current hook.
+    if ('undefined' === typeof hookName) {
+      return hooksStore.__current.size > 0;
+    }
+
+    // Find if the `hookName` hook is in `__current`.
+    return Array.from(hooksStore.__current).some(hook => hook.name === hookName);
+  };
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createDoingHook);
+//# sourceMappingURL=createDoingHook.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/hooks/build-module/createHasHook.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@wordpress/hooks/build-module/createHasHook.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * @callback HasHook
+ *
+ * Returns whether any handlers are attached for the given hookName and optional namespace.
+ *
+ * @param {string} hookName    The name of the hook to check for.
+ * @param {string} [namespace] Optional. The unique namespace identifying the callback
+ *                             in the form `vendor/plugin/function`.
+ *
+ * @return {boolean} Whether there are handlers that are attached to the given hook.
+ */
+/**
+ * Returns a function which, when invoked, will return whether any handlers are
+ * attached to a particular hook.
+ *
+ * @param {import('.').Hooks}    hooks    Hooks instance.
+ * @param {import('.').StoreKey} storeKey
+ *
+ * @return {HasHook} Function that returns whether any handlers are
+ *                   attached to a particular hook and optional namespace.
+ */
+function createHasHook(hooks, storeKey) {
+  return function hasHook(hookName, namespace) {
+    const hooksStore = hooks[storeKey];
+
+    // Use the namespace if provided.
+    if ('undefined' !== typeof namespace) {
+      return hookName in hooksStore && hooksStore[hookName].handlers.some(hook => hook.namespace === namespace);
+    }
+    return hookName in hooksStore;
+  };
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createHasHook);
+//# sourceMappingURL=createHasHook.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/hooks/build-module/createHooks.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@wordpress/hooks/build-module/createHooks.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   _Hooks: () => (/* binding */ _Hooks),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _createAddHook__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createAddHook */ "./node_modules/@wordpress/hooks/build-module/createAddHook.js");
+/* harmony import */ var _createRemoveHook__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createRemoveHook */ "./node_modules/@wordpress/hooks/build-module/createRemoveHook.js");
+/* harmony import */ var _createHasHook__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./createHasHook */ "./node_modules/@wordpress/hooks/build-module/createHasHook.js");
+/* harmony import */ var _createRunHook__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./createRunHook */ "./node_modules/@wordpress/hooks/build-module/createRunHook.js");
+/* harmony import */ var _createCurrentHook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./createCurrentHook */ "./node_modules/@wordpress/hooks/build-module/createCurrentHook.js");
+/* harmony import */ var _createDoingHook__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./createDoingHook */ "./node_modules/@wordpress/hooks/build-module/createDoingHook.js");
+/* harmony import */ var _createDidHook__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./createDidHook */ "./node_modules/@wordpress/hooks/build-module/createDidHook.js");
+/* wp:polyfill */
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+
+/**
+ * Internal class for constructing hooks. Use `createHooks()` function
+ *
+ * Note, it is necessary to expose this class to make its type public.
+ *
+ * @private
+ */
+class _Hooks {
+  constructor() {
+    /** @type {import('.').Store} actions */
+    this.actions = Object.create(null);
+    this.actions.__current = new Set();
+
+    /** @type {import('.').Store} filters */
+    this.filters = Object.create(null);
+    this.filters.__current = new Set();
+    this.addAction = (0,_createAddHook__WEBPACK_IMPORTED_MODULE_0__["default"])(this, 'actions');
+    this.addFilter = (0,_createAddHook__WEBPACK_IMPORTED_MODULE_0__["default"])(this, 'filters');
+    this.removeAction = (0,_createRemoveHook__WEBPACK_IMPORTED_MODULE_1__["default"])(this, 'actions');
+    this.removeFilter = (0,_createRemoveHook__WEBPACK_IMPORTED_MODULE_1__["default"])(this, 'filters');
+    this.hasAction = (0,_createHasHook__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'actions');
+    this.hasFilter = (0,_createHasHook__WEBPACK_IMPORTED_MODULE_2__["default"])(this, 'filters');
+    this.removeAllActions = (0,_createRemoveHook__WEBPACK_IMPORTED_MODULE_1__["default"])(this, 'actions', true);
+    this.removeAllFilters = (0,_createRemoveHook__WEBPACK_IMPORTED_MODULE_1__["default"])(this, 'filters', true);
+    this.doAction = (0,_createRunHook__WEBPACK_IMPORTED_MODULE_3__["default"])(this, 'actions', false, false);
+    this.doActionAsync = (0,_createRunHook__WEBPACK_IMPORTED_MODULE_3__["default"])(this, 'actions', false, true);
+    this.applyFilters = (0,_createRunHook__WEBPACK_IMPORTED_MODULE_3__["default"])(this, 'filters', true, false);
+    this.applyFiltersAsync = (0,_createRunHook__WEBPACK_IMPORTED_MODULE_3__["default"])(this, 'filters', true, true);
+    this.currentAction = (0,_createCurrentHook__WEBPACK_IMPORTED_MODULE_4__["default"])(this, 'actions');
+    this.currentFilter = (0,_createCurrentHook__WEBPACK_IMPORTED_MODULE_4__["default"])(this, 'filters');
+    this.doingAction = (0,_createDoingHook__WEBPACK_IMPORTED_MODULE_5__["default"])(this, 'actions');
+    this.doingFilter = (0,_createDoingHook__WEBPACK_IMPORTED_MODULE_5__["default"])(this, 'filters');
+    this.didAction = (0,_createDidHook__WEBPACK_IMPORTED_MODULE_6__["default"])(this, 'actions');
+    this.didFilter = (0,_createDidHook__WEBPACK_IMPORTED_MODULE_6__["default"])(this, 'filters');
+  }
+}
+
+/** @typedef {_Hooks} Hooks */
+
+/**
+ * Returns an instance of the hooks object.
+ *
+ * @return {Hooks} A Hooks instance.
+ */
+function createHooks() {
+  return new _Hooks();
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createHooks);
+//# sourceMappingURL=createHooks.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/hooks/build-module/createRemoveHook.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@wordpress/hooks/build-module/createRemoveHook.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _validateNamespace_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validateNamespace.js */ "./node_modules/@wordpress/hooks/build-module/validateNamespace.js");
+/* harmony import */ var _validateHookName_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validateHookName.js */ "./node_modules/@wordpress/hooks/build-module/validateHookName.js");
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * @callback RemoveHook
+ * Removes the specified callback (or all callbacks) from the hook with a given hookName
+ * and namespace.
+ *
+ * @param {string} hookName  The name of the hook to modify.
+ * @param {string} namespace The unique namespace identifying the callback in the
+ *                           form `vendor/plugin/function`.
+ *
+ * @return {number | undefined} The number of callbacks removed.
+ */
+
+/**
+ * Returns a function which, when invoked, will remove a specified hook or all
+ * hooks by the given name.
+ *
+ * @param {import('.').Hooks}    hooks             Hooks instance.
+ * @param {import('.').StoreKey} storeKey
+ * @param {boolean}              [removeAll=false] Whether to remove all callbacks for a hookName,
+ *                                                 without regard to namespace. Used to create
+ *                                                 `removeAll*` functions.
+ *
+ * @return {RemoveHook} Function that removes hooks.
+ */
+function createRemoveHook(hooks, storeKey, removeAll = false) {
+  return function removeHook(hookName, namespace) {
+    const hooksStore = hooks[storeKey];
+    if (!(0,_validateHookName_js__WEBPACK_IMPORTED_MODULE_1__["default"])(hookName)) {
+      return;
+    }
+    if (!removeAll && !(0,_validateNamespace_js__WEBPACK_IMPORTED_MODULE_0__["default"])(namespace)) {
+      return;
+    }
+
+    // Bail if no hooks exist by this name.
+    if (!hooksStore[hookName]) {
+      return 0;
+    }
+    let handlersRemoved = 0;
+    if (removeAll) {
+      handlersRemoved = hooksStore[hookName].handlers.length;
+      hooksStore[hookName] = {
+        runs: hooksStore[hookName].runs,
+        handlers: []
+      };
+    } else {
+      // Try to find the specified callback to remove.
+      const handlers = hooksStore[hookName].handlers;
+      for (let i = handlers.length - 1; i >= 0; i--) {
+        if (handlers[i].namespace === namespace) {
+          handlers.splice(i, 1);
+          handlersRemoved++;
+          // This callback may also be part of a hook that is
+          // currently executing.  If the callback we're removing
+          // comes after the current callback, there's no problem;
+          // otherwise we need to decrease the execution index of any
+          // other runs by 1 to account for the removed element.
+          hooksStore.__current.forEach(hookInfo => {
+            if (hookInfo.name === hookName && hookInfo.currentIndex >= i) {
+              hookInfo.currentIndex--;
+            }
+          });
+        }
+      }
+    }
+    if (hookName !== 'hookRemoved') {
+      hooks.doAction('hookRemoved', hookName, namespace);
+    }
+    return handlersRemoved;
+  };
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createRemoveHook);
+//# sourceMappingURL=createRemoveHook.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/hooks/build-module/createRunHook.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@wordpress/hooks/build-module/createRunHook.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * Returns a function which, when invoked, will execute all callbacks
+ * registered to a hook of the specified type, optionally returning the final
+ * value of the call chain.
+ *
+ * @param {import('.').Hooks}    hooks          Hooks instance.
+ * @param {import('.').StoreKey} storeKey
+ * @param {boolean}              returnFirstArg Whether each hook callback is expected to return its first argument.
+ * @param {boolean}              async          Whether the hook callback should be run asynchronously
+ *
+ * @return {(hookName:string, ...args: unknown[]) => undefined|unknown} Function that runs hook callbacks.
+ */
+function createRunHook(hooks, storeKey, returnFirstArg, async) {
+  return function runHook(hookName, ...args) {
+    const hooksStore = hooks[storeKey];
+    if (!hooksStore[hookName]) {
+      hooksStore[hookName] = {
+        handlers: [],
+        runs: 0
+      };
+    }
+    hooksStore[hookName].runs++;
+    const handlers = hooksStore[hookName].handlers;
+
+    // The following code is stripped from production builds.
+    if (true) {
+      // Handle any 'all' hooks registered.
+      if ('hookAdded' !== hookName && hooksStore.all) {
+        handlers.push(...hooksStore.all.handlers);
+      }
+    }
+    if (!handlers || !handlers.length) {
+      return returnFirstArg ? args[0] : undefined;
+    }
+    const hookInfo = {
+      name: hookName,
+      currentIndex: 0
+    };
+    async function asyncRunner() {
+      try {
+        hooksStore.__current.add(hookInfo);
+        let result = returnFirstArg ? args[0] : undefined;
+        while (hookInfo.currentIndex < handlers.length) {
+          const handler = handlers[hookInfo.currentIndex];
+          result = await handler.callback.apply(null, args);
+          if (returnFirstArg) {
+            args[0] = result;
+          }
+          hookInfo.currentIndex++;
+        }
+        return returnFirstArg ? result : undefined;
+      } finally {
+        hooksStore.__current.delete(hookInfo);
+      }
+    }
+    function syncRunner() {
+      try {
+        hooksStore.__current.add(hookInfo);
+        let result = returnFirstArg ? args[0] : undefined;
+        while (hookInfo.currentIndex < handlers.length) {
+          const handler = handlers[hookInfo.currentIndex];
+          result = handler.callback.apply(null, args);
+          if (returnFirstArg) {
+            args[0] = result;
+          }
+          hookInfo.currentIndex++;
+        }
+        return returnFirstArg ? result : undefined;
+      } finally {
+        hooksStore.__current.delete(hookInfo);
+      }
+    }
+    return (async ? asyncRunner : syncRunner)();
+  };
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createRunHook);
+//# sourceMappingURL=createRunHook.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/hooks/build-module/index.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@wordpress/hooks/build-module/index.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   actions: () => (/* binding */ actions),
+/* harmony export */   addAction: () => (/* binding */ addAction),
+/* harmony export */   addFilter: () => (/* binding */ addFilter),
+/* harmony export */   applyFilters: () => (/* binding */ applyFilters),
+/* harmony export */   applyFiltersAsync: () => (/* binding */ applyFiltersAsync),
+/* harmony export */   createHooks: () => (/* reexport safe */ _createHooks__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   currentAction: () => (/* binding */ currentAction),
+/* harmony export */   currentFilter: () => (/* binding */ currentFilter),
+/* harmony export */   defaultHooks: () => (/* binding */ defaultHooks),
+/* harmony export */   didAction: () => (/* binding */ didAction),
+/* harmony export */   didFilter: () => (/* binding */ didFilter),
+/* harmony export */   doAction: () => (/* binding */ doAction),
+/* harmony export */   doActionAsync: () => (/* binding */ doActionAsync),
+/* harmony export */   doingAction: () => (/* binding */ doingAction),
+/* harmony export */   doingFilter: () => (/* binding */ doingFilter),
+/* harmony export */   filters: () => (/* binding */ filters),
+/* harmony export */   hasAction: () => (/* binding */ hasAction),
+/* harmony export */   hasFilter: () => (/* binding */ hasFilter),
+/* harmony export */   removeAction: () => (/* binding */ removeAction),
+/* harmony export */   removeAllActions: () => (/* binding */ removeAllActions),
+/* harmony export */   removeAllFilters: () => (/* binding */ removeAllFilters),
+/* harmony export */   removeFilter: () => (/* binding */ removeFilter)
+/* harmony export */ });
+/* harmony import */ var _createHooks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createHooks */ "./node_modules/@wordpress/hooks/build-module/createHooks.js");
+/**
+ * Internal dependencies
+ */
+
+
+/** @typedef {(...args: any[])=>any} Callback */
+
+/**
+ * @typedef Handler
+ * @property {Callback} callback  The callback
+ * @property {string}   namespace The namespace
+ * @property {number}   priority  The namespace
+ */
+
+/**
+ * @typedef Hook
+ * @property {Handler[]} handlers Array of handlers
+ * @property {number}    runs     Run counter
+ */
+
+/**
+ * @typedef Current
+ * @property {string} name         Hook name
+ * @property {number} currentIndex The index
+ */
+
+/**
+ * @typedef {Record<string, Hook> & {__current: Set<Current>}} Store
+ */
+
+/**
+ * @typedef {'actions' | 'filters'} StoreKey
+ */
+
+/**
+ * @typedef {import('./createHooks').Hooks} Hooks
+ */
+
+const defaultHooks = (0,_createHooks__WEBPACK_IMPORTED_MODULE_0__["default"])();
+const {
+  addAction,
+  addFilter,
+  removeAction,
+  removeFilter,
+  hasAction,
+  hasFilter,
+  removeAllActions,
+  removeAllFilters,
+  doAction,
+  doActionAsync,
+  applyFilters,
+  applyFiltersAsync,
+  currentAction,
+  currentFilter,
+  doingAction,
+  doingFilter,
+  didAction,
+  didFilter,
+  actions,
+  filters
+} = defaultHooks;
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/hooks/build-module/validateHookName.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@wordpress/hooks/build-module/validateHookName.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * Validate a hookName string.
+ *
+ * @param {string} hookName The hook name to validate. Should be a non empty string containing
+ *                          only numbers, letters, dashes, periods and underscores. Also,
+ *                          the hook name cannot begin with `__`.
+ *
+ * @return {boolean} Whether the hook name is valid.
+ */
+function validateHookName(hookName) {
+  if ('string' !== typeof hookName || '' === hookName) {
+    // eslint-disable-next-line no-console
+    console.error('The hook name must be a non-empty string.');
+    return false;
+  }
+  if (/^__/.test(hookName)) {
+    // eslint-disable-next-line no-console
+    console.error('The hook name cannot begin with `__`.');
+    return false;
+  }
+  if (!/^[a-zA-Z][a-zA-Z0-9_.-]*$/.test(hookName)) {
+    // eslint-disable-next-line no-console
+    console.error('The hook name can only contain numbers, letters, dashes, periods and underscores.');
+    return false;
+  }
+  return true;
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (validateHookName);
+//# sourceMappingURL=validateHookName.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/hooks/build-module/validateNamespace.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@wordpress/hooks/build-module/validateNamespace.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * Validate a namespace string.
+ *
+ * @param {string} namespace The namespace to validate - should take the form
+ *                           `vendor/plugin/function`.
+ *
+ * @return {boolean} Whether the namespace is valid.
+ */
+function validateNamespace(namespace) {
+  if ('string' !== typeof namespace || '' === namespace) {
+    // eslint-disable-next-line no-console
+    console.error('The namespace must be a non-empty string.');
+    return false;
+  }
+  if (!/^[a-zA-Z][a-zA-Z0-9_.\-\/]*$/.test(namespace)) {
+    // eslint-disable-next-line no-console
+    console.error('The namespace can only contain numbers, letters, dashes, periods, underscores and slashes.');
+    return false;
+  }
+  return true;
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (validateNamespace);
+//# sourceMappingURL=validateNamespace.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/i18n/build-module/create-i18n.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@wordpress/i18n/build-module/create-i18n.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createI18n: () => (/* binding */ createI18n)
+/* harmony export */ });
+/* harmony import */ var tannin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tannin */ "./node_modules/tannin/index.js");
+/* wp:polyfill */
+/**
+ * External dependencies
+ */
+
+
+/**
+ * @typedef {Record<string,any>} LocaleData
+ */
+
+/**
+ * Default locale data to use for Tannin domain when not otherwise provided.
+ * Assumes an English plural forms expression.
+ *
+ * @type {LocaleData}
+ */
+const DEFAULT_LOCALE_DATA = {
+  '': {
+    /** @param {number} n */
+    plural_forms(n) {
+      return n === 1 ? 0 : 1;
+    }
+  }
+};
+
+/*
+ * Regular expression that matches i18n hooks like `i18n.gettext`, `i18n.ngettext`,
+ * `i18n.gettext_domain` or `i18n.ngettext_with_context` or `i18n.has_translation`.
+ */
+const I18N_HOOK_REGEXP = /^i18n\.(n?gettext|has_translation)(_|$)/;
+
+/**
+ * @typedef {(domain?: string) => LocaleData} GetLocaleData
+ *
+ * Returns locale data by domain in a
+ * Jed-formatted JSON object shape.
+ *
+ * @see http://messageformat.github.io/Jed/
+ */
+/**
+ * @typedef {(data?: LocaleData, domain?: string) => void} SetLocaleData
+ *
+ * Merges locale data into the Tannin instance by domain. Note that this
+ * function will overwrite the domain configuration. Accepts data in a
+ * Jed-formatted JSON object shape.
+ *
+ * @see http://messageformat.github.io/Jed/
+ */
+/**
+ * @typedef {(data?: LocaleData, domain?: string) => void} AddLocaleData
+ *
+ * Merges locale data into the Tannin instance by domain. Note that this
+ * function will also merge the domain configuration. Accepts data in a
+ * Jed-formatted JSON object shape.
+ *
+ * @see http://messageformat.github.io/Jed/
+ */
+/**
+ * @typedef {(data?: LocaleData, domain?: string) => void} ResetLocaleData
+ *
+ * Resets all current Tannin instance locale data and sets the specified
+ * locale data for the domain. Accepts data in a Jed-formatted JSON object shape.
+ *
+ * @see http://messageformat.github.io/Jed/
+ */
+/** @typedef {() => void} SubscribeCallback */
+/** @typedef {() => void} UnsubscribeCallback */
+/**
+ * @typedef {(callback: SubscribeCallback) => UnsubscribeCallback} Subscribe
+ *
+ * Subscribes to changes of locale data
+ */
+/**
+ * @typedef {(domain?: string) => string} GetFilterDomain
+ * Retrieve the domain to use when calling domain-specific filters.
+ */
+/**
+ * @typedef {(text: string, domain?: string) => string} __
+ *
+ * Retrieve the translation of text.
+ *
+ * @see https://developer.wordpress.org/reference/functions/__/
+ */
+/**
+ * @typedef {(text: string, context: string, domain?: string) => string} _x
+ *
+ * Retrieve translated string with gettext context.
+ *
+ * @see https://developer.wordpress.org/reference/functions/_x/
+ */
+/**
+ * @typedef {(single: string, plural: string, number: number, domain?: string) => string} _n
+ *
+ * Translates and retrieves the singular or plural form based on the supplied
+ * number.
+ *
+ * @see https://developer.wordpress.org/reference/functions/_n/
+ */
+/**
+ * @typedef {(single: string, plural: string, number: number, context: string, domain?: string) => string} _nx
+ *
+ * Translates and retrieves the singular or plural form based on the supplied
+ * number, with gettext context.
+ *
+ * @see https://developer.wordpress.org/reference/functions/_nx/
+ */
+/**
+ * @typedef {() => boolean} IsRtl
+ *
+ * Check if current locale is RTL.
+ *
+ * **RTL (Right To Left)** is a locale property indicating that text is written from right to left.
+ * For example, the `he` locale (for Hebrew) specifies right-to-left. Arabic (ar) is another common
+ * language written RTL. The opposite of RTL, LTR (Left To Right) is used in other languages,
+ * including English (`en`, `en-US`, `en-GB`, etc.), Spanish (`es`), and French (`fr`).
+ */
+/**
+ * @typedef {(single: string, context?: string, domain?: string) => boolean} HasTranslation
+ *
+ * Check if there is a translation for a given string in singular form.
+ */
+/** @typedef {import('@wordpress/hooks').Hooks} Hooks */
+
+/**
+ * An i18n instance
+ *
+ * @typedef I18n
+ * @property {GetLocaleData}   getLocaleData   Returns locale data by domain in a Jed-formatted JSON object shape.
+ * @property {SetLocaleData}   setLocaleData   Merges locale data into the Tannin instance by domain. Note that this
+ *                                             function will overwrite the domain configuration. Accepts data in a
+ *                                             Jed-formatted JSON object shape.
+ * @property {AddLocaleData}   addLocaleData   Merges locale data into the Tannin instance by domain. Note that this
+ *                                             function will also merge the domain configuration. Accepts data in a
+ *                                             Jed-formatted JSON object shape.
+ * @property {ResetLocaleData} resetLocaleData Resets all current Tannin instance locale data and sets the specified
+ *                                             locale data for the domain. Accepts data in a Jed-formatted JSON object shape.
+ * @property {Subscribe}       subscribe       Subscribes to changes of Tannin locale data.
+ * @property {__}              __              Retrieve the translation of text.
+ * @property {_x}              _x              Retrieve translated string with gettext context.
+ * @property {_n}              _n              Translates and retrieves the singular or plural form based on the supplied
+ *                                             number.
+ * @property {_nx}             _nx             Translates and retrieves the singular or plural form based on the supplied
+ *                                             number, with gettext context.
+ * @property {IsRtl}           isRTL           Check if current locale is RTL.
+ * @property {HasTranslation}  hasTranslation  Check if there is a translation for a given string.
+ */
+
+/**
+ * Create an i18n instance
+ *
+ * @param {LocaleData} [initialData]   Locale data configuration.
+ * @param {string}     [initialDomain] Domain for which configuration applies.
+ * @param {Hooks}      [hooks]         Hooks implementation.
+ *
+ * @return {I18n} I18n instance.
+ */
+const createI18n = (initialData, initialDomain, hooks) => {
+  /**
+   * The underlying instance of Tannin to which exported functions interface.
+   *
+   * @type {Tannin}
+   */
+  const tannin = new tannin__WEBPACK_IMPORTED_MODULE_0__["default"]({});
+  const listeners = new Set();
+  const notifyListeners = () => {
+    listeners.forEach(listener => listener());
+  };
+
+  /**
+   * Subscribe to changes of locale data.
+   *
+   * @param {SubscribeCallback} callback Subscription callback.
+   * @return {UnsubscribeCallback} Unsubscribe callback.
+   */
+  const subscribe = callback => {
+    listeners.add(callback);
+    return () => listeners.delete(callback);
+  };
+
+  /** @type {GetLocaleData} */
+  const getLocaleData = (domain = 'default') => tannin.data[domain];
+
+  /**
+   * @param {LocaleData} [data]
+   * @param {string}     [domain]
+   */
+  const doSetLocaleData = (data, domain = 'default') => {
+    tannin.data[domain] = {
+      ...tannin.data[domain],
+      ...data
+    };
+
+    // Populate default domain configuration (supported locale date which omits
+    // a plural forms expression).
+    tannin.data[domain][''] = {
+      ...DEFAULT_LOCALE_DATA[''],
+      ...tannin.data[domain]?.['']
+    };
+
+    // Clean up cached plural forms functions cache as it might be updated.
+    delete tannin.pluralForms[domain];
+  };
+
+  /** @type {SetLocaleData} */
+  const setLocaleData = (data, domain) => {
+    doSetLocaleData(data, domain);
+    notifyListeners();
+  };
+
+  /** @type {AddLocaleData} */
+  const addLocaleData = (data, domain = 'default') => {
+    tannin.data[domain] = {
+      ...tannin.data[domain],
+      ...data,
+      // Populate default domain configuration (supported locale date which omits
+      // a plural forms expression).
+      '': {
+        ...DEFAULT_LOCALE_DATA[''],
+        ...tannin.data[domain]?.[''],
+        ...data?.['']
+      }
+    };
+
+    // Clean up cached plural forms functions cache as it might be updated.
+    delete tannin.pluralForms[domain];
+    notifyListeners();
+  };
+
+  /** @type {ResetLocaleData} */
+  const resetLocaleData = (data, domain) => {
+    // Reset all current Tannin locale data.
+    tannin.data = {};
+
+    // Reset cached plural forms functions cache.
+    tannin.pluralForms = {};
+    setLocaleData(data, domain);
+  };
+
+  /**
+   * Wrapper for Tannin's `dcnpgettext`. Populates default locale data if not
+   * otherwise previously assigned.
+   *
+   * @param {string|undefined} domain   Domain to retrieve the translated text.
+   * @param {string|undefined} context  Context information for the translators.
+   * @param {string}           single   Text to translate if non-plural. Used as
+   *                                    fallback return value on a caught error.
+   * @param {string}           [plural] The text to be used if the number is
+   *                                    plural.
+   * @param {number}           [number] The number to compare against to use
+   *                                    either the singular or plural form.
+   *
+   * @return {string} The translated string.
+   */
+  const dcnpgettext = (domain = 'default', context, single, plural, number) => {
+    if (!tannin.data[domain]) {
+      // Use `doSetLocaleData` to set silently, without notifying listeners.
+      doSetLocaleData(undefined, domain);
+    }
+    return tannin.dcnpgettext(domain, context, single, plural, number);
+  };
+
+  /** @type {GetFilterDomain} */
+  const getFilterDomain = (domain = 'default') => domain;
+
+  /** @type {__} */
+  const __ = (text, domain) => {
+    let translation = dcnpgettext(domain, undefined, text);
+    if (!hooks) {
+      return translation;
+    }
+
+    /**
+     * Filters text with its translation.
+     *
+     * @param {string} translation Translated text.
+     * @param {string} text        Text to translate.
+     * @param {string} domain      Text domain. Unique identifier for retrieving translated strings.
+     */
+    translation = /** @type {string} */
+    /** @type {*} */hooks.applyFilters('i18n.gettext', translation, text, domain);
+    return /** @type {string} */ /** @type {*} */hooks.applyFilters('i18n.gettext_' + getFilterDomain(domain), translation, text, domain);
+  };
+
+  /** @type {_x} */
+  const _x = (text, context, domain) => {
+    let translation = dcnpgettext(domain, context, text);
+    if (!hooks) {
+      return translation;
+    }
+
+    /**
+     * Filters text with its translation based on context information.
+     *
+     * @param {string} translation Translated text.
+     * @param {string} text        Text to translate.
+     * @param {string} context     Context information for the translators.
+     * @param {string} domain      Text domain. Unique identifier for retrieving translated strings.
+     */
+    translation = /** @type {string} */
+    /** @type {*} */hooks.applyFilters('i18n.gettext_with_context', translation, text, context, domain);
+    return /** @type {string} */ /** @type {*} */hooks.applyFilters('i18n.gettext_with_context_' + getFilterDomain(domain), translation, text, context, domain);
+  };
+
+  /** @type {_n} */
+  const _n = (single, plural, number, domain) => {
+    let translation = dcnpgettext(domain, undefined, single, plural, number);
+    if (!hooks) {
+      return translation;
+    }
+
+    /**
+     * Filters the singular or plural form of a string.
+     *
+     * @param {string} translation Translated text.
+     * @param {string} single      The text to be used if the number is singular.
+     * @param {string} plural      The text to be used if the number is plural.
+     * @param {string} number      The number to compare against to use either the singular or plural form.
+     * @param {string} domain      Text domain. Unique identifier for retrieving translated strings.
+     */
+    translation = /** @type {string} */
+    /** @type {*} */hooks.applyFilters('i18n.ngettext', translation, single, plural, number, domain);
+    return /** @type {string} */ /** @type {*} */hooks.applyFilters('i18n.ngettext_' + getFilterDomain(domain), translation, single, plural, number, domain);
+  };
+
+  /** @type {_nx} */
+  const _nx = (single, plural, number, context, domain) => {
+    let translation = dcnpgettext(domain, context, single, plural, number);
+    if (!hooks) {
+      return translation;
+    }
+
+    /**
+     * Filters the singular or plural form of a string with gettext context.
+     *
+     * @param {string} translation Translated text.
+     * @param {string} single      The text to be used if the number is singular.
+     * @param {string} plural      The text to be used if the number is plural.
+     * @param {string} number      The number to compare against to use either the singular or plural form.
+     * @param {string} context     Context information for the translators.
+     * @param {string} domain      Text domain. Unique identifier for retrieving translated strings.
+     */
+    translation = /** @type {string} */
+    /** @type {*} */hooks.applyFilters('i18n.ngettext_with_context', translation, single, plural, number, context, domain);
+    return /** @type {string} */ /** @type {*} */hooks.applyFilters('i18n.ngettext_with_context_' + getFilterDomain(domain), translation, single, plural, number, context, domain);
+  };
+
+  /** @type {IsRtl} */
+  const isRTL = () => {
+    return 'rtl' === _x('ltr', 'text direction');
+  };
+
+  /** @type {HasTranslation} */
+  const hasTranslation = (single, context, domain) => {
+    const key = context ? context + '\u0004' + single : single;
+    let result = !!tannin.data?.[domain !== null && domain !== void 0 ? domain : 'default']?.[key];
+    if (hooks) {
+      /**
+       * Filters the presence of a translation in the locale data.
+       *
+       * @param {boolean} hasTranslation Whether the translation is present or not..
+       * @param {string}  single         The singular form of the translated text (used as key in locale data)
+       * @param {string}  context        Context information for the translators.
+       * @param {string}  domain         Text domain. Unique identifier for retrieving translated strings.
+       */
+      result = /** @type { boolean } */
+      /** @type {*} */hooks.applyFilters('i18n.has_translation', result, single, context, domain);
+      result = /** @type { boolean } */
+      /** @type {*} */hooks.applyFilters('i18n.has_translation_' + getFilterDomain(domain), result, single, context, domain);
+    }
+    return result;
+  };
+  if (initialData) {
+    setLocaleData(initialData, initialDomain);
+  }
+  if (hooks) {
+    /**
+     * @param {string} hookName
+     */
+    const onHookAddedOrRemoved = hookName => {
+      if (I18N_HOOK_REGEXP.test(hookName)) {
+        notifyListeners();
+      }
+    };
+    hooks.addAction('hookAdded', 'core/i18n', onHookAddedOrRemoved);
+    hooks.addAction('hookRemoved', 'core/i18n', onHookAddedOrRemoved);
+  }
+  return {
+    getLocaleData,
+    setLocaleData,
+    addLocaleData,
+    resetLocaleData,
+    subscribe,
+    __,
+    _x,
+    _n,
+    _nx,
+    isRTL,
+    hasTranslation
+  };
+};
+//# sourceMappingURL=create-i18n.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/i18n/build-module/default-i18n.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@wordpress/i18n/build-module/default-i18n.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __: () => (/* binding */ __),
+/* harmony export */   _n: () => (/* binding */ _n),
+/* harmony export */   _nx: () => (/* binding */ _nx),
+/* harmony export */   _x: () => (/* binding */ _x),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   getLocaleData: () => (/* binding */ getLocaleData),
+/* harmony export */   hasTranslation: () => (/* binding */ hasTranslation),
+/* harmony export */   isRTL: () => (/* binding */ isRTL),
+/* harmony export */   resetLocaleData: () => (/* binding */ resetLocaleData),
+/* harmony export */   setLocaleData: () => (/* binding */ setLocaleData),
+/* harmony export */   subscribe: () => (/* binding */ subscribe)
+/* harmony export */ });
+/* harmony import */ var _create_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create-i18n */ "./node_modules/@wordpress/i18n/build-module/create-i18n.js");
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/hooks */ "./node_modules/@wordpress/hooks/build-module/index.js");
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+const i18n = (0,_create_i18n__WEBPACK_IMPORTED_MODULE_0__.createI18n)(undefined, undefined, _wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__.defaultHooks);
+
+/**
+ * Default, singleton instance of `I18n`.
+ */
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (i18n);
+
+/*
+ * Comments in this file are duplicated from ./i18n due to
+ * https://github.com/WordPress/gutenberg/pull/20318#issuecomment-590837722
+ */
+
+/**
+ * @typedef {import('./create-i18n').LocaleData} LocaleData
+ * @typedef {import('./create-i18n').SubscribeCallback} SubscribeCallback
+ * @typedef {import('./create-i18n').UnsubscribeCallback} UnsubscribeCallback
+ */
+
+/**
+ * Returns locale data by domain in a Jed-formatted JSON object shape.
+ *
+ * @see http://messageformat.github.io/Jed/
+ *
+ * @param {string} [domain] Domain for which to get the data.
+ * @return {LocaleData} Locale data.
+ */
+const getLocaleData = i18n.getLocaleData.bind(i18n);
+
+/**
+ * Merges locale data into the Tannin instance by domain. Accepts data in a
+ * Jed-formatted JSON object shape.
+ *
+ * @see http://messageformat.github.io/Jed/
+ *
+ * @param {LocaleData} [data]   Locale data configuration.
+ * @param {string}     [domain] Domain for which configuration applies.
+ */
+const setLocaleData = i18n.setLocaleData.bind(i18n);
+
+/**
+ * Resets all current Tannin instance locale data and sets the specified
+ * locale data for the domain. Accepts data in a Jed-formatted JSON object shape.
+ *
+ * @see http://messageformat.github.io/Jed/
+ *
+ * @param {LocaleData} [data]   Locale data configuration.
+ * @param {string}     [domain] Domain for which configuration applies.
+ */
+const resetLocaleData = i18n.resetLocaleData.bind(i18n);
+
+/**
+ * Subscribes to changes of locale data
+ *
+ * @param {SubscribeCallback} callback Subscription callback
+ * @return {UnsubscribeCallback} Unsubscribe callback
+ */
+const subscribe = i18n.subscribe.bind(i18n);
+
+/**
+ * Retrieve the translation of text.
+ *
+ * @see https://developer.wordpress.org/reference/functions/__/
+ *
+ * @param {string} text     Text to translate.
+ * @param {string} [domain] Domain to retrieve the translated text.
+ *
+ * @return {string} Translated text.
+ */
+const __ = i18n.__.bind(i18n);
+
+/**
+ * Retrieve translated string with gettext context.
+ *
+ * @see https://developer.wordpress.org/reference/functions/_x/
+ *
+ * @param {string} text     Text to translate.
+ * @param {string} context  Context information for the translators.
+ * @param {string} [domain] Domain to retrieve the translated text.
+ *
+ * @return {string} Translated context string without pipe.
+ */
+const _x = i18n._x.bind(i18n);
+
+/**
+ * Translates and retrieves the singular or plural form based on the supplied
+ * number.
+ *
+ * @see https://developer.wordpress.org/reference/functions/_n/
+ *
+ * @param {string} single   The text to be used if the number is singular.
+ * @param {string} plural   The text to be used if the number is plural.
+ * @param {number} number   The number to compare against to use either the
+ *                          singular or plural form.
+ * @param {string} [domain] Domain to retrieve the translated text.
+ *
+ * @return {string} The translated singular or plural form.
+ */
+const _n = i18n._n.bind(i18n);
+
+/**
+ * Translates and retrieves the singular or plural form based on the supplied
+ * number, with gettext context.
+ *
+ * @see https://developer.wordpress.org/reference/functions/_nx/
+ *
+ * @param {string} single   The text to be used if the number is singular.
+ * @param {string} plural   The text to be used if the number is plural.
+ * @param {number} number   The number to compare against to use either the
+ *                          singular or plural form.
+ * @param {string} context  Context information for the translators.
+ * @param {string} [domain] Domain to retrieve the translated text.
+ *
+ * @return {string} The translated singular or plural form.
+ */
+const _nx = i18n._nx.bind(i18n);
+
+/**
+ * Check if current locale is RTL.
+ *
+ * **RTL (Right To Left)** is a locale property indicating that text is written from right to left.
+ * For example, the `he` locale (for Hebrew) specifies right-to-left. Arabic (ar) is another common
+ * language written RTL. The opposite of RTL, LTR (Left To Right) is used in other languages,
+ * including English (`en`, `en-US`, `en-GB`, etc.), Spanish (`es`), and French (`fr`).
+ *
+ * @return {boolean} Whether locale is RTL.
+ */
+const isRTL = i18n.isRTL.bind(i18n);
+
+/**
+ * Check if there is a translation for a given string (in singular form).
+ *
+ * @param {string} single    Singular form of the string to look up.
+ * @param {string} [context] Context information for the translators.
+ * @param {string} [domain]  Domain to retrieve the translated text.
+ * @return {boolean} Whether the translation exists or not.
+ */
+const hasTranslation = i18n.hasTranslation.bind(i18n);
+//# sourceMappingURL=default-i18n.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/i18n/build-module/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@wordpress/i18n/build-module/index.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __: () => (/* reexport safe */ _default_i18n__WEBPACK_IMPORTED_MODULE_2__.__),
+/* harmony export */   _n: () => (/* reexport safe */ _default_i18n__WEBPACK_IMPORTED_MODULE_2__._n),
+/* harmony export */   _nx: () => (/* reexport safe */ _default_i18n__WEBPACK_IMPORTED_MODULE_2__._nx),
+/* harmony export */   _x: () => (/* reexport safe */ _default_i18n__WEBPACK_IMPORTED_MODULE_2__._x),
+/* harmony export */   createI18n: () => (/* reexport safe */ _create_i18n__WEBPACK_IMPORTED_MODULE_1__.createI18n),
+/* harmony export */   defaultI18n: () => (/* reexport safe */ _default_i18n__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   getLocaleData: () => (/* reexport safe */ _default_i18n__WEBPACK_IMPORTED_MODULE_2__.getLocaleData),
+/* harmony export */   hasTranslation: () => (/* reexport safe */ _default_i18n__WEBPACK_IMPORTED_MODULE_2__.hasTranslation),
+/* harmony export */   isRTL: () => (/* reexport safe */ _default_i18n__WEBPACK_IMPORTED_MODULE_2__.isRTL),
+/* harmony export */   resetLocaleData: () => (/* reexport safe */ _default_i18n__WEBPACK_IMPORTED_MODULE_2__.resetLocaleData),
+/* harmony export */   setLocaleData: () => (/* reexport safe */ _default_i18n__WEBPACK_IMPORTED_MODULE_2__.setLocaleData),
+/* harmony export */   sprintf: () => (/* reexport safe */ _sprintf__WEBPACK_IMPORTED_MODULE_0__.sprintf),
+/* harmony export */   subscribe: () => (/* reexport safe */ _default_i18n__WEBPACK_IMPORTED_MODULE_2__.subscribe)
+/* harmony export */ });
+/* harmony import */ var _sprintf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sprintf */ "./node_modules/@wordpress/i18n/build-module/sprintf.js");
+/* harmony import */ var _create_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./create-i18n */ "./node_modules/@wordpress/i18n/build-module/create-i18n.js");
+/* harmony import */ var _default_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./default-i18n */ "./node_modules/@wordpress/i18n/build-module/default-i18n.js");
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/i18n/build-module/sprintf.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@wordpress/i18n/build-module/sprintf.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   sprintf: () => (/* binding */ sprintf)
+/* harmony export */ });
+/* harmony import */ var memize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! memize */ "./node_modules/memize/dist/index.js");
+/* harmony import */ var sprintf_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sprintf-js */ "./node_modules/sprintf-js/src/sprintf.js");
+/* harmony import */ var sprintf_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sprintf_js__WEBPACK_IMPORTED_MODULE_1__);
+/**
+ * External dependencies
+ */
+
+
+
+/**
+ * Log to console, once per message; or more precisely, per referentially equal
+ * argument set. Because Jed throws errors, we log these to the console instead
+ * to avoid crashing the application.
+ *
+ * @param {...*} args Arguments to pass to `console.error`
+ */
+const logErrorOnce = (0,memize__WEBPACK_IMPORTED_MODULE_0__["default"])(console.error); // eslint-disable-line no-console
+
+/**
+ * Returns a formatted string. If an error occurs in applying the format, the
+ * original format string is returned.
+ *
+ * @param {string} format The format of the string to generate.
+ * @param {...*}   args   Arguments to apply to the format.
+ *
+ * @see https://www.npmjs.com/package/sprintf-js
+ *
+ * @return {string} The formatted string.
+ */
+function sprintf(format, ...args) {
+  try {
+    return sprintf_js__WEBPACK_IMPORTED_MODULE_1___default().sprintf(format, ...args);
+  } catch (error) {
+    if (error instanceof Error) {
+      logErrorOnce('sprintf error: \n\n' + error.toString());
+    }
+    return format;
+  }
+}
+//# sourceMappingURL=sprintf.js.map
+
+/***/ }),
+
+/***/ "./js/admin-settings/RestoreSettingsSection.svelte":
+/*!*********************************************************!*\
+  !*** ./js/admin-settings/RestoreSettingsSection.svelte ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* harmony import */ var _utils_global__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/global */ "./js/admin-settings/utils/global.ts");
+/* harmony import */ var _component_SettingSection_svelte__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./component/SettingSection.svelte */ "./js/admin-settings/component/SettingSection.svelte");
+/* harmony import */ var ACUi_element_AcButton_svelte__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ACUi/element/AcButton.svelte */ "./ui/element/AcButton.svelte");
+/* harmony import */ var _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../plugin/ac-confirmation */ "./js/plugin/ac-confirmation.ts");
+/* harmony import */ var _ajax_requests__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ajax/requests */ "./js/admin-settings/ajax/requests.ts");
+/* harmony import */ var _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../ui-wrapper/notification */ "./js/ui-wrapper/notification.ts");
+/* js/admin-settings/RestoreSettingsSection.svelte generated by Svelte v4.2.0 */
+
+
+
+
+
+
+
+
+function create_default_slot(ctx) {
+  let acbutton;
+  let current;
+  acbutton = new ACUi_element_AcButton_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
+    props: {
+      label: /*i18n*/ctx[0].restore_settings
+    }
+  });
+  acbutton.$on("click", /*handleClick*/ctx[1]);
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acbutton.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acbutton, target, anchor);
+      current = true;
+    },
+    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acbutton.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acbutton.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acbutton, detaching);
+    }
+  };
+}
+function create_fragment(ctx) {
+  let settingsection;
+  let current;
+  settingsection = new _component_SettingSection_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
+    props: {
+      title: /*i18n*/ctx[0].restore_settings,
+      subtitle: /*i18n*/ctx[0].restore_settings_description,
+      $$slots: {
+        default: [create_default_slot]
+      },
+      $$scope: {
+        ctx
+      }
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(settingsection.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(settingsection, target, anchor);
+      current = true;
+    },
+    p(ctx, [dirty]) {
+      const settingsection_changes = {};
+      if (dirty & /*$$scope*/8) {
+        settingsection_changes.$$scope = {
+          dirty,
+          ctx
+        };
+      }
+      settingsection.$set(settingsection_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(settingsection.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(settingsection.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(settingsection, detaching);
+    }
+  };
+}
+function instance($$self) {
+  const i18n = (0,_utils_global__WEBPACK_IMPORTED_MODULE_2__.getAdminSettingsTranslation)();
+  const handleRestoreSettings = () => {
+    (0,_ajax_requests__WEBPACK_IMPORTED_MODULE_6__.restoreSettings)({
+      nonce: AC_SETTINGS._ajax_nonce
+    }).then(r => {
+      if (r.data.success) {
+        _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_7__.NotificationProgrammatic.open({
+          type: "success",
+          message: r.data.data.message
+        });
+      }
+    });
+  };
+  const handleClick = () => {
+    new _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_5__["default"]({
+      message: i18n.restore_settings_warning,
+      confirm: handleRestoreSettings
+    }).create();
+  };
+  return [i18n, handleClick];
+}
+class RestoreSettingsSection extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {});
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RestoreSettingsSection);
+
+/***/ }),
+
+/***/ "./js/admin-settings/SettingsPage.svelte":
+/*!***********************************************!*\
+  !*** ./js/admin-settings/SettingsPage.svelte ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* harmony import */ var _components_AdminHeaderBar_svelte__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/AdminHeaderBar.svelte */ "./js/components/AdminHeaderBar.svelte");
+/* harmony import */ var ACUi_acui_panel_AcPanel_svelte__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ACUi/acui-panel/AcPanel.svelte */ "./ui/acui-panel/AcPanel.svelte");
+/* harmony import */ var ACUi_acui_panel_AcPanelHeader_svelte__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ACUi/acui-panel/AcPanelHeader.svelte */ "./ui/acui-panel/AcPanelHeader.svelte");
+/* harmony import */ var _utils_global__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/global */ "./js/admin-settings/utils/global.ts");
+/* harmony import */ var ACUi_acui_panel_AcPanelBody_svelte__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ACUi/acui-panel/AcPanelBody.svelte */ "./ui/acui-panel/AcPanelBody.svelte");
+/* harmony import */ var ACUi_element_AcToggle_svelte__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ACUi/element/AcToggle.svelte */ "./ui/element/AcToggle.svelte");
+/* harmony import */ var _columns_components_HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../columns/components/HtmlSection.svelte */ "./js/columns/components/HtmlSection.svelte");
+/* harmony import */ var _utils_page_sections__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./utils/page-sections */ "./js/admin-settings/utils/page-sections.ts");
+/* harmony import */ var _component_SettingSection_svelte__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./component/SettingSection.svelte */ "./js/admin-settings/component/SettingSection.svelte");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.js");
+/* harmony import */ var _ajax_requests__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ajax/requests */ "./js/admin-settings/ajax/requests.ts");
+/* harmony import */ var _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../ui-wrapper/notification */ "./js/ui-wrapper/notification.ts");
+/* harmony import */ var ACUi_acui_toggle_buttons_AcToggleButtons_svelte__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ACUi/acui-toggle-buttons/AcToggleButtons.svelte */ "./ui/acui-toggle-buttons/AcToggleButtons.svelte");
+/* js/admin-settings/SettingsPage.svelte generated by Svelte v4.2.0 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function get_each_context(ctx, list, i) {
+  const child_ctx = ctx.slice();
+  child_ctx[6] = list[i];
+  return child_ctx;
+}
+
+// (51:3) 
+function create_header_slot(ctx) {
+  let acpanelheader;
+  let current;
+  acpanelheader = new ACUi_acui_panel_AcPanelHeader_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
+    props: {
+      slot: "header",
+      title: /*i18n*/ctx[2].settings,
+      type: "h2",
+      border: true
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acpanelheader.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acpanelheader, target, anchor);
+      current = true;
+    },
+    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acpanelheader.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acpanelheader.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acpanelheader, detaching);
+    }
+  };
+}
+
+// (56:6) <AcToggle bind:checked={showButtonValue} disabled={loadingShowButtonValue}        on:input={handleToggleShowButton}>
+function create_default_slot_2(ctx) {
+  let t_value = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.sprintf)(/*i18n*/ctx[2].show_x_button, `"${/*i18n*/ctx[2].edit_button}"`) + "";
+  let t;
+  return {
+    c() {
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t_value);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
+    },
+    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+      }
+    }
+  };
+}
+
+// (54:4) <SettingSection title="General Settings" subtitle="These settings affect the list table.">
+function create_default_slot_1(ctx) {
+  let div0;
+  let actoggle;
+  let updating_checked;
+  let t;
+  let div1;
+  let actogglebuttons;
+  let current;
+  function actoggle_checked_binding(value) {
+    /*actoggle_checked_binding*/ctx[5](value);
+  }
+  let actoggle_props = {
+    disabled: /*loadingShowButtonValue*/ctx[0],
+    $$slots: {
+      default: [create_default_slot_2]
+    },
+    $$scope: {
+      ctx
+    }
+  };
+  if (/*showButtonValue*/ctx[1] !== void 0) {
+    actoggle_props.checked = /*showButtonValue*/ctx[1];
+  }
+  actoggle = new ACUi_element_AcToggle_svelte__WEBPACK_IMPORTED_MODULE_7__["default"]({
+    props: actoggle_props
+  });
+  svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(actoggle, 'checked', actoggle_checked_binding));
+  actoggle.$on("input", /*handleToggleShowButton*/ctx[4]);
+  actogglebuttons = new ACUi_acui_toggle_buttons_AcToggleButtons_svelte__WEBPACK_IMPORTED_MODULE_14__["default"]({
+    props: {
+      options: /*layoutOptions*/ctx[3],
+      value: "dropdown",
+      onChange: func
+    }
+  });
+  return {
+    c() {
+      div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(actoggle.$$.fragment);
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(actogglebuttons.$$.fragment);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-pt-8");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div0, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(actoggle, div0, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div1, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(actogglebuttons, div1, null);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const actoggle_changes = {};
+      if (dirty & /*loadingShowButtonValue*/1) actoggle_changes.disabled = /*loadingShowButtonValue*/ctx[0];
+      if (dirty & /*$$scope*/512) {
+        actoggle_changes.$$scope = {
+          dirty,
+          ctx
+        };
+      }
+      if (!updating_checked && dirty & /*showButtonValue*/2) {
+        updating_checked = true;
+        actoggle_changes.checked = /*showButtonValue*/ctx[1];
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_checked = false);
+      }
+      actoggle.$set(actoggle_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(actoggle.$$.fragment, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(actogglebuttons.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(actoggle.$$.fragment, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(actogglebuttons.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div0);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div1);
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(actoggle);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(actogglebuttons);
+    }
+  };
+}
+
+// (65:4) {#each SettingSections.getSections( 'after_general' ) as component}
+function create_each_block(ctx) {
+  let htmlsection;
+  let current;
+  htmlsection = new _columns_components_HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_8__["default"]({
+    props: {
+      component: /*component*/ctx[6]
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(htmlsection.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(htmlsection, target, anchor);
+      current = true;
+    },
+    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(htmlsection.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(htmlsection.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(htmlsection, detaching);
+    }
+  };
+}
+
+// (52:3) <AcPanelBody slot="body">
+function create_default_slot(ctx) {
+  let settingsection;
+  let t;
+  let each_1_anchor;
+  let current;
+  settingsection = new _component_SettingSection_svelte__WEBPACK_IMPORTED_MODULE_10__["default"]({
+    props: {
+      title: "General Settings",
+      subtitle: "These settings affect the list table.",
+      $$slots: {
+        default: [create_default_slot_1]
+      },
+      $$scope: {
+        ctx
+      }
+    }
+  });
+  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(_utils_page_sections__WEBPACK_IMPORTED_MODULE_9__["default"].getSections('after_general'));
+  let each_blocks = [];
+  for (let i = 0; i < each_value.length; i += 1) {
+    each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+  }
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(settingsection.$$.fragment);
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        each_blocks[i].c();
+      }
+      each_1_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(settingsection, target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        if (each_blocks[i]) {
+          each_blocks[i].m(target, anchor);
+        }
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, each_1_anchor, anchor);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const settingsection_changes = {};
+      if (dirty & /*$$scope, loadingShowButtonValue, showButtonValue*/515) {
+        settingsection_changes.$$scope = {
+          dirty,
+          ctx
+        };
+      }
+      settingsection.$set(settingsection_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(settingsection.$$.fragment, local);
+      for (let i = 0; i < each_value.length; i += 1) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(each_blocks[i]);
+      }
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(settingsection.$$.fragment, local);
+      each_blocks = each_blocks.filter(Boolean);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(each_blocks[i]);
+      }
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(each_1_anchor);
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(settingsection, detaching);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
+    }
+  };
+}
+
+// (52:3) 
+function create_body_slot(ctx) {
+  let acpanelbody;
+  let current;
+  acpanelbody = new ACUi_acui_panel_AcPanelBody_svelte__WEBPACK_IMPORTED_MODULE_6__["default"]({
+    props: {
+      slot: "body",
+      $$slots: {
+        default: [create_default_slot]
+      },
+      $$scope: {
+        ctx
+      }
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acpanelbody.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acpanelbody, target, anchor);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const acpanelbody_changes = {};
+      if (dirty & /*$$scope, loadingShowButtonValue, showButtonValue*/515) {
+        acpanelbody_changes.$$scope = {
+          dirty,
+          ctx
+        };
+      }
+      acpanelbody.$set(acpanelbody_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acpanelbody.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acpanelbody.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acpanelbody, detaching);
+    }
+  };
+}
+function create_fragment(ctx) {
+  let adminheaderbar;
+  let t0;
+  let div1;
+  let div0;
+  let t1;
+  let main;
+  let acpanel;
+  let current;
+  adminheaderbar = new _components_AdminHeaderBar_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
+    props: {
+      title: /*i18n*/ctx[2].settings
+    }
+  });
+  acpanel = new ACUi_acui_panel_AcPanel_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
+    props: {
+      classNames: ['acu-mb-3', 'acu-flex-grow', 'acu-max-w-[1520px]'],
+      $$slots: {
+        body: [create_body_slot],
+        header: [create_header_slot]
+      },
+      $$scope: {
+        ctx
+      }
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(adminheaderbar.$$.fragment);
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div0.innerHTML = `<hr class="wp-header-end acu-hidden"/>`;
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      main = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("main");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acpanel.$$.fragment);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acu-hidden");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(main, "class", "acu-flex acu-gap-4 acu-w-full");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-mx-[50px] acu-pt-[70px]");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(adminheaderbar, target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t0, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div1, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, div0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, main);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acpanel, main, null);
+      current = true;
+    },
+    p(ctx, [dirty]) {
+      const acpanel_changes = {};
+      if (dirty & /*$$scope, loadingShowButtonValue, showButtonValue*/515) {
+        acpanel_changes.$$scope = {
+          dirty,
+          ctx
+        };
+      }
+      acpanel.$set(acpanel_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(adminheaderbar.$$.fragment, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acpanel.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(adminheaderbar.$$.fragment, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acpanel.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t0);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div1);
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(adminheaderbar, detaching);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acpanel);
+    }
+  };
+}
+const func = () => {};
+function instance($$self, $$props, $$invalidate) {
+  const i18n = (0,_utils_global__WEBPACK_IMPORTED_MODULE_5__.getAdminSettingsTranslation)();
+  let loadingShowButtonValue = true;
+  let showButtonValue = true;
+  let layoutOptions = [{
+    value: 'dropdown',
+    label: 'Dropdown'
+  }, {
+    value: 'tabs',
+    label: 'Tabs'
+  }];
+  (0,_ajax_requests__WEBPACK_IMPORTED_MODULE_12__.getGeneralOption)({
+    name: 'show_edit_button',
+    nonce: AC_SETTINGS._ajax_nonce
+  }).then(r => {
+    if (r.data.success) {
+      $$invalidate(1, showButtonValue = r.data.data === '1');
+      $$invalidate(0, loadingShowButtonValue = false);
+    }
+  });
+  const handleToggleShowButton = () => {
+    (0,_ajax_requests__WEBPACK_IMPORTED_MODULE_12__.persistGeneralOption)({
+      nonce: AC_SETTINGS._ajax_nonce,
+      name: 'show_edit_button',
+      value: showButtonValue ? '1' : '0'
+    }).then(() => {
+      _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_13__.NotificationProgrammatic.open({
+        message: "Success",
+        type: "success"
+      });
+    });
+  };
+  function actoggle_checked_binding(value) {
+    showButtonValue = value;
+    $$invalidate(1, showButtonValue);
+  }
+  return [loadingShowButtonValue, showButtonValue, i18n, layoutOptions, handleToggleShowButton, actoggle_checked_binding];
+}
+class SettingsPage extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {});
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SettingsPage);
+
+/***/ }),
+
+/***/ "./js/admin-settings/component/SettingSection.svelte":
+/*!***********************************************************!*\
+  !*** ./js/admin-settings/component/SettingSection.svelte ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* js/admin-settings/component/SettingSection.svelte generated by Svelte v4.2.0 */
+
+
+function create_if_block(ctx) {
+  let p;
+  let t;
+  return {
+    c() {
+      p = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("p");
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*subtitle*/ctx[1]);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, p, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(p, t);
+    },
+    p(ctx, dirty) {
+      if (dirty & /*subtitle*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*subtitle*/ctx[1]);
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(p);
+      }
+    }
+  };
+}
+function create_fragment(ctx) {
+  let div3;
+  let div2;
+  let div0;
+  let h3;
+  let t0;
+  let t1;
+  let t2;
+  let div1;
+  let current;
+  let if_block = /*subtitle*/ctx[1] && create_if_block(ctx);
+  const default_slot_template = /*#slots*/ctx[3].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[2], null);
+  return {
+    c() {
+      div3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      h3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h3");
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*title*/ctx[0]);
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block) if_block.c();
+      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      if (default_slot) default_slot.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(h3, "class", "acu-mt-[0] acu-mb-2 acu-text-base acu-font-semibold");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "xl:acu-w-[300px] lg:acu-mr-6");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-flex-auto acu-flex-grow acu-pt-7");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "xl:acu-flex acu-gap-8");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div3, "class", "acu-pb-8 acu-mb-8 last:acu-mb-[0] last:acu-pb-[0] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border last:acu-border-b-0");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div3, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, div2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, h3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(h3, t0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, t1);
+      if (if_block) if_block.m(div0, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div1);
+      if (default_slot) {
+        default_slot.m(div1, null);
+      }
+      current = true;
+    },
+    p(ctx, [dirty]) {
+      if (!current || dirty & /*title*/1) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, /*title*/ctx[0]);
+      if (/*subtitle*/ctx[1]) {
+        if (if_block) {
+          if_block.p(ctx, dirty);
+        } else {
+          if_block = create_if_block(ctx);
+          if_block.c();
+          if_block.m(div0, null);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
+      }
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/4)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[2], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[2]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[2], dirty, null), null);
+        }
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div3);
+      }
+      if (if_block) if_block.d();
+      if (default_slot) default_slot.d(detaching);
+    }
+  };
+}
+function instance($$self, $$props, $$invalidate) {
+  let {
+    $$slots: slots = {},
+    $$scope
+  } = $$props;
+  let {
+    title
+  } = $$props;
+  let {
+    subtitle = null
+  } = $$props;
+  $$self.$$set = $$props => {
+    if ('title' in $$props) $$invalidate(0, title = $$props.title);
+    if ('subtitle' in $$props) $$invalidate(1, subtitle = $$props.subtitle);
+    if ('$$scope' in $$props) $$invalidate(2, $$scope = $$props.$$scope);
+  };
+  return [title, subtitle, $$scope, slots];
+}
+class SettingSection extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      title: 0,
+      subtitle: 1
+    });
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SettingSection);
+
+/***/ }),
+
+/***/ "./js/columns/components/HtmlSection.svelte":
+/*!**************************************************!*\
+  !*** ./js/columns/components/HtmlSection.svelte ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/src/runtime/index.js");
+/* js/columns/components/HtmlSection.svelte generated by Svelte v4.2.0 */
+
+
+
+function create_fragment(ctx) {
+  let div;
+  return {
+    c() {
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div.innerHTML = ``;
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      /*div_binding*/
+      ctx[2](div);
+    },
+    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
+      }
+
+      /*div_binding*/
+      ctx[2](null);
+    }
+  };
+}
+function instance($$self, $$props, $$invalidate) {
+  let {
+    component
+  } = $$props;
+  let container;
+  (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
+    container.replaceWith(component);
+  });
+  function div_binding($$value) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+      container = $$value;
+      $$invalidate(0, container);
+    });
+  }
+  $$self.$$set = $$props => {
+    if ('component' in $$props) $$invalidate(1, component = $$props.component);
+  };
+  return [container, component, div_binding];
+}
+class HtmlSection extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      component: 1
+    });
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HtmlSection);
+
+/***/ }),
+
+/***/ "./js/components/AdminHeaderBar.svelte":
+/*!*********************************************!*\
+  !*** ./js/components/AdminHeaderBar.svelte ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/src/runtime/index.js");
+/* js/components/AdminHeaderBar.svelte generated by Svelte v4.2.0 */
+
+
+
+function create_fragment(ctx) {
+  let div2;
+  let div1;
+  let h1;
+  let t0;
+  let t1;
+  let div0;
+  let current;
+  const default_slot_template = /*#slots*/ctx[3].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[2], null);
+  return {
+    c() {
+      div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      h1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h1");
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*title*/ctx[0]);
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      if (default_slot) default_slot.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(h1, "class", "ac-header-bar__title acu-text-[22px]");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acu-flex-grow");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-flex acu-gap-4 acu-items-center acu-max-w-[1490px] xl:acu-mr-[360px] 2xl:acu-mr-[390px]");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "ac-header-bar acu-bg-[white] acu-no-underline acu-pl-[50px] acu-pr-[40px] acu-py-2 acu-top-[32px] acu-z-10 acu-sticky acu-shadow-[0px_1px_2px_rgba(16,24,40,0.1)]");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div2, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, h1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(h1, t0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, div0);
+      if (default_slot) {
+        default_slot.m(div0, null);
+      }
+
+      /*div2_binding*/
+      ctx[4](div2);
+      current = true;
+    },
+    p(ctx, [dirty]) {
+      if (!current || dirty & /*title*/1) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, /*title*/ctx[0]);
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/4)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[2], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[2]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[2], dirty, null), null);
+        }
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div2);
+      }
+      if (default_slot) default_slot.d(detaching);
+      /*div2_binding*/
+      ctx[4](null);
+    }
+  };
+}
+function instance($$self, $$props, $$invalidate) {
+  let {
+    $$slots: slots = {},
+    $$scope
+  } = $$props;
+  let {
+    title
+  } = $$props;
+  let element = null;
+  (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
+    const menuBar = document.querySelector('#acMenu');
+    if (menuBar && element) {
+      menuBar.after(element);
+    }
+  });
+  function div2_binding($$value) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+      element = $$value;
+      $$invalidate(1, element);
+    });
+  }
+  $$self.$$set = $$props => {
+    if ('title' in $$props) $$invalidate(0, title = $$props.title);
+    if ('$$scope' in $$props) $$invalidate(2, $$scope = $$props.$$scope);
+  };
+  return [title, element, $$scope, slots, div2_binding];
+}
+class AdminHeaderBar extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      title: 0
+    });
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AdminHeaderBar);
+
+/***/ }),
+
 /***/ "./js/components/ConfirmationModal.svelte":
 /*!************************************************!*\
   !*** ./js/components/ConfirmationModal.svelte ***!
@@ -162,6 +2895,2307 @@ class ConfirmationModal extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.Sve
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ConfirmationModal);
+
+/***/ }),
+
+/***/ "./ui/AcIcon.svelte":
+/*!**************************!*\
+  !*** ./ui/AcIcon.svelte ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/src/runtime/index.js");
+/* ui/AcIcon.svelte generated by Svelte v4.2.0 */
+
+
+
+function add_css(target) {
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_styles)(target, "svelte-1e1ls94", ".acui-icon.svelte-1e1ls94.svelte-1e1ls94{display:inline-flex;width:20px;height:20px;justify-content:center;align-items:center;font-size:18px;vertical-align:middle}.acui-icon.acui-icon--sm.svelte-1e1ls94.svelte-1e1ls94{width:16px;height:16px;font-size:14px}.acui-icon.acui-icon--lg.svelte-1e1ls94.svelte-1e1ls94{width:25px;height:25px;font-size:23px}.acui-icon.acui-icon--xl.svelte-1e1ls94.svelte-1e1ls94{width:30px;height:30px;font-size:28px}.acui-icon.acui-icon--sm.svelte-1e1ls94 .dashicons.svelte-1e1ls94{width:16px;height:16px;font-size:16px}.acui-icon.acui-icon--lg.svelte-1e1ls94 .dashicons.svelte-1e1ls94{width:25px;height:25px;font-size:25px}.acui-icon.acui-icon--xl.svelte-1e1ls94 .dashicons.svelte-1e1ls94{width:30px;height:30px;font-size:25px}");
+}
+function create_fragment(ctx) {
+  let span1;
+  let span0;
+  let span0_class_value;
+  let span1_class_value;
+  return {
+    c() {
+      span1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+      span0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span0, "class", span0_class_value = "" + ((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.null_to_empty)(/*iconName*/ctx[1]) + " svelte-1e1ls94"));
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span1, "class", span1_class_value = "acui-icon " + /*sizeClass*/ctx[2] + " " + /*customClass*/ctx[0] + " svelte-1e1ls94");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span1, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span1, span0);
+    },
+    p(ctx, [dirty]) {
+      if (dirty & /*iconName*/2 && span0_class_value !== (span0_class_value = "" + ((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.null_to_empty)(/*iconName*/ctx[1]) + " svelte-1e1ls94"))) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span0, "class", span0_class_value);
+      }
+      if (dirty & /*customClass*/1 && span1_class_value !== (span1_class_value = "acui-icon " + /*sizeClass*/ctx[2] + " " + /*customClass*/ctx[0] + " svelte-1e1ls94")) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span1, "class", span1_class_value);
+      }
+    },
+    i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(span1);
+      }
+    }
+  };
+}
+function instance($$self, $$props, $$invalidate) {
+  let {
+    customClass = ''
+  } = $$props;
+  let {
+    icon = ''
+  } = $$props;
+  let {
+    size = 'md'
+  } = $$props;
+  let {
+    pack = 'ac'
+  } = $$props;
+  let iconName = '';
+  let sizeClass = `acui-icon--${size}`;
+  let customClasses = [sizeClass];
+  (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
+    if (pack === 'ac') {
+      $$invalidate(1, iconName = `cpacicon-${icon}`);
+    }
+    if (pack === 'dashicons') {
+      $$invalidate(1, iconName = `dashicons dashicons-${icon}`);
+    }
+    if (customClass) {
+      customClasses.push(customClass);
+    }
+  });
+  $$self.$$set = $$props => {
+    if ('customClass' in $$props) $$invalidate(0, customClass = $$props.customClass);
+    if ('icon' in $$props) $$invalidate(3, icon = $$props.icon);
+    if ('size' in $$props) $$invalidate(4, size = $$props.size);
+    if ('pack' in $$props) $$invalidate(5, pack = $$props.pack);
+  };
+  return [customClass, iconName, sizeClass, icon, size, pack];
+}
+class AcIcon extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      customClass: 0,
+      icon: 3,
+      size: 4,
+      pack: 5
+    }, add_css);
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AcIcon);
+
+/***/ }),
+
+/***/ "./ui/acui-notification/AcNotification.svelte":
+/*!****************************************************!*\
+  !*** ./ui/acui-notification/AcNotification.svelte ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/src/runtime/index.js");
+/* harmony import */ var _AcIcon_svelte__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../AcIcon.svelte */ "./ui/AcIcon.svelte");
+/* ui/acui-notification/AcNotification.svelte generated by Svelte v4.2.0 */
+
+
+
+
+function create_if_block_1(ctx) {
+  let button;
+  let mounted;
+  let dispose;
+  return {
+    c() {
+      button = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
+      button.innerHTML = `<span class="dashicons dashicons-no"></span>`;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "aria-label", "Close notification");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", "acui-notification-close");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, button, anchor);
+      if (!mounted) {
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", /*closeHandle*/ctx[7]);
+        mounted = true;
+      }
+    },
+    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(button);
+      }
+      mounted = false;
+      dispose();
+    }
+  };
+}
+
+// (53:2) {#if ! hideIcon}
+function create_if_block(ctx) {
+  let div;
+  let acicon;
+  let current;
+  acicon = new _AcIcon_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
+    props: {
+      icon: /*icon*/ctx[5],
+      pack: "dashicons"
+    }
+  });
+  return {
+    c() {
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acicon.$$.fragment);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "ac-notification-media__left");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acicon, div, null);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const acicon_changes = {};
+      if (dirty & /*icon*/32) acicon_changes.icon = /*icon*/ctx[5];
+      acicon.$set(acicon_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acicon.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acicon.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acicon);
+    }
+  };
+}
+function create_fragment(ctx) {
+  let article;
+  let t0;
+  let div1;
+  let t1;
+  let div0;
+  let html_tag;
+  let article_class_value;
+  let current;
+  let if_block0 = /*closable*/ctx[1] && ! /*autoClose*/ctx[2] && create_if_block_1(ctx);
+  let if_block1 = ! /*hideIcon*/ctx[4] && create_if_block(ctx);
+  const default_slot_template = /*#slots*/ctx[11].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[10], null);
+  return {
+    c() {
+      article = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("article");
+      if (if_block0) if_block0.c();
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      if (if_block1) if_block1.c();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      if (default_slot) default_slot.c();
+      html_tag = new svelte_internal__WEBPACK_IMPORTED_MODULE_0__.HtmlTag(false);
+      html_tag.a = null;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "ac-notification-media__content");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acui-notification-media");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(article, "class", article_class_value = "acui-notification " + /*className*/ctx[6]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(article, "-closable", /*closable*/ctx[1]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(article, "display", /*active*/ctx[0] ? null : 'none');
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, article, anchor);
+      if (if_block0) if_block0.m(article, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(article, t0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(article, div1);
+      if (if_block1) if_block1.m(div1, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, div0);
+      if (default_slot) {
+        default_slot.m(div0, null);
+      }
+      html_tag.m(/*message*/ctx[3], div0);
+      current = true;
+    },
+    p(ctx, [dirty]) {
+      if (/*closable*/ctx[1] && ! /*autoClose*/ctx[2]) {
+        if (if_block0) {
+          if_block0.p(ctx, dirty);
+        } else {
+          if_block0 = create_if_block_1(ctx);
+          if_block0.c();
+          if_block0.m(article, t0);
+        }
+      } else if (if_block0) {
+        if_block0.d(1);
+        if_block0 = null;
+      }
+      if (! /*hideIcon*/ctx[4]) {
+        if (if_block1) {
+          if_block1.p(ctx, dirty);
+          if (dirty & /*hideIcon*/16) {
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
+          }
+        } else {
+          if_block1 = create_if_block(ctx);
+          if_block1.c();
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
+          if_block1.m(div1, t1);
+        }
+      } else if (if_block1) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block1, 1, 1, () => {
+          if_block1 = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+      }
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/1024)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[10], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[10]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[10], dirty, null), null);
+        }
+      }
+      if (!current || dirty & /*message*/8) html_tag.p(/*message*/ctx[3]);
+      if (!current || dirty & /*className*/64 && article_class_value !== (article_class_value = "acui-notification " + /*className*/ctx[6])) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(article, "class", article_class_value);
+      }
+      if (!current || dirty & /*className, closable*/66) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(article, "-closable", /*closable*/ctx[1]);
+      }
+      if (dirty & /*active*/1) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(article, "display", /*active*/ctx[0] ? null : 'none');
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(article);
+      }
+      if (if_block0) if_block0.d();
+      if (if_block1) if_block1.d();
+      if (default_slot) default_slot.d(detaching);
+    }
+  };
+}
+function instance($$self, $$props, $$invalidate) {
+  let className;
+  let {
+    $$slots: slots = {},
+    $$scope
+  } = $$props;
+  let {
+    active = true
+  } = $$props;
+  let {
+    type = 'default'
+  } = $$props;
+  let {
+    closable = true
+  } = $$props;
+  let {
+    autoClose = false
+  } = $$props;
+  let {
+    duration = 4000
+  } = $$props;
+  let {
+    message = ''
+  } = $$props;
+  let {
+    hideIcon = false
+  } = $$props;
+  const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_2__.createEventDispatcher)();
+  const close = () => {
+    $$invalidate(0, active = false);
+    dispatch('close');
+  };
+  const closeHandle = () => {
+    close();
+  };
+  const determineIcon = type => {
+    switch (type) {
+      case 'success':
+        return 'yes-alt';
+      case 'warning':
+        return 'warning';
+      case 'error':
+        return 'dismiss';
+      case 'notify':
+        return 'bell';
+      default:
+        return 'info';
+    }
+  };
+  let icon = determineIcon(type);
+  (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
+    if (autoClose) {
+      setTimeout(() => {
+        close();
+      }, duration);
+    }
+    $$invalidate(5, icon = determineIcon(type));
+  });
+  $$self.$$set = $$props => {
+    if ('active' in $$props) $$invalidate(0, active = $$props.active);
+    if ('type' in $$props) $$invalidate(8, type = $$props.type);
+    if ('closable' in $$props) $$invalidate(1, closable = $$props.closable);
+    if ('autoClose' in $$props) $$invalidate(2, autoClose = $$props.autoClose);
+    if ('duration' in $$props) $$invalidate(9, duration = $$props.duration);
+    if ('message' in $$props) $$invalidate(3, message = $$props.message);
+    if ('hideIcon' in $$props) $$invalidate(4, hideIcon = $$props.hideIcon);
+    if ('$$scope' in $$props) $$invalidate(10, $$scope = $$props.$$scope);
+  };
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty & /*type*/256) {
+      $: $$invalidate(6, className = '-' + type);
+    }
+  };
+  return [active, closable, autoClose, message, hideIcon, icon, className, closeHandle, type, duration, $$scope, slots];
+}
+class AcNotification extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      active: 0,
+      type: 8,
+      closable: 1,
+      autoClose: 2,
+      duration: 9,
+      message: 3,
+      hideIcon: 4
+    });
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AcNotification);
+
+/***/ }),
+
+/***/ "./ui/acui-panel/AcPanel.svelte":
+/*!**************************************!*\
+  !*** ./ui/acui-panel/AcPanel.svelte ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* harmony import */ var ACUi_acui_panel_AcPanelBody_svelte__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ACUi/acui-panel/AcPanelBody.svelte */ "./ui/acui-panel/AcPanelBody.svelte");
+/* harmony import */ var ACUi_acui_panel_AcPanelHeader_svelte__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ACUi/acui-panel/AcPanelHeader.svelte */ "./ui/acui-panel/AcPanelHeader.svelte");
+/* ui/acui-panel/AcPanel.svelte generated by Svelte v4.2.0 */
+
+
+
+
+const get_footer_slot_changes = dirty => ({});
+const get_footer_slot_context = ctx => ({});
+const get_body_slot_changes = dirty => ({});
+const get_body_slot_context = ctx => ({});
+const get_header_slot_changes = dirty => ({});
+const get_header_slot_context = ctx => ({});
+
+// (21:1) {#if title }
+function create_if_block_1(ctx) {
+  let acpanelheader;
+  let current;
+  acpanelheader = new ACUi_acui_panel_AcPanelHeader_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
+    props: {
+      title: /*title*/ctx[0]
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acpanelheader.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acpanelheader, target, anchor);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const acpanelheader_changes = {};
+      if (dirty & /*title*/1) acpanelheader_changes.title = /*title*/ctx[0];
+      acpanelheader.$set(acpanelheader_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acpanelheader.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acpanelheader.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acpanelheader, detaching);
+    }
+  };
+}
+
+// (28:1) {:else}
+function create_else_block(ctx) {
+  let acpanelbody;
+  let current;
+  acpanelbody = new ACUi_acui_panel_AcPanelBody_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
+    props: {
+      $$slots: {
+        default: [create_default_slot]
+      },
+      $$scope: {
+        ctx
+      }
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acpanelbody.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acpanelbody, target, anchor);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const acpanelbody_changes = {};
+      if (dirty & /*$$scope*/256) {
+        acpanelbody_changes.$$scope = {
+          dirty,
+          ctx
+        };
+      }
+      acpanelbody.$set(acpanelbody_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acpanelbody.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acpanelbody.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acpanelbody, detaching);
+    }
+  };
+}
+
+// (26:1) {#if $$slots.body}
+function create_if_block(ctx) {
+  let current;
+  const body_slot_template = /*#slots*/ctx[7].body;
+  const body_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(body_slot_template, ctx, /*$$scope*/ctx[8], get_body_slot_context);
+  return {
+    c() {
+      if (body_slot) body_slot.c();
+    },
+    m(target, anchor) {
+      if (body_slot) {
+        body_slot.m(target, anchor);
+      }
+      current = true;
+    },
+    p(ctx, dirty) {
+      if (body_slot) {
+        if (body_slot.p && (!current || dirty & /*$$scope*/256)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(body_slot, body_slot_template, ctx, /*$$scope*/ctx[8], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[8]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(body_slot_template, /*$$scope*/ctx[8], dirty, get_body_slot_changes), get_body_slot_context);
+        }
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(body_slot, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(body_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (body_slot) body_slot.d(detaching);
+    }
+  };
+}
+
+// (29:2) <AcPanelBody>
+function create_default_slot(ctx) {
+  let current;
+  const default_slot_template = /*#slots*/ctx[7].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[8], null);
+  return {
+    c() {
+      if (default_slot) default_slot.c();
+    },
+    m(target, anchor) {
+      if (default_slot) {
+        default_slot.m(target, anchor);
+      }
+      current = true;
+    },
+    p(ctx, dirty) {
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/256)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[8], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[8]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[8], dirty, null), null);
+        }
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (default_slot) default_slot.d(detaching);
+    }
+  };
+}
+function create_fragment(ctx) {
+  let div;
+  let t0;
+  let t1;
+  let current_block_type_index;
+  let if_block1;
+  let t2;
+  let div_class_value;
+  let current;
+  let if_block0 = /*title*/ctx[0] && create_if_block_1(ctx);
+  const header_slot_template = /*#slots*/ctx[7].header;
+  const header_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(header_slot_template, ctx, /*$$scope*/ctx[8], get_header_slot_context);
+  const if_block_creators = [create_if_block, create_else_block];
+  const if_blocks = [];
+  function select_block_type(ctx, dirty) {
+    if (/*$$slots*/ctx[2].body) return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type(ctx, -1);
+  if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  const footer_slot_template = /*#slots*/ctx[7].footer;
+  const footer_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(footer_slot_template, ctx, /*$$scope*/ctx[8], get_footer_slot_context);
+  return {
+    c() {
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      if (if_block0) if_block0.c();
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (header_slot) header_slot.c();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if_block1.c();
+      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (footer_slot) footer_slot.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", div_class_value = /*classes*/ctx[1].join(' '));
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      if (if_block0) if_block0.m(div, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t0);
+      if (header_slot) {
+        header_slot.m(div, null);
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t1);
+      if_blocks[current_block_type_index].m(div, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t2);
+      if (footer_slot) {
+        footer_slot.m(div, null);
+      }
+      current = true;
+    },
+    p(ctx, [dirty]) {
+      if (/*title*/ctx[0]) {
+        if (if_block0) {
+          if_block0.p(ctx, dirty);
+          if (dirty & /*title*/1) {
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
+          }
+        } else {
+          if_block0 = create_if_block_1(ctx);
+          if_block0.c();
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
+          if_block0.m(div, t0);
+        }
+      } else if (if_block0) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block0, 1, 1, () => {
+          if_block0 = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+      }
+      if (header_slot) {
+        if (header_slot.p && (!current || dirty & /*$$scope*/256)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(header_slot, header_slot_template, ctx, /*$$scope*/ctx[8], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[8]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(header_slot_template, /*$$scope*/ctx[8], dirty, get_header_slot_changes), get_header_slot_context);
+        }
+      }
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx, dirty);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx, dirty);
+      } else {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+        if_block1 = if_blocks[current_block_type_index];
+        if (!if_block1) {
+          if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+          if_block1.c();
+        } else {
+          if_block1.p(ctx, dirty);
+        }
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
+        if_block1.m(div, t2);
+      }
+      if (footer_slot) {
+        if (footer_slot.p && (!current || dirty & /*$$scope*/256)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(footer_slot, footer_slot_template, ctx, /*$$scope*/ctx[8], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[8]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(footer_slot_template, /*$$scope*/ctx[8], dirty, get_footer_slot_changes), get_footer_slot_context);
+        }
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(header_slot, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(footer_slot, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(header_slot, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(footer_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
+      }
+      if (if_block0) if_block0.d();
+      if (header_slot) header_slot.d(detaching);
+      if_blocks[current_block_type_index].d();
+      if (footer_slot) footer_slot.d(detaching);
+    }
+  };
+}
+function instance($$self, $$props, $$invalidate) {
+  let {
+    $$slots: slots = {},
+    $$scope
+  } = $$props;
+  const $$slots = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.compute_slots)(slots);
+  let {
+    shadow = true
+  } = $$props;
+  let {
+    border = true
+  } = $$props;
+  let {
+    rounded = true
+  } = $$props;
+  let {
+    title = ''
+  } = $$props;
+  let {
+    classNames = []
+  } = $$props;
+  let classes = ['acu-bg-[white]', 'acu-border', 'acu-border-solid', 'acu-border-ui-border', 'acu-mb-[15px]'];
+  if (shadow) {
+    classes.push('acu-shadow');
+  }
+  if (rounded) {
+    classes.push('acu-rounded-[10px]');
+  }
+  if (border) {
+    classes.push('acu-border acu-border-solid acu-border-ui-border');
+  }
+  classes.push(...classNames);
+  $$self.$$set = $$props => {
+    if ('shadow' in $$props) $$invalidate(3, shadow = $$props.shadow);
+    if ('border' in $$props) $$invalidate(4, border = $$props.border);
+    if ('rounded' in $$props) $$invalidate(5, rounded = $$props.rounded);
+    if ('title' in $$props) $$invalidate(0, title = $$props.title);
+    if ('classNames' in $$props) $$invalidate(6, classNames = $$props.classNames);
+    if ('$$scope' in $$props) $$invalidate(8, $$scope = $$props.$$scope);
+  };
+  return [title, classes, $$slots, shadow, border, rounded, classNames, slots, $$scope];
+}
+class AcPanel extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      shadow: 3,
+      border: 4,
+      rounded: 5,
+      title: 0,
+      classNames: 6
+    });
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AcPanel);
+
+/***/ }),
+
+/***/ "./ui/acui-panel/AcPanelBody.svelte":
+/*!******************************************!*\
+  !*** ./ui/acui-panel/AcPanelBody.svelte ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* ui/acui-panel/AcPanelBody.svelte generated by Svelte v4.2.0 */
+
+
+function create_fragment(ctx) {
+  let div;
+  let current;
+  const default_slot_template = /*#slots*/ctx[1].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[0], null);
+  return {
+    c() {
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      if (default_slot) default_slot.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acu-p-[20px]");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      if (default_slot) {
+        default_slot.m(div, null);
+      }
+      current = true;
+    },
+    p(ctx, [dirty]) {
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/1)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[0], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[0]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[0], dirty, null), null);
+        }
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
+      }
+      if (default_slot) default_slot.d(detaching);
+    }
+  };
+}
+function instance($$self, $$props, $$invalidate) {
+  let {
+    $$slots: slots = {},
+    $$scope
+  } = $$props;
+  $$self.$$set = $$props => {
+    if ('$$scope' in $$props) $$invalidate(0, $$scope = $$props.$$scope);
+  };
+  return [$$scope, slots];
+}
+class AcPanelBody extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {});
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AcPanelBody);
+
+/***/ }),
+
+/***/ "./ui/acui-panel/AcPanelHeader.svelte":
+/*!********************************************!*\
+  !*** ./ui/acui-panel/AcPanelHeader.svelte ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* ui/acui-panel/AcPanelHeader.svelte generated by Svelte v4.2.0 */
+
+
+function create_if_block_1(ctx) {
+  let if_block_anchor;
+  function select_block_type(ctx, dirty) {
+    if (/*type*/ctx[2] === 'h2') return create_if_block_2;
+    return create_else_block;
+  }
+  let current_block_type = select_block_type(ctx, -1);
+  let if_block = current_block_type(ctx);
+  return {
+    c() {
+      if_block.c();
+      if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+    },
+    m(target, anchor) {
+      if_block.m(target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
+    },
+    p(ctx, dirty) {
+      if (current_block_type === (current_block_type = select_block_type(ctx, dirty)) && if_block) {
+        if_block.p(ctx, dirty);
+      } else {
+        if_block.d(1);
+        if_block = current_block_type(ctx);
+        if (if_block) {
+          if_block.c();
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      }
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(if_block_anchor);
+      }
+      if_block.d(detaching);
+    }
+  };
+}
+
+// (15:2) {:else}
+function create_else_block(ctx) {
+  let h3;
+  let t;
+  return {
+    c() {
+      h3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h3");
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*title*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(h3, "class", "acu-my-[0]");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, h3, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(h3, t);
+    },
+    p(ctx, dirty) {
+      if (dirty & /*title*/1) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*title*/ctx[0]);
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(h3);
+      }
+    }
+  };
+}
+
+// (13:2) {#if type === 'h2' }
+function create_if_block_2(ctx) {
+  let h2;
+  let t;
+  return {
+    c() {
+      h2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h2");
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*title*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(h2, "class", "acu-my-[0] acu-text-2xl acu-font-normal");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, h2, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(h2, t);
+    },
+    p(ctx, dirty) {
+      if (dirty & /*title*/1) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*title*/ctx[0]);
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(h2);
+      }
+    }
+  };
+}
+
+// (19:1) {#if subtitle }
+function create_if_block(ctx) {
+  let span;
+  let t;
+  let span_class_value;
+  return {
+    c() {
+      span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*subtitle*/ctx[1]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value = /*type*/ctx[2] === 'h2' ? 'acu-pt-1 acu-block' : '');
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span, t);
+    },
+    p(ctx, dirty) {
+      if (dirty & /*subtitle*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*subtitle*/ctx[1]);
+      if (dirty & /*type*/4 && span_class_value !== (span_class_value = /*type*/ctx[2] === 'h2' ? 'acu-pt-1 acu-block' : '')) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value);
+      }
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(span);
+      }
+    }
+  };
+}
+function create_fragment(ctx) {
+  let div;
+  let t0;
+  let t1;
+  let div_class_value;
+  let current;
+  let if_block0 = /*title*/ctx[0] && create_if_block_1(ctx);
+  let if_block1 = /*subtitle*/ctx[1] && create_if_block(ctx);
+  const default_slot_template = /*#slots*/ctx[6].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[5], null);
+  return {
+    c() {
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      if (if_block0) if_block0.c();
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block1) if_block1.c();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (default_slot) default_slot.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", div_class_value = /*classes*/ctx[3].join(' '));
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      if (if_block0) if_block0.m(div, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t0);
+      if (if_block1) if_block1.m(div, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t1);
+      if (default_slot) {
+        default_slot.m(div, null);
+      }
+      current = true;
+    },
+    p(ctx, [dirty]) {
+      if (/*title*/ctx[0]) {
+        if (if_block0) {
+          if_block0.p(ctx, dirty);
+        } else {
+          if_block0 = create_if_block_1(ctx);
+          if_block0.c();
+          if_block0.m(div, t0);
+        }
+      } else if (if_block0) {
+        if_block0.d(1);
+        if_block0 = null;
+      }
+      if (/*subtitle*/ctx[1]) {
+        if (if_block1) {
+          if_block1.p(ctx, dirty);
+        } else {
+          if_block1 = create_if_block(ctx);
+          if_block1.c();
+          if_block1.m(div, t1);
+        }
+      } else if (if_block1) {
+        if_block1.d(1);
+        if_block1 = null;
+      }
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/32)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[5], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[5]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[5], dirty, null), null);
+        }
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
+      }
+      if (if_block0) if_block0.d();
+      if (if_block1) if_block1.d();
+      if (default_slot) default_slot.d(detaching);
+    }
+  };
+}
+function instance($$self, $$props, $$invalidate) {
+  let {
+    $$slots: slots = {},
+    $$scope
+  } = $$props;
+  let {
+    title = null
+  } = $$props;
+  let {
+    subtitle = null
+  } = $$props;
+  let {
+    type = 'h3'
+  } = $$props;
+  let {
+    border = false
+  } = $$props;
+  let classes = ['acu-px-[20px] acu-pt-[20px]'];
+  if (border) {
+    classes.push('acu-pb-[20px] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border');
+  }
+  $$self.$$set = $$props => {
+    if ('title' in $$props) $$invalidate(0, title = $$props.title);
+    if ('subtitle' in $$props) $$invalidate(1, subtitle = $$props.subtitle);
+    if ('type' in $$props) $$invalidate(2, type = $$props.type);
+    if ('border' in $$props) $$invalidate(4, border = $$props.border);
+    if ('$$scope' in $$props) $$invalidate(5, $$scope = $$props.$$scope);
+  };
+  return [title, subtitle, type, classes, border, $$scope, slots];
+}
+class AcPanelHeader extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      title: 0,
+      subtitle: 1,
+      type: 2,
+      border: 4
+    });
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AcPanelHeader);
+
+/***/ }),
+
+/***/ "./ui/acui-toggle-buttons/AcToggleButtons.svelte":
+/*!*******************************************************!*\
+  !*** ./ui/acui-toggle-buttons/AcToggleButtons.svelte ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* ui/acui-toggle-buttons/AcToggleButtons.svelte generated by Svelte v4.2.0 */
+
+
+function get_each_context(ctx, list, i) {
+  const child_ctx = ctx.slice();
+  child_ctx[5] = list[i];
+  return child_ctx;
+}
+
+// (13:3) {#if value === option.value}
+function create_if_block(ctx) {
+  let span;
+  return {
+    c() {
+      span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", "dashicons dashicons-yes");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(span);
+      }
+    }
+  };
+}
+
+// (11:1) {#each options as option}
+function create_each_block(ctx) {
+  let button;
+  let t0;
+  let t1_value = /*option*/ctx[5].label + "";
+  let t1;
+  let t2;
+  let button_value_value;
+  let mounted;
+  let dispose;
+  let if_block = /*value*/ctx[0] === /*option*/ctx[5].value && create_if_block(ctx);
+  function click_handler() {
+    return /*click_handler*/ctx[4](/*option*/ctx[5]);
+  }
+  return {
+    c() {
+      button = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
+      if (if_block) if_block.c();
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
+      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", "button");
+      button.value = button_value_value = /*option*/ctx[5].value;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "button-primary", /*value*/ctx[0] === /*option*/ctx[5].value);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, button, anchor);
+      if (if_block) if_block.m(button, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button, t0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button, t1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button, t2);
+      if (!mounted) {
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(click_handler));
+        mounted = true;
+      }
+    },
+    p(new_ctx, dirty) {
+      ctx = new_ctx;
+      if (/*value*/ctx[0] === /*option*/ctx[5].value) {
+        if (if_block) {} else {
+          if_block = create_if_block(ctx);
+          if_block.c();
+          if_block.m(button, t0);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
+      }
+      if (dirty & /*options*/2 && t1_value !== (t1_value = /*option*/ctx[5].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t1, t1_value);
+      if (dirty & /*options*/2 && button_value_value !== (button_value_value = /*option*/ctx[5].value)) {
+        button.value = button_value_value;
+      }
+      if (dirty & /*value, options*/3) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "button-primary", /*value*/ctx[0] === /*option*/ctx[5].value);
+      }
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(button);
+      }
+      if (if_block) if_block.d();
+      mounted = false;
+      dispose();
+    }
+  };
+}
+function create_fragment(ctx) {
+  let div;
+  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*options*/ctx[1]);
+  let each_blocks = [];
+  for (let i = 0; i < each_value.length; i += 1) {
+    each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+  }
+  return {
+    c() {
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        each_blocks[i].c();
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acui-toggle-buttons");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        if (each_blocks[i]) {
+          each_blocks[i].m(div, null);
+        }
+      }
+    },
+    p(ctx, [dirty]) {
+      if (dirty & /*options, value, handleValue*/7) {
+        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*options*/ctx[1]);
+        let i;
+        for (i = 0; i < each_value.length; i += 1) {
+          const child_ctx = get_each_context(ctx, each_value, i);
+          if (each_blocks[i]) {
+            each_blocks[i].p(child_ctx, dirty);
+          } else {
+            each_blocks[i] = create_each_block(child_ctx);
+            each_blocks[i].c();
+            each_blocks[i].m(div, null);
+          }
+        }
+        for (; i < each_blocks.length; i += 1) {
+          each_blocks[i].d(1);
+        }
+        each_blocks.length = each_value.length;
+      }
+    },
+    i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
+    }
+  };
+}
+function instance($$self, $$props, $$invalidate) {
+  let {
+    value
+  } = $$props;
+  let {
+    options
+  } = $$props;
+  let {
+    onChange
+  } = $$props;
+  const handleValue = v => {
+    $$invalidate(0, value = v);
+    onChange(v);
+  };
+  const click_handler = option => handleValue(option.value);
+  $$self.$$set = $$props => {
+    if ('value' in $$props) $$invalidate(0, value = $$props.value);
+    if ('options' in $$props) $$invalidate(1, options = $$props.options);
+    if ('onChange' in $$props) $$invalidate(3, onChange = $$props.onChange);
+  };
+  return [value, options, handleValue, onChange, click_handler];
+}
+class AcToggleButtons extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      value: 0,
+      options: 1,
+      onChange: 3
+    });
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AcToggleButtons);
+
+/***/ }),
+
+/***/ "./ui/element/AcButton.svelte":
+/*!************************************!*\
+  !*** ./ui/element/AcButton.svelte ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* harmony import */ var _AcIcon_svelte__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../AcIcon.svelte */ "./ui/AcIcon.svelte");
+/* ui/element/AcButton.svelte generated by Svelte v4.2.0 */
+
+
+
+function create_else_block_1(ctx) {
+  let button;
+  let t0;
+  let current_block_type_index;
+  let if_block1;
+  let t1;
+  let button_class_value;
+  let current;
+  let mounted;
+  let dispose;
+  let if_block0 = /*iconLeft*/ctx[1] && create_if_block_6(ctx);
+  const if_block_creators = [create_if_block_5, create_else_block_2];
+  const if_blocks = [];
+  function select_block_type_2(ctx, dirty) {
+    if (/*label*/ctx[6]) return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type_2(ctx, -1);
+  if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  let if_block2 = /*iconRight*/ctx[3] && create_if_block_4(ctx);
+  return {
+    c() {
+      button = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
+      if (if_block0) if_block0.c();
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if_block1.c();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block2) if_block2.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", button_class_value = /*classes*/ctx[9].join(' '));
+      button.disabled = /*disabled*/ctx[0];
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "is-loading", /*loading*/ctx[5]);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, button, anchor);
+      if (if_block0) if_block0.m(button, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button, t0);
+      if_blocks[current_block_type_index].m(button, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button, t1);
+      if (if_block2) if_block2.m(button, null);
+      current = true;
+      if (!mounted) {
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", /*click_handler_1*/ctx[16]);
+        mounted = true;
+      }
+    },
+    p(ctx, dirty) {
+      if (/*iconLeft*/ctx[1]) {
+        if (if_block0) {
+          if_block0.p(ctx, dirty);
+          if (dirty & /*iconLeft*/2) {
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
+          }
+        } else {
+          if_block0 = create_if_block_6(ctx);
+          if_block0.c();
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
+          if_block0.m(button, t0);
+        }
+      } else if (if_block0) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block0, 1, 1, () => {
+          if_block0 = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+      }
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type_2(ctx, dirty);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx, dirty);
+      } else {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+        if_block1 = if_blocks[current_block_type_index];
+        if (!if_block1) {
+          if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+          if_block1.c();
+        } else {
+          if_block1.p(ctx, dirty);
+        }
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
+        if_block1.m(button, t1);
+      }
+      if (/*iconRight*/ctx[3]) {
+        if (if_block2) {
+          if_block2.p(ctx, dirty);
+          if (dirty & /*iconRight*/8) {
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
+          }
+        } else {
+          if_block2 = create_if_block_4(ctx);
+          if_block2.c();
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
+          if_block2.m(button, null);
+        }
+      } else if (if_block2) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block2, 1, 1, () => {
+          if_block2 = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+      }
+      if (!current || dirty & /*disabled*/1) {
+        button.disabled = /*disabled*/ctx[0];
+      }
+      if (!current || dirty & /*loading*/32) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "is-loading", /*loading*/ctx[5]);
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block2);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(button);
+      }
+      if (if_block0) if_block0.d();
+      if_blocks[current_block_type_index].d();
+      if (if_block2) if_block2.d();
+      mounted = false;
+      dispose();
+    }
+  };
+}
+
+// (24:0) {#if href }
+function create_if_block(ctx) {
+  let a;
+  let t0;
+  let current_block_type_index;
+  let if_block1;
+  let t1;
+  let a_class_value;
+  let current;
+  let mounted;
+  let dispose;
+  let if_block0 = /*iconLeft*/ctx[1] && create_if_block_3(ctx);
+  const if_block_creators = [create_if_block_2, create_else_block];
+  const if_blocks = [];
+  function select_block_type_1(ctx, dirty) {
+    if (/*label*/ctx[6]) return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type_1(ctx, -1);
+  if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  let if_block2 = /*iconRight*/ctx[3] && create_if_block_1(ctx);
+  return {
+    c() {
+      a = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("a");
+      if (if_block0) if_block0.c();
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if_block1.c();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block2) if_block2.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", a_class_value = /*classes*/ctx[9].join(' '));
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*href*/ctx[7]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "target", /*target*/ctx[8]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "is-loading", /*loading*/ctx[5]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "-disabled", /*disabled*/ctx[0]);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, a, anchor);
+      if (if_block0) if_block0.m(a, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(a, t0);
+      if_blocks[current_block_type_index].m(a, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(a, t1);
+      if (if_block2) if_block2.m(a, null);
+      current = true;
+      if (!mounted) {
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(a, "click", /*click_handler*/ctx[15]);
+        mounted = true;
+      }
+    },
+    p(ctx, dirty) {
+      if (/*iconLeft*/ctx[1]) {
+        if (if_block0) {
+          if_block0.p(ctx, dirty);
+          if (dirty & /*iconLeft*/2) {
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
+          }
+        } else {
+          if_block0 = create_if_block_3(ctx);
+          if_block0.c();
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
+          if_block0.m(a, t0);
+        }
+      } else if (if_block0) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block0, 1, 1, () => {
+          if_block0 = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+      }
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type_1(ctx, dirty);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx, dirty);
+      } else {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+        if_block1 = if_blocks[current_block_type_index];
+        if (!if_block1) {
+          if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+          if_block1.c();
+        } else {
+          if_block1.p(ctx, dirty);
+        }
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
+        if_block1.m(a, t1);
+      }
+      if (/*iconRight*/ctx[3]) {
+        if (if_block2) {
+          if_block2.p(ctx, dirty);
+          if (dirty & /*iconRight*/8) {
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
+          }
+        } else {
+          if_block2 = create_if_block_1(ctx);
+          if_block2.c();
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
+          if_block2.m(a, null);
+        }
+      } else if (if_block2) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block2, 1, 1, () => {
+          if_block2 = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+      }
+      if (!current || dirty & /*href*/128) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*href*/ctx[7]);
+      }
+      if (!current || dirty & /*target*/256) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "target", /*target*/ctx[8]);
+      }
+      if (!current || dirty & /*loading*/32) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "is-loading", /*loading*/ctx[5]);
+      }
+      if (!current || dirty & /*disabled*/1) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "-disabled", /*disabled*/ctx[0]);
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block2);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(a);
+      }
+      if (if_block0) if_block0.d();
+      if_blocks[current_block_type_index].d();
+      if (if_block2) if_block2.d();
+      mounted = false;
+      dispose();
+    }
+  };
+}
+
+// (51:2) {#if iconLeft }
+function create_if_block_6(ctx) {
+  let acicon;
+  let current;
+  acicon = new _AcIcon_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
+    props: {
+      icon: /*iconLeft*/ctx[1],
+      pack: /*iconLeftPack*/ctx[2],
+      size: "sm"
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acicon.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acicon, target, anchor);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const acicon_changes = {};
+      if (dirty & /*iconLeft*/2) acicon_changes.icon = /*iconLeft*/ctx[1];
+      if (dirty & /*iconLeftPack*/4) acicon_changes.pack = /*iconLeftPack*/ctx[2];
+      acicon.$set(acicon_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acicon.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acicon.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acicon, detaching);
+    }
+  };
+}
+
+// (56:2) {:else}
+function create_else_block_2(ctx) {
+  let current;
+  const default_slot_template = /*#slots*/ctx[14].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[13], null);
+  return {
+    c() {
+      if (default_slot) default_slot.c();
+    },
+    m(target, anchor) {
+      if (default_slot) {
+        default_slot.m(target, anchor);
+      }
+      current = true;
+    },
+    p(ctx, dirty) {
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/8192)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[13], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[13]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[13], dirty, null), null);
+        }
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (default_slot) default_slot.d(detaching);
+    }
+  };
+}
+
+// (54:2) {#if label }
+function create_if_block_5(ctx) {
+  let t;
+  return {
+    c() {
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*label*/ctx[6]);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
+    },
+    p(ctx, dirty) {
+      if (dirty & /*label*/64) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*label*/ctx[6]);
+    },
+    i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+      }
+    }
+  };
+}
+
+// (60:2) {#if iconRight }
+function create_if_block_4(ctx) {
+  let acicon;
+  let current;
+  acicon = new _AcIcon_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
+    props: {
+      icon: /*iconRight*/ctx[3],
+      pack: /*iconRightPack*/ctx[4],
+      size: "sm"
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acicon.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acicon, target, anchor);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const acicon_changes = {};
+      if (dirty & /*iconRight*/8) acicon_changes.icon = /*iconRight*/ctx[3];
+      if (dirty & /*iconRightPack*/16) acicon_changes.pack = /*iconRightPack*/ctx[4];
+      acicon.$set(acicon_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acicon.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acicon.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acicon, detaching);
+    }
+  };
+}
+
+// (32:2) {#if iconLeft }
+function create_if_block_3(ctx) {
+  let acicon;
+  let current;
+  acicon = new _AcIcon_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
+    props: {
+      icon: /*iconLeft*/ctx[1],
+      pack: /*iconLeftPack*/ctx[2],
+      size: "sm"
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acicon.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acicon, target, anchor);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const acicon_changes = {};
+      if (dirty & /*iconLeft*/2) acicon_changes.icon = /*iconLeft*/ctx[1];
+      if (dirty & /*iconLeftPack*/4) acicon_changes.pack = /*iconLeftPack*/ctx[2];
+      acicon.$set(acicon_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acicon.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acicon.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acicon, detaching);
+    }
+  };
+}
+
+// (37:2) {:else}
+function create_else_block(ctx) {
+  let current;
+  const default_slot_template = /*#slots*/ctx[14].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[13], null);
+  return {
+    c() {
+      if (default_slot) default_slot.c();
+    },
+    m(target, anchor) {
+      if (default_slot) {
+        default_slot.m(target, anchor);
+      }
+      current = true;
+    },
+    p(ctx, dirty) {
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/8192)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[13], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[13]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[13], dirty, null), null);
+        }
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (default_slot) default_slot.d(detaching);
+    }
+  };
+}
+
+// (35:2) {#if label }
+function create_if_block_2(ctx) {
+  let t;
+  return {
+    c() {
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*label*/ctx[6]);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
+    },
+    p(ctx, dirty) {
+      if (dirty & /*label*/64) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*label*/ctx[6]);
+    },
+    i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+      }
+    }
+  };
+}
+
+// (41:2) {#if iconRight }
+function create_if_block_1(ctx) {
+  let acicon;
+  let current;
+  acicon = new _AcIcon_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
+    props: {
+      icon: /*iconRight*/ctx[3],
+      pack: /*iconRightPack*/ctx[4],
+      size: "sm"
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acicon.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acicon, target, anchor);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const acicon_changes = {};
+      if (dirty & /*iconRight*/8) acicon_changes.icon = /*iconRight*/ctx[3];
+      if (dirty & /*iconRightPack*/16) acicon_changes.pack = /*iconRightPack*/ctx[4];
+      acicon.$set(acicon_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acicon.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acicon.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acicon, detaching);
+    }
+  };
+}
+function create_fragment(ctx) {
+  let current_block_type_index;
+  let if_block;
+  let if_block_anchor;
+  let current;
+  const if_block_creators = [create_if_block, create_else_block_1];
+  const if_blocks = [];
+  function select_block_type(ctx, dirty) {
+    if (/*href*/ctx[7]) return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type(ctx, -1);
+  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  return {
+    c() {
+      if_block.c();
+      if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+    },
+    m(target, anchor) {
+      if_blocks[current_block_type_index].m(target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
+      current = true;
+    },
+    p(ctx, [dirty]) {
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx, dirty);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx, dirty);
+      } else {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+        if_block = if_blocks[current_block_type_index];
+        if (!if_block) {
+          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+          if_block.c();
+        } else {
+          if_block.p(ctx, dirty);
+        }
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
+        if_block.m(if_block_anchor.parentNode, if_block_anchor);
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(if_block_anchor);
+      }
+      if_blocks[current_block_type_index].d(detaching);
+    }
+  };
+}
+function instance($$self, $$props, $$invalidate) {
+  let {
+    $$slots: slots = {},
+    $$scope
+  } = $$props;
+  let {
+    type = 'default'
+  } = $$props;
+  let {
+    disabled = false
+  } = $$props;
+  let {
+    iconLeft = null
+  } = $$props;
+  let {
+    iconLeftPack = null
+  } = $$props;
+  let {
+    iconRight = null
+  } = $$props;
+  let {
+    iconRightPack = null
+  } = $$props;
+  let {
+    loading = false
+  } = $$props;
+  let {
+    customClass = ''
+  } = $$props;
+  let {
+    label = undefined
+  } = $$props;
+  let {
+    size = 'medium'
+  } = $$props;
+  let {
+    href = undefined
+  } = $$props;
+  let {
+    target = '_self'
+  } = $$props;
+  let classes = ['acui-button', customClass, `acui-button-${type}`];
+  if (size === 'small') classes.push('-small');
+  function click_handler(event) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
+  }
+  function click_handler_1(event) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
+  }
+  $$self.$$set = $$props => {
+    if ('type' in $$props) $$invalidate(10, type = $$props.type);
+    if ('disabled' in $$props) $$invalidate(0, disabled = $$props.disabled);
+    if ('iconLeft' in $$props) $$invalidate(1, iconLeft = $$props.iconLeft);
+    if ('iconLeftPack' in $$props) $$invalidate(2, iconLeftPack = $$props.iconLeftPack);
+    if ('iconRight' in $$props) $$invalidate(3, iconRight = $$props.iconRight);
+    if ('iconRightPack' in $$props) $$invalidate(4, iconRightPack = $$props.iconRightPack);
+    if ('loading' in $$props) $$invalidate(5, loading = $$props.loading);
+    if ('customClass' in $$props) $$invalidate(11, customClass = $$props.customClass);
+    if ('label' in $$props) $$invalidate(6, label = $$props.label);
+    if ('size' in $$props) $$invalidate(12, size = $$props.size);
+    if ('href' in $$props) $$invalidate(7, href = $$props.href);
+    if ('target' in $$props) $$invalidate(8, target = $$props.target);
+    if ('$$scope' in $$props) $$invalidate(13, $$scope = $$props.$$scope);
+  };
+  return [disabled, iconLeft, iconLeftPack, iconRight, iconRightPack, loading, label, href, target, classes, type, customClass, size, $$scope, slots, click_handler, click_handler_1];
+}
+class AcButton extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      type: 10,
+      disabled: 0,
+      iconLeft: 1,
+      iconLeftPack: 2,
+      iconRight: 3,
+      iconRightPack: 4,
+      loading: 5,
+      customClass: 11,
+      label: 6,
+      size: 12,
+      href: 7,
+      target: 8
+    });
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AcButton);
+
+/***/ }),
+
+/***/ "./ui/element/AcToggle.svelte":
+/*!************************************!*\
+  !*** ./ui/element/AcToggle.svelte ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
+/* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
+/* harmony import */ var _helpers_input__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/input */ "./ui/helpers/input.ts");
+/* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/src/runtime/index.js");
+/* ui/element/AcToggle.svelte generated by Svelte v4.2.0 */
+
+
+
+
+function add_css(target) {
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_styles)(target, "svelte-1qts9gw", ".ac-toggle-v2__toggle__track.svelte-1qts9gw.svelte-1qts9gw.svelte-1qts9gw{background:var(--baseBackground, #d8d8d8)}.ac-toggle-v2__toggle.svelte-1qts9gw input[type=checkbox].svelte-1qts9gw:checked~.ac-toggle-v2__toggle__track.svelte-1qts9gw{background:var(--activeBackground, var(--ac-primary-color))}.ac-toggle-v2.svelte-1qts9gw input[type=checkbox].svelte-1qts9gw:focus+.ac-toggle-v2__toggle__track.svelte-1qts9gw{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--ac-primary-color)}");
+}
+
+// (42:2) {:else }
+function create_else_block(ctx) {
+  let current;
+  const default_slot_template = /*#slots*/ctx[10].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[9], null);
+  return {
+    c() {
+      if (default_slot) default_slot.c();
+    },
+    m(target, anchor) {
+      if (default_slot) {
+        default_slot.m(target, anchor);
+      }
+      current = true;
+    },
+    p(ctx, dirty) {
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/512)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[9], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[9]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[9], dirty, null), null);
+        }
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (default_slot) default_slot.d(detaching);
+    }
+  };
+}
+
+// (40:2) {#if checkedLabel}
+function create_if_block(ctx) {
+  let t;
+  return {
+    c() {
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*checkedLabel*/ctx[3]);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
+    },
+    p(ctx, dirty) {
+      if (dirty & /*checkedLabel*/8) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*checkedLabel*/ctx[3]);
+    },
+    i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+      }
+    }
+  };
+}
+function create_fragment(ctx) {
+  let div;
+  let span2;
+  let input;
+  let t0;
+  let span0;
+  let t1;
+  let span1;
+  let t2;
+  let label;
+  let current_block_type_index;
+  let if_block;
+  let current;
+  let mounted;
+  let dispose;
+  const if_block_creators = [create_if_block, create_else_block];
+  const if_blocks = [];
+  function select_block_type(ctx, dirty) {
+    if (/*checkedLabel*/ctx[3]) return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type(ctx, -1);
+  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  return {
+    c() {
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      span2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+      input = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("input");
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      span0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      span1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      label = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("label");
+      if_block.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "class", "ac-toggle-v2__toggle__input svelte-1qts9gw");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "type", "checkbox");
+      input.__value = "off";
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, input.__value);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "id", /*name*/ctx[4]);
+      input.disabled = /*disabled*/ctx[2];
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span0, "class", "ac-toggle-v2__toggle__track svelte-1qts9gw");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span1, "class", "ac-toggle-v2__toggle__thumb");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span2, "class", "ac-toggle-v2__toggle svelte-1qts9gw");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(label, "class", "ac-toggle-v2__label");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(label, "for", /*name*/ctx[4]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "ac-toggle-v2 svelte-1qts9gw");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "style", /*customStyles*/ctx[1]);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, span2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span2, input);
+      input.checked = /*checked*/ctx[0];
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span2, t0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span2, span0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span2, t1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span2, span1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, label);
+      if_blocks[current_block_type_index].m(label, null);
+      current = true;
+      if (!mounted) {
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "change", /*input_change_handler*/ctx[11]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_handler*/ctx[12])];
+        mounted = true;
+      }
+    },
+    p(ctx, [dirty]) {
+      if (!current || dirty & /*disabled*/4) {
+        input.disabled = /*disabled*/ctx[2];
+      }
+      if (dirty & /*checked*/1) {
+        input.checked = /*checked*/ctx[0];
+      }
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx, dirty);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx, dirty);
+      } else {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+        if_block = if_blocks[current_block_type_index];
+        if (!if_block) {
+          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+          if_block.c();
+        } else {
+          if_block.p(ctx, dirty);
+        }
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
+        if_block.m(label, null);
+      }
+      if (!current || dirty & /*customStyles*/2) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "style", /*customStyles*/ctx[1]);
+      }
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
+      }
+      if_blocks[current_block_type_index].d();
+      mounted = false;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
+    }
+  };
+}
+function instance($$self, $$props, $$invalidate) {
+  let finalFalseLabel;
+  let checkedLabel;
+  let {
+    $$slots: slots = {},
+    $$scope
+  } = $$props;
+  let {
+    customStyles = ''
+  } = $$props;
+  let {
+    checked
+  } = $$props;
+  let {
+    trueValue = ''
+  } = $$props;
+  let {
+    falseValue = ''
+  } = $$props;
+  let {
+    disabled = false
+  } = $$props;
+  let name = (0,_helpers_input__WEBPACK_IMPORTED_MODULE_2__.generateGuid)();
+  let dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_3__.createEventDispatcher)();
+  const dispatchInput = () => {
+    setTimeout(() => dispatch('input', checked));
+  };
+  function input_change_handler() {
+    checked = this.checked;
+    $$invalidate(0, checked);
+  }
+  const input_handler = () => dispatchInput();
+  $$self.$$set = $$props => {
+    if ('customStyles' in $$props) $$invalidate(1, customStyles = $$props.customStyles);
+    if ('checked' in $$props) $$invalidate(0, checked = $$props.checked);
+    if ('trueValue' in $$props) $$invalidate(6, trueValue = $$props.trueValue);
+    if ('falseValue' in $$props) $$invalidate(7, falseValue = $$props.falseValue);
+    if ('disabled' in $$props) $$invalidate(2, disabled = $$props.disabled);
+    if ('$$scope' in $$props) $$invalidate(9, $$scope = $$props.$$scope);
+  };
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty & /*falseValue, trueValue*/192) {
+      $: $$invalidate(8, finalFalseLabel = falseValue !== null && falseValue !== void 0 ? falseValue : trueValue);
+    }
+    if ($$self.$$.dirty & /*checked, trueValue, finalFalseLabel*/321) {
+      $: $$invalidate(3, checkedLabel = checked ? trueValue : finalFalseLabel);
+    }
+  };
+  return [checked, customStyles, disabled, checkedLabel, name, dispatchInput, trueValue, falseValue, finalFalseLabel, $$scope, slots, input_change_handler, input_handler];
+}
+class AcToggle extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      customStyles: 1,
+      checked: 0,
+      trueValue: 6,
+      falseValue: 7,
+      disabled: 2
+    }, add_css);
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AcToggle);
 
 /***/ }),
 
@@ -530,29 +5564,594 @@ module.exports = function removeItems (arr, startIdx, removeCount) {
 
 /***/ }),
 
-/***/ "./js/ajax/settings.ts":
-/*!*****************************!*\
-  !*** ./js/ajax/settings.ts ***!
-  \*****************************/
+/***/ "./node_modules/sprintf-js/src/sprintf.js":
+/*!************************************************!*\
+  !*** ./node_modules/sprintf-js/src/sprintf.js ***!
+  \************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/* global window, exports, define */
+
+!function() {
+    'use strict'
+
+    var re = {
+        not_string: /[^s]/,
+        not_bool: /[^t]/,
+        not_type: /[^T]/,
+        not_primitive: /[^v]/,
+        number: /[diefg]/,
+        numeric_arg: /[bcdiefguxX]/,
+        json: /[j]/,
+        not_json: /[^j]/,
+        text: /^[^\x25]+/,
+        modulo: /^\x25{2}/,
+        placeholder: /^\x25(?:([1-9]\d*)\$|\(([^)]+)\))?(\+)?(0|'[^$])?(-)?(\d+)?(?:\.(\d+))?([b-gijostTuvxX])/,
+        key: /^([a-z_][a-z_\d]*)/i,
+        key_access: /^\.([a-z_][a-z_\d]*)/i,
+        index_access: /^\[(\d+)\]/,
+        sign: /^[+-]/
+    }
+
+    function sprintf(key) {
+        // `arguments` is not an array, but should be fine for this call
+        return sprintf_format(sprintf_parse(key), arguments)
+    }
+
+    function vsprintf(fmt, argv) {
+        return sprintf.apply(null, [fmt].concat(argv || []))
+    }
+
+    function sprintf_format(parse_tree, argv) {
+        var cursor = 1, tree_length = parse_tree.length, arg, output = '', i, k, ph, pad, pad_character, pad_length, is_positive, sign
+        for (i = 0; i < tree_length; i++) {
+            if (typeof parse_tree[i] === 'string') {
+                output += parse_tree[i]
+            }
+            else if (typeof parse_tree[i] === 'object') {
+                ph = parse_tree[i] // convenience purposes only
+                if (ph.keys) { // keyword argument
+                    arg = argv[cursor]
+                    for (k = 0; k < ph.keys.length; k++) {
+                        if (arg == undefined) {
+                            throw new Error(sprintf('[sprintf] Cannot access property "%s" of undefined value "%s"', ph.keys[k], ph.keys[k-1]))
+                        }
+                        arg = arg[ph.keys[k]]
+                    }
+                }
+                else if (ph.param_no) { // positional argument (explicit)
+                    arg = argv[ph.param_no]
+                }
+                else { // positional argument (implicit)
+                    arg = argv[cursor++]
+                }
+
+                if (re.not_type.test(ph.type) && re.not_primitive.test(ph.type) && arg instanceof Function) {
+                    arg = arg()
+                }
+
+                if (re.numeric_arg.test(ph.type) && (typeof arg !== 'number' && isNaN(arg))) {
+                    throw new TypeError(sprintf('[sprintf] expecting number but found %T', arg))
+                }
+
+                if (re.number.test(ph.type)) {
+                    is_positive = arg >= 0
+                }
+
+                switch (ph.type) {
+                    case 'b':
+                        arg = parseInt(arg, 10).toString(2)
+                        break
+                    case 'c':
+                        arg = String.fromCharCode(parseInt(arg, 10))
+                        break
+                    case 'd':
+                    case 'i':
+                        arg = parseInt(arg, 10)
+                        break
+                    case 'j':
+                        arg = JSON.stringify(arg, null, ph.width ? parseInt(ph.width) : 0)
+                        break
+                    case 'e':
+                        arg = ph.precision ? parseFloat(arg).toExponential(ph.precision) : parseFloat(arg).toExponential()
+                        break
+                    case 'f':
+                        arg = ph.precision ? parseFloat(arg).toFixed(ph.precision) : parseFloat(arg)
+                        break
+                    case 'g':
+                        arg = ph.precision ? String(Number(arg.toPrecision(ph.precision))) : parseFloat(arg)
+                        break
+                    case 'o':
+                        arg = (parseInt(arg, 10) >>> 0).toString(8)
+                        break
+                    case 's':
+                        arg = String(arg)
+                        arg = (ph.precision ? arg.substring(0, ph.precision) : arg)
+                        break
+                    case 't':
+                        arg = String(!!arg)
+                        arg = (ph.precision ? arg.substring(0, ph.precision) : arg)
+                        break
+                    case 'T':
+                        arg = Object.prototype.toString.call(arg).slice(8, -1).toLowerCase()
+                        arg = (ph.precision ? arg.substring(0, ph.precision) : arg)
+                        break
+                    case 'u':
+                        arg = parseInt(arg, 10) >>> 0
+                        break
+                    case 'v':
+                        arg = arg.valueOf()
+                        arg = (ph.precision ? arg.substring(0, ph.precision) : arg)
+                        break
+                    case 'x':
+                        arg = (parseInt(arg, 10) >>> 0).toString(16)
+                        break
+                    case 'X':
+                        arg = (parseInt(arg, 10) >>> 0).toString(16).toUpperCase()
+                        break
+                }
+                if (re.json.test(ph.type)) {
+                    output += arg
+                }
+                else {
+                    if (re.number.test(ph.type) && (!is_positive || ph.sign)) {
+                        sign = is_positive ? '+' : '-'
+                        arg = arg.toString().replace(re.sign, '')
+                    }
+                    else {
+                        sign = ''
+                    }
+                    pad_character = ph.pad_char ? ph.pad_char === '0' ? '0' : ph.pad_char.charAt(1) : ' '
+                    pad_length = ph.width - (sign + arg).length
+                    pad = ph.width ? (pad_length > 0 ? pad_character.repeat(pad_length) : '') : ''
+                    output += ph.align ? sign + arg + pad : (pad_character === '0' ? sign + pad + arg : pad + sign + arg)
+                }
+            }
+        }
+        return output
+    }
+
+    var sprintf_cache = Object.create(null)
+
+    function sprintf_parse(fmt) {
+        if (sprintf_cache[fmt]) {
+            return sprintf_cache[fmt]
+        }
+
+        var _fmt = fmt, match, parse_tree = [], arg_names = 0
+        while (_fmt) {
+            if ((match = re.text.exec(_fmt)) !== null) {
+                parse_tree.push(match[0])
+            }
+            else if ((match = re.modulo.exec(_fmt)) !== null) {
+                parse_tree.push('%')
+            }
+            else if ((match = re.placeholder.exec(_fmt)) !== null) {
+                if (match[2]) {
+                    arg_names |= 1
+                    var field_list = [], replacement_field = match[2], field_match = []
+                    if ((field_match = re.key.exec(replacement_field)) !== null) {
+                        field_list.push(field_match[1])
+                        while ((replacement_field = replacement_field.substring(field_match[0].length)) !== '') {
+                            if ((field_match = re.key_access.exec(replacement_field)) !== null) {
+                                field_list.push(field_match[1])
+                            }
+                            else if ((field_match = re.index_access.exec(replacement_field)) !== null) {
+                                field_list.push(field_match[1])
+                            }
+                            else {
+                                throw new SyntaxError('[sprintf] failed to parse named argument key')
+                            }
+                        }
+                    }
+                    else {
+                        throw new SyntaxError('[sprintf] failed to parse named argument key')
+                    }
+                    match[2] = field_list
+                }
+                else {
+                    arg_names |= 2
+                }
+                if (arg_names === 3) {
+                    throw new Error('[sprintf] mixing positional and named placeholders is not (yet) supported')
+                }
+
+                parse_tree.push(
+                    {
+                        placeholder: match[0],
+                        param_no:    match[1],
+                        keys:        match[2],
+                        sign:        match[3],
+                        pad_char:    match[4],
+                        align:       match[5],
+                        width:       match[6],
+                        precision:   match[7],
+                        type:        match[8]
+                    }
+                )
+            }
+            else {
+                throw new SyntaxError('[sprintf] unexpected placeholder')
+            }
+            _fmt = _fmt.substring(match[0].length)
+        }
+        return sprintf_cache[fmt] = parse_tree
+    }
+
+    /**
+     * export to either browser or node.js
+     */
+    /* eslint-disable quote-props */
+    if (true) {
+        exports.sprintf = sprintf
+        exports.vsprintf = vsprintf
+    }
+    if (typeof window !== 'undefined') {
+        window['sprintf'] = sprintf
+        window['vsprintf'] = vsprintf
+
+        if (true) {
+            !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+                return {
+                    'sprintf': sprintf,
+                    'vsprintf': vsprintf
+                }
+            }).call(exports, __webpack_require__, exports, module),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
+        }
+    }
+    /* eslint-enable quote-props */
+}(); // eslint-disable-line
+
+
+/***/ }),
+
+/***/ "./node_modules/tannin/index.js":
+/*!**************************************!*\
+  !*** ./node_modules/tannin/index.js ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   persistGeneralSetting: () => (/* binding */ persistGeneralSetting)
+/* harmony export */   "default": () => (/* binding */ Tannin)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
-/* harmony import */ var _helpers_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/global */ "./js/helpers/global.ts");
+/* harmony import */ var _tannin_plural_forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tannin/plural-forms */ "./node_modules/@tannin/plural-forms/index.js");
 
 
-const persistGeneralSetting = (name, value) => {
-    return axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(ajaxurl, (0,_helpers_global__WEBPACK_IMPORTED_MODULE_0__.mapDataToFormData)({
-        action: 'ac-admin-general-options',
-        _ajax_nonce: AC._ajax_nonce,
-        option_name: name,
-        option_value: value
-    }));
+/**
+ * Tannin constructor options.
+ *
+ * @typedef {Object} TanninOptions
+ *
+ * @property {string}   [contextDelimiter] Joiner in string lookup with context.
+ * @property {Function} [onMissingKey]     Callback to invoke when key missing.
+ */
+
+/**
+ * Domain metadata.
+ *
+ * @typedef {Object} TanninDomainMetadata
+ *
+ * @property {string}            [domain]       Domain name.
+ * @property {string}            [lang]         Language code.
+ * @property {(string|Function)} [plural_forms] Plural forms expression or
+ *                                              function evaluator.
+ */
+
+/**
+ * Domain translation pair respectively representing the singular and plural
+ * translation.
+ *
+ * @typedef {[string,string]} TanninTranslation
+ */
+
+/**
+ * Locale data domain. The key is used as reference for lookup, the value an
+ * array of two string entries respectively representing the singular and plural
+ * translation.
+ *
+ * @typedef {{[key:string]:TanninDomainMetadata|TanninTranslation,'':TanninDomainMetadata|TanninTranslation}} TanninLocaleDomain
+ */
+
+/**
+ * Jed-formatted locale data.
+ *
+ * @see http://messageformat.github.io/Jed/
+ *
+ * @typedef {{[domain:string]:TanninLocaleDomain}} TanninLocaleData
+ */
+
+/**
+ * Default Tannin constructor options.
+ *
+ * @type {TanninOptions}
+ */
+var DEFAULT_OPTIONS = {
+	contextDelimiter: '\u0004',
+	onMissingKey: null,
 };
+
+/**
+ * Given a specific locale data's config `plural_forms` value, returns the
+ * expression.
+ *
+ * @example
+ *
+ * ```
+ * getPluralExpression( 'nplurals=2; plural=(n != 1);' ) === '(n != 1)'
+ * ```
+ *
+ * @param {string} pf Locale data plural forms.
+ *
+ * @return {string} Plural forms expression.
+ */
+function getPluralExpression( pf ) {
+	var parts, i, part;
+
+	parts = pf.split( ';' );
+
+	for ( i = 0; i < parts.length; i++ ) {
+		part = parts[ i ].trim();
+		if ( part.indexOf( 'plural=' ) === 0 ) {
+			return part.substr( 7 );
+		}
+	}
+}
+
+/**
+ * Tannin constructor.
+ *
+ * @class
+ *
+ * @param {TanninLocaleData} data      Jed-formatted locale data.
+ * @param {TanninOptions}    [options] Tannin options.
+ */
+function Tannin( data, options ) {
+	var key;
+
+	/**
+	 * Jed-formatted locale data.
+	 *
+	 * @name Tannin#data
+	 * @type {TanninLocaleData}
+	 */
+	this.data = data;
+
+	/**
+	 * Plural forms function cache, keyed by plural forms string.
+	 *
+	 * @name Tannin#pluralForms
+	 * @type {Object<string,Function>}
+	 */
+	this.pluralForms = {};
+
+	/**
+	 * Effective options for instance, including defaults.
+	 *
+	 * @name Tannin#options
+	 * @type {TanninOptions}
+	 */
+	this.options = {};
+
+	for ( key in DEFAULT_OPTIONS ) {
+		this.options[ key ] = options !== undefined && key in options
+			? options[ key ]
+			: DEFAULT_OPTIONS[ key ];
+	}
+}
+
+/**
+ * Returns the plural form index for the given domain and value.
+ *
+ * @param {string} domain Domain on which to calculate plural form.
+ * @param {number} n      Value for which plural form is to be calculated.
+ *
+ * @return {number} Plural form index.
+ */
+Tannin.prototype.getPluralForm = function( domain, n ) {
+	var getPluralForm = this.pluralForms[ domain ],
+		config, plural, pf;
+
+	if ( ! getPluralForm ) {
+		config = this.data[ domain ][ '' ];
+
+		pf = (
+			config[ 'Plural-Forms' ] ||
+			config[ 'plural-forms' ] ||
+			// Ignore reason: As known, there's no way to document the empty
+			// string property on a key to guarantee this as metadata.
+			// @ts-ignore
+			config.plural_forms
+		);
+
+		if ( typeof pf !== 'function' ) {
+			plural = getPluralExpression(
+				config[ 'Plural-Forms' ] ||
+				config[ 'plural-forms' ] ||
+				// Ignore reason: As known, there's no way to document the empty
+				// string property on a key to guarantee this as metadata.
+				// @ts-ignore
+				config.plural_forms
+			);
+
+			pf = (0,_tannin_plural_forms__WEBPACK_IMPORTED_MODULE_0__["default"])( plural );
+		}
+
+		getPluralForm = this.pluralForms[ domain ] = pf;
+	}
+
+	return getPluralForm( n );
+};
+
+/**
+ * Translate a string.
+ *
+ * @param {string}      domain   Translation domain.
+ * @param {string|void} context  Context distinguishing terms of the same name.
+ * @param {string}      singular Primary key for translation lookup.
+ * @param {string=}     plural   Fallback value used for non-zero plural
+ *                               form index.
+ * @param {number=}     n        Value to use in calculating plural form.
+ *
+ * @return {string} Translated string.
+ */
+Tannin.prototype.dcnpgettext = function( domain, context, singular, plural, n ) {
+	var index, key, entry;
+
+	if ( n === undefined ) {
+		// Default to singular.
+		index = 0;
+	} else {
+		// Find index by evaluating plural form for value.
+		index = this.getPluralForm( domain, n );
+	}
+
+	key = singular;
+
+	// If provided, context is prepended to key with delimiter.
+	if ( context ) {
+		key = context + this.options.contextDelimiter + singular;
+	}
+
+	entry = this.data[ domain ][ key ];
+
+	// Verify not only that entry exists, but that the intended index is within
+	// range and non-empty.
+	if ( entry && entry[ index ] ) {
+		return entry[ index ];
+	}
+
+	if ( this.options.onMissingKey ) {
+		this.options.onMissingKey( singular, domain );
+	}
+
+	// If entry not found, fall back to singular vs. plural with zero index
+	// representing the singular value.
+	return index === 0 ? singular : plural;
+};
+
+
+/***/ }),
+
+/***/ "./js/admin-settings/ajax/requests.ts":
+/*!********************************************!*\
+  !*** ./js/admin-settings/ajax/requests.ts ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getGeneralOption: () => (/* binding */ getGeneralOption),
+/* harmony export */   persistGeneralOption: () => (/* binding */ persistGeneralOption),
+/* harmony export */   restoreSettings: () => (/* binding */ restoreSettings)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+
+const persistGeneralOption = (args) => {
+    const data = new FormData();
+    data.append('action', 'ac-persist-admin-general-option');
+    data.append('_ajax_nonce', args.nonce);
+    data.append('option_name', args.name);
+    data.append('option_value', args.value);
+    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(ajaxurl, data);
+};
+const getGeneralOption = (args) => {
+    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(ajaxurl, {
+        params: {
+            action: 'ac-get-admin-general-option',
+            _ajax_nonce: args.nonce,
+            option_name: args.name,
+        }
+    });
+};
+const restoreSettings = ({ nonce }) => {
+    let data = new FormData();
+    data.append('_ajax_nonce', nonce);
+    data.append('action', 'ac-restore-settings');
+    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(ajaxurl, data);
+};
+
+
+/***/ }),
+
+/***/ "./js/admin-settings/utils/global.ts":
+/*!*******************************************!*\
+  !*** ./js/admin-settings/utils/global.ts ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getAdminSettingsConfig: () => (/* binding */ getAdminSettingsConfig),
+/* harmony export */   getAdminSettingsTranslation: () => (/* binding */ getAdminSettingsTranslation)
+/* harmony export */ });
+const getAdminSettingsConfig = () => {
+    return AC_SETTINGS;
+};
+const getAdminSettingsTranslation = () => {
+    return AC_SETTINGS_I18N;
+};
+
+
+/***/ }),
+
+/***/ "./js/admin-settings/utils/page-bridge.ts":
+/*!************************************************!*\
+  !*** ./js/admin-settings/utils/page-bridge.ts ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SettingsPageBridge)
+/* harmony export */ });
+/* harmony import */ var _page_sections__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./page-sections */ "./js/admin-settings/utils/page-sections.ts");
+
+class SettingsPageBridge {
+    getSections() {
+        return _page_sections__WEBPACK_IMPORTED_MODULE_0__["default"];
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/admin-settings/utils/page-sections.ts":
+/*!**************************************************!*\
+  !*** ./js/admin-settings/utils/page-sections.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+class SettingSections {
+    static registerSection(location, component, priority = 10) {
+        if (!SettingSections.sections.hasOwnProperty(location)) {
+            SettingSections.sections[location] = [];
+        }
+        SettingSections.sections[location].push({ priority, component });
+    }
+    //static getSections(location: Location): typeof SvelteComponent [] {
+    static getSections(location) {
+        if (!SettingSections.sections.hasOwnProperty(location)) {
+            return [];
+        }
+        let sections = SettingSections.sections[location].sort((a, b) => {
+            return a.priority > b.priority ? -1 : 1;
+        });
+        return sections.map(d => d.component);
+    }
+}
+SettingSections.sections = {};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SettingSections);
 
 
 /***/ }),
@@ -575,113 +6174,24 @@ const getGlobalTranslation = () => {
 
 /***/ }),
 
-/***/ "./js/helpers/animations.ts":
-/*!**********************************!*\
-  !*** ./js/helpers/animations.ts ***!
-  \**********************************/
+/***/ "./js/helpers/admin-columns.ts":
+/*!*************************************!*\
+  !*** ./js/helpers/admin-columns.ts ***!
+  \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   fadeIn: () => (/* binding */ fadeIn),
-/* harmony export */   fadeOut: () => (/* binding */ fadeOut),
-/* harmony export */   scrollToElement: () => (/* binding */ scrollToElement)
+/* harmony export */   initAcServices: () => (/* binding */ initAcServices)
 /* harmony export */ });
-const fadeIn = (element, ms = 100, cb = null, display = 'block') => {
-    element.style.display = display;
-    element.style.transition = `opacity ${ms}ms`;
-    element.style.opacity = '0';
-    setTimeout(() => {
-        element.style.opacity = '1';
-    }, 100);
-    if (cb) {
-        element.addEventListener('transitionend', () => {
-            cb.call(undefined);
-        }, { once: true });
-    }
-};
-const fadeOut = (element, ms = 100, cb = null, display = 'none') => {
-    element.style.transition = `opacity ${ms}ms`;
-    element.style.opacity = '1';
-    setTimeout(() => {
-        element.style.opacity = '0';
-    }, 100);
-    element.addEventListener('transitionend', () => {
-        element.style.display = display;
-        if (cb) {
-            cb.call(undefined);
-        }
-    }, { once: true });
-};
-const scrollToElement = (element, ms, options = {}) => {
-    var _a;
-    let defaults = {
-        offset: 0
-    };
-    let settings = Object.assign({}, defaults, options);
-    const elementY = element.offsetTop + ((_a = settings.offset) !== null && _a !== void 0 ? _a : 0);
-    const startingY = window.pageYOffset;
-    const diff = elementY - startingY;
-    let start;
-    // Bootstrap our animation - it will get called right before next frame shall be rendered.
-    window.requestAnimationFrame(function step(timestamp) {
-        if (!start) {
-            start = timestamp;
-        }
-        let time = timestamp - start;
-        let percent = Math.min(time / ms, 1);
-        window.scrollTo(0, startingY + diff * percent);
-        if (time < ms) {
-            window.requestAnimationFrame(step);
-        }
-    });
-};
+/* harmony import */ var _modules_ac_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/ac-services */ "./js/modules/ac-services.ts");
 
-
-/***/ }),
-
-/***/ "./js/helpers/global.ts":
-/*!******************************!*\
-  !*** ./js/helpers/global.ts ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   appendObjectToFormData: () => (/* binding */ appendObjectToFormData),
-/* harmony export */   getParamFromUrl: () => (/* binding */ getParamFromUrl),
-/* harmony export */   mapDataToFormData: () => (/* binding */ mapDataToFormData),
-/* harmony export */   sanitizeColumnSelector: () => (/* binding */ sanitizeColumnSelector)
-/* harmony export */ });
-const getParamFromUrl = (param, url) => {
-    if (!url.includes('?')) {
-        return null;
+const initAcServices = () => {
+    if (!window.AC_SERVICES) {
+        window.AC_SERVICES = new _modules_ac_services__WEBPACK_IMPORTED_MODULE_0__["default"]();
     }
-    const params = new URLSearchParams(url.split('?')[1]);
-    return params.get(param);
-};
-const mapDataToFormData = (data, formData = null) => {
-    let fData = formData !== null && formData !== void 0 ? formData : new FormData();
-    Object.keys(data).forEach(key => {
-        appendObjectToFormData(fData, data[key], key);
-    });
-    return fData;
-};
-const appendObjectToFormData = (formData, data, parentKey = '') => {
-    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
-        Object.keys(data).forEach(key => {
-            appendObjectToFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
-        });
-    }
-    else {
-        const value = data == null ? '' : data;
-        formData.append(parentKey, value);
-    }
-};
-const sanitizeColumnSelector = (name) => {
-    return name.replace(/\./g, '\\.');
+    return window.AC_SERVICES;
 };
 
 
@@ -823,6 +6333,93 @@ class AcHtmlElement {
 
 /***/ }),
 
+/***/ "./js/modules/ac-hookable-filters.ts":
+/*!*******************************************!*\
+  !*** ./js/modules/ac-hookable-filters.ts ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AcHookableFilters)
+/* harmony export */ });
+class AcHookableFilters {
+    constructor() {
+        this.filters = {};
+    }
+    addFilter(name, callback, priority = 10) {
+        if (!this.filters.hasOwnProperty(name)) {
+            this.filters[name] = {};
+        }
+        if (!this.filters[name].hasOwnProperty(priority)) {
+            this.filters[name][priority] = [];
+        }
+        this.filters[name][priority].push(callback);
+    }
+    applyFilters(name, value, payload = {}) {
+        if (!this.filters.hasOwnProperty(name)) {
+            return value;
+        }
+        Object.keys(this.filters[name]).forEach((priority) => {
+            this.filters[name][parseInt(priority)].forEach(cb => {
+                value = cb(value, payload);
+            });
+        });
+        return value;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/modules/ac-services.ts":
+/*!***********************************!*\
+  !*** ./js/modules/ac-services.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AcServices)
+/* harmony export */ });
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/html-element */ "./js/helpers/html-element.ts");
+/* harmony import */ var _ac_hookable_filters__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ac-hookable-filters */ "./js/modules/ac-hookable-filters.ts");
+
+
+
+class AcServices {
+    constructor() {
+        this.services = {};
+        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
+        this.filters = new _ac_hookable_filters__WEBPACK_IMPORTED_MODULE_2__["default"]();
+        this.$ = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__["default"];
+    }
+    registerService(name, service) {
+        this.services[name] = service;
+        this.events.emit(`Service.Registered.${name}`, service);
+        return this;
+    }
+    getService(name) {
+        return this.hasService(name) ? this.services[name] : null;
+    }
+    hasService(name) {
+        return this.services.hasOwnProperty(name);
+    }
+    addListener(name, callback) {
+        this.events.addListener(name, callback);
+    }
+    emitEvent(name, args) {
+        this.events.emit(name, args);
+    }
+}
+
+
+/***/ }),
+
 /***/ "./js/plugin/ac-confirmation.ts":
 /*!**************************************!*\
   !*** ./js/plugin/ac-confirmation.ts ***!
@@ -866,65 +6463,73 @@ class AcConfirmation {
 
 /***/ }),
 
-/***/ "./js/plugin/ajax-loader.ts":
-/*!**********************************!*\
-  !*** ./js/plugin/ajax-loader.ts ***!
-  \**********************************/
+/***/ "./js/ui-wrapper/notification.ts":
+/*!***************************************!*\
+  !*** ./js/ui-wrapper/notification.ts ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ AjaxLoader)
+/* harmony export */   NotificationProgrammatic: () => (/* binding */ NotificationProgrammatic)
 /* harmony export */ });
-/* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/html-element */ "./js/helpers/html-element.ts");
-/* harmony import */ var _helpers_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/animations */ "./js/helpers/animations.ts");
-/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
-/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var ACUi_acui_notification_AcNotification_svelte__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ACUi/acui-notification/AcNotification.svelte */ "./ui/acui-notification/AcNotification.svelte");
+/* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/html-element */ "./js/helpers/html-element.ts");
 
 
-
-class AjaxLoader {
-    constructor() {
-        this.element = createMarkup();
-        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_2___default())();
-    }
-    getElement() {
-        return this.element;
-    }
-    setActive(active = true) {
-        active
-            ? this.element.classList.add('-active')
-            : this.element.classList.remove('-active');
-        return this;
-    }
-    setLoading(loading = true) {
-        this.setActive(true);
-        loading
-            ? this.element.classList.add('-loading')
-            : this.element.classList.remove('-loading');
-        return this;
-    }
-    onFinish(cb) {
-        this.events.on('finish', cb);
-    }
-    finish() {
-        this.setLoading(false);
-        this.element.classList.add('-finished');
-        setTimeout(() => {
-            (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_1__.fadeOut)(this.element, 500, () => {
-                this.setActive(false);
-                this.events.emit('finish');
-            });
-        }, 2000);
+const SELECTOR = 'acui-notifications';
+class NotificationProgrammatic {
+    static open(args) {
+        const container = document.createElement('div');
+        if (typeof args === 'string') {
+            args = {
+                message: args
+            };
+        }
+        const finalArgs = Object.assign({
+            autoClose: true
+        }, args);
+        initNotificationContainer().append(container);
+        const notification = new ACUi_acui_notification_AcNotification_svelte__WEBPACK_IMPORTED_MODULE_0__["default"]({
+            target: container,
+            // @ts-ignore
+            props: finalArgs,
+        });
+        notification.$on('close', () => {
+            notification.$destroy();
+        });
     }
 }
-const createMarkup = () => {
-    return _helpers_html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create('div').addClass('ac-ajax-loading').addHtml(`
-        <div class="ac-ajax-loading__spinner spinner"></div>
-        <div class="ac-ajax-loading__icon"><span class="dashicons dashicons-yes-alt"></span></div>
-        <div class="ac-ajax-loading__status">Saved</div>
-    `).getElement();
+const initNotificationContainer = () => {
+    let container = document.querySelector(`.${SELECTOR}`);
+    if (container) {
+        return container;
+    }
+    const newContainer = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__["default"].create('div').addClass(SELECTOR).getElement();
+    document.body.append(newContainer);
+    return newContainer;
+};
+
+
+/***/ }),
+
+/***/ "./ui/helpers/input.ts":
+/*!*****************************!*\
+  !*** ./ui/helpers/input.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   generateGuid: () => (/* binding */ generateGuid)
+/* harmony export */ });
+const generateGuid = () => {
+    let s4 = () => {
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    };
+    return 'ac' + s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4();
 };
 
 
@@ -5715,6 +11320,181 @@ const asap = typeof queueMicrotask !== 'undefined' ?
   setImmediate: _setImmediate,
   asap
 });
+
+
+/***/ }),
+
+/***/ "./node_modules/memize/dist/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/memize/dist/index.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ memize)
+/* harmony export */ });
+/**
+ * Memize options object.
+ *
+ * @typedef MemizeOptions
+ *
+ * @property {number} [maxSize] Maximum size of the cache.
+ */
+
+/**
+ * Internal cache entry.
+ *
+ * @typedef MemizeCacheNode
+ *
+ * @property {?MemizeCacheNode|undefined} [prev] Previous node.
+ * @property {?MemizeCacheNode|undefined} [next] Next node.
+ * @property {Array<*>}                   args   Function arguments for cache
+ *                                               entry.
+ * @property {*}                          val    Function result.
+ */
+
+/**
+ * Properties of the enhanced function for controlling cache.
+ *
+ * @typedef MemizeMemoizedFunction
+ *
+ * @property {()=>void} clear Clear the cache.
+ */
+
+/**
+ * Accepts a function to be memoized, and returns a new memoized function, with
+ * optional options.
+ *
+ * @template {(...args: any[]) => any} F
+ *
+ * @param {F}             fn        Function to memoize.
+ * @param {MemizeOptions} [options] Options object.
+ *
+ * @return {((...args: Parameters<F>) => ReturnType<F>) & MemizeMemoizedFunction} Memoized function.
+ */
+function memize(fn, options) {
+	var size = 0;
+
+	/** @type {?MemizeCacheNode|undefined} */
+	var head;
+
+	/** @type {?MemizeCacheNode|undefined} */
+	var tail;
+
+	options = options || {};
+
+	function memoized(/* ...args */) {
+		var node = head,
+			len = arguments.length,
+			args,
+			i;
+
+		searchCache: while (node) {
+			// Perform a shallow equality test to confirm that whether the node
+			// under test is a candidate for the arguments passed. Two arrays
+			// are shallowly equal if their length matches and each entry is
+			// strictly equal between the two sets. Avoid abstracting to a
+			// function which could incur an arguments leaking deoptimization.
+
+			// Check whether node arguments match arguments length
+			if (node.args.length !== arguments.length) {
+				node = node.next;
+				continue;
+			}
+
+			// Check whether node arguments match arguments values
+			for (i = 0; i < len; i++) {
+				if (node.args[i] !== arguments[i]) {
+					node = node.next;
+					continue searchCache;
+				}
+			}
+
+			// At this point we can assume we've found a match
+
+			// Surface matched node to head if not already
+			if (node !== head) {
+				// As tail, shift to previous. Must only shift if not also
+				// head, since if both head and tail, there is no previous.
+				if (node === tail) {
+					tail = node.prev;
+				}
+
+				// Adjust siblings to point to each other. If node was tail,
+				// this also handles new tail's empty `next` assignment.
+				/** @type {MemizeCacheNode} */ (node.prev).next = node.next;
+				if (node.next) {
+					node.next.prev = node.prev;
+				}
+
+				node.next = head;
+				node.prev = null;
+				/** @type {MemizeCacheNode} */ (head).prev = node;
+				head = node;
+			}
+
+			// Return immediately
+			return node.val;
+		}
+
+		// No cached value found. Continue to insertion phase:
+
+		// Create a copy of arguments (avoid leaking deoptimization)
+		args = new Array(len);
+		for (i = 0; i < len; i++) {
+			args[i] = arguments[i];
+		}
+
+		node = {
+			args: args,
+
+			// Generate the result from original function
+			val: fn.apply(null, args),
+		};
+
+		// Don't need to check whether node is already head, since it would
+		// have been returned above already if it was
+
+		// Shift existing head down list
+		if (head) {
+			head.prev = node;
+			node.next = head;
+		} else {
+			// If no head, follows that there's no tail (at initial or reset)
+			tail = node;
+		}
+
+		// Trim tail if we're reached max size and are pending cache insertion
+		if (size === /** @type {MemizeOptions} */ (options).maxSize) {
+			tail = /** @type {MemizeCacheNode} */ (tail).prev;
+			/** @type {MemizeCacheNode} */ (tail).next = null;
+		} else {
+			size++;
+		}
+
+		head = node;
+
+		return node.val;
+	}
+
+	memoized.clear = function () {
+		head = null;
+		tail = null;
+		size = 0;
+	};
+
+	// Ignore reason: There's not a clear solution to create an intersection of
+	// the function with additional properties, where the goal is to retain the
+	// function signature of the incoming argument and add control properties
+	// on the return value.
+
+	// @ts-ignore
+	return memoized;
+}
+
+
 
 
 /***/ }),
@@ -10642,92 +16422,128 @@ var __webpack_exports__ = {};
   !*** ./js/admin-page-settings.ts ***!
   \***********************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/global */ "./js/helpers/global.ts");
-/* harmony import */ var _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./plugin/ajax-loader */ "./js/plugin/ajax-loader.ts");
-/* harmony import */ var _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plugin/ac-confirmation */ "./js/plugin/ac-confirmation.ts");
-/* harmony import */ var _ajax_settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ajax/settings */ "./js/ajax/settings.ts");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var _admin_settings_SettingsPage_svelte__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin-settings/SettingsPage.svelte */ "./js/admin-settings/SettingsPage.svelte");
+/* harmony import */ var _admin_settings_RestoreSettingsSection_svelte__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin-settings/RestoreSettingsSection.svelte */ "./js/admin-settings/RestoreSettingsSection.svelte");
+/* harmony import */ var _admin_settings_utils_page_bridge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./admin-settings/utils/page-bridge */ "./js/admin-settings/utils/page-bridge.ts");
+/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
 
 
 
 
-
-const restoreSettings = () => {
-    let data = new FormData();
-    data.append('_ajax_nonce', AC._ajax_nonce);
-    data.append('action', 'ac-restore-settings');
-    return axios__WEBPACK_IMPORTED_MODULE_4__["default"].post(ajaxurl, data);
-};
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.ac-settings-box input[data-ajax-setting]').forEach(el => {
-        var _a;
-        new GeneralAdminToggleSetting(el, (_a = el.dataset.ajaxSetting) !== null && _a !== void 0 ? _a : '');
-    });
-    let restoreFormButton = document.querySelector('#frm-ac-restore [type=submit]');
-    if (restoreFormButton) {
-        restoreFormButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            let loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__["default"]();
-            new _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_2__["default"]({
-                message: AC_I18N.restore_settings,
-                confirm: () => {
-                    var _a;
-                    loader === null || loader === void 0 ? void 0 : loader.getElement().remove();
-                    loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__["default"]();
-                    (_a = restoreFormButton.parentElement) === null || _a === void 0 ? void 0 : _a.append(loader.getElement());
-                    loader.setActive(true).setLoading(true);
-                    restoreSettings().then(() => {
-                        loader.finish();
-                    });
-                },
-                lastFocus: restoreFormButton
-            }).create();
-        });
-    }
-    const layoutStyle = document.querySelector('input[name="layout_style"]');
-    if (layoutStyle) {
-        let loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__["default"]();
-        layoutStyle.addEventListener('input', () => {
-            var _a;
-            loader === null || loader === void 0 ? void 0 : loader.getElement().remove();
-            loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__["default"]();
-            (_a = layoutStyle.closest('.ac-general-setting-row__layout')) === null || _a === void 0 ? void 0 : _a.append(loader.getElement());
-            loader.setActive(true).setLoading(true);
-            (0,_ajax_settings__WEBPACK_IMPORTED_MODULE_3__.persistGeneralSetting)('layout_style', layoutStyle.value).then(() => {
-                loader.finish();
-            });
-        });
-    }
+const AcServices = (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_3__.initAcServices)();
+let restoreSettingsElement = document.createElement('div');
+new _admin_settings_RestoreSettingsSection_svelte__WEBPACK_IMPORTED_MODULE_1__["default"]({
+    target: restoreSettingsElement,
 });
-class GeneralAdminToggleSetting {
-    constructor(element, name) {
-        this.element = element;
-        this.name = name;
-        this.loader = null;
-        this.init();
-    }
-    init() {
-        this.element.addEventListener('change', () => {
-            var _a, _b, _c, _d;
-            this.initNewLoader();
-            (_a = this.element.closest('.ac-toggle-v2')) === null || _a === void 0 ? void 0 : _a.append((_c = (_b = this.loader) === null || _b === void 0 ? void 0 : _b.getElement()) !== null && _c !== void 0 ? _c : document.createElement('div'));
-            (_d = this.loader) === null || _d === void 0 ? void 0 : _d.setLoading(true);
-            this.persist().then(() => {
-                var _a;
-                (_a = this.loader) === null || _a === void 0 ? void 0 : _a.finish();
-            });
+document.addEventListener("DOMContentLoaded", function () {
+    const Bridge = new _admin_settings_utils_page_bridge__WEBPACK_IMPORTED_MODULE_2__["default"]();
+    AcServices.registerService('SettingsPage', Bridge);
+    let restoreSettingsElement = document.createElement('div');
+    new _admin_settings_RestoreSettingsSection_svelte__WEBPACK_IMPORTED_MODULE_1__["default"]({
+        target: restoreSettingsElement,
+    });
+    Bridge.getSections().registerSection('after_general', restoreSettingsElement);
+    document.querySelectorAll('#cpac').forEach(el => {
+        new _admin_settings_SettingsPage_svelte__WEBPACK_IMPORTED_MODULE_0__["default"]({
+            target: el,
         });
-        (0,_helpers_global__WEBPACK_IMPORTED_MODULE_0__.mapDataToFormData)({});
-    }
-    initNewLoader() {
-        var _a;
-        (_a = this.loader) === null || _a === void 0 ? void 0 : _a.getElement().remove();
-        this.loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__["default"]();
-    }
-    persist() {
-        return (0,_ajax_settings__WEBPACK_IMPORTED_MODULE_3__.persistGeneralSetting)(this.name, this.element.checked ? '1' : '0');
-    }
-}
+    });
+});
+//
+//
+// const restoreSettings = () => {
+//     let data = new FormData();
+//     data.append('_ajax_nonce', AC._ajax_nonce);
+//     data.append('action', 'ac-restore-settings');
+//
+//     return axios.post(ajaxurl, data);
+// }
+//
+// document.addEventListener('DOMContentLoaded', () => {
+//     document.querySelectorAll<HTMLInputElement>('.ac-settings-box input[data-ajax-setting]').forEach(el => {
+//         new GeneralAdminToggleSetting(el, el.dataset.ajaxSetting ?? '');
+//     });
+//
+//     let restoreFormButton = document.querySelector<HTMLInputElement>('#frm-ac-restore [type=submit]');
+//
+//     if (restoreFormButton) {
+//         restoreFormButton.addEventListener('click', (e) => {
+//             e.preventDefault();
+//             let loader = new AjaxLoader();
+//
+//             new AcConfirmation({
+//                 message: AC_I18N.restore_settings,
+//                 confirm: () => {
+//                     loader?.getElement().remove();
+//                     loader = new AjaxLoader();
+//                     restoreFormButton!.parentElement?.append(loader.getElement());
+//                     loader.setActive(true).setLoading(true);
+//
+//                     restoreSettings().then(() => {
+//                         loader.finish();
+//                     })
+//                 },
+//                 lastFocus: restoreFormButton
+//             }).create();
+//         });
+//     }
+//
+//     const layoutStyle: HTMLInputElement | null = document.querySelector('input[name="layout_style"]');
+//     if (layoutStyle) {
+//         let loader = new AjaxLoader();
+//
+//         layoutStyle.addEventListener('input', () => {
+//             loader?.getElement().remove();
+//             loader = new AjaxLoader();
+//             layoutStyle.closest('.ac-general-setting-row__layout')?.append(loader.getElement());
+//             loader.setActive(true).setLoading(true);
+//             persistGeneralSetting('layout_style', layoutStyle.value).then(() => {
+//                 loader.finish();
+//             });
+//         });
+//     }
+//
+// })
+//
+//
+// class GeneralAdminToggleSetting {
+//
+//     element: HTMLInputElement
+//     name: string
+//     loader: AjaxLoader | null
+//
+//     constructor(element: HTMLInputElement, name: string) {
+//         this.element = element;
+//         this.name = name;
+//         this.loader = null;
+//
+//         this.init();
+//     }
+//
+//     init() {
+//         this.element.addEventListener('change', () => {
+//             this.initNewLoader();
+//             this.element.closest('.ac-toggle-v2')?.append(this.loader?.getElement() ?? document.createElement('div'));
+//             this.loader?.setLoading(true);
+//             this.persist().then(() => {
+//                 this.loader?.finish();
+//             });
+//         });
+//
+//         mapDataToFormData({});
+//     }
+//
+//     private initNewLoader() {
+//         this.loader?.getElement().remove();
+//         this.loader = new AjaxLoader();
+//     }
+//
+//     persist() {
+//         return persistGeneralSetting(this.name, this.element.checked ? '1' : '0');
+//     }
+//
+//
+// }
 
 })();
 

@@ -2,6 +2,7 @@
     import {IntegrationItem, toggleIntegrationStatus} from "../ajax/requests";
     import AcToggle from "ACUi/element/AcToggle.svelte";
     import AcButton from "ACUi/element/AcButton.svelte";
+    import AcIcon from "ACUi/AcIcon.svelte";
 
     export let integration: IntegrationItem;
     export let isPro: boolean;
@@ -37,12 +38,21 @@
 		<hr class="acu-mb-3"/>
 
 		{#if isPro }
-			<div class="acu-flex acu-pt-2">
-				<strong class="acu-flex-grow ">Enable Integration</strong>
-				<span class="acu-justify-end">
+			{#if integration.plugin_active}
+				<div class="acu-flex acu-pt-2">
+					<strong class="acu-flex-grow ">Enable Integration</strong>
+					<span class="acu-justify-end">
 				<AcToggle bind:checked={checked} on:input={handleStatusChange}/>
 				</span>
-			</div>
+				</div>
+			{:else}
+				<div class="acu-flex acu-pt-2">
+					<strong class="acu-flex-grow ">Plugin not detected</strong>
+					<span class="acu-justify-end">
+						<AcIcon icon="no-alt" pack="dashicons" customClass="acu-text-[#D63638]"/>
+					</span>
+				</div>
+			{/if}
 		{:else}
 			<div>
 				<AcButton iconLeft="lock" iconLeftPack="dashicons" type="pink" label="Buy Admin Columns Pro"

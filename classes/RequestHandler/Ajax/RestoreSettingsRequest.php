@@ -5,13 +5,11 @@ namespace AC\RequestHandler\Ajax;
 use AC\Capabilities;
 use AC\ListScreenRepository;
 use AC\ListScreenRepositoryWritable;
-use AC\Message\Notice;
 use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response;
 
-// TODO create JS handler
 class RestoreSettingsRequest implements RequestAjaxHandler
 {
 
@@ -50,8 +48,7 @@ class RestoreSettingsRequest implements RequestAjaxHandler
 
         do_action('ac/settings/restore');
 
-        $notice = new Notice(__('Default settings successfully restored.', 'codepress-admin-columns'));
-        $notice->register();
+        $response->set_parameter('message', __('Default settings successfully restored.', 'codepress-admin-columns'));
         $response->success();
     }
 

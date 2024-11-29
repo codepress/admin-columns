@@ -22,7 +22,19 @@ final class SettingsFactory
     public function create(): Script
     {
         $translations = [
-            'restore_settings' => __(
+            'settings'                     => __('Settings', 'codepress-admin-columns'),
+            'general_settings'             => __('General Settings', 'codepress-admin-columns'),
+            'general_settings_description' => __('These settings affect the list table.', 'codepress-admin-columns'),
+
+            'show_x_button' => __("Show %s button on table screen.", 'codepress-admin-columns'),
+            'edit_button'   => __('Edit columns', 'codepress-admin-columns'),
+
+            'restore_settings'             => __('Restore settings', 'codepress-admin-columns'),
+            'restore_settings_description' => __(
+                'Delete all column settings and restore the default settings.',
+                'codepress-admin-columns'
+            ),
+            'restore_settings_warning'     => __(
                 "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop",
                 'codepress-admin-columns'
             ),
@@ -37,8 +49,8 @@ final class SettingsFactory
                 Script\GlobalTranslationFactory::HANDLE,
             ]
         );
-        $script->localize('AC_I18N', Translation::create($translations))
-               ->add_inline_variable('AC', [
+        $script->localize('AC_SETTINGS_I18N', Translation::create($translations))
+               ->add_inline_variable('AC_SETTINGS', [
                    $nonce->get_name() => $nonce->create(),
                ]);
 
