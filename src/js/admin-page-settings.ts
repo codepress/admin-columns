@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         target: restoreSettingsElement,
     })
 
-    Bridge.getSections().registerSection('after_general', restoreSettingsElement );
+    Bridge.getSections().registerSection('after_general', restoreSettingsElement.firstElementChild as HTMLElement );
 
     document.querySelectorAll('#cpac').forEach(el => {
         new SettingsPage({

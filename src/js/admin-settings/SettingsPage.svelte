@@ -17,10 +17,6 @@
     const i18n = getAdminSettingsTranslation();
     let loadingShowButtonValue = true;
     let showButtonValue = true;
-    let layoutOptions = [
-        { value: 'dropdown',  label: 'Dropdown'},
-        { value: 'tabs',  label: 'Tabs'},
-	]
 
     getGeneralOption({name: 'show_edit_button', nonce: AC_SETTINGS._ajax_nonce}).then(r => {
         if (r.data.success) {
@@ -56,17 +52,18 @@
 	<main class="acu-flex acu-gap-4 acu-w-full">
 		<AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
 			<AcPanelHeader slot="header" title={i18n.settings} type="h2" border/>
-			<AcPanelBody slot="body">
+			<AcPanelBody slot="body" classNames={['acu-pb-10']}>
 
 				<SettingSection title="General Settings" subtitle="These settings affect the list table.">
 					<div>
 						<AcToggle bind:checked={showButtonValue} disabled={loadingShowButtonValue}
 							on:input={handleToggleShowButton}>{sprintf( i18n.show_x_button, `"${i18n.edit_button}"` )}</AcToggle>
 					</div>
-					<div class="acu-pt-8">
-						<AcToggleButtons options={layoutOptions} value="dropdown" onChange={()=>{}}/>
 
-					</div>
+					{#each SettingSections.getSections( 'inside_general' ) as component}
+						<HtmlSection component={component}></HtmlSection>
+					{/each}
+
 				</SettingSection>
 
 				{#each SettingSections.getSections( 'after_general' ) as component}

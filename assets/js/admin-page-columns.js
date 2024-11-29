@@ -19958,14 +19958,15 @@ __webpack_require__.r(__webpack_exports__);
 
 function create_fragment(ctx) {
   let div;
+  let div_class_value;
   let current;
-  const default_slot_template = /*#slots*/ctx[1].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[0], null);
+  const default_slot_template = /*#slots*/ctx[3].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[2], null);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       if (default_slot) default_slot.c();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acu-p-[20px]");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", div_class_value = /*classes*/ctx[0].join(' '));
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
@@ -19976,8 +19977,8 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/1)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[0], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[0]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[0], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/4)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[2], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[2]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[2], dirty, null), null);
         }
       }
     },
@@ -20003,15 +20004,22 @@ function instance($$self, $$props, $$invalidate) {
     $$slots: slots = {},
     $$scope
   } = $$props;
+  let {
+    classNames = []
+  } = $$props;
+  let classes = ['acu-p-[20px]', ...classNames];
   $$self.$$set = $$props => {
-    if ('$$scope' in $$props) $$invalidate(0, $$scope = $$props.$$scope);
+    if ('classNames' in $$props) $$invalidate(1, classNames = $$props.classNames);
+    if ('$$scope' in $$props) $$invalidate(2, $$scope = $$props.$$scope);
   };
-  return [$$scope, slots];
+  return [classes, classNames, $$scope, slots];
 }
 class AcPanelBody extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
-    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {});
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      classNames: 1
+    });
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AcPanelBody);
