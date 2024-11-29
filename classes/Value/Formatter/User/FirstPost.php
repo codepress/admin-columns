@@ -11,9 +11,9 @@ use AC\Type\Value;
 class FirstPost implements Formatter
 {
 
-    private $post_type;
+    private ?array $post_type;
 
-    private $post_stati;
+    private ?array $post_stati;
 
     public function __construct(array $post_type = null, array $post_stati = null)
     {

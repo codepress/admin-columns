@@ -10,9 +10,9 @@ use AC\Type\Value;
 class PostCount implements Formatter
 {
 
-    private $post_type;
+    private ?string $post_type;
 
-    private $post_stati;
+    private ?array $post_stati;
 
     public function __construct(string $post_type = null, array $post_stati = null)
     {
@@ -22,13 +22,17 @@ class PostCount implements Formatter
 
     public function format(Value $value): Value
     {
-        $count = $this->get_post_count($value->get_id());
+        $post_id = (int)$value->get_id();
+
+        $count = $this->get_post_count($post_id);
 
         if ($count < 1) {
             return $value->with_value(false);
         }
 
-        $value = $value->with_value(number_format_i18n($count));
+        $value = $value->with_value(
+            number_format_i18n($count)
+        );
 
         $post_types = $this->get_selected_post_types();
 
@@ -37,9 +41,7 @@ class PostCount implements Formatter
             return (new UserFilteredPostLink($post_types[0]))->format($value);
         }
 
-        return $count < 0
-            ? $value->with_value(false)
-            : $value->with_value(number_format_i18n($count));
+        return $value;
     }
 
     private function get_post_count(int $user_id): ?int

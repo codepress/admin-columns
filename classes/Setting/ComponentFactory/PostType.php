@@ -15,9 +15,9 @@ use AC\Setting\Control\OptionCollection;
 final class PostType implements ComponentFactory
 {
 
-    private $show_any;
+    private bool $show_any;
 
-    public function __construct(bool $show_any = false)
+    public function __construct(bool $show_any = true)
     {
         $this->show_any = $show_any;
     }

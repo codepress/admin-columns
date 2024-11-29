@@ -13,19 +13,19 @@ use AC\Value\Formatter;
 class PostCountFactory extends BaseColumnFactory
 {
 
-    private $post_type;
+    private ComponentFactory\PostTypeFactory $post_type_factory;
 
-    private $post_status;
+    private ComponentFactory\PostStatus $post_status;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
-        ComponentFactory\PostType $post_type,
-        ComponentFactory\PostStatus $post_status
+        ComponentFactory\PostStatus $post_status,
+        ComponentFactory\PostTypeFactory $post_type_factory
     ) {
         parent::__construct($component_factory_registry);
 
-        $this->post_type = $post_type;
         $this->post_status = $post_status;
+        $this->post_type_factory = $post_type_factory;
     }
 
     public function get_label(): string
@@ -45,7 +45,7 @@ class PostCountFactory extends BaseColumnFactory
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
-        $factories->add($this->post_type);
+        $factories->add($this->post_type_factory->create(true));
         $factories->add($this->post_status);
     }
 
