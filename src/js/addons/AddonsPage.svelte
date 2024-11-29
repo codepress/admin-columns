@@ -9,12 +9,14 @@
     let integrations: IntegrationItem[] = [];
     let recommended: IntegrationItem[] = [];
     let available: IntegrationItem[] = [];
+    let enabled: IntegrationItem[] = [];
 
 
     fetchIntegrations().then(r => {
         integrations = r.data.data.integrations
 
-        recommended = integrations.filter(i => i.plugin_active)
+        enabled = integrations.filter(i => i.plugin_active && i.active)
+        recommended = integrations.filter(i => !i.active && i.plugin_active)
         available = integrations.filter(i => !i.plugin_active)
     })
 
@@ -34,6 +36,14 @@
 				subtitle="Available integrations with popular plugins."
 				border/>
 			<div class="acu-p-4 acu-mb-8" slot="body">
+				{#if enabled.length > 0}
+					<h3 class="acu-text-xl acu-font-light">Enabled Integrations</h3>
+					<div class="acu-flex acu-gap-8 acu-flex-wrap acu-mb-8">
+						{#each enabled as integration }
+							<Integration {integration} isPro={pro}/>
+						{/each}
+					</div>
+				{/if}
 				{#if recommended.length > 0}
 					<h3 class="acu-text-xl acu-font-light">Recommended Integrations</h3>
 					<div class="acu-flex acu-gap-8 acu-flex-wrap acu-mb-8">
@@ -42,7 +52,6 @@
 						{/each}
 					</div>
 				{/if}
-
 				{#if available.length > 0}
 					<h3 class="acu-text-xl acu-font-light">Available Integrations</h3>
 					<div class="acu-flex acu-gap-8 acu-flex-wrap">
