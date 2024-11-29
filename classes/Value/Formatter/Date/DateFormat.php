@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter\Date;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
 final class DateFormat implements Formatter
 {
 
-    private $format;
+    private string $format;
 
     public function __construct(string $format)
     {
@@ -22,7 +23,7 @@ final class DateFormat implements Formatter
         $timestamp = $value->get_value();
 
         if ( ! is_numeric($timestamp)) {
-            return $value;
+            throw new ValueNotFoundException();
         }
 
         return $value->with_value(

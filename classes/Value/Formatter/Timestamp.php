@@ -13,15 +13,17 @@ final class Timestamp implements Formatter
 
     public function format(Value $value): Value
     {
-        if (empty($value->get_value()) || ! is_scalar($value->get_value())) {
+        $date = $value->get_value();
+
+        if (empty($date) || ! is_scalar($date)) {
             throw new ValueNotFoundException();
         }
 
-        if (is_numeric($value->get_value())) {
-            return $value->with_value((int)$value->get_value());
+        if (is_numeric($date)) {
+            return $value->with_value((int)$date);
         }
 
-        $time = strtotime($value->get_value());
+        $time = strtotime($date);
 
         if ( ! $time) {
             throw new ValueNotFoundException();

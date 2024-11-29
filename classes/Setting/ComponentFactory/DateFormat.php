@@ -15,9 +15,7 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 use AC\Value;
-use AC\Value\Formatter\Timestamp;
 
-// TODO do we still want the extra description/tooltips as in the old version?
 abstract class DateFormat extends Builder
 {
 
@@ -32,7 +30,14 @@ abstract class DateFormat extends Builder
 
     protected function get_description(Config $config): ?string
     {
-        return __('This will determine how the date will be displayed.', 'codepress-admin-columns');
+        return sprintf(
+            __('Learn more about %s.', 'codepress-admin-columns'),
+            sprintf(
+                '<a target="_blank" href="%s">%s</a>',
+                'https://wordpress.org/support/article/formatting-date-and-time/',
+                __('date and time formatting', 'codepress-admin-columns')
+            )
+        );
     }
 
     protected function get_wp_date_format(): string
@@ -75,10 +80,8 @@ abstract class DateFormat extends Builder
         switch ($format) {
             case 'diff':
                 return new Value\Formatter\Date\TimeDifference();
-
             case 'wp_default':
                 return new Value\Formatter\Date\WpDateFormat();
-
             default:
                 return new Value\Formatter\Date\DateFormat($format);
         }
@@ -86,10 +89,9 @@ abstract class DateFormat extends Builder
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        $format = (string)$config->get('date_format');
-        $formatters->add(new Timestamp());
-
-        $date_format = $this->get_date_formatter($format);
+        $date_format = $this->get_date_formatter(
+            (string)$config->get('date_format')
+        );
 
         if ($date_format) {
             $formatters->add($date_format);

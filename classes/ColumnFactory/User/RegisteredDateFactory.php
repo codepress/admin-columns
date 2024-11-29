@@ -13,13 +13,14 @@ use AC\Value\Formatter;
 class RegisteredDateFactory extends BaseColumnFactory
 {
 
-    private $date_format;
+    private Date $date_format;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
         Date $date_format
     ) {
         parent::__construct($component_factory_registry);
+
         $this->date_format = $date_format;
     }
 
