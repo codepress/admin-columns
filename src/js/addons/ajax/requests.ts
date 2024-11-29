@@ -8,7 +8,7 @@ export interface IntegrationItem {
     title: string
     external_link: string
     slug: string
-    active: string
+    active: boolean
     description: string
     plugin_logo: string
     plugin_link: string

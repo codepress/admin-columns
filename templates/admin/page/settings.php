@@ -1,8 +1,11 @@
 <?php
 /**
- * @var \AC\Renderable $section
+ * @var Renderable $section
  */
 
+use AC\Renderable;
+
+// TODO remove
 ?>
 
 <h1 class="screen-reader-text"><?= __('Settings', 'codepress-admin-columns'); ?></h1>

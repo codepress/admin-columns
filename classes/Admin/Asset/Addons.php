@@ -37,10 +37,19 @@ class Addons extends Script
         parent::register();
 
         $translation = new Script\Localize\Translation([
-            'plugin_installed' => __('The Add-on %s is activated.', 'codepress-admin-columns'),
+            'plugin_installed'    => __('The Add-on %s is activated.', 'codepress-admin-columns'),
+            'plugin_not_detected' => __('Plugin not detected', 'codepress-admin-columns'),
+            'enable_integration'  => __('Enable Integration', 'codepress-admin-columns'),
+            'buy_now'             => __('Buy Admin Columns Pro', 'codepress-admin-columns'),
+            'learn_more'          => __('Learn more', 'codepress-admin-columns'),
+            'title'               => [
+                'enabled'     => __('Enabled Integrations', 'codepress-admin-columns'),
+                'recommended' => __('Recommended Integrations', 'codepress-admin-columns'),
+                'available'   => __('Available Integrations', 'codepress-admin-columns'),
+            ],
         ]);
 
-        $this->localize('ACi18n', $translation)
+        $this->localize('AC_ADDONS_I18N', $translation)
              ->add_inline_variable(
                  'AC_ADDONS',
                  [
