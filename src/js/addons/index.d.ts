@@ -6,11 +6,15 @@ type InlineVarAcAddons = {
     is_network_admin: boolean
     asset_location: string
     pro_installed: boolean
-    buy_url: boolean
+    buy_url: string
 }
 
 type LocalizedAddonsI18n = {
-    plugin_installed: string
+    plugin_installed: string,
+    plugin_not_detected: string,
+    enable_integration: string,
+    learn_more: string,
+    buy_now: string,
     title: {
         enabled: string
         recommended: string

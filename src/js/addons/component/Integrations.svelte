@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Integration from "./Integration.svelte";
     import {IntegrationItem} from "../ajax/requests";
+    import Integration from "./Integration.svelte";
 
     export let integrations: IntegrationItem[];
     export let pro: boolean;
