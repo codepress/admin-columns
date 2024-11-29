@@ -16,11 +16,11 @@ class Help implements Enqueueables, Renderable, RenderableHead
 
     public const NAME = 'help';
 
-    private $hooks;
+    private Hooks $hooks;
 
-    private $location;
+    private Location\Absolute $location;
 
-    private $head;
+    private Renderable $head;
 
     public function __construct(Hooks $hooks, Location\Absolute $location, Renderable $head)
     {

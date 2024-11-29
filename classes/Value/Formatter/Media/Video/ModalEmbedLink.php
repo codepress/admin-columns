@@ -11,7 +11,7 @@ use AC\Value\Extended\ExtendedValue;
 class ModalEmbedLink implements Formatter
 {
 
-    private $extended_value;
+    private ExtendedValue $extended_value;
 
     public function __construct(ExtendedValue $extended_value)
     {
