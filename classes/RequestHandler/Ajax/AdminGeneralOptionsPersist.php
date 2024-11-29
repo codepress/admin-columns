@@ -11,7 +11,7 @@ use AC\RequestAjaxHandler;
 use AC\Response\Json;
 use AC\Settings\GeneralOptionFactory;
 
-class AdminGeneralOptions implements RequestAjaxHandler
+class AdminGeneralOptionsPersist implements RequestAjaxHandler
 {
 
     private $option_factory;

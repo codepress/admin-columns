@@ -16,11 +16,11 @@ class Settings implements Enqueueables, Renderable, RenderableHead
 
     public const NAME = 'settings';
 
-    private $head;
+    private Renderable $head;
 
-    protected $sections;
+    protected ?SectionCollection $sections;
 
-    private $settings_factory;
+    private SettingsFactory $settings_factory;
 
     public function __construct(
         Renderable $head,
@@ -70,6 +70,7 @@ class Settings implements Enqueueables, Renderable, RenderableHead
 
     public function render(): string
     {
+        return '';
         $view = new View([
             'sections' => $this->sections->all(),
         ]);

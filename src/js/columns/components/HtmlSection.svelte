@@ -6,7 +6,7 @@
 	let container;
 
 	onMount(()=>{
-		container.append( component );
+		container.replaceWith( component );
 	});
 
 </script>
