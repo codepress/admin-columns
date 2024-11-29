@@ -29,16 +29,21 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[4] = list[i];
+  child_ctx[5] = list[i];
   return child_ctx;
 }
 function get_each_context_1(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[4] = list[i];
+  child_ctx[5] = list[i];
+  return child_ctx;
+}
+function get_each_context_2(ctx, list, i) {
+  const child_ctx = ctx.slice();
+  child_ctx[5] = list[i];
   return child_ctx;
 }
 
-// (27:3) 
+// (29:3) 
 function create_header_slot(ctx) {
   let acpanelheader;
   let current;
@@ -75,7 +80,131 @@ function create_header_slot(ctx) {
   };
 }
 
-// (31:4) {#if recommended.length > 0}
+// (33:4) {#if enabled.length > 0}
+function create_if_block_2(ctx) {
+  let h3;
+  let t1;
+  let div;
+  let current;
+  let each_value_2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*enabled*/ctx[3]);
+  let each_blocks = [];
+  for (let i = 0; i < each_value_2.length; i += 1) {
+    each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+  }
+  const out = i => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(each_blocks[i], 1, 1, () => {
+    each_blocks[i] = null;
+  });
+  return {
+    c() {
+      h3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h3");
+      h3.textContent = "Enabled Integrations";
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        each_blocks[i].c();
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(h3, "class", "acu-text-xl acu-font-light");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acu-flex acu-gap-8 acu-flex-wrap acu-mb-8");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, h3, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t1, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        if (each_blocks[i]) {
+          each_blocks[i].m(div, null);
+        }
+      }
+      current = true;
+    },
+    p(ctx, dirty) {
+      if (dirty & /*enabled, pro*/9) {
+        each_value_2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*enabled*/ctx[3]);
+        let i;
+        for (i = 0; i < each_value_2.length; i += 1) {
+          const child_ctx = get_each_context_2(ctx, each_value_2, i);
+          if (each_blocks[i]) {
+            each_blocks[i].p(child_ctx, dirty);
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(each_blocks[i], 1);
+          } else {
+            each_blocks[i] = create_each_block_2(child_ctx);
+            each_blocks[i].c();
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(each_blocks[i], 1);
+            each_blocks[i].m(div, null);
+          }
+        }
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        for (i = each_value_2.length; i < each_blocks.length; i += 1) {
+          out(i);
+        }
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+      }
+    },
+    i(local) {
+      if (current) return;
+      for (let i = 0; i < each_value_2.length; i += 1) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(each_blocks[i]);
+      }
+      current = true;
+    },
+    o(local) {
+      each_blocks = each_blocks.filter(Boolean);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(each_blocks[i]);
+      }
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(h3);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t1);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
+    }
+  };
+}
+
+// (36:6) {#each enabled as integration }
+function create_each_block_2(ctx) {
+  let integration_1;
+  let current;
+  integration_1 = new _component_Integration_svelte__WEBPACK_IMPORTED_MODULE_5__["default"]({
+    props: {
+      integration: /*integration*/ctx[5],
+      isPro: /*pro*/ctx[0]
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(integration_1.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(integration_1, target, anchor);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const integration_1_changes = {};
+      if (dirty & /*enabled*/8) integration_1_changes.integration = /*integration*/ctx[5];
+      if (dirty & /*pro*/1) integration_1_changes.isPro = /*pro*/ctx[0];
+      integration_1.$set(integration_1_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(integration_1.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(integration_1.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(integration_1, detaching);
+    }
+  };
+}
+
+// (41:4) {#if recommended.length > 0}
 function create_if_block_1(ctx) {
   let h3;
   let t1;
@@ -160,13 +289,13 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (34:6) {#each recommended as integration }
+// (44:6) {#each recommended as integration }
 function create_each_block_1(ctx) {
   let integration_1;
   let current;
   integration_1 = new _component_Integration_svelte__WEBPACK_IMPORTED_MODULE_5__["default"]({
     props: {
-      integration: /*integration*/ctx[4],
+      integration: /*integration*/ctx[5],
       isPro: /*pro*/ctx[0]
     }
   });
@@ -180,7 +309,7 @@ function create_each_block_1(ctx) {
     },
     p(ctx, dirty) {
       const integration_1_changes = {};
-      if (dirty & /*recommended*/2) integration_1_changes.integration = /*integration*/ctx[4];
+      if (dirty & /*recommended*/2) integration_1_changes.integration = /*integration*/ctx[5];
       if (dirty & /*pro*/1) integration_1_changes.isPro = /*pro*/ctx[0];
       integration_1.$set(integration_1_changes);
     },
@@ -199,7 +328,7 @@ function create_each_block_1(ctx) {
   };
 }
 
-// (40:4) {#if available.length > 0}
+// (49:4) {#if available.length > 0}
 function create_if_block(ctx) {
   let h3;
   let t1;
@@ -284,13 +413,13 @@ function create_if_block(ctx) {
   };
 }
 
-// (43:6) {#each available as integration }
+// (52:6) {#each available as integration }
 function create_each_block(ctx) {
   let integration_1;
   let current;
   integration_1 = new _component_Integration_svelte__WEBPACK_IMPORTED_MODULE_5__["default"]({
     props: {
-      integration: /*integration*/ctx[4],
+      integration: /*integration*/ctx[5],
       isPro: /*pro*/ctx[0]
     }
   });
@@ -304,7 +433,7 @@ function create_each_block(ctx) {
     },
     p(ctx, dirty) {
       const integration_1_changes = {};
-      if (dirty & /*available*/4) integration_1_changes.integration = /*integration*/ctx[4];
+      if (dirty & /*available*/4) integration_1_changes.integration = /*integration*/ctx[5];
       if (dirty & /*pro*/1) integration_1_changes.isPro = /*pro*/ctx[0];
       integration_1.$set(integration_1_changes);
     },
@@ -323,41 +452,47 @@ function create_each_block(ctx) {
   };
 }
 
-// (30:3) 
+// (32:3) 
 function create_body_slot(ctx) {
   let div;
-  let t;
+  let t0;
+  let t1;
   let current;
-  let if_block0 = /*recommended*/ctx[1].length > 0 && create_if_block_1(ctx);
-  let if_block1 = /*available*/ctx[2].length > 0 && create_if_block(ctx);
+  let if_block0 = /*enabled*/ctx[3].length > 0 && create_if_block_2(ctx);
+  let if_block1 = /*recommended*/ctx[1].length > 0 && create_if_block_1(ctx);
+  let if_block2 = /*available*/ctx[2].length > 0 && create_if_block(ctx);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       if (if_block0) if_block0.c();
-      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block1) if_block1.c();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block2) if_block2.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acu-p-4 acu-mb-8");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "slot", "body");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
       if (if_block0) if_block0.m(div, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t0);
       if (if_block1) if_block1.m(div, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t1);
+      if (if_block2) if_block2.m(div, null);
       current = true;
     },
     p(ctx, dirty) {
-      if (/*recommended*/ctx[1].length > 0) {
+      if (/*enabled*/ctx[3].length > 0) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
-          if (dirty & /*recommended*/2) {
+          if (dirty & /*enabled*/8) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
           }
         } else {
-          if_block0 = create_if_block_1(ctx);
+          if_block0 = create_if_block_2(ctx);
           if_block0.c();
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
-          if_block0.m(div, t);
+          if_block0.m(div, t0);
         }
       } else if (if_block0) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
@@ -366,17 +501,17 @@ function create_body_slot(ctx) {
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
-      if (/*available*/ctx[2].length > 0) {
+      if (/*recommended*/ctx[1].length > 0) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
-          if (dirty & /*available*/4) {
+          if (dirty & /*recommended*/2) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
           }
         } else {
-          if_block1 = create_if_block(ctx);
+          if_block1 = create_if_block_1(ctx);
           if_block1.c();
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
-          if_block1.m(div, null);
+          if_block1.m(div, t1);
         }
       } else if (if_block1) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
@@ -385,16 +520,37 @@ function create_body_slot(ctx) {
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
+      if (/*available*/ctx[2].length > 0) {
+        if (if_block2) {
+          if_block2.p(ctx, dirty);
+          if (dirty & /*available*/4) {
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
+          }
+        } else {
+          if_block2 = create_if_block(ctx);
+          if_block2.c();
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
+          if_block2.m(div, null);
+        }
+      } else if (if_block2) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block2, 1, 1, () => {
+          if_block2 = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+      }
     },
     i(local) {
       if (current) return;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2);
       current = true;
     },
     o(local) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block2);
       current = false;
     },
     d(detaching) {
@@ -403,6 +559,7 @@ function create_body_slot(ctx) {
       }
       if (if_block0) if_block0.d();
       if (if_block1) if_block1.d();
+      if (if_block2) if_block2.d();
     }
   };
 }
@@ -458,7 +615,7 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       const acpanel_changes = {};
-      if (dirty & /*$$scope, available, pro, recommended*/519) {
+      if (dirty & /*$$scope, available, pro, recommended, enabled*/4111) {
         acpanel_changes.$$scope = {
           dirty,
           ctx
@@ -494,15 +651,17 @@ function instance($$self, $$props, $$invalidate) {
   let integrations = [];
   let recommended = [];
   let available = [];
+  let enabled = [];
   (0,_ajax_requests__WEBPACK_IMPORTED_MODULE_6__.fetchIntegrations)().then(r => {
     integrations = r.data.data.integrations;
-    $$invalidate(1, recommended = integrations.filter(i => i.plugin_active));
+    $$invalidate(3, enabled = integrations.filter(i => i.plugin_active && i.active));
+    $$invalidate(1, recommended = integrations.filter(i => !i.active && i.plugin_active));
     $$invalidate(2, available = integrations.filter(i => !i.plugin_active));
   });
   $$self.$$set = $$props => {
     if ('pro' in $$props) $$invalidate(0, pro = $$props.pro);
   };
-  return [pro, recommended, available];
+  return [pro, recommended, available, enabled];
 }
 class AddonsPage extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
