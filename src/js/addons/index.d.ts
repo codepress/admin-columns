@@ -11,4 +11,9 @@ type InlineVarAcAddons = {
 
 type LocalizedAddonsI18n = {
     plugin_installed: string
+    title: {
+        enabled: string
+        recommended: string
+        available: string
+    }
 }

@@ -2,8 +2,9 @@
     import AdminHeaderBar from "../components/AdminHeaderBar.svelte";
     import AcPanel from "ACUi/acui-panel/AcPanel.svelte";
     import AcPanelHeader from "ACUi/acui-panel/AcPanelHeader.svelte";
-    import Integration from "./component/Integration.svelte";
+    import Integrations from "./component/Integrations.svelte";
     import {fetchIntegrations, IntegrationItem} from "./ajax/requests";
+    import {getAddonsTranslation} from "./global";
 
     export let pro: boolean;
     let integrations: IntegrationItem[] = [];
@@ -16,9 +17,11 @@
         integrations = r.data.data.integrations
 
         enabled = integrations.filter(i => i.plugin_active && i.active)
-        recommended = integrations.filter(i => !i.active && i.plugin_active)
+        recommended = integrations.filter(i => i.plugin_active && !i.active)
         available = integrations.filter(i => !i.plugin_active)
     })
+
+    const i18n = getAddonsTranslation();
 
 </script>
 
@@ -33,32 +36,17 @@
 	<main class="acu-flex acu-gap-4 acu-w-full">
 		<AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
 			<AcPanelHeader slot="header" title="Integrations" type="h2"
-				subtitle="Available integrations with popular plugins."
-				border/>
+					subtitle="Available integrations with popular plugins."
+					border/>
 			<div class="acu-p-4 acu-mb-8" slot="body">
 				{#if enabled.length > 0}
-					<h3 class="acu-text-xl acu-font-light">Enabled Integrations</h3>
-					<div class="acu-flex acu-gap-8 acu-flex-wrap acu-mb-8">
-						{#each enabled as integration }
-							<Integration {integration} isPro={pro}/>
-						{/each}
-					</div>
+					<Integrations integrations={enabled} pro={pro} title="{i18n.title.enabled}"/>
 				{/if}
 				{#if recommended.length > 0}
-					<h3 class="acu-text-xl acu-font-light">Recommended Integrations</h3>
-					<div class="acu-flex acu-gap-8 acu-flex-wrap acu-mb-8">
-						{#each recommended as integration }
-							<Integration {integration} isPro={pro}/>
-						{/each}
-					</div>
+					<Integrations integrations={recommended} pro={pro} title="{i18n.title.recommended}"/>
 				{/if}
 				{#if available.length > 0}
-					<h3 class="acu-text-xl acu-font-light">Available Integrations</h3>
-					<div class="acu-flex acu-gap-8 acu-flex-wrap">
-						{#each available as integration }
-							<Integration {integration} isPro={pro}/>
-						{/each}
-					</div>
+					<Integrations integrations={available} pro={pro} title="{i18n.title.available}"/>
 				{/if}
 			</div>
 
