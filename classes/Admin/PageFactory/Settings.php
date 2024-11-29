@@ -6,17 +6,16 @@ use AC;
 use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
-use AC\Admin\Section;
 use AC\Asset\Location;
 
 class Settings implements PageFactoryInterface
 {
 
-    protected $location;
+    protected Location\Absolute $location;
 
-    protected $menu_factory;
+    protected MenuFactoryInterface $menu_factory;
 
-    private $is_acp_active;
+    private bool $is_acp_active;
 
     public function __construct(
         Location\Absolute $location,
@@ -30,19 +29,16 @@ class Settings implements PageFactoryInterface
 
     public function create()
     {
-        $page = new Page\Settings(
+        return new Page\Settings(
             new AC\Admin\View\Menu($this->menu_factory->create('settings')),
             new AC\Admin\Asset\Script\SettingsFactory($this->location)
         );
 
-        $page->add_section(new Section\General([new Section\Partial\ShowEditButton()]))
-             ->add_section(new Section\Restore(), 40);
+        // TODO show this?
+        //        if ( ! $this->is_acp_active) {
+        //            $page->add_section(new Section\ProCta(), 50);
+        //        }
 
-        if ( ! $this->is_acp_active) {
-            $page->add_section(new Section\ProCta(), 50);
-        }
-
-        return $page;
     }
 
 }
