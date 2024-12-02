@@ -13,7 +13,7 @@ use AC\Value\Formatter\Post\ModifiedDate;
 class LastModifiedFactory extends BaseColumnFactory
 {
 
-    private $date_factory;
+    private Date $date_factory;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,

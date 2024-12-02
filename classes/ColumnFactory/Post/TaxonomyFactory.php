@@ -15,15 +15,15 @@ use AC\Value\Formatter\Post\PostTerms;
 class TaxonomyFactory extends BaseColumnFactory
 {
 
-    private $taxonomy_factory;
+    private ComponentFactory\TaxonomyFactory $taxonomy_factory;
 
-    private $term_link_factory;
+    private ComponentFactory\TermLink $term_link_factory;
 
-    private $number_of_items_factory;
+    private ComponentFactory\NumberOfItems $number_of_items_factory;
 
-    private $separator_factory;
+    private ComponentFactory\Separator $separator_factory;
 
-    private $post_type;
+    private PostTypeSlug $post_type;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
