@@ -11,7 +11,7 @@ use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\DatePublishFormatted;
-use AC\Value\Formatter\Post\PostDate;
+use AC\Value\Formatter\Post\PostDateTimestamp;
 
 class DatePublishFactory extends BaseColumnFactory
 {
@@ -32,7 +32,7 @@ class DatePublishFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters->prepend(new PostDate());
+        $formatters->prepend(new PostDateTimestamp());
         $formatters->add(new DatePublishFormatted());
     }
 
