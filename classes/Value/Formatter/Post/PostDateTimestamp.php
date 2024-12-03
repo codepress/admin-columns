@@ -8,7 +8,7 @@ use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
-class PostDate implements Formatter
+class PostDateTimestamp implements Formatter
 {
 
     public function format(Value $value): Value
@@ -20,7 +20,7 @@ class PostDate implements Formatter
         }
 
         return $value->with_value(
-            $date
+            strtotime($date)
         );
     }
 
