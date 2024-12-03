@@ -13,7 +13,7 @@ use AC\Value\Formatter;
 class NicknameFactory extends BaseColumnFactory
 {
 
-    private $user_link;
+    private UserLink $user_link;
 
     public function __construct(ComponentFactoryRegistry $component_factory_registry, UserLink $user_link)
     {

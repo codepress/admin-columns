@@ -3,30 +3,35 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactory\UserLink;
+use AC\Setting\ComponentFactory\UserLinkFactory;
 use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
+use AC\Type\PostTypeSlug;
 use AC\Value\Formatter\Post\LastModifiedAuthor;
 
 class LastModifiedAuthorFactory extends BaseColumnFactory
 {
 
-    private $user_factory;
+    private UserProperty $user_factory;
 
-    private $user_link;
+    private UserLinkFactory $user_link;
+
+    private PostTypeSlug $post_type;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
         UserProperty $user_factory,
-        UserLink $user_link
+        UserLinkFactory $user_link,
+        PostTypeSlug $post_type
     ) {
         parent::__construct($component_factory_registry);
 
         $this->user_factory = $user_factory;
         $this->user_link = $user_link;
+        $this->post_type = $post_type;
     }
 
     public function get_column_type(): string
@@ -42,7 +47,7 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
     {
         $factories->add($this->user_factory);
-        $factories->add($this->user_link);
+        $factories->add($this->user_link->create($this->post_type));
     }
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void

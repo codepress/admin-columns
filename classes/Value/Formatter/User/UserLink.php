@@ -40,12 +40,15 @@ class UserLink implements Formatter
                     $link = add_query_arg('user_id', $user_id, self_admin_url('user-edit.php'));
                 }
                 break;
-            case 'view_user_posts' :
-                $link = add_query_arg([
-                    'post_type' => (string)$this->post_type,
-                    'author'    => $user_id,
-                ], 'edit.php');
+            case
+            'view_user_posts' :
+                $args['author'] = $user_id;
 
+                if ($this->post_type) {
+                    $args['post_type'] = (string)$this->post_type;
+                }
+
+                $link = add_query_arg($args, 'edit.php');
                 break;
             case 'view_author':
                 $link = get_author_posts_url($user_id);
@@ -54,9 +57,11 @@ class UserLink implements Formatter
             case 'email_user':
                 $email = get_the_author_meta('email', $user_id);
 
-                if ($email) {
-                    $link = 'mailto:' . $email;
+                if ( ! $email) {
+                    throw ValueNotFoundException::from_id($value->get_id());
                 }
+
+                $link = 'mailto:' . $email;
 
                 break;
             default:

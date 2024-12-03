@@ -14,9 +14,9 @@ use AC\Value\Formatter\Comment\UserId;
 class UserFactory extends BaseColumnFactory
 {
 
-    private $user_property;
+    private UserProperty $user_property;
 
-    private $user_link;
+    private UserLink $user_link;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
