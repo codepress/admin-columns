@@ -17,18 +17,16 @@ class Post implements ListTable
 
     public function render_cell(string $column_id, $row_id): string
     {
+        // populate globals
+        $post = get_post((int)$row_id);
+        $GLOBALS['post'] = $post;
+        setup_postdata($post);
+
         ob_start();
 
-        $method = 'column_' . $column_id;
-
-        if (method_exists($this->table, $method)) {
-            call_user_func([$this->table, $method], get_post($row_id));
+        if (method_exists($this->table, 'column_' . $column_id)) {
+            call_user_func([$this->table, 'column_' . $column_id], $post);
         } else {
-            $post = get_post($row_id);
-
-            // populate globals
-            setup_postdata($post);
-
             $this->table->column_default($post, $column_id);
         }
 
