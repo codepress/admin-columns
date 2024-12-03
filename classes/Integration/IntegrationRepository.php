@@ -49,7 +49,7 @@ class IntegrationRepository
         $integrations = new Integrations();
 
         foreach ($this->find_all() as $integration) {
-            $is_active = $this->storage->is_status_active($integration->get_slug());
+            $is_active = $this->storage->is_active($integration->get_slug());
             $is_active = (bool)apply_filters('ac/integration/active', $is_active, $integration);
 
             if ($is_active) {

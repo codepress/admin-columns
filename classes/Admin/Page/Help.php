@@ -10,6 +10,7 @@ use AC\Asset\Style;
 use AC\Deprecated\Hooks;
 use AC\Renderable;
 use AC\Type\Url;
+use AC\View;
 
 class Help implements Enqueueables, Renderable, RenderableHead
 {
@@ -169,7 +170,12 @@ class Help implements Enqueueables, Renderable, RenderableHead
             printf('<em>%s</em>', __('No deprecated hooks or filters found.', 'codepress-admin-columns'));
         }
 
-        return ob_get_clean();
+        $content = ob_get_clean();
+
+        $view = new View(['content' => $content]);
+        $view->set_template('admin/page/help');
+
+        return $view->render();
     }
 
 }
