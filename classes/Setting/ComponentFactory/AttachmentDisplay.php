@@ -76,4 +76,9 @@ final class AttachmentDisplay extends Builder
         }
     }
 
+    protected function add_final_formatters(Config $config, FormatterCollection $formatters): void
+    {
+        $formatters->add(new Formatter\Collection\Separator(''));
+    }
+
 }

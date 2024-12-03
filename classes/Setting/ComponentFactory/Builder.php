@@ -63,6 +63,8 @@ abstract class Builder implements ComponentFactory
             );
         }
 
+        $this->add_final_formatters($config, $formatters);
+
         $builder->set_formatters($formatters);
 
         $builder->set_attributes(
@@ -108,6 +110,10 @@ abstract class Builder implements ComponentFactory
     }
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
+    {
+    }
+
+    protected function add_final_formatters(Config $config, FormatterCollection $formatters): void
     {
     }
 

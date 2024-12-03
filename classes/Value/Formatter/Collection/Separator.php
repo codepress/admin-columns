@@ -56,7 +56,10 @@ class Separator implements CollectionFormatter
             $values[] = (string)$item;
         }
 
-        return new Value(null, ac_helper()->html->more($values, $this->limit, $this->separator));
+        return new Value(
+            $collection->get_id(),
+            ac_helper()->html->more($values, $this->limit, $this->separator)
+        );
     }
 
 }
