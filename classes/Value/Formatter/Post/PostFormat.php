@@ -19,9 +19,7 @@ class PostFormat implements Formatter
             throw new ValueNotFoundException('No Post format found for ID');
         }
 
-        return $value->with_value(
-            get_post_format($value->get_value()) ?: null
-        );
+        return $value->with_value($format);
     }
 
 }

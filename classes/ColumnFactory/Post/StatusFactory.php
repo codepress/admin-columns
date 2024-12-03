@@ -13,7 +13,7 @@ use AC\Value\Formatter;
 class StatusFactory extends BaseColumnFactory
 {
 
-    private $post_status_icon;
+    private PostStatusIcon $post_status_icon;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,

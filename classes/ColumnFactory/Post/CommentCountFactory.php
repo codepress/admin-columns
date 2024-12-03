@@ -33,8 +33,10 @@ class CommentCountFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters->add(new Formatter\Post\CommentCount((string)$config->get('comment_status')));
-        $formatters->add(new Formatter\Post\CommentsForPostLink((string)$config->get('comment_status')));
+        $status = (string)$config->get('comment_status', 'all');
+
+        $formatters->add(new Formatter\Post\CommentCount($status));
+        $formatters->add(new Formatter\Post\CommentsForPostLink($status));
     }
 
     public function get_column_type(): string
