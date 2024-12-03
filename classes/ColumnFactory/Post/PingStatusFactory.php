@@ -8,6 +8,7 @@ use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\PingStatus;
+use AC\Value\Formatter\YesNoIcon;
 
 class PingStatusFactory extends BaseColumnFactory
 {
@@ -25,6 +26,7 @@ class PingStatusFactory extends BaseColumnFactory
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
         $formatters->add(new PingStatus());
+        $formatters->add(new YesNoIcon());
     }
 
 }

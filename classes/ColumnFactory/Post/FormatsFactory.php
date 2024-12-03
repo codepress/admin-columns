@@ -13,7 +13,7 @@ use AC\Value\Formatter;
 class FormatsFactory extends BaseColumnFactory
 {
 
-    private $post_format_icon_factory;
+    private UseIcon $post_format_icon_factory;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
@@ -43,8 +43,10 @@ class FormatsFactory extends BaseColumnFactory
     {
         $formatters->prepend(new Formatter\Post\PostFormat());
 
-        if ($config->get('use_icon') === 'on') {
+        if ('on' === $config->get('use_icon')) {
             $formatters->add(new Formatter\Post\PostFormatIcon());
+        } else {
+            $formatters->add(new Formatter\Post\PostFormatLabel());
         }
     }
 

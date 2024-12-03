@@ -13,7 +13,7 @@ use AC\Setting\FormatterCollection;
 class EstimateReadingTimeFactory extends BaseColumnFactory
 {
 
-    private $words_per_minute_factory;
+    private WordsPerMinute $words_per_minute_factory;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,

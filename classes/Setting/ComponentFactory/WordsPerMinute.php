@@ -10,6 +10,7 @@ use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input\Number;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\HumanReadableTime;
 use AC\Value\Formatter\ReadingTime;
 
 final class WordsPerMinute implements ComponentFactory
@@ -36,6 +37,7 @@ final class WordsPerMinute implements ComponentFactory
             $conditions,
             new FormatterCollection([
                 new ReadingTime($words_per_minute),
+                new HumanReadableTime(),
             ])
 
         );
