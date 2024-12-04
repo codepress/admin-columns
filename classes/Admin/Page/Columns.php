@@ -91,7 +91,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 $this->table_screen_repository,
                 $this->favorite_repository,
                 $this->column_groups,
-                ac_is_pro_active(),
+                defined('ACP_FILE'),
                 $this->list_id
             ),
             new Style(
