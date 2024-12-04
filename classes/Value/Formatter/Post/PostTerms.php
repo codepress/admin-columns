@@ -12,14 +12,14 @@ use AC\Type\ValueCollection;
 class PostTerms implements Formatter
 {
 
-    private $taxonomy;
+    private string $taxonomy;
 
     public function __construct(string $taxonomy)
     {
         $this->taxonomy = $taxonomy;
     }
 
-    public function format(Value $value)
+    public function format(Value $value): ValueCollection
     {
         $terms = get_the_terms($value->get_id(), $this->taxonomy);
 

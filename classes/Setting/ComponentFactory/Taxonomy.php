@@ -25,13 +25,17 @@ class Taxonomy implements ComponentFactory
 
     public function create(Config $config, Specification $conditions = null): Component
     {
+        $taxonomies = $this->get_taxonomies();
+
+        $default = array_key_first($taxonomies);
+
         $builder = (new ComponentBuilder())
             ->set_label(__('Taxonomy', 'codepress-admin-columns'))
             ->set_input(
                 OptionFactory::create_select(
                     'taxonomy',
-                    OptionCollection::from_array($this->get_taxonomies()),
-                    (string)$config->get('taxonomy')
+                    OptionCollection::from_array($taxonomies),
+                    (string)$config->get('taxonomy', $default)
                 )
             );
 
