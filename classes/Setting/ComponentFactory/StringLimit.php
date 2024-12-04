@@ -35,16 +35,14 @@ final class StringLimit extends Builder
 
     protected function get_input(Config $config): ?Input
     {
-        $name = 'string_limit';
-
         return OptionFactory::create_select(
-            $name,
+            'string_limit',
             OptionCollection::from_array([
                 ''                           => __('No limit', 'codepress-admin-columns'),
                 self::OPTION_CHARACTER_LIMIT => __('Character Limit', 'codepress-admin-columns'),
                 self::OPTION_EXCERPT_LENGTH  => __('Word Limit', 'codepress-admin-columns'),
             ]),
-            $config->get($name, '')
+            $config->get('string_limit', self::OPTION_EXCERPT_LENGTH)
         );
     }
 

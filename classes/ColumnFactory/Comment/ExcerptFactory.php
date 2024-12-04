@@ -13,7 +13,7 @@ use AC\Setting\FormatterCollection;
 class ExcerptFactory extends BaseColumnFactory
 {
 
-    private $string_limit;
+    private StringLimit $string_limit;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
