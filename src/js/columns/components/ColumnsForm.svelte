@@ -10,7 +10,6 @@
     import {ListScreenColumnData, ListScreenData} from "../../types/requests";
     import {listScreenDataStore} from "../store/list-screen-data";
     import {onMount, tick} from "svelte";
-    import ColumnTypeDropdown from "./ColumnTypeDropdown.svelte";
     import {currentListKey} from "../store/current-list-screen";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
     import {listScreenIsReadOnly} from "../store/read_only";
@@ -18,7 +17,6 @@
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {getColumnSettingsTranslation} from "../utils/global";
     import {sprintf} from "@wordpress/i18n";
-    import Select from "svelte-select";
     import ColumnTypeDropdownV2 from "./ColumnTypeDropdownV2.svelte";
 
     const i18n = getColumnSettingsTranslation();
@@ -166,6 +164,10 @@
         columnTypeComponent!.close();
 	}
 
+    const handleCloseColumnTypeDropdown = ( component ) => {
+        component.close();
+	}
+
     onMount(() => {
         setTimeout(makeSortable, 1000);
     });
@@ -201,11 +203,13 @@
 					</div>
 
 					<div class="acu-flex acu-gap-3 acu-items-center acu-justify-center acu-pt-4 acu-pb-6">
-						<AcDropdown maxHeight="300px" value position="bottom-left">
+						<AcDropdown value position="bottom-right" customClass="-selectv2"
+							--acui-dropdown-width="300px">
 							<AcButton slot="trigger">+ {i18n.editor.label.add_column}</AcButton>
-							<ColumnTypeDropdown on:selectItem={( e ) => addColumn(e.detail)}>
-
-							</ColumnTypeDropdown>
+							<ColumnTypeDropdownV2
+								on:selectItem={handleSelectColumnType}
+								on:close={() => handleCloseColumnTypeDropdown(columnTypeComponent)}
+							/>
 						</AcDropdown>
 						<AcButton loading={loadingDefaultColumns} --acui-loading-color="#000" on:click={handleLoadDefaultColumns}>{i18n.editor.label.load_default_columns}</AcButton>
 					</div>
@@ -237,7 +241,7 @@
 						<AcButton slot="trigger" type="primary">+ {i18n.editor.label.add_column}</AcButton>
 						<ColumnTypeDropdownV2
 							on:selectItem={handleSelectColumnType}
-							on:close={() => columnTypeComponent.close()}
+							on:close={() => handleCloseColumnTypeDropdown(columnTypeComponent)}
 						/>
 					</AcDropdown>
 				</div>

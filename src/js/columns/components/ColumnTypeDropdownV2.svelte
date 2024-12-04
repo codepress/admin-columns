@@ -30,6 +30,7 @@
 <div on:keyup={handleKeyPress} role="none">
 	<Select
 		class="-acui"
+		--list-max-height="500px"
 		listOpen
 		on:blur={handleClose}
 		on:change={handleSelect}

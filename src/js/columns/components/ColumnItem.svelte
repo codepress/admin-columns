@@ -150,7 +150,7 @@
 				bind:settings={config}
 				on:refresh={refreshSetting}
 			/>
-			<button class="button" on:click={checkAppliedSettings}>Check settings</button>
+
 			{#if $debugMode}
 				<div style="padding: 10px; background: #FFDCDCFF">
 					<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
