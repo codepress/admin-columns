@@ -3,6 +3,7 @@
     import {createEventDispatcher, onMount} from "svelte";
     import AcDropdownMenu from "./AcDropdownMenu.svelte";
 
+    export let customClass: string = null;
     export let appendToBody: boolean = false;
     export let closeOnClick: boolean = true;
     export let position: string | null = null;
@@ -122,9 +123,11 @@
         container.addEventListener('change', handleSelect);
     });
 
+    let classes = ['acui-dropdown', customClass];
+
 </script>
 
-<div class="acui-dropdown" bind:this={container} on:change={handleSelect}>
+<div class={classes.join(' ')} bind:this={container} on:change={handleSelect}>
 	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown}
 		aria-haspopup="true" bind:this={trigger} role="button" tabindex="0">
 		<slot name="trigger" active={opened}></slot>

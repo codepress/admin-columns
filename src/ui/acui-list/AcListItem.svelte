@@ -4,7 +4,6 @@
     export let label: string;
     export let active: boolean = false;
     export let href: string|undefined|null = null;
-    export let select: (e: KeyboardEvent|MouseEvent) => {}|null = null;
 
     const dispatch = createEventDispatcher();
 

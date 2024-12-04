@@ -49,6 +49,7 @@ declare namespace AC.Vars.Admin.Columns {
 
     type AcAdminColumnsVar = {
         nonce: string
+        is_pro: boolean
         column_groups: ColumnGroup[]
         column_types: ColumnConfig[]
         menu_groups_opened: string[]

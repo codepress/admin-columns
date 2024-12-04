@@ -5,6 +5,7 @@
     import AcDropdownItem from "ACUi/acui-dropdown/AcDropdownItem.svelte";
     import AcDropdownGroup from "ACUi/acui-dropdown/AcDropdownGroup.svelte";
     import {createEventDispatcher, onMount} from "svelte";
+    import Select from "svelte-select";
 
     let items = $columnTypesStore
     let filterText: string = '';
@@ -26,6 +27,7 @@
     const handleSelect = (e: CustomEvent<string>) => {
         dispatch('selectItem', e.detail);
     }
+
 
     const filterGroupItems = (items: SvelteSelectItem[]): ProcessedSvelteSelectItem[] => {
         const groupValues: string[] = [];
@@ -74,7 +76,7 @@
     }
 
     onMount(() => {
-        inputElement.focus();
+        //inputElement.focus();
     })
 
     $: filteredItems = filter({
@@ -85,18 +87,27 @@
 
 </script>
 
-<div class="acui-dropdown-search acu-sticky acu-top-[0] acu-bg-[white] acu-flex acu-p-[2px]">
-	<input bind:value={filterText} bind:this={inputElement} on:change|preventDefault|stopPropagation class="acu-h-6 acu-w-full acu-py-0.5 acu-px-1">
+<div style="height: 400px;">
+<Select class="-acui" listOpen showChevron items={items}>
+
+</Select>
 </div>
-{#if filteredItems.length > 0 }
-	{#each filteredItems as item}
-		{#if item.groupHeader}
-			<AcDropdownGroup>{item.label}</AcDropdownGroup>
-		{:else }
-			<AcDropdownItem on:click={handleSelect}
-					value={item.value.toString()}>{@html item.label}</AcDropdownItem>
-		{/if}
-	{/each}
-{:else }
-	<AcDropdownGroup>No columns found</AcDropdownGroup>
-{/if}
+
+
+<!--<div class="acui-dropdown-search acu-sticky acu-top-[0] acu-bg-[white] acu-flex acu-p-[2px]">-->
+<!--	<input bind:value={filterText} bind:this={inputElement} on:change|preventDefault|stopPropagation class="acu-h-6 acu-w-full acu-py-0.5 acu-px-1">-->
+<!--</div>-->
+<!--{#if filteredItems.length > 0 }-->
+<!--	{#each filteredItems as item}-->
+<!--		{#if item.groupHeader}-->
+<!--			<div class="acui-dropdown-group">-->
+<!--				{item.label}-->
+<!--			</div>-->
+<!--		{:else }-->
+<!--			<AcDropdownItem on:click={handleSelect} customCss="-selectdd"-->
+<!--					value={item.value.toString()}>{@html item.label}</AcDropdownItem>-->
+<!--		{/if}-->
+<!--	{/each}-->
+<!--{:else }-->
+<!--	<AcDropdownGroup>No columns found</AcDropdownGroup>-->
+<!--{/if}-->

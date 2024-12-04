@@ -132,12 +132,13 @@
 						<HtmlSection component={component}></HtmlSection>
 					{/each}
 
-					{#if localConfig.pro_banner}
-						<ProSideBanner proBannerConfig={localConfig.pro_banner}/>
+					{#if !localConfig.is_pro }
+						{#if localConfig.pro_banner }
+							<ProSideBanner proBannerConfig={localConfig.pro_banner}/>
+						{/if}
+						<ReviewComponent/>
+						<SupportPanel/>
 					{/if}
-
-					<ReviewComponent/>
-					<SupportPanel/>
 				</aside>
 			</div>
 		</main>
