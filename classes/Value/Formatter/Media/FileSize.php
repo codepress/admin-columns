@@ -25,7 +25,7 @@ class FileSize implements Formatter
         }
 
         return $value->with_value(
-            ac_helper()->file->get_readable_filesize($file_size)
+            $file_size
         );
     }
 

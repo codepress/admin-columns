@@ -15,6 +15,7 @@ use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\FileSize;
+use AC\Value\Formatter\ReadableFileSize;
 
 class FeaturedImageDisplay extends Builder
 {
@@ -61,6 +62,7 @@ class FeaturedImageDisplay extends Builder
     {
         if ('filesize' === $this->get_input($config)->get_value()) {
             $formatters->add(new FileSize());
+            $formatters->add(new ReadableFileSize());
         }
     }
 

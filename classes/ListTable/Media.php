@@ -17,15 +17,21 @@ class Media implements ListTable
 
     public function render_cell(string $column_id, $row_id): string
     {
+        // populate globals
+        $global_post = get_post();
+        $post = get_post((int)$row_id);
+        setup_postdata($post);
+        $GLOBALS['post'] = $post;
+
         ob_start();
 
-        $method = 'column_' . $column_id;
-
-        if (method_exists($this->table, $method)) {
-            call_user_func([$this->table, $method], get_post($row_id));
+        if (method_exists($this->table, 'column_' . $column_id)) {
+            call_user_func([$this->table, 'column_' . $column_id], $post);
         } else {
-            $this->table->column_default(get_post($row_id), $column_id);
+            $this->table->column_default($post, $column_id);
         }
+
+        $GLOBALS['post'] = $global_post;
 
         return ob_get_clean();
     }

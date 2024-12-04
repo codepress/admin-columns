@@ -6,6 +6,7 @@ use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\FileSize;
+use AC\Value\Formatter\ReadableFileSize;
 
 class FileSizeFactory extends BaseColumnFactory
 {
@@ -23,6 +24,7 @@ class FileSizeFactory extends BaseColumnFactory
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
         $formatters->add(new FileSize());
+        $formatters->add(new ReadableFileSize());
     }
 
 }

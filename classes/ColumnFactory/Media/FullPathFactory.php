@@ -13,7 +13,7 @@ use AC\Value\Formatter\Media\AttachmentUrl;
 class FullPathFactory extends BaseColumnFactory
 {
 
-    private $path_scope;
+    private PathScope $path_scope;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,

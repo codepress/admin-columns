@@ -38,9 +38,16 @@ class Post implements ListTable
 
     public function render_row($id): string
     {
+        $post = get_post($id);
+
+        // Title for some columns can only be retrieved when post is set globally
+        if ( ! isset($GLOBALS['post'])) {
+            $GLOBALS['post'] = $post;
+        }
+
         ob_start();
 
-        $this->table->single_row(get_post($id));
+        $this->table->single_row($post);
 
         return ob_get_clean();
     }
