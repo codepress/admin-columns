@@ -32,6 +32,8 @@ class Columns extends Script
 
     private ?ListScreenId $list_id;
 
+    private bool $is_pro;
+
     public function __construct(
         string $handle,
         Location $location,
@@ -41,7 +43,8 @@ class Columns extends Script
         AC\Table\TableScreenRepository $table_screen_repository,
         EditorFavorites $favorite_repository,
         AC\ColumnGroups $column_groups,
-        ListScreenId $list_id = null
+        bool $is_pro = false,
+        ListScreenId $list_id = null,
     ) {
         parent::__construct($handle, $location, [
             'jquery-ui-sortable',
@@ -54,6 +57,7 @@ class Columns extends Script
         $this->table_screen_repository = $table_screen_repository;
         $this->list_id = $list_id;
         $this->column_groups = $column_groups;
+        $this->is_pro = $is_pro;
     }
 
     public function get_pro_modal_arguments(): array
@@ -132,6 +136,7 @@ class Columns extends Script
 
         $this->add_inline_variable('ac_admin_columns', [
             'nonce'                      => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
+            'is_pro'                     => $this->is_pro,
             'list_key'                   => (string)$this->table_screen->get_key(),
             'list_id'                    => (string)$this->list_id,
             'uninitialized_list_screens' => $uninitialized_table_screens,
@@ -144,7 +149,7 @@ class Columns extends Script
             'urls'                       => [
                 'upgrade' => (new UtmTags(new Site(Site::PAGE_ABOUT_PRO), 'upgrade'))->get_url(),
             ],
-            'pro_banner'                 => $this->get_pro_modal_arguments(),
+            'pro_banner'                 => $this->is_pro ? null : $this->get_pro_modal_arguments(),
             'review'                     => [
                 'doc_url'     => (new UtmTags(new Documentation(), 'review-notice'))->get_url(),
                 'upgrade_url' => (new UtmTags(new Site(Site::PAGE_ABOUT_PRO), 'upgrade'))->get_url(),

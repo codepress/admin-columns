@@ -50,6 +50,29 @@
 	font-size: 12px;
 	border-top: 1px solid #888;
 	border-bottom: 1px solid #888;
+}
 
 
+.acui-dropdown.-selectv2 {
+	.acui-dropdown-menu  {
+		overflow: visible;
+
+	}
+
+
+	.acui-dropdown-group {
+		color: var(--acui-dropdown-text-color);
+		background: none!important;
+		font-weight: bold;
+		font-size: 13px;
+		border: none;
+		padding: 8px 10px;
+	}
+	.acui-dropdown-item {
+		padding: 8px 10px 8px 25px;
+		&:hover, &:focus {
+			background: #EAF2FB;
+			color: var(--acui-dropdown-text-color);
+		}
+	}
 }

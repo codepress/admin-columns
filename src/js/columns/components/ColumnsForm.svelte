@@ -18,6 +18,8 @@
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {getColumnSettingsTranslation} from "../utils/global";
     import {sprintf} from "@wordpress/i18n";
+    import Select from "svelte-select";
+    import ColumnTypeDropdownV2 from "./ColumnTypeDropdownV2.svelte";
 
     const i18n = getColumnSettingsTranslation();
 
@@ -30,6 +32,7 @@
     let end: number | null = 0;
     let sortableContainer: HTMLElement | null;
     let loadingDefaultColumns: boolean = false;
+    let columnTypeComponent: AcDropdown|null;
 
     const clearColumns = () => {
         data['columns'] = [];
@@ -158,6 +161,11 @@
         makeSortable();
     })
 
+	const handleSelectColumnType = (d: CustomEvent<string>) => {
+        addColumn(d.detail);
+        columnTypeComponent!.close();
+	}
+
     onMount(() => {
         setTimeout(makeSortable, 1000);
     });
@@ -224,11 +232,13 @@
 					{#if data.columns.length > 0}
 						<AcButton type="text" on:click={clearColumns}>{i18n.editor.label.clear_columns}</AcButton>
 					{/if}
-					<AcDropdown maxHeight="400px" --acui-dropdown-width="300px" value position="bottom-left">
+					<AcDropdown customClass="-selectv2" maxHeight="400px" --acui-dropdown-width="300px" value
+						position="bottom-left" bind:this={columnTypeComponent}>
 						<AcButton slot="trigger" type="primary">+ {i18n.editor.label.add_column}</AcButton>
-						<ColumnTypeDropdown on:selectItem={( e ) => addColumn(e.detail)}>
-
-						</ColumnTypeDropdown>
+						<ColumnTypeDropdownV2
+							on:selectItem={handleSelectColumnType}
+							on:close={() => columnTypeComponent.close()}
+						/>
 					</AcDropdown>
 				</div>
 

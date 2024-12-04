@@ -181,6 +181,25 @@ a.acui-button {
   border-bottom: 1px solid #888;
 }
 
+.acui-dropdown.-selectv2 .acui-dropdown-menu {
+  overflow: visible;
+}
+.acui-dropdown.-selectv2 .acui-dropdown-group {
+  color: var(--acui-dropdown-text-color);
+  background: none !important;
+  font-weight: bold;
+  font-size: 13px;
+  border: none;
+  padding: 8px 10px;
+}
+.acui-dropdown.-selectv2 .acui-dropdown-item {
+  padding: 8px 10px 8px 25px;
+}
+.acui-dropdown.-selectv2 .acui-dropdown-item:hover, .acui-dropdown.-selectv2 .acui-dropdown-item:focus {
+  background: #EAF2FB;
+  color: var(--acui-dropdown-text-color);
+}
+
 .acui-datepicker-header {
   display: flex;
   align-items: center;
