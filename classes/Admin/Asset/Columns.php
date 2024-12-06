@@ -44,7 +44,7 @@ class Columns extends Script
         EditorFavorites $favorite_repository,
         AC\ColumnGroups $column_groups,
         bool $is_pro = false,
-        ListScreenId $list_id = null,
+        ListScreenId $list_id = null
     ) {
         parent::__construct($handle, $location, [
             'jquery-ui-sortable',
