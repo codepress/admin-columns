@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter;
 
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
@@ -29,6 +30,14 @@ final class BeforeAfter implements Formatter
         }
 
         return $value;
+    }
+
+    public static function create_from_config(Config $config): BeforeAfter
+    {
+        return new self(
+            $config->has('before') ? $config->get('before', '') : null,
+            $config->has('after') ? $config->get('after', '') : null,
+        );
     }
 
 }
