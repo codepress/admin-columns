@@ -194,10 +194,6 @@
   width: 260px
 }
 
-.acu-w-\[320px\] {
-  width: 320px
-}
-
 .acu-w-\[40px\] {
   width: 40px
 }
@@ -299,6 +295,10 @@
 
 .acu-flex-col {
   flex-direction: column
+}
+
+.acu-flex-col-reverse {
+  flex-direction: column-reverse
 }
 
 .acu-flex-wrap {
@@ -560,6 +560,10 @@
   padding-bottom: 2px
 }
 
+.acu-pb-10 {
+  padding-bottom: 50px
+}
+
 .acu-pb-4 {
   padding-bottom: 20px
 }
@@ -628,6 +632,10 @@
   padding-top: 30px
 }
 
+.acu-pt-7 {
+  padding-top: 35px
+}
+
 .acu-pt-\[0\] {
   padding-top: 0
 }
@@ -638,18 +646,6 @@
 
 .acu-pt-\[70px\] {
   padding-top: 70px
-}
-
-.acu-pt-8 {
-  padding-top: 40px
-}
-
-.acu-pt-7 {
-  padding-top: 35px
-}
-
-.acu-pb-10 {
-  padding-bottom: 50px
 }
 
 .acu-text-left {
@@ -901,8 +897,16 @@
     width: 300px
   }
 
+  .xl\:acu-w-\[320px\] {
+    width: 320px
+  }
+
   .xl\:acu-flex-row {
     flex-direction: row
+  }
+
+  .xl\:acu-flex-col {
+    flex-direction: column
   }
 
   .xl\:acu-gap-6 {

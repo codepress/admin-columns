@@ -119,7 +119,7 @@
 			<hr class="wp-header-end">
 		</div>
 		<main class="ac-admin-page-main acu-px-4 acu-pt-2 2xl:acu-pt-[30px] 2xl:acu-px-[50px]">
-			<div class="xl:acu-flex xl:acu-gap-6 xl:acu-flex-row">
+			<div class="acu-flex acu-flex-col-reverse xl:acu-gap-6 xl:acu-flex-row">
 				<div class="acu-flex-grow acu-max-w-[1200px]">
 					{#if $listScreenDataStore !== null}
 						<ListScreenForm bind:this={form} bind:config={config}
@@ -127,18 +127,20 @@
 							tableUrl={tableUrl}></ListScreenForm>
 					{/if}
 				</div>
-				<aside class="acu-hidden xl:acu-block acu-w-[320px]">
+				<aside class="xl:acu-w-[320px]">
 					{#each ListScreenSections.getSections( 'sidebar' ) as component}
 						<HtmlSection component={component}></HtmlSection>
 					{/each}
-
-					{#if !localConfig.is_pro }
-						{#if localConfig.pro_banner }
-							<ProSideBanner proBannerConfig={localConfig.pro_banner}/>
+					<div class="acu-hidden xl:acu-block">
+						{#if !localConfig.is_pro }
+							{#if localConfig.pro_banner }
+								<ProSideBanner proBannerConfig={localConfig.pro_banner}/>
+							{/if}
+							<ReviewComponent/>
+							<SupportPanel/>
 						{/if}
-						<ReviewComponent/>
-						<SupportPanel/>
-					{/if}
+					</div>
+
 				</aside>
 			</div>
 		</main>

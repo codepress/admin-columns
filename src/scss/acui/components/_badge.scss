@@ -1,3 +1,5 @@
+@use 'sass:list';
+
 // Values ( color , background )
 $variants : (
 	notify: ( var(--ac-color-info), #d1e5f9 ),
@@ -20,8 +22,8 @@ $variants : (
 	}
 
 	@each $name, $colors in $variants {
-		$color1: nth($colors, 1); // First color
-		$color2: nth($colors, 2); // Second color
+		$color1: list.nth($colors, 1); // First color
+		$color2: list.nth($colors, 2); // Second color
 
 		.acui-badge.-#{$name} {
 			border-color: $color1;
@@ -29,5 +31,4 @@ $variants : (
 			background: $color2;
         }
 	}
-
 }
