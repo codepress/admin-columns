@@ -4,7 +4,10 @@
     import {SvelteSelectItem} from "../../types/select";
     import {createEventDispatcher} from "svelte";
     import Select from "svelte-select";
+    import {getColumnSettingsConfig} from "../utils/global";
+    import ColumnTypeGroupIcon from "./ColumnTypeGroupIcon.svelte";
 
+    const groups = getColumnSettingsConfig().column_groups
     let items = $columnTypesStore
 
     const dispatch = createEventDispatcher();
@@ -18,6 +21,8 @@
     const handleClose = () => {
         dispatch('close');
     }
+
+    console.log(items);
 
     const handleKeyPress = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
@@ -35,5 +40,17 @@
 		on:blur={handleClose}
 		on:change={handleSelect}
 		items={items}
-		{groupBy}/>
+		{groupBy}>
+		<div slot="item" let:item let:index>
+			{#if item.groupItem}
+				<span class="acu-flex acu-items-center acu-relative acu-pl-1">
+					<ColumnTypeGroupIcon group_key={item.group_key}/>
+					{item.label}
+				</span>
+			{:else}
+				{item.label}
+			{/if}
+
+		</div>
+	</Select>
 </div>

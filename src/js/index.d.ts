@@ -7,6 +7,7 @@ declare namespace AC.Vars.Admin.Columns {
         slug: string
         label: string
         priority: number
+        icon: string
     }
 
     type ColumnConfig = {
