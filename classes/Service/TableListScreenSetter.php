@@ -74,6 +74,8 @@ class TableListScreenSetter implements Registerable
 
         $list_screen = $request->get('list_screen');
 
+        do_action('ac/table/screen', $table_screen, $list_screen);
+
         if ($list_screen instanceof ListScreen) {
             $this->preference->save(
                 $table_screen->get_key(),
