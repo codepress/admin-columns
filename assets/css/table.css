@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --ac-text-color: #23282d;
   --ac-link: #0073aa;
@@ -519,6 +520,11 @@ html.wp-toolbar .ac-tooltip {
 .ac-toggle-v2__toggle input[type=checkbox]:checked ~ .ac-toggle-v2__toggle__thumb {
   transform: translateX(14px);
 }
+.ac-toggle-v2__toggle input[type=checkbox]:checked ~ .ac-toggle-v2__toggle__thumb:before {
+  content: "✓";
+  font-weight: bold;
+  font-size: 9px;
+}
 .ac-toggle-v2__toggle input[type=checkbox]:checked ~ .ac-toggle-v2__toggle__track {
   background: var(--ac-primary-color);
 }
@@ -544,9 +550,11 @@ html.wp-toolbar .ac-tooltip {
   transition: background 0.2s ease;
 }
 .ac-toggle-v2__toggle__thumb {
-  display: block;
+  display: flex;
   position: absolute;
   box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
   top: 3px;
   left: 3px;
   width: 16px;
@@ -555,6 +563,10 @@ html.wp-toolbar .ac-tooltip {
   transition: transform 0.1s ease;
   background-color: #fff;
   border: 5px solid #fff;
+}
+.ac-toggle-v2__toggle__thumb:before {
+  content: "";
+  color: var(--ac-primary-color);
 }
 .ac-toggle-v2.-small {
   margin-bottom: 10px;
