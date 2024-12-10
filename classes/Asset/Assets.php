@@ -15,7 +15,7 @@ class Assets extends Collection
         return parent::all();
     }
 
-    public function add(Enqueueable $enqueueable)
+    public function add(Enqueueable $enqueueable): self
     {
         $this->push($enqueueable);
 
