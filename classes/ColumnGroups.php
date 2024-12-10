@@ -2,11 +2,19 @@
 
 namespace AC;
 
+use AC\Asset\Location\Absolute;
 use AC\Type\Group;
 use AC\Type\Groups;
 
 class ColumnGroups
 {
+
+    private Absolute $location;
+
+    public function __construct(Absolute $location)
+    {
+        $this->location = $location;
+    }
 
     private function all(): Groups
     {

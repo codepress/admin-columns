@@ -110,6 +110,9 @@ class Columns extends Script
     {
         $encode = [];
 
+        /**
+         * @var AC\Type\Group $group
+         */
         foreach ($groups as $group) {
             $encode[] = [
                 'slug'     => $group->get_slug(),
