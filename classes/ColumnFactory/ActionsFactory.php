@@ -29,7 +29,7 @@ class ActionsFactory extends BaseColumnFactory
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters->add(new Message('<span></span>'));
+        $formatters->add(new Message('<span class="cpac_use_icons"></span>'));
     }
 
 }
