@@ -120,6 +120,7 @@ class AdminColumns
             Service\ManageValue::class,
             Service\ManageHeadings::class,
             Service\SaveHeadings::class,
+            Service\AdminBarEditColumns::class,
         ];
 
         if ( ! defined('ACP_FILE')) {
