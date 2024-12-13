@@ -142,7 +142,7 @@ class Columns extends Script
             'is_pro'                     => $this->is_pro,
             'list_key'                   => (string)$this->table_screen->get_key(),
             'list_id'                    => (string)$this->list_id,
-            'uninitialized_list_screens' => $uninitialized_table_screens,
+            'uninitialized_list_screens' => ! empty($uninitialized_table_screens) ? $uninitialized_table_screens : null,
             'column_groups'              => $this->encode_groups($this->column_groups->find_all()),
             'menu_items'                 => $this->get_menu_items(),
             'menu_items_favorites'       => $this->encode_favorites(

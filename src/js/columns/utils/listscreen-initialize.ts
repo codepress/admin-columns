@@ -1,7 +1,10 @@
 import Nanobus from "nanobus";
 import axios, {AxiosPromise} from "axios";
+import {currentListKey} from "../store/current-list-screen";
+import {currentTableUrl} from "../store/table_url";
 import UninitializedListScreens = AC.Vars.Admin.Columns.UninitializedListScreens;
 import UninitializedListScreen = AC.Vars.Admin.Columns.UninitializedListScreen;
+import {get} from "svelte/store";
 
 
 class ListScreenInitializer {
@@ -80,9 +83,6 @@ class ListScreenInitializer {
 export const initUninitializedListScreens = (listScreens: UninitializedListScreens, listKey: string) => {
     const initializeSideListScreens = () => {
         new ListScreenInitializer(listScreens);
-        // setTimeout(() => {
-        //
-        // }, 0)
     }
 
     if (Object.keys(listScreens).length > 0) {
@@ -98,11 +98,40 @@ export const initUninitializedListScreens = (listScreens: UninitializedListScree
             main_initializer.events.on('success', () => {
                 // This is a side process that must not prevent any other calls from running
                 initializeSideListScreens()
-
             });
 
         } else {
             initializeSideListScreens()
         }
     }
+}
+
+export const initListScreenHeadings = () => {
+
+
+    let storedTableUrl = '';
+
+    currentListKey.subscribe((key) => {
+
+
+    });
+
+    currentTableUrl.subscribe( tableUrl => {
+        if( ! tableUrl ) {
+            return;
+        }
+
+        let url = new URL(tableUrl);
+        let ajaxUrl = new URL(tableUrl);
+        url.searchParams.delete('layout');
+
+        if( storedTableUrl !== url.toString()){
+            ajaxUrl.searchParams.append('save-default-headings', '1');
+            axios.get( ajaxUrl.toString());
+        }
+
+        storedTableUrl = url.toString();
+    })
+
+
 }

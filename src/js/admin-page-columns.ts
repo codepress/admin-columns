@@ -6,9 +6,11 @@ import {columnTypesStore} from "./columns/store/column-types";
 import {favoriteListKeysStore} from "./columns/store/favorite-listkeys";
 import {debugMode} from "./columns/store/debug";
 import {showColumnInfo} from "./columns/store/screen-options";
-import {initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
+import {initListScreenHeadings, initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
 import InfoScreenOption from "./modules/screen-options";
 import ColumnPageBridge from "./columns/utils/page-bridge";
+import {currentTableUrl} from "./columns/store/table_url";
+import {get} from "svelte/store";
 
 const AcServices = initAcServices();
 const localConfig = getColumnSettingsConfig();
@@ -59,9 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (localConfig.uninitialized_list_screens) {
+    if (localConfig.uninitialized_list_screens !== null) {
         initUninitializedListScreens(localConfig.uninitialized_list_screens, localConfig.list_key);
     }
+    initListScreenHeadings();
 
     document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_info"] input').forEach(el =>
         new InfoScreenOption('show_column_info', el, showColumnInfo, ac_admin_columns.nonce)
