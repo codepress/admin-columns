@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter\Media;
 
+use AC\ApplyFilter\ValidAudioMimetypes;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
@@ -31,13 +32,7 @@ class AudioPlayer implements Formatter
 
     private function get_valid_mime_types(): array
     {
-        $formats = [
-            'audio/mpeg',
-            'audio/flac',
-            'audio/wav',
-        ];
-
-        return (array)apply_filters('ac/column/audio_player/valid_mime_types', $formats, $this);
+        return (new ValidAudioMimetypes())->apply_filters();
     }
 
     private function is_valid_mime_type($id): bool

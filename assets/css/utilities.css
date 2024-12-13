@@ -38,6 +38,10 @@
   z-index: 10
 }
 
+.acu-clear-left {
+  clear: left
+}
+
 .acu-mx-\[50px\] {
   margin-left: 50px;
   margin-right: 50px
@@ -56,6 +60,11 @@
 .acu-my-\[0\] {
   margin-top: 0;
   margin-bottom: 0
+}
+
+.acu-my-1 {
+  margin-top: 5px;
+  margin-bottom: 5px
 }
 
 .acu-mb-1 {
@@ -228,6 +237,10 @@
 
 .acu-max-w-\[80\%\] {
   max-width: 80%
+}
+
+.acu-max-w-\[960px\] {
+  max-width: 960px
 }
 
 .acu-max-w-full {
@@ -580,8 +593,8 @@
   padding-bottom: 20px
 }
 
-.acu-pl-2 {
-  padding-left: 10px
+.acu-pl-1 {
+  padding-left: 5px
 }
 
 .acu-pl-3 {
@@ -650,10 +663,6 @@
 
 .acu-pt-\[70px\] {
   padding-top: 70px
-}
-
-.acu-pl-1 {
-  padding-left: 5px
 }
 
 .acu-text-left {
@@ -733,6 +742,14 @@
 
 .acu-leading-snug {
   line-height: 1.375
+}
+
+.acu-leading-loose {
+  line-height: 2
+}
+
+.acu-leading-relaxed {
+  line-height: 1.625
 }
 
 .acu-text-\[\#777\] {

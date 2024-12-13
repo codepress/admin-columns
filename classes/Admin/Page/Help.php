@@ -137,6 +137,15 @@ class Help implements Enqueueables, Renderable, RenderableHead
         // Force cache refresh
         $this->hooks->get_count(true);
 
+        $view = new View([
+            'documentation_url'  => (new Url\Documentation(Url\Documentation::ARTICLE_UPGRADE_V3_TO_V4))->get_url(),
+            'deprecated_filters' => $this->hooks->get_deprecated_filters(),
+            'deprecated_actions' => $this->hooks->get_deprecated_actions(),
+        ]);
+        $view->set_template('admin/page/help-v2');
+
+        return $view->render();
+
         ob_start();
         ?>
 		<h2><?php
