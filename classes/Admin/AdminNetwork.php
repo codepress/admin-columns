@@ -8,20 +8,11 @@ use AC\Registerable;
 class AdminNetwork implements Registerable
 {
 
-    /**
-     * @var RequestHandlerInterface
-     */
-    private $request_handler;
+    private RequestHandlerInterface $request_handler;
 
-    /**
-     * @var Absolute
-     */
-    private $location_core;
+    private Absolute $location_core;
 
-    /**
-     * @var AdminScripts
-     */
-    private $scripts;
+    private AdminScripts $scripts;
 
     public function __construct(
         PageNetworkRequestHandlers $request_handler,
@@ -41,7 +32,7 @@ class AdminNetwork implements Registerable
     private function get_menu_page_factory(): MenuPageFactory
     {
         return apply_filters(
-            'acp/menu_network_page_factory',
+            'ac/menu_network_page_factory',
             new MenuPageFactory\SubMenu()
         );
     }

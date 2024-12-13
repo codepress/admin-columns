@@ -4,132 +4,31 @@ declare(strict_types=1);
 
 namespace AC;
 
-use Countable;
 use Iterator;
-use ReturnTypeWillChange;
 
-class Collection implements Iterator, Countable
+abstract class Collection implements Iterator
 {
 
-    /**
-     * @var array
-     */
-    protected $items;
+    protected array $data = [];
 
-    public function __construct(array $items = [])
-    {
-        $this->items = $items;
-    }
-
-    public function all(): array
-    {
-        return $this->items;
-    }
-
-    public function has($key): bool
-    {
-        return isset($this->items[$key]);
-    }
-
-    public function put($key, $value): self
-    {
-        $this->items[$key] = $value;
-
-        return $this;
-    }
-
-    public function push($value): self
-    {
-        $this->items[] = $value;
-
-        return $this;
-    }
-
-    public function get($key, $default = null)
-    {
-        if ($this->has($key)) {
-            return $this->items[$key];
-        }
-
-        return $default;
-    }
-
-    public function __get($key)
-    {
-        return $this->get($key);
-    }
-
-    #[ReturnTypeWillChange]
-    public function rewind(): void
-    {
-        reset($this->items);
-    }
-
-    public function first()
-    {
-        return reset($this->items);
-    }
-
-    #[ReturnTypeWillChange]
-    public function current()
-    {
-        return current($this->items);
-    }
-
-    #[ReturnTypeWillChange]
-    public function key()
-    {
-        return key($this->items);
-    }
-
-    #[ReturnTypeWillChange]
     public function next(): void
     {
-        next($this->items);
+        next($this->data);
     }
 
-    public function get_copy(): array
+    public function key(): int
     {
-        return $this->items;
+        return key($this->data);
     }
 
-    #[ReturnTypeWillChange]
     public function valid(): bool
     {
-        return key($this->items) !== null;
+        return key($this->data) !== null;
     }
 
-    #[ReturnTypeWillChange]
-    public function count(): int
+    public function rewind(): void
     {
-        return count($this->items);
-    }
-
-    /**
-     * Filter collection items
-     */
-    public function filter(): self
-    {
-        return new Collection(ac_helper()->array->filter($this->items));
-    }
-
-    /**
-     * Limit array to max number of items
-     */
-    public function limit(int $length): int
-    {
-        $count = $this->count();
-
-        if (0 < $length) {
-            $this->items = array_slice($this->items, 0, $length);
-        }
-
-        return $count - $this->count();
-    }
-
-    public function implode(string $glue = ''): string
-    {
-        return implode($glue, $this->items);
+        reset($this->data);
     }
 
 }

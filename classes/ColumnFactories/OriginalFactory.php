@@ -14,7 +14,7 @@ use AC\Vendor\DI\Container;
 final class OriginalFactory extends BaseFactory
 {
 
-    private $repository;
+    private DefaultColumnsRepository $repository;
 
     public function __construct(DefaultColumnsRepository $repository, Container $container)
     {
@@ -27,13 +27,13 @@ final class OriginalFactory extends BaseFactory
     {
         $collection = new ColumnFactoryDefinitionCollection();
 
-        foreach ($this->repository->find_all($table_screen->get_key()) as $type => $label) {
+        foreach ($this->repository->find_all($table_screen->get_key()) as $column) {
             $collection->add(
                 new ColumnFactoryDefinition(
                     ColumnFactory\OriginalFactory::class,
                     [
-                        'type'  => $type,
-                        'label' => $label,
+                        'type'  => $column->get_name(),
+                        'label' => $column->get_label(),
                     ]
                 )
             );
