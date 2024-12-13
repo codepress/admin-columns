@@ -8,7 +8,7 @@ use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 use AC\Type\ColumnFactoryDefinition;
 
-// TODO determine if we have a hook for free as well
+// TODO determine if we have a hook for pro as well
 final class ThirdPartyFactory extends BaseFactory
 {
 

@@ -60,8 +60,6 @@ class TableListScreenSetter implements Registerable
 
         $table_screen = $this->table_screen_factory->create_from_wp_screen($wp_screen);
 
-        do_action('ac/table/screen', $table_screen);
-
         $request = new Request();
 
         $request->add_middleware(
@@ -74,6 +72,7 @@ class TableListScreenSetter implements Registerable
 
         $list_screen = $request->get('list_screen');
 
+        // TODO Second time the same call?
         do_action('ac/table/screen', $table_screen, $list_screen);
 
         if ($list_screen instanceof ListScreen) {

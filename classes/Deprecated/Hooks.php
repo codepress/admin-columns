@@ -26,17 +26,23 @@ class Hooks
     private function get_filters(): array
     {
         $hooks = [
+            // Altered to V2
             new Filter('ac/column/value', '5.0', 'ac/v2/column/value'),
             new Filter('ac/column/value/sanitize', '5.0', 'ac/v2/column/value/sanitize'),
             new Filter('ac/column_types', '5.0', 'ac/v2/column_types'),
+            new Filter('ac/column/audio_player/valid_mime_types', '5.0', 'ac/v2/column/audio_player/valid_mime_types'),
+
+            // Removed
+            new Filter('ac/column/separator', '5.0'),
+            new Filter('ac/headings', '5.0'),
+            new Filter('ac/column_group', '5.0'),
+            // Removed
 
             //            TODO replace these hooks that contain $column
             //            ac/column/audio_player/valid_mime_types
             //            ac/headings/label
             //            ac/list_screen/preferences
             //            ac/headings
-            //            ac/column/label  --> See WPML.php as internal usage
-            //            ac/column/separator
             //            ac/column/video_player/valid_mime_types
             //            ac/column/settings/column_types
             //            ac/column_group
@@ -67,31 +73,7 @@ class Hooks
             //            new Filter('acp/settings/groups', '3.4'),
         ];
 
-        $hooks[] = new Filter('cac/columns/custom', '3.0', 'cac-columns-custom');
-
-        foreach ($this->get_types() as $type) {
-            $hooks[] = new Filter('cac/columns/custom/type=' . $type, '3.0', 'cac-columns-custom');
-        }
-
-        foreach (get_post_types() as $post_type) {
-            $hooks[] = new Filter('cac/columns/custom/post_type=' . $post_type, '3.0', 'cac-columns-custom');
-        }
-
-        $hooks[] = new Filter('cac/column/value', '3.0', 'cac-column-value');
-
-        foreach ($this->get_types() as $type) {
-            $hooks[] = new Filter('cac/column/value/' . $type, '3.0', 'cac-column-value');
-        }
-
-        $hooks[] = new Filter('cac/editable/column_value', '3.0', 'cac-editable-column_value');
-        $hooks[] = new Filter('cac/editable/column_save', '3.0', 'cac-editable-column_save');
-
         return $hooks;
-    }
-
-    private function get_types(): array
-    {
-        return ['post', 'user', 'comment', 'link', 'media'];
     }
 
     /**
@@ -100,19 +82,7 @@ class Hooks
     private function get_actions(): array
     {
         return [
-            new Action('cac/admin_head', '3.0', 'cac-admin_head'),
-            new Action('cac/loaded', '3.0', 'cac-loaded'),
-            new Action('cac/inline-edit/after_ajax_column_save', '3.0', 'cacinline-editafter_ajax_column_save'),
-            new Action('cac/settings/after_title', '3.0'),
-            new Action('cac/settings/form_actions', '3.0'),
-            new Action('cac/settings/sidebox', '3.0'),
-            new Action('cac/settings/form_columns', '3.0'),
-            new Action('cac/settings/after_columns', '3.0'),
-            new Action('cac/column/settings_meta', '3.0'),
-            new Action('cac/settings/general', '3.0'),
-            new Action('cpac_messages', '3.0'),
-            new Action('cac/settings/after_menu', '3.0'),
-            new Action('ac/settings/general', '3.4'),
+            new Action('ac/ready', '5.0'),
         ];
     }
 
