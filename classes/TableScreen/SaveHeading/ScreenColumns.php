@@ -56,6 +56,10 @@ class ScreenColumns implements Registerable
         $columns = new DefaultColumns();
 
         foreach ($headings as $column_name => $label) {
+            if ('cb' === $column_name) {
+                continue;
+            }
+
             $columns->add(new DefaultColumn($column_name, $label));
         }
 
@@ -85,7 +89,7 @@ class ScreenColumns implements Registerable
 
         $this->save($columns);
 
-        return $sortable_columns;
+        exit('ac_success');
     }
 
 }

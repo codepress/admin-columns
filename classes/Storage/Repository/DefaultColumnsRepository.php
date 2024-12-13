@@ -24,10 +24,15 @@ final class DefaultColumnsRepository
         $data = $storage->get() ?: [];
 
         foreach ($columns as $column) {
-            $data[$column->get_name()] = [
-                'label'    => $column->get_label(),
-                'sortable' => $column->is_sortable(),
+            $args = [
+                'label' => $column->get_label(),
             ];
+
+            if ($column->is_sortable()) {
+                $args['sortable'] = true;
+            }
+
+            $data[$column->get_name()] = $args;
         }
 
         $storage->save($data);
@@ -56,7 +61,7 @@ final class DefaultColumnsRepository
             $columns[] = new DefaultColumn(
                 $column_name,
                 $column_data['label'],
-                (bool)$column_data['sortable']
+                (bool)($column_data['sortable'] ?? false)
             );
         }
 
