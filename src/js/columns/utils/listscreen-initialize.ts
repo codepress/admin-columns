@@ -1,10 +1,8 @@
 import Nanobus from "nanobus";
 import axios, {AxiosPromise} from "axios";
-import {currentListKey} from "../store/current-list-screen";
 import {currentTableUrl} from "../store/table_url";
 import UninitializedListScreens = AC.Vars.Admin.Columns.UninitializedListScreens;
 import UninitializedListScreen = AC.Vars.Admin.Columns.UninitializedListScreen;
-import {get} from "svelte/store";
 
 
 class ListScreenInitializer {
@@ -107,17 +105,10 @@ export const initUninitializedListScreens = (listScreens: UninitializedListScree
 }
 
 export const initListScreenHeadings = () => {
-
-
     let storedTableUrl = '';
 
-    currentListKey.subscribe((key) => {
-
-
-    });
-
-    currentTableUrl.subscribe( tableUrl => {
-        if( ! tableUrl ) {
+    currentTableUrl.subscribe(tableUrl => {
+        if (!tableUrl) {
             return;
         }
 
@@ -125,11 +116,10 @@ export const initListScreenHeadings = () => {
         let ajaxUrl = new URL(tableUrl);
         url.searchParams.delete('layout');
 
-        if( storedTableUrl !== url.toString()){
+        if (storedTableUrl !== url.toString()) {
             ajaxUrl.searchParams.append('save-default-headings', '1');
-            axios.get( ajaxUrl.toString());
+            axios.get(ajaxUrl.toString());
         }
-
         storedTableUrl = url.toString();
     })
 

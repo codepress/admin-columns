@@ -22861,9 +22861,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
-/* harmony import */ var _store_current_list_screen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/current-list-screen */ "./js/columns/store/current-list-screen.ts");
-/* harmony import */ var _store_table_url__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/table_url */ "./js/columns/store/table_url.ts");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var _store_table_url__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/table_url */ "./js/columns/store/table_url.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -22873,7 +22872,6 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-
 
 
 
@@ -22888,7 +22886,7 @@ class ListScreenInitializer {
         this.run();
     }
     doAjaxCall(listScreen) {
-        return axios__WEBPACK_IMPORTED_MODULE_3__["default"].get(listScreen.screen_link);
+        return axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(listScreen.screen_link);
     }
     run() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -22965,9 +22963,7 @@ const initUninitializedListScreens = (listScreens, listKey) => {
 };
 const initListScreenHeadings = () => {
     let storedTableUrl = '';
-    _store_current_list_screen__WEBPACK_IMPORTED_MODULE_1__.currentListKey.subscribe((key) => {
-    });
-    _store_table_url__WEBPACK_IMPORTED_MODULE_2__.currentTableUrl.subscribe(tableUrl => {
+    _store_table_url__WEBPACK_IMPORTED_MODULE_1__.currentTableUrl.subscribe(tableUrl => {
         if (!tableUrl) {
             return;
         }
@@ -22976,7 +22972,7 @@ const initListScreenHeadings = () => {
         url.searchParams.delete('layout');
         if (storedTableUrl !== url.toString()) {
             ajaxUrl.searchParams.append('save-default-headings', '1');
-            axios__WEBPACK_IMPORTED_MODULE_3__["default"].get(ajaxUrl.toString());
+            axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(ajaxUrl.toString());
         }
         storedTableUrl = url.toString();
     });
