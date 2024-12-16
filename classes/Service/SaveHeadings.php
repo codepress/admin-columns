@@ -9,6 +9,7 @@ use AC\Request;
 use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\Table\SaveHeadingFactory;
 use AC\TableScreen;
+use AC\Type\DefaultColumns;
 
 class SaveHeadings implements Registerable
 {
@@ -52,7 +53,7 @@ class SaveHeadings implements Registerable
         }
 
         // Save an empty array in case the hook does not run properly.
-        $this->repository->update($table_screen->get_key(), []);
+        $this->repository->update($table_screen->get_key(), new DefaultColumns());
 
         $factory = $this->get_factory($table_screen);
 
