@@ -9,11 +9,11 @@ final class TableFormView implements Registerable
 
     public const PARAM_ACTION = 'ac-actions-form';
 
-    private $meta_type;
+    private string $meta_type;
 
-    private $html;
+    private string $html;
 
-    private $priority;
+    private int $priority;
 
     public function __construct(string $meta_type, string $html, int $priority = null)
     {
@@ -44,7 +44,7 @@ final class TableFormView implements Registerable
         }
     }
 
-    public function render()
+    public function render(): void
     {
         echo $this->html;
     }

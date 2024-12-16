@@ -12,7 +12,7 @@ use WP_Post;
 class PrimaryColumn
 {
 
-    private $list_screen;
+    private ListScreen $list_screen;
 
     public function __construct(ListScreen $list_screen)
     {

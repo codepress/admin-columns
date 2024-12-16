@@ -10,7 +10,7 @@ use InvalidArgumentException;
 class AdminHeadStyle implements Registerable
 {
 
-    private static $style_blocks = [];
+    private static array $style_blocks = [];
 
     public function register(): void
     {

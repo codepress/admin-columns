@@ -72,7 +72,6 @@ class TableListScreenSetter implements Registerable
 
         $list_screen = $request->get('list_screen');
 
-        // TODO Second time the same call?
         do_action('ac/table/screen', $table_screen, $list_screen);
 
         if ($list_screen instanceof ListScreen) {
@@ -87,15 +86,12 @@ class TableListScreenSetter implements Registerable
         $table = new Table\Screen(
             $this->location,
             $table_screen,
-            $this->size_storage,
-            $this->size_user_storage,
-            $this->primary_column_factory,
             $list_screen
         );
 
-        $table->register();
-
         do_action('ac/table', $table);
+
+        $table->register();
     }
 
 }
