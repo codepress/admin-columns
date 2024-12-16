@@ -47,6 +47,7 @@ class ExcerptFactory extends BaseColumnFactory
     protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
         $formatters->prepend(new Formatter\Post\ContentExcerpt());
+        $formatters->add(new Formatter\Post\ExcerptIcon());
     }
 
 }
