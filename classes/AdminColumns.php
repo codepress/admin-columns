@@ -123,8 +123,7 @@ class AdminColumns
             Service\AdminBarEditColumns::class,
         ];
 
-        // TODO renable if ( ! defined('ACP_FILE')) {
-        if (defined('ACP_FILE')) {
+        if ( ! defined('ACP_FILE')) {
             $services_fqn[] = Service\NoticeChecks::class;
             $services_fqn[] = PluginActionUpgrade::class;
             $services_fqn[] = Service\ColumnsMockup::class;

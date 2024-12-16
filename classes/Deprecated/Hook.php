@@ -2,87 +2,74 @@
 
 namespace AC\Deprecated;
 
-abstract class Hook
+class Hook
 {
 
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var string */
-    private $version;
+    private string $version;
 
-    /** @var string */
-    private $slug;
+    private ?string $slug;
 
-    public function __construct($name, $version, $slug = null)
+    public function __construct(string $name, string $version, string $slug = null)
     {
         $this->name = $name;
         $this->version = $version;
         $this->slug = $slug;
     }
 
-    /**
-     * @return string
-     */
-    public function get_name()
+    public function get_name(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function get_version()
+    public function get_version(): string
     {
         return $this->version;
     }
 
-    /**
-     * @return string
-     */
-    public function get_slug()
+    public function get_slug(): ?string
     {
         return $this->slug;
     }
 
-    /**
-     * @return bool
-     */
-    abstract public function has_hook();
+    public function has_hook(): bool
+    {
+        return has_filter($this->name);
+    }
 
     public function get_callbacks(): ?array
     {
         global $wp_filter;
 
-        if ( ! isset($wp_filter[$this->name])) {
-            return null;
-        }
-
-        if (empty($wp_filter[$this->name]->callbacks)) {
-            return null;
-        }
-
-        $callbacks = [];
-
-        foreach ($wp_filter[$this->name]->callbacks as $callback) {
-            foreach ($callback as $cb) {
-                // Function
-                if (is_scalar($cb['function'])) {
-                    $callbacks[] = $cb['function'];
-                }
-
-                // Method
-                if (is_array($cb['function'])) {
-                    $callbacks[] = get_class($cb['function'][0]) . '::' . $cb['function'][1];
-                }
-            }
-        }
+        $callbacks = $wp_filter[$this->name]->callbacks ?? null;
 
         if ( ! $callbacks) {
             return null;
         }
 
-        return $callbacks;
+        $messages = [];
+
+        foreach ($callbacks as $callback) {
+            foreach ($callback as $cb) {
+                // Function
+                if (is_scalar($cb['function'])) {
+                    $messages[] = $cb['function'];
+                    continue;
+                }
+
+                // Method
+                if (is_array($cb['function'])) {
+                    $messages[] = get_class($cb['function'][0]) . '::' . $cb['function'][1];
+                }
+            }
+        }
+
+        if ( ! $messages) {
+            return null;
+        }
+
+        return $messages;
     }
 
 }
