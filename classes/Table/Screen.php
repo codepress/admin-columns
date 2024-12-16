@@ -15,15 +15,15 @@ use AC\Type\EditorUrlFactory;
 final class Screen implements Registerable
 {
 
-    private array $buttons = [];
-
-    private array $screen_options = [];
+    private Absolute $location;
 
     private AC\TableScreen $table_screen;
 
     private ?AC\ListScreen $list_screen;
 
-    private Absolute $location;
+    private array $buttons = [];
+
+    private array $screen_options = [];
 
     public function __construct(
         Absolute $location,
