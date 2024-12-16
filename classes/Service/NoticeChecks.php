@@ -12,9 +12,9 @@ use AC\Services;
 class NoticeChecks implements Registerable
 {
 
-    private $location;
+    private Absolute $location;
 
-    private $integration_repository;
+    private IntegrationRepository $integration_repository;
 
     public function __construct(Absolute $location, IntegrationRepository $integration_repository)
     {

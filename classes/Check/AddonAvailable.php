@@ -24,7 +24,6 @@ final class AddonAvailable
     public function register(): void
     {
         add_action('ac/screen', [$this, 'display']);
-
         $this->get_ajax_handler()->register();
     }
 

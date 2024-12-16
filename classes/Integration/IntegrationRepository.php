@@ -28,6 +28,7 @@ class IntegrationRepository
             new Integration\Types(),
             new Integration\MetaBox(),
             new Integration\MediaLibraryAssistant(),
+            new Integration\RankMath(),
             new Integration\WooCommerce(),
             new Integration\YoastSeo(),
         ]);

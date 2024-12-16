@@ -24,11 +24,11 @@ class Site implements Type\Url
     public const PAGE_ADDON_EVENTS_CALENDAR = '/events-calendar';
     public const PAGE_ADDON_METABOX = '/meta-box-integration';
     public const PAGE_ADDON_JETENGINE = '/jetengine';
-    public const PAGE_ADDON_NINJA_FORMS = '/ninja-forms';
     public const PAGE_ADDON_PODS = '/pods';
     public const PAGE_ADDON_TOOLSET_TYPES = '/toolset-types';
     public const PAGE_ADDON_WOOCOMMERCE = '/woocommerce-columns';
     public const PAGE_ADDON_YOAST_SEO = '/yoast-seo';
+    public const PAGE_ADDON_RANK_MATH = '/rank-math';
 
     public function __construct(string $path = null)
     {
