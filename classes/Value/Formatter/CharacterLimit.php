@@ -10,7 +10,7 @@ use AC\Type\Value;
 final class CharacterLimit implements Formatter
 {
 
-    private $character_limit;
+    private int $character_limit;
 
     public function __construct(int $character_limit)
     {
