@@ -29,6 +29,8 @@ class TableListScreenSetter implements Registerable
 
     private ColumnSize\UserStorage $size_user_storage;
 
+    private Table\InlineStyle\ColumnSize $column_size;
+
     public function __construct(
         Storage $storage,
         Absolute $location,
@@ -36,7 +38,8 @@ class TableListScreenSetter implements Registerable
         Table\LayoutPreference $preference,
         Table\PrimaryColumnFactory $primary_column_factory,
         ColumnSize\ListStorage $size_storage,
-        ColumnSize\UserStorage $size_user_storage
+        ColumnSize\UserStorage $size_user_storage,
+        Table\InlineStyle\ColumnSize $column_size
     ) {
         $this->storage = $storage;
         $this->location = $location;
@@ -45,6 +48,7 @@ class TableListScreenSetter implements Registerable
         $this->table_screen_factory = $table_screen_factory;
         $this->size_storage = $size_storage;
         $this->size_user_storage = $size_user_storage;
+        $this->column_size = $column_size;
     }
 
     public function register(): void
@@ -79,6 +83,13 @@ class TableListScreenSetter implements Registerable
                 $table_screen->get_key(),
                 $list_screen->get_id()
             );
+
+            $list = new Table\Service\ListScreen(
+                $list_screen,
+                $this->primary_column_factory,
+                $this->column_size
+            );
+            $list->register();
 
             do_action('ac/table/list_screen', $list_screen, $table_screen);
         }

@@ -26,11 +26,11 @@ class UserStorage
         return $this->storage_factory->create('column_widths');
     }
 
-    public function save(ListScreenId $list_id, string $column_name, ColumnWidth $column_width): void
+    public function save(ListScreenId $list_id, ColumnId $column_name, ColumnWidth $column_width): void
     {
         $widths = $this->create_storage()->find((string)$list_id) ?: [];
 
-        $widths[$column_name] = [
+        $widths[(string)$column_name] = [
             self::OPTION_UNIT  => $column_width->get_unit(),
             self::OPTION_VALUE => $column_width->get_value(),
         ];
