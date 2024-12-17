@@ -29,13 +29,11 @@ final class WordLimit extends Builder
 
     protected function get_input(Config $config): Input
     {
-        $name = 'word_limit';
-
         return Number::create_single_step(
-            $name,
+            'excerpt_length',
             0,
             null,
-            (int)$config->get($name, 20),
+            (int)$config->get('excerpt_length', 20),
             null,
             null,
             __('Words', 'codepress-admin-columns')
@@ -44,7 +42,7 @@ final class WordLimit extends Builder
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        $formatters->add(new AC\Value\Formatter\WordLimit((int)$this->get_input($config)->get_value()));
+        $formatters->add(new AC\Value\Formatter\WordLimit((int)$config->get('excerpt_length')));
     }
 
 }
