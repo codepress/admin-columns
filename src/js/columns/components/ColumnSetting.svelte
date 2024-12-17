@@ -4,11 +4,6 @@
     export let extraClass: string = '';
     export let isSubComponent: boolean = false;
 </script>
-<style>
-
-
-</style>
-
 
 {#if isSubComponent}
 	<div class="acp-column-setting lg:acu-flex acu-flex-col acu-px-6 acu-mb-2 {extraClass}">

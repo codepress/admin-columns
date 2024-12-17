@@ -1,11 +1,11 @@
 <script lang="ts">
-    import {listScreenIsReadOnly} from "../../store/read_only";
     import ColumnSetting from "../ColumnSetting.svelte";
     import {ListScreenColumnData} from "../../../types/requests";
     import WidthInput from "./input/WidthInput.svelte";
 
     export let setting: AC.Column.Settings.AbstractColumnSetting;
     export let data: ListScreenColumnData;
+    export let disabled: boolean = false;
 
     let widthRowSetting = setting as unknown as AC.Column.Settings.WidthSetting;
 
@@ -14,5 +14,5 @@
 <ColumnSetting description="" label={widthRowSetting.label}>
 	<WidthInput
 		bind:data={data}
-		disabled={$listScreenIsReadOnly}/>
+		disabled={disabled}/>
 </ColumnSetting>

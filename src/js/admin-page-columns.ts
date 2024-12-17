@@ -11,6 +11,7 @@ import InfoScreenOption from "./modules/screen-options";
 import ColumnPageBridge from "./columns/utils/page-bridge";
 import {currentTableUrl} from "./columns/store/table_url";
 import {get} from "svelte/store";
+import {hasUsagePermissions} from "./columns/store/permissions";
 
 const AcServices = initAcServices();
 const localConfig = getColumnSettingsConfig();
@@ -37,17 +38,16 @@ currentListId.subscribe((d) => {
 document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('admin-columns__columns')
 
-
-    const pageBridge = new ColumnPageBridge();
-
-
-    AcServices.registerService('ColumnPage', pageBridge);
-
     currentListId.set(localConfig.list_id)
     currentListKey.set(localConfig.list_key);
     columnTypesStore.set([]);
+    hasUsagePermissions.set( true )
     debugMode.set(false);
     favoriteListKeysStore.set(localConfig.menu_items_favorites);
+
+    const pageBridge = new ColumnPageBridge();
+
+    AcServices.registerService('ColumnPage', pageBridge);
 
     const cpacElement = document.querySelector('#cpac');
 

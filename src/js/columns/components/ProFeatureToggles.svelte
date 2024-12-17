@@ -1,17 +1,17 @@
 <script lang="ts">
 
     import HeaderToggle from "./settings/HeaderToggle.svelte";
-    import {listScreenIsReadOnly} from "../store/read_only";
     import {onMount} from "svelte";
 
     export let data: any = {};
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
+    export let disabled: boolean = false;
 
     type Feature = {
         feature: string
         title: string
         iconClass: string
-	}
+    }
 
     let proFeatures: Feature[] = [
         {feature: 'export', title: 'Enable Export', iconClass: 'cpacicon cpacicon-download'},
@@ -22,9 +22,9 @@
         {feature: 'filter', title: 'Enable Filtering', iconClass: 'dashicons dashicons-filter'},
     ];
 
-    const getConfig = ( feature: Feature ) => {
-        return config.find( c => c.input && c.input.name === feature.feature );
-	}
+    const getConfig = (feature: Feature) => {
+        return config.find(c => c.input && c.input.name === feature.feature);
+    }
 
 
     onMount(() => {
@@ -36,10 +36,14 @@
 	<div class="acu-flex acu-items-center acu-gap-1">
 		{#each proFeatures as feature}
 			{#if getConfig( feature ) }
-				<HeaderToggle defaultValue={getConfig( feature ).input.default} bind:value={data[feature.feature]}
+				<HeaderToggle
+					defaultValue={getConfig( feature ).input.default}
+					bind:value={data[feature.feature]}
 					title={feature.title}
-					disabled={$listScreenIsReadOnly}>
+					disabled={disabled}>
+
 					<span class="{feature.iconClass}"></span>
+
 				</HeaderToggle>
 			{:else}
 				<div class="ac-header-toggle acu-invisible -skeleton acu-border-[transparent] acu-bg-none acu-cursor-default"></div>

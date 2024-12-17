@@ -8,6 +8,7 @@
     export let settings: AC.Column.Settings.ColumnSettingCollection
     export let parent: string = '';
     export let isSubComponent: boolean = false;
+    export let locked: boolean = false;
 
     let filteredSettings = settings;
 
@@ -54,6 +55,7 @@
 		<svelte:component
 			this={getSettingComponent(setting.type ?? '')}
 			setting={setting}
+			disabled={locked}
 			bind:data={data}
 			on:refresh
 			{isSubComponent}

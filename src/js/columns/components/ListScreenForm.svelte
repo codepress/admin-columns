@@ -3,9 +3,7 @@
     import {ListScreenData} from "../../types/requests";
     import ListScreenSections from "../store/list-screen-sections";
     import HtmlSection from "./HtmlSection.svelte";
-    import AcButton from "ACUi/element/AcButton.svelte";
     import {saveListScreen} from "../ajax/ajax";
-    import {listScreenIsReadOnly} from "../store/read_only";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {currentListKey} from "../store/current-list-screen";
     import {AxiosError} from "axios";
@@ -13,7 +11,7 @@
 
     export let config: any
     export let data: ListScreenData
-    export let tableUrl: string;
+    export let locked: boolean = false;
 
     const i18n = getColumnSettingsTranslation();
 
@@ -37,16 +35,10 @@
 
 </script>
 <section>
-	<ColumnsForm bind:data={data} bind:config={config} {tableUrl}></ColumnsForm>
+	<ColumnsForm bind:data={data} bind:config={config} locked={locked}></ColumnsForm>
 
 	{#each ListScreenSections.getSections( 'after_columns' ) as component}
 		<HtmlSection component={component}></HtmlSection>
 	{/each}
-
-	<!--{#if !$listScreenIsReadOnly}-->
-	<!--	<div class="acp-footer-bar acu-flex acu-justify-end acu-mt-[-35px] acu-rounded-b-lg acu-bg-[white] acu-sticky acu-bottom-[0] acu-p-4 acu-border acu-border-solid acu-border-ui-border rounded-t-none">-->
-	<!--		<AcButton on:click={saveSettings} type="primary" loading={isSaving}>{i18n.editor.label.save}</AcButton>-->
-	<!--	</div>-->
-	<!--{/if}-->
 
 </section>
