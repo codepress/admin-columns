@@ -15,8 +15,8 @@ use AC\Setting\Control\OptionCollection;
 final class StringLimit extends Builder
 {
 
-    private const OPTION_CHARACTER_LIMIT = 'character_limit';
-    private const OPTION_EXCERPT_LENGTH = 'excerpt_length';
+    private const OPTION_CHARACTER = 'character_limit';
+    private const OPTION_WORD = 'word_limit';
 
     private CharacterLimit $character_limit;
 
@@ -38,11 +38,11 @@ final class StringLimit extends Builder
         return OptionFactory::create_select(
             'string_limit',
             OptionCollection::from_array([
-                ''                           => __('No limit', 'codepress-admin-columns'),
-                self::OPTION_CHARACTER_LIMIT => __('Character Limit', 'codepress-admin-columns'),
-                self::OPTION_EXCERPT_LENGTH  => __('Word Limit', 'codepress-admin-columns'),
+                ''                     => __('No limit', 'codepress-admin-columns'),
+                self::OPTION_CHARACTER => __('Character Limit', 'codepress-admin-columns'),
+                self::OPTION_WORD      => __('Word Limit', 'codepress-admin-columns'),
             ]),
-            $config->get('string_limit', self::OPTION_EXCERPT_LENGTH)
+            $config->get('string_limit', self::OPTION_WORD)
         );
     }
 
@@ -52,11 +52,11 @@ final class StringLimit extends Builder
             new ComponentCollection([
                 $this->character_limit->create(
                     $config,
-                    StringComparisonSpecification::equal(self::OPTION_CHARACTER_LIMIT)
+                    StringComparisonSpecification::equal(self::OPTION_CHARACTER)
                 ),
                 $this->word_limit->create(
                     $config,
-                    StringComparisonSpecification::equal(self::OPTION_EXCERPT_LENGTH)
+                    StringComparisonSpecification::equal(self::OPTION_WORD)
                 ),
             ])
         );
