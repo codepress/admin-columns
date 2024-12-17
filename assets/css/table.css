@@ -538,6 +538,9 @@ html.wp-toolbar .ac-tooltip {
 .ac-toggle-v2__toggle input[type=checkbox]:disabled ~ .ac-toggle-v2__toggle__thumb {
   cursor: not-allowed;
 }
+.ac-toggle-v2__toggle input[type=checkbox]:disabled ~ .ac-toggle-v2__toggle__thumb:before {
+  color: #ddd;
+}
 .ac-toggle-v2__toggle__track {
   content: "";
   display: inline-block;

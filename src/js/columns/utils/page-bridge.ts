@@ -5,6 +5,7 @@ import {listScreenIsReadOnly} from "../store/read_only";
 import {debugMode} from "../store/debug";
 import {registerSettingType} from "../helper";
 import ListScreenSections from "../store/list-screen-sections";
+import {hasUsagePermissions} from "../store/permissions";
 
 export default class ColumnPageBridge {
     private stores: { [key:string] : Writable<any> }
@@ -15,6 +16,7 @@ export default class ColumnPageBridge {
             currentListKey,
             listScreenDataStore,
             listScreenIsReadOnly,
+            hasUsagePermissions,
             debugMode,
         }
     }

@@ -10,7 +10,6 @@
     import AcIcon from "ACUi/AcIcon.svelte";
     import ColumnSetting from "./ColumnSetting.svelte";
     import TypeSetting from "./settings/input/TypeInput.svelte";
-    import {listScreenIsReadOnly} from "../store/read_only";
     import {refreshColumn} from "../ajax/ajax";
     import {currentListKey} from "../store/current-list-screen";
     import {debugMode} from "../store/debug";
@@ -20,6 +19,7 @@
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
+	export let locked: boolean = false;
 
     const dispatch = createEventDispatcher();
     const originalsColumns = ColumnTypesUtils.getOriginalColumnTypes();
@@ -127,7 +127,7 @@
 				{data.width} {data.width_unit}
 			{/if}
 			{#if hasProfeatures( config )}
-				<ProFeatureToggles bind:data={data} bind:config={config}></ProFeatureToggles>
+				<ProFeatureToggles bind:data={data} bind:config={config} disabled={locked} />
 			{/if}
 		</div>
 		<div class="ac-column-header__open-indicator acu-flex acu-justify-end">
@@ -142,10 +142,11 @@
 
 			<!-- Specific Type setting -->
 			<ColumnSetting description="" label="Type" extraClass="-type">
-				<TypeSetting bind:data={data} bind:columnConfig={config} disabled={$listScreenIsReadOnly}/>
+				<TypeSetting bind:data={data} bind:columnConfig={config} disabled={locked}/>
 			</ColumnSetting>
 
 			<ColumnSettings
+				locked={locked}
 				bind:data={data}
 				bind:settings={config}
 				on:refresh={refreshSetting}

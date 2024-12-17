@@ -21,16 +21,15 @@
 
     const i18n = getColumnSettingsTranslation();
 
-    declare const jQuery: any;
-
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
+    export let locked: boolean = true;
 
     let start: number | null = 0;
     let end: number | null = 0;
     let sortableContainer: HTMLElement | null;
     let loadingDefaultColumns: boolean = false;
-    let columnTypeComponent: AcDropdown|null;
+    let columnTypeComponent: AcDropdown | null;
 
     const clearColumns = () => {
         data['columns'] = [];
@@ -135,9 +134,10 @@
     }
 
     const makeSortable = () => {
-        jQuery(sortableContainer).sortable({
+        const JQ: any = jQuery;
+        JQ(sortableContainer).sortable({
             axis: 'y',
-            containment: jQuery(sortableContainer),
+            containment: JQ(sortableContainer),
             handle: '.ac-column-header__move',
             start: (e: Event, ui: any) => {
                 start = parseInt(ui.item.index());
@@ -159,14 +159,14 @@
         makeSortable();
     })
 
-	const handleSelectColumnType = (d: CustomEvent<string>) => {
+    const handleSelectColumnType = (d: CustomEvent<string>) => {
         addColumn(d.detail);
         columnTypeComponent!.close();
-	}
+    }
 
-    const handleCloseColumnTypeDropdown = ( component ) => {
+    const handleCloseColumnTypeDropdown = (component) => {
         component.close();
-	}
+    }
 
     onMount(() => {
         setTimeout(makeSortable, 1000);
@@ -189,7 +189,7 @@
 				</h1>
 			</div>
 			<div class="ac-columns__header__title">
-				<input bind:value={data.title} disabled={$listScreenIsReadOnly}/>
+				<input bind:value={data.title} disabled={locked}/>
 			</div>
 
 		</header>
@@ -203,15 +203,26 @@
 					</div>
 
 					<div class="acu-flex acu-gap-3 acu-items-center acu-justify-center acu-pt-4 acu-pb-6">
-						<AcDropdown value position="bottom-right" customClass="-selectv2"
-							--acui-dropdown-width="300px">
+						<AcDropdown
+							--acui-dropdown-width="300px"
+							value
+							position="bottom-right"
+							customClass="-selectv2">
+
 							<AcButton slot="trigger">+ {i18n.editor.label.add_column}</AcButton>
 							<ColumnTypeDropdownV2
 								on:selectItem={handleSelectColumnType}
 								on:close={() => handleCloseColumnTypeDropdown(columnTypeComponent)}
 							/>
+
 						</AcDropdown>
-						<AcButton loading={loadingDefaultColumns} --acui-loading-color="#000" on:click={handleLoadDefaultColumns}>{i18n.editor.label.load_default_columns}</AcButton>
+
+						<AcButton
+							loading={loadingDefaultColumns}
+							--acui-loading-color="#000"
+							on:click={handleLoadDefaultColumns}
+							label={i18n.editor.label.load_default_columns}
+						/>
 					</div>
 					<div class="acu-text-center acu-text-12px">
 						<p>{@html i18n.editor.sentence.documentation}</p>
@@ -221,12 +232,15 @@
 
 			<div bind:this={sortableContainer}>
 				{#each data.columns as column_data(column_data.name)}
+
 					<ColumnItem
-							bind:config={ config[column_data.name ?? column_data.type] }
-							bind:data={ column_data }
-							on:delete={ ( e ) => deleteColumn( e.detail ) }
-							on:duplicate={ ( e ) => duplicateColumn( e.detail ) }
+						locked={locked}
+						bind:config={ config[column_data.name ?? column_data.type] }
+						bind:data={ column_data }
+						on:delete={ ( e ) => deleteColumn( e.detail ) }
+						on:duplicate={ ( e ) => duplicateColumn( e.detail ) }
 					/>
+
 				{/each}
 			</div>
 		</div>
@@ -234,15 +248,30 @@
 			{#if !$listScreenIsReadOnly}
 				<div>
 					{#if data.columns.length > 0}
-						<AcButton type="text" on:click={clearColumns}>{i18n.editor.label.clear_columns}</AcButton>
+						<AcButton
+							type="text"
+							on:click={clearColumns}
+							label={i18n.editor.label.clear_columns}
+						/>
 					{/if}
-					<AcDropdown customClass="-selectv2" maxHeight="400px" --acui-dropdown-width="300px" value
+					<AcDropdown
+						--acui-dropdown-width="300px"
+						customClass="-selectv2"
+						maxHeight="400px"
+						value
 						position="bottom-left" bind:this={columnTypeComponent}>
-						<AcButton slot="trigger" type="primary">+ {i18n.editor.label.add_column}</AcButton>
+
+						<AcButton
+							slot="trigger"
+							type="primary"
+							label={`+ ${i18n.editor.label.add_column}`}
+						/>
+
 						<ColumnTypeDropdownV2
 							on:selectItem={handleSelectColumnType}
 							on:close={() => handleCloseColumnTypeDropdown(columnTypeComponent)}
 						/>
+
 					</AcDropdown>
 				</div>
 
@@ -250,6 +279,6 @@
 		</footer>
 	</div>
 {:else}
-	<ColumnsFormSkeleton></ColumnsFormSkeleton>
+	<ColumnsFormSkeleton/>
 {/if}
 

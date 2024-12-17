@@ -127,9 +127,12 @@
 
 		{#each Object.entries( menu ) as [ key, group ]}
 			<div class="ac-menu-group">
-				<button on:click={()=>toggleGroup(key)} class="ac-menu-group__header"
-					class:closed={!openedGroups.includes( key )}>
-					<GroupIcon icon={group.icon} defaultIcon="cpacicon-gf-article"></GroupIcon>
+				<button
+					on:click={()=>toggleGroup(key)}
+					class:closed={!openedGroups.includes( key )}
+					class="ac-menu-group__header"
+				>
+					<GroupIcon icon={group.icon} defaultIcon="cpacicon-gf-article"/>
 					{group.title}
 					<span class="ac-menu-group__header__indicator dashicons dashicons-arrow-up-alt2"></span>
 				</button>
@@ -137,8 +140,7 @@
 					<ul class="ac-menu-group-list">
 						{#each Object.entries( group.options ) as [ key, label ]}
 							<ListScreenMenuItem
-								{key}
-								{label}
+								{key} {label}
 								on:selectItem={ () => handleMenuSelect(key) }
 							/>
 						{/each}

@@ -17,6 +17,7 @@
     import ReviewComponent from "./sidebar/review/ReviewComponent.svelte";
     import SupportPanel from "./sidebar/SupportPanel.svelte";
     import {currentTableUrl} from "../store/table_url";
+    import {hasUsagePermissions} from "../store/permissions";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -100,7 +101,11 @@
 <AdminHeaderBar title="Columns">
 	<div class="acu-flex acu-justify-end">
 		<a href="{$currentTableUrl}" class="acui-button acui-button-default acu-mr-2">{i18n.editor.label.view}</a>
-		<AcButton type="primary" on:click={() => form.saveSettings()}>{i18n.editor.label.save}</AcButton>
+		<AcButton
+			type="primary"
+			on:click={() => form.saveSettings()}
+			label={i18n.editor.label.save}
+		/>
 	</div>
 </AdminHeaderBar>
 
@@ -122,9 +127,12 @@
 			<div class="acu-flex acu-flex-col-reverse xl:acu-gap-6 xl:acu-flex-row">
 				<div class="acu-flex-grow acu-max-w-[1200px]">
 					{#if $listScreenDataStore !== null}
-						<ListScreenForm bind:this={form} bind:config={config}
+						<ListScreenForm
+							bind:this={form}
+							bind:config={config}
 							bind:data={$listScreenDataStore}
-							tableUrl={$currentTableUrl}></ListScreenForm>
+							locked={$listScreenIsReadOnly || ! $hasUsagePermissions}
+						/>
 					{/if}
 				</div>
 				<aside class="xl:acu-w-[320px]">

@@ -1,6 +1,4 @@
 <script lang="ts">
-    import {listScreenIsReadOnly} from "../../store/read_only";
-    import ColumnSetting from "../ColumnSetting.svelte";
     import {getInputComponent} from "../../helper";
     import {ListScreenColumnData} from "../../../types/requests";
     import ColumnSettings from "../ColumnSettings.svelte";
@@ -8,6 +6,7 @@
 
     export let setting: AC.Column.Settings.AbstractColumnSetting;
     export let data: ListScreenColumnData;
+    export let disabled: boolean = false;
 
     let inputSetting = setting as ColumnInputSetting;
 
@@ -22,11 +21,16 @@
 		this={getInputType(inputSetting.input.type ?? '')}
 		bind:data={data}
 		bind:value={data[inputSetting.input?.name]}
-		disabled={$listScreenIsReadOnly}
+		disabled={disabled}
 		config={setting}>
 	</svelte:component>
 {/if}
 
 {#if setting.children && !setting.is_parent }
-	<ColumnSettings bind:data={data} settings={setting.children} parent={inputSetting.input ? inputSetting.input.name : null}/>
+	<ColumnSettings
+		locked={disabled}
+		bind:data={data}
+		settings={setting.children}
+		parent={inputSetting.input ? inputSetting.input.name : null}
+	/>
 {/if}
