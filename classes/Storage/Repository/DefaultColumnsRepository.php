@@ -3,6 +3,7 @@
 namespace AC\Storage\Repository;
 
 use AC\Storage\Option;
+use AC\Type\ColumnId;
 use AC\Type\DefaultColumn;
 use AC\Type\DefaultColumns;
 use AC\Type\ListKey;
@@ -49,6 +50,17 @@ final class DefaultColumnsRepository
              ->delete();
     }
 
+    public function find(ListKey $key, ColumnId $column_id): ?DefaultColumn
+    {
+        $column_name = (string)$column_id;
+
+        $data = $this->get_cached_storage($key)[$column_name] ?? null;
+
+        return $data
+            ? $this->create_column($column_name, $data)
+            : null;
+    }
+
     public function find_all(ListKey $key): DefaultColumns
     {
         $columns = [];
@@ -58,14 +70,19 @@ final class DefaultColumnsRepository
                 continue;
             }
 
-            $columns[] = new DefaultColumn(
-                $column_name,
-                $column_data['label'],
-                (bool)($column_data['sortable'] ?? false)
-            );
+            $columns[] = $this->create_column($column_name, $column_data);
         }
 
         return new DefaultColumns($columns);
+    }
+
+    private function create_column(string $column_name, array $data): DefaultColumn
+    {
+        return new DefaultColumn(
+            $column_name,
+            $data['label'],
+            (bool)($data['sortable'] ?? false)
+        );
     }
 
     private function get_cached_storage(ListKey $key): array
