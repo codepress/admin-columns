@@ -11,7 +11,7 @@ use AC\Vendor\DI\Container;
 class MediaLibraryAssistant implements Registerable
 {
 
-    private $container;
+    private Container $container;
 
     public function __construct(Container $container)
     {
@@ -24,9 +24,9 @@ class MediaLibraryAssistant implements Registerable
             return;
         }
 
-        AC\TableScreenFactory\Aggregate::add(new TableScreenFactory());
-        AC\ListKeysFactory\Aggregate::add(new ListKeysFactory());
-        AC\ColumnFactories\Aggregate::add(new ColumnTypesFactory($this->container));
+        AC\TableScreenFactory\Aggregate::add($this->container->get(TableScreenFactory::class));
+        AC\ListKeysFactory\Aggregate::add($this->container->get(ListKeysFactory::class));
+        AC\ColumnFactories\Aggregate::add($this->container->get(ColumnTypesFactory::class));
 
         AC\Service\ManageValue::add(
             $this->container->make(

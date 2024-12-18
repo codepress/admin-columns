@@ -8,10 +8,11 @@ use AC;
 use AC\MetaType;
 use AC\Type\Labels;
 use AC\Type\ListKey;
+use AC\Type\PostTypeSlug;
 use AC\Type\Url;
 use MLACore;
 
-class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC\TableScreen\MetaType
+class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC\TableScreen\MetaType, AC\PostType
 {
 
     public function __construct()
@@ -25,6 +26,11 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
             ),
             new Url\ListTable\Media(MLACore::ADMIN_PAGE_SLUG)
         );
+    }
+
+    public function get_post_type(): PostTypeSlug
+    {
+        return new PostTypeSlug('attachment');
     }
 
     public function list_table(): AC\ListTable
