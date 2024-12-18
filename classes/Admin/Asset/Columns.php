@@ -5,6 +5,7 @@ namespace AC\Admin\Asset;
 use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
+use AC\Capabilities;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Storage\Repository\EditorMenuStatus;
 use AC\Table\TableScreenCollection;
@@ -34,6 +35,8 @@ class Columns extends Script
 
     private bool $is_pro;
 
+    private AC\Promos $promos;
+
     public function __construct(
         string $handle,
         Location $location,
@@ -43,6 +46,7 @@ class Columns extends Script
         AC\Table\TableScreenRepository $table_screen_repository,
         EditorFavorites $favorite_repository,
         AC\ColumnGroups $column_groups,
+        AC\Promos $promos,
         bool $is_pro = false,
         ListScreenId $list_id = null
     ) {
@@ -58,6 +62,7 @@ class Columns extends Script
         $this->list_id = $list_id;
         $this->column_groups = $column_groups;
         $this->is_pro = $is_pro;
+        $this->promos = $promos;
     }
 
     public function get_pro_modal_arguments(): array
@@ -77,17 +82,23 @@ class Columns extends Script
             'export'      => __('Export table contents to CSV', 'codepress-admin-columns'),
         ];
 
-        $promo = (new AC\PromoCollection())->find_active();
-        if ($promo) {
-            $arguments['promo'] = [
-                'title'          => $promo->get_title(),
-                'url'            => (string)$promo->get_url(),
-                'button_label'   => sprintf(__('Get %s Off!', 'codepress-admin-columns'), $promo->get_discount() . '%'),
-                'discount_until' => sprintf(
-                    __("Discount is valid until %s", 'codepress-admin-columns'),
-                    $promo->get_date_range()->get_end()->format('j F Y')
-                ),
-            ];
+        if (current_user_can(Capabilities::MANAGE)) {
+            $promo = $this->promos->find_active();
+
+            if ($promo) {
+                $arguments['promo'] = [
+                    'title'          => $promo->get_title(),
+                    'url'            => (string)$promo->get_url(),
+                    'button_label'   => sprintf(
+                        __('Get %s Off!', 'codepress-admin-columns'),
+                        $promo->get_discount() . '%'
+                    ),
+                    'discount_until' => sprintf(
+                        __("Discount is valid until %s", 'codepress-admin-columns'),
+                        $promo->get_date_range()->get_end()->format('j F Y')
+                    ),
+                ];
+            }
         }
 
         $features = [];

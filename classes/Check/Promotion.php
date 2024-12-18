@@ -10,14 +10,12 @@ use AC\Promo;
 use AC\Registerable;
 use AC\Screen;
 
+// TODO remove?
 final class Promotion
     implements Registerable
 {
 
-    /**
-     * @var Promo
-     */
-    private $promo;
+    private Promo $promo;
 
     public function __construct(Promo $promo)
     {

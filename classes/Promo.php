@@ -51,9 +51,4 @@ abstract class Promo
         return $this->date_range;
     }
 
-    public function is_active(): bool
-    {
-        return $this->date_range->in_range() && current_user_can(AC\Capabilities::MANAGE);
-    }
-
 }
