@@ -67,7 +67,7 @@ class ColumnTypeRepository
                 $factory->create(
                     new Setting\Config([
                         'name'  => $type,
-                        'label' => $types[$type],
+                        'label' => $types[$type] ?? '',
                     ])
                 )
             );
