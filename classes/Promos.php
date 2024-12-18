@@ -17,17 +17,12 @@ class Promos
     public function find_active(): ?Promo
     {
         foreach ($this->all() as $promo) {
-            if ($this->is_active($promo)) {
+            if ($promo->is_active()) {
                 return $promo;
             }
         }
 
         return null;
-    }
-
-    private function is_active(Promo $promo): bool
-    {
-        return $promo->get_date_range()->in_range();
     }
 
 }

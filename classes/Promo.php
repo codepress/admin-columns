@@ -6,6 +6,7 @@ use AC;
 use AC\Type\DateRange;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
+use DateTime;
 
 abstract class Promo
 {
@@ -49,6 +50,11 @@ abstract class Promo
     public function get_date_range(): Type\DateRange
     {
         return $this->date_range;
+    }
+
+    public function is_active(DateTime $date = null): bool
+    {
+        return $this->date_range->in_range($date);
     }
 
 }
