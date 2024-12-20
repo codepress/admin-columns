@@ -35,32 +35,43 @@ if ( ! function_exists('ac_helper')) {
 }
 
 /**
- * @since 4.0.0
+ * For usage @see https://docs.admincolumns.com/article/64-template-functions
  */
 if ( ! function_exists('ac_get_list_screen')) {
     function ac_get_list_screen(string $id): ?ListScreen
     {
+        if ( ! did_action('wp_loaded')) {
+            throw new RuntimeException("Call after the `wp_loaded` hook.");
+        }
+
         return Container::get_storage()->find(new ListScreenId($id));
     }
 }
 
 /**
- * Usage: Load after or within the 'wp_loaded' action hook.
- * @since 4.0.0
+ * For usage @see https://docs.admincolumns.com/article/64-template-functions
  */
 if ( ! function_exists('ac_get_list_screens')) {
     function ac_get_list_screens(string $key): ListScreenCollection
     {
+        if ( ! did_action('wp_loaded')) {
+            throw new RuntimeException("Call after the `wp_loaded` hook.");
+        }
+
         return Container::get_storage()->find_all_by_key(new ListKey($key));
     }
 }
 
 /**
- * Usage: Load after or within the 'wp_loaded' action hook.
+ * For usage @see https://docs.admincolumns.com/article/64-template-functions
  */
 if ( ! function_exists('ac_get_column')) {
     function ac_get_column(string $column_name, string $list_screen_id): ?Column
     {
+        if ( ! did_action('wp_loaded')) {
+            throw new RuntimeException("Call after the `wp_loaded` hook.");
+        }
+
         try {
             $list_id = new ListScreenId($list_screen_id);
         } catch (Exception $e) {
@@ -78,13 +89,18 @@ if ( ! function_exists('ac_get_column')) {
 }
 
 /**
- * Usage: Load after or within the 'wp_loaded' action hook.
- * @return AC\Column[]
- * @since 4.2
+ * For usage @see https://docs.admincolumns.com/article/64-template-functions
  */
 if ( ! function_exists('ac_get_columns')) {
+    /**
+     * @return Column[]
+     */
     function ac_get_columns(string $list_screen_id): array
     {
+        if ( ! did_action('wp_loaded')) {
+            throw new RuntimeException("Call after the `wp_loaded` hook.");
+        }
+
         try {
             $list_id = new ListScreenId($list_screen_id);
         } catch (Exception $e) {
