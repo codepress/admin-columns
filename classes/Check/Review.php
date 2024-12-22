@@ -13,8 +13,7 @@ use AC\Screen;
 use AC\Type\Url\Documentation;
 use AC\Type\Url\UtmTags;
 
-class Review
-    implements Registerable
+class Review implements Registerable
 {
 
     private $location;

@@ -39,14 +39,14 @@ final class Screen implements Registerable
     private $list_screen;
 
     public function __construct(
-        Asset\Location\Absolute $location,
+        AC\AdminColumns $plugin,
         TableScreen $table_screen,
         ColumnSize\ListStorage $column_size_list_storage,
         ColumnSize\UserStorage $column_size_user_storage,
         PrimaryColumnFactory $primary_column_factory,
         ListScreen $list_screen = null
     ) {
-        $this->location = $location;
+        $this->location = $plugin->get_location();
         $this->table_screen = $table_screen;
         $this->column_size_list_storage = $column_size_list_storage;
         $this->column_size_user_storage = $column_size_user_storage;

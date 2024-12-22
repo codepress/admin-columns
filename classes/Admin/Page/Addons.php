@@ -5,6 +5,7 @@ namespace AC\Admin\Page;
 use AC;
 use AC\Admin;
 use AC\Admin\RenderableHead;
+use AC\AdminColumns;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
@@ -17,15 +18,15 @@ class Addons implements Enqueueables, Renderable, RenderableHead
 
     public const NAME = 'addons';
 
-    protected Location\Absolute $location;
+    protected Location $location;
 
     protected IntegrationRepository $integrations;
 
     protected Renderable $head;
 
-    public function __construct(Location\Absolute $location, IntegrationRepository $integrations, Renderable $head)
+    public function __construct(AdminColumns $plugin, IntegrationRepository $integrations, Renderable $head)
     {
-        $this->location = $location;
+        $this->location = $plugin->get_location();
         $this->integrations = $integrations;
         $this->head = $head;
     }

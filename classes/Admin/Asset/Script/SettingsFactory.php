@@ -2,7 +2,7 @@
 
 namespace AC\Admin\Asset\Script;
 
-use AC\Asset\Location;
+use AC\AdminColumns;
 use AC\Asset\Script;
 use AC\Asset\Script\Localize\Translation;
 use AC\Form\NonceFactory;
@@ -14,9 +14,9 @@ final class SettingsFactory
 
     private $location;
 
-    public function __construct(Location\Absolute $location)
+    public function __construct(AdminColumns $plugins)
     {
-        $this->location = $location;
+        $this->location = $plugins->get_location();
     }
 
     public function create(): Script

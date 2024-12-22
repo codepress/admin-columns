@@ -6,7 +6,7 @@ Description: Customize columns on the administration screens for post(types), pa
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
 Plugin URI: https://www.admincolumns.com
-Requires PHP: 7.2
+Requires PHP: 7.4
 Requires at least: 5.9
 Text Domain: codepress-admin-columns
 Domain Path: /languages
@@ -28,6 +28,17 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+// TODO David
+// make abstract Plugin class or interface
+// make AdminColumnsPro plugin
+// make AdminColumns plugin
+// decouple get_plugins from that and put that in on construct as a repo for plugin data
+// when a location is required, just use plugin instead to resolve unless to much
+// plugin should only contain basics like name, version, basename, url and directory. The rest should be deducted
+
+use AC\Loader;
+use AC\Vendor\DI\ContainerBuilder;
+
 if ( ! defined('ABSPATH')) {
     exit;
 }
@@ -39,22 +50,23 @@ if ( ! is_admin()) {
 define('AC_FILE', __FILE__);
 define('AC_VERSION', '5.0beta');
 
-require_once __DIR__ . '/classes/Dependencies.php';
+add_action('after_setup_theme', function () {
+    require __DIR__ . '/vendor/autoload.php';
+    require __DIR__ . '/api.php';
+
+    if ( ! defined('ACP_VERSION')) {
+        $container = (new ContainerBuilder())
+            ->addDefinitions(require __DIR__ . '/settings/container-definitions.php')
+            ->build();
+
+        new Loader($container);
+    }
+}, 1);
 
 add_action('after_setup_theme', function () {
-    $dependencies = new AC\Dependencies(plugin_basename(__FILE__), AC_VERSION);
-    $dependencies->requires_php('7.4');
-
-    if ($dependencies->has_missing()) {
-        return;
-    }
-
-    require_once __DIR__ . '/vendor/autoload.php';
-    require_once __DIR__ . '/api.php';
-
     /**
      * For loading external resources, e.g. column settings.
      * Can be called from plugins and themes.
      */
-    do_action('ac/ready', AC());
-}, 1);
+    do_action('ac/ready');
+}, 2);

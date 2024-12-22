@@ -7,6 +7,7 @@ namespace AC\Admin\Page;
 use AC\Admin;
 use AC\Admin\RenderableHead;
 use AC\Admin\ScreenOption;
+use AC\AdminColumns;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location\Absolute;
@@ -44,7 +45,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
     private ?ListScreenId $list_id;
 
     public function __construct(
-        Absolute $location,
+        AdminColumns $plugin,
         TableScreenCollection $uninitialized_screens,
         Renderable $head,
         TableScreen $table_screen,
@@ -54,7 +55,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         ColumnGroups $column_groups,
         ListScreenId $list_id = null
     ) {
-        $this->location = $location;
+        $this->location = $plugin->get_location();
         $this->head = $head;
         $this->table_screen = $table_screen;
         $this->menu_items = $menu_items;

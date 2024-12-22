@@ -2,7 +2,7 @@
 
 namespace AC\Service;
 
-use AC\Asset\Location\Absolute;
+use AC\AdminColumns;
 use AC\Capabilities;
 use AC\Check;
 use AC\Integration\IntegrationRepository;
@@ -16,9 +16,9 @@ class NoticeChecks implements Registerable
 
     private $integration_repository;
 
-    public function __construct(Absolute $location, IntegrationRepository $integration_repository)
+    public function __construct(AdminColumns $plugin, IntegrationRepository $integration_repository)
     {
-        $this->location = $location;
+        $this->location = $plugin->get_location();
         $this->integration_repository = $integration_repository;
     }
 

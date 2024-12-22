@@ -2,27 +2,31 @@
 
 namespace AC\Asset\Script;
 
-use AC\Asset\Location\Absolute;
+use AC\AdminColumns;
 use AC\Asset\Script;
+use AC\Asset\Script\Localize\Translation;
 
 class GlobalTranslationFactory
 {
 
     public const HANDLE = 'ac-global-translations';
 
-    private $location;
+    private AdminColumns $plugin;
 
-    private $translation;
+    private Translation $translation;
 
-    public function __construct(Absolute $location, Script\Localize\Translation $translation)
+    public function __construct(AdminColumns $plugin, Translation $translation)
     {
-        $this->location = $location;
+        $this->plugin = $plugin;
         $this->translation = $translation;
     }
 
     public function create(): Script
     {
-        $script = new Script(self::HANDLE, $this->location->with_suffix('assets/js/global-translations.js'));
+        $script = new Script(
+            self::HANDLE,
+            $this->plugin->get_location()->with_suffix('assets/js/global-translations.js')
+        );
         $script->localize('ac_global_translations', $this->translation);
 
         return $script;

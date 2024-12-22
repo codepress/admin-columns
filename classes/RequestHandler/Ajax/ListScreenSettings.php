@@ -80,6 +80,7 @@ class ListScreenSettings implements RequestAjaxHandler
             throw new InvalidArgumentException('Invalid list screen.');
         }
 
+        // TODO David why is this not resolved with the container?
         $encoder = new AC\Storage\Encoder\BaseEncoder(new Version('6.3'));
         $encoder->set_list_screen($list_screen);
 

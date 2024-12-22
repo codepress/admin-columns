@@ -6,32 +6,32 @@ use AC\Admin;
 use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
-use AC\Asset\Location;
+use AC\AdminColumns;
 use AC\Integration\IntegrationRepository;
 
 class Addons implements PageFactoryInterface
 {
 
-    protected $location;
+    protected AdminColumns $plugin;
 
-    protected $integrations;
+    protected IntegrationRepository $integrations;
 
-    protected $menu_factory;
+    protected MenuFactoryInterface $menu_factory;
 
     public function __construct(
-        Location\Absolute $location,
+        AdminColumns $plugin,
         IntegrationRepository $integrations,
         MenuFactoryInterface $menu_factory
     ) {
-        $this->location = $location;
+        $this->plugin = $plugin;
         $this->integrations = $integrations;
         $this->menu_factory = $menu_factory;
     }
 
-    public function create()
+    public function create(): Page\Addons
     {
         return new Page\Addons(
-            $this->location,
+            $this->plugin,
             $this->integrations,
             new Admin\View\Menu($this->menu_factory->create('addons'))
         );

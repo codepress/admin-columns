@@ -2,34 +2,25 @@
 
 namespace AC\Admin;
 
-use AC\Asset\Location\Absolute;
+use AC\AdminColumns;
 use AC\Registerable;
 
 class AdminNetwork implements Registerable
 {
 
-    /**
-     * @var RequestHandlerInterface
-     */
     private $request_handler;
 
-    /**
-     * @var Absolute
-     */
     private $location_core;
 
-    /**
-     * @var AdminScripts
-     */
     private $scripts;
 
     public function __construct(
         PageNetworkRequestHandlers $request_handler,
-        Absolute $location_core,
+        AdminColumns $plugin,
         AdminScripts $scripts
     ) {
         $this->request_handler = $request_handler;
-        $this->location_core = $location_core;
+        $this->location_core = $plugin->get_location();
         $this->scripts = $scripts;
     }
 
