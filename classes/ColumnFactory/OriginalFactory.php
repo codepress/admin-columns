@@ -10,9 +10,9 @@ use AC\Setting\ComponentFactoryRegistry;
 class OriginalFactory extends BaseColumnFactory
 {
 
-    private $type;
+    private string $type;
 
-    private $label;
+    private string $label;
 
     public function __construct(
         string $type,

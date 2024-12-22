@@ -29,13 +29,11 @@ final class CharacterLimit extends Builder
 
     protected function get_input(Config $config): ?Input
     {
-        $limit = $config->has('character_limit') ? (int)$config->get('character_limit') : 20;
-
         return Number::create_single_step(
-            'character_limit',
+            'excerpt_length',
             0,
             null,
-            $limit,
+            (int)($config->get('excerpt_length', 20)),
             null,
             null,
             __('Characters', 'codepress-admin-columns')
@@ -44,7 +42,7 @@ final class CharacterLimit extends Builder
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        $formatters->add(new AC\Value\Formatter\CharacterLimit((int)$config->get('character_limit')));
+        $formatters->add(new AC\Value\Formatter\CharacterLimit((int)$config->get('excerpt_length')));
     }
 
 }

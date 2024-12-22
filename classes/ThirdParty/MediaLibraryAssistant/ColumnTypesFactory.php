@@ -5,34 +5,24 @@ declare(strict_types=1);
 namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
-use AC\Collection\ColumnFactories;
 use AC\ColumnFactory;
+use AC\ColumnFactoryDefinitionCollection;
 use AC\TableScreen;
 use AC\ThirdParty\MediaLibraryAssistant;
-use AC\Vendor\DI\Container;
+use AC\Type\ColumnFactoryDefinition;
 
-class ColumnTypesFactory implements AC\ColumnFactoryCollectionFactory
+class ColumnTypesFactory extends AC\ColumnFactories\BaseFactory
 {
 
-    private $container;
-
-    public function __construct(Container $container)
+    protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
-        $this->container = $container;
-    }
-
-    public function create(TableScreen $table_screen): ColumnFactories
-    {
-        $collection = new ColumnFactories();
+        $collection = new ColumnFactoryDefinitionCollection();
 
         if ( ! $table_screen instanceof MediaLibraryAssistant\TableScreen) {
             return $collection;
         }
 
         $factories = [
-
-            //TODO add ActionFactory
-            //TODO add MenuFactory
             ColumnFactory\Post\SlugFactory::class,
             ColumnFactory\Post\TitleRawFactory::class,
             ColumnFactory\Post\AuthorFactory::class,
@@ -53,7 +43,7 @@ class ColumnTypesFactory implements AC\ColumnFactoryCollectionFactory
         ];
 
         foreach ($factories as $factory) {
-            $collection->add($this->container->make($factory));
+            $collection->add(new ColumnFactoryDefinition($factory));
         }
 
         return $collection;

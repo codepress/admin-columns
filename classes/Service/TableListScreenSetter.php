@@ -4,7 +4,6 @@ namespace AC\Service;
 
 use AC\AdminColumns;
 use AC\Asset\Location\Absolute;
-use AC\ColumnSize;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
@@ -26,9 +25,7 @@ class TableListScreenSetter implements Registerable
 
     private TableScreenFactory $table_screen_factory;
 
-    private ColumnSize\ListStorage $size_storage;
-
-    private ColumnSize\UserStorage $size_user_storage;
+    private Table\InlineStyle\ColumnSize $column_size;
 
     public function __construct(
         Storage $storage,
@@ -36,16 +33,14 @@ class TableListScreenSetter implements Registerable
         TableScreenFactory $table_screen_factory,
         Table\LayoutPreference $preference,
         Table\PrimaryColumnFactory $primary_column_factory,
-        ColumnSize\ListStorage $size_storage,
-        ColumnSize\UserStorage $size_user_storage
+        Table\InlineStyle\ColumnSize $column_size
     ) {
         $this->storage = $storage;
         $this->location = $plugin->get_location();
         $this->preference = $preference;
         $this->primary_column_factory = $primary_column_factory;
         $this->table_screen_factory = $table_screen_factory;
-        $this->size_storage = $size_storage;
-        $this->size_user_storage = $size_user_storage;
+        $this->column_size = $column_size;
     }
 
     public function register(): void
@@ -60,8 +55,6 @@ class TableListScreenSetter implements Registerable
         }
 
         $table_screen = $this->table_screen_factory->create_from_wp_screen($wp_screen);
-
-        do_action('ac/table/screen', $table_screen);
 
         $request = new Request();
 
@@ -83,21 +76,25 @@ class TableListScreenSetter implements Registerable
                 $list_screen->get_id()
             );
 
+            $list = new Table\Service\ListScreen(
+                $list_screen,
+                $this->primary_column_factory,
+                $this->column_size
+            );
+            $list->register();
+
             do_action('ac/table/list_screen', $list_screen, $table_screen);
         }
 
         $table = new Table\Screen(
             $this->location,
             $table_screen,
-            $this->size_storage,
-            $this->size_user_storage,
-            $this->primary_column_factory,
             $list_screen
         );
 
-        $table->register();
-
         do_action('ac/table', $table);
+
+        $table->register();
     }
 
 }

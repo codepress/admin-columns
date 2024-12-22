@@ -20,9 +20,6 @@ interface Column
 
     public function get_group(): string;
 
-    // TODO implement this
-    //public function get_icon(): ?string;
-
     public function get_setting(string $name): ?Component;
 
     public function get_settings(): ComponentCollection;

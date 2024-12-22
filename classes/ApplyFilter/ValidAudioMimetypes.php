@@ -8,7 +8,7 @@ class ValidAudioMimetypes
     public function apply_filters(): array
     {
         return (array)apply_filters(
-            'ac/column/audio_player/valid_mime_types',
+            'ac/v2/column/audio_player/valid_mime_types',
             [
                 'audio/mpeg',
                 'audio/flac',

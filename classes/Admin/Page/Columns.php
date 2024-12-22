@@ -14,6 +14,7 @@ use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\ColumnGroups;
+use AC\Promos;
 use AC\Renderable;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Table\TableScreenCollection;
@@ -44,6 +45,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private ?ListScreenId $list_id;
 
+    private Promos $promos;
+
     public function __construct(
         AdminColumns $plugin,
         TableScreenCollection $uninitialized_screens,
@@ -53,6 +56,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         EditorFavorites $favorite_repository,
         TableScreenRepository $table_screen_repository,
         ColumnGroups $column_groups,
+        Promos $promos,
         ListScreenId $list_id = null
     ) {
         $this->location = $plugin->get_location();
@@ -64,6 +68,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         $this->uninitialized_screens = $uninitialized_screens;
         $this->list_id = $list_id;
         $this->column_groups = $column_groups;
+        $this->promos = $promos;
     }
 
     public function get_table_screen(): TableScreen
@@ -92,6 +97,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 $this->table_screen_repository,
                 $this->favorite_repository,
                 $this->column_groups,
+                $this->promos,
                 defined('ACP_FILE'),
                 $this->list_id
             ),

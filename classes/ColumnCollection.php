@@ -10,7 +10,7 @@ class ColumnCollection implements ColumnIterator
     /**
      * @var Column[]
      */
-    private $data = [];
+    private array $data = [];
 
     public function __construct(array $data = [])
     {

@@ -6,6 +6,7 @@ namespace AC;
 
 use AC\ColumnFactories\Aggregate;
 use AC\Storage\Repository\DefaultColumnsRepository;
+use AC\Type\ListKey;
 
 class ColumnTypeRepository
 {
@@ -40,14 +41,25 @@ class ColumnTypeRepository
         return $columns;
     }
 
+    private function get_column_names(ListKey $key): array
+    {
+        $column_names = [];
+
+        foreach ($this->default_columns_repository->find_all($key) as $column) {
+            $column_names[] = $column->get_name();
+        }
+
+        return $column_names;
+    }
+
     public function find_all_by_original(TableScreen $table_screen): ColumnCollection
     {
         $columns = new ColumnCollection();
 
-        $types = $this->default_columns_repository->find_all($table_screen->get_key());
+        $types = $this->get_column_names($table_screen->get_key());
 
         foreach ($this->aggregate->create($table_screen) as $type => $factory) {
-            if ( ! array_key_exists($type, $types)) {
+            if ( ! in_array($type, $types, true)) {
                 continue;
             }
 
@@ -55,7 +67,7 @@ class ColumnTypeRepository
                 $factory->create(
                     new Setting\Config([
                         'name'  => $type,
-                        'label' => $types[$type],
+                        'label' => $types[$type] ?? '',
                     ])
                 )
             );

@@ -3,42 +3,86 @@
 namespace AC\Storage\Repository;
 
 use AC\Storage\Option;
+use AC\Type\ColumnId;
+use AC\Type\DefaultColumn;
+use AC\Type\DefaultColumns;
 use AC\Type\ListKey;
 
 final class DefaultColumnsRepository
 {
 
-    private function get_storage(ListKey $key): Option
+    private function storage(ListKey $key): Option
     {
         return new Option(
-            sprintf('cpac_options_%s__default', $key)
+            sprintf('ac_columns_default_%s', $key)
         );
     }
 
-    public function update(ListKey $key, array $columns): void
+    public function update(ListKey $key, DefaultColumns $columns): void
     {
-        $this->get_storage($key)
-             ->save($columns);
+        $storage = $this->storage($key);
+
+        $data = $storage->get() ?: [];
+
+        foreach ($columns as $column) {
+            $args = [
+                'label' => $column->get_label(),
+            ];
+
+            if ($column->is_sortable()) {
+                $args['sortable'] = true;
+            }
+
+            $data[$column->get_name()] = $args;
+        }
+
+        $storage->save($data);
     }
 
     public function exists(ListKey $key): bool
     {
-        return false !== $this->get_storage($key)->get();
+        return false !== $this->storage($key)->get();
     }
 
     public function delete(ListKey $key): void
     {
-        $this->get_storage($key)
+        $this->storage($key)
              ->delete();
     }
 
-    public function find_all(ListKey $key): array
+    public function find(ListKey $key, ColumnId $column_id): ?DefaultColumn
     {
-        $columns = $this->get_cached_storage($key);
+        $column_name = (string)$column_id;
 
-        unset($columns['cb']);
+        $data = $this->get_cached_storage($key)[$column_name] ?? null;
 
-        return $columns;
+        return $data
+            ? $this->create_column($column_name, $data)
+            : null;
+    }
+
+    public function find_all(ListKey $key): DefaultColumns
+    {
+        $columns = [];
+
+        foreach ($this->get_cached_storage($key) as $column_name => $column_data) {
+            if ('cb' === $column_name) {
+                continue;
+            }
+
+            $columns[] = $this->create_column($column_name, $column_data);
+        }
+
+        return new DefaultColumns($columns);
+    }
+
+    private function create_column(string $column_name, array $data): DefaultColumn
+    {
+        return new DefaultColumn(
+            $column_name,
+            $data['label'],
+            (bool)($data['sortable'] ?? false)
+        );
     }
 
     private function get_cached_storage(ListKey $key): array
@@ -54,7 +98,7 @@ final class DefaultColumnsRepository
 
     private function get(ListKey $key): array
     {
-        return $this->get_storage($key)->get() ?: [];
+        return $this->storage($key)->get() ?: [];
     }
 
 }

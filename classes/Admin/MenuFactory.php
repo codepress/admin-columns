@@ -12,14 +12,17 @@ use AC\Type\Url\UtmTags;
 class MenuFactory implements MenuFactoryInterface
 {
 
-    protected $url;
+    protected string $url;
 
-    protected $location;
+    protected Location $location;
 
-    public function __construct(string $url, AdminColumns $plugin)
+    private Hooks $hooks;
+
+    public function __construct(string $url, AdminColumns $plugin, Hooks $hooks)
     {
         $this->url = $url;
         $this->location = $plugin->get_location();
+        $this->hooks = $hooks;
     }
 
     protected function create_menu_link(string $slug): string
@@ -43,13 +46,13 @@ class MenuFactory implements MenuFactoryInterface
             Page\Addons::NAME   => __('Add-ons', 'codepress-admin-columns'),
         ];
 
-        $hooks = new Hooks();
+        $hook_count = $this->hooks->get_count();
 
-        if ($hooks->get_count() > 0) {
+        if ($hook_count > 0) {
             $items[Page\Help::NAME] = sprintf(
                 '%s %s',
                 __('Help', 'codepress-admin-columns'),
-                '<span class="ac-badge">' . $hooks->get_count() . '</span>'
+                '<span class="ac-badge">' . $hook_count . '</span>'
             );
         }
 

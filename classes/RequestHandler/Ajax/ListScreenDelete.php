@@ -43,7 +43,7 @@ class ListScreenDelete implements RequestAjaxHandler
 
         $this->storage->delete($list_screen);
 
-        do_action('acp/list_screen/deleted', $list_screen);
+        do_action('ac/list_screen/deleted', $list_screen);
 
         $response->set_message(
             sprintf(

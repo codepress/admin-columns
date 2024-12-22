@@ -7,6 +7,7 @@
     export let nativeValue: null | string = null;
     export let indeterminate: boolean = false;
     export let disabled: boolean = false;
+    export let label: string = null;
 
     let input: HTMLInputElement;
     let checked = false;
@@ -115,7 +116,7 @@
 	}
 
 	.acui-checkbox input[type=checkbox]:focus + .acui-checkbox__check {
-		box-shadow: 0 0 0 2px #fff,0 0 0 4px var(--ac-primary-color);
+		box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ac-primary-color);
 
 	}
 
@@ -135,7 +136,9 @@
 	<span class="acui-checkbox__label">
 		{#if checkedLabel}
 			{checkedLabel}
-		{:else }
+		{:else if label }
+			{label}
+		{:else}
 			<slot></slot>
 		{/if}
 	</span>

@@ -63,9 +63,11 @@ class UserProperty extends Builder
                 $formatters->add(new Formatter\Gravatar((int)$config->get('gravatar_size', '60')));
 
                 break;
+            case self::PROPERTY_FULL_NAME:
+                $formatters->add(new Formatter\User\FullName());
+                break;
             case self::PROPERTY_DISPLAY_NAME:
             case self::PROPERTY_EMAIL:
-            case self::PROPERTY_FULL_NAME:
             case self::PROPERTY_FIRST_NAME:
             case self::PROPERTY_ID:
             case self::PROPERTY_LAST_NAME:

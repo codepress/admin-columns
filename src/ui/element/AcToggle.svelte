@@ -7,13 +7,14 @@
     export let trueValue: string = '';
     export let falseValue: string = '';
     export let disabled: boolean = false;
+    export let label: string = null;
 
     let name: string = generateGuid();
     let dispatch = createEventDispatcher();
 
     const dispatchInput = () => {
-		setTimeout( () => dispatch('input', checked) );
-	}
+        setTimeout(() => dispatch('input', checked));
+    }
 
     $:finalFalseLabel = falseValue ?? trueValue;
     $:checkedLabel = checked ? trueValue : finalFalseLabel;
@@ -29,7 +30,7 @@
 	}
 
 	.ac-toggle-v2 input[type=checkbox]:focus + .ac-toggle-v2__toggle__track {
-		box-shadow: 0 0 0 2px #fff,0 0 0 4px var(--ac-primary-color);
+		box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ac-primary-color);
 	}
 </style>
 
@@ -44,7 +45,9 @@
 	<label class="ac-toggle-v2__label" for={name}>
 		{#if checkedLabel}
 			{checkedLabel}
-		{:else }
+		{:else if label }
+			{label}
+		{:else}
 			<slot></slot>
 		{/if}
 	</label>

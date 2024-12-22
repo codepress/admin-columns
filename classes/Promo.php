@@ -6,29 +6,18 @@ use AC;
 use AC\Type\DateRange;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
+use DateTime;
 
 abstract class Promo
 {
 
-    /**
-     * @var string
-     */
-    private $slug;
+    private string $slug;
 
-    /**
-     * @var string
-     */
-    private $title;
+    private string $title;
 
-    /**
-     * @var int
-     */
-    private $discount;
+    private int $discount;
 
-    /**
-     * @var DateRange
-     */
-    private $date_range;
+    private DateRange $date_range;
 
     public function __construct(string $slug, string $title, int $discount, DateRange $date_range)
     {
@@ -63,9 +52,9 @@ abstract class Promo
         return $this->date_range;
     }
 
-    public function is_active(): bool
+    public function is_active(DateTime $date = null): bool
     {
-        return $this->date_range->in_range() && current_user_can(AC\Capabilities::MANAGE);
+        return $this->date_range->in_range($date);
     }
 
 }

@@ -6,9 +6,12 @@ import {columnTypesStore} from "./columns/store/column-types";
 import {favoriteListKeysStore} from "./columns/store/favorite-listkeys";
 import {debugMode} from "./columns/store/debug";
 import {showColumnInfo} from "./columns/store/screen-options";
-import {initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
+import {initListScreenHeadings, initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
 import InfoScreenOption from "./modules/screen-options";
 import ColumnPageBridge from "./columns/utils/page-bridge";
+import {currentTableUrl} from "./columns/store/table_url";
+import {get} from "svelte/store";
+import {hasUsagePermissions} from "./columns/store/permissions";
 
 const AcServices = initAcServices();
 const localConfig = getColumnSettingsConfig();
@@ -35,17 +38,16 @@ currentListId.subscribe((d) => {
 document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('admin-columns__columns')
 
-
-    const pageBridge = new ColumnPageBridge();
-
-
-    AcServices.registerService('ColumnPage', pageBridge);
-
     currentListId.set(localConfig.list_id)
     currentListKey.set(localConfig.list_key);
     columnTypesStore.set([]);
+    hasUsagePermissions.set( true )
     debugMode.set(false);
     favoriteListKeysStore.set(localConfig.menu_items_favorites);
+
+    const pageBridge = new ColumnPageBridge();
+
+    AcServices.registerService('ColumnPage', pageBridge);
 
     const cpacElement = document.querySelector('#cpac');
 
@@ -59,9 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (localConfig.uninitialized_list_screens) {
+    if (localConfig.uninitialized_list_screens !== null) {
         initUninitializedListScreens(localConfig.uninitialized_list_screens, localConfig.list_key);
     }
+    initListScreenHeadings();
 
     document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_info"] input').forEach(el =>
         new InfoScreenOption('show_column_info', el, showColumnInfo, ac_admin_columns.nonce)

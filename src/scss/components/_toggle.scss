@@ -136,6 +136,9 @@
 
 				~ .ac-toggle-v2__toggle__thumb {
 					cursor: not-allowed;
+					&:before {
+						color: #ddd;
+					}
 				}
 			}
 		}

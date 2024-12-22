@@ -25,16 +25,7 @@ class ContentExcerpt implements Formatter
             return throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        if ($post->post_excerpt) {
-            return $value->with_value($excerpt);
-        }
-
-        $tooltip = ac_helper()->html->tooltip(
-            ac_helper()->icon->dashicon(['icon' => 'media-text', 'class' => 'gray']),
-            __('Excerpt is missing.') . ' ' . __('Current excerpt is generated from the content.')
-        );
-
-        return $value->with_value($tooltip . $excerpt);
+        return $value->with_value($excerpt);
     }
 
 }
