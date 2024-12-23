@@ -28,14 +28,6 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// TODO David
-// make abstract Plugin class or interface
-// make AdminColumnsPro plugin
-// make AdminColumns plugin
-// decouple get_plugins from that and put that in on construct as a repo for plugin data
-// when a location is required, just use plugin instead to resolve unless to much
-// plugin should only contain basics like name, version, basename, url and directory. The rest should be deducted
-
 use AC\Loader;
 use AC\Vendor\DI\ContainerBuilder;
 

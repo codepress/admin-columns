@@ -6,7 +6,7 @@ namespace AC;
 
 use AC\Asset\Location;
 use AC\ListScreenRepository\Storage;
-use AC\Vendor\Psr\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use LogicException;
 
 final class Container

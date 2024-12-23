@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 use Isolated\Symfony\Component\Finder\Finder;
 
 return [
@@ -19,7 +17,7 @@ return [
         'vendor/php-di/php-di/src/Compiler/Template.php',
     ],
     'patchers'                => [],
-    'exclude-namespaces'      => [],
+    'exclude-namespaces'      => ['Psr\Container'],
     'exclude-classes'         => [],
     'exclude-functions'       => [],
     'exclude-constants'       => [],
