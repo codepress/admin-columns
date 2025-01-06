@@ -7,7 +7,7 @@ use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
 use AC\Admin\Preference;
-use AC\Asset\Location;
+use AC\AdminColumns;
 use AC\ColumnGroups;
 use AC\Promos;
 use AC\Request;
@@ -20,7 +20,7 @@ use InvalidArgumentException;
 class Columns implements PageFactoryInterface
 {
 
-    protected Location\Absolute $location;
+    protected AdminColumns $plugin;
 
     protected MenuFactoryInterface $menu_factory;
 
@@ -37,7 +37,7 @@ class Columns implements PageFactoryInterface
     private Promos $promos;
 
     public function __construct(
-        Location\Absolute $location,
+        AdminColumns $plugin,
         MenuFactoryInterface $menu_factory,
         Admin\UninitializedScreens $uninitialized_screens,
         Admin\MenuListFactory $menu_list_factory,
@@ -46,7 +46,7 @@ class Columns implements PageFactoryInterface
         ColumnGroups $column_groups,
         Promos $promos
     ) {
-        $this->location = $location;
+        $this->plugin = $plugin;
         $this->menu_factory = $menu_factory;
         $this->uninitialized_screens = $uninitialized_screens;
         $this->menu_list_factory = $menu_list_factory;
@@ -78,7 +78,7 @@ class Columns implements PageFactoryInterface
             : null;
 
         return new Page\Columns(
-            $this->location,
+            $this->plugin,
             $this->uninitialized_screens->find_all_site(),
             new Admin\View\Menu($this->menu_factory->create('columns')),
             $table_screen,

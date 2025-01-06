@@ -2,7 +2,6 @@
 
 namespace AC\Plugin\SetupFactory;
 
-use AC\Asset\Location\Absolute;
 use AC\Plugin\Install;
 use AC\Plugin\InstallCollection;
 use AC\Plugin\Setup;
@@ -14,18 +13,13 @@ use AC\Plugin\Version;
 final class AdminColumns extends SetupFactory
 {
 
-    private $location;
-
     public function __construct(
         string $version_key,
         Version $version,
-        Absolute $location,
         InstallCollection $installers = null,
         UpdateCollection $updates = null
     ) {
         parent::__construct($version_key, $version, $installers, $updates);
-
-        $this->location = $location;
     }
 
     public function create(string $type): Setup
@@ -42,9 +36,6 @@ final class AdminColumns extends SetupFactory
                     new Install\Database(),
                 ]);
                 $this->updates = new UpdateCollection([
-                    new Update\V3005(),
-                    new Update\V3007(),
-                    new Update\V3201($this->location),
                     new Update\V4000(),
                 ]);
                 break;

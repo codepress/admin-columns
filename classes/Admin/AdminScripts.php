@@ -2,9 +2,9 @@
 
 namespace AC\Admin;
 
+use AC\AdminColumns;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
-use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
 
@@ -13,9 +13,9 @@ class AdminScripts implements Enqueueables
 
     private $location;
 
-    public function __construct(Location\Absolute $location)
+    public function __construct(AdminColumns $plugin)
     {
-        $this->location = $location;
+        $this->location = $plugin->get_location();
     }
 
     public function get_assets(): Assets

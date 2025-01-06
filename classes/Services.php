@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC;
 
-class Services implements Registerable
+final class Services implements Registerable
 {
 
     private array $services;
@@ -23,12 +23,9 @@ class Services implements Registerable
 
     public function register(): void
     {
-        array_map([$this, 'register_service'], $this->services);
-    }
-
-    private function register_service(Registerable $service): void
-    {
-        $service->register();
+        foreach ($this->services as $service) {
+            $service->register();
+        }
     }
 
 }

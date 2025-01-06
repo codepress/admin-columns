@@ -11,18 +11,18 @@ use AC\Asset\Location;
 class Settings implements PageFactoryInterface
 {
 
-    protected Location\Absolute $location;
+    protected AC\AdminColumns $plugin;
 
     protected MenuFactoryInterface $menu_factory;
 
     private bool $is_acp_active;
 
     public function __construct(
-        Location\Absolute $location,
+        AC\AdminColumns $plugin,
         MenuFactoryInterface $menu_factory,
         bool $is_acp_active
     ) {
-        $this->location = $location;
+        $this->plugin = $plugin;
         $this->menu_factory = $menu_factory;
         $this->is_acp_active = $is_acp_active;
     }
@@ -31,7 +31,7 @@ class Settings implements PageFactoryInterface
     {
         return new Page\Settings(
             new AC\Admin\View\Menu($this->menu_factory->create('settings')),
-            new AC\Admin\Asset\Script\SettingsFactory($this->location)
+            new AC\Admin\Asset\Script\SettingsFactory($this->plugin)
         );
 
         // TODO show this?

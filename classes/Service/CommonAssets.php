@@ -2,7 +2,7 @@
 
 namespace AC\Service;
 
-use AC\Asset\Location\Absolute;
+use AC\AdminColumns;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Registerable;
@@ -14,9 +14,9 @@ class CommonAssets implements Registerable
 
     private $translation_factory;
 
-    public function __construct(Absolute $location, Script\GlobalTranslationFactory $translation_factory)
+    public function __construct(AdminColumns $plugin, Script\GlobalTranslationFactory $translation_factory)
     {
-        $this->location = $location;
+        $this->location = $plugin->get_location();
         $this->translation_factory = $translation_factory;
     }
 

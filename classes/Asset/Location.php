@@ -9,4 +9,6 @@ interface Location
 
     public function get_path(): string;
 
+    public function with_suffix(string $suffix): self;
+
 }

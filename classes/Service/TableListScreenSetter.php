@@ -2,7 +2,7 @@
 
 namespace AC\Service;
 
-use AC\Asset\Location\Absolute;
+use AC\AdminColumns;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
@@ -16,8 +16,6 @@ class TableListScreenSetter implements Registerable
 
     private Storage $storage;
 
-    private Absolute $location;
-
     private Table\LayoutPreference $preference;
 
     private Table\PrimaryColumnFactory $primary_column_factory;
@@ -26,20 +24,22 @@ class TableListScreenSetter implements Registerable
 
     private Table\InlineStyle\ColumnSize $column_size;
 
+    private AdminColumns $plugin;
+
     public function __construct(
         Storage $storage,
-        Absolute $location,
+        AdminColumns $plugin,
         TableScreenFactory $table_screen_factory,
         Table\LayoutPreference $preference,
         Table\PrimaryColumnFactory $primary_column_factory,
         Table\InlineStyle\ColumnSize $column_size
     ) {
         $this->storage = $storage;
-        $this->location = $location;
         $this->preference = $preference;
         $this->primary_column_factory = $primary_column_factory;
         $this->table_screen_factory = $table_screen_factory;
         $this->column_size = $column_size;
+        $this->plugin = $plugin;
     }
 
     public function register(): void
@@ -86,7 +86,7 @@ class TableListScreenSetter implements Registerable
         }
 
         $table = new Table\Screen(
-            $this->location,
+            $this->plugin,
             $table_screen,
             $list_screen
         );

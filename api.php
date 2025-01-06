@@ -14,6 +14,7 @@ function ac_get_url(string $relative_file_path): string
     return Container::get_location()->with_suffix($relative_file_path)->get_url();
 }
 
+// TODO David do we need this even?
 if ( ! function_exists('AC')) {
     function AC(): AC\AdminColumns
     {

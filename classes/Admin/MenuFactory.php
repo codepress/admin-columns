@@ -3,6 +3,7 @@
 namespace AC\Admin;
 
 use AC\Admin\Type\MenuItem;
+use AC\AdminColumns;
 use AC\Asset\Location;
 use AC\Deprecated\Hooks;
 use AC\Type\Url\Site;
@@ -13,14 +14,14 @@ class MenuFactory implements MenuFactoryInterface
 
     protected string $url;
 
-    protected Location\Absolute $location;
+    protected Location $location;
 
     private Hooks $hooks;
 
-    public function __construct(string $url, Location\Absolute $location, Hooks $hooks)
+    public function __construct(string $url, AdminColumns $plugin, Hooks $hooks)
     {
         $this->url = $url;
-        $this->location = $location;
+        $this->location = $plugin->get_location();
         $this->hooks = $hooks;
     }
 

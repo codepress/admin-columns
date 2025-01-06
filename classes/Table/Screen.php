@@ -26,11 +26,11 @@ final class Screen implements Registerable
     private array $screen_options = [];
 
     public function __construct(
-        Absolute $location,
+        AC\AdminColumns $plugin,
         TableScreen $table_screen,
         ListScreen $list_screen = null
     ) {
-        $this->location = $location;
+        $this->location = $plugin->get_location();
         $this->table_screen = $table_screen;
         $this->list_screen = $list_screen;
     }
