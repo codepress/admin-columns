@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-09-05 13:43:57+0000\n"
+"PO-Revision-Date: 2025-01-03 13:27:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,72 +13,72 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:334
 msgid "Miscellaneous"
-msgstr ""
+msgstr "その他"
 
 #: templates/admin/list-screen-settings-mockup.php:135
 msgid "Ascending"
-msgstr ""
+msgstr "昇順"
 
 #: templates/admin/edit-submenu.php:10
 msgid "Table Views"
-msgstr ""
+msgstr "テーブル表示"
 
 #: settings/translations/global.php:9
 msgid "Filter"
-msgstr ""
+msgstr "絞り込み"
 
 #: classes/Settings/Column/FileMetaAudio.php:50
 msgid "channel"
 msgid_plural "channels"
-msgstr[0] ""
+msgstr[0] "チャンネル"
 
 #: classes/Settings/Column/DateFormat.php:40
 msgid "Date Save Format"
-msgstr ""
+msgstr "日付の保存形式"
 
 #: classes/Settings/Column/DateFormat.php:35
 msgid "Datetime (ISO)"
-msgstr ""
+msgstr "日時 (ISO)"
 
 #: classes/RequestHandler/Ajax/ListScreenDelete.php:50
 msgid "Table view %s successfully deleted."
-msgstr ""
+msgstr "テーブル表示 %s が正常に削除されました。"
 
 #: classes/ListScreenGroupsFactory.php:15
 msgid "Other"
-msgstr ""
+msgstr "その他"
 
 #: classes/Controller/ListScreen/Save.php:58
 msgid "Column settings could not be saved."
-msgstr ""
+msgstr "列の設定を保存できませんでした。"
 
 #: classes/Controller/ListScreen/Save.php:36
 msgid "List screen not found"
-msgstr ""
+msgstr "リスト画面が見つかりません"
 
 #: classes/Column/Placeholder.php:36
 msgid "The %s integration is available in Admin Columns Pro"
-msgstr ""
+msgstr "%s 統合は Admin Columns プロ版 で利用できます"
 
 #: classes/Column/Media/Preview.php:74
 msgid "Preview not available"
-msgstr ""
+msgstr "プレビューは利用できません"
 
 #: classes/Admin/ScreenOption/ListScreenSource.php:33
 msgid "List Screen Source"
-msgstr ""
+msgstr "リスト画面ソース"
 
 #: classes/Admin/Notice/DatabaseMissing.php:35
 msgid "Create database table."
-msgstr ""
+msgstr "データベーステーブルを作成。"
 
 #: classes/Admin/Notice/DatabaseMissing.php:25
 msgid "Database table %s is missing."
-msgstr ""
+msgstr "データベーステーブル %s が見つかりません。"
 
 #: classes/Admin/Asset/Columns.php:52
 msgid "Value"
-msgstr ""
+msgstr "値"
 
 #: templates/tooltip/conditional-format.php:3
 msgctxt "conditional format help"
