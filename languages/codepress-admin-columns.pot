@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Admin Columns
+# Copyright (C) 2025 Admin Columns
 # This file is distributed under the same license as the Admin Columns package.
 msgid ""
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2024-11-05 08:26+0000\n"
+"POT-Creation-Date: 2025-01-07 12:17+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -316,7 +316,7 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: classes/Table/Screen.php:152, templates/admin/edit-column.php:35
+#: classes/Table/Screen.php:152, templates/admin/edit-column.php:44
 msgid "Edit"
 msgstr ""
 
@@ -348,23 +348,23 @@ msgstr ""
 msgid "More details"
 msgstr ""
 
-#: templates/admin/edit-column.php:30, classes/Settings/Column/Type.php:48
+#: templates/admin/edit-column.php:32, classes/Settings/Column/Type.php:48
 msgid "Name"
 msgstr ""
 
-#: templates/admin/edit-column.php:31, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:85, classes/Settings/Column/Type.php:45, classes/Settings/Column/Type.php:54
+#: templates/admin/edit-column.php:37, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:85, classes/Settings/Column/Type.php:45, classes/Settings/Column/Type.php:54
 msgid "Type"
 msgstr ""
 
-#: templates/admin/edit-column.php:36, templates/admin/edit-column.php:80
+#: templates/admin/edit-column.php:46, templates/admin/edit-column.php:95
 msgid "Close"
 msgstr ""
 
-#: templates/admin/edit-column.php:38, templates/admin/edit-column.php:82
+#: templates/admin/edit-column.php:50, templates/admin/edit-column.php:99
 msgid "Clone"
 msgstr ""
 
-#: templates/admin/edit-column.php:40
+#: templates/admin/edit-column.php:54
 msgid "Remove"
 msgstr ""
 
