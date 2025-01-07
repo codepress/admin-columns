@@ -6,7 +6,7 @@ use LogicException;
 
 final class ListScreenId {
 
-	private $id;
+	private string $id;
 
 	public function __construct( string $id ) {
 		if ( ! self::is_valid_id( $id ) ) {
