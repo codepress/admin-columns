@@ -11,6 +11,7 @@
     import {getColumnSettingsTranslation} from "../../../utils/global";
     import {currentListKey} from "../../../store/current-list-screen";
     import {openedColumnsStore} from "../../../store/opened-columns";
+    import ColumnTypeGroupIcon from "../../ColumnTypeGroupIcon.svelte";
 
     export let data: ListScreenColumnData;
     export let columnConfig: AC.Column.Settings.ColumnSettingCollection;
@@ -70,4 +71,15 @@
 	{disabled}
 	bind:value={value}
 	on:change={ changeValue }
-	bind:justValue={selectValue}/>
+	bind:justValue={selectValue}>
+	<div slot="item" let:item>
+		{#if item.groupItem}
+				<span class="acu-flex acu-items-center acu-relative acu-pl-1">
+					<ColumnTypeGroupIcon group_key={item.group_key}/>
+					{item.label}
+				</span>
+		{:else}
+			{item.label}
+		{/if}
+	</div>
+</Select>
