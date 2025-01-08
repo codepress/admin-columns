@@ -41,7 +41,7 @@
 		on:change={handleSelect}
 		items={items}
 		{groupBy}>
-		<div slot="item" let:item let:index>
+		<div slot="item" let:item>
 			{#if item.groupItem}
 				<span class="acu-flex acu-items-center acu-relative acu-pl-1">
 					<ColumnTypeGroupIcon group_key={item.group_key}/>
