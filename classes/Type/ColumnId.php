@@ -9,7 +9,7 @@ use InvalidArgumentException;
 final class ColumnId
 {
 
-    private $id;
+    private string $id;
 
     public function __construct(string $id)
     {
@@ -20,9 +20,9 @@ final class ColumnId
         $this->id = $id;
     }
 
-    public static function is_valid_id($id): bool
+    public static function is_valid_id(string $id): bool
     {
-        return is_string($id) && '' !== $id;
+        return '' !== $id;
     }
 
     public static function generate(): self

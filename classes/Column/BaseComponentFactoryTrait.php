@@ -45,7 +45,7 @@ trait BaseComponentFactoryTrait
 
     protected function get_column_id(Config $config): ColumnId
     {
-        $id = $config->get('name');
+        $id = (string)$config->get('name');
 
         return ColumnId::is_valid_id($id)
             ? new ColumnId($id)
