@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
@@ -25,9 +26,13 @@ class Image implements Formatter
 
     public function format(Value $value): Value
     {
-        return $value->with_value(
-            ac_helper()->image->get_image((string)$value->get_value(), $this->size, $this->skip_image_check)
-        );
+        $image = ac_helper()->image->get_image((string)$value->get_value(), $this->size, $this->skip_image_check);
+
+        if ($image === null) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
+
+        return $value->with_value($image);
     }
 
 }
