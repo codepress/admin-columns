@@ -8,20 +8,20 @@ use LogicException;
 final class Timestamp implements Expirable
 {
 
-    private $storage;
+    private KeyValuePair $storage;
 
     public function __construct(KeyValuePair $storage)
     {
         $this->storage = $storage;
     }
 
-    public function is_expired(int $value = null): bool
+    public function is_expired(int $timestamp = null): bool
     {
-        if (null === $value) {
-            $value = time();
+        if (null === $timestamp) {
+            $timestamp = time();
         }
 
-        return $value > (int)$this->get();
+        return $timestamp > (int)$this->get();
     }
 
     public function validate(int $value): bool
