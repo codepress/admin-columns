@@ -17,18 +17,18 @@ final class Timestamp implements Expirable, KeyValue
         $this->storage = $storage;
     }
 
-    public function is_expired(int $value = null): bool
+    public function is_expired(int $timestamp = null): bool
     {
-        if (null === $value) {
-            $value = time();
+        if (null === $timestamp) {
+            $timestamp = time();
         }
 
-        return $value > (int)$this->get();
+        return $timestamp > (int)$this->get();
     }
 
     public function validate($value): bool
     {
-        return (bool) preg_match('/^[1-9]\d*$/', (string)$value);
+        return (bool)preg_match('/^[1-9]\d*$/', (string)$value);
     }
 
     public function get()
