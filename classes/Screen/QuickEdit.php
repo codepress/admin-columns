@@ -12,62 +12,62 @@ use AC\Type\ListScreenId;
 class QuickEdit implements Registerable
 {
 
-    /**
-     * @var Storage
-     */
-    private $storage;
+    private Storage $storage;
 
-    /**
-     * @var LayoutPreference
-     */
-    private $preference;
+    private LayoutPreference $preference;
 
-	private $primary_column_factory;
+    private PrimaryColumnFactory $primary_column_factory;
 
-	public function __construct(
-		Storage $storage,
-		LayoutPreference $preference,
-		PrimaryColumnFactory $primary_column_factory
-	) {
-		$this->storage = $storage;
-		$this->preference = $preference;
-		$this->primary_column_factory = $primary_column_factory;
-	}
+    public function __construct(
+        Storage $storage,
+        LayoutPreference $preference,
+        PrimaryColumnFactory $primary_column_factory,
+    ) {
+        $this->storage = $storage;
+        $this->preference = $preference;
+        $this->primary_column_factory = $primary_column_factory;
+    }
 
     public function register(): void
     {
         add_action('admin_init', [$this, 'init_columns_on_quick_edit']);
     }
 
+    protected function get_type(): ?string
+    {
+        switch (filter_input(INPUT_POST, 'action')) {
+            // Quick edit post
+            case 'inline-save' :
+                return filter_input(INPUT_POST, 'post_type');
+
+            // Adding term & Quick edit term
+            case 'add-tag' :
+            case 'inline-save-tax' :
+                return 'wp-taxonomy_' . filter_input(INPUT_POST, 'taxonomy');
+
+            // Quick edit comment & Inline reply on comment
+            case 'edit-comment' :
+            case 'replyto-comment' :
+                return 'wp-comments';
+
+            default:
+                return null;
+        }
+    }
+
     /**
      * Get list screen when doing Quick Edit, a native WordPress ajax call
      */
-    public function init_columns_on_quick_edit()
+    public function init_columns_on_quick_edit(): void
     {
         if ( ! wp_doing_ajax()) {
             return;
         }
 
-        switch (filter_input(INPUT_POST, 'action')) {
-            // Quick edit post
-            case 'inline-save' :
-                $type = filter_input(INPUT_POST, 'post_type');
-                break;
+        $type = $this->get_type();
 
-            // Adding term & Quick edit term
-            case 'add-tag' :
-            case 'inline-save-tax' :
-                $type = 'wp-taxonomy_' . filter_input(INPUT_POST, 'taxonomy');
-                break;
-
-            // Quick edit comment & Inline reply on comment
-            case 'edit-comment' :
-            case 'replyto-comment' :
-                $type = 'wp-comments';
-                break;
-
-            default:
-                return;
+        if ( ! $type) {
+            return;
         }
 
         $id = $this->preference->get($type);
@@ -82,14 +82,14 @@ class QuickEdit implements Registerable
             return;
         }
 
-		if ( ! $list_screen ) {
-			return;
-		}
+        add_filter(
+            'list_table_primary_column',
+            [$this->primary_column_factory->create($list_screen), 'set_primary_column'],
+            20
+        );
 
-		add_filter( 'list_table_primary_column', [ $this->primary_column_factory->create( $list_screen ), 'set_primary_column' ], 20 );
-
-		$screen_controller = new ScreenController( $list_screen );
-		$screen_controller->register();
-	}
+        $screen_controller = new ScreenController($list_screen);
+        $screen_controller->register();
+    }
 
 }
