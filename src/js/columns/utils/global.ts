@@ -17,7 +17,7 @@ type AdminColumnsI18n = {
             inline_edit: string
             export: string
             list_tables: string
-            addon: string
+            addons: string
             upgrade: string
         }
         banner: {
@@ -31,6 +31,35 @@ type AdminColumnsI18n = {
             your_first_name: string
             your_email: string
             send_discount: string
+        }
+        settings: {
+            conditionals: {
+                conditionals: string
+                description: string
+                select_roles: string
+                select_users: string
+            }
+            elements: {
+                table_elements: string
+                description: string
+                features: string
+                default: string
+            }
+            preferences: {
+                preferences: string
+                description: string
+                horizontal_scrolling: string
+                sorting: string
+                primary_column: string
+                wrapping: string
+                wrapping_options: {
+                    wrap: string
+                    clip: string
+                }
+                segments: string
+                no_segments: string
+                unlock: string
+            }
         }
     }
     global: {
@@ -78,7 +107,7 @@ type AdminColumnsI18n = {
     },
     support: {
         title: string
-    }
+    },
 }
 
 declare const ac_admin_columns_i18n: AdminColumnsI18n;

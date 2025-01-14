@@ -37,6 +37,8 @@ class Columns extends Script
 
     private AC\Promos $promos;
 
+    private Location $parent_location;
+
     public function __construct(
         string $handle,
         Location $location,
@@ -47,6 +49,7 @@ class Columns extends Script
         EditorFavorites $favorite_repository,
         AC\ColumnGroups $column_groups,
         AC\Promos $promos,
+        Location $parent_location,
         bool $is_pro = false,
         ListScreenId $list_id = null
     ) {
@@ -63,6 +66,7 @@ class Columns extends Script
         $this->column_groups = $column_groups;
         $this->is_pro = $is_pro;
         $this->promos = $promos;
+        $this->parent_location = $parent_location;
     }
 
     public function get_pro_modal_arguments(): array
@@ -149,6 +153,7 @@ class Columns extends Script
         }
 
         $this->add_inline_variable('ac_admin_columns', [
+            'assets'                     => $this->parent_location->with_suffix('assets')->get_url(),
             'nonce'                      => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
             'is_pro'                     => $this->is_pro,
             'list_key'                   => (string)$this->table_screen->get_key(),
@@ -173,7 +178,27 @@ class Columns extends Script
                     "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>.",
                     'codepress-admin-columns'
                 ),
-                (new UtmTags(new Documentation(), 'review-notice'))->get_url(),
+                'review'      => (new UtmTags(new Documentation(), 'review-notice'))->get_url(),
+            ],
+            'table_elements'             => [
+                'default'  => [
+                    __('Filters', 'codepress-admin-columns'),
+                    __('Status (Quick Links)', 'codepress-admin-columns'),
+                    __('Search', 'codepress-admin-columns'),
+                    __('Bulk Actions', 'codepress-admin-columns'),
+                    __('Row Actions (Below Title)', 'codepress-admin-columns'),
+                ],
+                'features' => [
+                    __('Inline Edit', 'codepress-admin-columns'),
+                    __('Bulk Edit', 'codepress-admin-columns'),
+                    __('Bulk Delete', 'codepress-admin-columns'),
+                    __('Smart Filters', 'codepress-admin-columns'),
+                    __('Export', 'codepress-admin-columns'),
+                    __('Conditional Formatting', 'codepress-admin-columns'),
+                    __('Add Row (Quick Add)', 'codepress-admin-columns'),
+                    __('Resize Columns', 'codepress-admin-columns'),
+                    __('Resize Columns', 'codepress-admin-columns'),
+                ],
             ],
         ]);
 
@@ -188,7 +213,7 @@ class Columns extends Script
                     ),
                 ],
                 'pro'    => [
-                    'modal'  => [
+                    'modal'    => [
                         'title'       => __('Do you like Admin Columns?', 'codepress-admin-columns'),
                         'subtitle'    => __(
                             'Upgrade to PRO, and take Admin Columns to the next level:',
@@ -212,7 +237,7 @@ class Columns extends Script
                         ),
                         'upgrade'     => __('Upgrade', 'codepress-admin-columns'),
                     ],
-                    'banner' => [
+                    'banner'   => [
                         'title'              => __('Upgrade to', 'codepress-admin-columns'),
                         'title_pro'          => __('Pro', 'codepress-admin-columns'),
                         'sub_title'          => __('Take Admin Columns to the next level:', 'codepress-admin-columns'),
@@ -226,6 +251,44 @@ class Columns extends Script
                         'your_first_name'    => __('Your First Name', 'codepress-admin-columns'),
                         'your_email'         => __('Your Email', 'codepress-admin-columns'),
                         'send_discount'      => __('Send me the discount', 'codepress-admin-columns'),
+                    ],
+                    'settings' => [
+                        'elements'     => [
+                            'table_elements' => __('Table Elements', 'codepress-admin-columns'),
+                            'description'    => __(
+                                'Show or hide elements from the table list screen.',
+                                'codepress-admin-columns'
+                            ),
+                            'default'        => __('Default Elements', 'codepress-admin-columns'),
+                            'features'       => __('Features', 'codepress-admin-columns'),
+                        ],
+                        'conditionals' => [
+                            'select_roles' => __('Select roles', 'codepress-admin-columns'),
+                            'select_users' => __('Select users', 'codepress-admin-columns'),
+                            'conditionals' => __('Conditionals', 'codepress-admin-columns'),
+                            'description'  => __(
+                                'Make this table view available only for specific users or roles.',
+                                'codepress-admin-columns'
+                            ),
+                        ],
+                        'preferences'  => [
+                            'preferences'          => __('Preferences', 'codepress-admin-columns'),
+                            'description'          => __(
+                                'Set default settings that users will see when they visit the list table.',
+                                'codepress-admin-columns'
+                            ),
+                            'horizontal_scrolling' => __('Horizontal Scrolling', 'codepress-admin-columns'),
+                            'sorting'              => __('Sorting', 'codepress-admin-columns'),
+                            'segments'             => __('Pre-applied Filters', 'codepress-admin-columns'),
+                            'no_segments'          => __('No segments applied', 'codepress-admin-columns'),
+                            'primary_column'       => __('Primary Column', 'codepress-admin-columns'),
+                            'wrapping'             => __('Wrapping', 'codepress-admin-columns'),
+                            'wrapping_options'     => [
+                                'wrap' => _x('Wrap', 'wrapping_option', 'codepress-admin-columns'),
+                                'clip' => _x('Clip', 'wrapping_option', 'codepress-admin-columns'),
+                            ],
+                            'unlock'               => __('Unlock with Admin Columns Pro', 'codepress-admin-columns'),
+                        ],
                     ],
                 ],
 

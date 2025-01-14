@@ -2,6 +2,9 @@
 const path = require('path');
 
 module.exports = {
+	corePlugins: {
+		preflight: false,
+	},
 	prefix : 'acu-',
 	content : [
 		"./../../src/core/**/*.{js,ts,svelte}",

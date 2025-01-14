@@ -98,6 +98,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 $this->favorite_repository,
                 $this->column_groups,
                 $this->promos,
+                $this->location,
                 defined('ACP_FILE'),
                 $this->list_id
             ),

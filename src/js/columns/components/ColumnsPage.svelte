@@ -18,6 +18,7 @@
     import SupportPanel from "./sidebar/SupportPanel.svelte";
     import {currentTableUrl} from "../store/table_url";
     import {hasUsagePermissions} from "../store/permissions";
+    import ProSettingsExample from "./ProSettingsExample.svelte";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -133,6 +134,9 @@
 							bind:data={$listScreenDataStore}
 							locked={$listScreenIsReadOnly || ! $hasUsagePermissions}
 						/>
+					{/if}
+					{#if !localConfig.is_pro }
+						<ProSettingsExample/>
 					{/if}
 				</div>
 				<aside class="xl:acu-w-[320px]">

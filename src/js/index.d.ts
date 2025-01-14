@@ -50,6 +50,7 @@ declare namespace AC.Vars.Admin.Columns {
 
     type AcAdminColumnsVar = {
         nonce: string
+        assets: string
         is_pro: boolean
         column_groups: ColumnGroup[]
         column_types: ColumnConfig[]
@@ -59,16 +60,21 @@ declare namespace AC.Vars.Admin.Columns {
         uninitialized_list_screens: UninitializedListScreens
         list_key: string
         list_id: string
-        urls: [
+        urls: {
             upgrade: string
-        ],
+        },
         pro_banner?: ProBanner
         review: {
             doc_url: string
             upgrade_url: string
         },
         support: {
+            review: string
             description: string
+        }
+        table_elements : {
+            default: string[]
+            features: string[]
         }
     }
 

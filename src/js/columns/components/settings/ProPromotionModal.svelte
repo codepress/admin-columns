@@ -7,28 +7,32 @@
 
     const config = getColumnSettingsConfig();
     const i18n = getColumnSettingsTranslation().pro.modal;
-    console.log( config.urls )
+
 </script>
 
 
 <AcModal visible className="acui2 -promotion" appendToBody on:close>
 	<div slot="header">
-		<h2>{title}</h2>
+		<h3 class="acu-my-[0]">{title}</h3>
 	</div>
 	<div slot="content">
 		<p class="acu-pt-[0] acu-font-bold">{i18n.subtitle}</p>
 		<ul>
-			<li>{i18n.sort_filter}</li>
-			<li>{i18n.search}</li>
-			<li>{i18n.bulk_edit}</li>
-			<li>{i18n.inline_edit}</li>
-			<li>{i18n.export}</li>
-			<li>{i18n.list_tables}</li>
-			<li>{i18n.addon}</li>
+			<li><span class="dashicons dashicons-yes"></span> {i18n.sort_filter}</li>
+			<li class="acu-text-pink"><span class="dashicons dashicons-yes"></span> {i18n.search}</li>
+			<li><span class="dashicons dashicons-yes"></span> {i18n.bulk_edit}</li>
+			<li class="acu-text-pink"><span class="dashicons dashicons-yes"></span> {i18n.inline_edit}</li>
+			<li><span class="dashicons dashicons-yes"></span> {i18n.export}</li>
+			<li class="acu-text-pink"><span class="dashicons dashicons-yes"></span> {i18n.list_tables}</li>
+			<li><span class="dashicons dashicons-yes"></span> {i18n.addons}</li>
 		</ul>
 	</div>
-	<div slot="footer" class="acu-flex acu-items-center">
-		<div class="acu-flex-grow">
+	<div slot="footer">
+		<svg class="acu-absolute acu-right-[20px] acu-bottom-[20px] acu-w-[120px] acu-h-[200px]">
+			<use xlink:href="{config.assets}/images/symbols.svg#zebra-thumbs-up"></use>
+		</svg>
+
+		<div class="acu-flex">
 			<a href="{config.urls.upgrade}" target="_blank" class="button button-primary">
 				{i18n.upgrade}
 			</a>
