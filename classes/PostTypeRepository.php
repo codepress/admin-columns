@@ -31,7 +31,7 @@ class PostTypeRepository
             'show_ui'  => true,
         ]);
 
-        // Reusable content blocks 'wp_block' for Gutenberg
+        // Add reusable content blocks 'wp_block' for Gutenberg
         foreach (['post', 'page', 'wp_block'] as $builtin) {
             if (post_type_exists($builtin)) {
                 $post_types[$builtin] = $builtin;
