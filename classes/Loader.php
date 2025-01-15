@@ -11,8 +11,9 @@ use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
 use AC\Plugin\SetupFactory;
 use AC\RequestHandler\Ajax;
-use AC\Setting\ContextFactory;
+use AC\Table\ListScreenRenderableFactory;
 use AC\Table\ManageHeading;
+use AC\Table\ManageValue;
 use AC\Table\ManageValue\ListScreenServiceFactory;
 use AC\Table\SaveHeading;
 use AC\Value\Extended\MediaPreview;
@@ -61,6 +62,8 @@ class Loader
             ColumnFactories\Aggregate::add($container->get($factory));
         }
 
+        Table\ListScreenRenderableFactory::set($container->get(ManageValue\ListScreenRenderableFactory::class));
+
         ExtendedValueRegistry::add($container->get(MediaPreview::class));
         ExtendedValueRegistry::add($container->get(Posts::class));
 
@@ -89,7 +92,7 @@ class Loader
             Service\ManageValue::add(
                 new ListScreenServiceFactory(
                     $container->get($factory),
-                    $container->get(ContextFactory::class)
+                    $container->get(ListScreenRenderableFactory::class)
                 )
             );
         }
