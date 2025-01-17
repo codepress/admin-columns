@@ -9,9 +9,12 @@ class FloatComparisonSpecification extends ComparisonSpecification implements Ty
 
     use TypeTrait;
 
-    public function __construct(string $operator, float $fact)
+    public function __construct(string $operator, string $fact)
     {
-        parent::__construct($operator, $fact);
+        parent::__construct(
+            $operator,
+            $this->create_float_from_value($fact)
+        );
 
         $this->type = Types::FLOAT;
     }
@@ -19,6 +22,16 @@ class FloatComparisonSpecification extends ComparisonSpecification implements Ty
     public function is_satisfied_by($value): bool
     {
         return parent::is_satisfied_by((float)$value);
+    }
+
+    private function create_float_from_value(string $fact): float
+    {
+        // convert price to float
+        if (str_contains($fact, ',')) {
+            $fact = str_replace(',', '.', $fact);
+        }
+
+        return (float)$fact;
     }
 
     public function export(): array

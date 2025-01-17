@@ -59,7 +59,7 @@ final class AggregateFactory implements SpecificationFactory
             case 'not_contains':
                 return (new ContainsSpecification($fact))->not();
             case 'float_comparison':
-                return new FloatComparisonSpecification($operator, (float)$fact);
+                return new FloatComparisonSpecification($operator, (string)$fact);
             case 'integer_comparison':
                 return new IntegerComparisonSpecification($operator, (int)$fact);
             case 'date_comparison':
