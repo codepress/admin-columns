@@ -12918,21 +12918,21 @@ function instance($$self, $$props, $$invalidate) {
     };
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
-    var _a;
     (0,_ajax_settings__WEBPACK_IMPORTED_MODULE_4__.getRemoteSelectOptions)(config.input.attributes['data-handler'], JSON.parse(config.input.attributes['data-params'])).then(response => {
+      var _a;
       if (response.data.success) {
         originalOptions = response.data.data.options;
         $$invalidate(4, options = originalOptions);
       }
-    });
-    if (typeof value === 'undefined') {
-      if (config.input.default) {
-        $$invalidate(2, selectValue = getValue(config.input.default));
+      if (typeof value === 'undefined') {
+        if (config.input.default) {
+          $$invalidate(2, selectValue = getValue(config.input.default));
+        }
+        $$invalidate(9, value = (_a = config.input.default) !== null && _a !== void 0 ? _a : '');
+      } else {
+        $$invalidate(2, selectValue = getValue(value.toString()));
       }
-      $$invalidate(9, value = (_a = config.input.default) !== null && _a !== void 0 ? _a : '');
-    } else {
-      $$invalidate(2, selectValue = getValue(value.toString()));
-    }
+    });
   });
   const selectEnter = e => {
     if (e.key === 'Enter' && allowCreation && typeof emptyElement !== 'undefined' && emptyElement !== null) {
