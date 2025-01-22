@@ -26,22 +26,23 @@
 
     onMount(() => {
 
-        getRemoteSelectOptions(config.input.attributes['data-handler'], JSON.parse( config.input.attributes['data-params'])).then((response) => {
+        getRemoteSelectOptions(config.input.attributes['data-handler'], JSON.parse(config.input.attributes['data-params'])).then((response) => {
             if (response.data.success) {
                 originalOptions = response.data.data.options;
                 options = originalOptions;
             }
+
+            if (typeof value === 'undefined') {
+                if (config.input.default) {
+                    selectValue = getValue(config.input.default);
+                }
+
+                value = config.input.default ?? '';
+            } else {
+                selectValue = getValue(value.toString());
+            }
         });
 
-        if (typeof value === 'undefined') {
-            if (config.input.default) {
-                selectValue = getValue(config.input.default);
-            }
-
-            value = config.input.default ?? '';
-        } else {
-            selectValue = getValue(value.toString());
-        }
     })
 
     const selectEnter = (e) => {
