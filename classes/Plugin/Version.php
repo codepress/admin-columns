@@ -5,7 +5,7 @@ namespace AC\Plugin;
 class Version
 {
 
-    private $value;
+    private string $value;
 
     public function __construct(string $version)
     {
@@ -69,7 +69,7 @@ class Version
         return false !== strpos($this->value, 'beta');
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->value;
     }
