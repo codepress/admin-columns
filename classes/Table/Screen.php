@@ -65,7 +65,7 @@ final class Screen implements Registerable
         return $this->list_screen;
     }
 
-    public function register_settings_button()
+    public function register_settings_button(): void
     {
         if ( ! current_user_can(Capabilities::MANAGE)) {
             return;
@@ -84,7 +84,7 @@ final class Screen implements Registerable
         );
 
         $button = new Button('edit-columns');
-        $button->set_label(__('Edit columns', 'codepress-admin-columns'))
+        $button->set_tooltip(__('Edit columns', 'codepress-admin-columns'))
                ->set_url((string)$url)
                ->set_dashicon('admin-generic');
 

@@ -18,20 +18,16 @@ class Plugin
 
     private Version $version;
 
-    private bool $network_active;
-
     public function __construct(
         string $basename,
         string $dir,
         string $url,
-        Version $version,
-        bool $network_active = false
+        Version $version
     ) {
         $this->basename = $basename;
         $this->dir = $dir;
         $this->url = $url;
         $this->version = $version;
-        $this->network_active = $network_active;
     }
 
     public function get_basename(): string
@@ -66,7 +62,7 @@ class Plugin
 
     public function is_network_active(): bool
     {
-        return $this->network_active;
+        return is_plugin_active_for_network($this->basename);
     }
 
 }

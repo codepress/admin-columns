@@ -156,6 +156,7 @@ class Loader
             'ac-editor-menu-status'           => Ajax\EditorMenuStatus::class,
             'ac-editor-menu-favorites'        => Ajax\EditorMenuFavorites::class,
             'ac-custom-field-keys'            => Ajax\CustomFieldKeys::class,
+            'ac-get-network-post-statuses'    => Ajax\NetworkPostStati::class,
             'ac-admin-screen-options'         => Ajax\ScreenOptions::class,
             'ac-extended-value'               => Ajax\ExtendedValue::class,
             'ac-persist-admin-general-option' => Ajax\AdminGeneralOptionsPersist::class,

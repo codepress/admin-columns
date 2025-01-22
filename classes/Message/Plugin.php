@@ -8,9 +8,9 @@ use AC\View;
 class Plugin extends Message
 {
 
-    protected $plugin_basename;
+    protected string $plugin_basename;
 
-    protected $icon;
+    protected string $icon;
 
     public function __construct(string $message, string $plugin_basename, string $type = null)
     {
@@ -67,10 +67,7 @@ class Plugin extends Message
         return $view->render();
     }
 
-    /**
-     * @return string
-     */
-    protected function get_icon_by_current_type()
+    protected function get_icon_by_current_type(): string
     {
         $mapping = [
             self::SUCCESS => '\f147', // yes
@@ -79,11 +76,7 @@ class Plugin extends Message
             self::INFO    => '\f14c', // info outline
         ];
 
-        if ( ! isset($mapping[$this->type])) {
-            return false;
-        }
-
-        return $mapping[$this->type];
+        return $mapping[$this->type] ?? '';
     }
 
     public function set_icon(string $icon): self

@@ -43,7 +43,7 @@ final class Promotion
         return $handler;
     }
 
-    private function get_individual_slug()
+    private function get_individual_slug(): string
     {
         return $this->promo->get_slug() . $this->promo->get_date_range()->get_start()->format('Ymd');
     }

@@ -2,55 +2,38 @@
 
 namespace AC\Table;
 
+// TODO move to Type
 class Button
 {
 
-    /** @var string $slug */
-    private $slug;
+    private string $slug;
 
-    /** @var string $label */
-    private $label;
+    private string $label = '';
 
-    /** @var string $text */
-    private $text;
+    private string $tooltip = '';
 
-    /** @var string $dashicon */
-    private $dashicon;
+    private string $dashicon = '';
 
-    /** @var array */
-    protected $attributes = [];
+    protected array $attributes = [];
 
-    public function __construct($slug)
+    public function __construct(string $slug)
     {
-        $this->set_slug($slug);
+        $this->slug = $slug;
         $this->add_class('ac-table-button -' . $slug);
     }
 
-    /**
-     * @return array
-     */
-    public function get_attributes()
+    public function get_attributes(): array
     {
         return $this->attributes;
     }
 
-    /**
-     * @param string $class
-     *
-     * @return $this
-     */
-    public function add_class($class)
+    public function add_class(string $class): self
     {
         $this->set_attribute('class', $this->get_attribute('class') . ' ' . esc_attr($class));
 
         return $this;
     }
 
-    /**
-     * @param $key
-     *
-     * @return string|false
-     */
     public function get_attribute($key)
     {
         if ( ! isset($this->attributes[$key])) {
@@ -60,27 +43,14 @@ class Button
         return trim($this->attributes[$key]);
     }
 
-    /**
-     * @param string $key
-     * @param string $value
-     *
-     * @return $this
-     */
-    public function set_attribute($key, $value)
+    public function set_attribute(string $key, string $value): self
     {
         $this->attributes[$key] = $value;
 
         return $this;
     }
 
-    /**
-     * Get attributes as string
-     *
-     * @param array $attributes
-     *
-     * @return string
-     */
-    protected function get_attributes_as_string(array $attributes)
+    protected function get_attributes_as_string(array $attributes): string
     {
         $output = [];
 
@@ -91,15 +61,7 @@ class Button
         return implode(' ', $output);
     }
 
-    /**
-     * Render an attribute
-     *
-     * @param string $key
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function get_attribute_as_string($key, $value = null)
+    protected function get_attribute_as_string(string $key, string $value = null): string
     {
         if (null === $value) {
             $value = $this->get_attribute($key);
@@ -108,70 +70,36 @@ class Button
         return ac_helper()->html->get_attribute_as_string($key, $value);
     }
 
-    /**
-     * @return string
-     */
-    public function get_slug()
+    public function get_slug(): string
     {
         return $this->slug;
     }
 
-    /**
-     * @param string $slug
-     *
-     * @return $this
-     */
-    public function set_slug($slug)
+    public function get_tooltip(): string
     {
-        $this->slug = $slug;
+        return $this->tooltip;
+    }
+
+    public function set_tooltip(string $tooltip): self
+    {
+        $this->tooltip = $tooltip;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function get_label()
+    public function get_label(): string
     {
         return $this->label;
     }
 
-    /**
-     * @param string $label
-     *
-     * @return $this
-     */
-    public function set_label($label)
+    public function set_label(string $label): self
     {
         $this->label = $label;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function get_text()
-    {
-        return $this->text;
-    }
-
-    /**
-     * @param string $text
-     *
-     * @return Button
-     */
-    public function set_text($text)
-    {
-        $this->text = $text;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function get_dashicon()
+    public function get_dashicon(): string
     {
         if ( ! $this->dashicon) {
             return '';
@@ -182,43 +110,38 @@ class Button
         ]);
     }
 
-    /**
-     * @param $dashicon
-     *
-     * @return $this
-     */
-    public function set_dashicon($dashicon)
+    public function set_dashicon(string $dashicon): self
     {
         $this->dashicon = $dashicon;
 
         return $this;
     }
 
-    /**
-     * @param $url
-     *
-     * @return $this
-     */
-    public function set_url($url)
+    public function set_url(string $url): self
     {
         $this->set_attribute('href', esc_url($url));
 
         return $this;
     }
 
-    public function render()
+    public function render(): void
     {
         $attributes = $this->get_attributes();
-        $label = $this->get_label();
+        $tooltip = $this->get_tooltip();
 
-        if ($label) {
-            $attributes['data-ac-tip'] = $label;
+        if ($tooltip) {
+            $attributes['data-ac-tip'] = $tooltip;
         }
         $attributes['data-slug'] = $this->get_slug();
 
         $template = '<a %s>%s%s</a>';
 
-        echo sprintf($template, $this->get_attributes_as_string($attributes), $this->get_dashicon(), $this->get_text());
+        echo sprintf(
+            $template,
+            $this->get_attributes_as_string($attributes),
+            $this->get_dashicon(),
+            $this->get_label()
+        );
     }
 
 }

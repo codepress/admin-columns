@@ -4,6 +4,7 @@ use AC\Column;
 use AC\Container;
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\Plugin\Version;
 use AC\Type\ColumnId;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
@@ -14,14 +15,13 @@ function ac_get_url(string $relative_file_path): string
     return Container::get_location()->with_suffix($relative_file_path)->get_url();
 }
 
-// TODO David do we need this even?
 if ( ! function_exists('AC')) {
     function AC(): AC\AdminColumns
     {
         static $ac = null;
 
         if ($ac === null) {
-            $ac = new AC\AdminColumns();
+            $ac = new AC\AdminColumns(AC_FILE, new Version(AC_VERSION));
         }
 
         return $ac;
