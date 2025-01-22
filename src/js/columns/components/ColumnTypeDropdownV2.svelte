@@ -2,13 +2,14 @@
 
     import {columnTypesStore} from "../store/column-types";
     import {SvelteSelectItem} from "../../types/select";
-    import {createEventDispatcher} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
     import Select from "svelte-select";
     import {getColumnSettingsConfig} from "../utils/global";
     import ColumnTypeGroupIcon from "./ColumnTypeGroupIcon.svelte";
 
     const groups = getColumnSettingsConfig().column_groups
     let items = $columnTypesStore
+	let listOpen = false;
 
     const dispatch = createEventDispatcher();
 
@@ -22,13 +23,15 @@
         dispatch('close');
     }
 
-    console.log(items);
-
     const handleKeyPress = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
             handleClose();
         }
     }
+
+    onMount(() => {
+        listOpen = true;
+	})
 
 </script>
 
@@ -36,7 +39,7 @@
 	<Select
 		class="-acui"
 		--list-max-height="500px"
-		listOpen
+		listOpen={listOpen}
 		on:blur={handleClose}
 		on:change={handleSelect}
 		items={items}

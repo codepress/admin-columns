@@ -3670,7 +3670,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function create_else_block(ctx) {
-  let t_value = /*item*/ctx[8].label + "";
+  let t_value = /*item*/ctx[9].label + "";
   let t;
   return {
     c() {
@@ -3680,7 +3680,7 @@ function create_else_block(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
     },
     p(ctx, dirty) {
-      if (dirty & /*item*/256 && t_value !== (t_value = /*item*/ctx[8].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, t_value);
+      if (dirty & /*item*/512 && t_value !== (t_value = /*item*/ctx[9].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, t_value);
     },
     i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
     o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
@@ -3692,17 +3692,17 @@ function create_else_block(ctx) {
   };
 }
 
-// (34:3) {#if item.groupItem}
+// (37:3) {#if item.groupItem}
 function create_if_block(ctx) {
   let span;
   let columntypegroupicon;
   let t0;
-  let t1_value = /*item*/ctx[8].label + "";
+  let t1_value = /*item*/ctx[9].label + "";
   let t1;
   let current;
   columntypegroupicon = new _ColumnTypeGroupIcon_svelte__WEBPACK_IMPORTED_MODULE_6__["default"]({
     props: {
-      group_key: /*item*/ctx[8].group_key
+      group_key: /*item*/ctx[9].group_key
     }
   });
   return {
@@ -3722,9 +3722,9 @@ function create_if_block(ctx) {
     },
     p(ctx, dirty) {
       const columntypegroupicon_changes = {};
-      if (dirty & /*item*/256) columntypegroupicon_changes.group_key = /*item*/ctx[8].group_key;
+      if (dirty & /*item*/512) columntypegroupicon_changes.group_key = /*item*/ctx[9].group_key;
       columntypegroupicon.$set(columntypegroupicon_changes);
-      if ((!current || dirty & /*item*/256) && t1_value !== (t1_value = /*item*/ctx[8].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t1, t1_value);
+      if ((!current || dirty & /*item*/512) && t1_value !== (t1_value = /*item*/ctx[9].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t1, t1_value);
     },
     i(local) {
       if (current) return;
@@ -3744,7 +3744,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (33:2) 
+// (36:2) 
 function create_item_slot(ctx) {
   let div;
   let current_block_type_index;
@@ -3753,7 +3753,7 @@ function create_item_slot(ctx) {
   const if_block_creators = [create_if_block, create_else_block];
   const if_blocks = [];
   function select_block_type(ctx, dirty) {
-    if (/*item*/ctx[8].groupItem) return 0;
+    if (/*item*/ctx[9].groupItem) return 0;
     return 1;
   }
   current_block_type_index = select_block_type(ctx, -1);
@@ -3818,25 +3818,25 @@ function create_fragment(ctx) {
   select = new svelte_select__WEBPACK_IMPORTED_MODULE_4__["default"]({
     props: {
       class: "-acui",
-      listOpen: true,
-      items: /*items*/ctx[0],
-      groupBy: /*groupBy*/ctx[2],
+      listOpen: /*listOpen*/ctx[0],
+      items: /*items*/ctx[1],
+      groupBy: /*groupBy*/ctx[3],
       $$slots: {
         item: [create_item_slot, ({
           item
         }) => ({
-          8: item
+          9: item
         }), ({
           item
-        }) => item ? 256 : 0]
+        }) => item ? 512 : 0]
       },
       $$scope: {
         ctx
       }
     }
   });
-  select.$on("blur", /*handleClose*/ctx[3]);
-  select.$on("change", /*handleSelect*/ctx[1]);
+  select.$on("blur", /*handleClose*/ctx[4]);
+  select.$on("change", /*handleSelect*/ctx[2]);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -3852,13 +3852,14 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(select, div_1, null);
       current = true;
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "keyup", /*handleKeyPress*/ctx[4]);
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "keyup", /*handleKeyPress*/ctx[5]);
         mounted = true;
       }
     },
     p(ctx, [dirty]) {
       const select_changes = {};
-      if (dirty & /*$$scope, item*/768) {
+      if (dirty & /*listOpen*/1) select_changes.listOpen = /*listOpen*/ctx[0];
+      if (dirty & /*$$scope, item*/1536) {
         select_changes.$$scope = {
           dirty,
           ctx
@@ -3887,9 +3888,10 @@ function create_fragment(ctx) {
 }
 function instance($$self, $$props, $$invalidate) {
   let $columnTypesStore;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_2__.columnTypesStore, $$value => $$invalidate(5, $columnTypesStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_2__.columnTypesStore, $$value => $$invalidate(6, $columnTypesStore = $$value));
   const groups = (0,_utils_global__WEBPACK_IMPORTED_MODULE_5__.getColumnSettingsConfig)().column_groups;
   let items = $columnTypesStore;
+  let listOpen = false;
   const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_3__.createEventDispatcher)();
   const handleSelect = e => {
     dispatch('selectItem', e.detail.value);
@@ -3898,13 +3900,15 @@ function instance($$self, $$props, $$invalidate) {
   const handleClose = () => {
     dispatch('close');
   };
-  console.log(items);
   const handleKeyPress = event => {
     if (event.key === 'Escape') {
       handleClose();
     }
   };
-  return [items, handleSelect, groupBy, handleClose, handleKeyPress];
+  (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
+    $$invalidate(0, listOpen = true);
+  });
+  return [listOpen, items, handleSelect, groupBy, handleClose, handleKeyPress];
 }
 class ColumnTypeDropdownV2 extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {

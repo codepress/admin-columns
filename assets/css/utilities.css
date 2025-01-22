@@ -126,12 +126,20 @@
   bottom: 20px
 }
 
+.acu-left-1\/2 {
+  left: 50%
+}
+
 .acu-right-\[10px\] {
   right: 10px
 }
 
 .acu-right-\[20px\] {
   right: 20px
+}
+
+.acu-top-1\/2 {
+  top: 50%
 }
 
 .acu-top-\[0\] {
@@ -146,12 +154,8 @@
   top: 7px
 }
 
-.acu-left-1\/2 {
-  left: 50%
-}
-
-.acu-top-1\/2 {
-  top: 50%
+.acu-right-\[0\] {
+  right: 0
 }
 
 .acu-z-10 {
@@ -588,6 +592,10 @@
   padding: 50px
 }
 
+.acu-p-2 {
+  padding: 10px
+}
+
 .acu-p-4 {
   padding: 20px
 }
@@ -602,10 +610,6 @@
 
 .acu-p-\[2px\] {
   padding: 2px
-}
-
-.acu-p-2 {
-  padding: 10px
 }
 
 .acu-px-1 {
@@ -926,30 +930,8 @@
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
 }
 
-.acu-shadow-lg {
-  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
-}
-
-.acu-shadow-xl {
-  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
-}
-
-.acu-blur-sm {
-  --tw-blur: blur(4px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
-}
-
 .acu-blur-\[1px\] {
   --tw-blur: blur(1px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
-}
-
-.acu-blur-\[2px\] {
-  --tw-blur: blur(2px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
 }
 
@@ -995,11 +977,6 @@
 
 .hover\:acu-text-notification-red:hover {
   color: var(--ac-notification-red)
-}
-
-.hover\:acu-blur-\[2px\]:hover {
-  --tw-blur: blur(2px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
 }
 
 .acu-group:focus-within .group-focus-within\:acu-visible {
