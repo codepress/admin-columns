@@ -9,7 +9,7 @@
 
     const groups = getColumnSettingsConfig().column_groups
     let items = $columnTypesStore
-	let listOpen = false;
+    let listOpen = false;
 
     const dispatch = createEventDispatcher();
 
@@ -31,7 +31,7 @@
 
     onMount(() => {
         listOpen = true;
-	})
+    })
 
 </script>
 
@@ -45,15 +45,17 @@
 		items={items}
 		{groupBy}>
 		<div slot="item" let:item>
+
 			{#if item.groupItem}
 				<span class="acu-flex acu-items-center acu-relative acu-pl-1">
-					<ColumnTypeGroupIcon group_key={item.group_key}/>
+					{#key item.group_key}
+						<ColumnTypeGroupIcon group_key={item.group_key}/>
+					{/key}
 					{item.label}
 				</span>
 			{:else}
 				{item.label}
 			{/if}
-
 		</div>
 	</Select>
 </div>

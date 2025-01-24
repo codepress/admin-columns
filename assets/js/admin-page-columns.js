@@ -3692,13 +3692,65 @@ function create_else_block(ctx) {
   };
 }
 
-// (37:3) {#if item.groupItem}
+// (38:3) {#if item.groupItem}
 function create_if_block(ctx) {
   let span;
-  let columntypegroupicon;
+  let previous_key = /*item*/ctx[9].group_key;
   let t0;
   let t1_value = /*item*/ctx[9].label + "";
   let t1;
+  let current;
+  let key_block = create_key_block(ctx);
+  return {
+    c() {
+      span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+      key_block.c();
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", "acu-flex acu-items-center acu-relative acu-pl-1");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
+      key_block.m(span, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span, t0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span, t1);
+      current = true;
+    },
+    p(ctx, dirty) {
+      if (dirty & /*item*/512 && (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal)(previous_key, previous_key = /*item*/ctx[9].group_key)) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(key_block, 1, 1, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+        key_block = create_key_block(ctx);
+        key_block.c();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(key_block, 1);
+        key_block.m(span, t0);
+      } else {
+        key_block.p(ctx, dirty);
+      }
+      if ((!current || dirty & /*item*/512) && t1_value !== (t1_value = /*item*/ctx[9].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t1, t1_value);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(key_block);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(key_block);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(span);
+      }
+      key_block.d(detaching);
+    }
+  };
+}
+
+// (40:5) {#key item.group_key}
+function create_key_block(ctx) {
+  let columntypegroupicon;
   let current;
   columntypegroupicon = new _ColumnTypeGroupIcon_svelte__WEBPACK_IMPORTED_MODULE_6__["default"]({
     props: {
@@ -3707,24 +3759,16 @@ function create_if_block(ctx) {
   });
   return {
     c() {
-      span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(columntypegroupicon.$$.fragment);
-      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", "acu-flex acu-items-center acu-relative acu-pl-1");
     },
     m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(columntypegroupicon, span, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span, t0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span, t1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(columntypegroupicon, target, anchor);
       current = true;
     },
     p(ctx, dirty) {
       const columntypegroupicon_changes = {};
       if (dirty & /*item*/512) columntypegroupicon_changes.group_key = /*item*/ctx[9].group_key;
       columntypegroupicon.$set(columntypegroupicon_changes);
-      if ((!current || dirty & /*item*/512) && t1_value !== (t1_value = /*item*/ctx[9].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t1, t1_value);
     },
     i(local) {
       if (current) return;
@@ -3736,10 +3780,7 @@ function create_if_block(ctx) {
       current = false;
     },
     d(detaching) {
-      if (detaching) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(span);
-      }
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(columntypegroupicon);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(columntypegroupicon, detaching);
     }
   };
 }
