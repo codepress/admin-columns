@@ -21,7 +21,7 @@ class QuickEdit implements Registerable
     public function __construct(
         Storage $storage,
         LayoutPreference $preference,
-        PrimaryColumnFactory $primary_column_factory,
+        PrimaryColumnFactory $primary_column_factory
     ) {
         $this->storage = $storage;
         $this->preference = $preference;
