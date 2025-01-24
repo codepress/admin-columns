@@ -24,7 +24,7 @@
 
     const changeValue = () => {
         const oldValue = data.type ?? '';
-        const columnType = $columnTypesStore.find( c => c.value === selectValue);
+        const columnType = $columnTypesStore.find(c => c.value === selectValue);
 
         if (ColumnTypesUtils.isOriginalColumnType(selectValue)) {
             if ($listScreenDataStore.columns.find(c => c.name === selectValue)) {
@@ -42,10 +42,10 @@
             data.name = ColumnUtils.generateId();
         }
 
-        if( columnType){
+        if (columnType) {
             data.label = columnType.label;
             data.type = columnType.value;
-		}
+        }
 
         openedColumnsStore.open(data.name);
 
@@ -75,7 +75,9 @@
 	<div slot="item" let:item>
 		{#if item.groupItem}
 				<span class="acu-flex acu-items-center acu-relative acu-pl-1">
-					<ColumnTypeGroupIcon group_key={item.group_key}/>
+					{#key item.group_key}
+						<ColumnTypeGroupIcon group_key={item.group_key}/>
+					{/key}
 					{item.label}
 				</span>
 		{:else}
