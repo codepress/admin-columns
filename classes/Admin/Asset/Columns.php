@@ -72,7 +72,7 @@ class Columns extends Script
     public function get_pro_modal_arguments(): array
     {
         $arguments = [];
-        $upgrade_page_url = new UtmTags(new Site(Site::PAGE_ABOUT_PRO), 'banner');
+        $upgrade_page_url = new UtmTags(Site::create_admin_columns_pro(), 'banner');
 
         //if not pro, bail early
 
@@ -166,12 +166,12 @@ class Columns extends Script
             ),
             'menu_groups_opened'         => (new EditorMenuStatus())->get_groups(),
             'urls'                       => [
-                'upgrade' => (new UtmTags(new Site(Site::PAGE_ABOUT_PRO), 'upgrade'))->get_url(),
+                'upgrade' => (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url(),
             ],
             'pro_banner'                 => $this->is_pro ? null : $this->get_pro_modal_arguments(),
             'review'                     => [
                 'doc_url'     => (new UtmTags(new Documentation(), 'review-notice'))->get_url(),
-                'upgrade_url' => (new UtmTags(new Site(Site::PAGE_ABOUT_PRO), 'upgrade'))->get_url(),
+                'upgrade_url' => (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url(),
             ],
             'support'                    => [
                 'description' => __(

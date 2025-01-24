@@ -37,6 +37,16 @@ class Site implements Type\Url
         }
     }
 
+    public static function create_pricing(): self
+    {
+        return new self(self::PAGE_PRICING);
+    }
+
+    public static function create_admin_columns_pro(): self
+    {
+        return new self(self::PAGE_ABOUT_PRO);
+    }
+
     public function get_url(): string
     {
         return self::URL . $this->get_path();

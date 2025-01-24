@@ -23,7 +23,7 @@ if ( ! defined('ABSPATH')) {
             _e('Unlock with Admin Columns Pro', 'codepress-admin-columns'); ?>
 			<a target="_blank" href="<?php
             echo esc_url(
-                (new UtmTags(new Site(Site::PAGE_ABOUT_PRO), 'upgrade'))->get_url()
+                (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url()
             ); ?>" class="button-primary -pink">
                 <?php
                 _e('Upgrade', 'codepress-admin-columns'); ?>

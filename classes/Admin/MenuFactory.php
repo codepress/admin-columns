@@ -67,7 +67,7 @@ class MenuFactory implements MenuFactoryInterface
             );
         }
 
-        $url = (new UtmTags(new Site(Site::PAGE_ABOUT_PRO), 'upgrade'))->get_url();
+        $url = (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url();
         $image = sprintf(
             '<img alt="%s" src="%s">',
             'Admin Columns Pro',

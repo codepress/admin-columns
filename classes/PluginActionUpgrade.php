@@ -26,7 +26,7 @@ class PluginActionUpgrade implements Registerable
         if ($file === $this->plugin->get_basename()) {
             $links[] = sprintf(
                 '<a href="%s" target="_blank">%s</a>',
-                esc_url((new UtmTags(new Site(Site::PAGE_ABOUT_PRO), 'upgrade'))->get_url()),
+                esc_url((new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url()),
                 sprintf(
                     '<span style="font-weight: bold;">%s</span>',
                     __('Go Pro', 'codepress-admin-columns')
