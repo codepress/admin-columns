@@ -21,6 +21,7 @@ use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use AC\Type\ListScreenStorageType;
 use DateTime;
+use LogicException;
 
 class Database implements ListScreenRepositoryWritable
 {
@@ -154,6 +155,10 @@ class Database implements ListScreenRepositoryWritable
                 $args,
                 array_fill(0, 8, '%s')
             );
+        }
+
+        if ($wpdb->last_error) {
+            throw new LogicException('Failed to update list screen: ' . $wpdb->last_error);
         }
     }
 
