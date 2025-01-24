@@ -7,7 +7,6 @@ namespace AC\ListScreenRepository;
 use AC\ColumnFactories\Aggregate;
 use AC\ColumnIterator;
 use AC\ColumnIterator\ProxyColumnIterator;
-use AC\ColumnRepository\ColumnRepository;
 use AC\ColumnRepository\EncodedData;
 use AC\ListScreen;
 use AC\ListScreenCollection;
