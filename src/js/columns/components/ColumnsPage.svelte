@@ -102,11 +102,13 @@
 <AdminHeaderBar title="Columns">
 	<div class="acu-flex acu-justify-end">
 		<a href="{$currentTableUrl}" class="acui-button acui-button-default acu-mr-2">{i18n.editor.label.view}</a>
-		<AcButton
-			type="primary"
-			on:click={() => form.saveSettings()}
-			label={i18n.editor.label.save}
-		/>
+		{#if ! $listScreenIsReadOnly && $hasUsagePermissions }
+			<AcButton
+				type="primary"
+				on:click={() => form.saveSettings()}
+				label={i18n.editor.label.save}
+			/>
+		{/if}
 	</div>
 </AdminHeaderBar>
 

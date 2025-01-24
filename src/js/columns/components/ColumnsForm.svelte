@@ -245,7 +245,7 @@
 			</div>
 		</div>
 		<footer class="ac-columns__footer">
-			{#if !$listScreenIsReadOnly}
+			{#if !$listScreenIsReadOnly && ! locked}
 				<div>
 					{#if data.columns.length > 0}
 						<AcButton

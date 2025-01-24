@@ -9,8 +9,6 @@ import {showColumnInfo} from "./columns/store/screen-options";
 import {initListScreenHeadings, initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
 import InfoScreenOption from "./modules/screen-options";
 import ColumnPageBridge from "./columns/utils/page-bridge";
-import {currentTableUrl} from "./columns/store/table_url";
-import {get} from "svelte/store";
 import {hasUsagePermissions} from "./columns/store/permissions";
 
 const AcServices = initAcServices();
