@@ -70,10 +70,11 @@ class Posts implements ExtendedValue
             }
 
             $posts[] = [
-                'id'         => $post->ID,
-                'post_type'  => $post_type,
-                'post_title' => $post_title,
-                'post_date'  => ac_helper()->date->date($post->post_date),
+                'id'          => $post->ID,
+                'post_type'   => $post_type,
+                'post_title'  => $post_title,
+                'post_status' => get_post_status_object($post->post_status)->label ?? '-',
+                'post_date'   => ac_helper()->date->date($post->post_date),
             ];
         }
 
@@ -83,7 +84,7 @@ class Posts implements ExtendedValue
             'post_types' => $this->get_post_count_per_post_type($id),
         ]);
 
-        return $view->set_template('modal-value/user-posts')
+        return $view->set_template('modal-value/posts')
                     ->render();
     }
 
@@ -93,8 +94,6 @@ class Posts implements ExtendedValue
 
         foreach ($this->post_types as $post_type) {
             $count = ac_helper()->post->count_user_posts($user_id, [$post_type], $this->post_stati);
-
-            // TODO test with remove post type.
 
             if ($count > 0) {
                 $post_types[] = [
