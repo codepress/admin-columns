@@ -46,7 +46,9 @@ class PostCount implements Formatter
         }
 
         return $value->with_value(
-            $this->extended_value->get_link((int)$value->get_id(), (string)$count)->render()
+            $this->extended_value->get_link((int)$value->get_id(), (string)$count)
+                                 ->with_title(ac_helper()->user->get_display_name($value->get_id()))
+                                 ->render()
         );
     }
 
