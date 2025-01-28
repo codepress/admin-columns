@@ -10,7 +10,6 @@ use AC\Capabilities;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Nonce;
-use AC\Plugin\Version;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Setting\Encoder;
@@ -30,18 +29,22 @@ class ListScreenSettings implements RequestAjaxHandler
 
     private AC\ColumnGroups $column_groups;
 
+    private AC\Storage\EncoderFactory $encoder_factory;
+
     public function __construct(
         Storage $storage,
         AC\TableScreenFactory\Aggregate $table_factory,
         AC\ColumnTypeRepository $type_repository,
         Preference\ListScreen $preference,
-        AC\ColumnGroups $column_groups
+        AC\ColumnGroups $column_groups,
+        AC\Storage\EncoderFactory $encoder_factory
     ) {
         $this->storage = $storage;
         $this->table_factory = $table_factory;
         $this->preference = $preference;
         $this->type_repository = $type_repository;
         $this->column_groups = $column_groups;
+        $this->encoder_factory = $encoder_factory;
     }
 
     public function handle(): void
@@ -80,9 +83,8 @@ class ListScreenSettings implements RequestAjaxHandler
             throw new InvalidArgumentException('Invalid list screen.');
         }
 
-        // TODO David why is this not resolved with the container?
-        $encoder = new AC\Storage\Encoder\BaseEncoder(new Version('6.3'));
-        $encoder->set_list_screen($list_screen);
+        $encoder = $this->encoder_factory->create()
+                                         ->set_list_screen($list_screen);
 
         $response->set_parameter('read_only', $list_screen->is_read_only());
         $response->set_parameter('table_url', (string)$list_screen->get_table_url());

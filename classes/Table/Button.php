@@ -2,7 +2,6 @@
 
 namespace AC\Table;
 
-// TODO move to Type
 class Button
 {
 

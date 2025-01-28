@@ -13,13 +13,13 @@ use AC\Setting\FormatterCollection;
 class LastPostFactory extends BaseColumnFactory
 {
 
-    private $post_type;
+    private ComponentFactory\PostType $post_type;
 
-    private $post_status;
+    private ComponentFactory\PostStatus $post_status;
 
-    private $post_property;
+    private ComponentFactory\PostProperty $post_property;
 
-    private $post_link;
+    private ComponentFactory\PostLink $post_link;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,

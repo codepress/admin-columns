@@ -9,7 +9,6 @@ use AC\Setting\Children;
 use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\Config;
 
-// TODO inject this as a dependency in PostProperty. remove the extends.
 class LinkablePostProperty extends PostProperty
 {
 

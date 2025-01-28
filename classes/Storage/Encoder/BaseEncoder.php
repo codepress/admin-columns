@@ -12,12 +12,9 @@ use AC\Setting\ComponentCollection;
 class BaseEncoder implements AC\Storage\Encoder
 {
 
-    private $version;
+    private Version $version;
 
-    /**
-     * @var ListScreen|null
-     */
-    private $list_screen;
+    private ?ListScreen $list_screen;
 
     public function __construct(Version $version)
     {

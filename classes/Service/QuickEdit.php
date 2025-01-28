@@ -12,13 +12,13 @@ use AC\Type\ListKey;
 class QuickEdit implements Registerable
 {
 
-    private $storage;
+    private Storage $storage;
 
-    private $preference;
+    private LayoutPreference $preference;
 
-    private $primary_column_factory;
+    private PrimaryColumnFactory $primary_column_factory;
 
-    private $table_screen_factory;
+    private TableScreenFactory $table_screen_factory;
 
     public function __construct(
         Storage $storage,

@@ -6,7 +6,6 @@ use AC;
 use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
-use AC\Asset\Location;
 
 class Settings implements PageFactoryInterface
 {
@@ -36,7 +35,7 @@ class Settings implements PageFactoryInterface
 
         // TODO show this?
         //        if ( ! $this->is_acp_active) {
-        //            $page->add_section(new Section\ProCta(), 50);
+        //        $page->add_section(new Section\ProCta(), 50);
         //        }
 
     }

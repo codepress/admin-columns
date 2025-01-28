@@ -5,6 +5,7 @@ namespace AC\Admin\Section;
 use AC\Admin\Section;
 use AC\View;
 
+// TODO remove
 class ProCta extends Section
 {
 
@@ -16,7 +17,7 @@ class ProCta extends Section
     public function render(): string
     {
         $view = new View([
-            'title' => 'Admin Columns Pro',
+            'title'       => 'Admin Columns Pro',
             'description' => __(
                 'Upgrade to Admin Columns Pro and unlock all the awesome features.',
                 'codepress-admin-columns'

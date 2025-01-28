@@ -11,7 +11,7 @@ use AC\Storage\Encoder\BaseEncoder;
 class BaseEncoderFactory implements AC\Storage\EncoderFactory
 {
 
-    protected $version;
+    protected Version $version;
 
     public function __construct(Version $version)
     {
