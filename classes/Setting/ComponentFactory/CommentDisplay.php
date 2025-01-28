@@ -91,6 +91,8 @@ final class CommentDisplay extends Builder
             case self::PROPERTY_AUTHOR_EMAIL:
                 $formatters->add(new Formatter\Comment\Property('comment_author_email'));
                 break;
+            case self::PROPERTY_ID:
+                break;
             default:
                 $formatters->add(new Formatter\Comment\Content());
         }

@@ -52,13 +52,13 @@ final class PostFactory extends BaseFactory
             Post\EstimateReadingTimeFactory::class,
             Post\MenuFactory::class,
             Post\LastModifiedFactory::class,
-            Post\OrderFactory::class,
             Post\PageTemplateFactory::class,
             Post\PasswordProtectedFactory::class,
             Post\PathFactory::class,
             Post\PermalinkFactory::class,
             Post\PingStatusFactory::class,
             Post\ParentFactory::class,
+            Post\OrderFactory::class,
             Post\ShortcodesFactory::class,
             Post\ShortLinkFactory::class,
             Post\SlugFactory::class,
@@ -92,7 +92,6 @@ final class PostFactory extends BaseFactory
             $factories[] = Post\CommentCountFactory::class;
         }
 
-        // TODO test
         if (post_type_supports($post_type, 'excerpt')) {
             $factories[] = Post\ExcerptFactory::class;
         }
