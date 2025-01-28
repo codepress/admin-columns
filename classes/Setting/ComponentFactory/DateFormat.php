@@ -19,6 +19,13 @@ use AC\Value;
 abstract class DateFormat extends Builder
 {
 
+    private string $source_format;
+
+    public function __construct(string $source_format = 'U')
+    {
+        $this->source_format = $source_format;
+    }
+
     abstract protected function get_date_options(): OptionCollection;
 
     abstract protected function get_default_option(): string;
@@ -75,15 +82,15 @@ abstract class DateFormat extends Builder
         ]));
     }
 
-    protected function get_date_formatter(string $format): ?Formatter
+    protected function get_date_formatter(string $output_format): ?Formatter
     {
-        switch ($format) {
+        switch ($output_format) {
             case 'diff':
-                return new Value\Formatter\Date\TimeDifference();
+                return new Value\Formatter\Date\TimeDifference($this->source_format);
             case 'wp_default':
-                return new Value\Formatter\Date\WpDateFormat();
+                return new Value\Formatter\Date\WpDateFormat($this->source_format);
             default:
-                return new Value\Formatter\Date\DateFormat($format);
+                return new Value\Formatter\Date\DateFormat($this->source_format, $output_format);
         }
     }
 
