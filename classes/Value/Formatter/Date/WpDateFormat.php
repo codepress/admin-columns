@@ -15,12 +15,12 @@ final class WpDateFormat implements Formatter
     {
         $timestamp = $value->get_value();
 
-        if ( ! is_numeric($timestamp)) {
+        if ( ! is_numeric($timestamp) || 0 === (int)$timestamp) {
             throw new ValueNotFoundException();
         }
 
         return $value->with_value(
-            wp_date((string)get_option('date_format'), $timestamp)
+            wp_date((string)get_option('date_format'), (int)$timestamp)
         );
     }
 

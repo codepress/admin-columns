@@ -22,7 +22,7 @@ final class DateFormat implements Formatter
     {
         $timestamp = $value->get_value();
 
-        if ( ! is_numeric($timestamp)) {
+        if ( ! is_numeric($timestamp) || 0 === (int)$timestamp) {
             throw new ValueNotFoundException();
         }
 

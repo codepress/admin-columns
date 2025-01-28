@@ -24,8 +24,11 @@ class MetaDateAndAuthor implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $author = $this->get_author($comment);
-        $date = $comment->comment_date_gmt;
+        $date = sprintf(
+            __('%s at %s', 'codepress-admin-columns'),
+            ac_helper()->date->date($comment->comment_date_gmt),
+            ac_helper()->date->time($comment->comment_date_gmt)
+        );
 
         $edit_link = get_edit_comment_link($comment);
 
@@ -37,7 +40,7 @@ class MetaDateAndAuthor implements Formatter
             sprintf(
                 '%s<br><small>%s @ %s</small>',
                 $value->get_value(),
-                $author,
+                $this->get_author($comment),
                 $date
             )
         );
