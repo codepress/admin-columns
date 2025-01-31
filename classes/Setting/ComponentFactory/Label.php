@@ -4,17 +4,24 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
 use AC\Sanitize\Kses;
-use AC\Setting\Component;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 
-final class Label implements ComponentFactory
+final class Label extends Builder
 {
 
-    public function create(Config $config, Specification $conditions = null): Component
+    protected function get_label(Config $config): ?string
+    {
+        return __('Label', 'codepress-admin-columns');
+    }
+
+    protected function get_description(Config $config): ?string
+    {
+        return __('This is the name which will appear as the column header.', 'codepress-admin-columns');
+    }
+
+    protected function get_input(Config $config): ?Input
     {
         $label = $config->has('label')
             ? (string)$config->get('label')
@@ -26,16 +33,11 @@ final class Label implements ComponentFactory
             $label
         );
 
-        return new Component(
-            __('Label', 'codepress-admin-columns'),
-            __('This is the name which will appear as the column header.', 'codepress-admin-columns'),
-            new Input\Custom(
-                'label',
-                'label',
-                [],
-                $label
-            ),
-            $conditions
+        return new Input\Custom(
+            'label',
+            'label',
+            [],
+            $label
         );
     }
 
