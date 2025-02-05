@@ -22,7 +22,7 @@ class StripNewLine implements Formatter
             (string)$value
         );
 
-        return $value->with_value(strip_tags($string));
+        return $value->with_value(trim(strip_tags($string)));
     }
 
 }
