@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-07-15 08:50:25+0000\n"
+"PO-Revision-Date: 2025-02-06 12:06:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -155,7 +155,7 @@ msgstr "Fenêtre surgissante"
 
 #: classes/Settings/Column/VideoDisplay.php:21
 msgid "Embed"
-msgstr "Embarqué"
+msgstr "Embarquer"
 
 #: classes/Settings/Column/User.php:94
 msgid "User Website"
@@ -2408,7 +2408,7 @@ msgstr "Ouverture"
 
 #: classes/Column/Media/Dimensions.php:16
 msgid "Dimensions"
-msgstr "Taille"
+msgstr "Dimensions"
 
 #: classes/Column/Media/Caption.php:15 classes/Settings/Column/ExifData.php:75
 msgid "Caption"
