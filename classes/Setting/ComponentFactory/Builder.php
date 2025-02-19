@@ -56,7 +56,6 @@ abstract class Builder implements ComponentFactory
             $this->add_component_formatters(
                 $formatters,
                 $children->get_iterator(),
-                // TODO is this a condition? Test.
                 $input
                     ? (string)$input->get_value()
                     : null

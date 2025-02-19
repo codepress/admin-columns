@@ -14,30 +14,20 @@ class Settings implements PageFactoryInterface
 
     protected MenuFactoryInterface $menu_factory;
 
-    private bool $is_acp_active;
-
     public function __construct(
         AC\AdminColumns $plugin,
-        MenuFactoryInterface $menu_factory,
-        bool $is_acp_active
+        MenuFactoryInterface $menu_factory
     ) {
         $this->plugin = $plugin;
         $this->menu_factory = $menu_factory;
-        $this->is_acp_active = $is_acp_active;
     }
 
-    public function create()
+    public function create(): Page\Settings
     {
         return new Page\Settings(
             new AC\Admin\View\Menu($this->menu_factory->create('settings')),
             new AC\Admin\Asset\Script\SettingsFactory($this->plugin)
         );
-
-        // TODO show this?
-        //        if ( ! $this->is_acp_active) {
-        //        $page->add_section(new Section\ProCta(), 50);
-        //        }
-
     }
 
 }

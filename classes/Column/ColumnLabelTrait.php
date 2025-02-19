@@ -15,8 +15,6 @@ trait ColumnLabelTrait
             return trim($label);
         }
 
-        // TODO reimplement hook ac/headings/label (used by WPML class in our codebase) (See old get_custom_label() function in $column
-
         return trim(strip_tags($label))
             ?: trim(strip_tags($column->get_label()))
                 ?: $column->get_type();

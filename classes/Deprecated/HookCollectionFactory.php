@@ -15,8 +15,6 @@ class HookCollectionFactory
     //            ac/column/video_player/valid_mime_types
     //            ac/column/settings/column_types
     //            ac/column_group
-
-    // TODO More hooks to check
     //            ac/column/custom_field/use_text_input
     //            ac/column/custom_field/field_types
 

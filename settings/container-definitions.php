@@ -39,7 +39,6 @@ return [
         return new RestoreSettingsRequest($storage->get_repository(Types::DATABASE));
     },
     AdminColumns::class                     => static function (): AdminColumns {
-        // TODO David network stuff
         return new AdminColumns(AC_FILE, new Version(AC_VERSION));
     },
     TableScreenFactory::class               => autowire(TableScreenFactory\Aggregate::class),

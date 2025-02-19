@@ -55,7 +55,6 @@ final class ListScreen implements AC\Registerable
     {
         echo $this->column_size->render($this->list_screen);
 
-        // TODO rename consistently
         do_action('ac/admin_head', $this->list_screen, $this);
     }
 

@@ -48,13 +48,13 @@ class QuickEdit implements Registerable
 
         switch (filter_input(INPUT_POST, 'action')) {
             // Quick edit post
-            case 'pll_update_post_rows': // TODO move to polylang and out of this class
+            case 'pll_update_post_rows':
             case 'inline-save' :
                 $list_key = (string)filter_input(INPUT_POST, 'post_type');
                 break;
 
             // Adding term & Quick edit term
-            case 'pll_update_term_rows': // TODO move to polylang and out of this class
+            case 'pll_update_term_rows':
             case 'add-tag' :
             case 'inline-save-tax' :
                 $list_key = 'wp-taxonomy_' . filter_input(INPUT_POST, 'taxonomy');
