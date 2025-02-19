@@ -37,12 +37,14 @@ class QuickEdit implements Registerable
     {
         switch (filter_input(INPUT_POST, 'action')) {
             // Quick edit post
+            case 'pll_update_post_rows':
             case 'inline-save' :
                 return filter_input(INPUT_POST, 'post_type');
 
             // Adding term & Quick edit term
             case 'add-tag' :
             case 'inline-save-tax' :
+            case 'pll_update_term_rows':
                 return 'wp-taxonomy_' . filter_input(INPUT_POST, 'taxonomy');
 
             // Quick edit comment & Inline reply on comment
