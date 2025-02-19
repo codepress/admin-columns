@@ -1,5 +1,22 @@
-@import '_admin-variables';
-@import 'settings';
+@use '_admin-variables';
+@use 'settings';
+@use 'colors';
+@use "sass:color";
+
+@mixin placeholder {
+	&::-webkit-input-placeholder {
+		@content
+	}
+	&:-moz-placeholder {
+		@content
+	}
+	&::-moz-placeholder {
+		@content
+	}
+	&:-ms-input-placeholder {
+		@content
+	}
+}
 
 @keyframes deal_blur {
 	0%,
@@ -300,8 +317,8 @@
 		margin-bottom: -1px;
 
 		.ac-column-header {
-			background-color: $bg-gray-dark;
-			border-color: $border-gray-darker;
+			background-color: colors.$bg-gray-dark;
+			border-color: colors.$border-gray-darker;
 
 			&:hover {
 				.column_label .inner > a.close-button {
@@ -332,7 +349,7 @@
 					&.column_label {
 						.meta {
 							span {
-								color: lighten(#808080, 5);
+								color: color.scale( #808080, $lightness: 5%);
 								text-shadow: none;
 							}
 						}
@@ -354,8 +371,8 @@
 		}
 
 		.ac-column-body {
-			border: 1px solid $border-gray-darker;
-			border-top: 1px solid lighten($border-gray-darker, 3);
+			border: 1px solid colors.$border-gray-darker;
+			border-top: 1px solid color.scale(colors.$border-gray-darker, $lightness: 3%);
 		}
 	}
 
@@ -453,7 +470,7 @@
 		position: relative;
 		line-height: 24px;
 		overflow: visible;
-		background: $bg-gray;
+		background: colors.$bg-gray;
 		border-right: 1px solid var(--ac-border-grey);
 		width: 30%;
 		padding: 10px;
@@ -479,7 +496,7 @@
 			}
 
 			&:hover {
-				color: darken(#d2d2d2, 15);
+				color: color.scale(#d2d2d2, $lightness: -15%);
 			}
 		}
 
@@ -548,7 +565,7 @@
 	//Sub Setting
 	.ac-column-setting {
 		td.col_label {
-			background-color: $bg-gray-light;
+			background-color: colors.$bg-gray-light;
 
 			.label {
 				font-size: 12px;
@@ -560,7 +577,7 @@
 	span.ac-setting-error {
 		display: block;
 		margin: 0;
-		background-color: $bg-red-light;
+		background-color: colors.$bg-red-light;
 		padding: 7px 10px;
 	}
 }
@@ -794,11 +811,11 @@
 	}
 
 	.ac-setting-input {
-		background: $bg-gray;
+		background: colors.$bg-gray;
 	}
 
 	.acp-button {
-		background: $ac-pink;
+		background: colors.$ac-pink;
 		color: #fff;
 		border: none;
 		border-radius: 3px;
@@ -1181,7 +1198,7 @@ div.ac-column-header {
 
 	.padding-box {
 		padding: 20px 10px 10px;
-		background: $ac-dark;
+		background: colors.$ac-dark;
 		color: #fff;
 	}
 
@@ -1203,7 +1220,7 @@ div.ac-column-header {
 			color: #fff;
 
 			span {
-				color: $ac-pink;
+				color: colors.$ac-pink;
 			}
 		}
 	}
@@ -1220,7 +1237,7 @@ div.ac-column-header {
 	}
 
 	.acp-button {
-		background: $ac-pink;
+		background: colors.$ac-pink;
 		border: none;
 		color: #fff;
 		text-decoration: none;
@@ -1232,7 +1249,7 @@ div.ac-column-header {
 	}
 
 	.more {
-		color: $ac-yellow;
+		color: colors.$ac-yellow;
 		text-decoration: none;
 
 		&:hover {
@@ -1304,7 +1321,7 @@ div.ac-column-header {
 				}
 
 				a {
-					color: $ac-yellow;
+					color: colors.$ac-yellow;
 
 					&:before {
 						content: '+';
@@ -1317,10 +1334,10 @@ div.ac-column-header {
 	.padding-box.ac-pro-deal {
 		backface-visibility: hidden;
 		transform: translateZ(0);
-		color: $ac-dark;
+		color: colors.$ac-dark;
 		padding-bottom: 20px;
 		text-align: center;
-		background: lighten($ac-yellow, 2);
+		background: color.scale(colors.$ac-yellow, $lightness: 2%);
 		animation: deal_blur 2s ease 0s infinite;
 
 		h3 {
@@ -1338,7 +1355,7 @@ div.ac-column-header {
 
 	.padding-box.ac-pro-newsletter {
 		background: #fff;
-		color: $ac-dark;
+		color: colors.$ac-dark;
 
 		h3 {
 			font-size: 20px;
@@ -1360,7 +1377,7 @@ div.ac-column-header {
 	}
 
 	.acp-button {
-		background: $ac-pink;
+		background: colors.$ac-pink;
 		border: none;
 		color: #fff;
 		text-decoration: none;
@@ -1512,7 +1529,7 @@ div.ac-column-header {
 				}
 
 				&:nth-child(2n) {
-					color: $ac-pink;
+					color: colors.$ac-pink;
 				}
 
 

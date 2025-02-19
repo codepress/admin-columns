@@ -1,3 +1,5 @@
+@use "colors";
+
 /**
  * Modal
  */
@@ -106,7 +108,7 @@ body .ac-modal {
 				}
 
 				&:nth-child(2n) {
-					color: $ac-pink;
+					color: colors.$ac-pink;
 				}
 
 			}

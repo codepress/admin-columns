@@ -1,5 +1,7 @@
-$border-gray-darker: darken(#d1d1d1, 2);
-$border-gray-dark: darken(#E1E1E1, 1);
+@use "sass:color";
+
+$border-gray-darker: color.scale( #d1d1d1, $lightness: -2%);
+$border-gray-dark: color.scale( #E1E1E1, $lightness: -1%);
 
 $bg-gray-dark: #eaeaea;
 $bg-gray: #f5f5f5;
