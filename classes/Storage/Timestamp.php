@@ -8,7 +8,7 @@ use LogicException;
 final class Timestamp implements Expirable
 {
 
-    private KeyValuePair $storage;
+    private $storage;
 
     public function __construct(KeyValuePair $storage)
     {
