@@ -53,7 +53,13 @@ class Separator implements CollectionFormatter
         $values = [];
 
         foreach ($collection as $item) {
-            $values[] = (string)$item;
+            $value = (string)$item;
+
+            if ('' === $value) {
+                continue;
+            }
+
+            $values[] = $value;
         }
 
         return new Value(
