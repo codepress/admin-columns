@@ -214,7 +214,6 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: tbd
 
 * [Updated] Axios library updates because of know security issues with older version
-* [Fixed] Quick Edit row fetching fixes
 
 = 4.7.10 =
 Release Date: January 7th, 2025
