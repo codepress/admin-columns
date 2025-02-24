@@ -2,6 +2,7 @@
 @use 'settings';
 @use 'colors';
 @use "sass:color";
+@use "webfont";
 
 @mixin placeholder {
 	&::-webkit-input-placeholder {
