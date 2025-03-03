@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2025-01-07 12:17+0000\n"
+"POT-Creation-Date: 2025-03-03 09:41+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -1442,7 +1442,7 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: classes/Settings/Column/CommentLink.php:56, classes/Settings/Column/MediaLink.php:52, classes/Settings/Column/PostLink.php:62, classes/Settings/Column/TermLink.php:30, classes/Settings/Column/UserLink.php:69
+#: classes/Settings/Column/CommentLink.php:56, classes/Settings/Column/MediaLink.php:52, classes/Settings/Column/PostLink.php:62, classes/Settings/Column/TermLink.php:30, classes/Settings/Column/UserLink.php:77
 msgid "Link To"
 msgstr ""
 
@@ -1992,7 +1992,7 @@ msgstr ""
 msgid "User Login"
 msgstr ""
 
-#: classes/Settings/Column/User.php:91, classes/Settings/Column/UserLink.php:79
+#: classes/Settings/Column/User.php:91, classes/Settings/Column/UserLink.php:88
 msgid "User Email"
 msgstr ""
 
@@ -2004,15 +2004,15 @@ msgstr ""
 msgid "User Website"
 msgstr ""
 
-#: classes/Settings/Column/UserLink.php:78
+#: classes/Settings/Column/UserLink.php:87
 msgid "Edit User Profile"
 msgstr ""
 
-#: classes/Settings/Column/UserLink.php:80
+#: classes/Settings/Column/UserLink.php:89
 msgid "View User Posts"
 msgstr ""
 
-#: classes/Settings/Column/UserLink.php:81
+#: classes/Settings/Column/UserLink.php:90
 msgid "View Public Author Page"
 msgstr ""
 

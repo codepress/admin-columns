@@ -1,15 +1,16 @@
-@import 'wordpress-vars';
-@import 'articles';
-@import 'admin-variables';
-@import 'colors';
-@import 'modals';
-@import 'admin-rtl';
-@import 'components/confirmation';
-@import 'components/tooltip';
-@import 'components/pointer';
-@import 'components/toggle';
-@import 'components/forms';
-@import 'components/ajax-loader';
+@use "sass:color";
+@use 'wordpress-vars';
+@use 'articles';
+@use 'admin-variables';
+@use 'colors';
+@use 'modals';
+@use 'admin-rtl';
+@use 'components/confirmation';
+@use 'components/tooltip';
+@use 'components/pointer';
+@use 'components/toggle';
+@use 'components/forms';
+@use 'components/ajax-loader';
 
 .ac-settings-box {
 	margin-bottom: 60px;
@@ -396,8 +397,8 @@ span.dashicons {
 }
 
 .wp-core-ui .button-primary.-pink {
-	background: $ac-pink;
-	border-color: darken($ac-pink, 3);
+	background: colors.$ac-pink;
+	border-color: color.scale(colors.$ac-pink, $lightness: -3%);
 }
 
 /**

@@ -4,7 +4,7 @@ Tags: admin, column, columns, table, tables
 Requires at least: 4.7.3
 Tested up to: 6.7.1
 Requires PHP: 7.2
-Stable tag: 4.7.10
+Stable tag: 4.7.11
 License: GPLv2
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.7.11 =
+Release Date: March 3rd, 2025
+
+* [Updated] Axios library updates because of know security issues with older version
 
 = 4.7.10 =
 Release Date: January 7th, 2025
