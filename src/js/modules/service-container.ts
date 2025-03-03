@@ -12,7 +12,7 @@ export default class ServiceContainer {
         this.services[name] = service;
     }
 
-    getService<T = any>(name: string): T {
+    getService<T = any>(name: string): T | null{
         return this.hasService(name) ? this.services[name] : null;
     }
 

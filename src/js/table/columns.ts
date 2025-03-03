@@ -14,7 +14,7 @@ export default class Columns {
     }
 
     init() {
-        this.table.querySelector('thead')?.querySelectorAll<HTMLTableHeaderCellElement>('th').forEach(cell => {
+        this.table.querySelector('thead')?.querySelectorAll<HTMLTableCellElement>('th').forEach(cell => {
             let headerName = cell?.id;
             this.columns[headerName] = new ColumnTableSettings(headerName, AC.column_types[headerName], this.sanitizeLabel(cell));
         });
@@ -32,7 +32,7 @@ export default class Columns {
         return this.columns.hasOwnProperty(column_name) ? this.columns[column_name] : null;
     }
 
-    sanitizeLabel(header: HTMLTableHeaderCellElement) {
+    sanitizeLabel(header: HTMLTableCellElement) {
         let link = header.querySelector<HTMLAnchorElement>('a');
         let label = header.innerHTML;
 
@@ -67,7 +67,7 @@ export class ColumnTableSettings {
         this.services[name] = service;
     }
 
-    getService<T = any>(name: string): T {
+    getService<T = any>(name: string): T | null {
         return this.hasService(name) ? this.services[name] : null;
     }
 
