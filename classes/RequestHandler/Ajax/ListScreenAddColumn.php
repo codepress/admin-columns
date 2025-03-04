@@ -17,11 +17,11 @@ use AC\Type\ListKey;
 class ListScreenAddColumn implements RequestAjaxHandler
 {
 
-    private $table_screen_factory;
+    private Aggregate $table_screen_factory;
 
-    private $json_response_factory;
+    private JsonColumnFactory $json_response_factory;
 
-    private $repository;
+    private ColumnTypeRepository $repository;
 
     public function __construct(
         Aggregate $table_screen_factory,
