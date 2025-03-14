@@ -643,9 +643,7 @@ table.ac-table-items.-user-posts {
 
 /* =Images Column
 -------------------------------------------------------------- */
-.ac-image-container {
-	margin-bottom: -6px;
-}
+
 
 .ac-image:not(body) {
 	display: inline-block;
@@ -1147,11 +1145,16 @@ div.cpac-color span {
 
 /* Ajax Modal
 -------------------------------------------------------------- */
+.ac-value-modal.-image-container {
+	.ac-value-modal-panel {
+		width: 1200px;
+	}
+}
 .ac-value-modal-container .ac-modal-images-container {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-auto-rows: min-content;
-	grid-gap: 10px;
+	grid-gap: 17px;
 	width: 100%;
 
 	@media screen and (max-width: 782px) {
@@ -1160,24 +1163,39 @@ div.cpac-color span {
 
 	.ac-image-container {
 		border: 1px solid #c3c4c7;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
-		background: #fff;
 		margin-bottom: 0;
-		border-radius: 2px;
+		overflow : hidden;
+
+
+		.ac-image-center {
+			.ac-image-buttons {
+				display: none;
+			}
+
+			&:hover {
+				.ac-image-buttons {
+					display: flex;
+				}
+			}
+		}
 
 		.ac-image-center img {
-			display: block;
-			width: 100%;
 			aspect-ratio: 4/3;
-			object-fit: cover;
 		}
 
 		.ac-image-meta {
-			padding: 6px 0;
-
-			.ac-image-meta-item {
-				word-break: break-word;
-				padding: 6px 10px 8px;
+			padding: 14px 20px;
+		}
+		.ac-image-button {
+			flex: 1;
+			border-radius: 5px;
+			background: rgba(255,255,255,.95);
+			text-align: center;
+			text-decoration: none;
+			padding: 10px 0;
+			transition: all .5s;
+			&:hover {
+				background: rgba(255,255,255,1);
 			}
 		}
 	}
