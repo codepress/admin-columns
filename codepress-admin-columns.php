@@ -42,7 +42,9 @@ if ( ! is_admin()) {
 define('AC_FILE', __FILE__);
 define('AC_VERSION', '5.0beta');
 
-add_action('after_setup_theme', function () {
+require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+add_action('after_setup_theme', static function () {
     require __DIR__ . '/vendor/autoload.php';
     require __DIR__ . '/api.php';
 
@@ -55,7 +57,7 @@ add_action('after_setup_theme', function () {
     }
 }, 1);
 
-add_action('after_setup_theme', function () {
+add_action('after_setup_theme', static function () {
     /**
      * For loading external resources, e.g. column settings.
      * Can be called from plugins and themes.
