@@ -174,9 +174,12 @@ class Columns extends Script
                 'upgrade_url' => (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url(),
             ],
             'support'                    => [
-                'description' => __(
-                    "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>.",
-                    'codepress-admin-columns'
+                'description' => sprintf(
+                    __(
+                        "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>.",
+                        'codepress-admin-columns'
+                    ),
+                    (new UtmTags(new Documentation(), 'review-notice'))->get_url()
                 ),
                 'review'      => (new UtmTags(new Documentation(), 'review-notice'))->get_url(),
             ],
