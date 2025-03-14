@@ -9,6 +9,7 @@ module.exports = {
 	content : [
 		"./../../src/core/**/*.{js,ts,svelte}",
 		"./../../src/editing/**/*.{js,ts,svelte}",
+		"./../../templates/**/*.php",
 		"./../templates/**/*.php",
 		"./js/**/*.{js,ts,svelte}",
 		"./ui/**/*.{js,ts,svelte}",
