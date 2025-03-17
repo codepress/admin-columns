@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     AcServices.registerService('ColumnPage', pageBridge);
 
     const cpacElement = document.querySelector('#cpac');
-
     if (cpacElement) {
         new ColumnsPage({
             target: cpacElement,

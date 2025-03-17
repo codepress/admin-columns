@@ -188,6 +188,10 @@ class FieldType extends Builder
                 $formatters->add(new AC\Value\Formatter\YesNoIcon());
                 break;
             case self::TYPE_SELECT:
+                if ($config->get('is_multiple', 'off') === 'on') {
+                    $formatters->add(new AC\Value\Formatter\ArrayToCollection());
+                }
+
                 $formatters->add(new AC\Value\Formatter\SelectOptionMapper($config));
                 break;
             case self::TYPE_COLOR:
