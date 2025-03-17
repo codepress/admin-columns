@@ -9,7 +9,7 @@ use AC\Storage;
 class ManualOrder implements Sort
 {
 
-    private $list_screen_order;
+    private Storage\Repository\ListScreenOrder $list_screen_order;
 
     public function __construct()
     {
