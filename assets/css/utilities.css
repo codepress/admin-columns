@@ -6,16 +6,8 @@
   position: relative
 }
 
-.acu-bottom-4 {
-  bottom: 20px
-}
-
-.acu-left-\[0\] {
-  left: 0
-}
-
-.acu-right-\[0\] {
-  right: 0
+.acu-bottom-3 {
+  bottom: 15px
 }
 
 .acu-left-3 {
@@ -26,16 +18,8 @@
   right: 15px
 }
 
-.acu-bottom-3 {
-  bottom: 15px
-}
-
 .acu-mb-1 {
   margin-bottom: 5px
-}
-
-.acu-mb-1\.5 {
-  margin-bottom: 8px
 }
 
 .acu-mb-3 {
@@ -70,20 +54,12 @@
   justify-content: center
 }
 
-.acu-gap-\[10px\] {
-  gap: 10px
+.acu-gap-3 {
+  gap: 15px
 }
 
 .acu-gap-\[20px\] {
   gap: 20px
-}
-
-.acu-gap-4 {
-  gap: 20px
-}
-
-.acu-gap-3 {
-  gap: 15px
 }
 
 .acu-rounded-lg {
@@ -127,12 +103,6 @@
   color: var(--ac-notification-red)
 }
 
-.acu-shadow-lg {
-  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
-}
-
 .acu-shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -141,6 +111,12 @@
 
 .\[key\:string\] {
   key: string
+}
+
+@media (min-width: 768px) {
+  .md\:acu-mb-1\.5 {
+    margin-bottom: 8px
+  }
 }
 
 @media (min-width: 1024px) {
