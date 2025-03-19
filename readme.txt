@@ -2,7 +2,7 @@
 Contributors: codepress, tschutter, davidmosterd, dungengronovius, engelen
 Tags: admin, column, columns, table, tables
 Requires at least: 4.7.3
-Tested up to: 6.7.1
+Tested up to: 6.7.2
 Requires PHP: 7.2
 Stable tag: 4.7.12
 License: GPLv2
@@ -211,7 +211,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.7.13 =
-Release Date: tbd
+Release Date: March 19th, 2025
 
 * [Improved] Compacter display of the Value modal of the Images column
 
