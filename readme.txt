@@ -210,6 +210,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.7.13 =
+Release Date: tbd
+
+* [Improved] Compacter display of the Value modal of the Images column
+
 = 4.7.12 =
 Release Date: March 12th, 2025
 
