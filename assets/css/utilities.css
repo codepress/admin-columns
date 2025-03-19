@@ -1,21 +1,33 @@
-.acu-mb-4 {
-  margin-bottom: 20px
+.acu-absolute {
+  position: absolute
 }
 
-.acu-mb-1\.5 {
-  margin-bottom: 8px
+.acu-relative {
+  position: relative
+}
+
+.acu-bottom-3 {
+  bottom: 15px
+}
+
+.acu-left-3 {
+  left: 15px
+}
+
+.acu-right-3 {
+  right: 15px
 }
 
 .acu-mb-1 {
   margin-bottom: 5px
 }
 
-.acu-mb-2 {
-  margin-bottom: 10px
-}
-
 .acu-mb-3 {
   margin-bottom: 15px
+}
+
+.acu-mb-4 {
+  margin-bottom: 20px
 }
 
 .acu-block {
@@ -26,6 +38,10 @@
   display: flex
 }
 
+.acu-w-full {
+  width: 100%
+}
+
 .acu-grow {
   flex-grow: 1
 }
@@ -34,16 +50,37 @@
   flex-direction: row-reverse
 }
 
-.acu-pl-8\.5 {
-  padding-left: 43px
+.acu-justify-center {
+  justify-content: center
 }
 
-.acu-pl-8 {
-  padding-left: 40px
+.acu-gap-3 {
+  gap: 15px
+}
+
+.acu-gap-\[20px\] {
+  gap: 20px
+}
+
+.acu-rounded-lg {
+  border-radius: 0.5rem
+}
+
+.acu-object-cover {
+  -o-object-fit: cover;
+     object-fit: cover
+}
+
+.acu-p-2 {
+  padding: 10px
 }
 
 .acu-pb-6 {
   padding-bottom: 30px
+}
+
+.acu-pl-8\.5 {
+  padding-left: 43px
 }
 
 .acu-pr-1 {
@@ -54,12 +91,32 @@
   padding-top: 15px
 }
 
+.acu-font-bold {
+  font-weight: 700
+}
+
 .acu-uppercase {
   text-transform: uppercase
 }
 
 .acu-text-notification-red {
   color: var(--ac-notification-red)
+}
+
+.acu-shadow {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+}
+
+.\[key\:string\] {
+  key: string
+}
+
+@media (min-width: 768px) {
+  .md\:acu-mb-1\.5 {
+    margin-bottom: 8px
+  }
 }
 
 @media (min-width: 1024px) {
