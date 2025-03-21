@@ -164,6 +164,7 @@ final class Screen implements Registerable
         $table_translation = Asset\Script\Localize\Translation::create([
             'value_loading' => __('Loading...', 'codepress-admin-columns'),
             'edit'          => __('Edit', 'codepress-admin-columns'),
+            'view'          => __('View', 'codepress-admin-columns'),
             'download'      => __('Download', 'codepress-admin-columns'),
         ]);
 

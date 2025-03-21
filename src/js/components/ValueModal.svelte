@@ -18,6 +18,7 @@
     let content: string;
     let editLink: string;
     let downloadLink: string;
+    let viewLink: string;
     let source;
     let translation = getTableTranslation();
     let index: number;
@@ -55,6 +56,7 @@
         content = `<span class="loading">${translation.value_loading}</span>`;
         editLink = item.editLink;
         downloadLink = item.downloadLink;
+        viewLink = item.viewLink;
 
         if (source) {
             source.cancel();
@@ -160,6 +162,9 @@
 				<div class="ac-value-modal__edit">
 					{#if editLink }
 						<a class="edit btn button" href="{editLink}">{translation.edit}</a>
+					{/if}
+					{#if viewLink }
+						<a class="edit btn button" href="{viewLink}">{translation.view}</a>
 					{/if}
 					{#if downloadLink }
 						<a class="edit btn button" href="{downloadLink}" download>{translation.download}</a>

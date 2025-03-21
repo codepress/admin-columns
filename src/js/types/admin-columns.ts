@@ -31,6 +31,7 @@ export type LocalizedAcTableI18n = {
     cancel: string
     value_loading: string
     edit: string
+    view: string
     download: string
     confirmation: ModuleConfirmationTranslation
 }
@@ -71,6 +72,7 @@ export type ValueModalItem = {
     title: string | null
     editLink: string
     downloadLink: string
+    viewLink: string
     columnName: string
     objectId: number
     view: string
