@@ -71,6 +71,7 @@ export type ValueModalItem = {
     title: string | null,
     editLink: string,
     downloadLink: string,
+    viewLink: string,
     columnName: string,
     objectId: number
 }
