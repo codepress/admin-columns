@@ -8,6 +8,7 @@ use AC\Plugin\Install\Database;
 use AC\Registerable;
 use AC\Service\Setup;
 
+// TODO hook does not exist anymore, how to show this information in Svelte?
 final class DatabaseMissing implements Registerable
 {
 

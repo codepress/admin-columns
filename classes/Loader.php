@@ -106,7 +106,6 @@ class Loader
             Screen::class,
             Admin\Admin::class,
             Admin\Scripts::class,
-            Admin\Notice\ReadOnlyListScreen::class,
             Admin\Notice\DatabaseMissing::class,
             ThirdParty\AdvancedCustomFields::class,
             ThirdParty\NinjaForms::class,

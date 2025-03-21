@@ -7,15 +7,16 @@ namespace AC\Deprecated;
 class HookCollectionFactory
 {
 
-    //            TODO replace these hooks that contain $column
-    //            TODO Move pro to pro class?
-    //            ac/column/audio_player/valid_mime_types
-    //            ac/headings/label
-    //            ac/list_screen/preferences
-    //            ac/headings
-    //            ac/column/video_player/valid_mime_types
-    //            ac/column/settings/column_types
-    //            ac/column_group
+    //  TODO replace these hooks that contain $column
+    //  TODO Move pro to pro class?
+    //  ac/column/audio_player/valid_mime_types
+    //  ac/headings/label
+    //  ac/list_screen/preferences
+    //  ac/headings
+    //  ac/column/video_player/valid_mime_types
+    //  ac/column/settings/column_types
+    //  ac/list_screen/key/is_active
+    //  ac/list_screen/is_active
 
     public function create_filters(): HookCollection
     {
@@ -29,15 +30,28 @@ class HookCollectionFactory
             // Replaced Pro
             new Hook('ac/export/value', '7.0', 'acp/v2/export/value'),
             new Hook('ac/export/value/escape', '7.0', 'acp/v2/export/value/escape'),
+            new Hook('acp/editing/persistent', '7.0', 'acp/v2/editing/persistent'),
+            new Hook(
+                'acp/editing/bulk/updated_rows_per_iteration',
+                '7.0',
+                'acp/v2/editing/bulk/updated_rows_per_iteration'
+            ),
+            new Hook(
+                'acp/delete/bulk/deleted_rows_per_iteration',
+                '7.0',
+                'acp/v2/delete/bulk/deleted_rows_per_iteration'
+            ),
 
             // Removed
             new Hook('ac/column/separator', '5.0'),
             new Hook('ac/headings', '5.0'),
             new Hook('ac/column_group', '5.0'),
             new Hook('ac/column/custom_field/field_types', '5.0'),
+            new Hook('ac/read_only_message', '5.0'),
 
             // Removed Pro
             new Hook('ac/export/column/disable', '7.0'),
+            new Hook('acp/admin/enable_submenu', '7.0'),
         ]);
     }
 
