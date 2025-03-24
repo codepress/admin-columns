@@ -49,6 +49,12 @@ class HookCollectionFactory
             new Hook('acp/export/is_active', '7.0', 'acp/v2/export/is_active'),
             new Hook('acp/horizontal_scrolling/enable', '7.0', 'acp/v2/horizontal_scrolling/enable'),
             new Hook('acp/search/filters', '7.0', 'acp/v2/search/filters'),
+            new Hook('acp/sorting/model', '7.0', 'acp/v2/sorting/model'),
+            new Hook(
+                'acp/sorting/remember_last_sorting_preference',
+                '7.0',
+                'acp/v2/sorting/remember_last_sorting_preference'
+            ),
 
             // Removed
             new Hook('ac/column/separator', '5.0'),
@@ -62,6 +68,7 @@ class HookCollectionFactory
             new Hook('acp/admin/enable_submenu', '7.0'),
             new Hook('acp/editing/inline/deprecated_style', '7.0'),
             new Hook('acp/editing/view_settings', '7.0'),
+            new Hook('acp/sorting/post_status', '7.0'),
         ]);
     }
 
