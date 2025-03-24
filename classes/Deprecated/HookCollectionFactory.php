@@ -31,6 +31,11 @@ class HookCollectionFactory
             new Hook('ac/export/value', '7.0', 'acp/v2/export/value'),
             new Hook('ac/export/value/escape', '7.0', 'acp/v2/export/value/escape'),
             new Hook('acp/editing/persistent', '7.0', 'acp/v2/editing/persistent'),
+            new Hook('acp/editing/post_statuses', '7.0', 'acp/v2/editing/post_statuses'),
+            new Hook('acp/editing/save_value', '7.0', 'acp/v2/editing/save_value'),
+            new Hook('acp/editing/settings/post_types', '7.0', 'acp/v2/editing/custom_field/post_types'),
+            new Hook('acp/editing/value', '7.0', 'acp/v2/editing/value'),
+            new Hook('acp/editing/view', '7.0', 'acp/v2/editing/view'),
             new Hook(
                 'acp/editing/bulk/updated_rows_per_iteration',
                 '7.0',
@@ -41,6 +46,9 @@ class HookCollectionFactory
                 '7.0',
                 'acp/v2/delete/bulk/deleted_rows_per_iteration'
             ),
+            new Hook('acp/export/is_active', '7.0', 'acp/v2/export/is_active'),
+            new Hook('acp/horizontal_scrolling/enable', '7.0', 'acp/v2/horizontal_scrolling/enable'),
+            new Hook('acp/search/filters', '7.0', 'acp/v2/search/filters'),
 
             // Removed
             new Hook('ac/column/separator', '5.0'),
@@ -52,6 +60,8 @@ class HookCollectionFactory
             // Removed Pro
             new Hook('ac/export/column/disable', '7.0'),
             new Hook('acp/admin/enable_submenu', '7.0'),
+            new Hook('acp/editing/inline/deprecated_style', '7.0'),
+            new Hook('acp/editing/view_settings', '7.0'),
         ]);
     }
 
