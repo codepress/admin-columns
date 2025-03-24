@@ -98,6 +98,12 @@ class ListScreenSave implements RequestAjaxHandler
 
         $this->storage->save($list_screen);
 
+        if ( ! $this->storage->exists($id)) {
+            $response->set_message(__('Column settings could not be saved.', 'codepress-admin-columns'))->error();
+        }
+
+        do_action('ac/v2/columns_stored', $list_screen);
+
         $response
             ->set_message(
                 sprintf(

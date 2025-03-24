@@ -127,7 +127,6 @@ class Loader
         if ( ! defined('ACP_FILE')) {
             $services_fqn[] = Service\NoticeChecks::class;
             $services_fqn[] = PluginActionUpgrade::class;
-            $services_fqn[] = Service\ColumnsMockup::class;
         }
 
         foreach ($services_fqn as $service_fqn) {

@@ -26,6 +26,7 @@ class HookCollectionFactory
             new Hook('ac/column/value/sanitize', '5.0', 'ac/v2/column/value/sanitize'),
             new Hook('ac/column_types', '5.0', 'ac/v2/column_types'),
             new Hook('ac/column/audio_player/valid_mime_types', '5.0', 'ac/v2/column/audio_player/valid_mime_types'),
+            new Hook('ac/columns_stored', '5.0', 'ac/v2/columns_stored'),
 
             // Replaced Pro
             new Hook('ac/export/value', '7.0', 'acp/v2/export/value'),
@@ -55,6 +56,8 @@ class HookCollectionFactory
                 '7.0',
                 'acp/v2/sorting/remember_last_sorting_preference'
             ),
+            new Hook('acp/wc/column/product/sales/statuses', '7.0', 'acp/v2/wc/column/product/sales/statuses'),
+            new Hook('acp/quick_add/saved', '7.0', 'acp/v2/quick_add/saved'),
 
             // Removed
             new Hook('ac/column/separator', '5.0'),
@@ -62,6 +65,9 @@ class HookCollectionFactory
             new Hook('ac/column_group', '5.0'),
             new Hook('ac/column/custom_field/field_types', '5.0'),
             new Hook('ac/read_only_message', '5.0'),
+            new Hook('ac/column/settings/column_types', '5.0'),
+            new Hook('ac/column/header', '5.0'),
+            new Hook('ac/column/settings', '5.0'),
 
             // Removed Pro
             new Hook('ac/export/column/disable', '7.0'),
