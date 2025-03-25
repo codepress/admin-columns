@@ -58,6 +58,8 @@ class HookCollectionFactory
             ),
             new Hook('acp/wc/column/product/sales/statuses', '7.0', 'acp/v2/wc/column/product/sales/statuses'),
             new Hook('acp/quick_add/saved', '7.0', 'acp/v2/quick_add/saved'),
+            new Hook('acp/acf/after_get_field_options', '7.0', 'acp/v2/acf/after_get_field_options'),
+            new Hook('acp/acf/before_get_field_options', '7.0', 'acp/v2/acf/before_get_field_options'),
 
             // Removed
             new Hook('ac/column/separator', '5.0'),
@@ -75,6 +77,7 @@ class HookCollectionFactory
             new Hook('acp/editing/inline/deprecated_style', '7.0'),
             new Hook('acp/editing/view_settings', '7.0'),
             new Hook('acp/sorting/post_status', '7.0'),
+            new Hook('acp/admin/settings/hide_on_screen', '7.0'),
         ]);
     }
 
