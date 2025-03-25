@@ -6380,7 +6380,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   appendObjectToFormData: () => (/* binding */ appendObjectToFormData),
 /* harmony export */   getParamFromUrl: () => (/* binding */ getParamFromUrl),
 /* harmony export */   mapDataToFormData: () => (/* binding */ mapDataToFormData),
-/* harmony export */   sanitizeColumnSelector: () => (/* binding */ sanitizeColumnSelector)
+/* harmony export */   sanitizeColumnSelector: () => (/* binding */ sanitizeColumnSelector),
+/* harmony export */   withCooldown: () => (/* binding */ withCooldown)
 /* harmony export */ });
 const getParamFromUrl = (param, url) => {
     if (!url.includes('?')) {
@@ -6409,6 +6410,18 @@ const appendObjectToFormData = (formData, data, parentKey = '') => {
 };
 const sanitizeColumnSelector = (name) => {
     return name.replace(/\./g, '\\.');
+};
+const withCooldown = (callback, delay = 1000) => {
+    let isCoolingDown = false;
+    return function (...args) {
+        if (isCoolingDown)
+            return;
+        isCoolingDown = true;
+        callback.apply(this, args);
+        setTimeout(() => {
+            isCoolingDown = false;
+        }, delay);
+    };
 };
 
 

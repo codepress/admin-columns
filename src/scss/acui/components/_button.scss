@@ -54,6 +54,13 @@ a.acui-button {
 	transform: translateY(-2px);
 }
 
+.acui-button.-destructive {
+	color: var(--ac-notification-red);
+	&:hover {
+		filter: saturate(0.5);
+	}
+}
+
 .acui-button.is-loading {
 	color: transparent;
 	pointer-events: none;

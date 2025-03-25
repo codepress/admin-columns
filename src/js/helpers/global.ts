@@ -33,3 +33,16 @@ export const appendObjectToFormData = (formData: FormData, data: { [key: string]
 export const sanitizeColumnSelector = ( name: string ) => {
     return name.replace(/\./g, '\\.');
 }
+
+export const withCooldown = <T extends (...args: any[]) => void>(callback: T, delay = 1000): T => {
+    let isCoolingDown = false;
+
+    return function (this: any, ...args: any[]) {
+        if (isCoolingDown) return;
+        isCoolingDown = true;
+        callback.apply(this, args);
+        setTimeout(() => {
+            isCoolingDown = false;
+        }, delay);
+    } as T;
+}

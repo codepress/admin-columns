@@ -4357,7 +4357,7 @@ function create_else_block_1(ctx) {
       if (if_block2) if_block2.m(button, null);
       current = true;
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", /*click_handler_1*/ctx[16]);
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", /*click_handler_1*/ctx[17]);
         mounted = true;
       }
     },
@@ -4453,7 +4453,7 @@ function create_else_block_1(ctx) {
   };
 }
 
-// (24:0) {#if href }
+// (27:0) {#if href }
 function create_if_block(ctx) {
   let a;
   let t0;
@@ -4497,7 +4497,7 @@ function create_if_block(ctx) {
       if (if_block2) if_block2.m(a, null);
       current = true;
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(a, "click", /*click_handler*/ctx[15]);
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(a, "click", /*click_handler*/ctx[16]);
         mounted = true;
       }
     },
@@ -4599,7 +4599,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (51:2) {#if iconLeft }
+// (54:2) {#if iconLeft }
 function create_if_block_6(ctx) {
   let acicon;
   let current;
@@ -4639,11 +4639,11 @@ function create_if_block_6(ctx) {
   };
 }
 
-// (56:2) {:else}
+// (59:2) {:else}
 function create_else_block_2(ctx) {
   let current;
-  const default_slot_template = /*#slots*/ctx[14].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[13], null);
+  const default_slot_template = /*#slots*/ctx[15].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[14], null);
   return {
     c() {
       if (default_slot) default_slot.c();
@@ -4656,8 +4656,8 @@ function create_else_block_2(ctx) {
     },
     p(ctx, dirty) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/8192)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[13], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[13]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[13], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/16384)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[14], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[14]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[14], dirty, null), null);
         }
       }
     },
@@ -4676,7 +4676,7 @@ function create_else_block_2(ctx) {
   };
 }
 
-// (54:2) {#if label }
+// (57:2) {#if label }
 function create_if_block_5(ctx) {
   let t;
   return {
@@ -4699,7 +4699,7 @@ function create_if_block_5(ctx) {
   };
 }
 
-// (60:2) {#if iconRight }
+// (63:2) {#if iconRight }
 function create_if_block_4(ctx) {
   let acicon;
   let current;
@@ -4739,7 +4739,7 @@ function create_if_block_4(ctx) {
   };
 }
 
-// (32:2) {#if iconLeft }
+// (35:2) {#if iconLeft }
 function create_if_block_3(ctx) {
   let acicon;
   let current;
@@ -4779,11 +4779,11 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (37:2) {:else}
+// (40:2) {:else}
 function create_else_block(ctx) {
   let current;
-  const default_slot_template = /*#slots*/ctx[14].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[13], null);
+  const default_slot_template = /*#slots*/ctx[15].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[14], null);
   return {
     c() {
       if (default_slot) default_slot.c();
@@ -4796,8 +4796,8 @@ function create_else_block(ctx) {
     },
     p(ctx, dirty) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/8192)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[13], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[13]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[13], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/16384)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[14], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[14]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[14], dirty, null), null);
         }
       }
     },
@@ -4816,7 +4816,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (35:2) {#if label }
+// (38:2) {#if label }
 function create_if_block_2(ctx) {
   let t;
   return {
@@ -4839,7 +4839,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (41:2) {#if iconRight }
+// (44:2) {#if iconRight }
 function create_if_block_1(ctx) {
   let acicon;
   let current;
@@ -4952,6 +4952,9 @@ function instance($$self, $$props, $$invalidate) {
     disabled = false
   } = $$props;
   let {
+    isDestructive = false
+  } = $$props;
+  let {
     iconLeft = null
   } = $$props;
   let {
@@ -4983,6 +4986,7 @@ function instance($$self, $$props, $$invalidate) {
   } = $$props;
   let classes = ['acui-button', customClass, `acui-button-${type}`];
   if (size === 'small') classes.push('-small');
+  if (isDestructive) classes.push('-destructive');
   function click_handler(event) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
   }
@@ -4992,19 +4996,20 @@ function instance($$self, $$props, $$invalidate) {
   $$self.$$set = $$props => {
     if ('type' in $$props) $$invalidate(10, type = $$props.type);
     if ('disabled' in $$props) $$invalidate(0, disabled = $$props.disabled);
+    if ('isDestructive' in $$props) $$invalidate(11, isDestructive = $$props.isDestructive);
     if ('iconLeft' in $$props) $$invalidate(1, iconLeft = $$props.iconLeft);
     if ('iconLeftPack' in $$props) $$invalidate(2, iconLeftPack = $$props.iconLeftPack);
     if ('iconRight' in $$props) $$invalidate(3, iconRight = $$props.iconRight);
     if ('iconRightPack' in $$props) $$invalidate(4, iconRightPack = $$props.iconRightPack);
     if ('loading' in $$props) $$invalidate(5, loading = $$props.loading);
-    if ('customClass' in $$props) $$invalidate(11, customClass = $$props.customClass);
+    if ('customClass' in $$props) $$invalidate(12, customClass = $$props.customClass);
     if ('label' in $$props) $$invalidate(6, label = $$props.label);
-    if ('size' in $$props) $$invalidate(12, size = $$props.size);
+    if ('size' in $$props) $$invalidate(13, size = $$props.size);
     if ('href' in $$props) $$invalidate(7, href = $$props.href);
     if ('target' in $$props) $$invalidate(8, target = $$props.target);
-    if ('$$scope' in $$props) $$invalidate(13, $$scope = $$props.$$scope);
+    if ('$$scope' in $$props) $$invalidate(14, $$scope = $$props.$$scope);
   };
-  return [disabled, iconLeft, iconLeftPack, iconRight, iconRightPack, loading, label, href, target, classes, type, customClass, size, $$scope, slots, click_handler, click_handler_1];
+  return [disabled, iconLeft, iconLeftPack, iconRight, iconRightPack, loading, label, href, target, classes, type, isDestructive, customClass, size, $$scope, slots, click_handler, click_handler_1];
 }
 class AcButton extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -5012,14 +5017,15 @@ class AcButton extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteCompon
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       type: 10,
       disabled: 0,
+      isDestructive: 11,
       iconLeft: 1,
       iconLeftPack: 2,
       iconRight: 3,
       iconRightPack: 4,
       loading: 5,
-      customClass: 11,
+      customClass: 12,
       label: 6,
-      size: 12,
+      size: 13,
       href: 7,
       target: 8
     });

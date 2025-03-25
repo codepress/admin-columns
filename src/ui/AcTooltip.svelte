@@ -93,7 +93,10 @@
 			bind:this={contentEl}
 			in:fade={{duration:200}}
 			out:fade={{duration:200}}>
-			{label}
+
+			{@html label}
+
+
 		</div>
 	{/if}
 </div>

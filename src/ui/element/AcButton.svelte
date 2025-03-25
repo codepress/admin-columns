@@ -4,6 +4,7 @@
 
     export let type: undefined | null | 'text' | 'primary' | 'default' | 'pink' = 'default';
     export let disabled: boolean = false;
+    export let isDestructive: boolean | null = false;
     export let iconLeft: string | null = null;
     export let iconLeftPack: string | null = null;
     export let iconRight: string | null = null;
@@ -22,6 +23,7 @@
     ]
 
     if (size === 'small') classes.push('-small');
+    if (isDestructive) classes.push('-destructive');
 
 </script>
 

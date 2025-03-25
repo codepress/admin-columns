@@ -50,6 +50,13 @@ a.acui-button {
   transform: translateY(-2px);
 }
 
+.acui-button.-destructive {
+  color: var(--ac-notification-red);
+}
+.acui-button.-destructive:hover {
+  filter: saturate(0.5);
+}
+
 .acui-button.is-loading {
   color: transparent;
   pointer-events: none;
@@ -623,6 +630,7 @@ a.acui-button {
   white-space: normal;
   overflow-wrap: break-word;
   word-wrap: break-word;
+  text-align: left;
 }
 .acui-tooltip-content:before {
   content: "";

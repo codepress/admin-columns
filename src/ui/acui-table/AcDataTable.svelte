@@ -15,10 +15,11 @@
     export let loading: boolean = false;
     export let actions: Array<any> = [];
 
-    const getButtonType = ( action: DataTableActionsDefinitionType ) => {
+    const getButtonType = (action: DataTableActionsDefinitionType) => {
         return action.primary ? 'primary' : 'default';
-	}
+    }
 
+    const getRowActions = (row) => actions.filter(action => !action.condition || action.condition(row));
 </script>
 
 
@@ -54,16 +55,31 @@
 					{/each}
 
 					{#if actions.length > 0}
-						<AcTableCell density="compact" right>
-							<div class="acu-flex acu-gap-1 acu-justify-end">
-							{#each actions as action}
-								<AcButton
-									size="small"
-									on:click={action.callback(itemRow)}
-									type={getButtonType(action)}>{action.label}</AcButton>
-							{/each}
-							</div>
-						</AcTableCell>
+						{#if getRowActions(itemRow).length > 0}
+							<AcTableCell density="compact" right>
+								<div class="acu-flex acu-gap-1 acu-justify-end">
+									{#each getRowActions(itemRow) as action}
+										{#if action.render }
+											<svelte:component
+												this={action.render}
+												item={itemRow}
+												on:callback={() => action.callback(itemRow)}
+											/>
+										{:else}
+											<AcButton
+												size="small"
+												on:click={() => action.callback(itemRow)}
+												type={getButtonType(action)}>
+												{action.label}
+											</AcButton>
+										{/if}
+									{/each}
+								</div>
+							</AcTableCell>
+						{:else}
+							<AcTableCell density="compact" right>&nbsp;</AcTableCell>
+						{/if}
+
 					{/if}
 				</AcTableRow>
 			{/each}
