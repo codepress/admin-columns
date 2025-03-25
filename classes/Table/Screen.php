@@ -28,7 +28,7 @@ final class Screen implements Registerable
     public function __construct(
         AC\AdminColumns $plugin,
         TableScreen $table_screen,
-        ListScreen $list_screen = null
+        ?ListScreen $list_screen = null
     ) {
         $this->location = $plugin->get_location();
         $this->table_screen = $table_screen;
