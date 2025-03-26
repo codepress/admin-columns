@@ -10,11 +10,14 @@ use AC\Setting\Control\OptionCollectionFactory;
 final class ToggleOptionCollection implements OptionCollectionFactory
 {
 
+    public const ON = 'on';
+    public const OFF = 'off';
+
     public function create(): OptionCollection
     {
         return OptionCollection::from_array([
-            'on',
-            'off',
+            self::ON,
+            self::OFF,
         ], false);
     }
 
