@@ -12,8 +12,10 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
+use AC\Setting\Control\OptionCollectionFactory\ToggleOptionCollection;
 use AC\Setting\Control\Type\Option;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter;
 
 class FieldType extends Builder
 {
@@ -21,6 +23,7 @@ class FieldType extends Builder
     private const NAME = 'field_type';
 
     public const TYPE_DEFAULT = '';
+    public const TYPE_HTML = 'html';
     public const TYPE_ARRAY = 'array';
     public const TYPE_BOOLEAN = 'checkmark';
     public const TYPE_COLOR = 'color';
@@ -61,6 +64,8 @@ class FieldType extends Builder
 
     private UserLink $user_link;
 
+    private ModalDisplay $modal_display;
+
     public function __construct(
         StringLimit $string_limit,
         NumberFormat $number_format,
@@ -73,7 +78,8 @@ class FieldType extends Builder
         ImageSize $image,
         MediaLink $media_link,
         SelectOptions $select_options,
-        SerializedDisplay $serialized_display
+        SerializedDisplay $serialized_display,
+        ModalDisplay $modal_display
     ) {
         $this->string_limit = $string_limit;
         $this->number_format = $number_format;
@@ -87,6 +93,7 @@ class FieldType extends Builder
         $this->select_options = $select_options;
         $this->serialized_display = $serialized_display;
         $this->user_link = $user_link;
+        $this->modal_display = $modal_display;
     }
 
     protected function get_label(Config $config): ?string
@@ -150,6 +157,7 @@ class FieldType extends Builder
                 self::TYPE_COLOR   => __('Color', 'codepress-admin-columns'),
                 self::TYPE_DATE    => __('Date', 'codepress-admin-columns'),
                 self::TYPE_TEXT    => __('Text', 'codepress-admin-columns'),
+                self::TYPE_HTML    => __('HTML', 'codepress-admin-columns'),
                 self::TYPE_IMAGE   => __('Image', 'codepress-admin-columns'),
                 self::TYPE_URL     => __('URL', 'codepress-admin-columns'),
                 self::TYPE_NUMERIC => __('Number', 'codepress-admin-columns'),
@@ -208,6 +216,17 @@ class FieldType extends Builder
             case self::TYPE_POST:
                 $formatters->add(new AC\Value\Formatter\IdCollectionFromArrayOrString());
                 break;
+            case self::TYPE_HTML:
+                if ($config->get($this->modal_display::TOGGLE) === ToggleOptionCollection::ON) {
+                    $formatters->add(
+                        new Formatter\ExtendedValueLink(
+                            new AC\Value\ExtendedValueLinkFactory(),
+                            $config->get($this->modal_display::LABEL)
+                        )
+                    );
+                }
+
+                break;
         }
     }
 
@@ -218,6 +237,10 @@ class FieldType extends Builder
                 $this->string_limit->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_TEXT)
+                ),
+                $this->modal_display->create(
+                    $config,
+                    StringComparisonSpecification::equal(self::TYPE_HTML),
                 ),
                 $this->number_format->create(
                     $config,

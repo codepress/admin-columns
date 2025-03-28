@@ -67,7 +67,7 @@ class ExtendedValue implements RequestAjaxHandler
 
         header("Cache-Control: max-age=60");
 
-        echo $this->views->get_view($view)->render($id, $params);
+        echo $this->views->get_view($view)->render($id, $params, $column);
 
         exit;
     }

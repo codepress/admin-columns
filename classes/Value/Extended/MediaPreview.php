@@ -6,6 +6,7 @@ namespace AC\Value\Extended;
 
 use AC\ApplyFilter\ValidAudioMimetypes;
 use AC\ApplyFilter\ValidVideoMimetypes;
+use AC\Column;
 use AC\Value\ExtendedValueLink;
 use AC\View\Embed\Video;
 
@@ -43,7 +44,7 @@ class MediaPreview implements ExtendedValue
         }
     }
 
-    public function render(int $id, array $params): string
+    public function render(int $id, array $params, Column $column): string
     {
         switch ($this->get_media_type($id)) {
             case 'audio':
