@@ -28,6 +28,7 @@
     let loadedListId: string | null = null;
 
     let form: ListScreenForm;
+    let isSaving: boolean = false;
 
     let abortController: AbortController;
     let queuedListId: string | null = null;
@@ -105,6 +106,8 @@
 		{#if ! $listScreenIsReadOnly && $hasUsagePermissions }
 			<AcButton
 				type="primary"
+				loading={isSaving}
+				softDisabled={isSaving}
 				on:click={() => form.saveSettings()}
 				label={i18n.editor.label.save}
 			/>
@@ -132,6 +135,7 @@
 					{#if $listScreenDataStore !== null}
 						<ListScreenForm
 							bind:this={form}
+							bind:isSaving={isSaving}
 							bind:config={config}
 							bind:data={$listScreenDataStore}
 							locked={$listScreenIsReadOnly || ! $hasUsagePermissions}

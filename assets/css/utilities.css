@@ -210,6 +210,10 @@
   margin-bottom: 20px
 }
 
+.acu-mb-5 {
+  margin-bottom: 25px
+}
+
 .acu-mb-6 {
   margin-bottom: 30px
 }
@@ -248,10 +252,6 @@
 
 .acu-mt-\[0\] {
   margin-top: 0
-}
-
-.acu-mb-5 {
-  margin-bottom: 25px
 }
 
 .acu-block {
@@ -754,6 +754,10 @@
   padding-left: 43px
 }
 
+.acu-pl-\[4px\] {
+  padding-left: 4px
+}
+
 .acu-pl-\[50px\] {
   padding-left: 50px
 }
@@ -901,6 +905,11 @@
 .acu-text-\[\#888\] {
   --tw-text-opacity: 1;
   color: rgb(136 136 136 / var(--tw-text-opacity))
+}
+
+.acu-text-\[\#94A3B8\] {
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity))
 }
 
 .acu-text-\[\#999\] {

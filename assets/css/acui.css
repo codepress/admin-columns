@@ -21,11 +21,13 @@
 .acui-button:hover, .acui-button:focus, .acui-button:active {
   border-color: #111;
 }
-.acui-button:disabled {
+.acui-button.-disabled {
   border-color: #C4C4C4 !important;
   background: #E6E6E6 !important;
-  cursor: not-allowed !important;
   color: #aaa !important;
+}
+.acui-button:disabled {
+  cursor: not-allowed !important;
 }
 .acui-button.-small {
   padding-top: 6px;
@@ -58,8 +60,7 @@ a.acui-button {
 }
 
 .acui-button.is-loading {
-  color: transparent;
-  pointer-events: none;
+  color: transparent !important;
 }
 
 .acui-button.is-loading:before {

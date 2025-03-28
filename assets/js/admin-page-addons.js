@@ -1983,19 +1983,20 @@ function create_else_block_1(ctx) {
   let if_block1;
   let t1;
   let button_class_value;
+  let button_disabled_value;
   let current;
   let mounted;
   let dispose;
-  let if_block0 = /*iconLeft*/ctx[1] && create_if_block_6(ctx);
+  let if_block0 = /*iconLeft*/ctx[2] && create_if_block_6(ctx);
   const if_block_creators = [create_if_block_5, create_else_block_2];
   const if_blocks = [];
   function select_block_type_2(ctx, dirty) {
-    if (/*label*/ctx[6]) return 0;
+    if (/*label*/ctx[7]) return 0;
     return 1;
   }
   current_block_type_index = select_block_type_2(ctx, -1);
   if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-  let if_block2 = /*iconRight*/ctx[3] && create_if_block_4(ctx);
+  let if_block2 = /*iconRight*/ctx[4] && create_if_block_4(ctx);
   return {
     c() {
       button = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
@@ -2004,9 +2005,9 @@ function create_else_block_1(ctx) {
       if_block1.c();
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block2) if_block2.c();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", button_class_value = /*classes*/ctx[9].join(' '));
-      button.disabled = /*disabled*/ctx[0];
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "is-loading", /*loading*/ctx[5]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", button_class_value = /*classes*/ctx[10].join(' '));
+      button.disabled = button_disabled_value = /*disabled*/ctx[0] || /*softDisabled*/ctx[1];
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "is-loading", /*loading*/ctx[6]);
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, button, anchor);
@@ -2017,15 +2018,15 @@ function create_else_block_1(ctx) {
       if (if_block2) if_block2.m(button, null);
       current = true;
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", /*click_handler_1*/ctx[17]);
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", /*click_handler_1*/ctx[18]);
         mounted = true;
       }
     },
     p(ctx, dirty) {
-      if (/*iconLeft*/ctx[1]) {
+      if (/*iconLeft*/ctx[2]) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
-          if (dirty & /*iconLeft*/2) {
+          if (dirty & /*iconLeft*/4) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
           }
         } else {
@@ -2061,10 +2062,10 @@ function create_else_block_1(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
         if_block1.m(button, t1);
       }
-      if (/*iconRight*/ctx[3]) {
+      if (/*iconRight*/ctx[4]) {
         if (if_block2) {
           if_block2.p(ctx, dirty);
-          if (dirty & /*iconRight*/8) {
+          if (dirty & /*iconRight*/16) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
           }
         } else {
@@ -2080,11 +2081,11 @@ function create_else_block_1(ctx) {
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
-      if (!current || dirty & /*disabled*/1) {
-        button.disabled = /*disabled*/ctx[0];
+      if (!current || dirty & /*disabled, softDisabled*/3 && button_disabled_value !== (button_disabled_value = /*disabled*/ctx[0] || /*softDisabled*/ctx[1])) {
+        button.disabled = button_disabled_value;
       }
-      if (!current || dirty & /*loading*/32) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "is-loading", /*loading*/ctx[5]);
+      if (!current || dirty & /*loading*/64) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "is-loading", /*loading*/ctx[6]);
       }
     },
     i(local) {
@@ -2113,7 +2114,7 @@ function create_else_block_1(ctx) {
   };
 }
 
-// (27:0) {#if href }
+// (30:0) {#if href }
 function create_if_block(ctx) {
   let a;
   let t0;
@@ -2124,16 +2125,16 @@ function create_if_block(ctx) {
   let current;
   let mounted;
   let dispose;
-  let if_block0 = /*iconLeft*/ctx[1] && create_if_block_3(ctx);
+  let if_block0 = /*iconLeft*/ctx[2] && create_if_block_3(ctx);
   const if_block_creators = [create_if_block_2, create_else_block];
   const if_blocks = [];
   function select_block_type_1(ctx, dirty) {
-    if (/*label*/ctx[6]) return 0;
+    if (/*label*/ctx[7]) return 0;
     return 1;
   }
   current_block_type_index = select_block_type_1(ctx, -1);
   if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-  let if_block2 = /*iconRight*/ctx[3] && create_if_block_1(ctx);
+  let if_block2 = /*iconRight*/ctx[4] && create_if_block_1(ctx);
   return {
     c() {
       a = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("a");
@@ -2142,10 +2143,10 @@ function create_if_block(ctx) {
       if_block1.c();
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block2) if_block2.c();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", a_class_value = /*classes*/ctx[9].join(' '));
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*href*/ctx[7]);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "target", /*target*/ctx[8]);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "is-loading", /*loading*/ctx[5]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", a_class_value = /*classes*/ctx[10].join(' '));
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*href*/ctx[8]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "target", /*target*/ctx[9]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "is-loading", /*loading*/ctx[6]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "-disabled", /*disabled*/ctx[0]);
     },
     m(target, anchor) {
@@ -2157,15 +2158,15 @@ function create_if_block(ctx) {
       if (if_block2) if_block2.m(a, null);
       current = true;
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(a, "click", /*click_handler*/ctx[16]);
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(a, "click", /*click_handler*/ctx[17]);
         mounted = true;
       }
     },
     p(ctx, dirty) {
-      if (/*iconLeft*/ctx[1]) {
+      if (/*iconLeft*/ctx[2]) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
-          if (dirty & /*iconLeft*/2) {
+          if (dirty & /*iconLeft*/4) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
           }
         } else {
@@ -2201,10 +2202,10 @@ function create_if_block(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
         if_block1.m(a, t1);
       }
-      if (/*iconRight*/ctx[3]) {
+      if (/*iconRight*/ctx[4]) {
         if (if_block2) {
           if_block2.p(ctx, dirty);
-          if (dirty & /*iconRight*/8) {
+          if (dirty & /*iconRight*/16) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
           }
         } else {
@@ -2220,14 +2221,14 @@ function create_if_block(ctx) {
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
-      if (!current || dirty & /*href*/128) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*href*/ctx[7]);
+      if (!current || dirty & /*href*/256) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*href*/ctx[8]);
       }
-      if (!current || dirty & /*target*/256) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "target", /*target*/ctx[8]);
+      if (!current || dirty & /*target*/512) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "target", /*target*/ctx[9]);
       }
-      if (!current || dirty & /*loading*/32) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "is-loading", /*loading*/ctx[5]);
+      if (!current || dirty & /*loading*/64) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "is-loading", /*loading*/ctx[6]);
       }
       if (!current || dirty & /*disabled*/1) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "-disabled", /*disabled*/ctx[0]);
@@ -2259,14 +2260,14 @@ function create_if_block(ctx) {
   };
 }
 
-// (54:2) {#if iconLeft }
+// (57:2) {#if iconLeft }
 function create_if_block_6(ctx) {
   let acicon;
   let current;
   acicon = new _AcIcon_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: {
-      icon: /*iconLeft*/ctx[1],
-      pack: /*iconLeftPack*/ctx[2],
+      icon: /*iconLeft*/ctx[2],
+      pack: /*iconLeftPack*/ctx[3],
       size: "sm"
     }
   });
@@ -2280,8 +2281,8 @@ function create_if_block_6(ctx) {
     },
     p(ctx, dirty) {
       const acicon_changes = {};
-      if (dirty & /*iconLeft*/2) acicon_changes.icon = /*iconLeft*/ctx[1];
-      if (dirty & /*iconLeftPack*/4) acicon_changes.pack = /*iconLeftPack*/ctx[2];
+      if (dirty & /*iconLeft*/4) acicon_changes.icon = /*iconLeft*/ctx[2];
+      if (dirty & /*iconLeftPack*/8) acicon_changes.pack = /*iconLeftPack*/ctx[3];
       acicon.$set(acicon_changes);
     },
     i(local) {
@@ -2299,11 +2300,11 @@ function create_if_block_6(ctx) {
   };
 }
 
-// (59:2) {:else}
+// (62:2) {:else}
 function create_else_block_2(ctx) {
   let current;
-  const default_slot_template = /*#slots*/ctx[15].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[14], null);
+  const default_slot_template = /*#slots*/ctx[16].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[15], null);
   return {
     c() {
       if (default_slot) default_slot.c();
@@ -2316,8 +2317,8 @@ function create_else_block_2(ctx) {
     },
     p(ctx, dirty) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/16384)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[14], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[14]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[14], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/32768)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[15], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[15]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[15], dirty, null), null);
         }
       }
     },
@@ -2336,18 +2337,18 @@ function create_else_block_2(ctx) {
   };
 }
 
-// (57:2) {#if label }
+// (60:2) {#if label }
 function create_if_block_5(ctx) {
   let t;
   return {
     c() {
-      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*label*/ctx[6]);
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*label*/ctx[7]);
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
     },
     p(ctx, dirty) {
-      if (dirty & /*label*/64) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*label*/ctx[6]);
+      if (dirty & /*label*/128) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*label*/ctx[7]);
     },
     i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
     o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
@@ -2359,14 +2360,14 @@ function create_if_block_5(ctx) {
   };
 }
 
-// (63:2) {#if iconRight }
+// (66:2) {#if iconRight }
 function create_if_block_4(ctx) {
   let acicon;
   let current;
   acicon = new _AcIcon_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: {
-      icon: /*iconRight*/ctx[3],
-      pack: /*iconRightPack*/ctx[4],
+      icon: /*iconRight*/ctx[4],
+      pack: /*iconRightPack*/ctx[5],
       size: "sm"
     }
   });
@@ -2380,8 +2381,8 @@ function create_if_block_4(ctx) {
     },
     p(ctx, dirty) {
       const acicon_changes = {};
-      if (dirty & /*iconRight*/8) acicon_changes.icon = /*iconRight*/ctx[3];
-      if (dirty & /*iconRightPack*/16) acicon_changes.pack = /*iconRightPack*/ctx[4];
+      if (dirty & /*iconRight*/16) acicon_changes.icon = /*iconRight*/ctx[4];
+      if (dirty & /*iconRightPack*/32) acicon_changes.pack = /*iconRightPack*/ctx[5];
       acicon.$set(acicon_changes);
     },
     i(local) {
@@ -2399,14 +2400,14 @@ function create_if_block_4(ctx) {
   };
 }
 
-// (35:2) {#if iconLeft }
+// (38:2) {#if iconLeft }
 function create_if_block_3(ctx) {
   let acicon;
   let current;
   acicon = new _AcIcon_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: {
-      icon: /*iconLeft*/ctx[1],
-      pack: /*iconLeftPack*/ctx[2],
+      icon: /*iconLeft*/ctx[2],
+      pack: /*iconLeftPack*/ctx[3],
       size: "sm"
     }
   });
@@ -2420,8 +2421,8 @@ function create_if_block_3(ctx) {
     },
     p(ctx, dirty) {
       const acicon_changes = {};
-      if (dirty & /*iconLeft*/2) acicon_changes.icon = /*iconLeft*/ctx[1];
-      if (dirty & /*iconLeftPack*/4) acicon_changes.pack = /*iconLeftPack*/ctx[2];
+      if (dirty & /*iconLeft*/4) acicon_changes.icon = /*iconLeft*/ctx[2];
+      if (dirty & /*iconLeftPack*/8) acicon_changes.pack = /*iconLeftPack*/ctx[3];
       acicon.$set(acicon_changes);
     },
     i(local) {
@@ -2439,11 +2440,11 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (40:2) {:else}
+// (43:2) {:else}
 function create_else_block(ctx) {
   let current;
-  const default_slot_template = /*#slots*/ctx[15].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[14], null);
+  const default_slot_template = /*#slots*/ctx[16].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[15], null);
   return {
     c() {
       if (default_slot) default_slot.c();
@@ -2456,8 +2457,8 @@ function create_else_block(ctx) {
     },
     p(ctx, dirty) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/16384)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[14], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[14]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[14], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/32768)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[15], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[15]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[15], dirty, null), null);
         }
       }
     },
@@ -2476,18 +2477,18 @@ function create_else_block(ctx) {
   };
 }
 
-// (38:2) {#if label }
+// (41:2) {#if label }
 function create_if_block_2(ctx) {
   let t;
   return {
     c() {
-      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*label*/ctx[6]);
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*label*/ctx[7]);
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
     },
     p(ctx, dirty) {
-      if (dirty & /*label*/64) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*label*/ctx[6]);
+      if (dirty & /*label*/128) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*label*/ctx[7]);
     },
     i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
     o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
@@ -2499,14 +2500,14 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (44:2) {#if iconRight }
+// (47:2) {#if iconRight }
 function create_if_block_1(ctx) {
   let acicon;
   let current;
   acicon = new _AcIcon_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: {
-      icon: /*iconRight*/ctx[3],
-      pack: /*iconRightPack*/ctx[4],
+      icon: /*iconRight*/ctx[4],
+      pack: /*iconRightPack*/ctx[5],
       size: "sm"
     }
   });
@@ -2520,8 +2521,8 @@ function create_if_block_1(ctx) {
     },
     p(ctx, dirty) {
       const acicon_changes = {};
-      if (dirty & /*iconRight*/8) acicon_changes.icon = /*iconRight*/ctx[3];
-      if (dirty & /*iconRightPack*/16) acicon_changes.pack = /*iconRightPack*/ctx[4];
+      if (dirty & /*iconRight*/16) acicon_changes.icon = /*iconRight*/ctx[4];
+      if (dirty & /*iconRightPack*/32) acicon_changes.pack = /*iconRightPack*/ctx[5];
       acicon.$set(acicon_changes);
     },
     i(local) {
@@ -2546,7 +2547,7 @@ function create_fragment(ctx) {
   const if_block_creators = [create_if_block, create_else_block_1];
   const if_blocks = [];
   function select_block_type(ctx, dirty) {
-    if (/*href*/ctx[7]) return 0;
+    if (/*href*/ctx[8]) return 0;
     return 1;
   }
   current_block_type_index = select_block_type(ctx, -1);
@@ -2612,6 +2613,9 @@ function instance($$self, $$props, $$invalidate) {
     disabled = false
   } = $$props;
   let {
+    softDisabled = false
+  } = $$props;
+  let {
     isDestructive = false
   } = $$props;
   let {
@@ -2647,6 +2651,7 @@ function instance($$self, $$props, $$invalidate) {
   let classes = ['acui-button', customClass, `acui-button-${type}`];
   if (size === 'small') classes.push('-small');
   if (isDestructive) classes.push('-destructive');
+  if (disabled) classes.push('-disabled');
   function click_handler(event) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
   }
@@ -2654,40 +2659,42 @@ function instance($$self, $$props, $$invalidate) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
   }
   $$self.$$set = $$props => {
-    if ('type' in $$props) $$invalidate(10, type = $$props.type);
+    if ('type' in $$props) $$invalidate(11, type = $$props.type);
     if ('disabled' in $$props) $$invalidate(0, disabled = $$props.disabled);
-    if ('isDestructive' in $$props) $$invalidate(11, isDestructive = $$props.isDestructive);
-    if ('iconLeft' in $$props) $$invalidate(1, iconLeft = $$props.iconLeft);
-    if ('iconLeftPack' in $$props) $$invalidate(2, iconLeftPack = $$props.iconLeftPack);
-    if ('iconRight' in $$props) $$invalidate(3, iconRight = $$props.iconRight);
-    if ('iconRightPack' in $$props) $$invalidate(4, iconRightPack = $$props.iconRightPack);
-    if ('loading' in $$props) $$invalidate(5, loading = $$props.loading);
-    if ('customClass' in $$props) $$invalidate(12, customClass = $$props.customClass);
-    if ('label' in $$props) $$invalidate(6, label = $$props.label);
-    if ('size' in $$props) $$invalidate(13, size = $$props.size);
-    if ('href' in $$props) $$invalidate(7, href = $$props.href);
-    if ('target' in $$props) $$invalidate(8, target = $$props.target);
-    if ('$$scope' in $$props) $$invalidate(14, $$scope = $$props.$$scope);
+    if ('softDisabled' in $$props) $$invalidate(1, softDisabled = $$props.softDisabled);
+    if ('isDestructive' in $$props) $$invalidate(12, isDestructive = $$props.isDestructive);
+    if ('iconLeft' in $$props) $$invalidate(2, iconLeft = $$props.iconLeft);
+    if ('iconLeftPack' in $$props) $$invalidate(3, iconLeftPack = $$props.iconLeftPack);
+    if ('iconRight' in $$props) $$invalidate(4, iconRight = $$props.iconRight);
+    if ('iconRightPack' in $$props) $$invalidate(5, iconRightPack = $$props.iconRightPack);
+    if ('loading' in $$props) $$invalidate(6, loading = $$props.loading);
+    if ('customClass' in $$props) $$invalidate(13, customClass = $$props.customClass);
+    if ('label' in $$props) $$invalidate(7, label = $$props.label);
+    if ('size' in $$props) $$invalidate(14, size = $$props.size);
+    if ('href' in $$props) $$invalidate(8, href = $$props.href);
+    if ('target' in $$props) $$invalidate(9, target = $$props.target);
+    if ('$$scope' in $$props) $$invalidate(15, $$scope = $$props.$$scope);
   };
-  return [disabled, iconLeft, iconLeftPack, iconRight, iconRightPack, loading, label, href, target, classes, type, isDestructive, customClass, size, $$scope, slots, click_handler, click_handler_1];
+  return [disabled, softDisabled, iconLeft, iconLeftPack, iconRight, iconRightPack, loading, label, href, target, classes, type, isDestructive, customClass, size, $$scope, slots, click_handler, click_handler_1];
 }
 class AcButton extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      type: 10,
+      type: 11,
       disabled: 0,
-      isDestructive: 11,
-      iconLeft: 1,
-      iconLeftPack: 2,
-      iconRight: 3,
-      iconRightPack: 4,
-      loading: 5,
-      customClass: 12,
-      label: 6,
-      size: 13,
-      href: 7,
-      target: 8
+      softDisabled: 1,
+      isDestructive: 12,
+      iconLeft: 2,
+      iconLeftPack: 3,
+      iconRight: 4,
+      iconRightPack: 5,
+      loading: 6,
+      customClass: 13,
+      label: 7,
+      size: 14,
+      href: 8,
+      target: 9
     });
   }
 }

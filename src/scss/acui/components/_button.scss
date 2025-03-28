@@ -23,12 +23,15 @@
 		border-color: #111;
 	}
 
-	&:disabled {
-        border-color: #C4C4C4 !important;
-        background: #E6E6E6 !important;
-        cursor: not-allowed !important;
+	&.-disabled {
+		border-color: #C4C4C4 !important;
+		background: #E6E6E6 !important;
 		color: #aaa !important;
-    }
+	}
+
+	&:disabled {
+		cursor: not-allowed !important;
+	}
 
 	&.-small {
 		padding-top: 6px;
@@ -36,6 +39,7 @@
 	}
 
 }
+
 a.acui-button {
 	box-sizing: border-box;
 }
@@ -56,14 +60,15 @@ a.acui-button {
 
 .acui-button.-destructive {
 	color: var(--ac-notification-red);
+
 	&:hover {
 		filter: saturate(0.5);
 	}
 }
 
 .acui-button.is-loading {
-	color: transparent;
-	pointer-events: none;
+	color: transparent !important;
+
 }
 
 .acui-button.is-loading:before {
