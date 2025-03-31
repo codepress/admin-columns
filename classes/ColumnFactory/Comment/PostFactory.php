@@ -46,9 +46,12 @@ class PostFactory extends BaseColumnFactory
         return 'column-post';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
         $formatters->prepend(new MapToId(new Property('comment_post_ID')));
+
+        return $formatters;
     }
 
 }

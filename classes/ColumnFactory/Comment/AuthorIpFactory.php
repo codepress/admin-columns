@@ -20,9 +20,12 @@ class AuthorIpFactory extends BaseColumnFactory
         return 'column-author_ip';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
         $formatters->prepend(new Formatter\Comment\Property('comment_author_IP'));
+
+        return $formatters;
     }
 
 }

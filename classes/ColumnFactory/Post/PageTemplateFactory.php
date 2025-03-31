@@ -33,9 +33,13 @@ class PageTemplateFactory extends BaseColumnFactory
         return __('Page Template', 'codepress-admin-columns');
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new PageTemplate($this->post_type));
+
+        return $formatters;
     }
 
 }

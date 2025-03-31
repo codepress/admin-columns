@@ -29,9 +29,13 @@ final class BeforeMoreFactory extends BaseColumnFactory
         $factories->add($this->word_limit_factory);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new BeforeMoreContent());
+
+        return $formatters;
     }
 
     public function get_column_type(): string

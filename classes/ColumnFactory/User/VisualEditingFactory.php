@@ -20,10 +20,14 @@ class VisualEditingFactory extends BaseColumnFactory
         return 'column-rich_editing';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new Formatter\User\HasRichEditing());
         $formatters->add(new Formatter\YesNoIcon());
+
+        return $formatters;
     }
 
 }

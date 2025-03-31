@@ -20,10 +20,12 @@ class AuthorEmailFactory extends BaseColumnFactory
         return 'column-author_email';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new Formatter\Linkable());
-        $formatters->prepend(new Formatter\Comment\Property('comment_author_email'));
+        return new FormatterCollection([
+            new Formatter\Comment\Property('comment_author_email'),
+            new Formatter\Linkable(),
+        ]);
     }
 
 }

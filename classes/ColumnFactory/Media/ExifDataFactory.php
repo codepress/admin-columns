@@ -3,8 +3,8 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactory\ExifData;
 use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\ComponentFactory\ExifData;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -44,10 +44,14 @@ class ExifDataFactory extends BaseColumnFactory
         return __('Image Meta (EXIF)', 'codepress-admin-columns');
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new Formatter\Media\ExifData((string)$config->get('exif_data')));
-        $formatters->prepend(new Formatter\Media\AttachmentMetaData('image_meta'));
+        $formatters = new FormatterCollection([
+            new Formatter\Media\AttachmentMetaData('image_meta'),
+            new Formatter\Media\ExifData((string)$config->get('exif_data')),
+        ]);
+
+        return $formatters->merge(parent::get_formatters($config));
     }
 
 }

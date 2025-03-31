@@ -20,10 +20,14 @@ class ShowToolbarFactory extends BaseColumnFactory
         return 'column-user_show_toolbar';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new Formatter\User\ShowToolbar());
         $formatters->add(new Formatter\YesNoIcon());
+
+        return $formatters;
     }
 
 }

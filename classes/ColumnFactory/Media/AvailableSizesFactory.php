@@ -44,9 +44,13 @@ class AvailableSizesFactory extends BaseColumnFactory
         return __('Available Sizes', 'codepress-admin-columns');
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new AvailableSizes((string)$config->get('include_missing_sizes') === '1'));
+
+        return $formatters;
     }
 
 }

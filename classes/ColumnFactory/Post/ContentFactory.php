@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\StringLimit;
-use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -38,10 +38,14 @@ class ContentFactory extends BaseColumnFactory
         $factories->add($this->before_after_factory);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new StripTags());
-        $formatters->prepend(new PostContent());
+        $formatters = new FormatterCollection([
+            new PostContent(),
+            new StripTags(),
+        ]);
+
+        return $formatters->merge(parent::get_formatters($config));
     }
 
     public function get_column_type(): string

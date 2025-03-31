@@ -38,9 +38,13 @@ class DescriptionFactory extends BaseColumnFactory
         return 'column-user_description';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new Formatter\User\Meta('description'));
+
+        return $formatters;
     }
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void

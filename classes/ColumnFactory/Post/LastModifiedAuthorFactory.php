@@ -50,9 +50,13 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
         $factories->add($this->user_link->create($this->post_type));
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new LastModifiedAuthor());
+
+        return $formatters;
     }
 
 }

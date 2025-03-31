@@ -45,9 +45,13 @@ class ParentFactory extends BaseColumnFactory
         $factories->add($this->post_link_factory);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new PostParentId());
+
+        return $formatters;
     }
 
 }

@@ -23,10 +23,14 @@ class PingStatusFactory extends BaseColumnFactory
         return 'column-ping_status';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new PingStatus());
         $formatters->add(new YesNoIcon());
+
+        return $formatters;
     }
 
 }

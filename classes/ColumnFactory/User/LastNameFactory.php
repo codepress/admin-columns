@@ -20,9 +20,13 @@ class LastNameFactory extends BaseColumnFactory
         return 'column-last_name';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new AC\Value\Formatter\User\Meta('last_name'));
+
+        return $formatters;
     }
 
 }

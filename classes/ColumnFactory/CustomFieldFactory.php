@@ -66,9 +66,13 @@ class CustomFieldFactory extends BaseColumnFactory
         return __('Custom Field', 'codepress-admin-columns');
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new Meta($this->table_screen_context->get_meta_type(), $config->get('field', '')));
+
+        return $formatters;
     }
 
 }

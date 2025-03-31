@@ -32,9 +32,13 @@ class NicknameFactory extends BaseColumnFactory
         return 'column-nickname';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new Formatter\User\Meta('nickname'));
+
+        return $formatters;
     }
 
     protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void

@@ -39,9 +39,13 @@ class StatusFactory extends BaseColumnFactory
         $factories->add($this->post_status_icon);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new Formatter\Post\PostStatus());
+
+        return $formatters;
     }
 
 }

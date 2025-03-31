@@ -21,10 +21,13 @@ class DateGmtFactory extends BaseColumnFactory
         return 'column-date_gmt';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
         $formatters->add(new Property('comment_date_gmt'));
         $formatters->add(new LinkableCommentDate());
+
+        return $formatters;
     }
 
 }

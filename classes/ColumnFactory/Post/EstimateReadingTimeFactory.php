@@ -39,9 +39,13 @@ class EstimateReadingTimeFactory extends BaseColumnFactory
         $factories->add($this->words_per_minute_factory);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new AC\Value\Formatter\Post\PostContent());
+
+        return $formatters;
     }
 
 }

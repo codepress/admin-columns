@@ -20,9 +20,13 @@ class DepthFactory extends BaseColumnFactory
         return __('Depth', 'codepress-admin-columns');
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new Formatter\Post\Depth());
+
+        return $formatters;
     }
 
 }
