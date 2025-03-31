@@ -21,9 +21,11 @@ class AttachmentFactory extends BaseColumnFactory
         $this->attachments_factory = $attachments_factory;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->attachments_factory);
+        return new \AC\Setting\ComponentCollection([
+            $this->attachments_factory->create($config),
+        ]);
     }
 
     public function get_column_type(): string

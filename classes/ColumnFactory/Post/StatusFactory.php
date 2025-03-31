@@ -34,9 +34,11 @@ class StatusFactory extends BaseColumnFactory
         return 'column-status';
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->post_status_icon);
+        return new \AC\Setting\ComponentCollection([
+            $this->post_status_icon->create($config),
+        ]);
     }
 
     protected function get_formatters(Config $config): FormatterCollection

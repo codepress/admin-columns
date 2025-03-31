@@ -26,9 +26,11 @@ class CommentCountFactory extends BaseColumnFactory
         $this->comment_status = $comment_status;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->comment_status);
+        return new \AC\Setting\ComponentCollection([
+            $this->comment_status->create($config),
+        ]);
     }
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void

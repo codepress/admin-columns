@@ -22,9 +22,11 @@ class IntegrationPlaceholder extends BaseColumnFactory
         $this->integration = $integration;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add(new Message(__('Integration', 'codepress-admin-columns'), $this->get_message_body()));
+        return new \AC\Setting\ComponentCollection([
+            new Message(__('Integration', 'codepress-admin-columns'), $this->get_message_body())->create($config),
+        ]);
     }
 
     private function get_message_body(): string

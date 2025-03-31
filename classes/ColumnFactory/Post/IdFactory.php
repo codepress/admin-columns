@@ -31,9 +31,11 @@ class IdFactory extends BaseColumnFactory
         return __('ID', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->before_after_factory);
+        return new \AC\Setting\ComponentCollection([
+            $this->before_after_factory->create($config),
+        ]);
     }
 
 }

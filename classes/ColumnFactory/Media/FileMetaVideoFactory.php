@@ -24,9 +24,11 @@ class FileMetaVideoFactory extends BaseColumnFactory
         $this->file_meta_video = $file_meta_video;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->file_meta_video);
+        return new \AC\Setting\ComponentCollection([
+            $this->file_meta_video->create($config),
+        ]);
     }
 
     public function get_column_type(): string

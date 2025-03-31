@@ -38,10 +38,12 @@ class ExcerptFactory extends BaseColumnFactory
         return __('Excerpt', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->string_limit);
-        $factories->add($this->before_after);
+        return new \AC\Setting\ComponentCollection([
+            $this->string_limit->create($config),
+            $this->before_after->create($config),
+        ]);
     }
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void

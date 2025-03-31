@@ -25,9 +25,11 @@ class VideoPlayerFactory extends BaseColumnFactory
         $this->video_display = $video_display;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->video_display);
+        return new \AC\Setting\ComponentCollection([
+            $this->video_display->create($config),
+        ]);
     }
 
     protected function get_group(): ?string

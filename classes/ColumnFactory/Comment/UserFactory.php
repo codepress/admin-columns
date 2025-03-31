@@ -29,10 +29,12 @@ class UserFactory extends BaseColumnFactory
         $this->user_link = $user_link;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->user_property);
-        $factories->add($this->user_link);
+        return new \AC\Setting\ComponentCollection([
+            $this->user_property->create($config),
+            $this->user_link->create($config),
+        ]);
     }
 
     public function get_label(): string

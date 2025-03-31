@@ -32,10 +32,12 @@ class ContentFactory extends BaseColumnFactory
         $this->before_after_factory = $before_after_factory;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->string_limit_factory);
-        $factories->add($this->before_after_factory);
+        return new \AC\Setting\ComponentCollection([
+            $this->string_limit_factory->create($config),
+            $this->before_after_factory->create($config),
+        ]);
     }
 
     protected function get_formatters(Config $config): FormatterCollection

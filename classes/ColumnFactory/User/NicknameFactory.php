@@ -41,9 +41,11 @@ class NicknameFactory extends BaseColumnFactory
         return $formatters;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->user_link);
+        return new \AC\Setting\ComponentCollection([
+            $this->user_link->create($config),
+        ]);
     }
 
 }

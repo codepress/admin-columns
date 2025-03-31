@@ -3,8 +3,9 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactory\Media\FileMetaAudio;
 use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\Media\FileMetaAudio;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -24,9 +25,18 @@ class FileMetaAudioFactory extends BaseColumnFactory
         $this->audio_meta = $audio_meta;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->audio_meta);
+        return new \AC\Setting\ComponentCollection([
+            $this->audio_meta->create($config),
+        ]);
+    }
+
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    {
+        return new ComponentCollection([
+            $this->audio_meta->create($config),
+        ]);
     }
 
     public function get_column_type(): string

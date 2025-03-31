@@ -24,9 +24,11 @@ class ExifDataFactory extends BaseColumnFactory
         $this->exif_data = $exif_data;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->exif_data);
+        return new \AC\Setting\ComponentCollection([
+            $this->exif_data->create($config),
+        ]);
     }
 
     protected function get_group(): ?string

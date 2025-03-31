@@ -24,9 +24,11 @@ final class BeforeMoreFactory extends BaseColumnFactory
         $this->word_limit_factory = $word_limit_factory;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->word_limit_factory);
+        return new \AC\Setting\ComponentCollection([
+            $this->word_limit_factory->create($config),
+        ]);
     }
 
     protected function get_formatters(Config $config): FormatterCollection

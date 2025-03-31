@@ -34,9 +34,11 @@ class FeaturedImageFactory extends BaseColumnFactory
         return __('Featured Image', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->featured_image_component);
+        return new \AC\Setting\ComponentCollection([
+            $this->featured_image_component->create($config),
+        ]);
     }
 
     protected function get_formatters(Config $config): FormatterCollection

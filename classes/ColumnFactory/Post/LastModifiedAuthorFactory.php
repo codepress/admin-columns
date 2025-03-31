@@ -44,10 +44,12 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
         return __('Last Modified Author', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->user_factory);
-        $factories->add($this->user_link->create($this->post_type));
+        return new \AC\Setting\ComponentCollection([
+            $this->user_factory->create($config),
+            $this->user_link->create($this->post_type)->create($config),
+        ]);
     }
 
     protected function get_formatters(Config $config): FormatterCollection

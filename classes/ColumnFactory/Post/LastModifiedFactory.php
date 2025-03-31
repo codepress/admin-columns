@@ -34,9 +34,11 @@ class LastModifiedFactory extends BaseColumnFactory
         return __('Last Modified', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->date_factory);
+        return new \AC\Setting\ComponentCollection([
+            $this->date_factory->create($config),
+        ]);
     }
 
     protected function get_formatters(Config $config): FormatterCollection

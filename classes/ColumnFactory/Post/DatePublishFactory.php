@@ -25,9 +25,11 @@ class DatePublishFactory extends BaseColumnFactory
         $this->date_factory = $date_factory;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->date_factory);
+        return new \AC\Setting\ComponentCollection([
+            $this->date_factory->create($config),
+        ]);
     }
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void

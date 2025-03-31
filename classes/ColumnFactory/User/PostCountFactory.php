@@ -52,10 +52,12 @@ class PostCountFactory extends BaseColumnFactory
         return $formatters;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->post_type_factory->create(true));
-        $factories->add($this->post_status);
+        return new \AC\Setting\ComponentCollection([
+            $this->post_type_factory->create(true)->create($config),
+            $this->post_status->create($config),
+        ]);
     }
 
     private function get_post_types(Config $config): ?array

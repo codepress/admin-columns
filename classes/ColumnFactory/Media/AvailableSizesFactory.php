@@ -24,9 +24,11 @@ class AvailableSizesFactory extends BaseColumnFactory
         $this->include_missing_sizes = $include_missing_sizes;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->include_missing_sizes);
+        return new \AC\Setting\ComponentCollection([
+            $this->include_missing_sizes->create($config),
+        ]);
     }
 
     protected function get_group(): ?string

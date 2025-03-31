@@ -44,9 +44,11 @@ class RegisteredDateFactory extends BaseColumnFactory
         return $formatters->merge(parent::get_formatters($config));
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->date_format);
+        return new \AC\Setting\ComponentCollection([
+            $this->date_format->create($config),
+        ]);
     }
 
 }

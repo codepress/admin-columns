@@ -21,9 +21,11 @@ class ImageFactory extends BaseColumnFactory
         $this->image_size = $image_size;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->image_size);
+        return new \AC\Setting\ComponentCollection([
+            $this->image_size->create($config),
+        ]);
     }
 
     public function get_column_type(): string

@@ -22,18 +22,16 @@ class ActionsFactory extends BaseColumnFactory
         return 'column-actions';
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add(new ComponentFactory\ActionIcons());
+        return new \AC\Setting\ComponentCollection([
+            new ComponentFactory\ActionIcons()->create($config),
+        ]);
     }
 
-    protected function get_formatters(Config $config): FormatterCollection
+    protected function add_formatters(FormatterCollection $formatters, Config $config): void
     {
-        $formatters = parent::get_formatters($config);
-
         $formatters->add(new Message('<span class="cpac_use_icons"></span>'));
-
-        return $formatters;
     }
 
 }

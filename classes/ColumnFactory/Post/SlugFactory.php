@@ -34,9 +34,11 @@ class SlugFactory extends BaseColumnFactory
         return 'column-slug';
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->character_limit);
+        return new \AC\Setting\ComponentCollection([
+            $this->character_limit->create($config),
+        ]);
     }
 
     protected function get_formatters(Config $config): FormatterCollection

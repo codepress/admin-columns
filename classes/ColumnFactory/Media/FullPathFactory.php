@@ -24,9 +24,11 @@ class FullPathFactory extends BaseColumnFactory
         $this->path_scope = $path_scope;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->path_scope);
+        return new \AC\Setting\ComponentCollection([
+            $this->path_scope->create($config),
+        ]);
     }
 
     public function get_column_type(): string

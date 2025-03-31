@@ -40,10 +40,12 @@ class TitleRawFactory extends BaseColumnFactory
         return __('Title Only', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->character_limit_factory);
-        $factories->add($this->post_link_factory);
+        return new \AC\Setting\ComponentCollection([
+            $this->character_limit_factory->create($config),
+            $this->post_link_factory->create($config),
+        ]);
     }
 
     protected function add_formatters(FormatterCollection $formatters, Config $config): void

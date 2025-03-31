@@ -30,10 +30,12 @@ class PermalinkFactory extends BaseColumnFactory
         $this->is_link = $is_link;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
     {
-        $factories->add($this->is_link);
-        $factories->add($this->before_after);
+        return new \AC\Setting\ComponentCollection([
+            $this->is_link->create($config),
+            $this->before_after->create($config),
+        ]);
     }
 
     public function get_column_type(): string
