@@ -6,7 +6,6 @@ use AC\Admin\Page\Columns;
 use AC\Admin\RequestHandlerInterface;
 use WP_Screen;
 
-// TODO Tobias: What is the purpose of this class?
 class Screen implements Registerable
 {
 

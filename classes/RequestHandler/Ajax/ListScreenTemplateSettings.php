@@ -22,9 +22,6 @@ class ListScreenTemplateSettings implements RequestAjaxHandler
 
     private JsonListScreenSettingsFactory $response_factory;
 
-    /**
-     *
-     */
     public function __construct(
         TemplateStorageFactory $storage_factory,
         JsonListScreenSettingsFactory $response_factory
