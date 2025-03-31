@@ -6,7 +6,7 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\DateFormat\Date;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -18,9 +18,9 @@ class DatePublishFactory extends BaseColumnFactory
 
     private Date $date_factory;
 
-    public function __construct(ComponentFactoryRegistry $component_factory_registry, Date $date_factory)
+    public function __construct(BaseSettingsBuilder $base_settings_builder, Date $date_factory)
     {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->date_factory = $date_factory;
     }

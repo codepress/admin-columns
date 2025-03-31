@@ -6,7 +6,7 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\WordLimit;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -17,9 +17,9 @@ final class BeforeMoreFactory extends BaseColumnFactory
 
     private WordLimit $word_limit_factory;
 
-    public function __construct(ComponentFactoryRegistry $component_factory_registry, WordLimit $word_limit_factory)
+    public function __construct(BaseSettingsBuilder $base_settings_builder, WordLimit $word_limit_factory)
     {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->word_limit_factory = $word_limit_factory;
     }

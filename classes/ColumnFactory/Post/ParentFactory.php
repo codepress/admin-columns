@@ -5,7 +5,7 @@ namespace AC\ColumnFactory\Post;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactory\PostProperty;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -19,11 +19,11 @@ class ParentFactory extends BaseColumnFactory
     private $post_link_factory;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        BaseSettingsBuilder $base_settings_builder,
         PostProperty $post_factory,
         PostLink $post_link_factory
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->post_factory = $post_factory;
         $this->post_link_factory = $post_link_factory;

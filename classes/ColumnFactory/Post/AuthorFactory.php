@@ -8,7 +8,7 @@ use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\UserLinkFactory;
 use AC\Setting\ComponentFactory\UserProperty;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -27,13 +27,13 @@ class AuthorFactory extends BaseColumnFactory
     private PostTypeSlug $post_type;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        BaseSettingsBuilder $base_settings_builder,
         UserProperty $user_factory,
         UserLinkFactory $user_link,
         BeforeAfter $before_after_factory,
         PostTypeSlug $post_type
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->user_factory = $user_factory;
         $this->before_after_factory = $before_after_factory;

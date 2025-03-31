@@ -5,7 +5,7 @@ namespace AC\ColumnFactory\User;
 use AC;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -22,13 +22,13 @@ class LastPostFactory extends BaseColumnFactory
     private ComponentFactory\PostLink $post_link;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        BaseSettingsBuilder $base_settings_builder,
         ComponentFactory\PostType $post_type,
         ComponentFactory\PostStatus $post_status,
         ComponentFactory\PostProperty $post_property,
         ComponentFactory\PostLink $post_link
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->post_type = $post_type;
         $this->post_status = $post_status;

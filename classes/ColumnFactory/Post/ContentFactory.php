@@ -7,7 +7,7 @@ namespace AC\ColumnFactory\Post;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\StringLimit;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -22,11 +22,11 @@ class ContentFactory extends BaseColumnFactory
     private $before_after_factory;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        BaseSettingsBuilder $base_settings_builder,
         StringLimit $string_limit_factory,
         BeforeAfter $before_after_factory
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->string_limit_factory = $string_limit_factory;
         $this->before_after_factory = $before_after_factory;

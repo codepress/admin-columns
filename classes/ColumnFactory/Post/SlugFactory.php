@@ -4,7 +4,7 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\CharacterLimit;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -16,10 +16,10 @@ class SlugFactory extends BaseColumnFactory
     private $character_limit;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        BaseSettingsBuilder $base_settings_builder,
         CharacterLimit $character_limit
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->character_limit = $character_limit;
     }

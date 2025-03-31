@@ -5,7 +5,7 @@ namespace AC\ColumnFactory\Comment;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\UserLink;
 use AC\Setting\ComponentFactory\UserProperty;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -19,11 +19,11 @@ class UserFactory extends BaseColumnFactory
     private UserLink $user_link;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        BaseSettingsBuilder $base_settings_builder,
         UserProperty $user_property,
         UserLink $user_link
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->user_property = $user_property;
         $this->user_link = $user_link;

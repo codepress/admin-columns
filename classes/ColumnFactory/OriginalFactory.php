@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\ColumnFactory;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 
 class OriginalFactory extends BaseColumnFactory
 {
@@ -17,9 +17,9 @@ class OriginalFactory extends BaseColumnFactory
     public function __construct(
         string $type,
         string $label,
-        ComponentFactoryRegistry $component_factory_registry
+        BaseSettingsBuilder $base_settings_builder
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->type = $type;
         $this->label = $label;

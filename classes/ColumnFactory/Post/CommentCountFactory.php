@@ -6,7 +6,7 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\CommentStatus;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -18,10 +18,10 @@ class CommentCountFactory extends BaseColumnFactory
     private CommentStatus $comment_status;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        BaseSettingsBuilder $base_settings_builder,
         CommentStatus $comment_status
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->comment_status = $comment_status;
     }

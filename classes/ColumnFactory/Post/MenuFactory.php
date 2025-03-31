@@ -4,7 +4,7 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\LinkToMenu;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -21,11 +21,11 @@ class MenuFactory extends BaseColumnFactory
     private $link_to_menu_factory;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        BaseSettingsBuilder $base_settings_builder,
         LinkToMenu $link_to_menu_factory,
         PostTypeSlug $post_type
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->post_type = $post_type;
         $this->link_to_menu_factory = $link_to_menu_factory;

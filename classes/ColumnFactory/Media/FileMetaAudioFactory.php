@@ -4,7 +4,7 @@ namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\Media\FileMetaAudio;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -16,10 +16,10 @@ class FileMetaAudioFactory extends BaseColumnFactory
     private $audio_meta;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        BaseSettingsBuilder $base_settings_builder,
         FileMetaAudio $audio_meta
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->audio_meta = $audio_meta;
     }

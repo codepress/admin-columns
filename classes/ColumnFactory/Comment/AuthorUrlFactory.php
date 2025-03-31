@@ -27,4 +27,6 @@ class AuthorUrlFactory extends BaseColumnFactory
         $formatters->add(new Linkable());
     }
 
+
+
 }

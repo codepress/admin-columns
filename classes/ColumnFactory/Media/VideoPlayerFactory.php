@@ -4,7 +4,7 @@ namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\VideoDisplay;
-use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -17,10 +17,10 @@ class VideoPlayerFactory extends BaseColumnFactory
     private $video_display;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        BaseSettingsBuilder $base_settings_builder,
         VideoDisplay $video_display
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($base_settings_builder);
 
         $this->video_display = $video_display;
     }

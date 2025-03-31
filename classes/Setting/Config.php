@@ -19,7 +19,7 @@ final class Config
         return isset($this->config[$key]);
     }
 
-    public function get($key, $default = null )
+    public function get($key, $default = null)
     {
         return $this->config[$key] ?? $default;
     }
