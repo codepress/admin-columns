@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 use AC\Value\ExtendedValueLinkFactory;
@@ -23,6 +24,10 @@ final class ExtendedValueLink implements Formatter
 
     public function format(Value $value)
     {
+        if ( ! $value->get_value()) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
+
         return $value->with_value(
             $this->factory->create(
                 $this->label,

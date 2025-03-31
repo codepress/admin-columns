@@ -634,7 +634,7 @@ function instance($$self, $$props, $$invalidate) {
   };
   const getTitle = item => {
     var _a;
-    return (_a = item.title) !== null && _a !== void 0 ? _a : `${columnTitle} #${item.objectId}`;
+    return (_a = item.title) !== null && _a !== void 0 ? _a : `${columnTitle}`;
   };
   const updateData = item => {
     $$invalidate(0, objectId = item.objectId);
@@ -699,7 +699,7 @@ function instance($$self, $$props, $$invalidate) {
         document.addEventListener('keydown', initKeyPress);
       }
       $$invalidate(2, modalClass = (_a = item.element.dataset.modalClass) !== null && _a !== void 0 ? _a : '');
-      $$invalidate(3, title = (_b = item.title) !== null && _b !== void 0 ? _b : `#${item.objectId}`);
+      $$invalidate(3, title = (_b = item.title) !== null && _b !== void 0 ? _b : ``);
       updateData(item);
       determineSiblings();
     }
