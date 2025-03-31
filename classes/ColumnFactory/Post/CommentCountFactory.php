@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
+use AC;
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactory\CommentStatus;
 use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\ComponentFactory\CommentStatus;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -26,19 +26,20 @@ class CommentCountFactory extends BaseColumnFactory
         $this->comment_status = $comment_status;
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): AC\Setting\ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new AC\Setting\ComponentCollection([
             $this->comment_status->create($config),
         ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
         $status = (string)$config->get('comment_status', 'all');
 
-        $formatters->add(new Formatter\Post\CommentCount($status));
-        $formatters->add(new Formatter\Post\CommentsForPostLink($status));
+        return parent::get_formatters($config)
+                     ->add(new Formatter\Post\CommentCount($status))
+                     ->add(new Formatter\Post\CommentsForPostLink($status));
     }
 
     public function get_column_type(): string

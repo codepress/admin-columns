@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\CharacterLimit;
 use AC\Setting\ComponentFactory\PostLink;
-use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\PostTitle;
@@ -40,18 +40,19 @@ class TitleRawFactory extends BaseColumnFactory
         return __('Title Only', 'codepress-admin-columns');
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->character_limit_factory->create($config),
             $this->post_link_factory->create($config),
         ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new PostTitle());
-        $formatters->add(new Wrapper('<span class="row-title">', '</span>'));
+        return parent::get_formatters($config)
+                     ->prepend(new PostTitle())
+                     ->add(new Wrapper('<span class="row-title">', '</span>'));
     }
 
 }

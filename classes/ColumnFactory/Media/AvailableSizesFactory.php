@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactory\IncludeMissingSizes;
 use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\IncludeMissingSizes;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\AvailableSizes;
@@ -13,7 +13,7 @@ use AC\Value\Formatter\Media\AvailableSizes;
 class AvailableSizesFactory extends BaseColumnFactory
 {
 
-    private $include_missing_sizes;
+    private IncludeMissingSizes $include_missing_sizes;
 
     public function __construct(
         BaseSettingsBuilder $base_settings_builder,
@@ -24,9 +24,9 @@ class AvailableSizesFactory extends BaseColumnFactory
         $this->include_missing_sizes = $include_missing_sizes;
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->include_missing_sizes->create($config),
         ]);
     }

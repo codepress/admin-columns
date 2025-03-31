@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\IsLink;
-use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -30,9 +30,9 @@ class PermalinkFactory extends BaseColumnFactory
         $this->is_link = $is_link;
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->is_link->create($config),
             $this->before_after->create($config),
         ]);
@@ -48,8 +48,10 @@ class PermalinkFactory extends BaseColumnFactory
         return __('Permalink', 'codepress-admin-columns');
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new Formatter\Post\Permalink());
 
         if ($config->get('is_link') === 'on') {
@@ -57,6 +59,8 @@ class PermalinkFactory extends BaseColumnFactory
         }
 
         $formatters->add(Formatter\BeforeAfter::create_from_config($config));
+
+        return $formatters;
     }
 
 }

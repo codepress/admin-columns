@@ -4,9 +4,9 @@ namespace AC\ColumnFactory\Comment;
 
 use AC;
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 
@@ -24,11 +24,11 @@ class ExcerptFactory extends BaseColumnFactory
         $this->string_limit = $string_limit;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        parent::add_component_factories($factories);
-
-        $factories->add($this->string_limit);
+        return new ComponentCollection([
+            $this->string_limit->create($config),
+        ]);
     }
 
     public function get_label(): string

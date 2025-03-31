@@ -2,16 +2,17 @@
 
 namespace AC\ColumnFactory;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\Integration;
-use AC\Setting\ComponentFactory\Message;
 use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\ComponentFactory\Message;
+use AC\Setting\Config;
 
 class IntegrationPlaceholder extends BaseColumnFactory
 {
 
-    private $integration;
+    private Integration $integration;
 
     public function __construct(
         BaseSettingsBuilder $base_settings_builder,
@@ -22,10 +23,10 @@ class IntegrationPlaceholder extends BaseColumnFactory
         $this->integration = $integration;
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): AC\Setting\ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
-            new Message(__('Integration', 'codepress-admin-columns'), $this->get_message_body())->create($config),
+        return new AC\Setting\ComponentCollection([
+            (new Message(__('Integration', 'codepress-admin-columns'), $this->get_message_body()))->create($config),
         ]);
     }
 

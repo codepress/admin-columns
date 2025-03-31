@@ -2,9 +2,9 @@
 
 namespace AC\ColumnFactory;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Message;
@@ -22,10 +22,10 @@ class ActionsFactory extends BaseColumnFactory
         return 'column-actions';
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): AC\Setting\ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
-            new ComponentFactory\ActionIcons()->create($config),
+        return new AC\Setting\ComponentCollection([
+            (new ComponentFactory\ActionIcons())->create($config),
         ]);
     }
 
