@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactory\UseIcon;
 use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\UseIcon;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -34,9 +34,9 @@ class FormatsFactory extends BaseColumnFactory
         return __('Post Format', 'codepress-admin-columns');
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->post_format_icon_factory->create($config),
         ]);
     }

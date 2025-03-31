@@ -6,7 +6,6 @@ use AC\Column\BaseColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\Media\FileMetaAudio;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\AttachmentMetaData;
@@ -25,14 +24,7 @@ class FileMetaAudioFactory extends BaseColumnFactory
         $this->audio_meta = $audio_meta;
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
-    {
-        return new \AC\Setting\ComponentCollection([
-            $this->audio_meta->create($config),
-        ]);
-    }
-
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
         return new ComponentCollection([
             $this->audio_meta->create($config),
@@ -54,6 +46,7 @@ class FileMetaAudioFactory extends BaseColumnFactory
         return 'media-audio';
     }
 
+    //TODO TEST
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);

@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UserLink;
 use AC\Setting\ComponentFactory\UserProperty;
-use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Comment\UserId;
@@ -29,9 +29,9 @@ class UserFactory extends BaseColumnFactory
         $this->user_link = $user_link;
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->user_property->create($config),
             $this->user_link->create($config),
         ]);

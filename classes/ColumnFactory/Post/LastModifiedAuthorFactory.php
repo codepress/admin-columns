@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UserLinkFactory;
 use AC\Setting\ComponentFactory\UserProperty;
-use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
@@ -44,9 +44,9 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
         return __('Last Modified Author', 'codepress-admin-columns');
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->user_factory->create($config),
             $this->user_link->create($this->post_type)->create($config),
         ]);

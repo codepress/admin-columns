@@ -12,7 +12,7 @@ use AC\Value\Formatter\Post\PageTemplate;
 class PageTemplateFactory extends BaseColumnFactory
 {
 
-    private $post_type;
+    private PostTypeSlug $post_type;
 
     public function __construct(
         BaseSettingsBuilder $base_settings_builder,

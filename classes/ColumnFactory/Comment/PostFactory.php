@@ -15,9 +15,9 @@ use AC\Value\Formatter\MapToId;
 class PostFactory extends BaseColumnFactory
 {
 
-    private $post_property;
+    private PostProperty $post_property;
 
-    private $post_link;
+    private PostLink $post_link;
 
     public function __construct(
         BaseSettingsBuilder $base_settings_builder,

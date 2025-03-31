@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactory;
 use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -38,18 +38,19 @@ class ExcerptFactory extends BaseColumnFactory
         return __('Excerpt', 'codepress-admin-columns');
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->string_limit->create($config),
             $this->before_after->create($config),
         ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new Formatter\Post\ContentExcerpt());
-        $formatters->add(new Formatter\Post\ExcerptIcon());
+        return parent::get_formatters($config)
+                     ->prepend(new Formatter\Post\ContentExcerpt())
+                     ->add(new Formatter\Post\ExcerptIcon());
     }
 
 }

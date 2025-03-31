@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactory\VideoDisplay;
 use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\VideoDisplay;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Extended\MediaPreview;
@@ -14,7 +14,7 @@ use AC\Value\Formatter;
 class VideoPlayerFactory extends BaseColumnFactory
 {
 
-    private $video_display;
+    private VideoDisplay $video_display;
 
     public function __construct(
         BaseSettingsBuilder $base_settings_builder,
@@ -25,9 +25,9 @@ class VideoPlayerFactory extends BaseColumnFactory
         $this->video_display = $video_display;
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->video_display->create($config),
         ]);
     }
@@ -47,10 +47,12 @@ class VideoPlayerFactory extends BaseColumnFactory
         return __('Video Player', 'codepress-admin-columns');
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->add(new Formatter\Media\Video\ValidMimeType());
-        $formatters->add(new Formatter\Media\AttachmentUrl());
+        $formatters = new FormatterCollection([
+            new Formatter\Media\Video\ValidMimeType(),
+            new Formatter\Media\AttachmentUrl(),
+        ]);
 
         if ($config->get('video_display', '') === 'embed') {
             $formatters->add(new Formatter\Media\VideoEmbed());
@@ -61,6 +63,8 @@ class VideoPlayerFactory extends BaseColumnFactory
                 )
             );
         }
+
+        return $formatters;
     }
 
 }

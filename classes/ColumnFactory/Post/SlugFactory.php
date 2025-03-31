@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactory\CharacterLimit;
 use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\CharacterLimit;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\Slug;
@@ -34,9 +34,9 @@ class SlugFactory extends BaseColumnFactory
         return 'column-slug';
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->character_limit->create($config),
         ]);
     }

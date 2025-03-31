@@ -4,8 +4,8 @@ namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ExifData;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -13,7 +13,7 @@ use AC\Value\Formatter;
 class ExifDataFactory extends BaseColumnFactory
 {
 
-    private $exif_data;
+    private ExifData $exif_data;
 
     public function __construct(
         BaseSettingsBuilder $base_settings_builder,
@@ -24,9 +24,9 @@ class ExifDataFactory extends BaseColumnFactory
         $this->exif_data = $exif_data;
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->exif_data->create($config),
         ]);
     }

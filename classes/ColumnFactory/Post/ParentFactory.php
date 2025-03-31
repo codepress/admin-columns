@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactory\PostProperty;
-use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\PostParentId;
@@ -14,9 +14,9 @@ use AC\Value\Formatter\Post\PostParentId;
 class ParentFactory extends BaseColumnFactory
 {
 
-    private $post_factory;
+    private PostProperty $post_factory;
 
-    private $post_link_factory;
+    private PostLink $post_link_factory;
 
     public function __construct(
         BaseSettingsBuilder $base_settings_builder,
@@ -39,9 +39,9 @@ class ParentFactory extends BaseColumnFactory
         return __('Parent', 'codepress-admin-columns');
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->post_factory->create($config),
             $this->post_link_factory->create($config),
         ]);
