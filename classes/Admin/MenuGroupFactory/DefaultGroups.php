@@ -17,24 +17,31 @@ class DefaultGroups implements MenuGroupFactory
             case $table_screen instanceof TableScreen\Post :
                 $post_type = get_post_type_object((string)$table_screen->get_post_type());
 
-                if ( $post_type && $post_type->show_in_menu) {
-                    return new MenuGroup('post', __('Post Type'), 5, 'cpacicon-gf-article');
+                if ($post_type && in_array($post_type->name, ['post', 'page'], true)) {
+                    return new MenuGroup('default', __('Default'), 1, 'dashicons-wordpress');
+                }
+
+                if ($post_type && $post_type->show_in_menu) {
+                    return new MenuGroup('post', __('Post Types'), 5, 'cpacicon-gf-article');
                 }
 
                 return new MenuGroup(
                     'post-hidden',
-                    sprintf('%s (%s)', __('Post Type'), __('hidden', 'codepress-admin-columns')),
+                    sprintf('%s (%s)', __('Custom Post Types'), __('hidden', 'codepress-admin-columns')),
                     30
                 );
             case $table_screen instanceof TableScreen\User :
-                return new MenuGroup('user', __('Users'), 12, 'dashicons-admin-users');
             case $table_screen instanceof TableScreen\Media :
-                return new MenuGroup('media', __('Media'), 13, 'dashicons-admin-media');
             case $table_screen instanceof TableScreen\Comment :
-                return new MenuGroup('comment', __('Comments'), 14, 'cpacicon-gf-comment');
+                return new MenuGroup('default', __('Default'), 1, 'dashicons-wordpress');
             default :
                 return null;
         }
+    }
+
+    private function get_default_group(): MenuGroup
+    {
+        return new MenuGroup('default', __('Default'), 1, 'dashicons-wordpress');
     }
 
 }
