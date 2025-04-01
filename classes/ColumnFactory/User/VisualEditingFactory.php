@@ -22,12 +22,9 @@ class VisualEditingFactory extends BaseColumnFactory
 
     protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters = parent::get_formatters($config);
-
-        $formatters->add(new Formatter\User\HasRichEditing());
-        $formatters->add(new Formatter\YesNoIcon());
-
-        return $formatters;
+        return parent::get_formatters($config)
+                     ->add(new Formatter\User\HasRichEditing())
+                     ->add(new Formatter\YesNoIcon());
     }
 
 }

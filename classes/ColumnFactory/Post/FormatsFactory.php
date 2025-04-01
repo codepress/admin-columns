@@ -41,15 +41,18 @@ class FormatsFactory extends BaseColumnFactory
         ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new Formatter\Post\PostFormat());
+        $formatters = parent::get_formatters($config)
+                            ->prepend(new Formatter\Post\PostFormat());
 
         if ('on' === $config->get('use_icon')) {
             $formatters->add(new Formatter\Post\PostFormatIcon());
         } else {
             $formatters->add(new Formatter\Post\PostFormatLabel());
         }
+
+        return $formatters;
     }
 
 }

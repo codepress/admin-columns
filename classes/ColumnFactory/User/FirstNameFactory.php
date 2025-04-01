@@ -22,11 +22,8 @@ class FirstNameFactory extends BaseColumnFactory
 
     protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters = parent::get_formatters($config);
-
-        $formatters->add(new Formatter\User\Property('first_name'));
-
-        return $formatters;
+        return parent::get_formatters($config)
+                     ->add(new Formatter\User\Property('first_name'));
     }
 
 }

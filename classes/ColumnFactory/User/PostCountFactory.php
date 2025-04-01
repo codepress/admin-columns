@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactory;
 use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Extended\Posts;
@@ -52,9 +52,9 @@ class PostCountFactory extends BaseColumnFactory
         return $formatters;
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->post_type_factory->create(true)->create($config),
             $this->post_status->create($config),
         ]);

@@ -4,8 +4,8 @@ namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -44,9 +44,9 @@ class RegisteredDateFactory extends BaseColumnFactory
         return $formatters->merge(parent::get_formatters($config));
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->date_format->create($config),
         ]);
     }

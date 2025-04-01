@@ -22,12 +22,9 @@ class ShowToolbarFactory extends BaseColumnFactory
 
     protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters = parent::get_formatters($config);
-
-        $formatters->add(new Formatter\User\ShowToolbar());
-        $formatters->add(new Formatter\YesNoIcon());
-
-        return $formatters;
+        return parent::get_formatters($config)
+                     ->add(new Formatter\User\ShowToolbar())
+                     ->add(new Formatter\YesNoIcon());
     }
 
 }

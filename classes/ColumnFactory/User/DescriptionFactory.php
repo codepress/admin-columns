@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentFactory;
 use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -47,9 +47,9 @@ class DescriptionFactory extends BaseColumnFactory
         return $formatters;
     }
 
-    protected function get_settings(Config $config): \AC\Setting\ComponentCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        return new \AC\Setting\ComponentCollection([
+        return new ComponentCollection([
             $this->word_limit_factory->create($config),
             $this->before_after_factory->create($config),
         ]);

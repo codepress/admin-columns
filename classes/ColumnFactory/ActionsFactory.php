@@ -29,9 +29,10 @@ class ActionsFactory extends BaseColumnFactory
         ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->add(new Message('<span class="cpac_use_icons"></span>'));
+        return parent::get_formatters($config)
+                     ->add(new Message('<span class="cpac_use_icons"></span>'));
     }
 
 }

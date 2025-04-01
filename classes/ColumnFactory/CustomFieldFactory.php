@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactory\FieldType;
-use AC\Setting\BaseSettingsBuilder;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Type\TableScreenContext;
@@ -44,16 +44,19 @@ class CustomFieldFactory extends BaseColumnFactory
         $this->pro_promotion_factory = $pro_promotion_factory;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->custom_field_factory->create($this->table_screen_context));
-        $factories->add($this->field_type);
-        $factories->add($this->before_after);
-        $factories->add($this->pro_promotion_factory->create(__('Enable Editing', 'codepress-admin-columns')));
-        $factories->add($this->pro_promotion_factory->create(__('Enable Bulk Editing', 'codepress-admin-columns')));
-        $factories->add($this->pro_promotion_factory->create(__('Enable Export', 'codepress-admin-columns')));
-        $factories->add($this->pro_promotion_factory->create(__('Enable Smart Filtering', 'codepress-admin-columns')));
-        $factories->add($this->pro_promotion_factory->create(__('Enable Filtering', 'codepress-admin-columns')));
+        return new ComponentCollection([
+            $this->custom_field_factory->create($this->table_screen_context)->create($config),
+            $this->field_type->create($config),
+            $this->before_after->create($config),
+            $this->pro_promotion_factory->create(__('Enable Editing', 'codepress-admin-columns'))->create($config),
+            $this->pro_promotion_factory->create(__('Enable Bulk Editing', 'codepress-admin-columns'))->create($config),
+            $this->pro_promotion_factory->create(__('Enable Smart Filtering', 'codepress-admin-columns'))->create(
+                $config
+            ),
+            $this->pro_promotion_factory->create(__('Enable Filtering', 'codepress-admin-columns'))->create($config),
+        ]);
     }
 
     public function get_column_type(): string
@@ -68,11 +71,10 @@ class CustomFieldFactory extends BaseColumnFactory
 
     protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters = parent::get_formatters($config);
-
-        $formatters->prepend(new Meta($this->table_screen_context->get_meta_type(), $config->get('field', '')));
-
-        return $formatters;
+        return parent::get_formatters($config)
+                     ->prepend(
+                         new Meta($this->table_screen_context->get_meta_type(), $config->get('field', ''))
+                     );
     }
 
 }
