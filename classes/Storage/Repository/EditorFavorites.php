@@ -11,7 +11,7 @@ use AC\Type\ListKey;
 class EditorFavorites
 {
 
-    private $storage;
+    private UserOption $storage;
 
     public function __construct()
     {
