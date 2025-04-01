@@ -73,7 +73,7 @@ class V5000 extends Update
         global $wpdb;
 
         $results = $wpdb->get_results(
-            "SELECT * FROM $wpdb->options WHERE option_name LIKE 'cpac_options_%__default'"
+            "SELECT * FROM $wpdb->options WHERE option_name LIKE 'cpac_options_%__default' AND option_value != ''"
         );
 
         if ( ! $results) {
@@ -88,13 +88,9 @@ class V5000 extends Update
                 continue;
             }
 
-            if ( ! $item->option_value) {
-                continue;
-            }
+            $data = unserialize($item->option_value, ['allowed_classes' => false]);
 
-            $data = unserialize($item->option_value);
-
-            if ( ! $data) {
+            if ( ! $data || ! is_array($data)) {
                 continue;
             }
 
