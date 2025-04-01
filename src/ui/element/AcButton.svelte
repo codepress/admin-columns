@@ -4,6 +4,7 @@
 
     export let type: undefined | null | 'text' | 'primary' | 'default' | 'pink' = 'default';
     export let disabled: boolean = false;
+    export let softDisabled: boolean = false;
     export let isDestructive: boolean | null = false;
     export let iconLeft: string | null = null;
     export let iconLeftPack: string | null = null;
@@ -24,6 +25,7 @@
 
     if (size === 'small') classes.push('-small');
     if (isDestructive) classes.push('-destructive');
+    if (disabled) classes.push('-disabled');
 
 </script>
 
@@ -52,7 +54,7 @@
 {:else}
 	<button class="{classes.join(' ')}"
 		class:is-loading={loading}
-		{disabled}
+		disabled={disabled || softDisabled}
 		on:click
 	>
 		{#if iconLeft }

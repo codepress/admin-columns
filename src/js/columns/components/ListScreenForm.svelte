@@ -15,7 +15,7 @@
 
     const i18n = getColumnSettingsTranslation();
 
-    let isSaving = false;
+    export let isSaving = false;
 
     export const saveSettings = () => {
         isSaving = true;

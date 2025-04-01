@@ -210,6 +210,10 @@
   margin-bottom: 20px
 }
 
+.acu-mb-5 {
+  margin-bottom: 25px
+}
+
 .acu-mb-6 {
   margin-bottom: 30px
 }
@@ -403,6 +407,11 @@
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
 
+.acu-rotate-180 {
+  --tw-rotate: 180deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
 .acu-transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
@@ -555,27 +564,27 @@
 
 .acu-bg-\[\#E2E8F0\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1))
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity))
 }
 
 .acu-bg-\[\#F1F5F9\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1))
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity))
 }
 
 .acu-bg-\[\#e9426e\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(233 66 110 / var(--tw-bg-opacity, 1))
+  background-color: rgb(233 66 110 / var(--tw-bg-opacity))
 }
 
 .acu-bg-\[\#eee\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(238 238 238 / var(--tw-bg-opacity, 1))
+  background-color: rgb(238 238 238 / var(--tw-bg-opacity))
 }
 
 .acu-bg-\[\#fff\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity))
 }
 
 .acu-bg-\[transparent\] {
@@ -584,12 +593,12 @@
 
 .acu-bg-\[white\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity))
 }
 
 .acu-bg-gray-dark {
   --tw-bg-opacity: 1;
-  background-color: rgb(61 67 80 / var(--tw-bg-opacity, 1))
+  background-color: rgb(61 67 80 / var(--tw-bg-opacity))
 }
 
 .acu-bg-none {
@@ -699,6 +708,11 @@
   padding-bottom: 40px
 }
 
+.acu-py-\[10px\] {
+  padding-top: 10px;
+  padding-bottom: 10px
+}
+
 .acu-py-\[2px\] {
   padding-top: 2px;
   padding-bottom: 2px
@@ -738,6 +752,10 @@
 
 .acu-pl-8\.5 {
   padding-left: 43px
+}
+
+.acu-pl-\[4px\] {
+  padding-left: 4px
 }
 
 .acu-pl-\[50px\] {
@@ -881,37 +899,42 @@
 
 .acu-text-\[\#777\] {
   --tw-text-opacity: 1;
-  color: rgb(119 119 119 / var(--tw-text-opacity, 1))
+  color: rgb(119 119 119 / var(--tw-text-opacity))
 }
 
 .acu-text-\[\#888\] {
   --tw-text-opacity: 1;
-  color: rgb(136 136 136 / var(--tw-text-opacity, 1))
+  color: rgb(136 136 136 / var(--tw-text-opacity))
+}
+
+.acu-text-\[\#94A3B8\] {
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity))
 }
 
 .acu-text-\[\#999\] {
   --tw-text-opacity: 1;
-  color: rgb(153 153 153 / var(--tw-text-opacity, 1))
+  color: rgb(153 153 153 / var(--tw-text-opacity))
 }
 
 .acu-text-\[\#B4B4B4\] {
   --tw-text-opacity: 1;
-  color: rgb(180 180 180 / var(--tw-text-opacity, 1))
+  color: rgb(180 180 180 / var(--tw-text-opacity))
 }
 
 .acu-text-\[\#D63638\] {
   --tw-text-opacity: 1;
-  color: rgb(214 54 56 / var(--tw-text-opacity, 1))
+  color: rgb(214 54 56 / var(--tw-text-opacity))
 }
 
 .acu-text-\[\#fff\] {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+  color: rgb(255 255 255 / var(--tw-text-opacity))
 }
 
 .acu-text-\[white\] {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+  color: rgb(255 255 255 / var(--tw-text-opacity))
 }
 
 .acu-text-link {
@@ -924,7 +947,7 @@
 
 .acu-text-pink {
   --tw-text-opacity: 1;
-  color: rgb(233 66 110 / var(--tw-text-opacity, 1))
+  color: rgb(233 66 110 / var(--tw-text-opacity))
 }
 
 .acu-no-underline {
@@ -952,6 +975,12 @@
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
 }
 
+.acu-transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms
+}
+
 .\[key\:string\] {
   key: string
 }
@@ -976,12 +1005,12 @@
 
 .hover\:acu-bg-\[\#fafafa\]:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(250 250 250 / var(--tw-bg-opacity, 1))
+  background-color: rgb(250 250 250 / var(--tw-bg-opacity))
 }
 
 .hover\:acu-text-\[\#fff\]:hover {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+  color: rgb(255 255 255 / var(--tw-text-opacity))
 }
 
 .hover\:acu-text-link-hover:hover {
@@ -1118,10 +1147,10 @@
 
 .\[\&\.-active\]\:acu-bg-\[\#E2E8F0\].-active {
   --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1))
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity))
 }
 
 .\[\&\.-active\]\:acu-text-\[\#475569\].-active {
   --tw-text-opacity: 1;
-  color: rgb(71 85 105 / var(--tw-text-opacity, 1))
+  color: rgb(71 85 105 / var(--tw-text-opacity))
 }

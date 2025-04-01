@@ -47,7 +47,7 @@
 
 
     const getTitle = (item: ValueModalItem) => {
-        return item.title ?? `${columnTitle} #${item.objectId}`;
+        return item.title ?? `${columnTitle}`;
     }
 
     const updateData = (item: ValueModalItem) => {
@@ -124,7 +124,7 @@
             }
 
             modalClass = item.element.dataset.modalClass ?? ''
-            title = item.title ?? `#${item.objectId}`;
+            title = item.title ?? ``;
 
             updateData(item);
             determineSiblings();
