@@ -140,6 +140,10 @@ class V5000 extends Update
 
         $views = $wpdb->get_results("SELECT id, list_id, columns FROM {$wpdb->prefix}admin_columns");
 
+        if ( ! $views) {
+            return;
+        }
+
         $updates = [];
 
         foreach ($views as $view) {
