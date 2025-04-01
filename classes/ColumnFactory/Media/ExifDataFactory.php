@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ExifData;
 use AC\Setting\Config;
@@ -16,10 +16,10 @@ class ExifDataFactory extends ColumnFactory
     private ExifData $exif_data;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         ExifData $exif_data
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->exif_data = $exif_data;
     }

@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UserLinkFactory;
 use AC\Setting\ComponentFactory\UserProperty;
@@ -22,12 +22,12 @@ class LastModifiedAuthorFactory extends ColumnFactory
     private PostTypeSlug $post_type;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         UserProperty $user_factory,
         UserLinkFactory $user_link,
         PostTypeSlug $post_type
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->user_factory = $user_factory;
         $this->user_link = $user_link;

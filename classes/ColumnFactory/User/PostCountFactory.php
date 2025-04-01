@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
@@ -19,11 +19,11 @@ class PostCountFactory extends ColumnFactory
     private ComponentFactory\PostStatus $post_status;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         ComponentFactory\PostStatus $post_status,
         ComponentFactory\PostTypeFactory $post_type_factory
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->post_status = $post_status;
         $this->post_type_factory = $post_type_factory;

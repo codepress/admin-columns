@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactory\PostProperty;
@@ -20,11 +20,11 @@ class PostFactory extends ColumnFactory
     private PostLink $post_link;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         PostProperty $post_property,
         PostLink $post_link
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->post_property = $post_property;
         $this->post_link = $post_link;

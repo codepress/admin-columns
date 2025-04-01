@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
@@ -18,11 +18,11 @@ class ExcerptFactory extends ColumnFactory
     private ComponentFactory\BeforeAfter $before_after;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         ComponentFactory\StringLimit $string_limit,
         ComponentFactory\BeforeAfter $before_after
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->string_limit = $string_limit;
         $this->before_after = $before_after;

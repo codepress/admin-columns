@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UserLink;
 use AC\Setting\Config;
@@ -15,9 +15,9 @@ class NicknameFactory extends ColumnFactory
 
     private UserLink $user_link;
 
-    public function __construct(BaseSettingsBuilder $base_settings_builder, UserLink $user_link)
+    public function __construct(DefaultSettingsBuilder $default_settings_builder, UserLink $user_link)
     {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->user_link = $user_link;
     }

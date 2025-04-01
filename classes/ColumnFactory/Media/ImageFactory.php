@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ImageSize;
 use AC\Setting\Config;
@@ -14,10 +14,10 @@ class ImageFactory extends ColumnFactory
     private ImageSize $image_size;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         ImageSize $image_size
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->image_size = $image_size;
     }

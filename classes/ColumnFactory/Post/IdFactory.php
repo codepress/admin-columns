@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\Config;
@@ -14,10 +14,10 @@ class IdFactory extends ColumnFactory
     private BeforeAfter $before_after_factory;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         BeforeAfter $before_after_factory
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->before_after_factory = $before_after_factory;
     }

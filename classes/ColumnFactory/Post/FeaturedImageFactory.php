@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\Post\FeaturedImageDisplay;
 use AC\Setting\Config;
@@ -16,10 +16,10 @@ class FeaturedImageFactory extends ColumnFactory
     private FeaturedImageDisplay $featured_image_component;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         FeaturedImageDisplay $featured_image_component
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->featured_image_component = $featured_image_component;
     }

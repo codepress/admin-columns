@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
@@ -26,14 +26,14 @@ class TaxonomyFactory extends ColumnFactory
     private PostTypeSlug $post_type;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         ComponentFactory\TaxonomyFactory $taxonomy_factory,
         ComponentFactory\TermLink $term_link_factory,
         ComponentFactory\NumberOfItems $number_of_items_factory,
         ComponentFactory\Separator $separator_factory,
         PostTypeSlug $post_type
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->taxonomy_factory = $taxonomy_factory;
         $this->term_link_factory = $term_link_factory;

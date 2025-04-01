@@ -5,7 +5,7 @@ namespace AC\ColumnFactory;
 use AC;
 use AC\Column\ColumnFactory;
 use AC\Integration;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentFactory\Message;
 use AC\Setting\Config;
 
@@ -15,10 +15,10 @@ class IntegrationPlaceholder extends ColumnFactory
     private Integration $integration;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         Integration $integration
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->integration = $integration;
     }

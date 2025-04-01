@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
@@ -18,11 +18,11 @@ class DescriptionFactory extends ColumnFactory
     private ComponentFactory\BeforeAfter $before_after_factory;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         ComponentFactory\WordLimit $word_limit_factory,
         ComponentFactory\BeforeAfter $before_after_factory
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->word_limit_factory = $word_limit_factory;
         $this->before_after_factory = $before_after_factory;

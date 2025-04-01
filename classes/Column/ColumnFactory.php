@@ -3,7 +3,7 @@
 namespace AC\Column;
 
 use AC\Column;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
@@ -11,11 +11,11 @@ use AC\Setting\FormatterCollection;
 abstract class ColumnFactory
 {
 
-    private ?BaseSettingsBuilder $base_settings_builder;
+    private ?DefaultSettingsBuilder $default_settings_builder;
 
-    public function __construct(BaseSettingsBuilder $base_settings_builder = null)
+    public function __construct(DefaultSettingsBuilder $default_settings_builder = null)
     {
-        $this->base_settings_builder = $base_settings_builder;
+        $this->default_settings_builder = $default_settings_builder;
     }
 
     public function create(Config $config): Column
@@ -23,7 +23,7 @@ abstract class ColumnFactory
         return new Base(
             $this->get_column_type(),
             $this->get_label(),
-            $this->get_base_settings($config)
+            $this->get_default_settings($config)
                  ->merge($this->get_settings($config)),
             ColumnIdFactory::createFromConfig($config),
             $this->get_formatters($config),
@@ -31,10 +31,10 @@ abstract class ColumnFactory
         );
     }
 
-    protected function get_base_settings(Config $config): ComponentCollection
+    protected function get_default_settings(Config $config): ComponentCollection
     {
-        return $this->base_settings_builder
-            ? $this->base_settings_builder->build($config)
+        return $this->default_settings_builder
+            ? $this->default_settings_builder->build($config)
             : new ComponentCollection();
     }
 

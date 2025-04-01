@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactory\FieldType;
@@ -26,7 +26,7 @@ class CustomFieldFactory extends ColumnFactory
     private ComponentFactory\Pro\TogglePromotionFactory $pro_promotion_factory;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         ComponentFactory\CustomFieldFactory $custom_field_factory,
         TableScreenContext $table_screen_context,
         FieldType $field_type,
@@ -34,7 +34,7 @@ class CustomFieldFactory extends ColumnFactory
         ComponentFactory\Pro\TogglePromotionFactory $pro_promotion_factory
     ) {
         parent::__construct(
-            $base_settings_builder
+            $default_settings_builder
         );
 
         $this->custom_field_factory = $custom_field_factory;

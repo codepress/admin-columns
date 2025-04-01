@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\UserLinkFactory;
@@ -27,13 +27,13 @@ class AuthorFactory extends ColumnFactory
     private PostTypeSlug $post_type;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         UserProperty $user_factory,
         UserLinkFactory $user_link,
         BeforeAfter $before_after_factory,
         PostTypeSlug $post_type
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->user_factory = $user_factory;
         $this->before_after_factory = $before_after_factory;

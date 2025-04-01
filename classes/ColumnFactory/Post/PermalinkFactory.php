@@ -3,7 +3,7 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\IsLink;
@@ -19,12 +19,12 @@ class PermalinkFactory extends ColumnFactory
     private IsLink $is_link;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         BeforeAfter $before_after,
         IsLink $is_link
     ) {
         parent::__construct(
-            $base_settings_builder
+            $default_settings_builder
         );
         $this->before_after = $before_after;
         $this->is_link = $is_link;

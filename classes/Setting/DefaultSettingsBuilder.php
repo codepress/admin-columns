@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-class BaseSettingsBuilder
+class DefaultSettingsBuilder
 {
 
     private ComponentFactory\Name $name;

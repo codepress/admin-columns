@@ -4,7 +4,7 @@ namespace AC\ColumnFactory\Comment;
 
 use AC;
 use AC\Column\ColumnFactory;
-use AC\Setting\BaseSettingsBuilder;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\Config;
@@ -16,10 +16,10 @@ class ExcerptFactory extends ColumnFactory
     private StringLimit $string_limit;
 
     public function __construct(
-        BaseSettingsBuilder $base_settings_builder,
+        DefaultSettingsBuilder $default_settings_builder,
         StringLimit $string_limit
     ) {
-        parent::__construct($base_settings_builder);
+        parent::__construct($default_settings_builder);
 
         $this->string_limit = $string_limit;
     }
