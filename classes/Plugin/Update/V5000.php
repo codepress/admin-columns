@@ -48,17 +48,25 @@ class V5000 extends Update
                 break;
             case 3:
                 $this->update_options();
+                $this->delete_default_sortables();
 
                 break;
         }
+    }
+
+    private function delete_default_sortables(): void
+    {
+        global $wpdb;
+
+        $wpdb->query(
+            "DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_sorting_%_default'"
+        );
     }
 
     private function update_options(): void
     {
         global $wpdb;
 
-        // Delete from options table 'cpac_options_%s__default'
-        // Delete from options table 'ac_sorting_%s_default'
         $results = $wpdb->get_results(
             "SELECT * FROM $wpdb->options WHERE option_name LIKE 'cpac_options_%__default'"
         );
@@ -69,7 +77,19 @@ class V5000 extends Update
 
         foreach ($results as $item) {
             $list_key = ac_helper()->string->remove_prefix($item->option_name, 'cpac_options_');
+            $list_key = ac_helper()->string->remove_suffix($list_key, '__default');
+
             if ( ! $list_key) {
+                continue;
+            }
+
+            if ( ! $item->option_value) {
+                continue;
+            }
+
+            $data = unserialize($item->option_value);
+
+            if ( ! $data) {
                 continue;
             }
 
@@ -84,20 +104,32 @@ class V5000 extends Update
                 continue;
             }
 
+            $updated = [];
+
+            foreach ($data as $column_name => $label) {
+                if ($column_name === 'cb') {
+                    continue;
+                }
+
+                $updated[$column_name] = [
+                    'label' => $label,
+                ];
+            }
+
             $wpdb->insert(
                 $wpdb->options,
                 [
                     'option_name' => $option_name,
-                    'option_value' => $item->option_value,
+                    'option_value' => $updated ? serialize($updated) : '',
                     'autoload' => 'off',
                 ]
             );
         }
 
-        // TODO enable
-        //        $wpdb->query(
-        //            "DELETE FROM $wpdb->options WHERE option_name LIKE 'cpac_options_%__default'"
-        //        );
+        // Delete
+        $wpdb->query(
+            "DELETE FROM $wpdb->options WHERE option_name LIKE 'cpac_options_%__default'"
+        );
     }
 
     private function update_columns(): void
