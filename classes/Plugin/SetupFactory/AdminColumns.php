@@ -37,7 +37,7 @@ final class AdminColumns extends SetupFactory
                 ]);
                 $this->updates = new UpdateCollection([
                     new Update\V4000(),
-                    new Update\V5000(),
+                    new Update\V5000(new Install\Database()),
                 ]);
                 break;
         }
