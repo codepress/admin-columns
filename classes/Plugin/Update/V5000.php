@@ -41,9 +41,58 @@ class V5000 extends Update
                      ->apply_update();
                 break;
             case 2:
-                // TODO next step
+                $this->update_columns();
+
                 $this->update_next_step(3)
                      ->apply_update();
+        }
+    }
+
+    private function update_columns(): void
+    {
+        global $wpdb;
+
+        $views = $wpdb->get_results("SELECT id, list_id, columns FROM {$wpdb->prefix}admin_columns");
+
+        $updates = [];
+
+        foreach ($views as $view) {
+            if ( ! $view->columns) {
+                continue;
+            }
+
+            $has_changed_columns = false;
+            $columns = unserialize($view->columns, ['allowed_classes' => false]);
+            $columns = array_values($columns);
+
+            foreach ($columns as $i => $column) {
+                // User column: `column-user_posts` has been replaced with `column-user_postcount`
+                if ($column['type'] === 'column-user_posts') {
+                    $has_changed_columns = true;
+                    $columns[$i]['type'] = 'column-user_postcount';
+                }
+
+                // The column setting 'character_limit' has been renamed to 'excerpt_length'
+                if ( ! empty($column['character_limit'])) {
+                    $has_changed_columns = true;
+                    $columns[$i]['excerpt_length'] = $column['character_limit'];
+                    unset($columns[$i]['character_limit']);
+                }
+
+                // The column "Media ID (column-mediaid)" is replace by "Post ID" (column-postid)
+                // Delete from options table 'cpac_options_%s__default'
+                // Delete from options table 'ac_sorting_%s_default'
+            }
+
+            if ($has_changed_columns) {
+                $updates[$view->id] = serialize($columns);
+            }
+        }
+
+        foreach ($updates as $id => $columns) {
+            $wpdb->query(
+                $wpdb->prepare("UPDATE {$wpdb->prefix}admin_columns SET columns = %s WHERE ID = %d", $columns, $id)
+            );
         }
     }
 
