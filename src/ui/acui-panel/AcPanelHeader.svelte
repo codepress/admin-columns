@@ -1,7 +1,10 @@
 <script lang="ts">
+    import AcPanelTitle from "ACUi/acui-panel/AcPanelTitle.svelte";
+    import AcPanelSubtitle from "ACUi/acui-panel/AcPanelSubtitle.svelte";
+
     export let title: string | undefined | null = null
     export let subtitle: string | undefined | null = null
-    export let type: 'h3' | 'h2' = 'h3'
+    export let type: 'h3' | 'h2' = 'h2'
     export let border: boolean = false;
 
     let classes = ['acu-px-[20px] acu-pt-[20px]'];
@@ -14,14 +17,10 @@
 
 <div class={classes.join(' ')}>
 	{#if title }
-		{#if type === 'h2' }
-			<h2 class="acu-my-[0] acu-text-2xl acu-font-normal">{title}</h2>
-		{:else}
-			<h3 class="acu-my-[0]">{title}</h3>
-		{/if}
+		<AcPanelTitle {title} {type}/>
 	{/if}
 	{#if subtitle }
-		<span class={type==='h2'? 'acu-pt-1 acu-block' : ''}>{subtitle}</span>
+		<AcPanelSubtitle {subtitle} {type} />
 	{/if}
 
 	<slot></slot>

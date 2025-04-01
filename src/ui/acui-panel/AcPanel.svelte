@@ -1,6 +1,5 @@
 <script lang="ts">
-    import AcPanelBody from "ACUi/acui-panel/AcPanelBody.svelte";
-    import AcPanelHeader from "ACUi/acui-panel/AcPanelHeader.svelte";
+    import { AcPanelBody, AcPanelHeader } from "ACUi/acui-panel";
 
     export let shadow: boolean = true;
     export let border: boolean = true;

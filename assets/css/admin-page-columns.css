@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=37453") format("woff2"), url("../fonts/cpac_icons.woff?v=742989") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=863309") format("woff2"), url("../fonts/cpac_icons.woff?v=837924") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -79,36 +79,40 @@
   content: "\ea10";
 }
 
-.cpacicon-rename::before {
+.cpacicon-question::before {
   content: "\ea11";
 }
 
-.cpacicon-reset-password::before {
+.cpacicon-rename::before {
   content: "\ea12";
 }
 
-.cpacicon-segment::before {
+.cpacicon-reset-password::before {
   content: "\ea13";
 }
 
-.cpacicon-smart-filter::before {
+.cpacicon-segment::before {
   content: "\ea14";
 }
 
-.cpacicon-text-clip::before {
+.cpacicon-smart-filter::before {
   content: "\ea15";
 }
 
-.cpacicon-text-wrap::before {
+.cpacicon-text-clip::before {
   content: "\ea16";
 }
 
-.cpacicon-user-switch::before {
+.cpacicon-text-wrap::before {
   content: "\ea17";
 }
 
-.cpacicon-woo::before {
+.cpacicon-user-switch::before {
   content: "\ea18";
+}
+
+.cpacicon-woo::before {
+  content: "\ea19";
 }
 
 .svelte-select.-wordpress {
