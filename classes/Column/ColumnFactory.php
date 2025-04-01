@@ -20,21 +20,22 @@ abstract class ColumnFactory
 
     public function create(Config $config): Column
     {
-        $settings = $this->get_settings($config);
-
-        if ($this->base_settings_builder) {
-            $settings = $this->base_settings_builder->build($config)
-                                                    ->merge($settings);
-        }
-
         return new Base(
             $this->get_column_type(),
             $this->get_label(),
-            $settings,
+            $this->get_base_settings($config)
+                 ->merge($this->get_settings($config)),
             ColumnIdFactory::createFromConfig($config),
             $this->get_formatters($config),
             $this->get_group()
         );
+    }
+
+    protected function get_base_settings(Config $config): ComponentCollection
+    {
+        return $this->base_settings_builder
+            ? $this->base_settings_builder->build($config)
+            : new ComponentCollection();
     }
 
     abstract public function get_column_type(): string;
