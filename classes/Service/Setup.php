@@ -10,7 +10,7 @@ final class Setup implements Registerable
 
     public const PARAM_FORCE_INSTALL = 'ac-force-install';
 
-    private $setup;
+    private Plugin\Setup $setup;
 
     public function __construct(Plugin\Setup $setup)
     {
