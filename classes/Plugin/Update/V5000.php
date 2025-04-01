@@ -18,9 +18,6 @@ class V5000 extends Update
 
     public function __construct(Database $database)
     {
-        $this->update_options();
-        exit;
-
         parent::__construct(new Version('5.0.0'));
 
         $this->database = $database;
@@ -72,8 +69,6 @@ class V5000 extends Update
 
         foreach ($results as $item) {
             $list_key = ac_helper()->string->remove_prefix($item->option_name, 'cpac_options_');
-            $list_key = ac_helper()->string->remove_suffix($list_key, '__default');
-
             if ( ! $list_key) {
                 continue;
             }
