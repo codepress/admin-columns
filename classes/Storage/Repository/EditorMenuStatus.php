@@ -9,7 +9,7 @@ use AC\Storage\UserOption;
 class EditorMenuStatus
 {
 
-    private $storage;
+    private UserOption $storage;
 
     public function __construct()
     {

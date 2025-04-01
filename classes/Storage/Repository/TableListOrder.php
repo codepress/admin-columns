@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AC\Storage\Repository;
 
+use AC\Preferences\Preference;
 use AC\Preferences\SiteFactory;
 use AC\Type\ListKey;
 
 class TableListOrder
 {
 
-    private $storage;
+    private Preference $storage;
 
     public function __construct(int $user_id = null)
     {
