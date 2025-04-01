@@ -6,7 +6,6 @@ use AC\Plugin\Install\Database;
 use AC\Plugin\Update;
 use AC\Plugin\Version;
 
-// TODO add update logic and register class
 class V5000 extends Update
 {
 
@@ -54,6 +53,8 @@ class V5000 extends Update
 
                 // Delete obsolete default sortables
                 $this->delete_default_sortables();
+
+                // TODO are we missing anything else that needs updating?
 
                 break;
         }
