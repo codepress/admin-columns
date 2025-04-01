@@ -18,6 +18,9 @@ class V5000 extends Update
 
     public function __construct(Database $database)
     {
+        $this->update_options();
+        exit;
+
         parent::__construct(new Version('5.0.0'));
 
         $this->database = $database;
@@ -45,7 +48,61 @@ class V5000 extends Update
 
                 $this->update_next_step(3)
                      ->apply_update();
+                break;
+            case 3:
+                $this->update_options();
+
+                break;
         }
+    }
+
+    private function update_options(): void
+    {
+        global $wpdb;
+
+        // Delete from options table 'cpac_options_%s__default'
+        // Delete from options table 'ac_sorting_%s_default'
+        $results = $wpdb->get_results(
+            "SELECT * FROM $wpdb->options WHERE option_name LIKE 'cpac_options_%__default'"
+        );
+
+        if ( ! $results) {
+            return;
+        }
+
+        foreach ($results as $item) {
+            $list_key = ac_helper()->string->remove_prefix($item->option_name, 'cpac_options_');
+            $list_key = ac_helper()->string->remove_suffix($list_key, '__default');
+
+            if ( ! $list_key) {
+                continue;
+            }
+
+            $option_name = "ac_columns_default_" . $list_key;
+
+            $exists = $wpdb->get_var(
+                $wpdb->prepare("SELECT option_name FROM $wpdb->options WHERE option_name = %s", $option_name)
+            );
+
+            // Skip when exists
+            if ($exists) {
+                continue;
+            }
+
+            $wpdb->insert(
+                $wpdb->options,
+                [
+                    'option_name' => $option_name,
+                    'option_value' => $item->option_value,
+                    'autoload' => 'off',
+                ]
+            );
+        }
+
+        // TODO enable
+        //        $wpdb->query(
+        //            "DELETE FROM $wpdb->options WHERE option_name LIKE 'cpac_options_%__default'"
+        //        );
     }
 
     private function update_columns(): void
@@ -80,8 +137,10 @@ class V5000 extends Update
                 }
 
                 // The column "Media ID (column-mediaid)" is replace by "Post ID" (column-postid)
-                // Delete from options table 'cpac_options_%s__default'
-                // Delete from options table 'ac_sorting_%s_default'
+                if ($column['type'] === 'column-mediaid') {
+                    $has_changed_columns = true;
+                    $columns[$i]['type'] = 'column-postid';
+                }
             }
 
             if ($has_changed_columns) {
