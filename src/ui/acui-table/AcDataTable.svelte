@@ -1,12 +1,6 @@
 <script lang="ts">
-
-    import AcTableCell from "./AcTableCell.svelte";
-    import AcTableHead from "./AcTableHead.svelte";
-    import AcTableRow from "./AcTableRow.svelte";
-    import AcTable from "./AcTable.svelte";
-    import AcTableBody from "./AcTableBody.svelte";
+    import {AcTableCell, AcTableHead, AcTableRow, AcTable, AcTableBody, AcTableHeaderCell } from "ACUi/acui-table";
     import {DataTableActionsDefinitionType, DataTableFieldDefinitionType} from "ACUi/acui-table/types";
-    import AcTableHeaderCell from "ACUi/acui-table/AcTableHeaderCell.svelte";
     import AcButton from "ACUi/element/AcButton.svelte";
 
 
