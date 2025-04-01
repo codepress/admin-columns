@@ -35,19 +35,24 @@ class V5000 extends Update
         // Apply update in chunks to minimize the impact of a timeout.
         switch ($this->next_step) {
             case 1 :
+                // Add 'type' column to the 'admin_columns' DB table
                 $this->update_database();
 
                 $this->update_next_step(2)
                      ->apply_update();
                 break;
             case 2:
+                // Update renamed column types and specific settings
                 $this->update_columns();
 
                 $this->update_next_step(3)
                      ->apply_update();
                 break;
             case 3:
-                $this->update_options();
+                // Move the stored default columns to a new location
+                $this->update_default_columns();
+
+                // Delete obsolete default sortables
                 $this->delete_default_sortables();
 
                 break;
@@ -63,7 +68,7 @@ class V5000 extends Update
         );
     }
 
-    private function update_options(): void
+    private function update_default_columns(): void
     {
         global $wpdb;
 
