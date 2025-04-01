@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\Path;
 
-class PathFactory extends BaseColumnFactory
+class PathFactory extends ColumnFactory
 {
 
     public function get_column_type(): string

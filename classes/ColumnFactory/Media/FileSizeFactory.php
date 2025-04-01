@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\FileSize;
 use AC\Value\Formatter\ReadableFileSize;
 
-class FileSizeFactory extends BaseColumnFactory
+class FileSizeFactory extends ColumnFactory
 {
 
     public function get_column_type(): string

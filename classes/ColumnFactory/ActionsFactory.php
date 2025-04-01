@@ -3,13 +3,13 @@
 namespace AC\ColumnFactory;
 
 use AC;
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Message;
 
-class ActionsFactory extends BaseColumnFactory
+class ActionsFactory extends ColumnFactory
 {
 
     public function get_label(): string

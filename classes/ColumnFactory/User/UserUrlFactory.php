@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\User;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class UserUrlFactory extends BaseColumnFactory
+class UserUrlFactory extends ColumnFactory
 {
 
     public function get_label(): string

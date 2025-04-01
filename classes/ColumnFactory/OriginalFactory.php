@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
 
-class OriginalFactory extends BaseColumnFactory
+class OriginalFactory extends ColumnFactory
 {
 
     private string $type;

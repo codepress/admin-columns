@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\Shortcodes;
 
-class ShortcodesFactory extends BaseColumnFactory
+class ShortcodesFactory extends ColumnFactory
 {
 
     public function get_label(): string

@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
@@ -12,7 +12,7 @@ use AC\Setting\FormatterCollection;
 use AC\Type\TableScreenContext;
 use AC\Value\Formatter\Meta;
 
-class CustomFieldFactory extends BaseColumnFactory
+class CustomFieldFactory extends ColumnFactory
 {
 
     private ComponentFactory\CustomFieldFactory $custom_field_factory;

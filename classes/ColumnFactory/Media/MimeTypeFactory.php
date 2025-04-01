@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\PostMimeType;
 
-class MimeTypeFactory extends BaseColumnFactory
+class MimeTypeFactory extends ColumnFactory
 {
 
     public function get_column_type(): string

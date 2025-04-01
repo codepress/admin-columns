@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\AudioPlayer;
 
-class AudioPlayerFactory extends BaseColumnFactory
+class AudioPlayerFactory extends ColumnFactory
 {
 
     protected function get_group(): ?string

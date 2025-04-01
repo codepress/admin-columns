@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\User;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class FirstPostFactory extends BaseColumnFactory
+class FirstPostFactory extends ColumnFactory
 {
 
     private ComponentFactory\PostType $post_type;

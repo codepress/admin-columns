@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\Download;
 
-class DownloadFactory extends BaseColumnFactory
+class DownloadFactory extends ColumnFactory
 {
 
     public function get_column_type(): string

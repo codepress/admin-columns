@@ -3,13 +3,13 @@
 namespace AC\ColumnFactory;
 
 use AC;
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Integration;
 use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ComponentFactory\Message;
 use AC\Setting\Config;
 
-class IntegrationPlaceholder extends BaseColumnFactory
+class IntegrationPlaceholder extends ColumnFactory
 {
 
     private Integration $integration;

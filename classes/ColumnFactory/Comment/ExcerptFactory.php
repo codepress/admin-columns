@@ -3,14 +3,14 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC;
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 
-class ExcerptFactory extends BaseColumnFactory
+class ExcerptFactory extends ColumnFactory
 {
 
     private StringLimit $string_limit;

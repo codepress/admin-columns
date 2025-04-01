@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\IsSticky;
 use AC\Value\Formatter\YesNoIcon;
 
-class StickyFactory extends BaseColumnFactory
+class StickyFactory extends ColumnFactory
 {
 
     public function get_column_type(): string

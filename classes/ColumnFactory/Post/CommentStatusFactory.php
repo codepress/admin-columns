@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\HasCommentStatus;
 
-class CommentStatusFactory extends BaseColumnFactory
+class CommentStatusFactory extends ColumnFactory
 {
 
     public function get_column_type(): string

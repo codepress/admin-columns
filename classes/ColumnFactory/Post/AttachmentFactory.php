@@ -3,12 +3,12 @@
 namespace AC\ColumnFactory\Post;
 
 use AC;
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ComponentFactory\AttachmentDisplay;
 use AC\Setting\Config;
 
-class AttachmentFactory extends BaseColumnFactory
+class AttachmentFactory extends ColumnFactory
 {
 
     private AttachmentDisplay $attachments_factory;

@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Comment;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PostLink;
@@ -12,7 +12,7 @@ use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Comment\Property;
 use AC\Value\Formatter\MapToId;
 
-class PostFactory extends BaseColumnFactory
+class PostFactory extends ColumnFactory
 {
 
     private PostProperty $post_property;

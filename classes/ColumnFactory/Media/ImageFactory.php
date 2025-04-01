@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ImageSize;
 use AC\Setting\Config;
 
-class ImageFactory extends BaseColumnFactory
+class ImageFactory extends ColumnFactory
 {
 
     private ImageSize $image_size;

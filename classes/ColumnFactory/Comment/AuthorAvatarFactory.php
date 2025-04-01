@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\Comment;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class AuthorAvatarFactory extends BaseColumnFactory
+class AuthorAvatarFactory extends ColumnFactory
 {
 
     public function get_label(): string

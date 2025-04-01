@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
@@ -12,7 +12,7 @@ use AC\Type\PostTypeSlug;
 use AC\Value\Formatter\Collection\Separator;
 use AC\Value\Formatter\Post\PostTerms;
 
-class TaxonomyFactory extends BaseColumnFactory
+class TaxonomyFactory extends ColumnFactory
 {
 
     private ComponentFactory\TaxonomyFactory $taxonomy_factory;

@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\CharacterLimit;
@@ -12,7 +12,7 @@ use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\PostTitle;
 use AC\Value\Formatter\Wrapper;
 
-class TitleRawFactory extends BaseColumnFactory
+class TitleRawFactory extends ColumnFactory
 {
 
     private $character_limit_factory;

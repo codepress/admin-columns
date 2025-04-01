@@ -29,7 +29,7 @@ class BaseSettingsBuilder
             $this->name->create($config),
             $this->label->create($config),
             $this->width->create($config),
-        ]);
+        ], 5);
     }
 
 }

@@ -3,14 +3,14 @@
 namespace AC\ColumnFactory\User;
 
 use AC;
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 
-class LastPostFactory extends BaseColumnFactory
+class LastPostFactory extends ColumnFactory
 {
 
     private ComponentFactory\PostType $post_type;

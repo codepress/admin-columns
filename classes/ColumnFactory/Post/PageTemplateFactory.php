@@ -2,14 +2,14 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\BaseColumnFactory;
+use AC\Column\ColumnFactory;
 use AC\Setting\BaseSettingsBuilder;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
 use AC\Value\Formatter\Post\PageTemplate;
 
-class PageTemplateFactory extends BaseColumnFactory
+class PageTemplateFactory extends ColumnFactory
 {
 
     private PostTypeSlug $post_type;
