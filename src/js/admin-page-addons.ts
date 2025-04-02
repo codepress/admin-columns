@@ -1,4 +1,5 @@
 import AddonsPage from "./addons/AddonsPage.svelte";
+import {getAddonsConfig} from "./addons/global";
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -6,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         new AddonsPage({
             target: el,
             props: {
-                pro: AC_ADDONS.pro_installed
+                pro: getAddonsConfig().pro_installed
             }
         })
     });

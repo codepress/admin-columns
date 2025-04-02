@@ -3278,10 +3278,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   fetchIntegrations: () => (/* binding */ fetchIntegrations),
 /* harmony export */   toggleIntegrationStatus: () => (/* binding */ toggleIntegrationStatus)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../global */ "./js/addons/global.ts");
+
 
 const fetchIntegrations = () => {
-    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(ajaxurl, {
+    return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(ajaxurl, {
         params: {
             action: 'ac-integrations',
         }
@@ -3291,11 +3293,11 @@ const toggleIntegrationStatus = (args) => {
     const data = new FormData();
     data.append('action', 'acp-integration-toggle');
     data.append('integration', args.integration);
-    data.append('_ajax_nonce', AC_ADDONS._ajax_nonce);
+    data.append('_ajax_nonce', (0,_global__WEBPACK_IMPORTED_MODULE_0__.getAddonsConfig)()._ajax_nonce);
     if (args.status) {
         data.append('status', '1');
     }
-    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(ajaxurl, data);
+    return axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(ajaxurl, data);
 };
 
 
@@ -3313,10 +3315,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getAddonsTranslation: () => (/* binding */ getAddonsTranslation)
 /* harmony export */ });
 const getAddonsConfig = () => {
-    return AC_ADDONS;
+    return ac_addons;
 };
 const getAddonsTranslation = () => {
-    return AC_ADDONS_I18N;
+    return ac_addons_i18n;
 };
 
 
@@ -13001,13 +13003,15 @@ var __webpack_exports__ = {};
   \*********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _addons_AddonsPage_svelte__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addons/AddonsPage.svelte */ "./js/addons/AddonsPage.svelte");
+/* harmony import */ var _addons_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addons/global */ "./js/addons/global.ts");
+
 
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('#cpac').forEach(el => {
         new _addons_AddonsPage_svelte__WEBPACK_IMPORTED_MODULE_0__["default"]({
             target: el,
             props: {
-                pro: AC_ADDONS.pro_installed
+                pro: (0,_addons_global__WEBPACK_IMPORTED_MODULE_1__.getAddonsConfig)().pro_installed
             }
         });
     });

@@ -1,4 +1,5 @@
 import axios, {AxiosPromise} from "axios";
+import {getAddonsConfig} from "../global";
 
 declare const ajaxurl: string;
 
@@ -40,7 +41,7 @@ export const toggleIntegrationStatus = (args: ToggleIntegrationStatusArgs): Axio
     const data = new FormData()
     data.append('action', 'acp-integration-toggle');
     data.append('integration', args.integration);
-    data.append('_ajax_nonce', AC_ADDONS._ajax_nonce);
+    data.append('_ajax_nonce', getAddonsConfig()._ajax_nonce);
 
     if (args.status) {
         data.append('status', '1');

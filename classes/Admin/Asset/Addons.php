@@ -49,9 +49,9 @@ class Addons extends Script
             ],
         ]);
 
-        $this->localize('AC_ADDONS_I18N', $translation)
+        $this->localize('ac_addons_i18n', $translation)
              ->add_inline_variable(
-                 'AC_ADDONS',
+                 'ac_addons',
                  [
                      $this->nonce->get_name() => $this->nonce->create(),
                      'is_network_admin'       => is_network_admin(),

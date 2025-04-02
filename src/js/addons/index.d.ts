@@ -1,5 +1,5 @@
-declare const AC_ADDONS_I18N: LocalizedAddonsI18n;
-declare const AC_ADDONS: InlineVarAcAddons;
+declare const ac_addons_i18n: LocalizedAddonsI18n;
+declare const ac_addons: InlineVarAcAddons;
 
 type InlineVarAcAddons = {
     _ajax_nonce: string
