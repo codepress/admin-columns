@@ -342,6 +342,10 @@ class Columns extends Script
                         'view'                 => __('View', 'codepress-admin-columns'),
                     ],
                     'sentence' => [
+                        'columns_read_only'       => __(
+                            'The columns for %s are read only and can therefore not be edited.',
+                            'codepress-admin-columns'
+                        ),
                         'column_no_duplicate'     => __('Column %s could not be duplicated', 'codepress-admin-columns'),
                         'original_already_exists' => __('Original column already exists.', 'codepress-admin-columns'),
                         'show_default_columns'    => __(

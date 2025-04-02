@@ -245,6 +245,32 @@ body.toplevel_page_codepress-admin-columns {
 		margin-right: 5px;
 		transform: translateY(-2px);
 	}
+
+	&.ac-message--styled {
+		border-left: none;
+		border-radius: 8px;
+		padding-top: 8px;
+		padding-left: 20px;
+		padding-bottom: 8px;
+		&.notice-info {
+			background: #E7EFF9;
+			border: 1px solid #9DBAEE;
+		}
+	}
+
+	&.ac-message--icon {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+
+		.dashicons {
+			transform: translateY(0);
+		}
+		&.notice-info .dashicons {
+			color: #0072AA;
+		}
+
+	}
 }
 
 
