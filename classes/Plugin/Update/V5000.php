@@ -156,23 +156,11 @@ class V5000 extends Update
             $columns = array_values($columns);
 
             foreach ($columns as $i => $column) {
-                // User column: `column-user_posts` has been replaced with `column-user_postcount`
-                if ($column['type'] === 'column-user_posts') {
-                    $has_changed_columns = true;
-                    $columns[$i]['type'] = 'column-user_postcount';
-                }
+                $updated_column = $this->modify_column_options($column);
 
-                // The column setting 'character_limit' has been renamed to 'excerpt_length'
-                if ( ! empty($column['character_limit'])) {
+                if ($updated_column) {
+                    $columns[$i] = $updated_column;
                     $has_changed_columns = true;
-                    $columns[$i]['excerpt_length'] = $column['character_limit'];
-                    unset($columns[$i]['character_limit']);
-                }
-
-                // The column "Media ID (column-mediaid)" is replace by "Post ID" (column-postid)
-                if ($column['type'] === 'column-mediaid') {
-                    $has_changed_columns = true;
-                    $columns[$i]['type'] = 'column-postid';
                 }
             }
 
@@ -186,6 +174,33 @@ class V5000 extends Update
                 $wpdb->prepare("UPDATE {$wpdb->prefix}admin_columns SET columns = %s WHERE ID = %d", $columns, $id)
             );
         }
+    }
+
+    private function modify_column_options(array $column): ?array
+    {
+        // User column: `column-user_posts` has been replaced with `column-user_postcount`
+        if ($column['type'] === 'column-user_posts') {
+            $column['type'] = 'column-user_postcount';
+
+            return $column;
+        }
+
+        // The column setting 'character_limit' has been renamed to 'excerpt_length'
+        if ( ! empty($column['character_limit'])) {
+            $column['excerpt_length'] = $column['character_limit'];
+            unset($column['character_limit']);
+
+            return $column;
+        }
+
+        // The column "Media ID (column-mediaid)" is replace by "Post ID" (column-postid)
+        if ($column['type'] === 'column-mediaid') {
+            $column['type'] = 'column-postid';
+
+            return $column;
+        }
+
+        return null;
     }
 
     private function get_next_step(): int
