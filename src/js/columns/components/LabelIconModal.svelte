@@ -1,7 +1,6 @@
 <script lang="ts">
     import dashicons from '../config/dashicons.json';
-    import AcModal from "ACUi/AcModal.svelte";
-    import AcButton from "ACUi/element/AcButton.svelte";
+    import {AcButton, AcModal} from "ACUi/index";
     import {getColumnSettingsTranslation} from "../utils/global";
     import {createEventDispatcher} from "svelte";
 

@@ -250,7 +250,7 @@ function create_if_block_4(ctx) {
   };
 }
 
-// (136:5) {#if editLink }
+// (138:5) {#if editLink }
 function create_if_block_3(ctx) {
   let a;
   let t_value = /*translation*/ctx[10].edit + "";
@@ -279,7 +279,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (139:5) {#if viewLink }
+// (141:5) {#if viewLink }
 function create_if_block_2(ctx) {
   let a;
   let t_value = /*translation*/ctx[10].view + "";
@@ -308,7 +308,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (142:5) {#if downloadLink }
+// (144:5) {#if downloadLink }
 function create_if_block_1(ctx) {
   let a;
   let t_value = /*translation*/ctx[10].download + "";
@@ -338,7 +338,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (146:4) {#if items.length > 1 }
+// (148:4) {#if items.length > 1 }
 function create_if_block(ctx) {
   let div;
   let button0;
@@ -603,6 +603,8 @@ function instance($$self, $$props, $$invalidate) {
   let {
     destroyHandler
   } = $$props;
+  const ajaxurl = window.ajaxurl;
+  const AC = window.AC;
   let modalClass = '';
   let columnTitle;
   let title;

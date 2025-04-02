@@ -1,9 +1,8 @@
 <script lang="ts">
-    import {currentListKey} from "../store/current-list-screen";
+    import {currentListKey,favoriteListKeysStore} from "../store";
     import {createEventDispatcher, onMount} from "svelte";
     import GroupIcon from "./GroupIcon.svelte";
     import {SvelteSelectItem} from "../../types/select";
-    import {favoriteListKeysStore} from "../store/favorite-listkeys";
     import ListScreenMenuItem from "./ListScreenMenuItem.svelte";
     import {getColumnSettingsTranslation} from "../utils/global";
     import {persistMenuStatus} from "../ajax/menu";

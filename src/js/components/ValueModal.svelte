@@ -5,12 +5,13 @@
     import {ValueModalItem, ValueModalItemCollection} from "../types/admin-columns";
     import {getTableTranslation} from "../helpers/translations";
 
-    declare const ajaxurl: string;
-    declare const AC: LocalizedAcTable;
 
     export let items: ValueModalItemCollection
     export let objectId: number;
     export let destroyHandler: Function;
+
+    const ajaxurl: string = (window as any).ajaxurl;
+    const AC: LocalizedAcTable = (window as any).AC;
 
     let modalClass: string = '';
     let columnTitle: string;

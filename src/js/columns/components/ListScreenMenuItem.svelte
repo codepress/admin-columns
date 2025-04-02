@@ -1,7 +1,6 @@
 <script lang="ts">
-    import {currentListKey} from "../store/current-list-screen";
+    import {currentListKey,favoriteListKeysStore} from "../store";
     import {createEventDispatcher} from "svelte";
-    import {favoriteListKeysStore} from "../store/favorite-listkeys";
     import {persistMenuFavorite} from "../ajax/menu";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {getColumnSettingsTranslation} from "../utils/global";

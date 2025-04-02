@@ -6,7 +6,7 @@
     export let type: 'info'|'warning' = 'info';
     export let message: string = '';
     export let styled: boolean = false;
-    export let showIcon: boolean = true;
+    export let showIcon: boolean = false;
 
     let element: HTMLElement;
 

@@ -132,7 +132,7 @@
 
 			<hr class="wp-header-end">
 			{#if $listScreenDataStore !== null && $listScreenIsReadOnly}
-				<AcNotice type="info" styled icon>{@html sprintf( i18n.editor.sentence.columns_read_only,
+				<AcNotice type="info" styled showIcon>{@html sprintf( i18n.editor.sentence.columns_read_only,
 					`<strong>${$listScreenDataStore?.title}</strong>` )}</AcNotice>
 			{/if}
 
@@ -171,7 +171,6 @@
 			</div>
 		</main>
 	</div>
-
 
 
 </div>

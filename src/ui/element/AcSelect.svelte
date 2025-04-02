@@ -1,7 +1,6 @@
 <script lang="ts">
     export let customStyles = '';
     export let value: any = '';
-    export let loading: boolean = false;
     export let placeholder: string = '';
 </script>
 
@@ -14,8 +13,7 @@
 		margin: 0;
 		background: #fff;
 		outline: none;
-		-webkit-appearance: none;
-		-moz-appearance: none;
+		appearance: none;
 		border: 1px solid #bbb;
 	}
 	.acui-select select option[disabled] {
