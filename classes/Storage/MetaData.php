@@ -7,7 +7,7 @@ use AC\MetaType;
 class MetaData
 {
 
-    private $meta_type;
+    private MetaType $meta_type;
 
     public function __construct(MetaType $meta_type = null)
     {

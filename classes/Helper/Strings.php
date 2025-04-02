@@ -17,6 +17,13 @@ class Strings
             : $string;
     }
 
+    public function remove_suffix(string $string, string $suffix): string
+    {
+        return $this->ends_with($string, $suffix)
+            ? substr($string, 0, -strlen($suffix))
+            : $string;
+    }
+
     public function ends_with(string $haystack, string $needle): bool
     {
         if ('' === $haystack && '' !== $needle) {

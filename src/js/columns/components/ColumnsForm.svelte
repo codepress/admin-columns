@@ -1,23 +1,20 @@
 <script lang="ts">
     import ColumnItem from "./ColumnItem.svelte";
     import {getColumnSettings, loadDefaultColumns} from "../ajax/ajax";
-    import {openedColumnsStore} from "../store/opened-columns";
     import ColumnUtils from "../utils/column";
-    import AcDropdown from "ACUi/acui-dropdown/AcDropdown.svelte";
     import {ColumnTypesUtils} from "../utils/column-types";
-    import AcButton from "ACUi/element/AcButton.svelte";
     import ListKeys from "../utils/list-keys";
     import {ListScreenColumnData, ListScreenData} from "../../types/requests";
-    import {listScreenDataStore} from "../store/list-screen-data";
+    import {listScreenDataStore,listScreenIsReadOnly,columnTypesStore,currentListKey, openedColumnsStore} from "../store";
     import {onMount, tick} from "svelte";
-    import {currentListKey} from "../store/current-list-screen";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
-    import {listScreenIsReadOnly} from "../store/read_only";
-    import {columnTypesStore} from "../store/column-types";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {getColumnSettingsTranslation} from "../utils/global";
     import {sprintf} from "@wordpress/i18n";
     import ColumnTypeDropdownV2 from "./ColumnTypeDropdownV2.svelte";
+    import {AcButton, AcDropdown, AcPanel, AcPanelFooter, AcPanelHeader, AcPanelTitle} from "ACUi/index";
+    import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
+
 
     const i18n = getColumnSettingsTranslation();
 
@@ -174,28 +171,28 @@
 
 </script>
 
-
 <!--<DebugToolbar bind:data={data} bind:config={config}/>-->
-
 {#if data }
-	<div class="ac-columns acu-shadow">
-		<header class="ac-columns__header">
-			<div class="ac-columns__header__table">
-				<h1>
-					{ListKeys.getLabelForKey( data.type )}
+	<AcPanel>
+		<AcPanelHeader slot="header" border>
+
+			<div class="acu-flex acu-gap-4">
+				<div class="acu-flex acu-gap-2 acu-items-center">
+					<AcPanelTitle title={ListKeys.getLabelForKey( data.type ) ?? ''}/>
 					{#if $listScreenIsReadOnly}
 						<span class="dashicons dashicons-lock"></span>
 					{/if}
-				</h1>
+				</div>
+				<div class="acu-flex-grow acu-max-w-[400px]">
+					<AcInputGroup>
+						<input bind:value={data.title} disabled={locked} type="text"/>
+					</AcInputGroup>
+				</div>
 			</div>
-			<div class="ac-columns__header__title">
-				<input bind:value={data.title} disabled={locked}/>
-			</div>
 
-		</header>
+		</AcPanelHeader>
 
-		<div class="ac-columns__body">
-
+		<div slot="body">
 			{#if data.columns.length === 0 || data.columns === null}
 				<div class="acu-p-10 acu-bg-[#F1F5F9]">
 					<div class="acu-text-center acu-font-bold">
@@ -229,7 +226,6 @@
 					</div>
 				</div>
 			{/if}
-
 			<div bind:this={sortableContainer}>
 				{#each data.columns as column_data(column_data.name)}
 
@@ -244,8 +240,8 @@
 				{/each}
 			</div>
 		</div>
-		<footer class="ac-columns__footer">
-			{#if !$listScreenIsReadOnly && ! locked}
+		<AcPanelFooter slot="footer" classNames={['acu-text-right']}>
+			{#if !$listScreenIsReadOnly && !locked}
 				<div>
 					{#if data.columns.length > 0}
 						<AcButton
@@ -276,9 +272,10 @@
 				</div>
 
 			{/if}
-		</footer>
-	</div>
+		</AcPanelFooter>
+	</AcPanel>
 {:else}
 	<ColumnsFormSkeleton/>
 {/if}
+
 

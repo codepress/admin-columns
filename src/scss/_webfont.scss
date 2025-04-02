@@ -14,20 +14,21 @@ $cpacicon-gf-media: "\ea0d";
 $cpacicon-gf-user: "\ea0e";
 $cpacicon-more: "\ea0f";
 $cpacicon-move: "\ea10";
-$cpacicon-rename: "\ea11";
-$cpacicon-reset-password: "\ea12";
-$cpacicon-segment: "\ea13";
-$cpacicon-smart-filter: "\ea14";
-$cpacicon-text-clip: "\ea15";
-$cpacicon-text-wrap: "\ea16";
-$cpacicon-user-switch: "\ea17";
-$cpacicon-woo: "\ea18";
+$cpacicon-question: "\ea11";
+$cpacicon-rename: "\ea12";
+$cpacicon-reset-password: "\ea13";
+$cpacicon-segment: "\ea14";
+$cpacicon-smart-filter: "\ea15";
+$cpacicon-text-clip: "\ea16";
+$cpacicon-text-wrap: "\ea17";
+$cpacicon-user-switch: "\ea18";
+$cpacicon-woo: "\ea19";
 
 @font-face {
     font-family: "cpac_icons";
     src:
-        url("../fonts/cpac_icons.woff2?v=37453") format("woff2"),
-        url("../fonts/cpac_icons.woff?v=742989") format("woff");
+        url("../fonts/cpac_icons.woff2?v=863309") format("woff2"),
+        url("../fonts/cpac_icons.woff?v=837924") format("woff");
     font-style: normal;
     font-weight: 400;
 }
@@ -110,6 +111,10 @@ $cpacicon-woo: "\ea18";
 
 .cpacicon-move::before {
     content: $cpacicon-move;
+}
+
+.cpacicon-question::before {
+    content: $cpacicon-question;
 }
 
 .cpacicon-rename::before {

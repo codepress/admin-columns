@@ -69,7 +69,7 @@ final class DefaultColumnsRepository
             if ('cb' === $column_name) {
                 continue;
             }
-
+    
             $columns[] = $this->create_column($column_name, $column_data);
         }
 
