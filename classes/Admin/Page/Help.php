@@ -3,11 +3,9 @@
 namespace AC\Admin\Page;
 
 use AC\Admin\RenderableHead;
-use AC\AdminColumns;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
-use AC\Asset\Style;
 use AC\Deprecated\Hooks;
 use AC\Entity\Plugin;
 use AC\Renderable;
@@ -28,7 +26,6 @@ class Help implements Enqueueables, Renderable, RenderableHead
     public function __construct(Hooks $hooks, Plugin $plugin, Renderable $head)
     {
         $this->hooks = $hooks;
-        $this->location = $plugin->get_location();
         $this->head = $head;
     }
 
@@ -39,9 +36,7 @@ class Help implements Enqueueables, Renderable, RenderableHead
 
     public function get_assets(): Assets
     {
-        return new Assets([
-            new Style('ac-admin-page-help-css', $this->location->with_suffix('assets/css/admin-page-help.css')),
-        ]);
+        return new Assets([]);
     }
 
     public function render(): string
