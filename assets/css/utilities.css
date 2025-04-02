@@ -358,6 +358,10 @@
   max-width: 260px
 }
 
+.acu-max-w-\[400px\] {
+  max-width: 400px
+}
+
 .acu-max-w-\[700px\] {
   max-width: 700px
 }
@@ -448,6 +452,10 @@
 
 .acu-flex-wrap {
   flex-wrap: wrap
+}
+
+.acu-items-end {
+  align-items: flex-end
 }
 
 .acu-items-center {
@@ -560,6 +568,10 @@
 
 .acu-border-ui-border {
   border-color: var(--acui-border)
+}
+
+.acu-border-b-ui-border {
+  border-bottom-color: var(--acui-border)
 }
 
 .acu-bg-\[\#E2E8F0\] {

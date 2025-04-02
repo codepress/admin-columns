@@ -1,15 +1,10 @@
 import {initAcServices} from "./helpers/admin-columns";
 import ColumnsPage from "./columns/components/ColumnsPage.svelte";
-import {currentListId, currentListKey} from "./columns/store/current-list-screen";
+import {currentListId, currentListKey,debugMode, columnTypesStore, favoriteListKeysStore, showColumnInfo, hasUsagePermissions} from "./columns/store";
 import {getColumnSettingsConfig} from "./columns/utils/global";
-import {columnTypesStore} from "./columns/store/column-types";
-import {favoriteListKeysStore} from "./columns/store/favorite-listkeys";
-import {debugMode} from "./columns/store/debug";
-import {showColumnInfo} from "./columns/store/screen-options";
 import {initListScreenHeadings, initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
 import InfoScreenOption from "./modules/screen-options";
 import ColumnPageBridge from "./columns/utils/page-bridge";
-import {hasUsagePermissions} from "./columns/store/permissions";
 
 const AcServices = initAcServices();
 const localConfig = getColumnSettingsConfig();

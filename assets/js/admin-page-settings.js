@@ -4058,8 +4058,8 @@ function create_fragment(ctx) {
   let div;
   let div_class_value;
   let current;
-  const default_slot_template = /*#slots*/ctx[3].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[2], null);
+  const default_slot_template = /*#slots*/ctx[4].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[3], null);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -4075,8 +4075,8 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/4)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[2], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[2]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[2], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/8)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[3], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[3]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[3], dirty, null), null);
         }
       }
     },
@@ -4105,21 +4105,26 @@ function instance($$self, $$props, $$invalidate) {
   let {
     border = false
   } = $$props;
-  let classes = ['acu-px-[20px] acu-pt-[20px] acu-pb-[20px] '];
+  let {
+    classNames = []
+  } = $$props;
+  let classes = ['acu-px-[20px] acu-pt-[20px] acu-pb-[20px] ', ...classNames];
   if (border) {
     classes.push('acu-border-0 acu-border-t acu-border-solid acu-border-ui-border');
   }
   $$self.$$set = $$props => {
     if ('border' in $$props) $$invalidate(1, border = $$props.border);
-    if ('$$scope' in $$props) $$invalidate(2, $$scope = $$props.$$scope);
+    if ('classNames' in $$props) $$invalidate(2, classNames = $$props.classNames);
+    if ('$$scope' in $$props) $$invalidate(3, $$scope = $$props.$$scope);
   };
-  return [classes, border, $$scope, slots];
+  return [classes, border, classNames, $$scope, slots];
 }
 class AcPanelFooter extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      border: 1
+      border: 1,
+      classNames: 2
     });
   }
 }
@@ -4334,7 +4339,7 @@ function instance($$self, $$props, $$invalidate) {
     subtitle = null
   } = $$props;
   let {
-    type = 'h3'
+    type = 'h2'
   } = $$props;
   let {
     border = false
@@ -4391,7 +4396,7 @@ function create_fragment(ctx) {
     c() {
       span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
       t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*subtitle*/ctx[1]);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value = /*type*/ctx[0] === 'h2' ? 'acu-pt-1 acu-block' : '');
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value = /*type*/ctx[0] === 'h2' ? 'acu-pt-2 acu-block' : 'acu-pt-1 acu-block');
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
@@ -4399,7 +4404,7 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       if (dirty & /*subtitle*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*subtitle*/ctx[1]);
-      if (dirty & /*type*/1 && span_class_value !== (span_class_value = /*type*/ctx[0] === 'h2' ? 'acu-pt-1 acu-block' : '')) {
+      if (dirty & /*type*/1 && span_class_value !== (span_class_value = /*type*/ctx[0] === 'h2' ? 'acu-pt-2 acu-block' : 'acu-pt-1 acu-block')) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value);
       }
     },
@@ -4414,7 +4419,7 @@ function create_fragment(ctx) {
 }
 function instance($$self, $$props, $$invalidate) {
   let {
-    type = 'h3'
+    type = 'h2'
   } = $$props;
   let {
     subtitle
@@ -4546,7 +4551,7 @@ function instance($$self, $$props, $$invalidate) {
     title
   } = $$props;
   let {
-    type = 'h3'
+    type = 'h2'
   } = $$props;
   $$self.$$set = $$props => {
     if ('title' in $$props) $$invalidate(0, title = $$props.title);

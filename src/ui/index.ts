@@ -9,3 +9,4 @@ export { default as AcTooltip } from "./AcTooltip.svelte";
 export * from "./acui-panel";
 export * from "./acui-dropdown";
 export * from "./acui-table";
+export * from "./element";

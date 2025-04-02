@@ -1,62 +1,56 @@
 <script>
 	import AcSkeleton from "ACUi/element/AcSkeleton.svelte";
+	import {AcPanel, AcPanelFooter, AcPanelHeader} from "ACUi/acui-panel";
 </script>
 
-<div class="ac-columns">
-	<header class="ac-columns__header">
-		<div class="ac-columns__header__table">
-			<AcSkeleton width="150px" height="40px"/>
-		</div>
-		<div class="ac-columns__header__title">
-			<AcSkeleton height="40px"/>
-		</div>
-		<div class="ac-columns__header__action">
-			<AcSkeleton height="40px" width="60px"/>
-		</div>
-	</header>
-	<div class="ac-columns__body">
-		{#each new Array( 5 ) as i}
-			<div class="ac-column">
-				<header class="ac-column-header acu-flex acu-py-2 acu-pr-6 acu-items-center acu-bg-[#fff]">
-					<div class="ac-column-header__move acu-cursor-move">
+<AcPanel>
+	<AcPanelHeader slot="header" border>
 
+		<div class="acu-flex acu-gap-4">
+			<div class="acu-flex acu-gap-2 acu-items-center">
+				<AcSkeleton width="150px" height="40px"/>
+			</div>
+			<div class="acu-flex-grow acu-max-w-[400px]">
+				<AcSkeleton height="40px"/>
+			</div>
+		</div>
+
+	</AcPanelHeader>
+	<div slot="body">
+		{#each new Array( 5 ) as i}
+			<div
+				class="ac-column acu-px-4 acu-py-2 acu-flex acu-mb-2 acu-border-b-ui-border acu-border-b acu-border-solid-b">
+				<div class="acu-flex-grow">
+					<AcSkeleton width="260px"/>
+				</div>
+				<div class="ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end">
+					<div>
+						<AcSkeleton width="34px" height="34px"/>
 					</div>
-					<div class="ac-column-header__label">
-						<div class="acu-pb-4">
-							<AcSkeleton width="260px"/>
-						</div>
+					<div>
+						<AcSkeleton width="34px" height="34px"/>
 					</div>
-					<div class="ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end">
-						<div>
-							<AcSkeleton width="34px" height="34px"/>
-						</div>
-						<div>
-							<AcSkeleton width="34px" height="34px"/>
-						</div>
-						<div>
-							<AcSkeleton width="34px" height="34px"/>
-						</div>
-						<div>
-							<AcSkeleton width="34px" height="34px"/>
-						</div>
-						<div>
-							<AcSkeleton width="34px" height="34px"/>
-						</div>
-						<div>
-							<AcSkeleton width="34px" height="34px"/>
-						</div>
+					<div>
+						<AcSkeleton width="34px" height="34px"/>
 					</div>
-					<div class="ac-column-header__open-indicator acu-flex acu-justify-end">
-						<button class="ac-open-indicator"><span class="dashicons dashicons-arrow-down-alt2"></span>
-						</button>
+					<div>
+						<AcSkeleton width="34px" height="34px"/>
 					</div>
-				</header>
+					<div>
+						<AcSkeleton width="34px" height="34px"/>
+					</div>
+					<div>
+						<AcSkeleton width="34px" height="34px"/>
+					</div>
+					<div class="acu-px-2">
+						<span class="dashicons dashicons-arrow-down-alt2"></span>
+					</div>
+				</div>
+
 			</div>
 		{/each}
 	</div>
-	<footer class="ac-columns__footer">
-		<div>
-			<AcSkeleton height="36px" width="120px"/>
-		</div>
-	</footer>
-</div>
+	<AcPanelFooter slot="footer" classNames={'acu-flex acu-items-end'}>
+		<AcSkeleton height="36px" width="120px"/>
+	</AcPanelFooter>
+</AcPanel>

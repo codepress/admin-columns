@@ -1,20 +1,16 @@
 <script lang="ts">
     import ColumnsForm from "./ColumnsForm.svelte";
     import {ListScreenData} from "../../types/requests";
-    import ListScreenSections from "../store/list-screen-sections";
     import HtmlSection from "./HtmlSection.svelte";
     import {saveListScreen} from "../ajax/ajax";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
-    import {currentListKey} from "../store/current-list-screen";
+    import {currentListKey} from "../store";
     import {AxiosError} from "axios";
-    import {getColumnSettingsTranslation} from "../utils/global";
+    import ListScreenSections from "../store/list-screen-sections";
 
     export let config: any
     export let data: ListScreenData
     export let locked: boolean = false;
-
-    const i18n = getColumnSettingsTranslation();
-
     export let isSaving = false;
 
     export const saveSettings = () => {
