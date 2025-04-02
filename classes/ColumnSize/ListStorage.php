@@ -113,7 +113,13 @@ class ListStorage
 
     private function create(Column $column): ?ColumnWidth
     {
-        $width = (int)$column->get_setting('width')->get_input()->get_value();
+        $width_setting = $column->get_setting('width');
+
+        if ( ! $width_setting) {
+            return null;
+        }
+        
+        $width = (int)$width_setting->get_input()->get_value();
 
         if ($width < 1) {
             return null;
