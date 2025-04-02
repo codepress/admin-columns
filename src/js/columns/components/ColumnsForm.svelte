@@ -240,7 +240,7 @@
 				{/each}
 			</div>
 		</div>
-		<AcPanelFooter slot="footer" classNames={['acu-text-right']}>
+		<AcPanelFooter slot="footer" classNames={['acu-flex acu-justify-end']}>
 			{#if !$listScreenIsReadOnly && !locked}
 				<div>
 					{#if data.columns.length > 0}
