@@ -4993,7 +4993,7 @@ function create_trigger_slot(ctx) {
   };
 }
 
-// (220:2) <AcPanelFooter slot="footer" classNames={['acu-text-right']}>
+// (220:2) <AcPanelFooter slot="footer" classNames={['acu-flex acu-justify-end']}>
 function create_default_slot(ctx) {
   let if_block_anchor;
   let current;
@@ -5054,7 +5054,7 @@ function create_footer_slot(ctx) {
   acpanelfooter = new ACUi_index__WEBPACK_IMPORTED_MODULE_14__.AcPanelFooter({
     props: {
       slot: "footer",
-      classNames: ['acu-text-right'],
+      classNames: ['acu-flex acu-justify-end'],
       $$slots: {
         default: [create_default_slot]
       },
