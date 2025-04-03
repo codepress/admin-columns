@@ -16,12 +16,3 @@ export const addEventListenerLive = (eventType: string, elementQuerySelector: st
         }
     });
 }
-
-export const onHover = (el: HTMLElement, cbOver: EventListener, cbLeave: EventListener) => {
-    el.addEventListener('mouseenter', cbOver);
-    el.addEventListener('mouseleave', cbLeave);
-}
-
-export const addEventListeners = (el: HTMLElement, events: Array<string>, callback: EventListener) => {
-    events.forEach(event => el.addEventListener(event, callback));
-}

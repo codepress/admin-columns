@@ -1,5 +1,3 @@
-import {keyAnyPair, keySpecificPair} from "../helpers/types";
-
 export type ModuleConfirmationTranslation = {
     ok: string
     cancel: string
@@ -24,7 +22,7 @@ export type AcGeneralSettingsI18N = {
     confirmation: ModuleConfirmationTranslation
 }
 
-export type UninitializedListScreens = keySpecificPair<UninitializedListScreen>
+export type UninitializedListScreens = Record<string, UninitializedListScreen>
 
 export type UninitializedListScreen = {
     label: string
@@ -32,8 +30,8 @@ export type UninitializedListScreen = {
 }
 
 export type ListScreenStorageType = {
-    columns: keyAnyPair
-    settings: keyAnyPair
+    columns: Record<string, any>
+    settings: Record<string, any>
     list_screen: string
     list_screen_id: string
     title: string

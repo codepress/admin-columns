@@ -1,7 +1,7 @@
 import Table, {TableEventPayload} from "./table/table";
 import Tooltip from "./modules/tooltips";
 import ScreenOptionsColumns from "./table/screen-options-columns";
-import ToggleBoxLink from "./modules/toggle-box-link";
+
 // @ts-ignore
 import $ from 'jquery';
 import {auto_init_show_more} from "./plugin/show-more";
@@ -9,7 +9,6 @@ import {init_actions_tooltips} from "./table/functions";
 import {EventConstants} from "./constants";
 import {getIdFromTableRow, resolveTableBySelector} from "./helpers/table";
 import {initAcServices} from "./helpers/admin-columns";
-import Modals from "./modules/modals";
 import {initPointers} from "./modules/ac-pointer";
 import {LocalizedAcTable} from "./types/table";
 import ValueModals from "./modules/value-modals";
@@ -21,7 +20,6 @@ declare let AC: LocalizedAcTable
 
 let AC_SERVICES = initAcServices();
 
-AC_SERVICES.registerService('Modals', new Modals());
 AC_SERVICES.registerService('tooltips', initAcTooltips);
 AC_SERVICES.registerService('initPointers', initPointers);
 
@@ -37,10 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     AC_SERVICES.registerService('Tooltips', new Tooltip());
-
-    document.querySelectorAll<HTMLLinkElement>('.ac-toggle-box-link').forEach(el => {
-        new ToggleBoxLink(el);
-    });
 
     $('.wp-list-table').on('updated', 'tr', function () {
         AC_SERVICES.getService<Table>('Table')!.addCellClasses();

@@ -6379,7 +6379,6 @@ const createElementFromString = (content, baseElement = 'div') => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   appendObjectToFormData: () => (/* binding */ appendObjectToFormData),
 /* harmony export */   getParamFromUrl: () => (/* binding */ getParamFromUrl),
 /* harmony export */   mapDataToFormData: () => (/* binding */ mapDataToFormData),
 /* harmony export */   sanitizeColumnSelector: () => (/* binding */ sanitizeColumnSelector),
@@ -6921,139 +6920,6 @@ class JsonViewer {
 
 /***/ }),
 
-/***/ "./js/modules/modal.ts":
-/*!*****************************!*\
-  !*** ./js/modules/modal.ts ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Modal)
-/* harmony export */ });
-class Modal {
-    constructor(el) {
-        var _a;
-        this.el = el;
-        this.dialog = (_a = el.querySelector('.ac-modal__dialogs')) !== null && _a !== void 0 ? _a : document.createElement('div');
-        this.initEvents();
-    }
-    getElement() {
-        return this.el;
-    }
-    initEvents() {
-        document.addEventListener('keydown', (e) => {
-            const keyName = e.key;
-            if (!this.isOpen()) {
-                return;
-            }
-            if ('Escape' === keyName) {
-                this.close();
-            }
-        });
-        let dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
-        if (dismissButtons.length > 0) {
-            dismissButtons.forEach((b) => {
-                b.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.close();
-                });
-            });
-        }
-        this.el.addEventListener('click', (e) => {
-            if (e.target.classList.contains('ac-modal')) {
-                self.close();
-            }
-        });
-    }
-    isOpen() {
-        return this.el.classList.contains('-active');
-    }
-    close() {
-        this.onClose();
-        this.el.classList.remove('-active');
-    }
-    open() {
-        //short delay in order to allow bubbling events to bind before opening
-        setTimeout(() => {
-            this.onOpen();
-            this.el.removeAttribute('style');
-            this.el.classList.add('-active');
-        });
-    }
-    destroy() {
-        this.el.remove();
-    }
-    onClose() {
-    }
-    onOpen() {
-    }
-}
-
-
-/***/ }),
-
-/***/ "./js/modules/modals.ts":
-/*!******************************!*\
-  !*** ./js/modules/modals.ts ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Modals)
-/* harmony export */ });
-/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./js/modules/modal.ts");
-
-class Modals {
-    constructor() {
-        this.modals = {};
-        this.number = 0;
-        this.defaults = {
-            modal: _modal__WEBPACK_IMPORTED_MODULE_0__["default"]
-        };
-        this.initGlobalEvents();
-    }
-    register(modal, key = '') {
-        if (!key) {
-            key = 'm' + this.number;
-        }
-        this.modals[key] = modal;
-        this.number++;
-        return modal;
-    }
-    get(key) {
-        return this.modals.hasOwnProperty(key) ? this.modals[key] : null;
-    }
-    open(key) {
-        var _a;
-        (_a = this.get(key)) === null || _a === void 0 ? void 0 : _a.open();
-    }
-    close(key) {
-        var _a;
-        (_a = this.get(key)) === null || _a === void 0 ? void 0 : _a.close();
-    }
-    closeAll() {
-        for (let key in this.modals) {
-            this.close(key);
-        }
-    }
-    initGlobalEvents() {
-        document.addEventListener('click', (e) => {
-            let target = e.target;
-            if (target.dataset.acModal) {
-                e.preventDefault();
-                this.open(target.dataset.acModal);
-            }
-        });
-    }
-}
-
-
-/***/ }),
-
 /***/ "./js/modules/service-container.ts":
 /*!*****************************************!*\
   !*** ./js/modules/service-container.ts ***!
@@ -7077,120 +6943,6 @@ class ServiceContainer {
     }
     hasService(name) {
         return this.services.hasOwnProperty(name);
-    }
-}
-
-
-/***/ }),
-
-/***/ "./js/modules/toggle-box-link.ts":
-/*!***************************************!*\
-  !*** ./js/modules/toggle-box-link.ts ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ToggleBoxLink)
-/* harmony export */ });
-/* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/elements */ "./js/helpers/elements.ts");
-/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
-
-
-const $ = __webpack_require__(/*! jquery */ "jquery");
-class ToggleBoxLink {
-    constructor(element) {
-        var _a, _b;
-        this.element = element;
-        this.element = element;
-        this.initEvents();
-        this.contentBox = (_b = (_a = element === null || element === void 0 ? void 0 : element.parentElement) === null || _a === void 0 ? void 0 : _a.querySelector('.ac-toggle-box-contents')) !== null && _b !== void 0 ? _b : null;
-        if (!this.contentBox) {
-            this.createContentBox();
-        }
-    }
-    isAjax() {
-        var _a;
-        return parseInt((_a = this.element.dataset.ajaxPopulate) !== null && _a !== void 0 ? _a : '') === 1;
-    }
-    isInited() {
-        return this.element.dataset.toggleBoxInit;
-    }
-    createContentBox() {
-        let contentBox = document.createElement('div');
-        contentBox.classList.add('ac-toggle-box-contents');
-        (0,_helpers_elements__WEBPACK_IMPORTED_MODULE_0__.insertAfter)(contentBox, this.element);
-        this.contentBox = contentBox;
-        return this.contentBox;
-    }
-    initEvents() {
-        if (this.isInited()) {
-            return;
-        }
-        this.element.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (this.isAjax() && !this.hasContent()) {
-                this.manageAjaxValue();
-            }
-            this.toggleContentBox();
-        });
-        this.element.dataset.toggleBoxInit = 'true';
-    }
-    hasContent() {
-        return this.getContentBox().innerHTML.length > 0;
-    }
-    setContent(content) {
-        this.getContentBox().innerHTML = content;
-    }
-    getContentBox() {
-        if (!this.contentBox) {
-            return this.createContentBox();
-        }
-        return this.contentBox;
-    }
-    setLabel(open) {
-        let label = this.element.dataset.label;
-        if (open && this.element.dataset.labelClose) {
-            label = this.element.dataset.labelClose;
-        }
-        this.element.innerHTML = label + '<span class="spinner"></span>';
-        (0,_plugin_tooltip__WEBPACK_IMPORTED_MODULE_1__.initAcTooltips)();
-    }
-    toggleContentBox() {
-        if (this.getContentBox().classList.contains('-open')) {
-            this.getContentBox().classList.remove('-open');
-            this.setLabel(false);
-        }
-        else {
-            this.getContentBox().classList.add('-open');
-            this.setLabel(true);
-        }
-    }
-    manageAjaxValue() {
-        this.element.classList.add('loading');
-        this.retrieveAjaxValue().done((response) => {
-            var _a;
-            this.setContent(response);
-            $(this.element.parentElement).trigger('ajax_column_value_ready');
-            (_a = AC_SERVICES.getService('Tooltips')) === null || _a === void 0 ? void 0 : _a.init();
-        }).always(() => {
-            this.element.classList.remove('loading');
-        });
-    }
-    retrieveAjaxValue() {
-        return $.ajax({
-            url: ajaxurl,
-            method: 'POST',
-            data: {
-                action: 'ac-get-column-value',
-                list_screen: AC.list_screen,
-                layout: AC.layout,
-                column: this.element.dataset.column,
-                pk: this.element.dataset.itemId,
-                _ajax_nonce: AC.ajax_nonce
-            }
-        });
     }
 }
 
@@ -17876,20 +17628,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _table_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./table/table */ "./js/table/table.ts");
 /* harmony import */ var _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.ts");
 /* harmony import */ var _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./table/screen-options-columns */ "./js/table/screen-options-columns.ts");
-/* harmony import */ var _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/toggle-box-link */ "./js/modules/toggle-box-link.ts");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "jquery");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _plugin_show_more__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./plugin/show-more */ "./js/plugin/show-more.ts");
-/* harmony import */ var _table_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./table/functions */ "./js/table/functions.ts");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
-/* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers/table */ "./js/helpers/table.ts");
-/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
-/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/modals */ "./js/modules/modals.ts");
-/* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.ts");
-/* harmony import */ var _modules_value_modals__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/value-modals */ "./js/modules/value-modals.ts");
-/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./plugin/tooltip */ "./js/plugin/tooltip.ts");
-/* harmony import */ var _modules_json_viewer__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/json-viewer */ "./js/modules/json-viewer.ts");
-
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _plugin_show_more__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./plugin/show-more */ "./js/plugin/show-more.ts");
+/* harmony import */ var _table_functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./table/functions */ "./js/table/functions.ts");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
+/* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./helpers/table */ "./js/helpers/table.ts");
+/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
+/* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.ts");
+/* harmony import */ var _modules_value_modals__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/value-modals */ "./js/modules/value-modals.ts");
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./plugin/tooltip */ "./js/plugin/tooltip.ts");
+/* harmony import */ var _modules_json_viewer__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/json-viewer */ "./js/modules/json-viewer.ts");
 
 
 
@@ -17904,37 +17653,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-let AC_SERVICES = (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__.initAcServices)();
-AC_SERVICES.registerService('Modals', new _modules_modals__WEBPACK_IMPORTED_MODULE_10__["default"]());
-AC_SERVICES.registerService('tooltips', _plugin_tooltip__WEBPACK_IMPORTED_MODULE_13__.initAcTooltips);
-AC_SERVICES.registerService('initPointers', _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__.initPointers);
+let AC_SERVICES = (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_8__.initAcServices)();
+AC_SERVICES.registerService('tooltips', _plugin_tooltip__WEBPACK_IMPORTED_MODULE_11__.initAcTooltips);
+AC_SERVICES.registerService('initPointers', _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_9__.initPointers);
 document.addEventListener('DOMContentLoaded', () => {
-    let table = (0,_helpers_table__WEBPACK_IMPORTED_MODULE_8__.resolveTableBySelector)(AC.table_id);
-    (0,_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__.initPointers)();
+    let table = (0,_helpers_table__WEBPACK_IMPORTED_MODULE_7__.resolveTableBySelector)(AC.table_id);
+    (0,_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_9__.initPointers)();
     if (table) {
         const TableModule = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](table, AC_SERVICES).init();
         AC_SERVICES.registerService('Table', TableModule);
         AC_SERVICES.registerService('ScreenOptionsColumns', new _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__["default"](TableModule.Columns));
     }
     AC_SERVICES.registerService('Tooltips', new _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__["default"]());
-    document.querySelectorAll('.ac-toggle-box-link').forEach(el => {
-        new _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__["default"](el);
-    });
-    jquery__WEBPACK_IMPORTED_MODULE_4___default()('.wp-list-table').on('updated', 'tr', function () {
+    jquery__WEBPACK_IMPORTED_MODULE_3___default()('.wp-list-table').on('updated', 'tr', function () {
         AC_SERVICES.getService('Table').addCellClasses();
-        (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__.auto_init_show_more)();
+        (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_4__.auto_init_show_more)();
     });
 });
-AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.TABLE.READY, (event) => {
+AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_6__.EventConstants.TABLE.READY, (event) => {
     var _a;
-    (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__.auto_init_show_more)();
-    (0,_table_functions__WEBPACK_IMPORTED_MODULE_6__.init_actions_tooltips)();
+    (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_4__.auto_init_show_more)();
+    (0,_table_functions__WEBPACK_IMPORTED_MODULE_5__.init_actions_tooltips)();
     let observer = new MutationObserver(mutations => {
         mutations.forEach((mutation) => {
             mutation.addedNodes.forEach((node) => {
                 if (node.tagName === 'TR' && node.classList.contains('iedit')) {
-                    jquery__WEBPACK_IMPORTED_MODULE_4___default()(node).trigger('updated', { id: (0,_helpers_table__WEBPACK_IMPORTED_MODULE_8__.getIdFromTableRow)(node), row: node });
+                    jquery__WEBPACK_IMPORTED_MODULE_3___default()(node).trigger('updated', { id: (0,_helpers_table__WEBPACK_IMPORTED_MODULE_7__.getIdFromTableRow)(node), row: node });
                 }
             });
         });
@@ -17942,7 +17686,7 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
     observer.observe(event.table.getElement(), { childList: true, subtree: true });
     event.table.Cells.getAll().forEach(cell => {
         cell.events.addListener('setValue', () => {
-            (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__.auto_init_show_more)();
+            (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_4__.auto_init_show_more)();
         });
     });
     let items = {};
@@ -17967,9 +17711,9 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
             });
         }
     });
-    Object.keys(items).forEach(i => new _modules_value_modals__WEBPACK_IMPORTED_MODULE_12__["default"](items[i]));
+    Object.keys(items).forEach(i => new _modules_value_modals__WEBPACK_IMPORTED_MODULE_10__["default"](items[i]));
     document.querySelectorAll('[data-component="ac-json"]').forEach(el => {
-        new _modules_json_viewer__WEBPACK_IMPORTED_MODULE_14__["default"](el);
+        new _modules_json_viewer__WEBPACK_IMPORTED_MODULE_12__["default"](el);
     });
     (_a = event.table.Actions) === null || _a === void 0 ? void 0 : _a.refresh();
 });

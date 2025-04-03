@@ -29675,6 +29675,39 @@ class ComparisonSpecification extends _base_specification__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
+/***/ "./js/expression/index.ts":
+/*!********************************!*\
+  !*** ./js/expression/index.ts ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _and_specification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./and-specification */ "./js/expression/and-specification.ts");
+/* harmony import */ var _comparison_specification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./comparison-specification */ "./js/expression/comparison-specification.ts");
+/* harmony import */ var _not_specification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./not-specification */ "./js/expression/not-specification.ts");
+/* harmony import */ var _null_specification__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./null-specification */ "./js/expression/null-specification.ts");
+/* harmony import */ var _or_specification__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./or-specification */ "./js/expression/or-specification.ts");
+
+
+
+
+
+const Specification = {
+    And: _and_specification__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Comparison: _comparison_specification__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Not: _not_specification__WEBPACK_IMPORTED_MODULE_2__["default"],
+    Null: _null_specification__WEBPACK_IMPORTED_MODULE_3__["default"],
+    Or: _or_specification__WEBPACK_IMPORTED_MODULE_4__["default"]
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Specification);
+
+
+/***/ }),
+
 /***/ "./js/expression/not-specification.ts":
 /*!********************************************!*\
   !*** ./js/expression/not-specification.ts ***!
@@ -29775,26 +29808,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ RuleSpecificationMapper)
 /* harmony export */ });
-/* harmony import */ var _or_specification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./or-specification */ "./js/expression/or-specification.ts");
-/* harmony import */ var _and_specification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./and-specification */ "./js/expression/and-specification.ts");
-/* harmony import */ var _not_specification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./not-specification */ "./js/expression/not-specification.ts");
-/* harmony import */ var _comparison_specification__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./comparison-specification */ "./js/expression/comparison-specification.ts");
-/* harmony import */ var _null_specification__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./null-specification */ "./js/expression/null-specification.ts");
-
-
-
-
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ */ "./js/expression/index.ts");
 
 class RuleSpecificationMapper {
     static map(rule) {
         switch (rule.specification) {
             case 'null':
-                return new _null_specification__WEBPACK_IMPORTED_MODULE_4__["default"]();
+                return new ___WEBPACK_IMPORTED_MODULE_0__["default"].Null();
             case 'or':
             case 'and':
                 return this.createAggregate(rule);
             case 'not':
-                return new _not_specification__WEBPACK_IMPORTED_MODULE_2__["default"](this.map(rule.rule));
+                return new ___WEBPACK_IMPORTED_MODULE_0__["default"].Not(this.map(rule.rule));
             case 'string_comparison':
             case 'comparison':
                 return this.createComparison(rule);
@@ -29802,16 +29827,16 @@ class RuleSpecificationMapper {
         throw Error;
     }
     static createComparison(rule) {
-        return new _comparison_specification__WEBPACK_IMPORTED_MODULE_3__["default"](rule.fact, rule.operator);
+        return new ___WEBPACK_IMPORTED_MODULE_0__["default"].Comparison(rule.fact, rule.operator);
     }
     static createAggregate(aggregateRule) {
         let specifications = [];
         aggregateRule.rules.forEach(rule => specifications.push(this.map(rule)));
         switch (aggregateRule.specification) {
             case 'or':
-                return new _or_specification__WEBPACK_IMPORTED_MODULE_0__["default"](specifications);
+                return new ___WEBPACK_IMPORTED_MODULE_0__["default"].Or(specifications);
             case 'and':
-                return new _and_specification__WEBPACK_IMPORTED_MODULE_1__["default"](specifications);
+                return new ___WEBPACK_IMPORTED_MODULE_0__["default"].And(specifications);
         }
         throw Error;
     }
@@ -29852,7 +29877,6 @@ const initAcServices = () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   appendObjectToFormData: () => (/* binding */ appendObjectToFormData),
 /* harmony export */   getParamFromUrl: () => (/* binding */ getParamFromUrl),
 /* harmony export */   mapDataToFormData: () => (/* binding */ mapDataToFormData),
 /* harmony export */   sanitizeColumnSelector: () => (/* binding */ sanitizeColumnSelector),

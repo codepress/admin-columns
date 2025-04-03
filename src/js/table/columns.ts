@@ -1,4 +1,3 @@
-import {keyAnyPair} from "../helpers/types";
 import {LocalizedAcTable} from "../types/table";
 
 type ColumnsValue = {
@@ -9,7 +8,7 @@ declare const AC: LocalizedAcTable
 
 export default class Columns {
 
-    constructor( private table: HTMLTableElement, private columns: ColumnsValue = {} ) {
+    constructor(private table: HTMLTableElement, private columns: ColumnsValue = {}) {
         this.init();
     }
 
@@ -54,7 +53,7 @@ export class ColumnTableSettings {
     name: string
     type: string
     label: string;
-    services: keyAnyPair
+    services: Record<string, any>
 
     constructor(name: string, type: string, label: string) {
         this.name = name;

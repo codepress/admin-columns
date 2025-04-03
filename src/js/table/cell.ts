@@ -1,4 +1,3 @@
-import {keyAnyPair} from "../helpers/types";
 import AcServices from "../modules/ac-services";
 import Table from "./table";
 import Nanobus from "nanobus";
@@ -11,7 +10,7 @@ export default class Cell {
     private column_name: string
     private original_value: string
     private el: HTMLTableCellElement
-    private services: keyAnyPair
+    private services: Record<string, any>
     events: Nanobus
 
     constructor(id: number, name: string, el: HTMLTableCellElement) {
@@ -23,7 +22,7 @@ export default class Cell {
         this.events = new Nanobus();
     }
 
-    getOriginalValue(){
+    getOriginalValue() {
         return this.original_value;
     }
 

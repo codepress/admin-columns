@@ -1,9 +1,7 @@
-import {keyStringPair} from "../helpers/types";
-
 export type LocalizedAcTable = {
     assets: string,
     ajax_nonce: string,
-    column_types: keyStringPair
+    column_types: Record<string, string>,
     layout: string,
     list_screen: string,
     list_screen_link: string,
