@@ -14,4 +14,3 @@ export const persistGeneralSetting = ( name: string, value: string ) => {
         option_value: value
     }));
 }
-

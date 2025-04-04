@@ -9,12 +9,6 @@ export default class Notice {
         this.dismissible = false;
     }
 
-    setMessage(message: string) {
-        this.message = message;
-
-        return this;
-    }
-
     renderDismiss() {
         const button = document.createElement('button');
 
@@ -33,12 +27,6 @@ export default class Notice {
 
     renderContent() {
         this.element.insertAdjacentHTML('afterbegin', this.message);
-    }
-
-    makeDismissable() {
-        this.dismissible = true;
-
-        return this;
     }
 
     addClass(className: string) {

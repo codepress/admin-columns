@@ -1,5 +1,4 @@
-import NotSpecification from "./not-specification";
-import AndSpecification from "./and-specification";
+import Spec from "./";
 import Specification = AC.Specification.Specification;
 
 export default class OrSpecification implements Specification {
@@ -8,11 +7,11 @@ export default class OrSpecification implements Specification {
     }
 
     andSpecification(specification: Specification): Specification {
-        return new AndSpecification([specification, this]);
+        return new Spec.And([specification, this]);
     }
 
     not(): Specification {
-        return new NotSpecification(this);
+        return new Spec.Not(this);
     }
 
     orSpecification(specification: Specification): Specification {

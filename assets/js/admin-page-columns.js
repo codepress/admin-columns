@@ -29582,9 +29582,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ AndSpecification)
 /* harmony export */ });
-/* harmony import */ var _not_specification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./not-specification */ "./js/expression/not-specification.ts");
-/* harmony import */ var _or_specification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./or-specification */ "./js/expression/or-specification.ts");
-
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ */ "./js/expression/index.ts");
 
 class AndSpecification {
     constructor(specifications) {
@@ -29594,10 +29592,10 @@ class AndSpecification {
         return new AndSpecification([specification, this]);
     }
     not() {
-        return new _not_specification__WEBPACK_IMPORTED_MODULE_0__["default"](this);
+        return new ___WEBPACK_IMPORTED_MODULE_0__["default"].Not(this);
     }
     orSpecification(specification) {
-        return new _or_specification__WEBPACK_IMPORTED_MODULE_1__["default"]([specification, this]);
+        return new ___WEBPACK_IMPORTED_MODULE_0__["default"].Or([specification, this]);
     }
     isSatisfiedBy(value) {
         this.specifications.forEach(specification => {
@@ -29623,21 +29621,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ BaseSpecification)
 /* harmony export */ });
-/* harmony import */ var _and_specification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./and-specification */ "./js/expression/and-specification.ts");
-/* harmony import */ var _not_specification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./not-specification */ "./js/expression/not-specification.ts");
-/* harmony import */ var _or_specification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./or-specification */ "./js/expression/or-specification.ts");
-
-
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ */ "./js/expression/index.ts");
 
 class BaseSpecification {
     andSpecification(specification) {
-        return new _and_specification__WEBPACK_IMPORTED_MODULE_0__["default"]([specification, this]);
+        return new ___WEBPACK_IMPORTED_MODULE_0__["default"].And([specification, this]);
     }
     not() {
-        return new _not_specification__WEBPACK_IMPORTED_MODULE_1__["default"](this);
+        return new ___WEBPACK_IMPORTED_MODULE_0__["default"].Not(this);
     }
     orSpecification(specification) {
-        return new _or_specification__WEBPACK_IMPORTED_MODULE_2__["default"]([specification, this]);
+        return new ___WEBPACK_IMPORTED_MODULE_0__["default"].Or([specification, this]);
     }
 }
 
@@ -29770,19 +29764,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ OrSpecification)
 /* harmony export */ });
-/* harmony import */ var _not_specification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./not-specification */ "./js/expression/not-specification.ts");
-/* harmony import */ var _and_specification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./and-specification */ "./js/expression/and-specification.ts");
-
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ */ "./js/expression/index.ts");
 
 class OrSpecification {
     constructor(specifications) {
         this.specifications = specifications;
     }
     andSpecification(specification) {
-        return new _and_specification__WEBPACK_IMPORTED_MODULE_1__["default"]([specification, this]);
+        return new ___WEBPACK_IMPORTED_MODULE_0__["default"].And([specification, this]);
     }
     not() {
-        return new _not_specification__WEBPACK_IMPORTED_MODULE_0__["default"](this);
+        return new ___WEBPACK_IMPORTED_MODULE_0__["default"].Not(this);
     }
     orSpecification(specification) {
         return new OrSpecification([specification, this]);

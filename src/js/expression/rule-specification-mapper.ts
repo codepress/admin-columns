@@ -1,40 +1,40 @@
-import Specification from "./";
-import SpecificationInterface = AC.Specification.Specification;
-import SpecI = AC.Specification;
+import Spec from "./";
+import Specification = AC.Specification.Specification;
+import AcSpecification = AC.Specification;
 
 export default class RuleSpecificationMapper {
 
-    static map(rule: SpecI.Rule): SpecificationInterface {
+    static map(rule: AcSpecification.Rule): Specification {
         switch (rule.specification) {
             case 'null':
-                return new Specification.Null();
+                return new Spec.Null();
             case 'or':
             case 'and':
-                return this.createAggregate(rule as SpecI.AggregateRule);
+                return this.createAggregate(rule as AcSpecification.AggregateRule);
             case 'not':
-                return new Specification.Not(this.map((rule as unknown as SpecI.NotRule).rule));
+                return new Spec.Not(this.map((rule as unknown as AcSpecification.NotRule).rule));
             case 'string_comparison':
             case 'comparison':
-                return this.createComparison(rule as SpecI.ComparisonRule)
+                return this.createComparison(rule as AcSpecification.ComparisonRule)
         }
 
         throw Error;
     }
 
-    private static createComparison(rule: SpecI.ComparisonRule): SpecificationInterface {
-        return new Specification.Comparison(rule.fact, rule.operator);
+    private static createComparison(rule: AcSpecification.ComparisonRule): Specification {
+        return new Spec.Comparison(rule.fact, rule.operator);
     }
 
-    private static createAggregate(aggregateRule: SpecI.AggregateRule): SpecificationInterface {
-        let specifications: SpecificationInterface[] = [];
+    private static createAggregate(aggregateRule: AcSpecification.AggregateRule): Specification {
+        let specifications: Specification[] = [];
 
         aggregateRule.rules.forEach(rule => specifications.push(this.map(rule)));
 
         switch (aggregateRule.specification) {
             case 'or':
-                return new Specification.Or(specifications);
+                return new Spec.Or(specifications);
             case 'and':
-                return new Specification.And(specifications);
+                return new Spec.And(specifications);
         }
 
         throw Error;
