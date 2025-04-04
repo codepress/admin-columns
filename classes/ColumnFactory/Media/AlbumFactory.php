@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\AttachmentMetaData;
 
-class AlbumFactory extends ColumnFactory
+class AlbumFactory extends BaseColumnFactory
 {
 
     public function get_column_type(): string

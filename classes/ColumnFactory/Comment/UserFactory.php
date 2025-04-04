@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Comment;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UserLink;
@@ -11,7 +11,7 @@ use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Comment\UserId;
 
-class UserFactory extends ColumnFactory
+class UserFactory extends BaseColumnFactory
 {
 
     private UserProperty $user_property;

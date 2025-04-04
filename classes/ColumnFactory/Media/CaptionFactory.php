@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\Excerpt;
 
-class CaptionFactory extends ColumnFactory
+class CaptionFactory extends BaseColumnFactory
 {
 
     public function get_column_type(): string

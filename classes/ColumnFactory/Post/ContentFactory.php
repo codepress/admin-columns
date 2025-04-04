@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
@@ -14,7 +14,7 @@ use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\PostContent;
 use AC\Value\Formatter\StripTags;
 
-class ContentFactory extends ColumnFactory
+class ContentFactory extends BaseColumnFactory
 {
 
     private StringLimit $string_limit_factory;

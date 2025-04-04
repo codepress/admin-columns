@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\VideoDisplay;
@@ -11,7 +11,7 @@ use AC\Setting\FormatterCollection;
 use AC\Value\Extended\MediaPreview;
 use AC\Value\Formatter;
 
-class VideoPlayerFactory extends ColumnFactory
+class VideoPlayerFactory extends BaseColumnFactory
 {
 
     private VideoDisplay $video_display;

@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\AttachmentMetaData;
 use AC\Value\Formatter\Suffix;
 
-class HeightFactory extends ColumnFactory
+class HeightFactory extends BaseColumnFactory
 {
 
     public function get_column_type(): string

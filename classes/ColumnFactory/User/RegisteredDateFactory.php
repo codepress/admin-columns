@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\User;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class RegisteredDateFactory extends ColumnFactory
+class RegisteredDateFactory extends BaseColumnFactory
 {
 
     private Date $date_format;

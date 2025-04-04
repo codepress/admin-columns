@@ -3,11 +3,11 @@
 namespace AC\ColumnFactory\User;
 
 use AC;
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 
-class CommentCountFactory extends ColumnFactory
+class CommentCountFactory extends BaseColumnFactory
 {
 
     public function get_label(): string

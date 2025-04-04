@@ -3,11 +3,11 @@
 namespace AC\ColumnFactory\User;
 
 use AC;
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 
-class LastNameFactory extends ColumnFactory
+class LastNameFactory extends BaseColumnFactory
 {
 
     public function get_label(): string

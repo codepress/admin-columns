@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\MetaValue;
 
-class AlternateTextFactory extends ColumnFactory
+class AlternateTextFactory extends BaseColumnFactory
 {
 
     // Group to group: 'media-audio'

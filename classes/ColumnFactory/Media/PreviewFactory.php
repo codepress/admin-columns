@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Extended\MediaPreview;
 use AC\Value\Formatter\Media\PreviewViewLink;
 
-class PreviewFactory extends ColumnFactory
+class PreviewFactory extends BaseColumnFactory
 {
 
     public function get_column_type(): string

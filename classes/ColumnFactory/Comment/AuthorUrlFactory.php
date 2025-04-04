@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Comment;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Comment\Property;
 use AC\Value\Formatter\Linkable;
 
-class AuthorUrlFactory extends ColumnFactory
+class AuthorUrlFactory extends BaseColumnFactory
 {
 
     public function get_label(): string

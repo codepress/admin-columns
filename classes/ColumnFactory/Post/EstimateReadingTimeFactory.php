@@ -3,14 +3,14 @@
 namespace AC\ColumnFactory\Post;
 
 use AC;
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\WordsPerMinute;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 
-class EstimateReadingTimeFactory extends ColumnFactory
+class EstimateReadingTimeFactory extends BaseColumnFactory
 {
 
     private WordsPerMinute $words_per_minute_factory;

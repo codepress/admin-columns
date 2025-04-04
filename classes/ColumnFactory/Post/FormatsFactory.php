@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UseIcon;
@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class FormatsFactory extends ColumnFactory
+class FormatsFactory extends BaseColumnFactory
 {
 
     private UseIcon $post_format_icon_factory;

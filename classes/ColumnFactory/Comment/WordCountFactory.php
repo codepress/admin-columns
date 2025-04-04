@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Comment;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Comment\Property;
 use AC\Value\Formatter\WordCount;
 
-class WordCountFactory extends ColumnFactory
+class WordCountFactory extends BaseColumnFactory
 {
 
     public function get_label(): string

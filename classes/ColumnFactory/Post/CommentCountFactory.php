@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace AC\ColumnFactory\Post;
 
 use AC;
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentFactory\CommentStatus;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class CommentCountFactory extends ColumnFactory
+class CommentCountFactory extends BaseColumnFactory
 {
 
     private CommentStatus $comment_status;

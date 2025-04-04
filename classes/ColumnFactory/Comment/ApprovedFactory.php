@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\Comment;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class ApprovedFactory extends ColumnFactory
+class ApprovedFactory extends BaseColumnFactory
 {
 
     public function get_label(): string
