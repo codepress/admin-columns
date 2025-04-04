@@ -11,6 +11,8 @@ use AC\Setting\DefaultSettingsBuilder;
 abstract class BaseColumnFactory extends ColumnFactory
 {
 
+    use GroupTrait;
+
     private DefaultSettingsBuilder $default_settings_builder;
 
     public function __construct(DefaultSettingsBuilder $default_settings_builder)

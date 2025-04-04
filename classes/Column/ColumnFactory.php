@@ -41,9 +41,4 @@ abstract class ColumnFactory
         return $formatters;
     }
 
-    protected function get_group(): ?string
-    {
-        return null;
-    }
-
 }
