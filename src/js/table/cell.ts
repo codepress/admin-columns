@@ -6,11 +6,11 @@ declare const AC_SERVICES: AcServices;
 
 export default class Cell {
 
-    private object_id: number
-    private column_name: string
+    private readonly object_id: number
+    private readonly column_name: string
+    private readonly services: Record<string, any>
     private original_value: string
     private el: HTMLTableCellElement
-    private services: Record<string, any>
     events: Nanobus
 
     constructor(id: number, name: string, el: HTMLTableCellElement) {
@@ -74,7 +74,7 @@ export default class Cell {
         this.services[name] = service;
     }
 
-    getService<T = any>(name: string): T {
+    getService<T = any>(name: string): T|null {
         return this.hasService(name) ? this.services[name] : null;
     }
 

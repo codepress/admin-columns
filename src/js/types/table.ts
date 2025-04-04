@@ -1,3 +1,5 @@
+import {ModuleConfirmationTranslation} from "./admin-columns";
+
 export type LocalizedAcTable = {
     assets: string,
     ajax_nonce: string,
@@ -10,4 +12,14 @@ export type LocalizedAcTable = {
     screen: string
     table_id: string,
     current_user_id: number
+}
+
+export type LocalizedAcTableI18n = {
+    ok: string
+    cancel: string
+    value_loading: string
+    edit: string
+    view: string
+    download: string
+    confirmation: ModuleConfirmationTranslation
 }

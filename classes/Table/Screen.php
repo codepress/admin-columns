@@ -203,8 +203,8 @@ final class Screen implements Registerable
         }
 
         $script
-            ->add_inline_variable('AC', $args)
-            ->localize('AC_I18N', $table_translation)
+            ->add_inline_variable('ac_table', $args)
+            ->localize('ac_table_i18n', $table_translation)
             ->enqueue();
     }
 

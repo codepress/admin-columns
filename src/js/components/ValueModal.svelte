@@ -3,8 +3,7 @@
     import {onDestroy, onMount} from "svelte";
     import axios, {AxiosResponse} from "axios";
     import {ValueModalItem, ValueModalItemCollection} from "../types/admin-columns";
-    import {getTableTranslation} from "../helpers/translations";
-
+    import {getTableTranslation} from "../table/utils/global";
 
     export let items: ValueModalItemCollection
     export let objectId: number;

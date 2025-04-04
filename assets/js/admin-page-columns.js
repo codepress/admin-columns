@@ -30063,7 +30063,6 @@ class AcHtmlElement {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   stripHtml: () => (/* binding */ stripHtml),
 /* harmony export */   uniqid: () => (/* binding */ uniqid)
 /* harmony export */ });
 const uniqid = (prefix = "", moreEntropy = false) => {
@@ -30077,9 +30076,6 @@ const uniqid = (prefix = "", moreEntropy = false) => {
         e += Math.round(Math.random() * 100000000);
     }
     return prefix + d + e;
-};
-const stripHtml = (originalString) => {
-    return originalString ? originalString.replace(/(<([^>]+)>)/gi, "") : '';
 };
 
 

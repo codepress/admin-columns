@@ -1,63 +1,107 @@
 import Table, {TableEventPayload} from "./table/table";
-import Tooltip from "./modules/tooltips";
+import Tooltips from "./modules/tooltips";
 import ScreenOptionsColumns from "./table/screen-options-columns";
 
 // @ts-ignore
-import $ from 'jquery';
 import {auto_init_show_more} from "./plugin/show-more";
-import {init_actions_tooltips} from "./table/functions";
 import {EventConstants} from "./constants";
 import {getIdFromTableRow, resolveTableBySelector} from "./helpers/table";
 import {initAcServices} from "./helpers/admin-columns";
 import {initPointers} from "./modules/ac-pointer";
 import {LocalizedAcTable} from "./types/table";
 import ValueModals from "./modules/value-modals";
-import {initAcTooltips} from "./plugin/tooltip";
+import {initAcTooltips, Tooltip} from "./plugin/tooltip";
 import {ValueModalItemCollection} from "./types/admin-columns";
 import JsonViewer from "./modules/json-viewer";
-
-declare let AC: LocalizedAcTable
+import {getTableConfig} from "./table/utils/global";
 
 let AC_SERVICES = initAcServices();
+const tableConfig = getTableConfig()
 
 AC_SERVICES.registerService('tooltips', initAcTooltips);
 AC_SERVICES.registerService('initPointers', initPointers);
 
+
+type TableRowCallback = (row: HTMLTableRowElement) => void;
+
+const observeTableRows = (
+    containerElement: Element,
+    filterFunction: (node: HTMLElement) => boolean,
+    rowCallback: TableRowCallback
+) => {
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    const element = node as HTMLElement;
+                    if (element.tagName === 'TR' && filterFunction(element)) {
+                        rowCallback(element as HTMLTableRowElement);
+                    }
+                }
+            });
+        });
+    });
+
+    observer.observe(containerElement, {
+        childList: true,
+        subtree: true
+    });
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    let table = resolveTableBySelector(AC.table_id);
+
+    const table = resolveTableBySelector(tableConfig.table_id);
 
     initPointers();
 
+    // Initialize the table
     if (table) {
         const TableModule = new Table(table, AC_SERVICES).init();
         AC_SERVICES.registerService('Table', TableModule);
         AC_SERVICES.registerService('ScreenOptionsColumns', new ScreenOptionsColumns(TableModule.Columns));
     }
 
-    AC_SERVICES.registerService('Tooltips', new Tooltip());
+    // Register services
+    AC_SERVICES.registerService('Tooltips', new Tooltips());
 
-    $('.wp-list-table').on('updated', 'tr', function () {
-        AC_SERVICES.getService<Table>('Table')!.addCellClasses();
-        auto_init_show_more();
-    });
-
+    if (table) {
+        observeTableRows(
+            table,
+            () => true, // apply to all <tr>
+            () => {
+                AC_SERVICES.getService<Table>('Table')!.addCellClasses();
+                auto_init_show_more();
+            }
+        );
+    }
 });
 
 AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) => {
     auto_init_show_more();
-    init_actions_tooltips();
 
-    let observer = new MutationObserver(mutations => {
-        mutations.forEach((mutation) => {
-            mutation.addedNodes.forEach((node: HTMLElement) => {
-                if (node.tagName === 'TR' && node.classList.contains('iedit')) {
-                    $(node).trigger('updated', {id: getIdFromTableRow((<HTMLTableRowElement>node)), row: node})
-                }
-            });
+    // Tooltip setup
+    document.querySelectorAll('.cpac_use_icons').forEach((el: HTMLElement) => {
+        el?.parentElement?.querySelectorAll('.row-actions a').forEach((el: HTMLElement) => {
+            new Tooltip(el, el.innerText);
         });
     });
 
-    observer.observe(event.table.getElement(), {childList: true, subtree: true});
+    // Row observation
+    observeTableRows(
+        event.table.getElement(),
+        (node) => node.classList.contains('iedit'),
+        (row) => {
+            row.dispatchEvent(
+                new CustomEvent('updated', {
+                    detail: {
+                        id: getIdFromTableRow(row),
+                        row
+                    }
+                })
+            );
+        }
+    );
 
     event.table.Cells.getAll().forEach(cell => {
         cell.events.addListener('setValue', () => {
@@ -65,6 +109,7 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
         });
     });
 
+    // Modal creation
     let items: { [key: string]: ValueModalItemCollection } = {};
 
     event.table.getElement().querySelectorAll<HTMLElement>('td [data-modal-value]').forEach(link => {
@@ -93,6 +138,7 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
 
     Object.keys(items).forEach(i => new ValueModals(items[i]))
 
+    // JSON viewer setup
     document.querySelectorAll<HTMLElement>('[data-component="ac-json"]').forEach(el => {
         new JsonViewer(el);
     })

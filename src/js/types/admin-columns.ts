@@ -3,16 +3,6 @@ export type ModuleConfirmationTranslation = {
     cancel: string
 }
 
-export type LocalizedAcTableI18n = {
-    ok: string
-    cancel: string
-    value_loading: string
-    edit: string
-    view: string
-    download: string
-    confirmation: ModuleConfirmationTranslation
-}
-
 export type LocalizedAcGeneralSettings = {
     _ajax_nonce: string
 }

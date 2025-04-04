@@ -4,12 +4,12 @@
     export let message: string;
     export let onConfirm: Function;
     export let onClose: Function;
-    export let lastFocusElement: HTMLElement;
+    export let lastFocusElement: HTMLElement|null|undefined;
 
     export let ok;
     export let cancel;
 
-    let okButton;
+    let okButton: HTMLButtonElement;
 
     const confirm = () => {
         onConfirm();
