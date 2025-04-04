@@ -1,7 +1,7 @@
 export const getAddonsConfig = () => {
-    return AC_ADDONS;
+    return ac_addons;
 }
 
 export const getAddonsTranslation = () => {
-    return AC_ADDONS_I18N;
+    return ac_addons_i18n;
 }

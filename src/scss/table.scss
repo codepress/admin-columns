@@ -3,7 +3,6 @@
 @use 'colors';
 @use 'webfont';
 @use 'modals';
-@use 'animations';
 @use 'components/confirmation';
 @use 'components/tooltip';
 @use 'components/toggle';
@@ -256,44 +255,6 @@ body.users-php .tablenav .actions {
 // Media screen
 body.upload-php .tablenav.top .ac-button {
 	float: none;
-}
-
-/* =Column values
--------------------------------------------------------------- */
-.ac-toggle-box-link {
-	&:focus {
-		outline: none;
-		box-shadow: none;
-	}
-
-	.spinner {
-		float: none;
-		margin-top: -2px;
-	}
-
-	.spinner {
-		display: none;
-	}
-
-	&.loading {
-		.spinner {
-			display: inline-block;
-			visibility: visible;
-		}
-	}
-}
-
-.ac-toggle-box-contents-ajax {
-	padding: 5px 0 0;
-}
-
-.ac-toggle-box-contents {
-	display: none;
-	padding: 5px 0 0;
-
-	&.-open {
-		display: block;
-	}
 }
 
 table.ac-table-items {

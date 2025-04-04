@@ -10,9 +10,7 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addEventListenerLive: () => (/* binding */ addEventListenerLive),
-/* harmony export */   addEventListeners: () => (/* binding */ addEventListeners),
-/* harmony export */   onHover: () => (/* binding */ onHover)
+/* harmony export */   addEventListenerLive: () => (/* binding */ addEventListenerLive)
 /* harmony export */ });
 const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement = null) => {
     let element = rootElement ? rootElement : document;
@@ -28,13 +26,6 @@ const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement =
             }
         }
     });
-};
-const onHover = (el, cbOver, cbLeave) => {
-    el.addEventListener('mouseenter', cbOver);
-    el.addEventListener('mouseleave', cbLeave);
-};
-const addEventListeners = (el, events, callback) => {
-    events.forEach(event => el.addEventListener(event, callback));
 };
 
 

@@ -8,7 +8,6 @@ use AC\Admin\Type\MenuItem;
 $items = $this->menu_items;
 ?>
 
-
 <header class="acu-flex acu-bg-gray-dark acu-px-[50px] acu-py-3" id="acMenu">
 	<div class="acu-w-[260px] acu-items-center acu-flex ">
 		<img class="acu-w-[180px]" src="<?= esc_url(ac_get_url('assets/images/logo-ac-light.svg')) ?>" alt="">

@@ -5,6 +5,11 @@ export { default as AcSpinner } from "./AcSpinner.svelte";
 export { default as AcTimer } from "./AcTimer.svelte";
 export { default as AcTooltip } from "./AcTooltip.svelte";
 
+
+// Small Components
+export { default as AcNotification } from "./acui-notification/AcNotification.svelte";
+export { default as AcNotice } from "./acui-notification/AcNotice.svelte";
+
 // Modules
 export * from "./acui-panel";
 export * from "./acui-dropdown";

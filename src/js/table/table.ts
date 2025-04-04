@@ -14,7 +14,7 @@ export type TableEventPayload = {
 
 export default class Table {
 
-    private el: HTMLTableElement
+    private readonly el: HTMLTableElement
     private AcServices: AcServices
     Columns: Columns
     Cells: Cells

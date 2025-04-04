@@ -3,9 +3,8 @@ const sveltePreprocess = require( "svelte-preprocess" );
 
 let config = {
 	entry : {
-		'admin-general' : './js/admin-general.ts',
-		'admin-page-columns' : ['./js/admin-page-columns.ts'],
-		'admin-page-settings' : ['./js/admin-page-settings.ts'],
+		'admin-page-columns' : [ './js/admin-page-columns.ts' ],
+		'admin-page-settings' : [ './js/admin-page-settings.ts' ],
 		'admin-page-addons' : './js/admin-page-addons.ts',
 		'global-translations' : './js/global-translations.ts',
 		'notice-dismissible' : './js/notice-dismissible.ts',
@@ -37,11 +36,11 @@ let config = {
 		]
 	},
 	resolve : {
-		conditionNames: ['svelte', 'browser', 'import'],
-		extensions : ['.mjs', '.js', '.svelte', '.ts'],
-		mainFields : ['svelte', 'browser', 'module', 'main'],
+		conditionNames : [ 'svelte', 'browser', 'import' ],
+		extensions : [ '.mjs', '.js', '.svelte', '.ts' ],
+		mainFields : [ 'svelte', 'browser', 'module', 'main' ],
 		alias : {
-			svelte: path.resolve('node_modules', 'svelte/src/runtime'),
+			svelte : path.resolve( 'node_modules', 'svelte/src/runtime' ),
 			ACUi : path.resolve( __dirname, 'ui' ),
 		},
 	},

@@ -19,6 +19,8 @@
     import {currentTableUrl} from "../store/table_url";
     import {hasUsagePermissions} from "../store/permissions";
     import ProSettingsExample from "./ProSettingsExample.svelte";
+    import {AcNotice} from "ACUi/index";
+    import {sprintf} from "@wordpress/i18n";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -103,7 +105,7 @@
 <AdminHeaderBar title="Columns">
 	<div class="acu-flex acu-justify-end">
 		<a href="{$currentTableUrl}" class="acui-button acui-button-default acu-mr-2">{i18n.editor.label.view}</a>
-		{#if ! $listScreenIsReadOnly && $hasUsagePermissions }
+		{#if !$listScreenIsReadOnly && $hasUsagePermissions }
 			<AcButton
 				type="primary"
 				loading={isSaving}
@@ -126,8 +128,14 @@
 		/>
 	</aside>
 	<div class="acu-flex acu-flex-col acu-flex-grow">
-		<div class="acu-px-4 2xl:acu-px-[50px] ">
+		<div class="acu-px-4 2xl:acu-px-[50px]" data-ac-notices>
+
 			<hr class="wp-header-end">
+			{#if $listScreenDataStore !== null && $listScreenIsReadOnly}
+				<AcNotice type="info" styled showIcon>{@html sprintf( i18n.editor.sentence.columns_read_only,
+					`<strong>${$listScreenDataStore?.title}</strong>` )}</AcNotice>
+			{/if}
+
 		</div>
 		<main class="ac-admin-page-main acu-px-4 acu-pt-2 2xl:acu-pt-[30px] 2xl:acu-px-[50px]">
 			<div class="acu-flex acu-flex-col-reverse xl:acu-gap-6 xl:acu-flex-row">
@@ -163,5 +171,6 @@
 			</div>
 		</main>
 	</div>
+
 
 </div>

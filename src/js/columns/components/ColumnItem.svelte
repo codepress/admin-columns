@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import {openedColumnsStore} from "../store/opened-columns";
+    import {columnTypesStore, currentListKey, debugMode, openedColumnsStore, showColumnInfo} from "../store";
     import {slide} from 'svelte/transition';
     import {createEventDispatcher, onMount} from "svelte";
     import {ColumnTypesUtils} from "../utils/column-types";
@@ -11,15 +11,11 @@
     import ColumnSetting from "./ColumnSetting.svelte";
     import TypeSetting from "./settings/input/TypeInput.svelte";
     import {refreshColumn} from "../ajax/ajax";
-    import {currentListKey} from "../store/current-list-screen";
-    import {debugMode} from "../store/debug";
     import ColumnLabel from "./ColumnLabel.svelte";
-    import {columnTypesStore} from "../store/column-types";
-    import {showColumnInfo} from "../store/screen-options";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
-	export let locked: boolean = false;
+    export let locked: boolean = false;
 
     const dispatch = createEventDispatcher();
     const originalsColumns = ColumnTypesUtils.getOriginalColumnTypes();
@@ -127,7 +123,7 @@
 				{data.width} {data.width_unit}
 			{/if}
 			{#if hasProfeatures( config )}
-				<ProFeatureToggles bind:data={data} bind:config={config} disabled={locked} />
+				<ProFeatureToggles bind:data={data} bind:config={config} disabled={locked}/>
 			{/if}
 		</div>
 		<div class="ac-column-header__open-indicator acu-flex acu-justify-end">

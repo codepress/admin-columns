@@ -11,7 +11,3 @@ export const uniqid = (prefix = "", moreEntropy = false): string => {
 
     return prefix + d + e;
 }
-
-export const stripHtml = (originalString: string): string => {
-    return originalString ? originalString.replace(/(<([^>]+)>)/gi, "") : '';
-}

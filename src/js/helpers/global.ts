@@ -18,7 +18,7 @@ export const mapDataToFormData = (data: any, formData: FormData | null = null): 
     return fData;
 }
 
-export const appendObjectToFormData = (formData: FormData, data: { [key: string]: any }, parentKey: string = '') => {
+const appendObjectToFormData = (formData: FormData, data: { [key: string]: any }, parentKey: string = '') => {
     if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
         Object.keys(data).forEach(key => {
             appendObjectToFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);

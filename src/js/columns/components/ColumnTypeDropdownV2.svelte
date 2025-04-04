@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import {columnTypesStore} from "../store/column-types";
+    import {columnTypesStore} from "../store";
     import {SvelteSelectItem} from "../../types/select";
     import {createEventDispatcher, onMount} from "svelte";
     import Select from "svelte-select";
