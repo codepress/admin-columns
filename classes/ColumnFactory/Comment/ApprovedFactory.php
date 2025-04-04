@@ -3,7 +3,6 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -21,20 +20,14 @@ class ApprovedFactory extends BaseColumnFactory
         return 'column-approved';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new Formatter\YesNoIcon());
-        $formatters->prepend(new Formatter\Comment\Property('comment_approved'));
+        $formatters = new FormatterCollection([
+            new Formatter\Comment\Property('comment_approved'),
+            new Formatter\YesNoIcon(),
+        ]);
+
+        return $formatters->merge(parent::get_formatters($config));
     }
 
-    protected function get_formatters(
-        ComponentCollection $components,
-        Config $config,
-        FormatterCollection $formatters
-    ): FormatterCollection {
-        $formatters->add(new Formatter\Comment\Property('comment_approved'));
-        $formatters->add(new Formatter\YesNoIcon());
-
-        return parent::get_formatters($components, $config, $formatters);
-    }
 }

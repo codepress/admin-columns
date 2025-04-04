@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UserLinkFactory;
 use AC\Setting\ComponentFactory\UserProperty;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
@@ -22,12 +22,12 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
     private PostTypeSlug $post_type;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         UserProperty $user_factory,
         UserLinkFactory $user_link,
         PostTypeSlug $post_type
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->user_factory = $user_factory;
         $this->user_link = $user_link;
@@ -44,15 +44,21 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
         return __('Last Modified Author', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->user_factory);
-        $factories->add($this->user_link->create($this->post_type));
+        return new ComponentCollection([
+            $this->user_factory->create($config),
+            $this->user_link->create($this->post_type)->create($config),
+        ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new LastModifiedAuthor());
+
+        return $formatters;
     }
 
 }

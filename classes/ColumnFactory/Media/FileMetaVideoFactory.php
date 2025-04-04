@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\Media\FileMetaVideo;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\NestedAttachmentMetaData;
@@ -16,17 +16,19 @@ class FileMetaVideoFactory extends BaseColumnFactory
     private $file_meta_video;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         FileMetaVideo $file_meta_video
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->file_meta_video = $file_meta_video;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->file_meta_video);
+        return new ComponentCollection([
+            $this->file_meta_video->create($config),
+        ]);
     }
 
     public function get_column_type(): string
@@ -44,11 +46,15 @@ class FileMetaVideoFactory extends BaseColumnFactory
         return 'media-video';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    //TODO TEST
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
         $meta_keys = array_filter(array_map('trim', explode('.', $config->get('media_meta_key', ''))));
 
         $formatters->add(new NestedAttachmentMetaData($meta_keys));
+
+        return $formatters;
     }
 
 }

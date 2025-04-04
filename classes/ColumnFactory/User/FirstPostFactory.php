@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -22,13 +22,13 @@ class FirstPostFactory extends BaseColumnFactory
     private ComponentFactory\PostLink $post_link;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         ComponentFactory\PostType $post_type,
         ComponentFactory\PostStatus $post_status,
         ComponentFactory\PostProperty $post_property,
         ComponentFactory\PostLink $post_link
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->post_type = $post_type;
         $this->post_status = $post_status;
@@ -46,20 +46,23 @@ class FirstPostFactory extends BaseColumnFactory
         return 'column-first_post';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
         $post_type = $config->has('post_type') ? (array)$config->get('post_type', []) : null;
         $post_status = $config->has('post_status') ? (array)$config->get('post_status', []) : null;
 
-        $formatters->prepend(new Formatter\User\FirstPost($post_type, $post_status));
+        return parent::get_formatters($config)
+                     ->prepend(new Formatter\User\FirstPost($post_type, $post_status));
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->post_type);
-        $factories->add($this->post_status);
-        $factories->add($this->post_property);
-        $factories->add($this->post_link);
+        return new ComponentCollection([
+            $this->post_type->create($config),
+            $this->post_status->create($config),
+            $this->post_property->create($config),
+            $this->post_link->create($config),
+        ]);
     }
 
 }

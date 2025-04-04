@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
+use AC;
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentFactory\WordLimit;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\BeforeMoreContent;
@@ -17,21 +17,27 @@ final class BeforeMoreFactory extends BaseColumnFactory
 
     private WordLimit $word_limit_factory;
 
-    public function __construct(ComponentFactoryRegistry $component_factory_registry, WordLimit $word_limit_factory)
+    public function __construct(DefaultSettingsBuilder $default_settings_builder, WordLimit $word_limit_factory)
     {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->word_limit_factory = $word_limit_factory;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): AC\Setting\ComponentCollection
     {
-        $factories->add($this->word_limit_factory);
+        return new AC\Setting\ComponentCollection([
+            $this->word_limit_factory->create($config),
+        ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new BeforeMoreContent());
+
+        return $formatters;
     }
 
     public function get_column_type(): string

@@ -20,9 +20,13 @@ class DisplayNameFactory extends BaseColumnFactory
         return 'column-display_name';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new Formatter\User\Property('display_name'));
+
+        return $formatters;
     }
 
 }

@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\Media\FileMetaAudio;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\AttachmentMetaData;
@@ -16,17 +16,19 @@ class FileMetaAudioFactory extends BaseColumnFactory
     private $audio_meta;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         FileMetaAudio $audio_meta
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->audio_meta = $audio_meta;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->audio_meta);
+        return new ComponentCollection([
+            $this->audio_meta->create($config),
+        ]);
     }
 
     public function get_column_type(): string
@@ -44,9 +46,14 @@ class FileMetaAudioFactory extends BaseColumnFactory
         return 'media-audio';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    //TODO TEST
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new AttachmentMetaData((string)$config->get('media_meta_key')));
+
+        return $formatters;
     }
 
 }

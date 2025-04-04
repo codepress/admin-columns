@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ExifData;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -13,20 +13,22 @@ use AC\Value\Formatter;
 class ExifDataFactory extends BaseColumnFactory
 {
 
-    private $exif_data;
+    private ExifData $exif_data;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         ExifData $exif_data
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->exif_data = $exif_data;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->exif_data);
+        return new ComponentCollection([
+            $this->exif_data->create($config),
+        ]);
     }
 
     protected function get_group(): ?string
@@ -44,10 +46,14 @@ class ExifDataFactory extends BaseColumnFactory
         return __('Image Meta (EXIF)', 'codepress-admin-columns');
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new Formatter\Media\ExifData((string)$config->get('exif_data')));
-        $formatters->prepend(new Formatter\Media\AttachmentMetaData('image_meta'));
+        $formatters = new FormatterCollection([
+            new Formatter\Media\AttachmentMetaData('image_meta'),
+            new Formatter\Media\ExifData((string)$config->get('exif_data')),
+        ]);
+
+        return $formatters->merge(parent::get_formatters($config));
     }
 
 }

@@ -22,9 +22,13 @@ class AlternateTextFactory extends BaseColumnFactory
         return __('Alternative Text', 'codepress-admin-columns');
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new MetaValue('_wp_attachment_image_alt'));
+
+        return $formatters;
     }
 
 }

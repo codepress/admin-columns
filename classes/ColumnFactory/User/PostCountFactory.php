@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Extended\Posts;
@@ -19,11 +19,11 @@ class PostCountFactory extends BaseColumnFactory
     private ComponentFactory\PostStatus $post_status;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         ComponentFactory\PostStatus $post_status,
         ComponentFactory\PostTypeFactory $post_type_factory
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->post_status = $post_status;
         $this->post_type_factory = $post_type_factory;
@@ -39,19 +39,25 @@ class PostCountFactory extends BaseColumnFactory
         return 'column-user_postcount';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(
             new Formatter\User\PostCount(
                 new Posts($this->get_post_types($config), $config->get('post_status'))
             )
         );
+
+        return $formatters;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->post_type_factory->create(true));
-        $factories->add($this->post_status);
+        return new ComponentCollection([
+            $this->post_type_factory->create(true)->create($config),
+            $this->post_status->create($config),
+        ]);
     }
 
     private function get_post_types(Config $config): ?array

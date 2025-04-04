@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\ModifiedDate;
@@ -16,10 +16,10 @@ class LastModifiedFactory extends BaseColumnFactory
     private Date $date_factory;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         Date $date_factory
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->date_factory = $date_factory;
     }
@@ -34,14 +34,20 @@ class LastModifiedFactory extends BaseColumnFactory
         return __('Last Modified', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->date_factory);
+        return new ComponentCollection([
+            $this->date_factory->create($config),
+        ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new ModifiedDate());
+
+        return $formatters;
     }
 
 }

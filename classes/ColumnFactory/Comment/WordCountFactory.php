@@ -21,10 +21,13 @@ class WordCountFactory extends BaseColumnFactory
         return 'column-word_count';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
         $formatters->add(new Property('comment_content'));
         $formatters->add(new WordCount());
+
+        return $formatters;
     }
 
 }

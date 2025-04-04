@@ -6,17 +6,26 @@ namespace AC\Setting;
 
 use Countable;
 
-class ComponentCollection extends Collection implements Countable
+final class ComponentCollection extends Collection implements Countable
 {
 
-    public function __construct(array $data = [])
+    private int $added = 0;
+
+    public function __construct(array $data = [], int $priority = 10)
     {
-        array_map([$this, 'add'], $data);
+        foreach ($data as $component) {
+            $this->add($component, $priority);
+        }
     }
 
-    public function add(Component $component): ComponentCollection
+    /**
+     * Priority is taken into account when iterating. E.g. 1 comes before 5.
+     */
+    public function add(Component $component, int $priority = 10): ComponentCollection
     {
-        $this->data[] = $component;
+        $this->data[$priority . '.' . $this->added++] = $component;
+
+        ksort($this->data, SORT_NATURAL);
 
         return $this;
     }

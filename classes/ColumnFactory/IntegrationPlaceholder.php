@@ -2,29 +2,32 @@
 
 namespace AC\ColumnFactory;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\Integration;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentFactory\Message;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\Config;
 
 class IntegrationPlaceholder extends BaseColumnFactory
 {
 
-    private $integration;
+    private Integration $integration;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         Integration $integration
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->integration = $integration;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): AC\Setting\ComponentCollection
     {
-        $factories->add(new Message(__('Integration', 'codepress-admin-columns'), $this->get_message_body()));
+        return new AC\Setting\ComponentCollection([
+            (new Message(__('Integration', 'codepress-admin-columns'), $this->get_message_body()))->create($config),
+        ]);
     }
 
     private function get_message_body(): string

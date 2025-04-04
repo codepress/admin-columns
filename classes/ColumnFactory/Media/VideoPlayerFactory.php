@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\VideoDisplay;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Extended\MediaPreview;
@@ -14,20 +14,22 @@ use AC\Value\Formatter;
 class VideoPlayerFactory extends BaseColumnFactory
 {
 
-    private $video_display;
+    private VideoDisplay $video_display;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         VideoDisplay $video_display
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->video_display = $video_display;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->video_display);
+        return new ComponentCollection([
+            $this->video_display->create($config),
+        ]);
     }
 
     protected function get_group(): ?string
@@ -45,10 +47,12 @@ class VideoPlayerFactory extends BaseColumnFactory
         return __('Video Player', 'codepress-admin-columns');
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->add(new Formatter\Media\Video\ValidMimeType());
-        $formatters->add(new Formatter\Media\AttachmentUrl());
+        $formatters = new FormatterCollection([
+            new Formatter\Media\Video\ValidMimeType(),
+            new Formatter\Media\AttachmentUrl(),
+        ]);
 
         if ($config->get('video_display', '') === 'embed') {
             $formatters->add(new Formatter\Media\VideoEmbed());
@@ -59,6 +63,8 @@ class VideoPlayerFactory extends BaseColumnFactory
                 )
             );
         }
+
+        return $formatters;
     }
 
 }

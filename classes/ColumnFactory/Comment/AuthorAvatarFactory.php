@@ -20,10 +20,14 @@ class AuthorAvatarFactory extends BaseColumnFactory
         return 'column-author_avatar';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new Formatter\Gravatar());
-        $formatters->prepend(new Formatter\Comment\Property('comment_author_email'));
+        $formatters = new FormatterCollection([
+            new Formatter\Comment\Property('comment_author_email'),
+            new Formatter\Gravatar(),
+        ]);
+
+        return $formatters->merge(parent::get_formatters($config));
     }
 
 }

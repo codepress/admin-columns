@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -18,11 +18,11 @@ class ExcerptFactory extends BaseColumnFactory
     private ComponentFactory\BeforeAfter $before_after;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         ComponentFactory\StringLimit $string_limit,
         ComponentFactory\BeforeAfter $before_after
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->string_limit = $string_limit;
         $this->before_after = $before_after;
@@ -38,16 +38,19 @@ class ExcerptFactory extends BaseColumnFactory
         return __('Excerpt', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->string_limit);
-        $factories->add($this->before_after);
+        return new ComponentCollection([
+            $this->string_limit->create($config),
+            $this->before_after->create($config),
+        ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new Formatter\Post\ContentExcerpt());
-        $formatters->add(new Formatter\Post\ExcerptIcon());
+        return parent::get_formatters($config)
+                     ->prepend(new Formatter\Post\ContentExcerpt())
+                     ->add(new Formatter\Post\ExcerptIcon());
     }
 
 }

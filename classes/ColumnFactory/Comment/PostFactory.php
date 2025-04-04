@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactory\PostProperty;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Comment\Property;
@@ -15,16 +15,16 @@ use AC\Value\Formatter\MapToId;
 class PostFactory extends BaseColumnFactory
 {
 
-    private $post_property;
+    private PostProperty $post_property;
 
-    private $post_link;
+    private PostLink $post_link;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         PostProperty $post_property,
         PostLink $post_link
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->post_property = $post_property;
         $this->post_link = $post_link;
@@ -35,10 +35,12 @@ class PostFactory extends BaseColumnFactory
         return __('Post', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->post_property);
-        $factories->add($this->post_link);
+        return new ComponentCollection([
+            $this->post_property->create($config),
+            $this->post_link->create($config),
+        ]);
     }
 
     public function get_column_type(): string
@@ -46,9 +48,12 @@ class PostFactory extends BaseColumnFactory
         return 'column-post';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
         $formatters->prepend(new MapToId(new Property('comment_post_ID')));
+
+        return $formatters;
     }
 
 }

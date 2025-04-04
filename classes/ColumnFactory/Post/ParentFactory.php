@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactory\PostProperty;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\PostParentId;
@@ -14,16 +14,16 @@ use AC\Value\Formatter\Post\PostParentId;
 class ParentFactory extends BaseColumnFactory
 {
 
-    private $post_factory;
+    private PostProperty $post_factory;
 
-    private $post_link_factory;
+    private PostLink $post_link_factory;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         PostProperty $post_factory,
         PostLink $post_link_factory
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->post_factory = $post_factory;
         $this->post_link_factory = $post_link_factory;
@@ -39,15 +39,21 @@ class ParentFactory extends BaseColumnFactory
         return __('Parent', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->post_factory);
-        $factories->add($this->post_link_factory);
+        return new ComponentCollection([
+            $this->post_factory->create($config),
+            $this->post_link_factory->create($config),
+        ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new PostParentId());
+
+        return $formatters;
     }
 
 }

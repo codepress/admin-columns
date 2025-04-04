@@ -5,35 +5,37 @@ declare(strict_types=1);
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\DatePublishFormatted;
-use AC\Value\Formatter\Post\PostDateTimestamp;
 
 class DatePublishFactory extends BaseColumnFactory
 {
 
     private Date $date_factory;
 
-    public function __construct(ComponentFactoryRegistry $component_factory_registry, Date $date_factory)
+    public function __construct(DefaultSettingsBuilder $default_settings_builder, Date $date_factory)
     {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->date_factory = $date_factory;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->date_factory);
+        return new ComponentCollection([
+            $this->date_factory->create($config),
+        ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new PostDateTimestamp());
-        $formatters->add(new DatePublishFormatted());
+        return parent::get_formatters($config)
+                     ->prepend(new DatePublishFormatted())
+                     ->add(new DatePublishFormatted());
     }
 
     public function get_column_type(): string

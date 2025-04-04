@@ -8,7 +8,6 @@ use AC\Column\ColumnFactory;
 use AC\ColumnCollection;
 use AC\ColumnFactories\Aggregate;
 use AC\ColumnIterator;
-use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Setting\Config;
 use AC\Type\ColumnId;
@@ -89,16 +88,19 @@ class ListStorage
         return new ColumnCollection($columns);
     }
 
+    public function get(AC\Column $column): ?ColumnWidth
+    {
+        return $this->create($column);
+    }
+
     /**
-     * @param ListScreen $list_screen
-     *
      * @return ColumnWidth[]
      */
-    public function get_all(ListScreen $list_screen): array
+    public function get_all(ColumnIterator $columns): array
     {
         $results = [];
 
-        foreach ($list_screen->get_columns() as $column) {
+        foreach ($columns as $column) {
             $width = $this->create($column);
 
             if ($width) {
@@ -111,7 +113,13 @@ class ListStorage
 
     private function create(Column $column): ?ColumnWidth
     {
-        $width = (int)$column->get_setting('width')->get_input()->get_value();
+        $width_setting = $column->get_setting('width');
+
+        if ( ! $width_setting) {
+            return null;
+        }
+        
+        $width = (int)$width_setting->get_input()->get_value();
 
         if ($width < 1) {
             return null;
@@ -126,17 +134,6 @@ class ListStorage
         }
 
         return $width;
-    }
-
-    public function get(ListScreen $list_screen, ColumnId $column_id): ?ColumnWidth
-    {
-        $column = $list_screen->get_column($column_id);
-
-        if ( ! $column) {
-            return null;
-        }
-
-        return $this->create($column);
     }
 
 }

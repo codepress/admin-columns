@@ -5,51 +5,31 @@ declare(strict_types=1);
 namespace AC\Column;
 
 use AC\Column;
-use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
+use AC\Setting\DefaultSettingsBuilder;
 
-abstract class BaseColumnFactory implements ColumnFactory
+abstract class BaseColumnFactory extends ColumnFactory
 {
 
-    use BaseComponentFactoryTrait;
+    use GroupTrait;
 
-    protected ComponentFactoryRegistry $component_factory_registry;
+    private DefaultSettingsBuilder $default_settings_builder;
 
-    public function __construct(ComponentFactoryRegistry $component_factory_registry)
+    public function __construct(DefaultSettingsBuilder $default_settings_builder)
     {
-        $this->component_factory_registry = $component_factory_registry;
-    }
-
-    protected function add_required_component_factories(ConditionalComponentFactoryCollection $factories): void
-    {
-        $factories
-            ->add($this->component_factory_registry->get_width())
-            ->add($this->component_factory_registry->get_name())
-            ->add($this->component_factory_registry->get_label());
+        $this->default_settings_builder = $default_settings_builder;
     }
 
     public function create(Config $config): Column
     {
-        $components = new ComponentCollection();
-        $factories = new ConditionalComponentFactoryCollection();
-        $formatters = new FormatterCollection();
-
-        $this->add_required_component_factories($factories);
-        $this->add_component_factories($factories);
-        $this->add_components($components, $factories, $config);
-        $this->add_component_formatters($formatters, $components);
-        $this->add_formatters($formatters, $config);
-
-        return new Column\Base(
+        return new Base(
             $this->get_column_type(),
             $this->get_label(),
-            $components,
-            $this->get_column_id($config),
-            $formatters,
-            $this->get_group(),
+            $this->get_settings($config)
+                 ->merge($this->default_settings_builder->build($config)),
+            ColumnIdFactory::createFromConfig($config),
+            $this->get_formatters($config),
+            $this->get_group()
         );
     }
 

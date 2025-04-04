@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\LinkToMenu;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
@@ -16,16 +16,16 @@ use AC\Value\Formatter\UsedByMenu;
 class MenuFactory extends BaseColumnFactory
 {
 
-    private $post_type;
+    private PostTypeSlug $post_type;
 
-    private $link_to_menu_factory;
+    private LinkToMenu $link_to_menu_factory;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         LinkToMenu $link_to_menu_factory,
         PostTypeSlug $post_type
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->post_type = $post_type;
         $this->link_to_menu_factory = $link_to_menu_factory;
@@ -46,16 +46,23 @@ class MenuFactory extends BaseColumnFactory
         return __('Menu', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->link_to_menu_factory);
+        return new ComponentCollection([
+            $this->link_to_menu_factory->create($config),
+        ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new TermProperty('name'));
-        $formatters->prepend(new UsedByMenu($this->post_type));
+        $formatters = new FormatterCollection([
+            new UsedByMenu($this->post_type),
+            new TermProperty('name'),
+        ]);
+        $formatters->merge(parent::get_formatters($config));
         $formatters->add(new LocalizeSeparator());
+
+        return $formatters;
     }
 
 }

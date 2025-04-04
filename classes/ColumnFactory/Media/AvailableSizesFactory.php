@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\IncludeMissingSizes;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\AvailableSizes;
@@ -13,20 +13,22 @@ use AC\Value\Formatter\Media\AvailableSizes;
 class AvailableSizesFactory extends BaseColumnFactory
 {
 
-    private $include_missing_sizes;
+    private IncludeMissingSizes $include_missing_sizes;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         IncludeMissingSizes $include_missing_sizes
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->include_missing_sizes = $include_missing_sizes;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->include_missing_sizes);
+        return new ComponentCollection([
+            $this->include_missing_sizes->create($config),
+        ]);
     }
 
     protected function get_group(): ?string
@@ -44,9 +46,13 @@ class AvailableSizesFactory extends BaseColumnFactory
         return __('Available Sizes', 'codepress-admin-columns');
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new AvailableSizes((string)$config->get('include_missing_sizes') === '1'));
+
+        return $formatters;
     }
 
 }

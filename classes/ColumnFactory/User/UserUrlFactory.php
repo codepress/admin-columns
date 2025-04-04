@@ -20,10 +20,11 @@ class UserUrlFactory extends BaseColumnFactory
         return 'column-user_url';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->add(new Formatter\User\Property('user_url'));
-        $formatters->add(new Formatter\Linkable(null, '_blank'));
+        return parent::get_formatters($config)
+                     ->add(new Formatter\User\Property('user_url'))
+                     ->add(new Formatter\Linkable(null, '_blank'));
     }
 
 }

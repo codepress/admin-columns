@@ -2,9 +2,9 @@
 
 namespace AC\ColumnFactory;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Message;
@@ -22,14 +22,17 @@ class ActionsFactory extends BaseColumnFactory
         return 'column-actions';
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): AC\Setting\ComponentCollection
     {
-        $factories->add(new ComponentFactory\ActionIcons());
+        return new AC\Setting\ComponentCollection([
+            (new ComponentFactory\ActionIcons())->create($config),
+        ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->add(new Message('<span class="cpac_use_icons"></span>'));
+        return parent::get_formatters($config)
+                     ->add(new Message('<span class="cpac_use_icons"></span>'));
     }
 
 }

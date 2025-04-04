@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UseIcon;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -16,10 +16,10 @@ class FormatsFactory extends BaseColumnFactory
     private UseIcon $post_format_icon_factory;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         UseIcon $post_format_icon_factory
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->post_format_icon_factory = $post_format_icon_factory;
     }
@@ -34,20 +34,25 @@ class FormatsFactory extends BaseColumnFactory
         return __('Post Format', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->post_format_icon_factory);
+        return new ComponentCollection([
+            $this->post_format_icon_factory->create($config),
+        ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->prepend(new Formatter\Post\PostFormat());
+        $formatters = parent::get_formatters($config)
+                            ->prepend(new Formatter\Post\PostFormat());
 
         if ('on' === $config->get('use_icon')) {
             $formatters->add(new Formatter\Post\PostFormatIcon());
         } else {
             $formatters->add(new Formatter\Post\PostFormatLabel());
         }
+
+        return $formatters;
     }
 
 }

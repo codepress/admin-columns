@@ -3,27 +3,30 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ImageSize;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\Config;
 
 class ImageFactory extends BaseColumnFactory
 {
 
-    private $image_size;
+    private ImageSize $image_size;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         ImageSize $image_size
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->image_size = $image_size;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->image_size);
+        return new ComponentCollection([
+            $this->image_size->create($config),
+        ]);
     }
 
     public function get_column_type(): string

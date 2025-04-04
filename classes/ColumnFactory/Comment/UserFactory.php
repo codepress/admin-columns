@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UserLink;
 use AC\Setting\ComponentFactory\UserProperty;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Comment\UserId;
@@ -19,20 +19,22 @@ class UserFactory extends BaseColumnFactory
     private UserLink $user_link;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         UserProperty $user_property,
         UserLink $user_link
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->user_property = $user_property;
         $this->user_link = $user_link;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->user_property);
-        $factories->add($this->user_link);
+        return new ComponentCollection([
+            $this->user_property->create($config),
+            $this->user_link->create($config),
+        ]);
     }
 
     public function get_label(): string
@@ -45,8 +47,11 @@ class UserFactory extends BaseColumnFactory
         return 'column-user';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
         $formatters->prepend(new UserId());
+
+        return $formatters;
     }
 }

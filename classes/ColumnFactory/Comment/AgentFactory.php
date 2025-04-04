@@ -20,9 +20,12 @@ class AgentFactory extends BaseColumnFactory
         return 'column-agent';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
         $formatters->add(new Property('comment_agent'));
+
+        return $formatters;
     }
 
 }

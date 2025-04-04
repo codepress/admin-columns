@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\IsLink;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
@@ -19,21 +19,23 @@ class PermalinkFactory extends BaseColumnFactory
     private IsLink $is_link;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         BeforeAfter $before_after,
         IsLink $is_link
     ) {
         parent::__construct(
-            $component_factory_registry
+            $default_settings_builder
         );
         $this->before_after = $before_after;
         $this->is_link = $is_link;
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->is_link);
-        $factories->add($this->before_after);
+        return new ComponentCollection([
+            $this->is_link->create($config),
+            $this->before_after->create($config),
+        ]);
     }
 
     public function get_column_type(): string
@@ -46,8 +48,10 @@ class PermalinkFactory extends BaseColumnFactory
         return __('Permalink', 'codepress-admin-columns');
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new Formatter\Post\Permalink());
 
         if ($config->get('is_link') === 'on') {
@@ -55,6 +59,8 @@ class PermalinkFactory extends BaseColumnFactory
         }
 
         $formatters->add(Formatter\BeforeAfter::create_from_config($config));
+
+        return $formatters;
     }
 
 }

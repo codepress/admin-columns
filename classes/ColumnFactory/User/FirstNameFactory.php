@@ -20,9 +20,10 @@ class FirstNameFactory extends BaseColumnFactory
         return 'column-first_name';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters->add(new Formatter\User\Property('first_name'));
+        return parent::get_formatters($config)
+                     ->add(new Formatter\User\Property('first_name'));
     }
 
 }

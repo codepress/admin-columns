@@ -25,9 +25,13 @@ class AlbumFactory extends BaseColumnFactory
         return 'media-audio';
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->add(new AttachmentMetaData('album'));
+
+        return $formatters;
     }
 
 }

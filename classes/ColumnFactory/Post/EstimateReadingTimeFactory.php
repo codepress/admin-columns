@@ -4,9 +4,9 @@ namespace AC\ColumnFactory\Post;
 
 use AC;
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\WordsPerMinute;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 
@@ -16,10 +16,10 @@ class EstimateReadingTimeFactory extends BaseColumnFactory
     private WordsPerMinute $words_per_minute_factory;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         WordsPerMinute $words_per_minute_factory
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->words_per_minute_factory = $words_per_minute_factory;
     }
@@ -34,14 +34,20 @@ class EstimateReadingTimeFactory extends BaseColumnFactory
         return __('Read Time', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->words_per_minute_factory);
+        return new ComponentCollection([
+            $this->words_per_minute_factory->create($config),
+        ]);
     }
 
-    protected function add_formatters(FormatterCollection $formatters, Config $config): void
+    protected function get_formatters(Config $config): FormatterCollection
     {
+        $formatters = parent::get_formatters($config);
+
         $formatters->prepend(new AC\Value\Formatter\Post\PostContent());
+
+        return $formatters;
     }
 
 }

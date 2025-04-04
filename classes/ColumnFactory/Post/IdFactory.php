@@ -3,20 +3,21 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
-use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\ConditionalComponentFactoryCollection;
+use AC\Setting\Config;
 
 class IdFactory extends BaseColumnFactory
 {
 
-    private $before_after_factory;
+    private BeforeAfter $before_after_factory;
 
     public function __construct(
-        ComponentFactoryRegistry $component_factory_registry,
+        DefaultSettingsBuilder $default_settings_builder,
         BeforeAfter $before_after_factory
     ) {
-        parent::__construct($component_factory_registry);
+        parent::__construct($default_settings_builder);
 
         $this->before_after_factory = $before_after_factory;
     }
@@ -31,9 +32,11 @@ class IdFactory extends BaseColumnFactory
         return __('ID', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(ConditionalComponentFactoryCollection $factories): void
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $factories->add($this->before_after_factory);
+        return new ComponentCollection([
+            $this->before_after_factory->create($config),
+        ]);
     }
 
 }
