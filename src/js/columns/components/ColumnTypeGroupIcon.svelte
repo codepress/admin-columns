@@ -15,6 +15,6 @@
 
 {#if icon }
 	<img src="{icon}" alt="" class="column-group-icon -{group_key}" style="position: absolute; right:
-	calc(100% - 1px);" />
+	calc(100% - 1px); width: 20px; height: 20px;" />
 {/if}
 

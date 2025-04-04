@@ -3983,6 +3983,8 @@ function create_if_block(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(img, "class", img_class_value = "column-group-icon -" + /*group_key*/ctx[0]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(img, "position", "absolute");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(img, "right", "calc(100% - 1px)");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(img, "width", "20px");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(img, "height", "20px");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, img, anchor);

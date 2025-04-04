@@ -323,30 +323,6 @@ body .ac-modal .ac-modal-footer-actions__info {
   align-items: center;
 }
 
-@keyframes ac-striped-animation {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(46px);
-  }
-}
-.ac-striped-loading {
-  overflow: hidden;
-  position: relative;
-}
-.ac-striped-loading:before {
-  animation: ac-striped-animation 2s linear infinite;
-  content: "";
-  display: block;
-  position: absolute;
-  left: -46px;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background: repeating-linear-gradient(-55deg, rgba(255, 255, 255, 0.1) 1px, transparent 2px, transparent 11px, rgba(255, 255, 255, 0.1) 12px, rgba(255, 255, 255, 0.1) 20px);
-}
-
 .ac-confirmation {
   position: fixed;
   left: 0;
