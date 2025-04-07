@@ -32,7 +32,8 @@ class ListScreenRenderable implements CellRenderer
 
             $renderable = new ColumnRenderable(
                 $formatters,
-                $this->context_factory->create($column)
+                $this->context_factory->create($column),
+                $this->list_screen
             );
 
             $renderables[(string)$column->get_id()] = $renderable;

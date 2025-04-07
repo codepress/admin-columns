@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Value\Extended;
 
 use AC\Column;
+use AC\ListScreen;
 use AC\Setting\ContextFactory;
 use AC\Setting\FormatterCollection;
 use AC\Table\ManageValue\ColumnRenderable;
@@ -22,8 +23,12 @@ class Value implements ExtendedValue
         $this->context_factory = $context_factory;
     }
 
-    public function render(int $id, array $params, Column $column): string
-    {
+    public function render(
+        int $id,
+        array $params,
+        Column $column,
+        ListScreen $list_screen
+    ): string {
         $formatters = [];
 
         foreach ($column->get_formatters() as $formatter) {
@@ -36,7 +41,8 @@ class Value implements ExtendedValue
 
         $renderable = new ColumnRenderable(
             new FormatterCollection($formatters),
-            $this->context_factory->create($column)
+            $this->context_factory->create($column),
+            $list_screen
         );
 
         ob_start();

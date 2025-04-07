@@ -90,7 +90,7 @@ abstract class DateFormat extends Builder
             case 'wp_default':
                 return new Value\Formatter\Date\WpDateFormat($this->source_format);
             default:
-                return new Value\Formatter\Date\DateFormat($this->source_format, $output_format);
+                return new Value\Formatter\Date\DateFormat($output_format, $this->source_format);
         }
     }
 

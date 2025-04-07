@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\Config;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\DatePublishFormatted;
+use AC\Value\Formatter\Post\PostDateTimestamp;
 
 class DatePublishFactory extends BaseColumnFactory
 {
@@ -34,7 +35,7 @@ class DatePublishFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->prepend(new DatePublishFormatted())
+                     ->prepend(new PostDateTimestamp())
                      ->add(new DatePublishFormatted());
     }
 

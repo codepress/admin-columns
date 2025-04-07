@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Value\Extended;
 
 use AC\Column;
+use AC\ListScreen;
 use AC\Value\ExtendedValueLink;
 use AC\View;
 
@@ -40,7 +41,7 @@ class Posts implements ExtendedValue
         );
     }
 
-    public function render(int $id, array $params, Column $column): string
+    public function render(int $id, array $params, Column $column, ListScreen $list_screen): string
     {
         $count = $this->get_post_count($id);
 

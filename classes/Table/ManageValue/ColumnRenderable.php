@@ -6,6 +6,7 @@ namespace AC\Table\ManageValue;
 
 use AC\ApplyFilter\ColumnValue;
 use AC\ApplyFilter\ColumnValueSanitize;
+use AC\ListScreen;
 use AC\Sanitize\Kses;
 use AC\Setting\Context;
 use AC\Setting\FormatterCollection;
@@ -21,11 +22,18 @@ class ColumnRenderable
 
     private ?string $default;
 
-    public function __construct(FormatterCollection $formatters, Context $context, string $default = null)
-    {
+    private ListScreen $list_screen;
+
+    public function __construct(
+        FormatterCollection $formatters,
+        Context $context,
+        ListScreen $list_screen,
+        string $default = null
+    ) {
         $this->formatters = $formatters;
         $this->context = $context;
         $this->default = $default;
+        $this->list_screen = $list_screen;
     }
 
     public function render($row_id): ?string
@@ -42,12 +50,12 @@ class ColumnRenderable
             );
         }
 
-        return (new ColumnValue($this->context, $row_id))->apply_filter($value);
+        return (new ColumnValue($this->context, $row_id, $this->list_screen))->apply_filter($value);
     }
 
     private function use_sanitize(Context $context, $id): bool
     {
-        return (new ColumnValueSanitize($context, $id))->apply_filter();
+        return (new ColumnValueSanitize($context, $id, $this->list_screen))->apply_filter();
     }
 
     private function sanitize_value(Value $value, Context $context, $id): Value
