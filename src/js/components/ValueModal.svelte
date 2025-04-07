@@ -3,14 +3,13 @@
     import {onDestroy, onMount} from "svelte";
     import axios, {AxiosResponse} from "axios";
     import {ValueModalItem, ValueModalItemCollection} from "../types/admin-columns";
-    import {getTableTranslation} from "../table/utils/global";
+    import {getTableConfig, getTableTranslation} from "../table/utils/global";
 
     export let items: ValueModalItemCollection
     export let objectId: number;
     export let destroyHandler: Function;
 
     const ajaxurl: string = (window as any).ajaxurl;
-    const AC: LocalizedAcTable = (window as any).AC;
 
     let modalClass: string = '';
     let columnTitle: string;
@@ -63,6 +62,7 @@
         }
 
         source = CancelToken.source();
+        const tableConfig = getTableConfig();
 
         return axios({
             method: 'get',
@@ -70,12 +70,12 @@
             cancelToken: source.token,
             params: {
                 action: 'ac-extended-value',
-                list_id: AC.layout,
+                list_id: tableConfig.layout,
                 column_name: item.columnName,
                 object_id: item.objectId,
                 view: item.view,
                 params: item.params,
-                _ajax_nonce: AC.ajax_nonce
+                _ajax_nonce: tableConfig.ajax_nonce
             }
         }).then((response: AxiosResponse<string>) => {
             content = response.data

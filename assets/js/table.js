@@ -604,7 +604,6 @@ function instance($$self, $$props, $$invalidate) {
     destroyHandler
   } = $$props;
   const ajaxurl = window.ajaxurl;
-  const AC = window.AC;
   let modalClass = '';
   let columnTitle;
   let title;
@@ -649,18 +648,19 @@ function instance($$self, $$props, $$invalidate) {
       source.cancel();
     }
     source = CancelToken.source();
+    const tableConfig = (0,_table_utils_global__WEBPACK_IMPORTED_MODULE_3__.getTableConfig)();
     return (0,axios__WEBPACK_IMPORTED_MODULE_4__["default"])({
       method: 'get',
       url: ajaxurl,
       cancelToken: source.token,
       params: {
         action: 'ac-extended-value',
-        list_id: AC.layout,
+        list_id: tableConfig.layout,
         column_name: item.columnName,
         object_id: item.objectId,
         view: item.view,
         params: item.params,
-        _ajax_nonce: AC.ajax_nonce
+        _ajax_nonce: tableConfig.ajax_nonce
       }
     }).then(response => {
       $$invalidate(4, content = response.data);
