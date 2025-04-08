@@ -17,7 +17,7 @@ final class Aggregate implements ContextFactory
     /**
      * @var ConditionalContextFactory[]
      */
-    private array $factories;
+    private array $factories = [];
 
     private ContextFactory $default;
 
