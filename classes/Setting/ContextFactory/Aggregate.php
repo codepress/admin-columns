@@ -37,7 +37,7 @@ final class Aggregate implements ContextFactory
     {
         foreach ($this->factories as $factory) {
             if ($factory->supports($column)) {
-                $factory->create($column);
+                return $factory->create($column);
             }
         }
 

@@ -29,7 +29,7 @@ class ListScreenRenderable implements CellRenderer
 
         if ( ! isset($renderables[(string)$column->get_id()])) {
             $formatters = $column->get_formatters();
-
+            
             $renderable = new ColumnRenderable(
                 $formatters,
                 $this->context_factory->create($column),
