@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Service;
 
+use AC\ColumnRepository\Sort\ManualOrder;
 use AC\ListScreen;
 use AC\Registerable;
+use AC\Setting\ContextFactory;
 use AC\TableScreen;
 use AC\TableScreen\ManageHeadingFactory;
 
@@ -13,6 +15,13 @@ class ManageHeadings implements Registerable
 {
 
     private static array $factories = [];
+
+    private ContextFactory $context_factory;
+
+    public function __construct(ContextFactory $context_factory)
+    {
+        $this->context_factory = $context_factory;
+    }
 
     public static function add(ManageHeadingFactory $factory): void
     {
@@ -35,6 +44,30 @@ class ManageHeadings implements Registerable
         return null;
     }
 
+    protected function get_column_headings(ListScreen $list_screen): array
+    {
+        $headings = [];
+
+        $sort_strategy = new ManualOrder($list_screen->get_id());
+
+        foreach ($sort_strategy->sort($list_screen->get_columns()) as $column) {
+            $setting = $column->get_setting('label');
+
+            $label = $setting
+                ? (string)$setting->get_input()->get_value()
+                : $column->get_label();
+
+            $headings[(string)$column->get_id()] = apply_filters(
+                'ac/v2/headings/label',
+                $label,
+                $this->context_factory->create($column),
+                $list_screen->get_table_screen()
+            );
+        }
+
+        return $headings;
+    }
+
     public function handle(ListScreen $list_screen, TableScreen $table_screen): void
     {
         $factory = $this->get_factory($table_screen);
@@ -43,8 +76,11 @@ class ManageHeadings implements Registerable
             return;
         }
 
-        $service = $factory->create($table_screen, $list_screen);
- 
+        $service = $factory->create(
+            $table_screen,
+            $this->get_column_headings($list_screen)
+        );
+
         if ( ! $service) {
             return;
         }
