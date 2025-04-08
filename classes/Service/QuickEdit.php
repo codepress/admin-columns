@@ -4,6 +4,7 @@ namespace AC\Service;
 
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
+use AC\Setting\ContextFactory;
 use AC\Table\LayoutPreference;
 use AC\Table\PrimaryColumnFactory;
 use AC\TableScreenFactory;
@@ -20,16 +21,20 @@ class QuickEdit implements Registerable
 
     private TableScreenFactory $table_screen_factory;
 
+    private ContextFactory $context_factory;
+
     public function __construct(
         Storage $storage,
         LayoutPreference $preference,
         PrimaryColumnFactory $primary_column_factory,
-        TableScreenFactory $table_screen_factory
+        TableScreenFactory $table_screen_factory,
+        ContextFactory $context_factory
     ) {
         $this->storage = $storage;
         $this->preference = $preference;
         $this->primary_column_factory = $primary_column_factory;
         $this->table_screen_factory = $table_screen_factory;
+        $this->context_factory = $context_factory;
     }
 
     public function register(): void
@@ -50,27 +55,27 @@ class QuickEdit implements Registerable
             // Quick edit post
             case 'pll_update_post_rows':
             case 'inline-save' :
-                $list_key = (string)filter_input(INPUT_POST, 'post_type');
+                $table_id = (string)filter_input(INPUT_POST, 'post_type');
                 break;
 
             // Adding term & Quick edit term
             case 'pll_update_term_rows':
             case 'add-tag' :
             case 'inline-save-tax' :
-                $list_key = 'wp-taxonomy_' . filter_input(INPUT_POST, 'taxonomy');
+                $table_id = 'wp-taxonomy_' . filter_input(INPUT_POST, 'taxonomy');
                 break;
 
             // Quick edit comment & Inline reply on comment
             case 'edit-comment' :
             case 'replyto-comment' :
-                $list_key = 'wp-comments';
+                $table_id = 'wp-comments';
                 break;
 
             default:
                 return;
         }
 
-        $list_id = $this->preference->find_list_id(new TableId($list_key));
+        $list_id = $this->preference->find_list_id(new TableId($table_id));
 
         if ( ! $list_id) {
             return;
@@ -90,7 +95,7 @@ class QuickEdit implements Registerable
             20
         );
 
-        (new ManageHeadings())->handle($list_screen, $table_screen);
+        (new ManageHeadings($this->context_factory))->handle($list_screen, $table_screen);
         (new ManageValue())->handle($list_screen, $table_screen);
     }
 

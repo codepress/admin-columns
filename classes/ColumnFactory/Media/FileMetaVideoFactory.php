@@ -3,17 +3,17 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\Media\FileMetaVideo;
 use AC\Setting\Config;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\NestedAttachmentMetaData;
 
 class FileMetaVideoFactory extends BaseColumnFactory
 {
 
-    private $file_meta_video;
+    private FileMetaVideo $file_meta_video;
 
     public function __construct(
         DefaultSettingsBuilder $default_settings_builder,
