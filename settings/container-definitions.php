@@ -62,8 +62,9 @@ return [
     EncoderFactory::class                   => static function (AdminColumns $plugin) {
         return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
     },
-    ContextFactory::class                   => autowire(ContextFactory\Aggregate::class)
+    ContextFactory\Aggregate::class         => autowire()
         ->constructorParameter(0, get(ContextFactory\Column::class)),
+    ContextFactory::class                   => get(ContextFactory\Aggregate::class),
     Admin\PageFactory\Help::class           => autowire()
         ->constructorParameter(0, get(AdminColumns::class)),
 ];
