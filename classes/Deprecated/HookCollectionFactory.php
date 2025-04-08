@@ -9,6 +9,8 @@ class HookCollectionFactory
 
     //  TODO replace hooks that contain $column
 
+    // ac/table/list_screen
+
     public function create_filters(): HookCollection
     {
         // TODO move hooks to create_hooks method
@@ -20,7 +22,6 @@ class HookCollectionFactory
             new Hook('ac/column/audio_player/valid_mime_types', '5.0', 'ac/v2/column/audio_player/valid_mime_types'),
             new Hook('ac/columns_stored', '5.0', 'ac/v2/columns_stored'),
             new Hook('ac/headings/label', '5.0', 'ac/v2/headings/label'),
-            new Hook('ac/table/list_screen', '5.0', 'ac/v2/table/list_screen'),
 
             // Replaced Pro
             new Hook('ac/export/value', '7.0', 'acp/v2/export/value'),

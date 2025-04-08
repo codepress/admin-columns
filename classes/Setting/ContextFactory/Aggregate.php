@@ -35,9 +35,6 @@ final class Aggregate implements ContextFactory
 
     public function create(Column $column): Context
     {
-        echo '<pre>';
-        print_r($this->factories);
-        echo '</pre>';
         foreach ($this->factories as $factory) {
             if ($factory->supports($column)) {
                 $factory->create($column);

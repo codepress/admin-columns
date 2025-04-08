@@ -23,7 +23,6 @@ class ColumnTypeRepository
 
     public function find(TableScreen $table_screen, string $type): ?Column
     {
-        // TODO optimize
         $factory = iterator_to_array($this->aggregate->create($table_screen))[$type] ?? null;
 
         return $factory

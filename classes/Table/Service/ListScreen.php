@@ -3,11 +3,12 @@
 namespace AC\Table\Service;
 
 use AC;
+use AC\Registerable;
 use AC\Services;
 use AC\Table\PrimaryColumnFactory;
 use AC\Table\TableFormView;
 
-final class ListScreen implements AC\Registerable
+final class ListScreen implements Registerable
 {
 
     private AC\ListScreen $list_screen;

@@ -82,7 +82,7 @@ class CurrentTable implements Registerable
             );
             $list->register();
 
-            do_action('ac/v2/table/list_screen', $list_screen, $table_screen);
+            do_action('ac/table/list_screen', $list_screen, $table_screen);
         }
 
         $table = new Table\Screen(
