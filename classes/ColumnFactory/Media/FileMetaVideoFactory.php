@@ -46,7 +46,6 @@ class FileMetaVideoFactory extends BaseColumnFactory
         return 'media-video';
     }
 
-    //TODO TEST
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);

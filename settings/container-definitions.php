@@ -49,7 +49,7 @@ return [
     },
     GlobalTranslationFactory::class         => autowire()
         ->constructorParameter(1, get('translations.global')),
-    TableIdsFactory::class                  => autowire(ListKeysFactory\Aggregate::class),
+    TableIdsFactory::class                  => autowire(TableIdsFactory\Aggregate::class),
     Admin\Colors\Shipped\ColorParser::class => autowire()
         ->constructorParameter(0, ABSPATH . 'wp-admin/css/common.css'),
     Admin\Colors\ColorReader::class         => autowire(Admin\Colors\ColorRepository::class),

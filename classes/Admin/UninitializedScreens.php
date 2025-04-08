@@ -12,9 +12,9 @@ use AC\TableScreen;
 class UninitializedScreens
 {
 
-    private $table_screen_repository;
+    private TableScreenRepository $table_screen_repository;
 
-    private $default_columns_repository;
+    private DefaultColumnsRepository $default_columns_repository;
 
     public function __construct(
         TableScreenRepository $table_screen_repository,

@@ -69,7 +69,7 @@ class Loader
         ExtendedValueRegistry::add($container->get(Posts::class));
 
         MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
-        ListKeysFactory\Aggregate::add($container->get(ListKeysFactory\BaseFactory::class));
+        TableIdsFactory\Aggregate::add($container->get(TableIdsFactory\BaseFactory::class));
         TableScreen\TableRowsFactory\Aggregate::add(new TableScreen\TableRowsFactory\BaseFactory());
 
         // Page handlers
@@ -151,25 +151,27 @@ class Loader
         }
 
         $handlers = [
-            'ac-list-screen-settings'          => Ajax\ListScreenSettings::class,
-            'ac-list-screen-template-settings' => Ajax\ListScreenTemplateSettings::class,
-            'ac-list-screen-delete'            => Ajax\ListScreenDelete::class,
-            'ac-list-screen-save'              => Ajax\ListScreenSave::class,
-            'ac-list-screen-add-column'        => Ajax\ListScreenAddColumn::class,
-            'ac-number-format'                 => Ajax\NumberFormat::class,
-            'ac-list-screen-default-columns'   => Ajax\ListScreenDefaultColumns::class,
-            'ac-list-screen-select-column'     => Ajax\ListScreenSelectColumn::class,
-            'ac-editor-menu-status'            => Ajax\EditorMenuStatus::class,
-            'ac-editor-menu-favorites'         => Ajax\EditorMenuFavorites::class,
-            'ac-custom-field-keys'             => Ajax\CustomFieldKeys::class,
-            'ac-get-network-post-statuses'     => Ajax\NetworkPostStati::class,
-            'ac-admin-screen-options'          => Ajax\ScreenOptions::class,
-            'ac-extended-value'                => Ajax\ExtendedValue::class,
-            'ac-persist-admin-general-option'  => Ajax\AdminGeneralOptionsPersist::class,
-            'ac-get-admin-general-option'      => Ajax\AdminGeneralOptionsGet::class,
-            'ac-restore-settings'              => Ajax\RestoreSettingsRequest::class,
-            'acp-integration-toggle'           => Ajax\IntegrationToggle::class,
-            'ac-integrations'                  => Ajax\Integrations::class,
+            'ac-list-screen-settings'         => Ajax\ListScreenSettings::class,
+
+            // TODO
+            //'ac-list-screen-template-settings' => Ajax\ListScreenTemplateSettings::class,
+            'ac-list-screen-delete'           => Ajax\ListScreenDelete::class,
+            'ac-list-screen-save'             => Ajax\ListScreenSave::class,
+            'ac-list-screen-add-column'       => Ajax\ListScreenAddColumn::class,
+            'ac-number-format'                => Ajax\NumberFormat::class,
+            'ac-list-screen-default-columns'  => Ajax\ListScreenDefaultColumns::class,
+            'ac-list-screen-select-column'    => Ajax\ListScreenSelectColumn::class,
+            'ac-editor-menu-status'           => Ajax\EditorMenuStatus::class,
+            'ac-editor-menu-favorites'        => Ajax\EditorMenuFavorites::class,
+            'ac-custom-field-keys'            => Ajax\CustomFieldKeys::class,
+            'ac-get-network-post-statuses'    => Ajax\NetworkPostStati::class,
+            'ac-admin-screen-options'         => Ajax\ScreenOptions::class,
+            'ac-extended-value'               => Ajax\ExtendedValue::class,
+            'ac-persist-admin-general-option' => Ajax\AdminGeneralOptionsPersist::class,
+            'ac-get-admin-general-option'     => Ajax\AdminGeneralOptionsGet::class,
+            'ac-restore-settings'             => Ajax\RestoreSettingsRequest::class,
+            'acp-integration-toggle'          => Ajax\IntegrationToggle::class,
+            'ac-integrations'                 => Ajax\Integrations::class,
         ];
 
         $request_ajax_handlers = new RequestAjaxHandlers();

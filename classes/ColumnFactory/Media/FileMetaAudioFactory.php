@@ -3,17 +3,17 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\Media\FileMetaAudio;
 use AC\Setting\Config;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Media\AttachmentMetaData;
 
 class FileMetaAudioFactory extends BaseColumnFactory
 {
 
-    private $audio_meta;
+    private FileMetaAudio $audio_meta;
 
     public function __construct(
         DefaultSettingsBuilder $default_settings_builder,

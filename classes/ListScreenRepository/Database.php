@@ -196,13 +196,13 @@ class Database implements ListScreenRepositoryWritable
 
     private function create_list_screen(object $data): ?ListScreen
     {
-        $list_key = new TableId($data->list_key);
+        $table_id = new TableId($data->list_key);
 
-        if ( ! $this->table_screen_factory->can_create($list_key)) {
+        if ( ! $this->table_screen_factory->can_create($table_id)) {
             return null;
         }
 
-        $table_screen = $this->table_screen_factory->create($list_key);
+        $table_screen = $this->table_screen_factory->create($table_id);
 
         return new ListScreen(
             new ListScreenId($data->list_id),

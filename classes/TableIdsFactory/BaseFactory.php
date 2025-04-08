@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\ListKeysFactory;
+namespace AC\TableIdsFactory;
 
 use AC\PostTypeRepository;
 use AC\TableIdCollection;
