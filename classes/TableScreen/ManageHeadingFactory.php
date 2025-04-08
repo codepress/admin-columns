@@ -2,7 +2,6 @@
 
 namespace AC\TableScreen;
 
-use AC\ListScreen;
 use AC\Registerable;
 use AC\TableScreen;
 
@@ -15,6 +14,6 @@ interface ManageHeadingFactory
 
     public function can_create(TableScreen $table_screen): bool;
 
-    public function create(TableScreen $table_screen, ListScreen $list_screen): ?Registerable;
+    public function create(TableScreen $table_screen, array $headings): ?Registerable;
 
 }

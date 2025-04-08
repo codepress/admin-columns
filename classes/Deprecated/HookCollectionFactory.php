@@ -10,7 +10,6 @@ class HookCollectionFactory
     //  TODO replace these hooks that contain $column
     //  TODO Move pro to pro class?
     //  ac/column/audio_player/valid_mime_types
-    //  ac/headings/label
     //  ac/list_screen/preferences
     //  ac/headings
     //  ac/column/video_player/valid_mime_types
@@ -27,6 +26,7 @@ class HookCollectionFactory
             new Hook('ac/column_types', '5.0', 'ac/v2/column_types'),
             new Hook('ac/column/audio_player/valid_mime_types', '5.0', 'ac/v2/column/audio_player/valid_mime_types'),
             new Hook('ac/columns_stored', '5.0', 'ac/v2/columns_stored'),
+            new Hook('ac/headings/label', '5.0', 'ac/v2/headings/label'),
 
             // Replaced Pro
             new Hook('ac/export/value', '7.0', 'acp/v2/export/value'),
