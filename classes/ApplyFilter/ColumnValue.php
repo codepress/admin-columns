@@ -28,8 +28,8 @@ class ColumnValue
         $value = apply_filters(
             'ac/v2/column/value',
             $value,
-            $this->id,
             $this->context,
+            $this->id,
             $this->list_screen->get_table_screen(),
             $this->list_screen->get_id()
         );
