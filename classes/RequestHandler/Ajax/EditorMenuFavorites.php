@@ -10,7 +10,7 @@ use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
 use AC\Storage;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 
 class EditorMenuFavorites implements RequestAjaxHandler
 {
@@ -35,7 +35,7 @@ class EditorMenuFavorites implements RequestAjaxHandler
             $response->error();
         }
 
-        $list_key = new ListKey($request->get('list_key'));
+        $list_key = new TableId($request->get('list_key'));
 
         'favorite' === $request->get('status')
             ? $this->favorite_repository->add($list_key)

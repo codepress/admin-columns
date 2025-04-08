@@ -7,7 +7,7 @@ namespace AC\TableScreenFactory;
 use AC\TableScreen;
 use AC\TableScreen\Media;
 use AC\TableScreenFactory;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use WP_Screen;
 
 class MediaFactory implements TableScreenFactory
@@ -23,12 +23,12 @@ class MediaFactory implements TableScreenFactory
         return $this->create_table_screen();
     }
 
-    public function can_create(ListKey $key): bool
+    public function can_create(TableId $id): bool
     {
-        return $key->equals(new ListKey('wp-media'));
+        return $id->equals(new TableId('wp-media'));
     }
 
-    public function create(ListKey $key): TableScreen
+    public function create(TableId $id): TableScreen
     {
         return $this->create_table_screen();
     }

@@ -2,7 +2,7 @@
 
 namespace AC\Storage\Repository;
 
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use AC\Type\ListScreenId;
 
 class ListScreenOrder
@@ -10,14 +10,14 @@ class ListScreenOrder
 
     private const KEY = 'ac_list_screens_order';
 
-    public function get(ListKey $key): array
+    public function get(TableId $key): array
     {
         $orders = $this->get_data();
 
         return $orders[(string)$key] ?? [];
     }
 
-    public function set(ListKey $key, array $list_screen_ids): void
+    public function set(TableId $key, array $list_screen_ids): void
     {
         $data = $this->get_data();
 
@@ -26,7 +26,7 @@ class ListScreenOrder
         update_option(self::KEY, $data, false);
     }
 
-    public function add(ListKey $key, ListScreenId $id): void
+    public function add(TableId $key, ListScreenId $id): void
     {
         $ids = $this->get($key);
 

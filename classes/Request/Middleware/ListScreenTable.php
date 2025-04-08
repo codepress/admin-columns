@@ -10,7 +10,7 @@ use AC\ListScreenRepository\Storage;
 use AC\Middleware;
 use AC\Request;
 use AC\Table;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use AC\Type\ListScreenId;
 use Exception;
 use WP_User;
@@ -26,7 +26,7 @@ class ListScreenTable implements Middleware
 
     public function __construct(
         Storage $storage,
-        ListKey $list_key,
+        TableId $list_key,
         Table\LayoutPreference $preference
     ) {
         $this->storage = $storage;
@@ -75,7 +75,7 @@ class ListScreenTable implements Middleware
 
         if ( ! $list_screen ||
              ! $list_screen->is_user_allowed($user) ||
-             ! $this->list_key->equals($list_screen->get_key())
+             ! $this->list_key->equals($list_screen->get_table_id())
         ) {
             return null;
         }

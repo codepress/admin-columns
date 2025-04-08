@@ -25,7 +25,7 @@ class MediaLibraryAssistant implements Registerable
         }
 
         AC\TableScreenFactory\Aggregate::add($this->container->get(TableScreenFactory::class));
-        AC\ListKeysFactory\Aggregate::add($this->container->get(ListKeysFactory::class));
+        AC\ListKeysFactory\Aggregate::add($this->container->get(TableIdsFactory::class));
         AC\ColumnFactories\Aggregate::add($this->container->get(ColumnTypesFactory::class));
 
         AC\Service\ManageValue::add(

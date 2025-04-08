@@ -12,7 +12,7 @@ use AC\ListScreenRepository\Storage;
 use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use InvalidArgumentException;
 
 class ListScreenSettings implements RequestAjaxHandler
@@ -55,7 +55,7 @@ class ListScreenSettings implements RequestAjaxHandler
             $response->error();
         }
 
-        $list_key = new ListKey((string)$request->get('list_key'));
+        $list_key = new TableId((string)$request->get('list_key'));
 
         if ( ! $this->table_factory->can_create($list_key)) {
             throw new InvalidArgumentException('Invalid table screen.');

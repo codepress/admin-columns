@@ -7,15 +7,15 @@ use AC\Middleware;
 use AC\Request;
 use AC\Table\TableScreenCollection;
 use AC\TableScreen;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use Exception;
 
 class TableScreenAdmin implements Middleware
 {
 
-    private $preference;
+    private Preference\ListScreen $preference;
 
-    private $table_screens;
+    private TableScreenCollection $table_screens;
 
     public function __construct(
         Preference\ListScreen $preference,
@@ -25,10 +25,10 @@ class TableScreenAdmin implements Middleware
         $this->table_screens = $table_screens;
     }
 
-    private function get_table_screen_by_key(ListKey $key): ?TableScreen
+    private function get_table_screen_by_id(TableId $table_id): ?TableScreen
     {
         foreach ($this->table_screens as $table_screen) {
-            if ($table_screen->get_key()->equals($key)) {
+            if ($table_screen->get_id()->equals($table_id)) {
                 return $table_screen;
             }
         }
@@ -39,26 +39,26 @@ class TableScreenAdmin implements Middleware
     private function get_requested_table_screen(Request $request): ?TableScreen
     {
         try {
-            $key = new ListKey((string)$request->get('list_screen'));
+            $key = new TableId((string)$request->get('list_screen'));
         } catch (Exception $e) {
             return null;
         }
 
-        return $this->get_table_screen_by_key($key);
+        return $this->get_table_screen_by_id($key);
     }
 
     private function get_last_visited_table_screen(): ?TableScreen
     {
-        $list_key = $this->preference->get_last_visited_list_key();
+        $list_key = $this->preference->get_last_visited_table();
 
         return $list_key ?
-            $this->get_table_screen_by_key($list_key)
+            $this->get_table_screen_by_id($list_key)
             : null;
     }
 
     private function get_first_visit_table_screen(): ?TableScreen
     {
-        $table_screen = $this->get_table_screen_by_key(new ListKey('post'));
+        $table_screen = $this->get_table_screen_by_id(new TableId('post'));
 
         return $table_screen ?: $this->table_screens->offsetGet($this->table_screens->count() - 1);
     }

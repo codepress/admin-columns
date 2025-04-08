@@ -147,7 +147,7 @@ class Columns extends Script
         $uninitialized_table_screens = [];
 
         foreach ($this->table_screens as $table_screen) {
-            $uninitialized_table_screens[(string)$table_screen->get_key()] = [
+            $uninitialized_table_screens[(string)$table_screen->get_id()] = [
                 'screen_link' => (string)$table_screen->get_url()->with_arg('save-default-headings', '1'),
             ];
         }
@@ -156,7 +156,7 @@ class Columns extends Script
             'assets'                     => $this->parent_location->with_suffix('assets')->get_url(),
             'nonce'                      => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
             'is_pro'                     => $this->is_pro,
-            'list_key'                   => (string)$this->table_screen->get_key(),
+            'list_key'                   => (string)$this->table_screen->get_id(),
             'list_id'                    => (string)$this->list_id,
             'uninitialized_list_screens' => ! empty($uninitialized_table_screens) ? $uninitialized_table_screens : null,
             'column_groups'              => $this->encode_groups($this->column_groups->find_all()),
@@ -374,7 +374,7 @@ class Columns extends Script
 
     private function get_favorite_table_screens(): TableScreenCollection
     {
-        return $this->table_screen_repository->find_all_by_list_keys(
+        return $this->table_screen_repository->find_all_by_ids(
             $this->favorite_repository->find_all(),
             new SortByLabel()
         );
@@ -385,7 +385,7 @@ class Columns extends Script
         $keys = [];
 
         foreach ($collection as $table_screen) {
-            $keys[] = (string)$table_screen->get_key();
+            $keys[] = (string)$table_screen->get_id();
         }
 
         return $keys;

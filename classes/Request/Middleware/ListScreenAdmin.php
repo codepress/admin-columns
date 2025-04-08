@@ -9,8 +9,8 @@ use AC\ListScreenRepository\Storage;
 use AC\Middleware;
 use AC\Request;
 use AC\TableScreen;
-use AC\Type\ListKey;
 use AC\Type\ListScreenId;
+use AC\Type\TableId;
 use Exception;
 
 class ListScreenAdmin implements Middleware
@@ -51,14 +51,14 @@ class ListScreenAdmin implements Middleware
     {
         $list_screen = $this->storage->find($id);
 
-        return $list_screen && $this->table_screen->get_key()->equals($list_screen->get_key())
+        return $list_screen && $this->table_screen->get_id()->equals($list_screen->get_table_id())
             ? $list_screen
             : null;
     }
 
     private function get_first_listscreen(): ?ListScreen
     {
-        $list_screens = $this->storage->find_all_by_key($this->table_screen->get_key());
+        $list_screens = $this->storage->find_all_by_table_id($this->table_screen->get_id());
 
         return $list_screens->count() > 0
             ? $list_screens->current()
@@ -68,7 +68,7 @@ class ListScreenAdmin implements Middleware
     private function get_last_visited_listscreen(): ?ListScreen
     {
         $list_id = $this->preference->get_list_id(
-            $this->table_screen->get_key()
+            $this->table_screen->get_id()
         );
 
         return $list_id
@@ -105,7 +105,7 @@ class ListScreenAdmin implements Middleware
         $list_screen = $this->get_list_screen($request);
 
         if ($list_screen) {
-            $this->set_preference($list_screen->get_key(), $list_screen->get_id());
+            $this->set_preference($list_screen->get_table_id(), $list_screen->get_id());
         }
 
         $request->get_parameters()->merge([
@@ -113,10 +113,10 @@ class ListScreenAdmin implements Middleware
         ]);
     }
 
-    private function set_preference(ListKey $key, ListScreenId $id): void
+    private function set_preference(TableId $table_id, ListScreenId $id): void
     {
-        $this->preference->set_last_visited_list_key($key);
-        $this->preference->set_list_id($key, $id);
+        $this->preference->set_last_visited_table($table_id);
+        $this->preference->set_list_id($table_id, $id);
     }
 
 }

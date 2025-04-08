@@ -16,9 +16,9 @@ use AC\Setting\ConfigCollection;
 use AC\Storage\EncoderFactory;
 use AC\TableScreen;
 use AC\TableScreenFactory;
-use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use AC\Type\ListScreenStorageType;
+use AC\Type\TableId;
 use DateTime;
 use RuntimeException;
 
@@ -93,7 +93,7 @@ class Database implements ListScreenRepositoryWritable
         );
     }
 
-    protected function find_all_by_key_from_source(ListKey $key): ListScreenCollection
+    protected function find_all_by_table_id_from_source(TableId $table_id): ListScreenCollection
     {
         global $wpdb;
 
@@ -104,7 +104,7 @@ class Database implements ListScreenRepositoryWritable
 			WHERE list_key = %s
 			AND type = %s
 		',
-            (string)$key,
+            (string)$table_id,
             (string)$this->storage_type
         );
 
@@ -196,7 +196,7 @@ class Database implements ListScreenRepositoryWritable
 
     private function create_list_screen(object $data): ?ListScreen
     {
-        $list_key = new ListKey($data->list_key);
+        $list_key = new TableId($data->list_key);
 
         if ( ! $this->table_screen_factory->can_create($list_key)) {
             return null;

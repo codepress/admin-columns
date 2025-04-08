@@ -7,7 +7,7 @@ namespace AC\ThirdParty\MediaLibraryAssistant;
 use AC;
 use AC\MetaType;
 use AC\Type\Labels;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use AC\Type\PostTypeSlug;
 use AC\Type\Url;
 use MLACore;
@@ -18,7 +18,7 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
     public function __construct()
     {
         parent::__construct(
-            new ListKey('mla-media-assistant'),
+            new TableId('mla-media-assistant'),
             'media_page_' . MLACore::ADMIN_PAGE_SLUG,
             new Labels(
                 __('Assistant', 'codepress-admin-columns'),

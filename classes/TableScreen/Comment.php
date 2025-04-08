@@ -8,7 +8,7 @@ use AC;
 use AC\ListTableFactory;
 use AC\TableScreen;
 use AC\Type\Labels;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use AC\Type\Url;
 
 class Comment extends TableScreen implements ListTable, MetaType
@@ -17,7 +17,7 @@ class Comment extends TableScreen implements ListTable, MetaType
     public function __construct()
     {
         parent::__construct(
-            new ListKey('wp-comments'),
+            new TableId('wp-comments'),
             'edit-comments',
             new Labels(
                 __('Comments'),

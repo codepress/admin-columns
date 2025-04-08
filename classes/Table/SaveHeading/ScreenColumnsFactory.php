@@ -23,7 +23,7 @@ abstract class ScreenColumnsFactory implements SaveHeadingFactory
     {
         return new TableScreen\SaveHeading\ScreenColumns(
             $table_screen->get_screen_id(),
-            $table_screen->get_key(),
+            $table_screen->get_id(),
             $this->repository
         );
     }

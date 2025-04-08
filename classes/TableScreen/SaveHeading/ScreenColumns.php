@@ -8,7 +8,7 @@ use AC\Registerable;
 use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\Type\DefaultColumn;
 use AC\Type\DefaultColumns;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 
 class ScreenColumns implements Registerable
 {
@@ -17,18 +17,18 @@ class ScreenColumns implements Registerable
 
     private DefaultColumnsRepository $repository;
 
-    private ListKey $list_key;
+    private TableId $table_id;
 
     private int $priority;
 
     public function __construct(
         string $screen_id,
-        ListKey $list_key,
+        TableId $table_id,
         DefaultColumnsRepository $repository,
         int $priority = 199
     ) {
         $this->screen_id = $screen_id;
-        $this->list_key = $list_key;
+        $this->table_id = $table_id;
         $this->repository = $repository;
         $this->priority = $priority;
     }
@@ -70,7 +70,7 @@ class ScreenColumns implements Registerable
 
     public function save(DefaultColumns $columns)
     {
-        $this->repository->update($this->list_key, $columns);
+        $this->repository->update($this->table_id, $columns);
     }
 
     public function save_sortable_columns($sortable_columns)
@@ -79,7 +79,7 @@ class ScreenColumns implements Registerable
 
         $sortables = array_keys($sortable_columns);
 
-        foreach ($this->repository->find_all($this->list_key) as $column) {
+        foreach ($this->repository->find_all($this->table_id) as $column) {
             $is_sortable = in_array($column->get_name(), $sortables, true);
 
             $columns->add(

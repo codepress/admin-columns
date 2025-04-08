@@ -13,7 +13,7 @@ use AC\Response;
 use AC\Setting\Encoder;
 use AC\TableScreen;
 use AC\TableScreenFactory\Aggregate;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 
 class ListScreenDefaultColumns implements RequestAjaxHandler
 {
@@ -43,7 +43,7 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
             $response->error();
         }
 
-        $list_key = new ListKey($request->get('list_key'));
+        $list_key = new TableId($request->get('list_key'));
 
         if ( ! $this->table_screen_factory->can_create($list_key)) {
             $response->error();

@@ -7,7 +7,7 @@ use AC\ColumnSize\UserStorage;
 use AC\ListScreen;
 use AC\Type\ColumnId;
 use AC\Type\ColumnWidth;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 
 class ColumnSize
 {
@@ -22,20 +22,20 @@ class ColumnSize
         $this->user_storage = $user_storage;
     }
 
-    private function render_style(ListKey $list_key, ColumnId $column_id, ColumnWidth $column_width, $type)
+    private function render_style(TableId $table_id, ColumnId $column_id, ColumnWidth $column_width, $type)
     {
         $css_width = $column_width->get_value() . $column_width->get_unit();
 
         $css = sprintf(
             '.ac-%1$s .wrap table th.column-%2$s, .ac-%1$s .wrap table td.column-%2$s   { width: %3$s !important; }',
-            esc_attr((string)$list_key),
+            esc_attr((string)$table_id),
             esc_attr((string)$column_id),
             $css_width
         );
 
         $css .= sprintf(
             'body.acp-overflow-table.ac-%1$s .wrap th.column-%2$s, body.acp-overflow-table.ac-%1$s .wrap td.column-%2$s { min-width: %3$s !important; max-width: %3$s !important }',
-            esc_attr((string)$list_key),
+            esc_attr((string)$table_id),
             esc_attr((string)$column_id),
             $css_width
         );
@@ -67,13 +67,13 @@ class ColumnSize
             $width = $this->list_storage->get($column);
 
             if ($width) {
-                $html .= $this->render_style($list_screen->get_key(), $column->get_id(), $width, 'list');
+                $html .= $this->render_style($list_screen->get_table_id(), $column->get_id(), $width, 'list');
             }
 
             $width = $this->user_storage->get($list_screen->get_id(), $column->get_id());
 
             if ($width) {
-                $html .= $this->render_style($list_screen->get_key(), $column->get_id(), $width, 'user');
+                $html .= $this->render_style($list_screen->get_table_id(), $column->get_id(), $width, 'user');
             }
         }
 

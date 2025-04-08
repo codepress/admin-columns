@@ -18,7 +18,7 @@ use AC\Setting\Config;
 use AC\Setting\ConfigCollection;
 use AC\TableScreen;
 use AC\TableScreenFactory;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use AC\Type\ListScreenId;
 use InvalidArgumentException;
 
@@ -58,7 +58,7 @@ class ListScreenSave implements RequestAjaxHandler
             $response->error();
         }
 
-        $list_key = new ListKey($request->get('list_key', '') ?? '');
+        $list_key = new TableId($request->get('list_key', '') ?? '');
         $data = $request->get('data', '');
         $data = json_decode($data, true);
 

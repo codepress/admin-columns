@@ -4,32 +4,32 @@ declare(strict_types=1);
 
 namespace AC;
 
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use Countable;
 use Iterator;
 
-final class ListKeyCollection implements Iterator, Countable
+final class TableIdCollection implements Iterator, Countable
 {
 
     /**
-     * @var ListKey[]
+     * @var TableId[]
      */
-    private $data = [];
+    private array $data = [];
 
-    public function __construct(array $keys = [])
+    public function __construct(array $ids = [])
     {
-        array_map([$this, 'add'], $keys);
+        array_map([$this, 'add'], $ids);
     }
 
-    public function contains(ListKey $key): bool
+    public function contains(TableId $id): bool
     {
-        return null !== $this->search($key);
+        return null !== $this->search($id);
     }
 
-    private function search(ListKey $key): ?int
+    private function search(TableId $id): ?int
     {
-        foreach ($this->data as $index => $list_key) {
-            if ($list_key->equals($key)) {
+        foreach ($this->data as $index => $table_id) {
+            if ($table_id->equals($id)) {
                 return $index;
             }
         }
@@ -37,12 +37,12 @@ final class ListKeyCollection implements Iterator, Countable
         return null;
     }
 
-    public function add(ListKey $key): void
+    public function add(TableId $id): void
     {
-        $this->data[] = $key;
+        $this->data[] = $id;
     }
 
-    public function current(): ListKey
+    public function current(): TableId
     {
         return current($this->data);
     }

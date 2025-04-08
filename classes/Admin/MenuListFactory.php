@@ -25,7 +25,7 @@ class MenuListFactory
         foreach ($table_screens as $table_screen) {
             $items[] =
                 new MenuListItem(
-                    (string)$table_screen->get_key(),
+                    (string)$table_screen->get_id(),
                     (string)$table_screen->get_labels(),
                     $this->group_factory->create($table_screen)
                 );

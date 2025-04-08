@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AC\ListKeysFactory;
 
-use AC\ListKeyCollection;
-use AC\ListKeysFactory;
 use AC\PostTypeRepository;
-use AC\Type\ListKey;
+use AC\TableIdCollection;
+use AC\TableIdsFactory;
+use AC\Type\TableId;
 
-class BaseFactory implements ListKeysFactory
+class BaseFactory implements TableIdsFactory
 {
 
     private PostTypeRepository $post_type_repository;
@@ -19,7 +19,7 @@ class BaseFactory implements ListKeysFactory
         $this->post_type_repository = $post_type_repository;
     }
 
-    public function create(): ListKeyCollection
+    public function create(): TableIdCollection
     {
         $keys = $this->post_type_repository->find_all();
 
@@ -27,10 +27,10 @@ class BaseFactory implements ListKeysFactory
         $keys[] = 'wp-users';
         $keys[] = 'wp-media';
 
-        $collection = new ListKeyCollection();
+        $collection = new TableIdCollection();
 
         foreach ($keys as $key) {
-            $collection->add(new ListKey($key));
+            $collection->add(new TableId($key));
         }
 
         return $collection;

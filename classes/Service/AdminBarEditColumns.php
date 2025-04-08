@@ -26,7 +26,7 @@ class AdminBarEditColumns implements Registerable
 
         $admin_bar = new AdminBar(
             new EditorColumns(
-                $table->get_key(),
+                $table->get_id(),
                 $listscreen
                     ? $listscreen->get_id()
                     : null

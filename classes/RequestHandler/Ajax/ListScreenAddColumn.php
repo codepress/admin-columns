@@ -12,7 +12,7 @@ use AC\RequestAjaxHandler;
 use AC\Response\Json;
 use AC\Response\JsonColumnFactory;
 use AC\TableScreenFactory\Aggregate;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 
 class ListScreenAddColumn implements RequestAjaxHandler
 {
@@ -46,7 +46,7 @@ class ListScreenAddColumn implements RequestAjaxHandler
             $response->error();
         }
 
-        $list_key = new ListKey((string)$request->get('list_screen'));
+        $list_key = new TableId((string)$request->get('list_screen'));
 
         if ( ! $this->table_screen_factory->can_create($list_key)) {
             $response->error();

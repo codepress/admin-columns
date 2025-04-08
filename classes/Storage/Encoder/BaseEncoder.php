@@ -37,7 +37,7 @@ class BaseEncoder implements AC\Storage\Encoder
         if ($this->list_screen instanceof ListScreen) {
             $encoded_data['list_screen'] = [
                 'title'    => $this->list_screen->get_title(),
-                'type'     => (string)$this->list_screen->get_key(),
+                'type'     => (string)$this->list_screen->get_table_id(),
                 'id'       => (string)$this->list_screen->get_id(),
                 'updated'  => $this->list_screen->get_updated()->getTimestamp(),
                 'columns'  => $this->encode_columns(),

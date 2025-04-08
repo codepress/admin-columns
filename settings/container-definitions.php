@@ -5,7 +5,6 @@ use AC\Admin\PageRequestHandlers;
 use AC\AdminColumns;
 use AC\Asset\Script\GlobalTranslationFactory;
 use AC\Asset\Script\Localize\Translation;
-use AC\ListKeysFactory;
 use AC\ListScreenRepository;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
@@ -15,6 +14,7 @@ use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
 use AC\Setting\ContextFactory;
 use AC\Storage\EncoderFactory;
+use AC\TableIdsFactory;
 use AC\TableScreenFactory;
 use AC\Vendor\DI\Container;
 use Psr\Container\ContainerInterface;
@@ -49,7 +49,7 @@ return [
     },
     GlobalTranslationFactory::class         => autowire()
         ->constructorParameter(1, get('translations.global')),
-    ListKeysFactory::class                  => autowire(ListKeysFactory\Aggregate::class),
+    TableIdsFactory::class                  => autowire(ListKeysFactory\Aggregate::class),
     Admin\Colors\Shipped\ColorParser::class => autowire()
         ->constructorParameter(0, ABSPATH . 'wp-admin/css/common.css'),
     Admin\Colors\ColorReader::class         => autowire(Admin\Colors\ColorRepository::class),

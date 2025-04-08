@@ -4,38 +4,38 @@ declare(strict_types=1);
 
 namespace AC\Table;
 
-use AC\ListKeyCollection;
-use AC\ListKeysFactory;
 use AC\Table\TableScreenRepository\Sort;
+use AC\TableIdCollection;
+use AC\TableIdsFactory;
 use AC\TableScreen;
 use AC\TableScreenFactory;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 
 class TableScreenRepository
 {
 
-    protected $list_keys_factory;
+    protected TableIdsFactory $table_ids_factory;
 
-    protected $table_screen_factory;
+    protected TableScreenFactory $table_screen_factory;
 
-    public function __construct(ListKeysFactory $list_keys_factory, TableScreenFactory $table_screen_factory)
+    public function __construct(TableIdsFactory $table_ids_factory, TableScreenFactory $table_screen_factory)
     {
-        $this->list_keys_factory = $list_keys_factory;
+        $this->table_ids_factory = $table_ids_factory;
         $this->table_screen_factory = $table_screen_factory;
     }
 
-    public function find(ListKey $key): ?TableScreen
+    public function find(TableId $table_id): ?TableScreen
     {
-        return $this->table_screen_factory->can_create($key)
-            ? $this->table_screen_factory->create($key)
+        return $this->table_screen_factory->can_create($table_id)
+            ? $this->table_screen_factory->create($table_id)
             : null;
     }
 
-    public function find_all_by_list_keys(ListKeyCollection $list_keys, Sort $sort = null): TableScreenCollection
+    public function find_all_by_ids(TableIdCollection $ids, Sort $sort = null): TableScreenCollection
     {
         $table_screens = new TableScreenCollection();
 
-        foreach ($list_keys as $key) {
+        foreach ($ids as $key) {
             if ($this->table_screen_factory->can_create($key)) {
                 $table_screens->add(
                     $this->table_screen_factory->create($key)
@@ -54,13 +54,13 @@ class TableScreenRepository
     {
         $table_screens = new TableScreenCollection();
 
-        foreach ($this->list_keys_factory->create() as $key) {
-            if ( ! $this->table_screen_factory->can_create($key)) {
+        foreach ($this->table_ids_factory->create() as $id) {
+            if ( ! $this->table_screen_factory->can_create($id)) {
                 continue;
             }
 
             $table_screens->add(
-                $this->table_screen_factory->create($key)
+                $this->table_screen_factory->create($id)
             );
         }
 

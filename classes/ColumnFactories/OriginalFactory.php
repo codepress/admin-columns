@@ -27,7 +27,7 @@ final class OriginalFactory extends BaseFactory
     {
         $collection = new ColumnFactoryDefinitionCollection();
 
-        foreach ($this->repository->find_all($table_screen->get_key()) as $column) {
+        foreach ($this->repository->find_all($table_screen->get_id()) as $column) {
             $collection->add(
                 new ColumnFactoryDefinition(
                     ColumnFactory\OriginalFactory::class,

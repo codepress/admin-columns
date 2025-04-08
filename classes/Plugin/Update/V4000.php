@@ -5,7 +5,7 @@ namespace AC\Plugin\Update;
 use AC\Plugin\Update;
 use AC\Plugin\Version;
 use AC\Storage\Repository\ListScreenOrder;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use DateTime;
 
 class V4000 extends Update
@@ -352,7 +352,7 @@ class V4000 extends Update
                     $ids[$k] = $this->maybe_replace_id($replaced_list_ids, $list_key, $id);
                 }
 
-                $order->set(new ListKey($list_key), $ids);
+                $order->set(new TableId($list_key), $ids);
             }
         }
     }

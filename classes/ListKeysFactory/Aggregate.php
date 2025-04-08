@@ -4,33 +4,33 @@ declare(strict_types=1);
 
 namespace AC\ListKeysFactory;
 
-use AC\ListKeyCollection;
-use AC\ListKeysFactory;
+use AC\TableIdCollection;
+use AC\TableIdsFactory;
 
-class Aggregate implements ListKeysFactory
+class Aggregate implements TableIdsFactory
 {
 
     /**
-     * @var ListKeysFactory[]
+     * @var TableIdsFactory[]
      */
     private static array $factories = [];
 
-    public static function add(ListKeysFactory $factory): void
+    public static function add(TableIdsFactory $factory): void
     {
         array_unshift(self::$factories, $factory);
     }
 
-    public function create(): ListKeyCollection
+    public function create(): TableIdCollection
     {
-        $keys = new ListKeyCollection();
+        $ids = new TableIdCollection();
 
         foreach (self::$factories as $factory) {
             foreach ($factory->create() as $key) {
-                $keys->add($key);
+                $ids->add($key);
             }
         }
 
-        return $keys;
+        return $ids;
     }
 
 }

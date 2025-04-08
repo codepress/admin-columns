@@ -10,7 +10,7 @@ use AC\MetaType;
 use AC\PostType;
 use AC\TableScreen;
 use AC\Type\Labels;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use AC\Type\PostTypeSlug;
 use AC\Type\Url;
 use WP_Post_Type;
@@ -23,7 +23,7 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
     public function __construct(WP_Post_Type $post_type)
     {
         parent::__construct(
-            new ListKey($post_type->name),
+            new TableId($post_type->name),
             'edit-' . $post_type->name,
             new Labels(
                 $post_type->labels->singular_name ?? $post_type->name,

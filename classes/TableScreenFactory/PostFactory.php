@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AC\TableScreenFactory;
 
-use AC\Exception\InvalidListScreenException;
+use AC\Exception\InvalidTableScreenException;
 use AC\PostTypeRepository;
 use AC\TableScreen;
 use AC\TableScreenFactory;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use WP_Post_Type;
 use WP_Screen;
 
@@ -35,18 +35,18 @@ class PostFactory implements TableScreenFactory
         return $this->create_table_screen(get_post_type_object($screen->post_type));
     }
 
-    public function can_create(ListKey $key): bool
+    public function can_create(TableId $id): bool
     {
-        return null !== get_post_type_object((string)$key);
+        return null !== get_post_type_object((string)$id);
     }
 
-    public function create(ListKey $key): TableScreen
+    public function create(TableId $id): TableScreen
     {
-        if ( ! $this->can_create($key)) {
-            throw InvalidListScreenException::from_invalid_key($key);
+        if ( ! $this->can_create($id)) {
+            throw InvalidTableScreenException::from_invalid_id($id);
         }
 
-        return $this->create_table_screen(get_post_type_object((string)$key));
+        return $this->create_table_screen(get_post_type_object((string)$id));
     }
 
     protected function create_table_screen(WP_Post_Type $post_type): TableScreen\Post

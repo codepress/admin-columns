@@ -74,7 +74,7 @@ final class WooCommerce extends Integration
 
     public function show_placeholder(TableScreen $table_screen): bool
     {
-        return in_array((string)$table_screen->get_key(), $this->get_list_keys(), true);
+        return in_array((string)$table_screen->get_id(), $this->get_list_keys(), true);
     }
 
 }

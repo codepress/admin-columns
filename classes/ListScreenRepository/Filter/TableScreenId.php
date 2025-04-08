@@ -6,16 +6,16 @@ namespace AC\ListScreenRepository\Filter;
 
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Filter;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 
-final class ListScreenKey implements Filter
+final class TableScreenId implements Filter
 {
 
-    private $key;
+    private TableId $table_id;
 
-    public function __construct(ListKey $key)
+    public function __construct(TableId $key)
     {
-        $this->key = $key;
+        $this->table_id = $key;
     }
 
     public function filter(ListScreenCollection $list_screens): ListScreenCollection
@@ -23,7 +23,7 @@ final class ListScreenKey implements Filter
         $collection = new ListScreenCollection();
 
         foreach ($list_screens as $list_screen) {
-            if ($this->key->equals($list_screen->get_key())) {
+            if ($this->table_id->equals($list_screen->get_table_id())) {
                 $collection->add($list_screen);
             }
         }

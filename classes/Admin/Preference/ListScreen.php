@@ -2,14 +2,15 @@
 
 namespace AC\Admin\Preference;
 
+use AC\Preferences\Preference;
 use AC\Preferences\SiteFactory;
-use AC\Type\ListKey;
 use AC\Type\ListScreenId;
+use AC\Type\TableId;
 
 class ListScreen
 {
 
-    private $storage;
+    private Preference $storage;
 
     public function __construct(bool $is_network = false)
     {
@@ -20,34 +21,34 @@ class ListScreen
         );
     }
 
-    public function get_last_visited_list_key(): ?ListKey
+    public function get_last_visited_table(): ?TableId
     {
         $list_key = (string)$this->storage->find('last_visited_list_key');
 
-        return ListKey::validate($list_key)
-            ? new ListKey($list_key)
+        return TableId::validate($list_key)
+            ? new TableId($list_key)
             : null;
     }
 
-    public function set_last_visited_list_key(ListKey $list_key): void
+    public function set_last_visited_table(TableId $table_id): void
     {
         $this->storage->save(
             'last_visited_list_key',
-            (string)$list_key
+            (string)$table_id
         );
     }
 
-    public function set_list_id(ListKey $list_key, ListScreenId $list_id): void
+    public function set_list_id(TableId $table_id, ListScreenId $list_id): void
     {
         $this->storage->save(
-            (string)$list_key,
+            (string)$table_id,
             (string)$list_id
         );
     }
 
-    public function get_list_id(ListKey $list_key): ?ListScreenId
+    public function get_list_id(TableId $table_id): ?ListScreenId
     {
-        $list_id = (string)$this->storage->find((string)$list_key);
+        $list_id = (string)$this->storage->find((string)$table_id);
 
         return ListScreenId::is_valid_id($list_id)
             ? new ListScreenId($list_id)

@@ -10,7 +10,7 @@ use AC\MetaType;
 use AC\PostType;
 use AC\TableScreen;
 use AC\Type\Labels;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use AC\Type\PostTypeSlug;
 use AC\Type\Url;
 
@@ -20,7 +20,7 @@ class Media extends TableScreen implements ListTable, PostType, TableScreen\Meta
     public function __construct()
     {
         parent::__construct(
-            new ListKey('wp-media'),
+            new TableId('wp-media'),
             'upload',
             new Labels(
                 __('Media'),

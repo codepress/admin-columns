@@ -6,7 +6,7 @@ namespace AC\TableScreenFactory;
 
 use AC\TableScreen;
 use AC\TableScreenFactory;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use InvalidArgumentException;
 use WP_Screen;
 
@@ -23,22 +23,22 @@ class Aggregate implements TableScreenFactory
         array_unshift(self::$factories, $factory);
     }
 
-    public function create(ListKey $key): TableScreen
+    public function create(TableId $id): TableScreen
     {
         foreach (self::$factories as $factory) {
-            if ($factory->can_create($key)) {
-                return $factory->create($key);
+            if ($factory->can_create($id)) {
+                return $factory->create($id);
             }
         }
 
         throw new InvalidArgumentException();
     }
 
-    public function can_create(ListKey $key): bool
+    public function can_create(TableId $id): bool
     {
         foreach (self::$factories as $factory) {
-            if ($factory->can_create($key)) {
-                return (bool)apply_filters('ac/list_screen/key/is_active', true, (string)$key);
+            if ($factory->can_create($id)) {
+                return (bool)apply_filters('ac/list_screen/key/is_active', true, (string)$id);
             }
         }
 

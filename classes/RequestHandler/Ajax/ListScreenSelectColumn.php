@@ -12,7 +12,7 @@ use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
 use AC\TableScreenFactory\Aggregate;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 
 class ListScreenSelectColumn implements RequestAjaxHandler
 {
@@ -58,7 +58,7 @@ class ListScreenSelectColumn implements RequestAjaxHandler
         }
 
         $table_screen = $this->table_screen_factory->create(
-            new ListKey((string)$request->get('list_key'))
+            new TableId((string)$request->get('list_key'))
         );
 
         $column_data = json_decode((string)$request->get('data'), true);

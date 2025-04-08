@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AC;
 
 use AC\Type\ColumnId;
-use AC\Type\ListKey;
 use AC\Type\ListScreenId;
+use AC\Type\TableId;
 use AC\Type\Uri;
 use AC\Type\Url;
 use DateTime;
@@ -113,9 +113,9 @@ final class ListScreen
         $this->read_only = $read_only;
     }
 
-    public function get_key(): ListKey
+    public function get_table_id(): TableId
     {
-        return $this->table_screen->get_key();
+        return $this->table_screen->get_id();
     }
 
     public function get_label(): ?string
@@ -155,7 +155,7 @@ final class ListScreen
 
     public function get_editor_url(): Uri
     {
-        return new Url\EditorColumns($this->get_key(), $this->id);
+        return new Url\EditorColumns($this->get_table_id(), $this->id);
     }
 
     public function is_user_allowed(WP_User $user): bool
@@ -346,7 +346,7 @@ final class ListScreen
     {
         _deprecated_function(__METHOD__, 'NEWVERSION');
 
-        return $this->get_key() . $this->id;
+        return $this->get_table_id() . $this->id;
     }
 
     /**
@@ -357,6 +357,13 @@ final class ListScreen
         _deprecated_function(__METHOD__, 'NEWVERSION');
 
         return [];
+    }
+
+    public function get_key(): TableId
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_table_id()');
+
+        return $this->get_table_id();
     }
 
 }

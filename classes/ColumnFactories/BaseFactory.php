@@ -32,7 +32,7 @@ abstract class BaseFactory implements ColumnFactoryCollectionFactory
 
         if ($factories->count()) {
             $defaults = [
-                'list_key'  => $table_screen->get_key(),
+                'list_key'  => $table_screen->get_id(),
                 'meta_type' => $table_screen instanceof TableScreen\MetaType ? $table_screen->get_meta_type() : null,
                 'post_type' => $table_screen instanceof PostType ? $table_screen->get_post_type() : null,
                 'taxonomy'  => $table_screen instanceof Taxonomy ? $table_screen->get_taxonomy() : null,

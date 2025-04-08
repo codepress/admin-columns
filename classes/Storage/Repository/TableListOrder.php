@@ -6,7 +6,7 @@ namespace AC\Storage\Repository;
 
 use AC\Preferences\Preference;
 use AC\Preferences\SiteFactory;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 
 class TableListOrder
 {
@@ -18,13 +18,13 @@ class TableListOrder
         $this->storage = (new SiteFactory())->create('list_order', $user_id);
     }
 
-    public function get_order(ListKey $list_key): array
+    public function get_order(TableId $table_id): array
     {
-        return $this->storage->find((string)$list_key) ?: [];
+        return $this->storage->find((string)$table_id) ?: [];
     }
 
-    public function set_order(ListKey $list_key, array $order): void
+    public function set_order(TableId $table_id, array $order): void
     {
-        $this->storage->save((string)$list_key, $order);
+        $this->storage->save((string)$table_id, $order);
     }
 }

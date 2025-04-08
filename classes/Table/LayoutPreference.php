@@ -4,8 +4,8 @@ namespace AC\Table;
 
 use AC\Preferences\Preference;
 use AC\Preferences\SiteFactory;
-use AC\Type\ListKey;
 use AC\Type\ListScreenId;
+use AC\Type\TableId;
 
 class LayoutPreference
 {
@@ -15,18 +15,18 @@ class LayoutPreference
         return (new SiteFactory())->create('layout_table');
     }
 
-    public function find_list_id(ListKey $key): ?ListScreenId
+    public function find_list_id(TableId $table_id): ?ListScreenId
     {
-        $list_id = $this->storage()->find((string)$key);
+        $list_id = $this->storage()->find((string)$table_id);
 
         return ListScreenId::is_valid_id($list_id)
             ? new ListScreenId($list_id)
             : null;
     }
 
-    public function save(ListKey $key, ListScreenId $id): void
+    public function save(TableId $table_id, ListScreenId $id): void
     {
-        $this->storage()->save((string)$key, (string)$id);
+        $this->storage()->save((string)$table_id, (string)$id);
     }
 
 }

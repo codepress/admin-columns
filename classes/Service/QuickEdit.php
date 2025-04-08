@@ -7,7 +7,7 @@ use AC\Registerable;
 use AC\Table\LayoutPreference;
 use AC\Table\PrimaryColumnFactory;
 use AC\TableScreenFactory;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 
 class QuickEdit implements Registerable
 {
@@ -70,7 +70,7 @@ class QuickEdit implements Registerable
                 return;
         }
 
-        $list_id = $this->preference->find_list_id(new ListKey($list_key));
+        $list_id = $this->preference->find_list_id(new TableId($list_key));
 
         if ( ! $list_id) {
             return;
@@ -82,7 +82,7 @@ class QuickEdit implements Registerable
             return;
         }
 
-        $table_screen = $this->table_screen_factory->create($list_screen->get_key());
+        $table_screen = $this->table_screen_factory->create($list_screen->get_table_id());
 
         add_filter(
             'list_table_primary_column',

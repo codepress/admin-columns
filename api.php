@@ -6,8 +6,8 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\Plugin\Version;
 use AC\Type\ColumnId;
-use AC\Type\ListKey;
 use AC\Type\ListScreenId;
+use AC\Type\TableId;
 use AC\Type\Url;
 
 function ac_get_url(string $relative_file_path): string
@@ -59,7 +59,7 @@ if ( ! function_exists('ac_get_list_screens')) {
             throw new RuntimeException("Call after the `wp_loaded` hook.");
         }
 
-        return Container::get_storage()->find_all_by_key(new ListKey($key));
+        return Container::get_storage()->find_all_by_table_id(new TableId($key));
     }
 }
 

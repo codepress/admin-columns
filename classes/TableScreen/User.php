@@ -8,7 +8,7 @@ use AC;
 use AC\ListTableFactory;
 use AC\TableScreen;
 use AC\Type\Labels;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use AC\Type\Url;
 
 class User extends TableScreen implements ListTable, MetaType
@@ -17,7 +17,7 @@ class User extends TableScreen implements ListTable, MetaType
     public function __construct()
     {
         parent::__construct(
-            new ListKey('wp-users'),
+            new TableId('wp-users'),
             'users',
             new Labels(
                 __('Users'),

@@ -30,7 +30,7 @@ class SaveHeadings implements Registerable
 
     public function register(): void
     {
-        add_action('ac/table/screen', [$this, 'handle'], 10, 2);
+        add_action('ac/table/screen', [$this, 'handle']);
     }
 
     public function get_factory(TableScreen $table_screen): ?SaveHeadingFactory
@@ -53,7 +53,7 @@ class SaveHeadings implements Registerable
         }
 
         // Save an empty array in case the hook does not run properly.
-        $this->repository->update($table_screen->get_key(), new DefaultColumns());
+        $this->repository->update($table_screen->get_id(), new DefaultColumns());
 
         $factory = $this->get_factory($table_screen);
 

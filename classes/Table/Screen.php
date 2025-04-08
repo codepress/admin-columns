@@ -78,7 +78,7 @@ final class Screen implements Registerable
         }
 
         $url = EditorUrlFactory::create(
-            $this->table_screen->get_key(),
+            $this->table_screen->get_id(),
             $this->table_screen->is_network(),
             $this->list_screen ? $this->list_screen->get_id() : null
         );
@@ -179,7 +179,7 @@ final class Screen implements Registerable
             'column_types'     => '',
             'read_only'        => false,
             'assets'           => $this->location->with_suffix('assets/')->get_url(),
-            'list_screen'      => (string)$this->table_screen->get_key(),
+            'list_screen'      => (string)$this->table_screen->get_id(),
             'ajax_nonce'       => wp_create_nonce('ac-ajax'),
             'table_id'         => $this->table_screen->get_attr_id(),
             'screen'           => $this->table_screen->get_screen_id(),
@@ -210,7 +210,7 @@ final class Screen implements Registerable
 
     public function admin_class($classes): string
     {
-        $classes .= ' ac-' . $this->table_screen->get_key();
+        $classes .= ' ac-' . $this->table_screen->get_id();
 
         return (string)apply_filters('ac/table/body_class', $classes, $this);
     }

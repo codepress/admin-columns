@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace AC;
 
 use AC\Type\Labels;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use AC\Type\Uri;
 use AC\Type\Url;
 
 class TableScreen
 {
 
-    protected ListKey $key;
+    protected TableId $id;
 
     protected string $screen_id;
 
@@ -25,14 +25,14 @@ class TableScreen
     private ?string $attr_id;
 
     public function __construct(
-        ListKey $key,
+        TableId $id,
         string $screen_id,
         Labels $labels,
         Uri $url,
         string $attr_id = null,
         bool $network = false
     ) {
-        $this->key = $key;
+        $this->id = $id;
         $this->screen_id = $screen_id;
         $this->labels = $labels;
         $this->url = $url;
@@ -45,9 +45,9 @@ class TableScreen
         return $this->url;
     }
 
-    public function get_key(): ListKey
+    public function get_id(): TableId
     {
-        return $this->key;
+        return $this->id;
     }
 
     public function get_labels(): Labels

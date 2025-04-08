@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Storage\Repository;
 
-use AC\ListKeyCollection;
 use AC\Storage\UserOption;
-use AC\Type\ListKey;
+use AC\TableIdCollection;
+use AC\Type\TableId;
 
 class EditorFavorites
 {
@@ -23,27 +23,27 @@ class EditorFavorites
         return $this->storage->get() ?: [];
     }
 
-    public function add(ListKey $key): void
+    public function add(TableId $id): void
     {
         $data = $this->get_data();
 
-        if (in_array((string)$key, $data, true)) {
+        if (in_array((string)$id, $data, true)) {
             return;
         }
 
-        $data[] = (string)$key;
+        $data[] = (string)$id;
 
         $data
             ? $this->storage->save($data)
             : $this->storage->delete();
     }
 
-    public function remove(ListKey $key): void
+    public function remove(TableId $id): void
     {
         $data = $this->get_data();
 
         foreach ($data as $k => $value) {
-            if ($key->equals(new ListKey($value))) {
+            if ($id->equals(new TableId($value))) {
                 unset($data[$k]);
             }
         }
@@ -53,12 +53,12 @@ class EditorFavorites
         );
     }
 
-    public function find_all(): ListKeyCollection
+    public function find_all(): TableIdCollection
     {
-        $keys = new ListKeyCollection();
+        $keys = new TableIdCollection();
 
         foreach ($this->get_data() as $key) {
-            $keys->add(new ListKey($key));
+            $keys->add(new TableId($key));
         }
 
         return $keys;

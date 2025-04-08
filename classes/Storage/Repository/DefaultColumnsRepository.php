@@ -6,21 +6,21 @@ use AC\Storage\Option;
 use AC\Type\ColumnId;
 use AC\Type\DefaultColumn;
 use AC\Type\DefaultColumns;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 
 final class DefaultColumnsRepository
 {
 
-    private function storage(ListKey $key): Option
+    private function storage(TableId $id): Option
     {
         return new Option(
-            sprintf('ac_columns_default_%s', $key)
+            sprintf('ac_columns_default_%s', $id)
         );
     }
 
-    public function update(ListKey $key, DefaultColumns $columns): void
+    public function update(TableId $id, DefaultColumns $columns): void
     {
-        $storage = $this->storage($key);
+        $storage = $this->storage($id);
 
         $data = $storage->get() ?: [];
 
@@ -39,37 +39,37 @@ final class DefaultColumnsRepository
         $storage->save($data);
     }
 
-    public function exists(ListKey $key): bool
+    public function exists(TableId $id): bool
     {
-        return false !== $this->storage($key)->get();
+        return false !== $this->storage($id)->get();
     }
 
-    public function delete(ListKey $key): void
+    public function delete(TableId $id): void
     {
-        $this->storage($key)
+        $this->storage($id)
              ->delete();
     }
 
-    public function find(ListKey $key, ColumnId $column_id): ?DefaultColumn
+    public function find(TableId $id, ColumnId $column_id): ?DefaultColumn
     {
         $column_name = (string)$column_id;
 
-        $data = $this->get_cached_storage($key)[$column_name] ?? null;
+        $data = $this->get_cached_storage($id)[$column_name] ?? null;
 
         return $data
             ? $this->create_column($column_name, $data)
             : null;
     }
 
-    public function find_all(ListKey $key): DefaultColumns
+    public function find_all(TableId $id): DefaultColumns
     {
         $columns = [];
 
-        foreach ($this->get_cached_storage($key) as $column_name => $column_data) {
+        foreach ($this->get_cached_storage($id) as $column_name => $column_data) {
             if ('cb' === $column_name) {
                 continue;
             }
-    
+
             $columns[] = $this->create_column($column_name, $column_data);
         }
 
@@ -85,20 +85,20 @@ final class DefaultColumnsRepository
         );
     }
 
-    private function get_cached_storage(ListKey $key): array
+    private function get_cached_storage(TableId $id): array
     {
         static $cached_storage;
 
-        if ( ! isset($cached_storage[(string)$key])) {
-            $cached_storage[(string)$key] = $this->get($key);
+        if ( ! isset($cached_storage[(string)$id])) {
+            $cached_storage[(string)$id] = $this->get($id);
         }
 
-        return $cached_storage[(string)$key];
+        return $cached_storage[(string)$id];
     }
 
-    private function get(ListKey $key): array
+    private function get(TableId $id): array
     {
-        return $this->storage($key)->get() ?: [];
+        return $this->storage($id)->get() ?: [];
     }
 
 }

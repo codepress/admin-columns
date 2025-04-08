@@ -114,7 +114,7 @@ class Loader
             ThirdParty\WPML::class,
             Capabilities\Manage::class,
             Service\QuickEdit::class,
-            Service\TableListScreenSetter::class,
+            Service\CurrentTable::class,
             Service\CommonAssets::class,
             Service\Colors::class,
             Service\TableRows::class,

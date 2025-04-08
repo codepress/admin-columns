@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
-use AC\Type\ListKey;
+use AC\Type\TableId;
 use MLACore;
 use WP_Screen;
 
@@ -17,14 +17,14 @@ class TableScreenFactory implements AC\TableScreenFactory
         return new TableScreen();
     }
 
-    public function create(ListKey $key): AC\TableScreen
+    public function create(TableId $id): AC\TableScreen
     {
         return $this->create_table_screen();
     }
 
-    public function can_create(ListKey $key): bool
+    public function can_create(TableId $id): bool
     {
-        return $key->equals(new ListKey('mla-media-assistant'));
+        return $id->equals(new TableId('mla-media-assistant'));
     }
 
     public function create_from_wp_screen(WP_Screen $screen): AC\TableScreen

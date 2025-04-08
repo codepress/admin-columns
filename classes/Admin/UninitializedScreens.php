@@ -38,7 +38,7 @@ class UninitializedScreens
 
     private function is_uninitialized(TableScreen $table_screen): bool
     {
-        return ! $this->default_columns_repository->exists($table_screen->get_key());
+        return ! $this->default_columns_repository->exists($table_screen->get_id());
     }
 
     public function find_all_network(): TableScreenCollection

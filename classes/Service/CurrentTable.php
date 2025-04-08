@@ -11,7 +11,7 @@ use AC\Table;
 use AC\TableScreenFactory;
 use WP_Screen;
 
-class TableListScreenSetter implements Registerable
+class CurrentTable implements Registerable
 {
 
     private Storage $storage;
@@ -60,7 +60,7 @@ class TableListScreenSetter implements Registerable
         $request->add_middleware(
             new Request\Middleware\ListScreenTable(
                 $this->storage,
-                $table_screen->get_key(),
+                $table_screen->get_id(),
                 $this->preference
             )
         );
@@ -71,7 +71,7 @@ class TableListScreenSetter implements Registerable
 
         if ($list_screen instanceof ListScreen) {
             $this->preference->save(
-                $table_screen->get_key(),
+                $table_screen->get_id(),
                 $list_screen->get_id()
             );
 
@@ -82,7 +82,7 @@ class TableListScreenSetter implements Registerable
             );
             $list->register();
 
-            do_action('ac/table/list_screen', $list_screen, $table_screen);
+            do_action('ac/v2/table/list_screen', $list_screen, $table_screen);
         }
 
         $table = new Table\Screen(

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Table;
 
-use AC\ListKeysFactory;
+use AC\TableIdsFactory;
 use AC\TableScreenFactory;
 
 class TableScreensFactory
@@ -14,7 +14,7 @@ class TableScreensFactory
 
     protected $table_screen_factory;
 
-    public function __construct(ListKeysFactory $list_keys_factory, TableScreenFactory $table_screen_factory)
+    public function __construct(TableIdsFactory $list_keys_factory, TableScreenFactory $table_screen_factory)
     {
         $this->list_keys_factory = $list_keys_factory;
         $this->table_screen_factory = $table_screen_factory;
