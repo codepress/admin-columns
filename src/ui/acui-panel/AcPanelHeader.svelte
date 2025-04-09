@@ -7,7 +7,7 @@
     export let type: 'h3' | 'h2' = 'h2'
     export let border: boolean = false;
 
-    let classes = ['acu-px-[20px] acu-pt-[20px]'];
+    let classes = ['acu-px-5 acu-pt-5'];
 
     if (border) {
         classes.push('acu-pb-[20px] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border')
