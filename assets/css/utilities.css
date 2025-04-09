@@ -354,6 +354,10 @@
   max-width: 1520px
 }
 
+.acu-max-w-\[1750px\] {
+  max-width: 1750px
+}
+
 .acu-max-w-\[260px\] {
   max-width: 260px
 }
@@ -376,6 +380,10 @@
 
 .acu-max-w-full {
   max-width: 100%
+}
+
+.acu-max-w-\[1075px\] {
+  max-width: 1075px
 }
 
 .acu-flex-1 {
@@ -650,6 +658,10 @@
   padding: 2px
 }
 
+.acu-p-5 {
+  padding: 25px
+}
+
 .acu-px-1 {
   padding-left: 5px;
   padding-right: 5px
@@ -728,6 +740,16 @@
 .acu-py-\[2px\] {
   padding-top: 2px;
   padding-bottom: 2px
+}
+
+.acu-px-7 {
+  padding-left: 35px;
+  padding-right: 35px
+}
+
+.acu-px-5 {
+  padding-left: 25px;
+  padding-right: 25px
 }
 
 .acu-pb-10 {
@@ -824,6 +846,10 @@
 
 .acu-pt-\[70px\] {
   padding-top: 70px
+}
+
+.acu-pt-5 {
+  padding-top: 25px
 }
 
 .acu-text-left {

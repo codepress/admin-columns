@@ -23035,7 +23035,7 @@ function instance($$self, $$props, $$invalidate) {
   let {
     classNames = []
   } = $$props;
-  let classes = ['acu-p-[20px]', ...classNames];
+  let classes = ['acu-p-5', ...classNames];
   $$self.$$set = $$props => {
     if ('classNames' in $$props) $$invalidate(1, classNames = $$props.classNames);
     if ('$$scope' in $$props) $$invalidate(2, $$scope = $$props.$$scope);
@@ -23360,7 +23360,7 @@ function instance($$self, $$props, $$invalidate) {
   let {
     border = false
   } = $$props;
-  let classes = ['acu-px-[20px] acu-pt-[20px]'];
+  let classes = ['acu-px-5 acu-pt-5'];
   if (border) {
     classes.push('acu-pb-[20px] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border');
   }

@@ -18,8 +18,8 @@ use AC\Setting\Config;
 use AC\Setting\ConfigCollection;
 use AC\TableScreen;
 use AC\TableScreenFactory;
-use AC\Type\TableId;
 use AC\Type\ListScreenId;
+use AC\Type\TableId;
 use InvalidArgumentException;
 
 class ListScreenSave implements RequestAjaxHandler
@@ -125,14 +125,14 @@ class ListScreenSave implements RequestAjaxHandler
         $configs = new ConfigCollection();
 
         foreach ($config_data as $data) {
+            if ($data['label'] ?? null) {
+                $data['label'] = $this->label_encoder->encode($data['label']);
+            }
+
             $config = new Config($data);
 
             if ( ! $config->has('type')) {
                 throw new InvalidArgumentException('Missing column type.');
-            }
-
-            if ($config->has('label')) {
-                $config->set('label', $this->label_encoder->encode($config->get('label')));
             }
 
             $configs->add($config);
