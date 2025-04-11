@@ -14,7 +14,7 @@ final class ThirdPartyFactory extends BaseFactory
     protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
         $collection = new ColumnFactoryDefinitionCollection();
-        $factory_classes = apply_filters('ac/v2/column_types', [], $table_screen);
+        $factory_classes = apply_filters('ac/column/types', [], $table_screen);
 
         foreach ($factory_classes as $factory => $props) {
             if (is_numeric($factory)) {

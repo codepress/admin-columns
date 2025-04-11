@@ -25168,14 +25168,15 @@ __webpack_require__.r(__webpack_exports__);
 
 function create_fragment(ctx) {
   let table;
+  let table_class_value;
   let current;
-  const default_slot_template = /*#slots*/ctx[2].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[1], null);
+  const default_slot_template = /*#slots*/ctx[5].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[4], null);
   return {
     c() {
       table = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("table");
       if (default_slot) default_slot.c();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(table, "class", "acui-table acu-table-fixed");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(table, "class", table_class_value = /*classes*/ctx[1].join(' '));
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(table, "ac-is-striped", /*striped*/ctx[0]);
     },
     m(target, anchor) {
@@ -25187,8 +25188,8 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/2)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[1], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[1]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[1], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/16)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[4], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[4]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[4], dirty, null), null);
         }
       }
       if (!current || dirty & /*striped*/1) {
@@ -25218,19 +25219,33 @@ function instance($$self, $$props, $$invalidate) {
     $$scope
   } = $$props;
   let {
+    fixed = true
+  } = $$props;
+  let {
     striped = false
   } = $$props;
+  let {
+    classList = []
+  } = $$props;
+  let classes = ['acui-table', ...classList];
+  if (fixed) {
+    classes.push('acu-table-fixed');
+  }
   $$self.$$set = $$props => {
+    if ('fixed' in $$props) $$invalidate(2, fixed = $$props.fixed);
     if ('striped' in $$props) $$invalidate(0, striped = $$props.striped);
-    if ('$$scope' in $$props) $$invalidate(1, $$scope = $$props.$$scope);
+    if ('classList' in $$props) $$invalidate(3, classList = $$props.classList);
+    if ('$$scope' in $$props) $$invalidate(4, $$scope = $$props.$$scope);
   };
-  return [striped, $$scope, slots];
+  return [striped, classes, fixed, classList, $$scope, slots];
 }
 class AcTable extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      striped: 0
+      fixed: 2,
+      striped: 0,
+      classList: 3
     });
   }
 }

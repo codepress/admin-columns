@@ -26,7 +26,7 @@ class ColumnValue
     public function apply_filter(string $value = null): ?string
     {
         $value = apply_filters(
-            'ac/v2/column/value',
+            'ac/column/render',
             $value,
             $this->context,
             $this->id,

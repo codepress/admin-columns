@@ -26,7 +26,7 @@ class ColumnValueSanitize
     public function apply_filter(bool $sanitize = true): bool
     {
         return (bool)apply_filters(
-            'ac/v2/column/value/sanitize',
+            'ac/column/render/sanitize',
             $sanitize,
             $this->context,
             $this->id,

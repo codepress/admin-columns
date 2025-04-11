@@ -27,7 +27,7 @@ class WPML implements Registerable
         add_action('init', [$this, 'register_column_labels'], 300);
 
         // Enable the WPML translation of column headings
-        add_filter('ac/v2/headings/label', [$this, 'register_translated_label'], 100);
+        add_filter('ac/column/heading/label', [$this, 'register_translated_label'], 100);
     }
 
     public function replace_flags()

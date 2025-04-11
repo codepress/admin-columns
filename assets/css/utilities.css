@@ -254,6 +254,10 @@
   margin-top: 0
 }
 
+.acu-mt-8 {
+  margin-top: 40px
+}
+
 .acu-block {
   display: block
 }
@@ -340,6 +344,10 @@
 
 .acu-w-full {
   width: 100%
+}
+
+.acu-min-w-\[200px\] {
+  min-width: 200px
 }
 
 .acu-max-w-\[1200px\] {
@@ -470,6 +478,10 @@
   align-items: center
 }
 
+.acu-justify-start {
+  justify-content: flex-start
+}
+
 .acu-justify-end {
   justify-content: flex-end
 }
@@ -504,6 +516,10 @@
 
 .acu-overflow-hidden {
   overflow: hidden
+}
+
+.acu-overflow-x-auto {
+  overflow-x: auto
 }
 
 .acu-truncate {
@@ -752,6 +768,11 @@
   padding-right: 25px
 }
 
+.acu-px-10 {
+  padding-left: 50px;
+  padding-right: 50px
+}
+
 .acu-pb-10 {
   padding-bottom: 50px
 }
@@ -850,6 +871,10 @@
 
 .acu-pt-5 {
   padding-top: 25px
+}
+
+.acu-pl-5 {
+  padding-left: 25px
 }
 
 .acu-text-left {
@@ -1074,6 +1099,19 @@
 @media (min-width: 782px) {
   .md\:acu-flex {
     display: flex
+  }
+
+  .md\:acu-flex-row {
+    flex-direction: row
+  }
+
+  .md\:acu-items-center {
+    align-items: center
+  }
+
+  .md\:acu-px-\[50px\] {
+    padding-left: 50px;
+    padding-right: 50px
   }
 }
 

@@ -8,80 +8,96 @@ class HookCollectionFactory
 {
 
     //  TODO replace hooks that contain $column
-
     // ac/table/list_screen
 
     public function create_filters(): HookCollection
     {
-        // TODO move hooks to create_hooks method
-        return new HookCollection([
-            // Replaced
-            new Hook('ac/column/value', '5.0', 'ac/v2/column/value'),
-            new Hook('ac/column/value/sanitize', '5.0', 'ac/v2/column/value/sanitize'),
-            new Hook('ac/column_types', '5.0', 'ac/v2/column_types'),
-            new Hook('ac/column/audio_player/valid_mime_types', '5.0', 'ac/v2/column/audio_player/valid_mime_types'),
-            new Hook('ac/columns_stored', '5.0', 'ac/v2/columns_stored'),
-            new Hook('ac/headings/label', '5.0', 'ac/v2/headings/label'),
+        $hooks = [];
+        $free_filters = [
+            'ac/column/value'                         => 'ac/column/render',
+            'ac/column/value/sanitize'                => 'ac/column/render/sanitize',
+            'ac/column/audio_player/valid_mime_types' => 'ac/column/audio_mime_types',
+            'ac/headings/label'                       => 'ac/column/heading/label',
 
-            // Replaced Pro
-            new Hook('ac/export/value', '7.0', 'acp/v2/export/value'),
-            new Hook('ac/export/value/escape', '7.0', 'acp/v2/export/value/escape'),
-            new Hook('acp/editing/persistent', '7.0', 'acp/v2/editing/persistent'),
-            new Hook('acp/editing/post_statuses', '7.0', 'acp/v2/editing/post_statuses'),
-            new Hook('acp/editing/save_value', '7.0', 'acp/v2/editing/save_value'),
-            new Hook('acp/editing/settings/post_types', '7.0', 'acp/v2/editing/custom_field/post_types'),
-            new Hook('acp/editing/value', '7.0', 'acp/v2/editing/value'),
-            new Hook('acp/editing/view', '7.0', 'acp/v2/editing/view'),
-            new Hook(
-                'acp/editing/bulk/updated_rows_per_iteration',
-                '7.0',
-                'acp/v2/editing/bulk/updated_rows_per_iteration'
-            ),
-            new Hook(
-                'acp/delete/bulk/deleted_rows_per_iteration',
-                '7.0',
-                'acp/v2/delete/bulk/deleted_rows_per_iteration'
-            ),
-            new Hook('acp/export/is_active', '7.0', 'acp/v2/export/is_active'),
-            new Hook('acp/horizontal_scrolling/enable', '7.0', 'acp/v2/horizontal_scrolling/enable'),
-            new Hook('acp/search/filters', '7.0', 'acp/v2/search/filters'),
-            new Hook('acp/sorting/model', '7.0', 'acp/v2/sorting/model'),
-            new Hook(
-                'acp/sorting/remember_last_sorting_preference',
-                '7.0',
-                'acp/v2/sorting/remember_last_sorting_preference'
-            ),
-            new Hook('acp/wc/column/product/sales/statuses', '7.0', 'acp/v2/wc/column/product/sales/statuses'),
-            new Hook('acp/quick_add/saved', '7.0', 'acp/v2/quick_add/saved'),
-            new Hook('acp/acf/after_get_field_options', '7.0', 'acp/v2/acf/after_get_field_options'),
-            new Hook('acp/acf/before_get_field_options', '7.0', 'acp/v2/acf/before_get_field_options'),
+            // Removed Free
+            'ac/column/separator'                     => null,
+            'ac/headings'                             => null,
+            'ac/column_group'                         => null,
+            'ac/column/custom_field/field_types'      => null,
+            'ac/read_only_message'                    => null,
+            'ac/column/settings/column_types'         => null,
+            'ac/column/header'                        => null,
+            'ac/column/settings'                      => null,
+            'ac/list_screen/preferences'              => null,
+        ];
 
-            // Removed
-            new Hook('ac/column/separator', '5.0'),
-            new Hook('ac/headings', '5.0'),
-            new Hook('ac/column_group', '5.0'),
-            new Hook('ac/column/custom_field/field_types', '5.0'),
-            new Hook('ac/read_only_message', '5.0'),
-            new Hook('ac/column/settings/column_types', '5.0'),
-            new Hook('ac/column/header', '5.0'),
-            new Hook('ac/column/settings', '5.0'),
-            new Hook('ac/list_screen/preferencess', '5.0'),
+        foreach ($free_filters as $old => $new) {
+            $hooks[] = new Hook($old, '5.0', $new);
+        }
+
+        $pro_filters = [
+            'ac/export/value'                              => 'ac/export/render',
+            'ac/export/value/escape'                       => 'ac/export/render/escape',
+            'ac/export/headers'                            => 'ac/export/row_headers',
+            'acp/editing/persistent'                       => 'ac/editing/persistent',
+            'acp/editing/post_statuses'                    => 'ac/editing/post_statuses',
+            'acp/editing/save_value'                       => 'ac/editing/save_value',
+            'acp/editing/settings/post_types'              => 'ac/editing/custom_field/post_types',
+            'acp/editing/value'                            => 'ac/editing/input_value',
+            'acp/editing/view'                             => 'ac/editing/view',
+            'acp/editing/bulk/updated_rows_per_iteration'  => 'ac/editing/bulk/updated_rows_per_iteration',
+            'acp/delete/bulk/deleted_rows_per_iteration'   => 'ac/delete/bulk/deleted_rows_per_iteration',
+            'acp/export/is_active'                         => 'ac/export/is_active',
+            'acp/horizontal_scrolling/enable'              => 'ac/horizontal_scrolling/enable',
+            'acp/search/filters'                           => 'ac/search/filters',
+            'acp/sorting/model'                            => 'ac/sorting/model',
+            'acp/sorting/remember_last_sorting_preference' => 'ac/sorting/remember_last_sorting_preference',
+            'acp/wc/column/product/sales/statuses'         => 'ac/wc/column/product/sales/statuses',
+            'acp/custom_field/stored_date_format'          => 'ac/custom_field/stored_date_format',
 
             // Removed Pro
-            new Hook('ac/export/column/disable', '7.0'),
-            new Hook('acp/admin/enable_submenu', '7.0'),
-            new Hook('acp/editing/inline/deprecated_style', '7.0'),
-            new Hook('acp/editing/view_settings', '7.0'),
-            new Hook('acp/sorting/post_status', '7.0'),
-            new Hook('acp/admin/settings/hide_on_screen', '7.0'),
-        ]);
+            'ac/export/column/disable'                     => null,
+            'acp/admin/enable_submenu'                     => null,
+            'acp/editing/inline/deprecated_style'          => null,
+            'acp/editing/view_settings'                    => null,
+            'acp/sorting/post_status'                      => null,
+        ];
+
+        foreach ($pro_filters as $old => $new) {
+            $hooks[] = new Hook($old, '7.0', $new);
+        }
+
+        return new HookCollection($hooks);
     }
 
     public function create_actions(): HookCollection
     {
-        return new HookCollection([
-            new Hook('ac/ready', '5.0'),
-        ]);
+        $hooks = [];
+        $free_actions = [
+            'ac/column_types'   => 'ac/column/types',
+            'ac/columns_stored' => 'ac/columns/stored',
+        ];
+
+        foreach ($free_actions as $old => $new) {
+            $hooks[] = new Hook($old, '5.0', $new);
+        }
+
+        $pro_actions = [
+            'acp/column_types'                  => 'ac/column/types/pro',
+            'acp/acf/after_get_field_options'   => 'ac/acf/after_get_field_options',
+            'acp/acf/before_get_field_options'  => 'ac/acf/before_get_field_options',
+            'acp/admin/settings/hide_on_screen' => null,
+            'acp/quick_add/saved'               => 'ac/quick_add/saved',
+            'acp/list_screen/deleted'           => 'ac/list_screen/deleted',
+            'acp/editing/saved'                 => 'ac/editing/saved',
+            'acp/editing/before_save'           => 'ac/editing/before_save',
+        ];
+
+        foreach ($pro_actions as $old => $new) {
+            $hooks[] = new Hook($old, '7.0', $new);
+        }
+
+        return new HookCollection($hooks);
     }
 
 }

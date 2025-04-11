@@ -58,7 +58,7 @@ class ManageHeadings implements Registerable
                 : $column->get_label();
 
             $headings[(string)$column->get_id()] = apply_filters(
-                'ac/v2/headings/label',
+                'ac/column/heading/label',
                 $label,
                 $this->context_factory->create($column),
                 $list_screen->get_table_screen()
