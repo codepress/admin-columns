@@ -242,8 +242,16 @@
   margin-right: 10px
 }
 
+.acu-mt-1 {
+  margin-top: 5px
+}
+
 .acu-mt-6 {
   margin-top: 30px
+}
+
+.acu-mt-8 {
+  margin-top: 40px
 }
 
 .acu-mt-\[-2px\] {
@@ -254,8 +262,8 @@
   margin-top: 0
 }
 
-.acu-mt-8 {
-  margin-top: 40px
+.acu-mt-\[3px\] {
+  margin-top: 3px
 }
 
 .acu-block {
@@ -354,16 +362,16 @@
   max-width: 1200px
 }
 
+.acu-max-w-\[1275px\] {
+  max-width: 1275px
+}
+
 .acu-max-w-\[1490px\] {
   max-width: 1490px
 }
 
 .acu-max-w-\[1520px\] {
   max-width: 1520px
-}
-
-.acu-max-w-\[1750px\] {
-  max-width: 1750px
 }
 
 .acu-max-w-\[260px\] {
@@ -388,10 +396,6 @@
 
 .acu-max-w-full {
   max-width: 100%
-}
-
-.acu-max-w-\[1075px\] {
-  max-width: 1075px
 }
 
 .acu-flex-1 {
@@ -662,6 +666,10 @@
   padding: 20px
 }
 
+.acu-p-5 {
+  padding: 25px
+}
+
 .acu-p-\[0\] {
   padding: 0
 }
@@ -674,13 +682,14 @@
   padding: 2px
 }
 
-.acu-p-5 {
-  padding: 25px
-}
-
 .acu-px-1 {
   padding-left: 5px;
   padding-right: 5px
+}
+
+.acu-px-10 {
+  padding-left: 50px;
+  padding-right: 50px
 }
 
 .acu-px-2 {
@@ -698,6 +707,11 @@
   padding-right: 20px
 }
 
+.acu-px-5 {
+  padding-left: 25px;
+  padding-right: 25px
+}
+
 .acu-px-6 {
   padding-left: 30px;
   padding-right: 30px
@@ -706,11 +720,6 @@
 .acu-px-\[20px\] {
   padding-left: 20px;
   padding-right: 20px
-}
-
-.acu-px-\[50px\] {
-  padding-left: 50px;
-  padding-right: 50px
 }
 
 .acu-py-0\.5 {
@@ -758,21 +767,6 @@
   padding-bottom: 2px
 }
 
-.acu-px-7 {
-  padding-left: 35px;
-  padding-right: 35px
-}
-
-.acu-px-5 {
-  padding-left: 25px;
-  padding-right: 25px
-}
-
-.acu-px-10 {
-  padding-left: 50px;
-  padding-right: 50px
-}
-
 .acu-pb-10 {
   padding-bottom: 50px
 }
@@ -803,6 +797,10 @@
 
 .acu-pl-4 {
   padding-left: 20px
+}
+
+.acu-pl-5 {
+  padding-left: 25px
 }
 
 .acu-pl-8\.5 {
@@ -849,6 +847,10 @@
   padding-top: 20px
 }
 
+.acu-pt-5 {
+  padding-top: 25px
+}
+
 .acu-pt-6 {
   padding-top: 30px
 }
@@ -869,14 +871,6 @@
   padding-top: 70px
 }
 
-.acu-pt-5 {
-  padding-top: 25px
-}
-
-.acu-pl-5 {
-  padding-left: 25px
-}
-
 .acu-text-left {
   text-align: left
 }
@@ -892,6 +886,10 @@
 .acu-text-2xl {
   font-size: 1.5rem;
   line-height: 2rem
+}
+
+.acu-text-\[11px\] {
+  font-size: 11px
 }
 
 .acu-text-\[12px\] {

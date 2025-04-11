@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-08-24 02:11:58+0000\n"
+"PO-Revision-Date: 2025-01-24 20:31:24+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,25 +13,25 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:334
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Verschiedenes"
 
 #: templates/admin/list-screen-settings-mockup.php:135
 msgid "Ascending"
-msgstr ""
+msgstr "Aufsteigend"
 
 #: templates/admin/edit-submenu.php:10
 msgid "Table Views"
-msgstr ""
+msgstr "Tabellenansichten"
 
 #: settings/translations/global.php:9
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 #: classes/Settings/Column/FileMetaAudio.php:50
 msgid "channel"
 msgid_plural "channels"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kanal"
+msgstr[1] "Kanäle"
 
 #: classes/Settings/Column/DateFormat.php:40
 msgid "Date Save Format"
@@ -51,7 +51,7 @@ msgstr ""
 
 #: classes/Controller/ListScreen/Save.php:58
 msgid "Column settings could not be saved."
-msgstr ""
+msgstr "Die Spalten-Einstellungen konnten nicht gespeichert werden."
 
 #: classes/Controller/ListScreen/Save.php:36
 msgid "List screen not found"
@@ -63,7 +63,7 @@ msgstr ""
 
 #: classes/Column/Media/Preview.php:74
 msgid "Preview not available"
-msgstr ""
+msgstr "Vorschau ist nicht verfügbar"
 
 #: classes/Admin/ScreenOption/ListScreenSource.php:33
 msgid "List Screen Source"
@@ -75,11 +75,11 @@ msgstr ""
 
 #: classes/Admin/Notice/DatabaseMissing.php:25
 msgid "Database table %s is missing."
-msgstr ""
+msgstr "Datenbank-Tabelle %s fehlt."
 
 #: classes/Admin/Asset/Columns.php:52
 msgid "Value"
-msgstr ""
+msgstr "Wert"
 
 #: templates/tooltip/conditional-format.php:3
 msgctxt "conditional format help"
@@ -92,11 +92,11 @@ msgstr ""
 
 #: settings/translations/global.php:6
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: settings/translations/global.php:5
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:26
 msgid "Assistant"
@@ -171,7 +171,7 @@ msgstr ""
 
 #: classes/Settings/Column/FileMetaVideo.php:49
 msgid "px"
-msgstr ""
+msgstr "px"
 
 #: classes/Settings/Column/FileMetaVideo.php:41
 msgid "audio"
@@ -193,7 +193,7 @@ msgstr ""
 #: classes/Settings/Column/FileMetaAudio.php:78
 #: classes/Settings/Column/FileMetaVideo.php:67
 msgid "Hz"
-msgstr ""
+msgstr "Hz"
 
 #: classes/Settings/Column/FileMetaAudio.php:72
 #: classes/Settings/Column/FileMetaVideo.php:55
@@ -208,7 +208,7 @@ msgstr[1] ""
 
 #: classes/Settings/Column/FileMetaAudio.php:41
 msgid "Kbps"
-msgstr ""
+msgstr "Kbps"
 
 #: classes/Settings/Column/FileMetaAudio.php:28
 #: classes/Settings/Column/FileMetaVideo.php:30
@@ -275,7 +275,7 @@ msgstr ""
 
 #: classes/ColumnGroups.php:20
 msgid "File"
-msgstr ""
+msgstr "Datei"
 
 #: classes/ColumnGroups.php:19
 msgid "Document"
@@ -291,11 +291,11 @@ msgstr ""
 
 #: classes/ColumnGroups.php:15
 msgid "Meta"
-msgstr ""
+msgstr "Meta"
 
 #: classes/Column/Media/VideoPlayer.php:43
 msgid "Play"
-msgstr ""
+msgstr "Abspielen"
 
 #: classes/Column/Media/VideoPlayer.php:15
 msgid "Video Player"
@@ -681,7 +681,7 @@ msgstr ""
 
 #: templates/admin/edit-actions.php:40
 msgid "Key"
-msgstr ""
+msgstr "Schlüssel"
 
 #: templates/admin/side-banner.php:52
 msgid "Export table contents to CSV"
@@ -1036,7 +1036,7 @@ msgstr ""
 #: classes/Settings/Column/CustomFieldType.php:136
 #: templates/admin/help-tab/custom-fields.php:54
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: templates/admin/help-tab/custom-fields.php:47
 msgid "Value: Should contain one or more Post IDs, separated by commas."
@@ -1244,7 +1244,7 @@ msgstr ""
 
 #: classes/Column/Menu.php:18
 msgid "Menu"
-msgstr ""
+msgstr "Menü"
 
 #: classes/Column/Media/Dimensions.php:28
 msgid "Height : %s px"
@@ -1358,7 +1358,7 @@ msgstr ""
 
 #: classes/Settings/Column/Width.php:43
 msgid "Auto"
-msgstr "Auto"
+msgstr "Automatisch"
 
 #: classes/Admin/AdminLoader.php:107
 #: classes/Settings/Column/AttachmentDisplay.php:42
@@ -1559,7 +1559,7 @@ msgstr "Kurzlink"
 #: classes/Settings/Column/CustomFieldType.php:244
 #: classes/Settings/Column/CustomFieldType.php:314
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: classes/Settings/Column/PostFormatIcon.php:74
 msgid "Standard"
@@ -1625,11 +1625,11 @@ msgstr ""
 
 #: classes/Admin/MenuFactory.php:50 classes/Admin/Page/Help.php:142
 msgid "Help"
-msgstr ""
+msgstr "Hilfe"
 
 #: templates/admin/edit-column.php:36 templates/admin/edit-column.php:80
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 #: templates/admin/edit-columns.php:34
 msgid "Clear all columns "
@@ -1657,7 +1657,7 @@ msgstr ""
 
 #: templates/admin/side-banner.php:35
 msgid "Pro"
-msgstr ""
+msgstr "Pro"
 
 #: classes/Controller/ListScreen/Save.php:29
 msgid "You need at least one column"
@@ -1833,7 +1833,7 @@ msgstr ""
 
 #: templates/admin/side-feedback.php:28
 msgid "Docs"
-msgstr ""
+msgstr "Dokumentation"
 
 #: templates/admin/side-feedback.php:23
 msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
@@ -2001,7 +2001,7 @@ msgstr ""
 
 #: classes/Check/Review.php:156
 msgid "documentation page"
-msgstr ""
+msgstr "Dokumentationsseite"
 
 #: classes/Check/Review.php:151
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
@@ -2108,7 +2108,7 @@ msgstr ""
 
 #: classes/Settings/Column/Width.php:68
 msgid "width"
-msgstr ""
+msgstr "Breite"
 
 #: classes/ColumnGroups.php:21 classes/Settings/Column/CustomFieldType.php:190
 #: classes/Settings/Column/Image.php:112
@@ -2213,7 +2213,7 @@ msgstr "Direktlink"
 
 #: classes/Column/Media/FullPath.php:15 classes/Column/Post/Path.php:15
 msgid "Path"
-msgstr ""
+msgstr "Pfad"
 
 #: classes/Column/Post/PostParent.php:14
 msgid "Parent"
@@ -2282,7 +2282,7 @@ msgstr ""
 #: classes/Column/Comment/Status.php:33
 #: classes/Settings/Column/CommentCount.php:58
 msgid "Spam"
-msgstr ""
+msgstr "Spam"
 
 #: classes/Column/Comment/Status.php:35
 #: classes/Settings/Column/CommentCount.php:57
@@ -2291,7 +2291,7 @@ msgstr "Ausstehend"
 
 #: classes/Settings/Column/CommentCount.php:65
 msgid "Total"
-msgstr ""
+msgstr "Gesamt"
 
 #: classes/Settings/Column/UserLink.php:81
 msgid "View Public Author Page"
@@ -2383,7 +2383,7 @@ msgstr ""
 
 #: classes/Settings/Column/ExifData.php:79
 msgid "ISO"
-msgstr ""
+msgstr "ISO"
 
 #: classes/Settings/Column/ExifData.php:78
 msgid "Focal Length"
@@ -2469,7 +2469,7 @@ msgstr ""
 #: classes/Settings/Column/CustomFieldType.php:132
 #: templates/admin/help-tab/custom-fields.php:10
 msgid "Color"
-msgstr ""
+msgstr "Farbe"
 
 #: classes/ColumnGroups.php:12
 #: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20
@@ -2583,7 +2583,7 @@ msgstr ""
 #: classes/Settings/Column/Post.php:120 classes/Settings/Column/Term.php:32
 #: templates/admin/edit-actions.php:41
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: classes/Helper/Icon.php:62 classes/Settings/Column/ActionIcons.php:23
 #: classes/Settings/Column/MissingImageSize.php:23

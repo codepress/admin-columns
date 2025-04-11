@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-03-21 14:59:21+0000\n"
+"PO-Revision-Date: 2025-03-28 12:00:57+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2071,7 +2071,7 @@ msgstr "Alege un tip de coloană."
 
 #: templates/admin/edit-column.php:38 templates/admin/edit-column.php:82
 msgid "Clone"
-msgstr "Clonare"
+msgstr "Clonează"
 
 #: classes/Settings/Column/Password.php:28
 msgid "Display format"
@@ -2199,7 +2199,7 @@ msgstr "Descriptor"
 
 #: classes/Column/Post/Shortcodes.php:13
 msgid "Shortcodes"
-msgstr "Scurtcoduri"
+msgstr "Scurt-coduri"
 
 #: classes/Settings/Column/User.php:89
 #: templates/admin/list-screen-settings-mockup.php:47
@@ -2240,7 +2240,7 @@ msgstr ""
 
 #: classes/Column/Post/Formats.php:15
 msgid "Post Format"
-msgstr "Format de articol"
+msgstr "Format articol"
 
 #: classes/Column/Post/FeaturedImage.php:15
 msgid "Featured Image"
