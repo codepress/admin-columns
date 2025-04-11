@@ -14,7 +14,7 @@ class BaseEncoder implements AC\Storage\Encoder
 
     private Version $version;
 
-    private ?ListScreen $list_screen;
+    private ?ListScreen $list_screen = null;
 
     public function __construct(Version $version)
     {
