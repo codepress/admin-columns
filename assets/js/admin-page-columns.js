@@ -25349,6 +25349,7 @@ __webpack_require__.r(__webpack_exports__);
 function create_fragment(ctx) {
   let td;
   let td_class_value;
+  let td_colspan_value;
   let current;
   const default_slot_template = /*#slots*/ctx[7].default;
   const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[6], null);
@@ -25357,7 +25358,7 @@ function create_fragment(ctx) {
       td = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("td");
       if (default_slot) default_slot.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(td, "class", td_class_value = /*classes*/ctx[3].join(' '));
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(td, "colspan", /*colspan*/ctx[2]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(td, "colspan", td_colspan_value = parseInt(/*colspan*/ctx[2].toString()));
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(td, "acu-text-right", /*right*/ctx[1]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(td, "width", /*width*/ctx[0]);
     },
@@ -25374,8 +25375,8 @@ function create_fragment(ctx) {
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[6], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[6]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[6], dirty, null), null);
         }
       }
-      if (!current || dirty & /*colspan*/4) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(td, "colspan", /*colspan*/ctx[2]);
+      if (!current || dirty & /*colspan*/4 && td_colspan_value !== (td_colspan_value = parseInt(/*colspan*/ctx[2].toString()))) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(td, "colspan", td_colspan_value);
       }
       if (!current || dirty & /*right*/2) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(td, "acu-text-right", /*right*/ctx[1]);
