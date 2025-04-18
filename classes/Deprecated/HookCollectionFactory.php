@@ -36,24 +36,35 @@ class HookCollectionFactory
         }
 
         $pro_filters = [
+            'acp/custom_field/stored_date_format'          => 'ac/custom_field/stored_date_format',
+            'acp/display_licence'                          => 'ac/display_licence',
             'ac/export/value'                              => 'ac/export/render',
             'ac/export/value/escape'                       => 'ac/export/render/escape',
             'ac/export/headers'                            => 'ac/export/row_headers',
+            'acp/export/is_active'                         => 'ac/export/is_active',
             'acp/editing/persistent'                       => 'ac/editing/persistent',
             'acp/editing/post_statuses'                    => 'ac/editing/post_statuses',
             'acp/editing/save_value'                       => 'ac/editing/save_value',
             'acp/editing/settings/post_types'              => 'ac/editing/custom_field/post_types',
             'acp/editing/value'                            => 'ac/editing/input_value',
             'acp/editing/view'                             => 'ac/editing/view',
+            'acp/editing/bulk/is_active'                   => 'ac/editing/bulk/active',
             'acp/editing/bulk/updated_rows_per_iteration'  => 'ac/editing/bulk/updated_rows_per_iteration',
             'acp/delete/bulk/deleted_rows_per_iteration'   => 'ac/delete/bulk/deleted_rows_per_iteration',
-            'acp/export/is_active'                         => 'ac/export/is_active',
             'acp/horizontal_scrolling/enable'              => 'ac/horizontal_scrolling/enable',
+            'acp/quick_add/enable'                         => 'ac/quick_add/enable',
             'acp/search/filters'                           => 'ac/search/filters',
             'acp/sorting/model'                            => 'ac/sorting/model',
+            'acp/sorting/default'                          => 'ac/sorting/default',
             'acp/sorting/remember_last_sorting_preference' => 'ac/sorting/remember_last_sorting_preference',
+            'acp/sticky_header/enable'                     => 'ac/sticky_header/enable',
+            'acp/table/query_args_whitelist'               => 'ac/table/query_args_whitelist',
+
+            // Integration specific
+            'acp/acf/export/repeater/delimiter'            => 'ac/acf/export/repeater/delimiter',
+            'acp/gravityforms/create_default_set'          => 'ac/gravityforms/create_default_set',
             'acp/wc/column/product/sales/statuses'         => 'ac/wc/column/product/sales/statuses',
-            'acp/custom_field/stored_date_format'          => 'ac/custom_field/stored_date_format',
+            'acp/wc/show_product_variations'               => 'ac/wc/show_product_variations',
 
             // Removed Pro
             'ac/export/column/disable'                     => null,
@@ -91,6 +102,7 @@ class HookCollectionFactory
             'acp/list_screen/deleted'           => 'ac/list_screen/deleted',
             'acp/editing/saved'                 => 'ac/editing/saved',
             'acp/editing/before_save'           => 'ac/editing/before_save',
+            'acp/admin/settings/table_elements' => 'ac/admin/settings/table_elements',
         ];
 
         foreach ($pro_actions as $old => $new) {
