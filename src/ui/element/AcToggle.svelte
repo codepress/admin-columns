@@ -9,6 +9,10 @@
     export let disabled: boolean = false;
     export let label: string = null;
 
+    export const toggle = ( value: boolean ) => {
+        checked = value;
+	}
+
     let name: string = generateGuid();
     let dispatch = createEventDispatcher();
 

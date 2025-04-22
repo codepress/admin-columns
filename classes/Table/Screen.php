@@ -79,13 +79,9 @@ final class Screen implements Registerable
 
 		<!-- TODO REmove Buttons since all will be registeredin JS -->
 		<div id="ac-table-actions" class="ac-table-actions">
-
             <?php
             $this->render_buttons();
             ?>
-
-            <?php
-            do_action('ac/table/actions', $this); ?>
 		</div>
         <?php
     }
