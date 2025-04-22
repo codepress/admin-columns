@@ -50,15 +50,6 @@ final class Screen implements Registerable
         return array_merge([], ...$this->buttons);
     }
 
-    public function register_button(Button $button, int $priority = 10): void
-    {
-        $button->set_attribute('data-priority', $priority);
-
-        $this->buttons[$priority][] = $button;
-
-        ksort($this->buttons, SORT_NUMERIC);
-    }
-
     public function get_list_screen(): ?ListScreen
     {
         return $this->list_screen;
