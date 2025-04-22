@@ -7,6 +7,7 @@ module.exports = {
 	},
 	prefix : 'acu-',
 	content : [
+		"./../**/*.php",
 		"./../../src/core/**/*.{js,ts,svelte}",
 		"./../../src/editing/**/*.{js,ts,svelte}",
 		"./../../templates/**/*.php",

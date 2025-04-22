@@ -889,6 +889,13 @@ body.toplevel_page_codepress-admin-columns .wrap .notice {
 .ac-admin-nav__item.-active .ac-admin-nav__link {
   background: #626979;
 }
+.ac-admin-nav__item.-pro a {
+  background-color: var(--ac-pink-color);
+}
+.ac-admin-nav__item.-pro a .dashicons {
+  font-size: 16px;
+  transform: translateY("4px");
+}
 .ac-admin-nav__link {
   text-decoration: none;
   padding: 14px 20px;

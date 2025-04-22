@@ -41,9 +41,9 @@ class MenuFactory implements MenuFactoryInterface
         $menu = new Menu();
 
         $items = [
-            Page\Columns::NAME  => __('Columns', 'codepress-admin-columns'),
+            Page\Columns::NAME => __('Columns', 'codepress-admin-columns'),
             Page\Settings::NAME => __('Settings', 'codepress-admin-columns'),
-            Page\Addons::NAME   => __('Add-ons', 'codepress-admin-columns'),
+            Page\Addons::NAME => __('Add-ons', 'codepress-admin-columns'),
         ];
 
         $hook_count = $this->hooks->get_count();
@@ -68,13 +68,16 @@ class MenuFactory implements MenuFactoryInterface
         }
 
         $url = (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url();
-        $image = sprintf(
-            '<img alt="%s" src="%s">',
-            'Admin Columns Pro',
-            $this->location->with_suffix('/assets/images/external.svg')->get_url()
-        );
 
-        $menu->add_item(new MenuItem('pro', $url, sprintf('%s %s', 'Admin Columns Pro', $image), '-pro', '_blank'));
+        $menu->add_item(
+            new MenuItem(
+                'pro',
+                $url,
+                sprintf('%s %s', 'Admin Columns Pro', '<span class="dashicons dashicons-external"></span>'),
+                '-pro',
+                '_blank'
+            )
+        );
 
         do_action('ac/admin/page/menu', $menu);
 

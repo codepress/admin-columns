@@ -95,6 +95,7 @@ export const initUninitializedListScreens = (listScreens: UninitializedListScree
 
             main_initializer.events.on('success', () => {
                 // This is a side process that must not prevent any other calls from running
+
                 initializeSideListScreens()
             });
 
