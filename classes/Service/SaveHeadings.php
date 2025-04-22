@@ -57,6 +57,8 @@ class SaveHeadings implements Registerable
 
         $factory = $this->get_factory($table_screen);
 
+        ob_start(); // prevent any output
+
         if ($factory) {
             $factory->create($table_screen)
                     ->register();
