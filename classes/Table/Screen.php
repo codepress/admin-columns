@@ -43,7 +43,6 @@ final class Screen implements Registerable
         add_filter('admin_body_class', [$this, 'admin_class']);
         add_action('admin_footer', [$this, 'render_actions']);
         add_filter('screen_settings', [$this, 'screen_options']);
-        add_action('admin_head', [$this, 'register_settings_button']);
     }
 
     private function get_buttons(): array
@@ -65,39 +64,25 @@ final class Screen implements Registerable
         return $this->list_screen;
     }
 
-    public function register_settings_button(): void
+    private function show_edit_columns_action(): bool
     {
         if ( ! current_user_can(Capabilities::MANAGE)) {
-            return;
+            return false;
         }
 
-        $edit_button = new AC\Storage\Repository\EditButton();
-
-        if ( ! $edit_button->is_active()) {
-            return;
-        }
-
-        $url = EditorUrlFactory::create(
-            $this->table_screen->get_id(),
-            $this->table_screen->is_network(),
-            $this->list_screen ? $this->list_screen->get_id() : null
-        );
-
-        $button = new Button('edit-columns');
-        $button->set_tooltip(__('Edit columns', 'codepress-admin-columns'))
-               ->set_url((string)$url)
-               ->set_dashicon('admin-generic');
-
-        $this->register_button($button, 1);
+        return (new AC\Storage\Repository\EditButton())->is_active();
     }
 
     public function render_actions(): void
     {
         ?>
+
+		<!-- TODO REmove Buttons since all will be registeredin JS -->
 		<div id="ac-table-actions" class="ac-table-actions">
 
             <?php
-            $this->render_buttons(); ?>
+            $this->render_buttons();
+            ?>
 
             <?php
             do_action('ac/table/actions', $this); ?>
@@ -152,6 +137,15 @@ final class Screen implements Registerable
         return $html;
     }
 
+    private function get_edit_columns_url(): string
+    {
+        return EditorUrlFactory::create(
+            $this->table_screen->get_id(),
+            $this->table_screen->is_network(),
+            $this->list_screen ? $this->list_screen->get_id() : null
+        );
+    }
+
     public function admin_scripts(): void
     {
         $style = new Asset\Style(
@@ -166,6 +160,7 @@ final class Screen implements Registerable
             'edit'          => __('Edit', 'codepress-admin-columns'),
             'view'          => __('View', 'codepress-admin-columns'),
             'download'      => __('Download', 'codepress-admin-columns'),
+            'edit_columns'  => __('Edit columns', 'codepress-admin-columns'),
         ]);
 
         $script = new Asset\Script(
@@ -175,21 +170,23 @@ final class Screen implements Registerable
         );
 
         $args = [
-            'layout'           => '',
-            'column_types'     => '',
-            'read_only'        => false,
-            'assets'           => $this->location->with_suffix('assets/')->get_url(),
-            'list_screen'      => (string)$this->table_screen->get_id(),
-            'ajax_nonce'       => wp_create_nonce('ac-ajax'),
-            'table_id'         => $this->table_screen->get_attr_id(),
-            'screen'           => $this->table_screen->get_screen_id(),
-            'list_screen_link' => $this->get_list_screen_clear_link(),
-            'current_user_id'  => get_current_user_id(),
-            'number_format'    => [
+            'layout'            => '',
+            'column_types'      => '',
+            'read_only'         => false,
+            'assets'            => $this->location->with_suffix('assets/')->get_url(),
+            'list_screen'       => (string)$this->table_screen->get_id(),
+            'ajax_nonce'        => wp_create_nonce('ac-ajax'),
+            'table_id'          => $this->table_screen->get_attr_id(),
+            'screen'            => $this->table_screen->get_screen_id(),
+            'list_screen_link'  => $this->get_list_screen_clear_link(),
+            'show_edit_columns' => $this->show_edit_columns_action(),
+            'edit_columns_url'  => $this->get_edit_columns_url(),
+            'current_user_id'   => get_current_user_id(),
+            'number_format'     => [
                 'decimal_point' => $this->get_local_number_format('decimal_point'),
                 'thousands_sep' => $this->get_local_number_format('thousands_sep'),
             ],
-            'meta_type'        => $this->table_screen instanceof AC\TableScreen\MetaType
+            'meta_type'         => $this->table_screen instanceof AC\TableScreen\MetaType
                 ? (string)$this->table_screen->get_meta_type()
                 : '',
         ];

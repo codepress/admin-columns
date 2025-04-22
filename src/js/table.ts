@@ -2,25 +2,24 @@ import Table, {TableEventPayload} from "./table/table";
 import Tooltips from "./modules/tooltips";
 import ScreenOptionsColumns from "./table/screen-options-columns";
 
-// @ts-ignore
 import {auto_init_show_more} from "./plugin/show-more";
 import {EventConstants} from "./constants";
 import {getIdFromTableRow, resolveTableBySelector} from "./helpers/table";
 import {initAcServices} from "./helpers/admin-columns";
 import {initPointers} from "./modules/ac-pointer";
-import {LocalizedAcTable} from "./types/table";
 import ValueModals from "./modules/value-modals";
 import {initAcTooltips, Tooltip} from "./plugin/tooltip";
 import {ValueModalItemCollection} from "./types/admin-columns";
 import JsonViewer from "./modules/json-viewer";
-import {getTableConfig} from "./table/utils/global";
+import {getTableConfig, getTableTranslation} from "./table/utils/global";
+import {ActionButton} from "./table/actions";
 
 let AC_SERVICES = initAcServices();
-const tableConfig = getTableConfig()
+const tableConfig = getTableConfig();
+const i18n = getTableTranslation();
 
 AC_SERVICES.registerService('tooltips', initAcTooltips);
 AC_SERVICES.registerService('initPointers', initPointers);
-
 
 type TableRowCallback = (row: HTMLTableRowElement) => void;
 
@@ -86,6 +85,13 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
             new Tooltip(el, el.innerText);
         });
     });
+
+    if( tableConfig.show_edit_columns ){
+        const editColumnsButtons = ActionButton.createWithMarkup( 'edit-columns', i18n.edit_columns );
+        editColumnsButtons.getElement().setAttribute('href',tableConfig.edit_columns_url);
+        event.table.Actions?.addButton( editColumnsButtons,0 )
+    }
+
 
     // Row observation
     observeTableRows(

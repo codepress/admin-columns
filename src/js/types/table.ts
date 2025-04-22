@@ -7,8 +7,10 @@ export type LocalizedAcTable = {
     layout: string,
     list_screen: string,
     list_screen_link: string,
+    edit_columns_url: string,
     meta_type: string,
     read_only: boolean
+    show_edit_columns: string
     screen: string
     table_id: string,
     current_user_id: number
@@ -22,4 +24,5 @@ export type LocalizedAcTableI18n = {
     view: string
     download: string
     confirmation: ModuleConfirmationTranslation
+    edit_columns: string
 }

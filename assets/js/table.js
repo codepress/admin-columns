@@ -17607,10 +17607,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./plugin/tooltip */ "./js/plugin/tooltip.ts");
 /* harmony import */ var _modules_json_viewer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/json-viewer */ "./js/modules/json-viewer.ts");
 /* harmony import */ var _table_utils_global__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./table/utils/global */ "./js/table/utils/global.ts");
+/* harmony import */ var _table_actions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./table/actions */ "./js/table/actions.ts");
 
 
 
-// @ts-ignore
+
 
 
 
@@ -17622,6 +17623,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let AC_SERVICES = (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_6__.initAcServices)();
 const tableConfig = (0,_table_utils_global__WEBPACK_IMPORTED_MODULE_11__.getTableConfig)();
+const i18n = (0,_table_utils_global__WEBPACK_IMPORTED_MODULE_11__.getTableTranslation)();
 AC_SERVICES.registerService('tooltips', _plugin_tooltip__WEBPACK_IMPORTED_MODULE_9__.initAcTooltips);
 AC_SERVICES.registerService('initPointers', _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_7__.initPointers);
 const observeTableRows = (containerElement, filterFunction, rowCallback) => {
@@ -17662,7 +17664,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_4__.EventConstants.TABLE.READY, (event) => {
-    var _a;
+    var _a, _b;
     (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_3__.auto_init_show_more)();
     // Tooltip setup
     document.querySelectorAll('.cpac_use_icons').forEach((el) => {
@@ -17671,6 +17673,11 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_4__.EventConstants.T
             new _plugin_tooltip__WEBPACK_IMPORTED_MODULE_9__.Tooltip(el, el.innerText);
         });
     });
+    if (tableConfig.show_edit_columns) {
+        const editColumnsButtons = _table_actions__WEBPACK_IMPORTED_MODULE_12__.ActionButton.createWithMarkup('edit-columns', i18n.edit_columns);
+        editColumnsButtons.getElement().setAttribute('href', tableConfig.edit_columns_url);
+        (_a = event.table.Actions) === null || _a === void 0 ? void 0 : _a.addButton(editColumnsButtons, 0);
+    }
     // Row observation
     observeTableRows(event.table.getElement(), (node) => node.classList.contains('iedit'), (row) => {
         row.dispatchEvent(new CustomEvent('updated', {
@@ -17713,7 +17720,7 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_4__.EventConstants.T
     document.querySelectorAll('[data-component="ac-json"]').forEach(el => {
         new _modules_json_viewer__WEBPACK_IMPORTED_MODULE_10__["default"](el);
     });
-    (_a = event.table.Actions) === null || _a === void 0 ? void 0 : _a.refresh();
+    (_b = event.table.Actions) === null || _b === void 0 ? void 0 : _b.refresh();
 });
 
 })();
