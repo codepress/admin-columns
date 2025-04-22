@@ -12,8 +12,8 @@ $items = $this->menu_items;
 	<div class="acu-w-[260px] acu-items-center acu-flex ">
 		<img class="acu-w-[180px]" src="<?= esc_url(ac_get_url('assets/images/logo-ac-light.svg')) ?>" alt="">
 	</div>
-	<div class="acu-flex ">
-		<ul class="acu-flex ac-admin-nav acu-gap-2 acu-flex-wrap">
+	<div class="acu-flex acu-flex-grow">
+		<ul class="acu-flex ac-admin-nav acu-gap-2 acu-flex-wrap acu-flex-grow">
             <?php
             foreach ($items as $item) : ?>
 				<li class="ac-admin-nav__item <?= esc_attr($item->get_class()); ?>">

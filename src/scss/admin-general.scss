@@ -201,6 +201,15 @@ body.toplevel_page_codepress-admin-columns {
 				background: #626979;
 			}
 		}
+		&.-pro {
+			a {
+				background-color: var(--ac-pink-color);
+				.dashicons {
+					font-size: 16px;
+					transform: translateY('4px');
+				}
+			}
+		}
 	}
 
 	&__link {

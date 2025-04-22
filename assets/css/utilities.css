@@ -234,6 +234,10 @@
   margin-left: 28px
 }
 
+.acu-ml-auto {
+  margin-left: auto
+}
+
 .acu-mr-1 {
   margin-right: 5px
 }
@@ -886,10 +890,6 @@
 .acu-text-2xl {
   font-size: 1.5rem;
   line-height: 2rem
-}
-
-.acu-text-\[11px\] {
-  font-size: 11px
 }
 
 .acu-text-\[12px\] {
