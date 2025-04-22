@@ -6,7 +6,6 @@ namespace AC\TableScreen\SaveHeading;
 
 use AC\Registerable;
 use AC\Storage\Repository\DefaultColumnsRepository;
-use AC\Type\DefaultColumn;
 use AC\Type\DefaultColumns;
 use AC\Type\TableId;
 
@@ -21,16 +20,20 @@ class ScreenColumns implements Registerable
 
     private int $priority;
 
+    private bool $do_exit;
+
     public function __construct(
         string $screen_id,
         TableId $table_id,
         DefaultColumnsRepository $repository,
-        int $priority = 199
+        int $priority = 199,
+        bool $do_exit = true
     ) {
         $this->screen_id = $screen_id;
         $this->table_id = $table_id;
         $this->repository = $repository;
         $this->priority = $priority;
+        $this->do_exit = $do_exit;
     }
 
     /**
@@ -53,17 +56,9 @@ class ScreenColumns implements Registerable
 
     public function save_columns($headings)
     {
-        $columns = new DefaultColumns();
-
-        foreach ($headings as $column_name => $label) {
-            if ('cb' === $column_name) {
-                continue;
-            }
-
-            $columns->add(new DefaultColumn($column_name, $label));
-        }
-
-        $this->save($columns);
+        $this->save(
+            DefaultColumns::create_by_headings($headings)
+        );
 
         return $headings;
     }
@@ -89,7 +84,10 @@ class ScreenColumns implements Registerable
 
         $this->save($columns);
 
-        exit('ac_success');
+        if ($this->do_exit) {
+            ob_clean();
+            exit('ac_success');
+        }
     }
 
 }
