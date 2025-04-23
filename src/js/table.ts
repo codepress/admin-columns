@@ -87,11 +87,11 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
     });
 
     if( tableConfig.show_edit_columns ){
-        const editColumnsButtons = ActionButton.createWithMarkup( 'edit-columns', i18n.edit_columns );
+        const editColumnsButtons = ActionButton
+            .createWithMarkup( 'edit-columns', i18n.edit_columns );
         editColumnsButtons.getElement().setAttribute('href',tableConfig.edit_columns_url);
         event.table.Actions?.addButton( editColumnsButtons,0 )
     }
-
 
     // Row observation
     observeTableRows(

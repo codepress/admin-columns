@@ -67,25 +67,9 @@ final class Screen implements Registerable
     public function render_actions(): void
     {
         ?>
-
-		<!-- TODO REmove Buttons since all will be registeredin JS -->
 		<div id="ac-table-actions" class="ac-table-actions">
-            <?php
-            $this->render_buttons();
-            ?>
-		</div>
-        <?php
-    }
-
-    private function render_buttons(): void
-    {
-        ?>
-		<div class="ac-table-actions-buttons">
-            <?php
-            foreach ($this->get_buttons() as $button) {
-                $button->render();
-            }
-            ?>
+			<div class="ac-table-actions-buttons">
+			</div>
 		</div>
         <?php
     }
@@ -142,12 +126,17 @@ final class Screen implements Registerable
         );
         $style->enqueue();
 
+        $edit_columns_translation = __('Edit columns', 'codepress-admin-columns');
         $table_translation = Asset\Script\Localize\Translation::create([
-            'value_loading' => __('Loading...', 'codepress-admin-columns'),
-            'edit'          => __('Edit', 'codepress-admin-columns'),
-            'view'          => __('View', 'codepress-admin-columns'),
-            'download'      => __('Download', 'codepress-admin-columns'),
-            'edit_columns'  => __('Edit columns', 'codepress-admin-columns'),
+            'value_loading'        => __('Loading...', 'codepress-admin-columns'),
+            'edit'                 => __('Edit', 'codepress-admin-columns'),
+            'view'                 => __('View', 'codepress-admin-columns'),
+            'download'             => __('Download', 'codepress-admin-columns'),
+            'edit_columns'         => $edit_columns_translation,
+            'edit_columns_tooltip' => sprintf(
+                __("Show %s button on table screen.", 'codepress-admin-columns'),
+                $edit_columns_translation
+            ),
         ]);
 
         $script = new Asset\Script(

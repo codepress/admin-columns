@@ -17674,7 +17674,8 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_4__.EventConstants.T
         });
     });
     if (tableConfig.show_edit_columns) {
-        const editColumnsButtons = _table_actions__WEBPACK_IMPORTED_MODULE_12__.ActionButton.createWithMarkup('edit-columns', i18n.edit_columns);
+        const editColumnsButtons = _table_actions__WEBPACK_IMPORTED_MODULE_12__.ActionButton
+            .createWithMarkup('edit-columns', i18n.edit_columns);
         editColumnsButtons.getElement().setAttribute('href', tableConfig.edit_columns_url);
         (_a = event.table.Actions) === null || _a === void 0 ? void 0 : _a.addButton(editColumnsButtons, 0);
     }

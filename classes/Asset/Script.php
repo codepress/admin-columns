@@ -9,6 +9,8 @@ class Script extends Enqueueable
 
     protected bool $in_footer;
 
+    protected array $templates = [];
+
     public function __construct(
         string $handle,
         Location $location = null,
@@ -56,6 +58,15 @@ class Script extends Enqueueable
         }
 
         wp_enqueue_script($this->get_handle());
+
+        if ( ! empty($this->templates)) {
+            $html = implode('', $this->templates);
+            $template_js = sprintf(
+                'window.addEventListener("DOMContentLoaded",function(){document.body.insertAdjacentHTML("beforeend", %s);});',
+                json_encode($html)
+            );
+            wp_add_inline_script($this->get_handle(), $template_js, 'after');
+        }
     }
 
     public function localize(string $name, Script\Localize\Translation $translation): self
@@ -90,6 +101,13 @@ class Script extends Enqueueable
             sprintf('var %s = %s;', $name, json_encode($data)),
             Position::before()
         );
+    }
+
+    public function add_template(string $id, string $html): self
+    {
+        $this->templates[] = sprintf('<template id="%s">%s</template>', esc_attr($id), $html);
+
+        return $this;
     }
 
 }

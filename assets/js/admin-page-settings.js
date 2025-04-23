@@ -2732,8 +2732,8 @@ function create_fragment(ctx) {
       div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       if (default_slot) default_slot.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(h3, "class", "acu-mt-[0] acu-mb-2 acu-text-base acu-font-semibold");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "xl:acu-w-[300px] lg:acu-mr-6");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-flex-auto acu-flex-grow acu-pt-7");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "xl:acu-w-[270px] lg:acu-mr-6 acu-flex-shrink-0");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-flex-auto acu-flex-grow");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "xl:acu-flex acu-gap-8");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div3, "class", "acu-pb-8 acu-mb-8 last:acu-mb-[0] last:acu-pb-[0] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border last:acu-border-b-0");
     },

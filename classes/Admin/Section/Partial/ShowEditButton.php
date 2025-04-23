@@ -17,6 +17,7 @@ class ShowEditButton implements Renderable
         $this->option = new Storage\Repository\EditButton();
     }
 
+    //TODO Remove
     private function get_label(): string
     {
         return sprintf(

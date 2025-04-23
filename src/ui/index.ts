@@ -4,6 +4,7 @@ export { default as AcProgressBar } from "./AcProgressBar.svelte";
 export { default as AcSpinner } from "./AcSpinner.svelte";
 export { default as AcTimer } from "./AcTimer.svelte";
 export { default as AcTooltip } from "./AcTooltip.svelte";
+export { default as AcTemplateInjector } from "./AcTemplateInjector.svelte";
 
 
 // Small Components
