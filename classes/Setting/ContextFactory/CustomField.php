@@ -9,6 +9,7 @@ use AC\Column;
 use AC\Setting\ConditionalContextFactory;
 use AC\Setting\ConfigFactory;
 use AC\Setting\Context;
+use AC\TableScreen;
 
 class CustomField implements ConditionalContextFactory
 {
@@ -20,10 +21,10 @@ class CustomField implements ConditionalContextFactory
         $this->factory = $factory;
     }
 
-    public function create(AC\Column $column): Context
+    public function create(AC\Column $column, AC\TableScreen $table_screen): Context
     {
         $config = $this->factory->create($column);
-        
+
         return new Context\CustomField(
             $this->factory->create($column),
             $config->get('field_type', ''),
@@ -31,7 +32,7 @@ class CustomField implements ConditionalContextFactory
         );
     }
 
-    public function supports(Column $column): bool
+    public function supports(Column $column, TableScreen $table_screen): bool
     {
         return $column->get_type() === 'column-meta';
     }

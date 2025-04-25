@@ -8,6 +8,7 @@ use AC\Column;
 use AC\Setting\ConditionalContextFactory;
 use AC\Setting\Context;
 use AC\Setting\ContextFactory;
+use AC\TableScreen;
 
 final class Aggregate implements ContextFactory
 {
@@ -33,15 +34,15 @@ final class Aggregate implements ContextFactory
         ksort($this->factories, SORT_NATURAL);
     }
 
-    public function create(Column $column): Context
+    public function create(Column $column, TableScreen $table_screen): Context
     {
         foreach ($this->factories as $factory) {
-            if ($factory->supports($column)) {
-                return $factory->create($column);
+            if ($factory->supports($column, $table_screen)) {
+                return $factory->create($column, $table_screen);
             }
         }
 
-        return $this->default->create($column);
+        return $this->default->create($column, $table_screen);
     }
 
 }

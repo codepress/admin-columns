@@ -8,6 +8,7 @@ use AC;
 use AC\Setting\ConfigFactory;
 use AC\Setting\Context;
 use AC\Setting\ContextFactory;
+use AC\TableScreen;
 
 class Column implements ContextFactory
 {
@@ -19,7 +20,7 @@ class Column implements ContextFactory
         $this->factory = $factory;
     }
 
-    public function create(AC\Column $column): Context
+    public function create(AC\Column $column, TableScreen $table_screen): Context
     {
         return new Context(
             $this->factory->create($column)

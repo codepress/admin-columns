@@ -41,7 +41,7 @@ class Value implements ExtendedValue
 
         $renderable = new ColumnRenderable(
             new FormatterCollection($formatters),
-            $this->context_factory->create($column),
+            $this->context_factory->create($column, $list_screen->get_table_screen()),
             $list_screen
         );
 
