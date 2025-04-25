@@ -266,6 +266,14 @@
   margin-top: 3px
 }
 
+.acu-mt-2 {
+  margin-top: 10px
+}
+
+.acu-mt-3 {
+  margin-top: 15px
+}
+
 .acu-block {
   display: block
 }
@@ -876,6 +884,10 @@
   padding-top: 70px
 }
 
+.acu-pl-2 {
+  padding-left: 10px
+}
+
 .acu-text-left {
   text-align: left
 }
@@ -886,6 +898,10 @@
 
 .acu-text-right {
   text-align: right
+}
+
+.acu-font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 }
 
 .acu-text-2xl {
@@ -923,6 +939,10 @@
   line-height: 1.75rem
 }
 
+.acu-text-\[11px\] {
+  font-size: 11px
+}
+
 .acu-font-bold {
   font-weight: 700
 }
@@ -941,6 +961,10 @@
 
 .acu-font-semibold {
   font-weight: 600
+}
+
+.acu-font-thin {
+  font-weight: 100
 }
 
 .acu-uppercase {

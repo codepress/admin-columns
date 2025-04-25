@@ -2352,10 +2352,13 @@ function create_else_block_1(ctx) {
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
+      if (!current || dirty & /*classes*/1024 && button_class_value !== (button_class_value = /*classes*/ctx[10].join(' '))) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", button_class_value);
+      }
       if (!current || dirty & /*disabled, softDisabled*/3 && button_disabled_value !== (button_disabled_value = /*disabled*/ctx[0] || /*softDisabled*/ctx[1])) {
         button.disabled = button_disabled_value;
       }
-      if (!current || dirty & /*loading*/64) {
+      if (!current || dirty & /*classes, loading*/1088) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "is-loading", /*loading*/ctx[6]);
       }
     },
@@ -2385,7 +2388,7 @@ function create_else_block_1(ctx) {
   };
 }
 
-// (30:0) {#if href }
+// (27:0) {#if href }
 function create_if_block(ctx) {
   let a;
   let t0;
@@ -2492,16 +2495,19 @@ function create_if_block(ctx) {
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
+      if (!current || dirty & /*classes*/1024 && a_class_value !== (a_class_value = /*classes*/ctx[10].join(' '))) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", a_class_value);
+      }
       if (!current || dirty & /*href*/256) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*href*/ctx[8]);
       }
       if (!current || dirty & /*target*/512) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "target", /*target*/ctx[9]);
       }
-      if (!current || dirty & /*loading*/64) {
+      if (!current || dirty & /*classes, loading*/1088) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "is-loading", /*loading*/ctx[6]);
       }
-      if (!current || dirty & /*disabled*/1) {
+      if (!current || dirty & /*classes, disabled*/1025) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "-disabled", /*disabled*/ctx[0]);
       }
     },
@@ -2531,7 +2537,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (57:2) {#if iconLeft }
+// (54:2) {#if iconLeft }
 function create_if_block_6(ctx) {
   let acicon;
   let current;
@@ -2571,7 +2577,7 @@ function create_if_block_6(ctx) {
   };
 }
 
-// (62:2) {:else}
+// (59:2) {:else}
 function create_else_block_2(ctx) {
   let current;
   const default_slot_template = /*#slots*/ctx[16].default;
@@ -2608,7 +2614,7 @@ function create_else_block_2(ctx) {
   };
 }
 
-// (60:2) {#if label }
+// (57:2) {#if label }
 function create_if_block_5(ctx) {
   let t;
   return {
@@ -2631,7 +2637,7 @@ function create_if_block_5(ctx) {
   };
 }
 
-// (66:2) {#if iconRight }
+// (63:2) {#if iconRight }
 function create_if_block_4(ctx) {
   let acicon;
   let current;
@@ -2671,7 +2677,7 @@ function create_if_block_4(ctx) {
   };
 }
 
-// (38:2) {#if iconLeft }
+// (35:2) {#if iconLeft }
 function create_if_block_3(ctx) {
   let acicon;
   let current;
@@ -2711,7 +2717,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (43:2) {:else}
+// (40:2) {:else}
 function create_else_block(ctx) {
   let current;
   const default_slot_template = /*#slots*/ctx[16].default;
@@ -2748,7 +2754,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (41:2) {#if label }
+// (38:2) {#if label }
 function create_if_block_2(ctx) {
   let t;
   return {
@@ -2771,7 +2777,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (47:2) {#if iconRight }
+// (44:2) {#if iconRight }
 function create_if_block_1(ctx) {
   let acicon;
   let current;
@@ -2873,6 +2879,7 @@ function create_fragment(ctx) {
   };
 }
 function instance($$self, $$props, $$invalidate) {
+  let classes;
   let {
     $$slots: slots = {},
     $$scope
@@ -2919,10 +2926,6 @@ function instance($$self, $$props, $$invalidate) {
   let {
     target = '_self'
   } = $$props;
-  let classes = ['acui-button', customClass, `acui-button-${type}`];
-  if (size === 'small') classes.push('-small');
-  if (isDestructive) classes.push('-destructive');
-  if (disabled) classes.push('-disabled');
   function click_handler(event) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
   }
@@ -2945,6 +2948,11 @@ function instance($$self, $$props, $$invalidate) {
     if ('href' in $$props) $$invalidate(8, href = $$props.href);
     if ('target' in $$props) $$invalidate(9, target = $$props.target);
     if ('$$scope' in $$props) $$invalidate(15, $$scope = $$props.$$scope);
+  };
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty & /*customClass, type, size, isDestructive, disabled*/30721) {
+      $: $$invalidate(10, classes = ['acui-button', customClass, `acui-button-${type}`, size === 'small' ? '-small' : '', isDestructive ? '-destructive' : '', disabled ? '-disabled' : ''].filter(Boolean));
+    }
   };
   return [disabled, softDisabled, iconLeft, iconLeftPack, iconRight, iconRightPack, loading, label, href, target, classes, type, isDestructive, customClass, size, $$scope, slots, click_handler, click_handler_1];
 }

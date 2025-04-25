@@ -17,15 +17,14 @@
     export let href: string | undefined = undefined;
     export let target: string = '_self';
 
-    let classes = [
+    $: classes = [
         'acui-button',
         customClass,
-        `acui-button-${type}`
-    ]
-
-    if (size === 'small') classes.push('-small');
-    if (isDestructive) classes.push('-destructive');
-    if (disabled) classes.push('-disabled');
+        `acui-button-${type}`,
+        size === 'small' ? '-small' : '',
+        isDestructive ? '-destructive' : '',
+        disabled ? '-disabled' : ''
+    ].filter(Boolean);
 
 </script>
 
