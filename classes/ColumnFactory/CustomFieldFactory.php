@@ -3,11 +3,11 @@
 namespace AC\ColumnFactory;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactory\FieldType;
 use AC\Setting\Config;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
 use AC\Type\TableScreenContext;
 use AC\Value\Formatter\Meta;

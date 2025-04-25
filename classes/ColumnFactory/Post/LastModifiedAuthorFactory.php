@@ -3,11 +3,11 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UserLinkFactory;
 use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\Config;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
 use AC\Value\Formatter\Post\LastModifiedAuthor;

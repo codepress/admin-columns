@@ -2,8 +2,8 @@
 
 namespace AC\Storage\Repository;
 
-use AC\Type\TableId;
 use AC\Type\ListScreenId;
+use AC\Type\TableId;
 
 class ListScreenOrder
 {

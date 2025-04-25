@@ -27,7 +27,7 @@ abstract class Table
     {
         global $wpdb;
 
-        if ( $this->exists()) {
+        if ($this->exists()) {
             throw new LogicException(sprintf('Table %s does already exist', $this->get_name()));
         }
 

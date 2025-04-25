@@ -3,8 +3,8 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\Config;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
 use AC\Value\Formatter\Post\PageTemplate;

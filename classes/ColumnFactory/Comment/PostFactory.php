@@ -3,11 +3,11 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactory\PostProperty;
 use AC\Setting\Config;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Comment\Property;
 use AC\Value\Formatter\MapToId;

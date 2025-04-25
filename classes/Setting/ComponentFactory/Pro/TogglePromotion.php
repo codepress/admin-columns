@@ -20,7 +20,7 @@ class TogglePromotion extends Builder
 
     protected function get_label(Config $config): ?string
     {
-        return $this->label;;
+        return $this->label;
     }
 
     protected function get_input(Config $config): ?Input

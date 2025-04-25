@@ -57,7 +57,7 @@ final class OptionFactory
                 $data ? json_encode($data) : '{}'
             )
         );
-        
+
         return new Option(
             $name,
             'select_remote',

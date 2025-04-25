@@ -22,7 +22,7 @@ class NestedAttachmentMetaData implements Formatter
         $meta = get_post_meta($value->get_id(), '_wp_attachment_metadata', true);
 
         $attachment_meta = ac_helper()->array->get_nested_value($meta, $this->keys);
-        
+
         return is_scalar($attachment_meta)
             ? $value->with_value($attachment_meta)
             : new Value(null);

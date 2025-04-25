@@ -10,8 +10,8 @@ use AC\MetaType;
 use AC\PostType;
 use AC\TableScreen;
 use AC\Type\Labels;
-use AC\Type\TableId;
 use AC\Type\PostTypeSlug;
+use AC\Type\TableId;
 use AC\Type\Url;
 use WP_Post_Type;
 

@@ -9,7 +9,7 @@ use AC\Vendor\DI\ContainerBuilder;
 final class ContainerBuilderFactory
 {
 
-    static private ?ContainerBuilder $builder = null;
+    private static ?ContainerBuilder $builder = null;
 
     public function create(): ContainerBuilder
     {

@@ -118,7 +118,7 @@ class ListStorage
         if ( ! $width_setting) {
             return null;
         }
-        
+
         $width = (int)$width_setting->get_input()->get_value();
 
         if ($width < 1) {

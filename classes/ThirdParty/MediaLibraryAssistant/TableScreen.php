@@ -7,8 +7,8 @@ namespace AC\ThirdParty\MediaLibraryAssistant;
 use AC;
 use AC\MetaType;
 use AC\Type\Labels;
-use AC\Type\TableId;
 use AC\Type\PostTypeSlug;
+use AC\Type\TableId;
 use AC\Type\Url;
 use MLACore;
 

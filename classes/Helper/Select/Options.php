@@ -8,30 +8,34 @@ use LogicException;
 /**
  * @property $array Option[]|OptionGroup[]
  */
-class Options extends ArrayIterator {
+class Options extends ArrayIterator
+{
 
-	public function __construct( array $options ) {
-		parent::__construct( $options );
+    public function __construct(array $options)
+    {
+        parent::__construct($options);
 
-		$this->validate();
-	}
+        $this->validate();
+    }
 
-	private function validate(): void {
-		foreach ( $this as $option ) {
-			if ( ! $option instanceof Option && ! $option instanceof OptionGroup ) {
-				throw new LogicException( 'Only Option and OptionGroup objects allowed.' );
-			}
-		}
-	}
+    private function validate(): void
+    {
+        foreach ($this as $option) {
+            if ( ! $option instanceof Option && ! $option instanceof OptionGroup) {
+                throw new LogicException('Only Option and OptionGroup objects allowed.');
+            }
+        }
+    }
 
-	public static function create_from_array( array $array ): self {
-		$options = [];
+    public static function create_from_array(array $array): self
+    {
+        $options = [];
 
-		foreach ( $array as $key => $value ) {
-			$options[] = new Option( $key, $value );
-		}
+        foreach ($array as $key => $value) {
+            $options[] = new Option($key, $value);
+        }
 
-		return new self( $options );
-	}
+        return new self($options);
+    }
 
 }

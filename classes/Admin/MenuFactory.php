@@ -41,9 +41,9 @@ class MenuFactory implements MenuFactoryInterface
         $menu = new Menu();
 
         $items = [
-            Page\Columns::NAME => __('Columns', 'codepress-admin-columns'),
+            Page\Columns::NAME  => __('Columns', 'codepress-admin-columns'),
             Page\Settings::NAME => __('Settings', 'codepress-admin-columns'),
-            Page\Addons::NAME => __('Add-ons', 'codepress-admin-columns'),
+            Page\Addons::NAME   => __('Add-ons', 'codepress-admin-columns'),
         ];
 
         $hook_count = $this->hooks->get_count();

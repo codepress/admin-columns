@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
-use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\VideoDisplay;
 use AC\Setting\Config;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
 use AC\Value\Extended\MediaPreview;
 use AC\Value\Formatter;

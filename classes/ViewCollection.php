@@ -2,26 +2,28 @@
 
 namespace AC;
 
-class ViewCollection implements Renderable {
+class ViewCollection implements Renderable
+{
 
-	/**
-	 * @var View[]
-	 */
-	private $views;
+    /**
+     * @var View[]
+     */
+    private $views;
 
-	public function __construct( array $views ) {
-		$this->views = $views;
-	}
-
-	public function render(): string
+    public function __construct(array $views)
     {
-		$html = '';
+        $this->views = $views;
+    }
 
-		foreach ( $this->views as $view ) {
-			$html .= $view->render();
-		}
+    public function render(): string
+    {
+        $html = '';
 
-		return $html;
-	}
+        foreach ($this->views as $view) {
+            $html .= $view->render();
+        }
+
+        return $html;
+    }
 
 }

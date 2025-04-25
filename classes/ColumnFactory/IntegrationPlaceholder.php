@@ -5,9 +5,9 @@ namespace AC\ColumnFactory;
 use AC;
 use AC\Column\BaseColumnFactory;
 use AC\Integration;
-use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentFactory\Message;
 use AC\Setting\Config;
+use AC\Setting\DefaultSettingsBuilder;
 
 class IntegrationPlaceholder extends BaseColumnFactory
 {

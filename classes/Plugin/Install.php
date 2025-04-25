@@ -2,13 +2,13 @@
 
 namespace AC\Plugin;
 
-interface Install {
+interface Install
+{
 
-	/**
-	 * Idempotent call to set up Admin Columns
-	 *
-	 * @return void
-	 */
-	public function install();
+    /**
+     * Idempotent call to set up Admin Columns
+     * @return void
+     */
+    public function install();
 
 }

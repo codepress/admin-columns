@@ -73,7 +73,7 @@ class ListScreenSettings implements RequestAjaxHandler
         );
 
         $list_screen = $request->get('list_screen');
-        
+
         if ( ! $list_screen instanceof ListScreen) {
             throw new InvalidArgumentException('Invalid list screen.');
         }

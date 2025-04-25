@@ -4,9 +4,9 @@ namespace AC\ColumnFactory\Post;
 
 use AC;
 use AC\Column\BaseColumnFactory;
-use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentFactory\AttachmentDisplay;
 use AC\Setting\Config;
+use AC\Setting\DefaultSettingsBuilder;
 
 class AttachmentFactory extends BaseColumnFactory
 {

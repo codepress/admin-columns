@@ -14,7 +14,7 @@ class ExifData implements Formatter
     {
         $this->exif_data = $exif_data;
     }
-    
+
     public function format(Value $value): Value
     {
         $data = (array)$value->get_value();

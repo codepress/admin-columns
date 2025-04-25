@@ -4,10 +4,10 @@ namespace AC\ColumnFactory\Comment;
 
 use AC;
 use AC\Column\BaseColumnFactory;
-use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\Config;
+use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
 
 class ExcerptFactory extends BaseColumnFactory

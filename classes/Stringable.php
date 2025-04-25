@@ -1,9 +1,11 @@
-<?php declare( strict_types=1 );
+<?php
+declare(strict_types=1);
 
 namespace AC;
 
-interface Stringable {
+interface Stringable
+{
 
-	public function __toString(): string;
+    public function __toString(): string;
 
 }
