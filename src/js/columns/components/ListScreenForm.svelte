@@ -4,7 +4,7 @@
     import HtmlSection from "./HtmlSection.svelte";
     import {saveListScreen} from "../ajax/ajax";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
-    import {currentListKey} from "../store";
+    import {currentListKey, initialListScreenData, listScreenDataHasChanges} from "../store";
     import {AxiosError} from "axios";
     import ListScreenSections from "../store/list-screen-sections";
 
@@ -22,6 +22,8 @@
             } else {
                 NotificationProgrammatic.open({message: response.data.data.message, type: 'error'})
             }
+            initialListScreenData.set( Object.assign({}, data) );
+            listScreenDataHasChanges.set(false);
 
         }).catch((c: AxiosError) => {
             NotificationProgrammatic.open({message: c.message, type: 'error'})
@@ -31,7 +33,12 @@
 
 </script>
 <section>
-	<ColumnsForm bind:data={data} bind:config={config} locked={locked}></ColumnsForm>
+	<ColumnsForm
+		bind:data={data}
+		bind:config={config}
+		locked={locked}
+		on:saveListScreen={saveSettings}
+		{isSaving} />
 
 	{#each ListScreenSections.getSections( 'after_columns' ) as component}
 		<HtmlSection component={component}></HtmlSection>

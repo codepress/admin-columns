@@ -218,7 +218,7 @@ body.toplevel_page_codepress-admin-columns {
 
 		border-radius: 4px;
 
-		&:hover, &:active {
+		&:hover, &:active, &:focus {
 			background: #626979;
 			color: #fff;
 		}

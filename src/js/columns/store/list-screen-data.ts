@@ -21,3 +21,6 @@ function createListScreenData(): ListScreenDataStore {
 }
 
 export const listScreenDataStore = createListScreenData();
+
+export const listScreenDataHasChanges = writable(false);
+export const initialListScreenData = writable<ListScreenData|null>(null);
