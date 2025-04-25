@@ -7,15 +7,15 @@ namespace AC\Admin\Type;
 class MenuGroup
 {
 
-    private $name;
+    private string $name;
 
-    private $label;
+    private string $label;
 
-    private $priority;
+    private int $priority;
 
-    private $icon;
+    private ?string $icon;
 
-    public function __construct(string $name, string $label, int $priority = 20, string $icon = null)
+    public function __construct(string $name, string $label, int $priority = 40, string $icon = null)
     {
         $this->name = $name;
         $this->label = $label;

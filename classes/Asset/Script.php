@@ -59,13 +59,14 @@ class Script extends Enqueueable
 
         wp_enqueue_script($this->get_handle());
 
-        if ( ! empty($this->templates)) {
-            $html = implode('', $this->templates);
-            $template_js = sprintf(
-                'window.addEventListener("DOMContentLoaded",function(){document.body.insertAdjacentHTML("beforeend", %s);});',
-                json_encode($html)
+        if ($this->templates) {
+            // Allows JS frameworks to use PHP templates
+            $this->add_inline(
+                sprintf(
+                    'window.addEventListener("DOMContentLoaded",function(){document.body.insertAdjacentHTML("beforeend", %s);});',
+                    json_encode(implode('', $this->templates))
+                )
             );
-            wp_add_inline_script($this->get_handle(), $template_js, 'after');
         }
     }
 
@@ -82,15 +83,11 @@ class Script extends Enqueueable
 
     public function add_inline(string $data, Position $position = null): self
     {
-        if (null === $position) {
-            $position = Position::after();
-        }
-
         if ( ! $this->is_registered()) {
             $this->register();
         }
 
-        wp_add_inline_script($this->handle, $data, (string)$position);
+        wp_add_inline_script($this->handle, $data, (string)($position ?? Position::after()));
 
         return $this;
     }

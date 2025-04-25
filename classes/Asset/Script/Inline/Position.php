@@ -1,28 +1,34 @@
-<?php declare( strict_types=1 );
+<?php
+declare(strict_types=1);
 
 namespace AC\Asset\Script\Inline;
 
-final class Position {
+final class Position
+{
 
-	public const BEFORE = 'before';
-	public const AFTER = 'after';
+    public const BEFORE = 'before';
+    public const AFTER = 'after';
 
-	private $position;
+    private string $position;
 
-	private function __construct( string $position ) {
-		$this->position = $position;
-	}
+    private function __construct(string $position)
+    {
+        $this->position = $position;
+    }
 
-	public static function before(): self {
-		return new self( self::BEFORE );
-	}
+    public static function before(): self
+    {
+        return new self(self::BEFORE);
+    }
 
-	public static function after(): self {
-		return new self( self::AFTER );
-	}
+    public static function after(): self
+    {
+        return new self(self::AFTER);
+    }
 
-	public function __toString(): string {
-		return $this->position;
-	}
+    public function __toString(): string
+    {
+        return $this->position;
+    }
 
 }
