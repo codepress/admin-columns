@@ -22,8 +22,12 @@ class CustomField implements ConditionalContextFactory
 
     public function create(AC\Column $column): Context
     {
+        $config = $this->factory->create($column);
+        
         return new Context\CustomField(
-            $this->factory->create($column)
+            $this->factory->create($column),
+            $config->get('field_type', ''),
+            $config->get('meta_key', ''),
         );
     }
 
