@@ -1,15 +1,37 @@
 import {initAcServices} from "./helpers/admin-columns";
 import ColumnsPage from "./columns/components/ColumnsPage.svelte";
-import {currentListId, currentListKey,debugMode, columnTypesStore, favoriteListKeysStore, showColumnInfo, hasUsagePermissions} from "./columns/store";
+import {
+    currentListId,
+    currentListKey,
+    debugMode,
+    columnTypesStore,
+    favoriteListKeysStore,
+    showColumnInfo,
+    hasUsagePermissions,
+    listScreenDataStore, listScreenDataHasChanges, initialListScreenData
+} from "./columns/store";
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import {initListScreenHeadings, initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
 import InfoScreenOption from "./modules/screen-options";
 import ColumnPageBridge from "./columns/utils/page-bridge";
+import { get } from "svelte/store";
 
 const AcServices = initAcServices();
 const localConfig = getColumnSettingsConfig();
 
 require('./columns/init/setting-types.ts');
+
+const debounce = <T extends (...args: any[]) => void>(
+    fn: T,
+    delay: number
+): (...args: Parameters<T>) => void => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    return (...args: Parameters<T>): void => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn(...args), delay);
+    };
+}
 
 currentListKey.subscribe((d) => {
     const url = new URL(window.location.href);
@@ -25,6 +47,19 @@ currentListId.subscribe((d) => {
     url.searchParams.set('layout_id', d);
 
     window.history.replaceState(null, '', url);
+})
+
+
+// Debounced vergelijking
+const checkForChanges = debounce(() => {
+    const orig = get(initialListScreenData);
+    const current = get(listScreenDataStore);
+
+    listScreenDataHasChanges.set(JSON.stringify(orig) !== JSON.stringify(current));
+}, 300);
+
+listScreenDataStore.subscribe( d => {
+    checkForChanges();
 })
 
 

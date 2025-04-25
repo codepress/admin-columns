@@ -5,8 +5,14 @@
     import {ColumnTypesUtils} from "../utils/column-types";
     import ListKeys from "../utils/list-keys";
     import {ListScreenColumnData, ListScreenData} from "../../types/requests";
-    import {listScreenDataStore,listScreenIsReadOnly,columnTypesStore,currentListKey, openedColumnsStore} from "../store";
-    import {onMount, tick} from "svelte";
+    import {
+        columnTypesStore,
+        currentListKey, listScreenDataHasChanges,
+        listScreenDataStore,
+        listScreenIsReadOnly,
+        openedColumnsStore
+    } from "../store";
+    import {createEventDispatcher, onMount, tick} from "svelte";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {getColumnSettingsTranslation} from "../utils/global";
@@ -18,10 +24,12 @@
 
 
     const i18n = getColumnSettingsTranslation();
+    const dispatch = createEventDispatcher();
 
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
     export let locked: boolean = true;
+    export let isSaving: boolean = false;
 
     let start: number | null = 0;
     let end: number | null = 0;
@@ -241,9 +249,9 @@
 				{/each}
 			</div>
 		</div>
-		<AcPanelFooter slot="footer" classNames={['acu-flex acu-justify-end']}>
+		<AcPanelFooter slot="footer" classNames={['acu-flex acu-justify-end acu-gap-2']}>
 			{#if !$listScreenIsReadOnly && !locked}
-				<div>
+
 					{#if data.columns.length > 0}
 						<AcButton
 							type="text"
@@ -251,6 +259,16 @@
 							label={i18n.editor.label.clear_columns}
 						/>
 					{/if}
+
+					<AcButton
+						type="primary"
+						softDisabled={isSaving}
+						loading={isSaving}
+						on:click={() => dispatch('saveListScreen', data)  }
+						disabled={!$listScreenDataHasChanges}
+						label={i18n.editor.label.save}
+					/>
+
 					<AcDropdown
 						--acui-dropdown-width="300px"
 						customClass="-selectv2"
@@ -270,7 +288,7 @@
 						/>
 
 					</AcDropdown>
-				</div>
+
 
 			{/if}
 		</AcPanelFooter>

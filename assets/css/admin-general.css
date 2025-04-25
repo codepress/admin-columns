@@ -901,7 +901,7 @@ body.toplevel_page_codepress-admin-columns .wrap .notice {
   padding: 14px 20px;
   border-radius: 4px;
 }
-.ac-admin-nav__link:hover, .ac-admin-nav__link:active {
+.ac-admin-nav__link:hover, .ac-admin-nav__link:active, .ac-admin-nav__link:focus {
   background: #626979;
   color: #fff;
 }

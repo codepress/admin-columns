@@ -2,22 +2,27 @@
     import ListScreenForm from "./ListScreenForm.svelte";
     import {onMount} from "svelte";
     import {getListScreenSettings} from "../ajax/ajax";
-    import {currentListId, currentListKey} from "../store/current-list-screen";
     import ListScreenSections from "../store/list-screen-sections";
     import HtmlSection from "./HtmlSection.svelte";
     import ListScreenMenu from "./ListScreenMenu.svelte";
-    import {listScreenDataStore} from "../store/list-screen-data";
-    import {columnTypeSorter, columnTypesStore} from "../store/column-types";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
-    import {listScreenIsReadOnly} from "../store/read_only";
+    import {
+        columnTypeSorter,
+        columnTypesStore,
+        currentListId,
+        currentListKey,
+        currentTableUrl,
+        hasUsagePermissions, initialListScreenData, listScreenDataHasChanges,
+        listScreenDataStore,
+        listScreenIsReadOnly
+    } from "../store";
     import AcButton from "ACUi/element/AcButton.svelte";
     import AdminHeaderBar from "../../components/AdminHeaderBar.svelte";
     import ProSideBanner from "./sidebar/pro-banner/ProSideBanner.svelte";
     import {getColumnSettingsConfig, getColumnSettingsTranslation} from "../utils/global";
     import ReviewComponent from "./sidebar/review/ReviewComponent.svelte";
     import SupportPanel from "./sidebar/SupportPanel.svelte";
-    import {currentTableUrl} from "../store/table_url";
-    import {hasUsagePermissions} from "../store/permissions";
+
     import ProSettingsExample from "./ProSettingsExample.svelte";
     import {AcNotice} from "ACUi/index";
     import {sprintf} from "@wordpress/i18n";
@@ -65,11 +70,13 @@
             listScreenIsReadOnly.set(response.data.data.read_only);
             $listScreenDataStore = response.data.data.settings.list_screen;
             $currentListId = loadedListId;
+            $initialListScreenData = Object.assign({},response.data.data.settings.list_screen)
+			$listScreenDataHasChanges = false
         }).catch((response) => {
             NotificationProgrammatic.open({message: response.message, type: 'error'})
-        }).finally( () => {
+        }).finally(() => {
             $isLoadingColumnSettings = false
-		});
+        });
     }
 
 
@@ -84,7 +91,7 @@
     }
 
 
-    const debounceFetch = (delay: number = 400) => {
+    const debounceFetch = (delay: number = 300) => {
         clearTimeout(debounceTimeout);
 
         debounceTimeout = setTimeout(processQueuedChanges, delay);
@@ -114,6 +121,7 @@
 				type="primary"
 				loading={isSaving}
 				softDisabled={isSaving}
+				disabled={!$listScreenDataHasChanges}
 				on:click={() => form.saveSettings()}
 				label={i18n.editor.label.save}
 			/>

@@ -19,7 +19,7 @@
 	<div slot="body">
 		{#each new Array( 5 ) as i}
 			<div
-				class="ac-column acu-px-4 acu-py-2 acu-flex acu-mb-2 acu-border-b-ui-border acu-border-b acu-border-solid-b">
+				class="ac-column acu-px-4 acu-py-2 acu-flex acu-mb-2 acu-border-b-ui-border acu-border-b acu-border-solid-b" style="background-color: #fff">
 				<div class="acu-flex-grow">
 					<AcSkeleton width="260px"/>
 				</div>
@@ -50,7 +50,9 @@
 			</div>
 		{/each}
 	</div>
-	<AcPanelFooter slot="footer" classNames={'acu-flex acu-items-end'}>
+	<AcPanelFooter slot="footer" classNames={['acu-flex acu-justify-end']}>
+		<div style="width: 120px">
 		<AcSkeleton height="36px" width="120px"/>
+		</div>
 	</AcPanelFooter>
 </AcPanel>
