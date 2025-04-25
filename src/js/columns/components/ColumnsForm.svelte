@@ -14,6 +14,7 @@
     import ColumnTypeDropdownV2 from "./ColumnTypeDropdownV2.svelte";
     import {AcButton, AcDropdown, AcPanel, AcPanelFooter, AcPanelHeader, AcPanelTitle} from "ACUi/index";
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
+    import {isLoadingColumnSettings} from "../store/loading";
 
 
     const i18n = getColumnSettingsTranslation();
@@ -172,7 +173,7 @@
 </script>
 
 <!--<DebugToolbar bind:data={data} bind:config={config}/>-->
-{#if data }
+{#if data && !$isLoadingColumnSettings}
 	<AcPanel>
 		<AcPanelHeader slot="header" border>
 

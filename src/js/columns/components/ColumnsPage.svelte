@@ -21,6 +21,7 @@
     import ProSettingsExample from "./ProSettingsExample.svelte";
     import {AcNotice} from "ACUi/index";
     import {sprintf} from "@wordpress/i18n";
+    import {isLoadingColumnSettings} from "../store/loading";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -54,6 +55,7 @@
             abortController.abort();
         }
         abortController = new AbortController();
+        $isLoadingColumnSettings = true
 
         getListScreenSettings(listKey, listId, abortController).then(response => {
             loadedListId = response.data.data.settings.list_screen.id;
@@ -65,7 +67,9 @@
             $currentListId = loadedListId;
         }).catch((response) => {
             NotificationProgrammatic.open({message: response.message, type: 'error'})
-        });
+        }).finally( () => {
+            $isLoadingColumnSettings = false
+		});
     }
 
 
