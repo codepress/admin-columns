@@ -27,6 +27,7 @@
     import {AcNotice} from "ACUi/index";
     import {sprintf} from "@wordpress/i18n";
     import {isLoadingColumnSettings} from "../store/loading";
+    import cloneDeep from "lodash-es/cloneDeep";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -70,7 +71,7 @@
             listScreenIsReadOnly.set(response.data.data.read_only);
             $listScreenDataStore = response.data.data.settings.list_screen;
             $currentListId = loadedListId;
-            initialListScreenData.set( JSON.parse( JSON.stringify(response.data.data.settings.list_screen) ) );
+            initialListScreenData.set( cloneDeep( response.data.data.settings.list_screen ) );
             $listScreenDataHasChanges = false
         }).catch((response) => {
             NotificationProgrammatic.open({message: response.message, type: 'error'})

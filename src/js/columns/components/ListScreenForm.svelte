@@ -7,6 +7,7 @@
     import {currentListKey, initialListScreenData, listScreenDataHasChanges} from "../store";
     import {AxiosError} from "axios";
     import ListScreenSections from "../store/list-screen-sections";
+    import cloneDeep from 'lodash-es/cloneDeep';
 
     export let config: any
     export let data: ListScreenData
@@ -23,7 +24,7 @@
                 NotificationProgrammatic.open({message: response.data.data.message, type: 'error'})
             }
 
-            initialListScreenData.set(JSON.parse(JSON.stringify(data)));
+            initialListScreenData.set(cloneDeep(data));
             listScreenDataHasChanges.set(false);
 
         }).catch((c: AxiosError) => {
