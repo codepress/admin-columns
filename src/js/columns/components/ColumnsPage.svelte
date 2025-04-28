@@ -70,8 +70,8 @@
             listScreenIsReadOnly.set(response.data.data.read_only);
             $listScreenDataStore = response.data.data.settings.list_screen;
             $currentListId = loadedListId;
-            $initialListScreenData = Object.assign({},response.data.data.settings.list_screen)
-			$listScreenDataHasChanges = false
+            initialListScreenData.set( JSON.parse( JSON.stringify(response.data.data.settings.list_screen) ) );
+            $listScreenDataHasChanges = false
         }).catch((response) => {
             NotificationProgrammatic.open({message: response.message, type: 'error'})
         }).finally(() => {

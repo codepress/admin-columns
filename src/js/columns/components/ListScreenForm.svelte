@@ -22,7 +22,8 @@
             } else {
                 NotificationProgrammatic.open({message: response.data.data.message, type: 'error'})
             }
-            initialListScreenData.set( Object.assign({}, data) );
+
+            initialListScreenData.set(JSON.parse(JSON.stringify(data)));
             listScreenDataHasChanges.set(false);
 
         }).catch((c: AxiosError) => {
@@ -38,7 +39,7 @@
 		bind:config={config}
 		locked={locked}
 		on:saveListScreen={saveSettings}
-		{isSaving} />
+		{isSaving}/>
 
 	{#each ListScreenSections.getSections( 'after_columns' ) as component}
 		<HtmlSection component={component}></HtmlSection>

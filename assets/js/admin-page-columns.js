@@ -5459,7 +5459,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[31] = list[i];
+  child_ctx[30] = list[i];
   return child_ctx;
 }
 
@@ -5604,7 +5604,7 @@ function create_if_block_4(ctx) {
     },
     p(ctx, dirty) {
       const acnotice_changes = {};
-      if (dirty[0] & /*$listScreenDataStore*/64 | dirty[1] & /*$$scope*/8) {
+      if (dirty[0] & /*$listScreenDataStore*/64 | dirty[1] & /*$$scope*/4) {
         acnotice_changes.$$scope = {
           dirty,
           ctx
@@ -5768,7 +5768,7 @@ function create_each_block(ctx) {
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_6__["default"]({
     props: {
-      component: /*component*/ctx[31]
+      component: /*component*/ctx[30]
     }
   });
   return {
@@ -6002,7 +6002,7 @@ function create_fragment(ctx) {
     },
     p(ctx, dirty) {
       const adminheaderbar_changes = {};
-      if (dirty[0] & /*isSaving, $listScreenDataHasChanges, form, $listScreenIsReadOnly, $hasUsagePermissions, $currentTableUrl*/952 | dirty[1] & /*$$scope*/8) {
+      if (dirty[0] & /*isSaving, $listScreenDataHasChanges, form, $listScreenIsReadOnly, $hasUsagePermissions, $currentTableUrl*/952 | dirty[1] & /*$$scope*/4) {
         adminheaderbar_changes.$$scope = {
           dirty,
           ctx
@@ -6098,7 +6098,6 @@ function instance($$self, $$props, $$invalidate) {
   let $currentListKey;
   let $isLoadingColumnSettings;
   let $listScreenDataHasChanges;
-  let $initialListScreenData;
   let $currentListId;
   let $listScreenDataStore;
   let $columnTypesStore;
@@ -6108,10 +6107,9 @@ function instance($$self, $$props, $$invalidate) {
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_9__.currentListKey, $$value => $$invalidate(23, $currentListKey = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_loading__WEBPACK_IMPORTED_MODULE_19__.isLoadingColumnSettings, $$value => $$invalidate(24, $isLoadingColumnSettings = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_9__.listScreenDataHasChanges, $$value => $$invalidate(5, $listScreenDataHasChanges = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_9__.initialListScreenData, $$value => $$invalidate(25, $initialListScreenData = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_9__.currentListId, $$value => $$invalidate(26, $currentListId = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_9__.currentListId, $$value => $$invalidate(25, $currentListId = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $$value => $$invalidate(6, $listScreenDataStore = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_9__.columnTypesStore, $$value => $$invalidate(27, $columnTypesStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_9__.columnTypesStore, $$value => $$invalidate(26, $columnTypesStore = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_9__.currentTableUrl, $$value => $$invalidate(7, $currentTableUrl = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_9__.listScreenIsReadOnly, $$value => $$invalidate(8, $listScreenIsReadOnly = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_9__.hasUsagePermissions, $$value => $$invalidate(9, $hasUsagePermissions = $$value));
@@ -6153,7 +6151,7 @@ function instance($$self, $$props, $$invalidate) {
       _store__WEBPACK_IMPORTED_MODULE_9__.listScreenIsReadOnly.set(response.data.data.read_only);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $listScreenDataStore = response.data.data.settings.list_screen, $listScreenDataStore);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store__WEBPACK_IMPORTED_MODULE_9__.currentListId, $currentListId = loadedListId, $currentListId);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store__WEBPACK_IMPORTED_MODULE_9__.initialListScreenData, $initialListScreenData = Object.assign({}, response.data.data.settings.list_screen), $initialListScreenData);
+      _store__WEBPACK_IMPORTED_MODULE_9__.initialListScreenData.set(JSON.parse(JSON.stringify(response.data.data.settings.list_screen)));
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store__WEBPACK_IMPORTED_MODULE_9__.listScreenDataHasChanges, $listScreenDataHasChanges = false, $listScreenDataHasChanges);
     }).catch(response => {
       _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_8__.NotificationProgrammatic.open({
@@ -7199,7 +7197,7 @@ function instance($$self, $$props, $$invalidate) {
           type: 'error'
         });
       }
-      _store__WEBPACK_IMPORTED_MODULE_6__.initialListScreenData.set(Object.assign({}, data));
+      _store__WEBPACK_IMPORTED_MODULE_6__.initialListScreenData.set(JSON.parse(JSON.stringify(data)));
       _store__WEBPACK_IMPORTED_MODULE_6__.listScreenDataHasChanges.set(false);
     }).catch(c => {
       _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_5__.NotificationProgrammatic.open({
@@ -43887,6 +43885,8 @@ _columns_store__WEBPACK_IMPORTED_MODULE_2__.currentListId.subscribe((d) => {
 const checkForChanges = debounce(() => {
     const orig = (0,svelte_store__WEBPACK_IMPORTED_MODULE_7__.get)(_columns_store__WEBPACK_IMPORTED_MODULE_2__.initialListScreenData);
     const current = (0,svelte_store__WEBPACK_IMPORTED_MODULE_7__.get)(_columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataStore);
+    console.log('change', JSON.stringify(orig) !== JSON.stringify(current));
+    console.log('orig', orig);
     _columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataHasChanges.set(JSON.stringify(orig) !== JSON.stringify(current));
 }, 300);
 _columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataStore.subscribe(d => {

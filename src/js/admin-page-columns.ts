@@ -55,6 +55,8 @@ const checkForChanges = debounce(() => {
     const orig = get(initialListScreenData);
     const current = get(listScreenDataStore);
 
+    console.log( 'change', JSON.stringify(orig) !== JSON.stringify(current));
+    console.log( 'orig', orig);
     listScreenDataHasChanges.set(JSON.stringify(orig) !== JSON.stringify(current));
 }, 300);
 
