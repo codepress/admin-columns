@@ -48324,12 +48324,9 @@ _columns_store__WEBPACK_IMPORTED_MODULE_2__.currentListId.subscribe((d) => {
     url.searchParams.set('layout_id', d);
     window.history.replaceState(null, '', url);
 });
-// Debounced vergelijking
 const checkForChanges = debounce(() => {
     const orig = (0,svelte_store__WEBPACK_IMPORTED_MODULE_7__.get)(_columns_store__WEBPACK_IMPORTED_MODULE_2__.initialListScreenData);
     const current = (0,svelte_store__WEBPACK_IMPORTED_MODULE_7__.get)(_columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataStore);
-    console.log('change', JSON.stringify(orig) !== JSON.stringify(current));
-    console.log('orig', orig);
     _columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataHasChanges.set(JSON.stringify(orig) !== JSON.stringify(current));
 }, 300);
 _columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataStore.subscribe(d => {
