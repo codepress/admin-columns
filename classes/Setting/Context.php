@@ -19,6 +19,11 @@ class Context
         return $this->get('type');
     }
 
+    public function get_name(): string
+    {
+        return $this->get('name', '');
+    }
+
     public function has(string $key): bool
     {
         return $this->config->has($key);
