@@ -101,7 +101,6 @@ class Loader
         Service\ManageHeadings::add($container->get(ManageHeading\WpListTableFactory::class));
         Service\SaveHeadings::add($container->get(SaveHeading\WpListTableFactory::class));
 
-        // TODO David
         $aggregateContextFactory = $container->get(ContextFactory\Aggregate::class);
         if ($aggregateContextFactory instanceof ContextFactory\Aggregate) {
             $aggregateContextFactory->add($container->get(ContextFactory\CustomField::class));
