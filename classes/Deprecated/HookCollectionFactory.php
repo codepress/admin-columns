@@ -7,9 +7,6 @@ namespace AC\Deprecated;
 class HookCollectionFactory
 {
 
-    //  TODO replace hooks that contain $column
-    // ac/table/list_screen
-
     public function create_filters(): HookCollection
     {
         $hooks = [];

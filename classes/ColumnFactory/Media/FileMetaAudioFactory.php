@@ -46,14 +46,11 @@ class FileMetaAudioFactory extends BaseColumnFactory
         return 'media-audio';
     }
 
-    //TODO TEST
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);
 
-        $formatters->prepend(new AttachmentMetaData((string)$config->get('media_meta_key')));
-
-        return $formatters;
+        return $formatters->prepend(new AttachmentMetaData((string)$config->get('media_meta_key')));
     }
 
 }

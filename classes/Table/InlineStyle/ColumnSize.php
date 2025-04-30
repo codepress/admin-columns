@@ -61,8 +61,6 @@ class ColumnSize
     {
         $html = '';
 
-        // TODO Stefan is this ok? I removed the need to re-fetch a column which caused a loop
-        // TODO David check
         foreach ($list_screen->get_columns() as $column) {
             $width = $this->list_storage->get($column);
 
