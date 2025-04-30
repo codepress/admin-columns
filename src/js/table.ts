@@ -16,7 +16,6 @@ import ValueModals from "./modules/value-modals";
 import {initAcTooltips} from "./plugin/tooltip";
 import {ValueModalItemCollection} from "./types/admin-columns";
 import JsonViewer from "./modules/json-viewer";
-import {HTMLAnchorAttributes} from "svelte/elements";
 
 declare let AC: LocalizedAcTable
 
@@ -86,6 +85,7 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
                 element: link,
                 editLink: link.dataset.modalEditLink ?? '',
                 downloadLink: link.dataset.modalDownloadLink ?? '',
+                viewLink: link.dataset.modalViewLink ?? '',
                 title: link.dataset.modalTitle ?? null,
                 columnName: cell.getName(),
                 objectId: cell.getObjectID()

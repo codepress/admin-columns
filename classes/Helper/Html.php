@@ -180,6 +180,9 @@ class Html
         if (isset($attributes['download_link']) && $attributes['download_link']) {
             $attribute_markup[] = sprintf('data-modal-download-link="%s"', esc_url($attributes['download_link']));
         }
+        if (isset($attributes['view_link']) && $attributes['view_link']) {
+            $attribute_markup[] = sprintf('data-modal-view-link="%s"', esc_url($attributes['view_link']));
+        }
         if (isset($attributes['class']) && $attributes['class']) {
             $attribute_markup[] = sprintf('data-modal-class="%s"', esc_attr($attributes['class']));
         }

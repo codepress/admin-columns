@@ -509,21 +509,21 @@ abstract class ListScreen implements PostType
 
     protected function set_meta_type(string $meta_type): void
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '6.4');
 
         $this->meta_type = $meta_type;
     }
 
     public function deregister_column(string $column_name): void
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '6.4');
 
         unset($this->columns[$column_name]);
     }
 
     public function set_layout_id(string $layout_id): void
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::set_id()');
+        _deprecated_function(__METHOD__, '6.4', 'AC\ListScreen::set_id()');
 
         if (ListScreenId::is_valid_id($layout_id)) {
             $this->id = new ListScreenId($layout_id);
@@ -532,7 +532,7 @@ abstract class ListScreen implements PostType
 
     protected function set_label(string $label): void
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '6.4');
 
         $this->label = $label;
     }

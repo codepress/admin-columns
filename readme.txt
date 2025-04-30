@@ -4,7 +4,7 @@ Tags: admin, column, columns, table, tables
 Requires at least: 4.7.3
 Tested up to: 6.7.2
 Requires PHP: 7.2
-Stable tag: 4.7.12
+Stable tag: 4.7.14
 License: GPLv2
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.7.14 =
+Release Date: April 30th, 2025
+
+* [Improved] Column values with modals can now contain extra links
 
 = 4.7.13 =
 Release Date: March 19th, 2025
