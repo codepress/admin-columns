@@ -12,13 +12,13 @@ class SetupFactory
     public const SITE = 'site';
     public const NETWORK = 'network';
 
-    private $version_key;
+    private string $version_key;
 
-    private $version;
+    private Version $version;
 
-    protected $installers;
+    protected ?InstallCollection $installers;
 
-    protected $updates;
+    protected ?UpdateCollection $updates;
 
     public function __construct(
         string $version_key,
