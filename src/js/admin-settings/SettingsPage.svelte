@@ -45,7 +45,7 @@
 
 <div class="acu-mx-[50px] acu-pt-[70px]">
 
-	<div class=" acu-hidden">
+	<div class="acu-max-w-[1520px]">
 		<hr class="wp-header-end acu-hidden">
 	</div>
 

@@ -2582,7 +2582,7 @@ function create_fragment(ctx) {
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       main = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("main");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acpanel.$$.fragment);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acu-hidden");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acu-max-w-[1520px]");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(main, "class", "acu-flex acu-gap-4 acu-w-full");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-mx-[50px] acu-pt-[70px]");
     },

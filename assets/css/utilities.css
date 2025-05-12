@@ -398,6 +398,18 @@
   max-width: 100%
 }
 
+.acu-max-w-\[1400px\] {
+  max-width: 1400px
+}
+
+.acu-max-w-\[1440px\] {
+  max-width: 1440px
+}
+
+.acu-max-w-\[1420px\] {
+  max-width: 1420px
+}
+
 .acu-flex-1 {
   flex: 1 1 0%
 }
