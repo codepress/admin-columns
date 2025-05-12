@@ -21,6 +21,7 @@ use AC\TableScreenFactory;
 use AC\Type\ListScreenId;
 use AC\Type\TableId;
 use InvalidArgumentException;
+use RuntimeException;
 
 class ListScreenSave implements RequestAjaxHandler
 {
@@ -96,7 +97,11 @@ class ListScreenSave implements RequestAjaxHandler
             );
         }
 
-        $this->storage->save($list_screen);
+        try {
+            $this->storage->save($list_screen);
+        } catch (RuntimeException $e) {
+            $response->set_message($e->getMessage())->error();
+        }
 
         if ( ! $this->storage->exists($id)) {
             $response->set_message(__('Column settings could not be saved.', 'codepress-admin-columns'))->error();

@@ -933,13 +933,20 @@ body.toplevel_page_codepress-admin-columns .wrap .notice {
 .ac-message.ac-message--styled {
   border-left: none;
   border-radius: 8px;
-  padding-top: 8px;
+  padding-top: 4px;
   padding-left: 20px;
-  padding-bottom: 8px;
+  padding-bottom: 4px;
 }
 .ac-message.ac-message--styled.notice-info {
   background: #E7EFF9;
   border: 1px solid #9DBAEE;
+}
+.ac-message.ac-message--styled.notice-error {
+  background: var(--ac-color-error-alt);
+  border: 1px solid var(--ac-notification-red);
+}
+.ac-message.ac-message--styled p {
+  margin: 6px 0;
 }
 .ac-message.ac-message--icon {
   display: flex;

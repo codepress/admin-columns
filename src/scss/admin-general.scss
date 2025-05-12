@@ -258,12 +258,20 @@ body.toplevel_page_codepress-admin-columns {
 	&.ac-message--styled {
 		border-left: none;
 		border-radius: 8px;
-		padding-top: 8px;
+		padding-top: 4px;
 		padding-left: 20px;
-		padding-bottom: 8px;
+		padding-bottom: 4px;
+
 		&.notice-info {
 			background: #E7EFF9;
 			border: 1px solid #9DBAEE;
+		}
+		&.notice-error {
+			background: var(--ac-color-error-alt);
+			border: 1px solid var(--ac-notification-red)
+		}
+		p {
+			margin: 6px 0;
 		}
 	}
 
