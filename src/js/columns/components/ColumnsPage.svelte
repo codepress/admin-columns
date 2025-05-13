@@ -28,6 +28,7 @@
     import {sprintf} from "@wordpress/i18n";
     import {isLoadingColumnSettings} from "../store/loading";
     import cloneDeep from "lodash-es/cloneDeep";
+    import {listScreenIsStored} from "../store/is_stored";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -73,6 +74,7 @@
             $currentListId = loadedListId;
             initialListScreenData.set( cloneDeep( response.data.data.settings.list_screen ) );
             $listScreenDataHasChanges = false
+			$listScreenIsStored = response.data.data.is_stored;
         }).catch((response) => {
             NotificationProgrammatic.open({message: response.message, type: 'error'})
         }).finally(() => {
@@ -122,7 +124,7 @@
 				type="primary"
 				loading={isSaving}
 				softDisabled={isSaving}
-				disabled={!$listScreenDataHasChanges}
+				disabled={!$listScreenDataHasChanges && $listScreenIsStored}
 				on:click={() => form.saveSettings()}
 				label={i18n.editor.label.save}
 			/>

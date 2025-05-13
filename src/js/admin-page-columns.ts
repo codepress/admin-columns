@@ -1,20 +1,22 @@
 import {initAcServices} from "./helpers/admin-columns";
 import ColumnsPage from "./columns/components/ColumnsPage.svelte";
 import {
+    columnTypesStore,
     currentListId,
     currentListKey,
     debugMode,
-    columnTypesStore,
     favoriteListKeysStore,
-    showColumnInfo,
     hasUsagePermissions,
-    listScreenDataStore, listScreenDataHasChanges, initialListScreenData
+    initialListScreenData,
+    listScreenDataHasChanges,
+    listScreenDataStore,
+    showColumnInfo
 } from "./columns/store";
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import {initListScreenHeadings, initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
 import InfoScreenOption from "./modules/screen-options";
 import ColumnPageBridge from "./columns/utils/page-bridge";
-import { get } from "svelte/store";
+import {get} from "svelte/store";
 
 const AcServices = initAcServices();
 const localConfig = getColumnSettingsConfig();
@@ -57,7 +59,7 @@ const checkForChanges = debounce(() => {
     listScreenDataHasChanges.set(JSON.stringify(orig) !== JSON.stringify(current));
 }, 300);
 
-listScreenDataStore.subscribe( d => {
+listScreenDataStore.subscribe(d => {
     checkForChanges();
 })
 
@@ -68,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentListId.set(localConfig.list_id)
     currentListKey.set(localConfig.list_key);
     columnTypesStore.set([]);
-    hasUsagePermissions.set( true )
+    hasUsagePermissions.set(true)
     debugMode.set(false);
     favoriteListKeysStore.set(localConfig.menu_items_favorites);
 

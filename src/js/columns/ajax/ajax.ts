@@ -16,6 +16,7 @@ export type listScreenSettingsResponse = {
         },
         table_url: string,
         read_only: boolean
+        is_stored: boolean
         column_settings: { [key: string]: AC.Vars.Settings.ColumnSetting[] }
         column_types: ColumnConfig[]
     },
@@ -38,8 +39,8 @@ export const getListScreenSettings = (listKey: string, listId: string = '', abor
 
 
 type AddColumnSuccessResponse = {
-    data : {
-        column : {
+    data: {
+        column: {
             id: string
             settings: ColumnSettingCollection
         }
@@ -47,7 +48,7 @@ type AddColumnSuccessResponse = {
     success: true
 }
 
-export const getColumnSettings = (listKey: string, columnType: string) : AxiosPromise<AddColumnSuccessResponse> => {
+export const getColumnSettings = (listKey: string, columnType: string): AxiosPromise<AddColumnSuccessResponse> => {
     const nonce = getColumnSettingsConfig().nonce;
 
     return axios.get(ajaxurl, {
@@ -101,14 +102,14 @@ export const refreshColumn = (data: ListScreenColumnData, listKey: string): Axio
 
 type defaultConfigPayload = {
     columns: ListScreenColumnData[]
-    config: { [key: string ] : ColumnSettingCollection }
+    config: { [key: string]: ColumnSettingCollection }
 }
 
 
-export const loadDefaultColumns = (listKey: string): AxiosPromise<JsonSuccessResponse<defaultConfigPayload>|JsonDefaultFailureResponse> => {
+export const loadDefaultColumns = (listKey: string): AxiosPromise<JsonSuccessResponse<defaultConfigPayload> | JsonDefaultFailureResponse> => {
     const nonce = getColumnSettingsConfig().nonce;
 
-    return axios.get( ajaxurl, {
+    return axios.get(ajaxurl, {
         params: {
             _ajax_nonce: nonce,
             action: 'ac-list-screen-default-columns',

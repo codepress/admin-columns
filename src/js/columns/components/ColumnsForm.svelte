@@ -21,6 +21,7 @@
     import {AcButton, AcDropdown, AcPanel, AcPanelFooter, AcPanelHeader, AcPanelTitle} from "ACUi/index";
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
     import {isLoadingColumnSettings} from "../store/loading";
+    import {listScreenIsStored} from "../store/is_stored";
 
 
     const i18n = getColumnSettingsTranslation();
@@ -265,7 +266,7 @@
 						softDisabled={isSaving}
 						loading={isSaving}
 						on:click={() => dispatch('saveListScreen', data)  }
-						disabled={!$listScreenDataHasChanges}
+						disabled={!$listScreenDataHasChanges && $listScreenIsStored}
 						label={i18n.editor.label.save}
 					/>
 

@@ -8,6 +8,7 @@
     import {AxiosError} from "axios";
     import ListScreenSections from "../store/list-screen-sections";
     import cloneDeep from 'lodash-es/cloneDeep';
+    import {listScreenIsStored} from "../store/is_stored";
 
     export let config: any
     export let data: ListScreenData
@@ -25,6 +26,7 @@
             }
 
             initialListScreenData.set(cloneDeep(data));
+            listScreenIsStored.set( true );
             listScreenDataHasChanges.set(false);
 
         }).catch((c: AxiosError) => {
