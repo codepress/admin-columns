@@ -141,7 +141,7 @@
 		/>
 	</aside>
 	<div class="acu-flex acu-flex-col acu-flex-grow">
-		<div class="acu-px-4 2xl:acu-px-[50px]" data-ac-notices>
+		<div class="acu-px-4 2xl:acu-px-[50px] acu-pt-[10px]" data-ac-notices>
 
 			<hr class="wp-header-end">
 			{#if $listScreenDataStore !== null && $listScreenIsReadOnly}

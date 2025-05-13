@@ -845,7 +845,6 @@ body.toplevel_page_codepress-admin-columns .wrap .nav-tab-wrapper {
 }
 body.settings_page_codepress-admin-columns .wrap .notice,
 body.toplevel_page_codepress-admin-columns .wrap .notice {
-  margin-top: 16px;
   margin-bottom: 16px;
 }
 @media only screen and (min-width: 1050px) {
@@ -936,6 +935,7 @@ body.toplevel_page_codepress-admin-columns .wrap .notice {
   padding-top: 4px;
   padding-left: 20px;
   padding-bottom: 4px;
+  margin-top: 0;
 }
 .ac-message.ac-message--styled.notice-info {
   background: #E7EFF9;

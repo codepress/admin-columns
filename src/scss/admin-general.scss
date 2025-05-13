@@ -155,7 +155,6 @@ body.toplevel_page_codepress-admin-columns {
 		}
 
 		.notice {
-			margin-top: 16px;
 			margin-bottom: 16px;
 		}
 
@@ -261,6 +260,7 @@ body.toplevel_page_codepress-admin-columns {
 		padding-top: 4px;
 		padding-left: 20px;
 		padding-bottom: 4px;
+		margin-top: 0;
 
 		&.notice-info {
 			background: #E7EFF9;
