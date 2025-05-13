@@ -54,6 +54,7 @@ class HookCollectionFactory
             'acp/horizontal_scrolling/enable'              => 'ac/horizontal_scrolling/enable',
             'acp/quick_add/enable'                         => 'ac/quick_add/enable',
             'acp/resize_columns/active'                    => 'ac/resize_columns/active',
+            'acp/filtering/cache/seconds'                  => 'ac/filtering/cache/seconds',
             'acp/search/is_active'                         => 'ac/search/enable',
             'acp/search/filters'                           => 'ac/search/filters',
             'acp/sorting/custom_field/date_type'           => 'ac/sorting/custom_field/date_type',
