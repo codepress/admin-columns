@@ -117,6 +117,12 @@ h2, h3 {
  * General
  * ----------------------------------------------------------------------------
  */
+#wpcontent {
+	body.rtl & {
+		padding-right: 0;
+	}
+
+}
 #cpac {
 	a:focus,
 	a:active {

@@ -24,46 +24,6 @@
 }
 
 
-.ac-menu-group {
-	margin-bottom: 30px;
-	padding: 0;
-
-	&__header {
-		position: relative;
-		display: block;
-		width: 100%;
-		text-align: left;
-		background: none;
-		border: none;
-		cursor: pointer;
-		border-radius: 5px;
-		padding: 5px;
-		font-weight: bold;
-
-		&__indicator {
-			position: absolute;
-			right: 10px;
-			top: 50%;
-			font-size: 16px;
-			color: #888;
-			width: 16px;
-			height: 16px;
-			margin-top: -8px;
-			transition: all .2s;
-		}
-
-		&.closed {
-			.ac-menu-group__header__indicator {
-				transform: rotate(180deg);
-			}
-		}
-
-		&:hover {
-			background: #fff;
-		}
-	}
-}
-
 .ac-menu-group-list {
 	.ac-menu-group-list__item {
 		margin-left: 28px;

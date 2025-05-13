@@ -158,8 +158,8 @@
   top: 0
 }
 
-.acu-top-\[32px\] {
-  top: 32px
+.acu-top-\[50\%\] {
+  top: 50%
 }
 
 .acu-top-\[7px\] {
@@ -210,10 +210,6 @@
   margin-bottom: 20px
 }
 
-.acu-mb-5 {
-  margin-bottom: 25px
-}
-
 .acu-mb-6 {
   margin-bottom: 30px
 }
@@ -224,6 +220,10 @@
 
 .acu-mb-\[15px\] {
   margin-bottom: 15px
+}
+
+.acu-mb-\[30px\] {
+  margin-bottom: 30px
 }
 
 .acu-ml-6 {
@@ -250,6 +250,10 @@
   margin-top: 15px
 }
 
+.acu-mt-4 {
+  margin-top: 20px
+}
+
 .acu-mt-6 {
   margin-top: 30px
 }
@@ -262,12 +266,12 @@
   margin-top: -2px
 }
 
-.acu-mt-\[0\] {
-  margin-top: 0
+.acu-mt-\[-8px\] {
+  margin-top: -8px
 }
 
-.acu-mt-4 {
-  margin-top: 20px
+.acu-mt-\[0\] {
+  margin-top: 0
 }
 
 .acu-block {
@@ -296,6 +300,10 @@
 
 .acu-h-\[120px\] {
   height: 120px
+}
+
+.acu-h-\[16px\] {
+  height: 16px
 }
 
 .acu-h-\[200px\] {
@@ -338,6 +346,10 @@
   width: 150px
 }
 
+.acu-w-\[16px\] {
+  width: 16px
+}
+
 .acu-w-\[180px\] {
   width: 180px
 }
@@ -370,6 +382,10 @@
   max-width: 1200px
 }
 
+.acu-max-w-\[1420px\] {
+  max-width: 1420px
+}
+
 .acu-max-w-\[1490px\] {
   max-width: 1490px
 }
@@ -400,18 +416,6 @@
 
 .acu-max-w-full {
   max-width: 100%
-}
-
-.acu-max-w-\[1400px\] {
-  max-width: 1400px
-}
-
-.acu-max-w-\[1440px\] {
-  max-width: 1440px
-}
-
-.acu-max-w-\[1420px\] {
-  max-width: 1420px
 }
 
 .acu-flex-1 {
@@ -560,6 +564,10 @@
   border-radius: 3px
 }
 
+.acu-rounded-\[5px\] {
+  border-radius: 5px
+}
+
 .acu-rounded-full {
   border-radius: 9999px
 }
@@ -616,32 +624,32 @@
 
 .acu-bg-\[\#E2E8F0\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity))
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1))
 }
 
 .acu-bg-\[\#F1F5F9\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity))
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1))
 }
 
 .acu-bg-\[\#F9FAFB\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity))
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1))
 }
 
 .acu-bg-\[\#e9426e\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(233 66 110 / var(--tw-bg-opacity))
+  background-color: rgb(233 66 110 / var(--tw-bg-opacity, 1))
 }
 
 .acu-bg-\[\#eee\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(238 238 238 / var(--tw-bg-opacity))
+  background-color: rgb(238 238 238 / var(--tw-bg-opacity, 1))
 }
 
 .acu-bg-\[\#fff\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
 }
 
 .acu-bg-\[transparent\] {
@@ -650,12 +658,12 @@
 
 .acu-bg-\[white\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
 }
 
 .acu-bg-gray-dark {
   --tw-bg-opacity: 1;
-  background-color: rgb(61 67 80 / var(--tw-bg-opacity))
+  background-color: rgb(61 67 80 / var(--tw-bg-opacity, 1))
 }
 
 .acu-bg-none {
@@ -697,6 +705,10 @@
 
 .acu-p-\[2px\] {
   padding: 2px
+}
+
+.acu-p-\[5px\] {
+  padding: 5px
 }
 
 .acu-px-1 {
@@ -871,16 +883,16 @@
   padding-top: 0
 }
 
+.acu-pt-\[10px\] {
+  padding-top: 10px
+}
+
 .acu-pt-\[20px\] {
   padding-top: 20px
 }
 
 .acu-pt-\[70px\] {
   padding-top: 70px
-}
-
-.acu-pt-\[10px\] {
-  padding-top: 10px
 }
 
 .acu-text-left {
@@ -914,6 +926,10 @@
 
 .acu-text-\[15px\] {
   font-size: 15px
+}
+
+.acu-text-\[16px\] {
+  font-size: 16px
 }
 
 .acu-text-\[22px\] {
@@ -980,42 +996,42 @@
 
 .acu-text-\[\#777\] {
   --tw-text-opacity: 1;
-  color: rgb(119 119 119 / var(--tw-text-opacity))
+  color: rgb(119 119 119 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#888\] {
   --tw-text-opacity: 1;
-  color: rgb(136 136 136 / var(--tw-text-opacity))
+  color: rgb(136 136 136 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#94A3B8\] {
   --tw-text-opacity: 1;
-  color: rgb(148 163 184 / var(--tw-text-opacity))
+  color: rgb(148 163 184 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#999\] {
   --tw-text-opacity: 1;
-  color: rgb(153 153 153 / var(--tw-text-opacity))
+  color: rgb(153 153 153 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#B4B4B4\] {
   --tw-text-opacity: 1;
-  color: rgb(180 180 180 / var(--tw-text-opacity))
+  color: rgb(180 180 180 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#D63638\] {
   --tw-text-opacity: 1;
-  color: rgb(214 54 56 / var(--tw-text-opacity))
+  color: rgb(214 54 56 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#fff\] {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity))
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[white\] {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity))
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-link {
@@ -1028,7 +1044,7 @@
 
 .acu-text-pink {
   --tw-text-opacity: 1;
-  color: rgb(233 66 110 / var(--tw-text-opacity))
+  color: rgb(233 66 110 / var(--tw-text-opacity, 1))
 }
 
 .acu-no-underline {
@@ -1086,12 +1102,17 @@
 
 .hover\:acu-bg-\[\#fafafa\]:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(250 250 250 / var(--tw-bg-opacity))
+  background-color: rgb(250 250 250 / var(--tw-bg-opacity, 1))
+}
+
+.hover\:acu-bg-\[white\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
 }
 
 .hover\:acu-text-\[\#fff\]:hover {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity))
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1))
 }
 
 .hover\:acu-text-link-hover:hover {
@@ -1115,6 +1136,10 @@
 }
 
 @media (min-width: 782px) {
+  .md\:acu-top-\[32px\] {
+    top: 32px
+  }
+
   .md\:acu-flex {
     display: flex
   }
@@ -1243,12 +1268,24 @@
   }
 }
 
+.rtl\:acu-left-\[0\]:where([dir="rtl"], [dir="rtl"] *) {
+  left: 0
+}
+
+.rtl\:acu-hidden:where([dir="rtl"], [dir="rtl"] *) {
+  display: none
+}
+
+.rtl\:acu-text-right:where([dir="rtl"], [dir="rtl"] *) {
+  text-align: right
+}
+
 .\[\&\.-active\]\:acu-bg-\[\#E2E8F0\].-active {
   --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity))
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1))
 }
 
 .\[\&\.-active\]\:acu-text-\[\#475569\].-active {
   --tw-text-opacity: 1;
-  color: rgb(71 85 105 / var(--tw-text-opacity))
+  color: rgb(71 85 105 / var(--tw-text-opacity, 1))
 }

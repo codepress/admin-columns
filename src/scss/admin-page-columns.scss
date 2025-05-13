@@ -10,6 +10,10 @@
 	padding-bottom: 10px;
 	@media (min-width: 1450px) {
 		background: linear-gradient(to right, #EAF0F6 0px, #EAF0F6 300px, transparent 250px);
+
+		.rtl & {
+			background: none;
+		}
 	}
 }
 

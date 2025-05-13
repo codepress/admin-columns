@@ -2935,7 +2935,7 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(h1, "class", "ac-header-bar__title acu-text-[22px]");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acu-flex-grow");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-flex acu-gap-4 acu-items-center acu-max-w-[1490px] xl:acu-mr-[360px] 2xl:acu-mr-[390px]");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "ac-header-bar acu-bg-[white] acu-no-underline acu-pl-[50px] acu-pr-[40px] acu-py-2 acu-top-[32px] acu-z-10 acu-sticky acu-shadow-[0px_1px_2px_rgba(16,24,40,0.1)]");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "ac-header-bar acu-bg-[white] acu-no-underline acu-pl-[50px] acu-pr-[40px] acu-py-2 acu-top-[0] md:acu-top-[32px] acu-z-10 acu-sticky acu-shadow-[0px_1px_2px_rgba(16,24,40,0.1)]");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div2, anchor);

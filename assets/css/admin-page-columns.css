@@ -510,6 +510,9 @@
   #wpbody-content {
     background: linear-gradient(to right, #EAF0F6 0px, #EAF0F6 300px, transparent 250px);
   }
+  .rtl #wpbody-content {
+    background: none;
+  }
 }
 
 .ac-admin-page {

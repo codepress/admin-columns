@@ -24,7 +24,7 @@
         "svelte-preprocess": "5.0.4",
         "svg-symbols": "1.0.4",
         "svgstore-cli": "^2.0.1",
-        "tailwindcss": "^3.4.1",
+        "tailwindcss": "^3.4.17",
         "ts-loader": "^9.4.4",
         "typescript": "^5.2.2",
         "webfont": "^11.0.2",

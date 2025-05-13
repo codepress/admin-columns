@@ -6,6 +6,7 @@
     import ListScreenMenuItem from "./ListScreenMenuItem.svelte";
     import {getColumnSettingsTranslation} from "../utils/global";
     import {persistMenuStatus} from "../ajax/menu";
+    import MenuGroupHeader from "./menu/MenuGroupHeader.svelte";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[] = [];
@@ -107,11 +108,11 @@
 	<div class="ac-table-screen-nav__list acu-hidden 2xl:acu-block acu-flex-grow">
 
 		{#if Object.keys( favoriteItems ).length > 0}
-			<div class="ac-menu-group">
-				<button class="ac-menu-group__header">
+			<div class="acu-mb-[30px] acu-p-0">
+				<MenuGroupHeader indicator={false}>
 					<GroupIcon icon="dashicons-star-empty" defaultIcon="cpacicon-gf-article"></GroupIcon>
 					{i18n.menu.favorites}
-				</button>
+				</MenuGroupHeader>
 				<ul class="ac-menu-group-list">
 					{#each Object.entries( favoriteItems ) as [ key, label ]}
 						<ListScreenMenuItem
@@ -125,21 +126,18 @@
 		{/if}
 
 		{#each Object.entries( menu ) as [ key, group ]}
-			<div class="ac-menu-group">
-				<button
-					on:click={()=>toggleGroup(key)}
-					class:closed={!openedGroups.includes( key )}
-					class="ac-menu-group__header"
-				>
+			<div class="acu-mb-[30px] acu-p-0">
+				<MenuGroupHeader on:click={()=>toggleGroup(key)} opened={openedGroups.includes( key )}>
 					<GroupIcon icon={group.icon} defaultIcon="cpacicon-gf-article"/>
 					{group.title}
-					<span class="ac-menu-group__header__indicator dashicons dashicons-arrow-up-alt2"></span>
-				</button>
+				</MenuGroupHeader>
+
 				{#if openedGroups.includes( key )}
 					<ul class="ac-menu-group-list">
 						{#each Object.entries( group.options ) as [ key, label ]}
 							<ListScreenMenuItem
-								{key} {label}
+								{key}
+								{label}
 								on:selectItem={ () => handleMenuSelect(key) }
 							/>
 						{/each}

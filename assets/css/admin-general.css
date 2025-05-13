@@ -813,6 +813,10 @@ h2.ac-lined-header:after, h3.ac-lined-header:after {
  * General
  * ----------------------------------------------------------------------------
  */
+body.rtl #wpcontent {
+  padding-right: 0;
+}
+
 #cpac a:focus,
 #cpac a:active {
   outline: none;
