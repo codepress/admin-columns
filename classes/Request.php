@@ -64,6 +64,11 @@ class Request
         return $this->get_parameters()->get($key, $default);
     }
 
+    public function has(string $key): bool
+    {
+        return $this->get_parameters()->has($key);
+    }
+
     public function filter(string $key, $default = null, int $filter = FILTER_DEFAULT, $options = 0)
     {
         return $this->get_parameters()->filter($key, $default, $filter, $options);

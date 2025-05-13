@@ -7,25 +7,13 @@ use AC\Storage\KeyValue;
 abstract class Setup
 {
 
-    /**
-     * @var KeyValue
-     */
-    private $storage;
+    private KeyValue $storage;
 
-    /**
-     * @var Version
-     */
-    private $version;
+    private Version $version;
 
-    /**
-     * @var InstallCollection
-     */
-    private $installers;
+    private InstallCollection $installers;
 
-    /**
-     * @var UpdateCollection
-     */
-    private $updates;
+    private UpdateCollection $updates;
 
     public function __construct(
         KeyValue $storage,

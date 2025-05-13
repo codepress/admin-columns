@@ -12,6 +12,7 @@ use AC\ListScreenRepository\Storage;
 use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
+use AC\Type\ListScreenId;
 use AC\Type\TableId;
 use InvalidArgumentException;
 
@@ -68,17 +69,25 @@ class ListScreenSettings implements RequestAjaxHandler
                 $this->storage,
                 $table_screen,
                 $this->preference,
-                $this->type_repository
             )
         );
 
         $list_screen = $request->get('list_screen');
 
+        $is_stored = true;
+
         if ( ! $list_screen instanceof ListScreen) {
-            throw new InvalidArgumentException('Invalid list screen.');
+            $list_screen = new ListScreen(
+                ListScreenId::generate(),
+                (string)$table_screen->get_labels(),
+                $table_screen,
+                $this->type_repository->find_all_by_original($table_screen)
+            );
+
+            $is_stored = false;
         }
 
-        $this->response_factory->create($list_screen)
+        $this->response_factory->create($list_screen, $is_stored)
                                ->success();
     }
 

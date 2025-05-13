@@ -3,7 +3,6 @@
 namespace AC\Request\Middleware;
 
 use AC\Admin\Preference;
-use AC\ColumnTypeRepository;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Middleware;
@@ -22,18 +21,14 @@ class ListScreenAdmin implements Middleware
 
     private Preference\ListScreen $preference;
 
-    private ColumnTypeRepository $column_type_repository;
-
     public function __construct(
         Storage $storage,
         TableScreen $table_screen,
         Preference\ListScreen $preference,
-        ColumnTypeRepository $column_type_repository
     ) {
         $this->storage = $storage;
         $this->table_screen = $table_screen;
         $this->preference = $preference;
-        $this->column_type_repository = $column_type_repository;
     }
 
     private function get_requested_list_screen(Request $request): ?ListScreen
@@ -88,15 +83,6 @@ class ListScreenAdmin implements Middleware
             $list_screen = $this->get_first_listscreen();
         }
 
-        if ( ! $list_screen) {
-            $list_screen = new ListScreen(
-                ListScreenId::generate(),
-                (string)$this->table_screen->get_labels(),
-                $this->table_screen,
-                $this->column_type_repository->find_all_by_original($this->table_screen)
-            );
-        }
-
         return $list_screen;
     }
 
@@ -109,7 +95,7 @@ class ListScreenAdmin implements Middleware
         }
 
         $request->get_parameters()->merge([
-            'list_screen' => $this->get_list_screen($request),
+            'list_screen' => $list_screen,
         ]);
     }
 
