@@ -11,11 +11,11 @@ class DefaultColumn
 
     private string $name;
 
-    private bool $sortable;
-
     private string $label;
 
-    public function __construct(string $name, string $label, bool $sortable = false)
+    private bool $sortable;
+
+    public function __construct(string $name, string $label = '', bool $sortable = false)
     {
         $this->name = $name;
         $this->sortable = $sortable;
@@ -28,7 +28,7 @@ class DefaultColumn
 
     public static function validate($name, $label): bool
     {
-        return $name && $label && is_scalar($name) && is_scalar($label);
+        return $name && is_scalar($name) && is_scalar($label);
     }
 
     public function get_name(): string
