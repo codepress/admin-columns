@@ -29,7 +29,6 @@
 		margin-left: 28px;
 	}
 
-
 	a {
 		text-decoration: none;
 	}
@@ -75,6 +74,10 @@
 		right: 10px;
 		top: 50%;
 		transform: translateY(-10px);
+		.rtl & {
+			right: inherit;
+			left: 10px;
+		}
 	}
 }
 

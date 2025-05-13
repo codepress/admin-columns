@@ -96,7 +96,7 @@
 </script>
 
 <div class="ac-column" class:-opened={opened} data-name={data.name}>
-	<header class="ac-column-header acu-flex acu-py-2 acu-pr-6 acu-items-center acu-bg-[#fff]">
+	<header class="ac-column-header acu-flex acu-py-2 acu-pr-6 rtl:acu-pl-6 acu-items-center acu-bg-[#fff]">
 		<div class="ac-column-header__move acu-cursor-move">
 			<AcIcon icon="move" size="sm"/>
 		</div>

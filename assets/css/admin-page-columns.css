@@ -237,54 +237,6 @@
   border-color: transparent;
 }
 
-/**
- ** Form that contains all column information
- */
-.ac-columns {
-  background: #fff;
-  border: 1px solid #CBD5E1;
-  border-radius: 10px;
-  margin-bottom: 30px;
-}
-.ac-columns__header {
-  display: flex;
-  align-items: center;
-  padding: 20px 30px;
-  border-bottom: 1px solid #CBD5E1;
-  gap: 20px;
-}
-.ac-columns__header__table {
-  align-items: center;
-}
-.ac-columns__header__title {
-  width: 100%;
-}
-.ac-columns__header__title input {
-  width: 100%;
-  max-width: 400px;
-}
-.ac-columns__header h1 {
-  margin: 0;
-  padding: 0;
-  white-space: nowrap;
-}
-.ac-columns__header input {
-  height: 40px;
-  border-radius: 5px;
-  border: 1px solid #bbb;
-  padding: 5px 10px;
-}
-.ac-columns__footer {
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  padding: 19px 30px;
-  gap: 10px;
-}
-.ac-columns__footer button {
-  margin-left: 10px;
-}
-
 .ac-column {
   border-bottom: 1px solid #CBD5E1;
   background-color: rgba(242, 247, 252, 0.39);
@@ -511,7 +463,7 @@
     background: linear-gradient(to right, #EAF0F6 0px, #EAF0F6 300px, transparent 250px);
   }
   .rtl #wpbody-content {
-    background: none;
+    background: linear-gradient(to left, #EAF0F6 0px, #EAF0F6 300px, transparent 250px);
   }
 }
 

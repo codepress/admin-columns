@@ -1,7 +1,6 @@
 @use 'admin-variables';
 @use 'components/svelte-select';
 @use 'list-screen-settings/buttons';
-@use 'list-screen-settings/columns';
 @use 'list-screen-settings/column';
 @use 'list-screen-settings/column-settings';
 
@@ -12,7 +11,7 @@
 		background: linear-gradient(to right, #EAF0F6 0px, #EAF0F6 300px, transparent 250px);
 
 		.rtl & {
-			background: none;
+			background: linear-gradient(to left, #EAF0F6 0px, #EAF0F6 300px, transparent 250px);
 		}
 	}
 }

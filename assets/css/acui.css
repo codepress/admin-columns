@@ -431,6 +431,10 @@ a.acui-button {
   top: 50%;
   transform: translateY(-10px);
 }
+.rtl .ac-menu-group-list__favorite {
+  right: inherit;
+  left: 10px;
+}
 
 .ac-menu-image {
   color: #aaa;
