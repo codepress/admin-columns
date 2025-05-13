@@ -13,7 +13,7 @@ final class ListScreenCollection implements Iterator, Countable
     /**
      * @var ListScreen[]
      */
-    private $data = [];
+    private array $data = [];
 
     public function __construct(array $list_screens = [])
     {

@@ -74,20 +74,19 @@ class ListScreenSettings implements RequestAjaxHandler
 
         $list_screen = $request->get('list_screen');
 
-        $is_stored = true;
-
-        if ( ! $list_screen instanceof ListScreen) {
-            $list_screen = new ListScreen(
-                ListScreenId::generate(),
-                (string)$table_screen->get_labels(),
-                $table_screen,
-                $this->type_repository->find_all_by_original($table_screen)
-            );
-
-            $is_stored = false;
+        if ($list_screen instanceof ListScreen) {
+            $this->response_factory->create($list_screen, true)
+                                   ->success();
         }
 
-        $this->response_factory->create($list_screen, $is_stored)
+        $list_screen = new ListScreen(
+            ListScreenId::generate(),
+            (string)$table_screen->get_labels(),
+            $table_screen,
+            $this->type_repository->find_all_by_original($table_screen)
+        );
+
+        $this->response_factory->create($list_screen, false)
                                ->success();
     }
 
