@@ -25,9 +25,15 @@ class ColumnTypeRepository
     {
         $factory = iterator_to_array($this->aggregate->create($table_screen))[$type] ?? null;
 
-        return $factory
-            ? $factory->create(new Setting\Config())
-            : null;
+        if ( ! $factory) {
+            return null;
+        }
+
+        return $factory->create(
+            new Setting\Config([
+                'label' => $factory->get_label(),
+            ])
+        );
     }
 
     public function find_all(TableScreen $table_screen): ColumnCollection
@@ -41,12 +47,12 @@ class ColumnTypeRepository
         return $columns;
     }
 
-    private function get_column_names(TableId $id): array
+    private function get_originals(TableId $id): array
     {
         $column_names = [];
 
         foreach ($this->default_columns_repository->find_all($id) as $column) {
-            $column_names[] = $column->get_name();
+            $column_names[$column->get_name()] = $column->get_label();
         }
 
         return $column_names;
@@ -56,10 +62,10 @@ class ColumnTypeRepository
     {
         $columns = new ColumnCollection();
 
-        $types = $this->get_column_names($table_screen->get_id());
+        $originals = $this->get_originals($table_screen->get_id());
 
         foreach ($this->aggregate->create($table_screen) as $type => $factory) {
-            if ( ! in_array($type, $types, true)) {
+            if ( ! isset($originals[$type])) {
                 continue;
             }
 
@@ -67,7 +73,7 @@ class ColumnTypeRepository
                 $factory->create(
                     new Setting\Config([
                         'name'  => $type,
-                        'label' => $types[$type] ?? '',
+                        'label' => (string)$originals[$type],
                     ])
                 )
             );

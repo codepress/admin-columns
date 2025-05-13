@@ -80,7 +80,7 @@ final class DefaultColumnsRepository
     {
         return new DefaultColumn(
             $column_name,
-            $data['label'],
+            (string)($data['label'] ?? ''),
             (bool)($data['sortable'] ?? false)
         );
     }

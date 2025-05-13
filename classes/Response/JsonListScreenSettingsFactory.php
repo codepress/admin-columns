@@ -37,12 +37,12 @@ class JsonListScreenSettingsFactory
             'read_only'       => $list_screen->is_read_only(),
             'table_url'       => (string)$list_screen->get_table_url(),
             'settings'        => $encoder->encode(),
-            'column_types'    => $this->encode_columns($list_screen->get_table_screen()),
+            'column_types'    => $this->get_column_types($list_screen->get_table_screen()),
             'column_settings' => $this->encode_column_settings($list_screen->get_columns()),
         ]);
     }
 
-    private function encode_columns(AC\TableScreen $table_screen): array
+    private function get_column_types(AC\TableScreen $table_screen): array
     {
         $column_types = [];
 
