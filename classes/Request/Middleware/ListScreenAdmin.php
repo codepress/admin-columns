@@ -24,7 +24,7 @@ class ListScreenAdmin implements Middleware
     public function __construct(
         Storage $storage,
         TableScreen $table_screen,
-        Preference\ListScreen $preference,
+        Preference\ListScreen $preference
     ) {
         $this->storage = $storage;
         $this->table_screen = $table_screen;
@@ -71,7 +71,7 @@ class ListScreenAdmin implements Middleware
             : null;
     }
 
-    private function get_list_screen(Request $request): ?ListScreen
+    public function handle(Request $request): void
     {
         $list_screen = $this->get_requested_list_screen($request);
 
@@ -82,13 +82,6 @@ class ListScreenAdmin implements Middleware
         if ( ! $list_screen) {
             $list_screen = $this->get_first_listscreen();
         }
-
-        return $list_screen;
-    }
-
-    public function handle(Request $request): void
-    {
-        $list_screen = $this->get_list_screen($request);
 
         if ($list_screen) {
             $this->set_preference($list_screen->get_table_id(), $list_screen->get_id());
