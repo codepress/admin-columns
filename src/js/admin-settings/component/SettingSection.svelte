@@ -8,7 +8,7 @@
 		<div class="xl:acu-w-[270px] lg:acu-mr-6 acu-flex-shrink-0">
 			<h3 class="acu-mt-[0] acu-mb-2 acu-text-base acu-font-semibold">{title}</h3>
 			{#if subtitle}
-				<p>{subtitle}</p>
+				<p>{@html subtitle}</p>
 			{/if}
 		</div>
 		<div class="acu-flex-auto acu-flex-grow">

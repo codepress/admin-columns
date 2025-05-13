@@ -2686,18 +2686,17 @@ __webpack_require__.r(__webpack_exports__);
 
 function create_if_block(ctx) {
   let p;
-  let t;
   return {
     c() {
       p = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("p");
-      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*subtitle*/ctx[1]);
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, p, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(p, t);
+      p.innerHTML = /*subtitle*/ctx[1];
     },
     p(ctx, dirty) {
-      if (dirty & /*subtitle*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*subtitle*/ctx[1]);
+      if (dirty & /*subtitle*/2) p.innerHTML = /*subtitle*/ctx[1];
+      ;
     },
     d(detaching) {
       if (detaching) {

@@ -60,6 +60,11 @@ class Documentation implements Type\Url
         return new self($path);
     }
 
+    public static function create_local_storage(string $fragment = null): self
+    {
+        return new self(self::ARTICLE_LOCAL_STORAGE, $fragment);
+    }
+
     public function __toString(): string
     {
         return $this->get_url();
