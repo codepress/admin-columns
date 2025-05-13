@@ -91,6 +91,9 @@ type AdminColumnsI18n = {
             get_started: string
             documentation: string
         }
+    },
+    notices: {
+        not_saved_settings: string
     }
     review: {
         happy: string

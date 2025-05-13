@@ -150,6 +150,9 @@
 				<AcNotice type="info" styled showIcon>{@html sprintf( i18n.editor.sentence.columns_read_only,
 					`<strong>${$listScreenDataStore?.title}</strong>` )}</AcNotice>
 			{/if}
+			{#if typeof $listScreenDataStore !== 'undefined' && ! $listScreenIsStored}
+				<AcNotice type="info" styled showIcon>{@html i18n.notices.not_saved_settings}</AcNotice>
+			{/if}
 
 		</div>
 		<main class="ac-admin-page-main acu-px-4 acu-pt-2 2xl:acu-pt-[30px] 2xl:acu-px-[50px]">

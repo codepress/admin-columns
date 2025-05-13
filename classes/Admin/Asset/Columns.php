@@ -208,14 +208,14 @@ class Columns extends Script
         $this->localize(
             'ac_admin_columns_i18n',
             new Script\Localize\Translation([
-                'errors' => [
+                'errors'   => [
                     'ajax_unknown'   => __('Something went wrong.', 'codepress-admin-columns'),
                     'original_exist' => __(
                         '%s column is already present and can not be duplicated.',
                         'codepress-admin-columns'
                     ),
                 ],
-                'pro'    => [
+                'pro'      => [
                     'modal'    => [
                         'title'       => __('Do you like Admin Columns?', 'codepress-admin-columns'),
                         'subtitle'    => __(
@@ -294,7 +294,22 @@ class Columns extends Script
                         ],
                     ],
                 ],
-
+                'notices'  => [
+                    'not_saved_settings' => sprintf(
+                        '%s %s',
+                        sprintf(
+                            __('These settings are %s.', 'codepress-admin-columns'),
+                            sprintf('<strong>%s</strong>', __('inactive', 'codepress-admin-columns'))
+                        ),
+                        sprintf(
+                            __(
+                                'Click %s to apply these column settings to the list table.',
+                                'codepress-admin-columns'
+                            ),
+                            sprintf('<strong>%s</strong>', __('Save', 'codepress-admin-columns')),
+                        )
+                    ),
+                ],
                 'support'  => [
                     'title' => __('Support', 'codepress-admin-columns'),
                 ],
