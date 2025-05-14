@@ -56,11 +56,8 @@ trait ListScreenRepositoryTrait
     {
         $user_assigned_filter = new Filter\UserAssigned($user);
 
-        return $this->sort(
-            $user_assigned_filter->filter(
-                $this->find_all_by_table_id($table_id)
-            ),
-            $sort
+        return $user_assigned_filter->filter(
+            $this->find_all_by_table_id($table_id, $sort)
         );
     }
 

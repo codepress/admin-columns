@@ -17,7 +17,7 @@ use AC\Storage\EncoderFactory;
 use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListScreenId;
-use AC\Type\ListScreenStorageType;
+use AC\Type\ListScreenType;
 use AC\Type\TableId;
 use DateTime;
 use RuntimeException;
@@ -35,18 +35,14 @@ class Database implements ListScreenRepositoryWritable
 
     private Aggregate $column_factory;
 
-    private ListScreenStorageType $storage_type;
-
     public function __construct(
         TableScreenFactory $table_screen_factory,
         EncoderFactory $encoder_factory,
-        Aggregate $column_factory,
-        ListScreenStorageType $storage_type = null
+        Aggregate $column_factory
     ) {
         $this->table_screen_factory = $table_screen_factory;
         $this->encoder_factory = $encoder_factory;
         $this->column_factory = $column_factory;
-        $this->storage_type = $storage_type ?? new ListScreenStorageType();
     }
 
     protected function find_from_source(ListScreenId $id): ?ListScreen
@@ -58,10 +54,8 @@ class Database implements ListScreenRepositoryWritable
 			SELECT * 
 			FROM ' . $wpdb->prefix . self::TABLE . '
 			WHERE list_id = %s
-			AND type = %s
 		',
-            (string)$id,
-            (string)$this->storage_type
+            (string)$id
         );
 
         $row = $wpdb->get_row($sql);
@@ -80,13 +74,7 @@ class Database implements ListScreenRepositoryWritable
         $sql = '
 			SELECT * 
 			FROM ' . $wpdb->prefix . self::TABLE . '
-			WHERE type = %s
 		';
-
-        $sql = $wpdb->prepare(
-            $sql,
-            (string)$this->storage_type
-        );
 
         return $this->create_list_screens(
             $wpdb->get_results($sql)
@@ -102,10 +90,8 @@ class Database implements ListScreenRepositoryWritable
 			SELECT * 
 			FROM ' . $wpdb->prefix . self::TABLE . '
 			WHERE list_key = %s
-			AND type = %s
 		',
             (string)$table_id,
-            (string)$this->storage_type
         );
 
         return $this->create_list_screens(
@@ -210,6 +196,7 @@ class Database implements ListScreenRepositoryWritable
             $table_screen,
             $this->create_column_iterator($table_screen, $data),
             $this->get_preferences($data),
+            new ListScreenType($data->type),
             new DateTime($data->date_modified)
         );
     }

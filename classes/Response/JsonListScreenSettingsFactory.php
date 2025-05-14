@@ -28,7 +28,7 @@ class JsonListScreenSettingsFactory
         $this->column_groups = $column_groups;
     }
 
-    public function create(ListScreen $list_screen, bool $is_stored): Json
+    public function create(ListScreen $list_screen, bool $is_stored = true, bool $is_template = false): Json
     {
         $encoder = $this->encoder_factory->create()
                                          ->set_list_screen($list_screen);
@@ -40,6 +40,7 @@ class JsonListScreenSettingsFactory
             'column_types'    => $this->get_column_types($list_screen->get_table_screen()),
             'column_settings' => $this->encode_column_settings($list_screen->get_columns()),
             'is_stored'       => $is_stored,
+            'is_template'     => $is_template,
         ]);
     }
 

@@ -6,6 +6,7 @@ namespace AC;
 
 use AC\Type\ColumnId;
 use AC\Type\ListScreenId;
+use AC\Type\ListScreenType;
 use AC\Type\TableId;
 use AC\Type\Uri;
 use AC\Type\Url;
@@ -29,27 +30,24 @@ final class ListScreen
 
     private bool $read_only = false;
 
+    private ListScreenType $type;
+
     public function __construct(
         ListScreenId $id,
         string $title,
         TableScreen $table_screen,
         ColumnIterator $columns = null,
         array $preferences = [],
+        ListScreenType $type = null,
         DateTime $updated = null
     ) {
-        if (null === $updated) {
-            $updated = new DateTime();
-        }
-        if (null === $columns) {
-            $columns = new ColumnCollection();
-        }
-
         $this->id = $id;
         $this->title = $title;
         $this->table_screen = $table_screen;
-        $this->columns = $columns;
+        $this->columns = $columns ?? new ColumnCollection();
         $this->preferences = $preferences;
-        $this->updated = $updated;
+        $this->type = $type ?? new ListScreenType();
+        $this->updated = $updated ?? new DateTime();
     }
 
     public function get_id(): ListScreenId
@@ -202,6 +200,16 @@ final class ListScreen
     public function set_preference(string $key, $value): void
     {
         $this->preferences[$key] = $value;
+    }
+
+    public function get_type(): ListScreenType
+    {
+        return $this->type;
+    }
+
+    public function set_type(ListScreenType $type): void
+    {
+        $this->type = $type;
     }
 
     /**

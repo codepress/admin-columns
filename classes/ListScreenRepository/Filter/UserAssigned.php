@@ -11,7 +11,7 @@ use WP_User;
 class UserAssigned implements Filter
 {
 
-    private $user;
+    private WP_User $user;
 
     public function __construct(WP_User $user)
     {

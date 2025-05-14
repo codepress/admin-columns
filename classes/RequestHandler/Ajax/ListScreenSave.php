@@ -19,6 +19,7 @@ use AC\Setting\ConfigCollection;
 use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListScreenId;
+use AC\Type\ListScreenType;
 use AC\Type\TableId;
 use InvalidArgumentException;
 use RuntimeException;
@@ -93,7 +94,8 @@ class ListScreenSave implements RequestAjaxHandler
                 (string)$table_screen->get_labels(),
                 $this->table_screen_factory->create($list_key),
                 $columns,
-                (array)$data['settings']
+                (array)$data['settings'],
+                new ListScreenType($data['type'] ?? '')
             );
         }
 
