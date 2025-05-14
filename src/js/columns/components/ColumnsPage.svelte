@@ -12,9 +12,14 @@
         currentListId,
         currentListKey,
         currentTableUrl,
-        hasUsagePermissions, initialListScreenData, listScreenDataHasChanges,
+        debugMode,
+        hasUsagePermissions,
+        initialListScreenData,
+        isLoadingColumnSettings,
+        listScreenDataHasChanges,
         listScreenDataStore,
-        listScreenIsReadOnly
+        listScreenIsReadOnly,
+        listScreenIsStored
     } from "../store";
     import AcButton from "ACUi/element/AcButton.svelte";
     import AdminHeaderBar from "../../components/AdminHeaderBar.svelte";
@@ -26,9 +31,7 @@
     import ProSettingsExample from "./ProSettingsExample.svelte";
     import {AcNotice} from "ACUi/index";
     import {sprintf} from "@wordpress/i18n";
-    import {isLoadingColumnSettings} from "../store/loading";
     import cloneDeep from "lodash-es/cloneDeep";
-    import {listScreenIsStored} from "../store/is_stored";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -65,16 +68,22 @@
         $isLoadingColumnSettings = true
 
         getListScreenSettings(listKey, listId, abortController).then(response => {
+            let listScreenData = response.data.data.settings.list_screen
+
+			if( Array.isArray(listScreenData.settings) ){
+                listScreenData.settings = {};
+			}
+
             loadedListId = response.data.data.settings.list_screen.id;
             config = response.data.data.column_settings
             $currentTableUrl = response.data.data.table_url;
             $columnTypesStore = response.data.data.column_types.sort(columnTypeSorter);
             listScreenIsReadOnly.set(response.data.data.read_only);
-            $listScreenDataStore = response.data.data.settings.list_screen;
+            $listScreenDataStore = listScreenData;
             $currentListId = loadedListId;
-            initialListScreenData.set( cloneDeep( response.data.data.settings.list_screen ) );
+            initialListScreenData.set(cloneDeep(listScreenData));
             $listScreenDataHasChanges = false
-			$listScreenIsStored = response.data.data.is_stored;
+            $listScreenIsStored = response.data.data.is_stored;
         }).catch((response) => {
             NotificationProgrammatic.open({message: response.message, type: 'error'})
         }).finally(() => {
@@ -143,6 +152,10 @@
 		/>
 	</aside>
 	<div class="acu-flex acu-flex-col acu-flex-grow">
+
+		{#if $debugMode}
+			<textarea value={JSON.stringify( $listScreenDataStore )}/>
+		{/if}
 		<div class="acu-px-4 2xl:acu-px-[50px] acu-pt-[10px]" data-ac-notices>
 
 			<hr class="wp-header-end">
@@ -150,7 +163,7 @@
 				<AcNotice type="info" styled showIcon>{@html sprintf( i18n.editor.sentence.columns_read_only,
 					`<strong>${$listScreenDataStore?.title}</strong>` )}</AcNotice>
 			{/if}
-			{#if typeof $listScreenDataStore !== 'undefined' && ! $listScreenIsStored}
+			{#if typeof $listScreenDataStore !== 'undefined' && !$listScreenIsStored}
 				<AcNotice type="info" styled showIcon>{@html i18n.notices.not_saved_settings}</AcNotice>
 			{/if}
 
