@@ -59,16 +59,19 @@
 
     }
 
+
     const groupBy = (item: SvelteSelectItem) => item.group;
 </script>
 
-<Select class="-acui"
+<Select
+	class="-acui"
 	--list-max-height="400px"
 	showChevron
 	clearable={false}
 	items={$columnTypesStore}
 	{groupBy}
 	{disabled}
+
 	bind:value={value}
 	on:change={ changeValue }
 	bind:justValue={selectValue}>
@@ -85,3 +88,4 @@
 		{/if}
 	</div>
 </Select>
+
