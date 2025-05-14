@@ -93,6 +93,7 @@
         })
     }
 
+    $: dispatch('update', data);
     $: opened = $openedColumnsStore.includes(data.name);
 </script>
 

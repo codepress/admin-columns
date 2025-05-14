@@ -1,60 +1,39 @@
 <script lang="ts">
-    import {createEventDispatcher, onMount} from "svelte";
-
-    declare const jQuery: any;
+    import {onMount, tick} from "svelte";
 
     export let items: any[] = [];
-    export let key: string;
-    export let axis: string | null = null;
+    export let onSort: (from: number, to: number) => void;
+    export let itemKey: (item: any) => string;
 
-    const dispatch = createEventDispatcher();
+    let container: HTMLElement;
 
-    let start: number | null = null;
-    let end: number | null = null;
-
-    const moveArrayElement = (from: number, to: number) => {
-        let tempItems = items;
-        const item = tempItems[from];
-        tempItems.splice(from, 1);
-        tempItems.splice(to, 0, item);
-
-        items = tempItems;
-    }
-
-    function create(node: Node) {
-        const defaultOptions: any = {
+    const makeSortable = () => {
+        const JQ: any = jQuery as any;
+        JQ(container).sortable({
+            axis: 'y',
+            containment: JQ(container),
+            handle: '.ac-column-header__move',
             start: (e: Event, ui: any) => {
-                start = parseInt(ui.item.index());
+                ui.item.data('start-index', ui.item.index());
             },
-            stop: (e: Event, ui: any) => {
-                end = ui.item.index();
-
-                if (start !== null && end !== null) {
-                    moveArrayElement(start, end);
-                    start = null;
-                    end = null;
-                    dispatch('change', items)
+            stop: async (e: Event, ui: any) => {
+                const from = ui.item.data('start-index');
+                const to = ui.item.index();
+                if (from !== undefined && to !== undefined && from !== to) {
+                    await tick();
+                    onSort(from, to);
                 }
             }
-        };
-
-        if (axis) {
-            defaultOptions['axis'] = axis
-        }
-
-        jQuery(node).sortable(defaultOptions);
-
-        return {};
-    }
+        });
+    };
 
     onMount(() => {
-
-    })
-
+        setTimeout(makeSortable, 100);
+    });
 </script>
 
-<div use:create>
-	{#each items as item, i(item[ key ])}
-		<slot {item}/>
+<div bind:this={container}>
+	{#each items as item (itemKey( item ))}
+		<slot name="item" item={item}/>
 	{/each}
 </div>

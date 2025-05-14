@@ -7,12 +7,15 @@
     import {ListScreenColumnData, ListScreenData} from "../../types/requests";
     import {
         columnTypesStore,
-        currentListKey, listScreenDataHasChanges,
+        currentListKey,
+        isLoadingColumnSettings,
+        listScreenDataHasChanges,
         listScreenDataStore,
         listScreenIsReadOnly,
+        listScreenIsStored,
         openedColumnsStore
     } from "../store";
-    import {createEventDispatcher, onMount, tick} from "svelte";
+    import {createEventDispatcher, tick} from "svelte";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {getColumnSettingsTranslation} from "../utils/global";
@@ -20,9 +23,8 @@
     import ColumnTypeDropdownV2 from "./ColumnTypeDropdownV2.svelte";
     import {AcButton, AcDropdown, AcPanel, AcPanelFooter, AcPanelHeader, AcPanelTitle} from "ACUi/index";
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
-    import {isLoadingColumnSettings} from "../store/loading";
-    import {listScreenIsStored} from "../store/is_stored";
-
+    import JQSorter from "./JQSorter.svelte";
+    import cloneDeep from "lodash-es/cloneDeep";
 
     const i18n = getColumnSettingsTranslation();
     const dispatch = createEventDispatcher();
@@ -32,9 +34,6 @@
     export let locked: boolean = true;
     export let isSaving: boolean = false;
 
-    let start: number | null = 0;
-    let end: number | null = 0;
-    let sortableContainer: HTMLElement | null;
     let loadingDefaultColumns: boolean = false;
     let columnTypeComponent: AcDropdown | null;
 
@@ -140,31 +139,19 @@
         })
     }
 
-    const makeSortable = () => {
-        const JQ: any = jQuery;
-        JQ(sortableContainer).sortable({
-            axis: 'y',
-            containment: JQ(sortableContainer),
-            handle: '.ac-column-header__move',
-            start: (e: Event, ui: any) => {
-                start = parseInt(ui.item.index());
-            },
-            stop: (e: Event, ui: any) => {
-                end = ui.item.index();
+    const handleUpdateColumn = (item:ListScreenColumnData) => {
+        const index = data.columns.findIndex(c => c.name === item.name);
+        if (index !== -1) {
+            const current = data.columns[index];
+            const incoming = item;
 
-                if (start !== null && end !== null) {
-                    applyNewColumnsOrder(start, end);
-                    start = null;
-                    end = null;
-                }
+            if (JSON.stringify(current) !== JSON.stringify(incoming)) {
+                const updated = [...data.columns];
+                updated[index] = incoming;
+                data.columns = updated;
             }
-        });
+        }
     }
-
-
-    listScreenDataStore.subscribe(() => {
-        makeSortable();
-    })
 
     const handleSelectColumnType = (d: CustomEvent<string>) => {
         addColumn(d.detail);
@@ -174,10 +161,6 @@
     const handleCloseColumnTypeDropdown = (component) => {
         component.close();
     }
-
-    onMount(() => {
-        setTimeout(makeSortable, 1000);
-    });
 
 </script>
 
@@ -236,59 +219,65 @@
 					</div>
 				</div>
 			{/if}
-			<div bind:this={sortableContainer}>
-				{#each data.columns as column_data(column_data.name)}
 
+			<JQSorter
+				items={cloneDeep( data.columns )}
+				onSort={applyNewColumnsOrder}
+				itemKey={(col) => col.name}
+			>
+				<svelte:fragment slot="item" let:item>
 					<ColumnItem
 						locked={locked}
-						bind:config={ config[column_data.name ?? column_data.type] }
-						bind:data={ column_data }
-						on:delete={ ( e ) => deleteColumn( e.detail ) }
-						on:duplicate={ ( e ) => duplicateColumn( e.detail ) }
+						bind:config={ config[item.name ?? item.type] }
+						data={ item }
+						on:delete={ (e) => deleteColumn(e.detail) }
+						on:duplicate={ (e) => duplicateColumn(e.detail) }
+						on:update={(e) => handleUpdateColumn(e.detail)}
 					/>
+				</svelte:fragment>
+			</JQSorter>
 
-				{/each}
-			</div>
+
 		</div>
 		<AcPanelFooter slot="footer" classNames={['acu-flex acu-justify-end acu-gap-2']}>
 			{#if !$listScreenIsReadOnly && !locked}
 
-					{#if data.columns.length > 0}
-						<AcButton
-							type="text"
-							on:click={clearColumns}
-							label={i18n.editor.label.clear_columns}
-						/>
-					{/if}
+				{#if data.columns.length > 0}
+					<AcButton
+						type="text"
+						on:click={clearColumns}
+						label={i18n.editor.label.clear_columns}
+					/>
+				{/if}
+
+				<AcButton
+					type="primary"
+					softDisabled={isSaving}
+					loading={isSaving}
+					on:click={() => dispatch('saveListScreen', data)  }
+					disabled={!$listScreenDataHasChanges && $listScreenIsStored}
+					label={i18n.editor.label.save}
+				/>
+
+				<AcDropdown
+					--acui-dropdown-width="300px"
+					customClass="-selectv2"
+					maxHeight="400px"
+					value
+					position="bottom-left" bind:this={columnTypeComponent}>
 
 					<AcButton
+						slot="trigger"
 						type="primary"
-						softDisabled={isSaving}
-						loading={isSaving}
-						on:click={() => dispatch('saveListScreen', data)  }
-						disabled={!$listScreenDataHasChanges && $listScreenIsStored}
-						label={i18n.editor.label.save}
+						label={`+ ${i18n.editor.label.add_column}`}
 					/>
 
-					<AcDropdown
-						--acui-dropdown-width="300px"
-						customClass="-selectv2"
-						maxHeight="400px"
-						value
-						position="bottom-left" bind:this={columnTypeComponent}>
+					<ColumnTypeDropdownV2
+						on:selectItem={handleSelectColumnType}
+						on:close={() => handleCloseColumnTypeDropdown(columnTypeComponent)}
+					/>
 
-						<AcButton
-							slot="trigger"
-							type="primary"
-							label={`+ ${i18n.editor.label.add_column}`}
-						/>
-
-						<ColumnTypeDropdownV2
-							on:selectItem={handleSelectColumnType}
-							on:close={() => handleCloseColumnTypeDropdown(columnTypeComponent)}
-						/>
-
-					</AcDropdown>
+				</AcDropdown>
 
 
 			{/if}
