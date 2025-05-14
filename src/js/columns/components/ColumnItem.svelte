@@ -12,6 +12,7 @@
     import TypeSetting from "./settings/input/TypeInput.svelte";
     import {refreshColumn} from "../ajax/ajax";
     import ColumnLabel from "./ColumnLabel.svelte";
+    import JSONTree from "svelte-json-tree";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
@@ -149,8 +150,10 @@
 			/>
 
 			{#if $debugMode}
-				<div style="padding: 10px; background: #FFDCDCFF">
-					<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
+				<div style="padding: 10px 30px; background: #FF; position: relative">
+					<div style="padding: 10px 0;">
+						<JSONTree value={data}/>
+					</div>
 					<button class="button" on:click={checkAppliedSettings}>Check settings</button>
 					<button class="button" on:click={refreshSetting}>Refresh settings</button>
 				</div>

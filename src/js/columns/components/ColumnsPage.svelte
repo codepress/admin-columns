@@ -29,9 +29,10 @@
     import SupportPanel from "./sidebar/SupportPanel.svelte";
 
     import ProSettingsExample from "./ProSettingsExample.svelte";
-    import {AcNotice} from "ACUi/index";
+    import {AcNotice, AcPanel} from "ACUi/index";
     import {sprintf} from "@wordpress/i18n";
     import cloneDeep from "lodash-es/cloneDeep";
+    import JSONTree from "svelte-json-tree";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -153,9 +154,6 @@
 	</aside>
 	<div class="acu-flex acu-flex-col acu-flex-grow">
 
-		{#if $debugMode}
-			<textarea value={JSON.stringify( $listScreenDataStore )}/>
-		{/if}
 		<div class="acu-px-4 2xl:acu-px-[50px] acu-pt-[10px]" data-ac-notices>
 
 			<hr class="wp-header-end">
@@ -182,6 +180,13 @@
 					{/if}
 					{#if !localConfig.is_pro }
 						<ProSettingsExample/>
+					{/if}
+
+					{#if $debugMode}
+						<AcPanel>
+							<JSONTree value={$listScreenDataStore} />
+						</AcPanel>
+
 					{/if}
 				</div>
 				<aside class="xl:acu-w-[320px]">
