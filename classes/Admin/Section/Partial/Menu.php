@@ -16,12 +16,13 @@ class Menu
         $this->menu_factory = $menu_factory;
     }
 
-    public function render(string $current, string $url, bool $is_hidden = false): string
+    public function render(string $current, string $url, string $label, bool $is_hidden = false): string
     {
         $menu = new View([
             'items'       => $this->get_menu_items(),
             'current'     => $current,
             'screen_link' => $url,
+            'label'       => $label,
             'class'       => $is_hidden ? 'hidden' : '',
         ]);
 
