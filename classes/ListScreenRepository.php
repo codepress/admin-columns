@@ -6,6 +6,7 @@ namespace AC;
 
 use AC\ListScreenRepository\Sort;
 use AC\Type\ListScreenId;
+use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use WP_User;
 
@@ -18,8 +19,13 @@ interface ListScreenRepository
 
     public function find_all(Sort $sort = null): ListScreenCollection;
 
-    // TODO add ListScreenType as argument
-    public function find_all_by_table_id(TableId $table_id, Sort $sort = null): ListScreenCollection;
+    public function find_all_by_type(ListScreenStatus $type): ListScreenCollection;
+
+    public function find_all_by_table_id(
+        TableId $table_id,
+        Sort $sort = null,
+        ListScreenStatus $type = null
+    ): ListScreenCollection;
 
     public function find_all_by_assigned_user(
         TableId $table_id,

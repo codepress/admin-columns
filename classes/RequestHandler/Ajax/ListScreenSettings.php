@@ -14,7 +14,6 @@ use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Type\ListScreenId;
 use AC\Type\TableId;
-use ACP\ListScreenRepository\TemplateStorageFactory;
 use InvalidArgumentException;
 
 class ListScreenSettings implements RequestAjaxHandler
@@ -30,22 +29,18 @@ class ListScreenSettings implements RequestAjaxHandler
 
     private AC\Response\JsonListScreenSettingsFactory $response_factory;
 
-    private TemplateStorageFactory $storage_template_factory;
-
     public function __construct(
         Storage $storage,
         AC\TableScreenFactory\Aggregate $table_factory,
         AC\ColumnTypeRepository $type_repository,
         Preference\ListScreen $preference,
-        AC\Response\JsonListScreenSettingsFactory $response_factory,
-        TemplateStorageFactory $storage_template_factory
+        AC\Response\JsonListScreenSettingsFactory $response_factory
     ) {
         $this->storage = $storage;
         $this->table_factory = $table_factory;
         $this->preference = $preference;
         $this->type_repository = $type_repository;
         $this->response_factory = $response_factory;
-        $this->storage_template_factory = $storage_template_factory;
     }
 
     public function handle(): void

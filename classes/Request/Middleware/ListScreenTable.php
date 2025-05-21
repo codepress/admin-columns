@@ -11,6 +11,7 @@ use AC\Middleware;
 use AC\Request;
 use AC\Table;
 use AC\Type\ListScreenId;
+use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use Exception;
 use WP_User;
@@ -18,11 +19,11 @@ use WP_User;
 class ListScreenTable implements Middleware
 {
 
-    private $storage;
+    private Storage $storage;
 
-    private $preference;
+    private Table\LayoutPreference $preference;
 
-    private $list_key;
+    private TableId $list_key;
 
     public function __construct(
         Storage $storage,
@@ -39,7 +40,8 @@ class ListScreenTable implements Middleware
         $list_screens = $this->storage->find_all_by_assigned_user(
             $this->list_key,
             $user,
-            new Sort\UserOrder($user, $this->list_key)
+            new Sort\UserOrder($user, $this->list_key),
+            ListScreenStatus::create_active()
         );
 
         if ( ! $list_screens->valid()) {

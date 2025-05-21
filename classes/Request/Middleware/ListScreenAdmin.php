@@ -9,6 +9,7 @@ use AC\Middleware;
 use AC\Request;
 use AC\TableScreen;
 use AC\Type\ListScreenId;
+use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use Exception;
 
@@ -53,7 +54,11 @@ class ListScreenAdmin implements Middleware
 
     private function get_first_listscreen(): ?ListScreen
     {
-        $list_screens = $this->storage->find_all_by_table_id($this->table_screen->get_id());
+        $list_screens = $this->storage->find_all_by_table_id(
+            $this->table_screen->get_id(),
+            null,
+            ListScreenStatus::create_active()
+        );
 
         return $list_screens->count() > 0
             ? $list_screens->current()

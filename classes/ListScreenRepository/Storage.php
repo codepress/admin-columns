@@ -9,6 +9,7 @@ use AC\ListScreenCollection;
 use AC\ListScreenRepository;
 use AC\ListScreenRepositoryWritable;
 use AC\Type\ListScreenId;
+use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use LogicException;
 
@@ -87,12 +88,17 @@ final class Storage implements ListScreenRepositoryWritable
         return $collection;
     }
 
-    protected function find_all_by_table_id_from_source(TableId $table_id): ListScreenCollection
-    {
+    protected function find_all_by_table_id_from_source(
+        TableId $table_id,
+        ListScreenStatus $type = null
+    ): ListScreenCollection {
         $collection = new ListScreenCollection();
 
         foreach ($this->repositories as $repository) {
-            foreach ($repository->get_list_screen_repository()->find_all_by_table_id($table_id) as $list_screen) {
+            $list_screens = $repository->get_list_screen_repository()
+                                       ->find_all_by_table_id($table_id, null, $type);
+
+            foreach ($list_screens as $list_screen) {
                 if ( ! $collection->contains($list_screen)) {
                     $list_screen->set_read_only(! $repository->is_writable());
 
