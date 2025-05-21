@@ -83,7 +83,7 @@ class Database implements ListScreenRepositoryWritable
 
     protected function find_all_by_table_id_from_source(
         TableId $table_id,
-        ListScreenStatus $type = null
+        ListScreenStatus $status = null
     ): ListScreenCollection {
         global $wpdb;
 
@@ -96,8 +96,12 @@ class Database implements ListScreenRepositoryWritable
             (string)$table_id,
         );
 
-        if ($type) {
-            $sql .= $wpdb->prepare(' AND type = %s', (string)$type);
+        if ($status) {
+            $is_empty = '' === (string)$status;
+            
+            $sql .= $is_empty
+                ? " AND ( status = '' OR STATUS IS NULL )"
+                : $wpdb->prepare(' AND status = %s', (string)$status);
         }
 
         return $this->create_list_screens(

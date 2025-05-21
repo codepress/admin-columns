@@ -41,9 +41,9 @@ trait ListScreenRepositoryTrait
         );
     }
 
-    public function find_all_by_type(ListScreenStatus $type): ListScreenCollection
+    public function find_all_by_type(ListScreenStatus $status): ListScreenCollection
     {
-        return (new Filter\ListScreenStatus($type))->filter(
+        return (new Filter\ListScreenStatus($status))->filter(
             $this->find_all_from_source()
         );
     }
@@ -53,29 +53,29 @@ trait ListScreenRepositoryTrait
     public function find_all_by_table_id(
         TableId $table_id,
         Sort $sort = null,
-        ListScreenStatus $type = null
+        ListScreenStatus $status = null
     ): ListScreenCollection {
         return $this->sort(
-            $this->find_all_by_table_id_from_source($table_id, $type),
+            $this->find_all_by_table_id_from_source($table_id, $status),
             $sort
         );
     }
 
     abstract protected function find_all_by_table_id_from_source(
         TableId $table_id,
-        ListScreenStatus $type = null
+        ListScreenStatus $status = null
     ): ListScreenCollection;
 
     public function find_all_by_assigned_user(
         TableId $table_id,
         WP_User $user,
         Sort $sort = null,
-        ListScreenStatus $type = null
+        ListScreenStatus $status = null
     ): ListScreenCollection {
         $user_assigned_filter = new Filter\UserAssigned($user);
 
         return $user_assigned_filter->filter(
-            $this->find_all_by_table_id($table_id, $sort, $type)
+            $this->find_all_by_table_id($table_id, $sort, $status)
         );
     }
 
