@@ -41,7 +41,7 @@ trait ListScreenRepositoryTrait
         );
     }
 
-    public function find_all_by_type(ListScreenStatus $status): ListScreenCollection
+    public function find_all_by_status(ListScreenStatus $status): ListScreenCollection
     {
         return (new Filter\ListScreenStatus($status))->filter(
             $this->find_all_from_source()

@@ -19,7 +19,7 @@ interface ListScreenRepository
 
     public function find_all(Sort $sort = null): ListScreenCollection;
 
-    public function find_all_by_type(ListScreenStatus $type): ListScreenCollection;
+    public function find_all_by_status(ListScreenStatus $type): ListScreenCollection;
 
     public function find_all_by_table_id(
         TableId $table_id,
