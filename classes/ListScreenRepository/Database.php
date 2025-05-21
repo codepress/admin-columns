@@ -123,7 +123,7 @@ class Database implements ListScreenRepositoryWritable
             'columns'       => $list_screen_dto['columns'] ? serialize($list_screen_dto['columns']) : null,
             'settings'      => $settings ? serialize($settings) : null,
             'date_modified' => $date->format('Y-m-d H:i:s'),
-            'type'          => (string)$this->storage_type,
+            'status'        => (string)$list_screen_dto['status'],
         ];
 
         $table = $wpdb->prefix . self::TABLE;
@@ -202,7 +202,7 @@ class Database implements ListScreenRepositoryWritable
             $table_screen,
             $this->create_column_iterator($table_screen, $data),
             $this->get_preferences($data),
-            new ListScreenStatus($data->type),
+            new ListScreenStatus($data->status),
             new DateTime($data->date_modified)
         );
     }

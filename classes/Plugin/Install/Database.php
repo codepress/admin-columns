@@ -50,7 +50,7 @@ final class Database implements AC\Plugin\Install
 			settings mediumtext,
 			date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 			date_modified datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-			type varchar(20) NOT NULL default '',
+			status varchar(20) NOT NULL default '',
 			PRIMARY KEY (id),
 			UNIQUE KEY `list_id` (`list_id`)
 		) $collate;

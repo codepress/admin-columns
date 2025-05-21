@@ -42,6 +42,7 @@ class BaseEncoder implements AC\Storage\Encoder
                 'updated'  => $this->list_screen->get_updated()->getTimestamp(),
                 'columns'  => $this->encode_columns(),
                 'settings' => $this->get_preferences(),
+                'status'   => $this->list_screen->get_status(),
             ];
         }
 
