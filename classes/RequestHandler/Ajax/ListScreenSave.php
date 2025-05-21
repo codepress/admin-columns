@@ -79,6 +79,7 @@ class ListScreenSave implements RequestAjaxHandler
         $id = new ListScreenId($id);
         $table_screen = $this->table_screen_factory->create($list_key);
         $columns = $this->decode_columns($table_screen, $this->decode_configs((array)$data['columns']));
+        $status = new ListScreenStatus($data['status'] ?? null);
 
         if ($this->storage->exists($id)) {
             $list_screen = new ListScreen(
@@ -86,7 +87,8 @@ class ListScreenSave implements RequestAjaxHandler
                 (string)$data['title'],
                 $table_screen,
                 $columns,
-                (array)$data['settings']
+                (array)$data['settings'],
+                $status
             );
         } else {
             $list_screen = new ListScreen(
@@ -95,7 +97,7 @@ class ListScreenSave implements RequestAjaxHandler
                 $this->table_screen_factory->create($list_key),
                 $columns,
                 (array)$data['settings'],
-                new ListScreenStatus($data['type'] ?? '')
+                $status
             );
         }
 
