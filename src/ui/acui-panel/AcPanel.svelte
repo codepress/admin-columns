@@ -1,13 +1,18 @@
 <script lang="ts">
-    import { AcPanelBody, AcPanelHeader } from "ACUi/acui-panel";
+    import { AcPanelBody, AcPanelHeader } from "ACUi/index";
 
     export let shadow: boolean = true;
     export let border: boolean = true;
     export let rounded: boolean = true;
     export let title: string | undefined = '';
     export let classNames: string[] = [];
+    export let containerClass: boolean = false;
 
     let classes = ['acu-bg-[white]', 'acu-border', 'acu-border-solid', 'acu-border-ui-border', 'acu-mb-[15px]'];
+
+    if( containerClass) {
+		classes.push('acu-@container/panel');
+	}
 
     if (shadow) {
         classes.push('acu-shadow');

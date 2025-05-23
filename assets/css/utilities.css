@@ -1078,6 +1078,21 @@
   transition-duration: 150ms
 }
 
+.acu-\@container\/panel {
+  container-type: inline-size;
+  container-name: panel
+}
+
+.acu-\@container\/prefs {
+  container-type: inline-size;
+  container-name: prefs
+}
+
+.acu-\@container\/setting {
+  container-type: inline-size;
+  container-name: setting
+}
+
 .\[key\:string\] {
   key: string
 }
@@ -1133,6 +1148,133 @@
 
 .acu-group:hover .group-hover\:acu-visible {
   visibility: visible
+}
+
+@container panel (min-width: 28rem) {
+  .\@md\/panel\:acu-bg-\[red\] {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1))
+  }
+}
+
+@container panels (min-width: 28rem) {
+  .\@md\/panels\:acu-bg-\[red\] {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1))
+  }
+}
+
+@container (min-width: 28rem) {
+  .\@md\:acu-mr-6 {
+    margin-right: 30px
+  }
+
+  .\@md\:acu-bg-\[red\] {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1))
+  }
+}
+
+@container panel (min-width: 32rem) {
+  .\@lg\/panel\:acu-flex {
+    display: flex
+  }
+
+  .\@lg\/panel\:acu-bg-\[red\] {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1))
+  }
+}
+
+@container (min-width: 32rem) {
+  .\@lg\:acu-flex {
+    display: flex
+  }
+
+  .\@lg\:acu-w-\[240px\] {
+    width: 240px
+  }
+}
+
+@container panel (min-width: 36rem) {
+  .\@xl\/panel\:acu-flex {
+    display: flex
+  }
+}
+
+@container panel (min-width: 42rem) {
+  .\@2xl\/panel\:acu-flex {
+    display: flex
+  }
+}
+
+@container panel (min-width: 500px) {
+  .\@\[500px\]\/panel\:acu-flex {
+    display: flex
+  }
+}
+
+@container setting (min-width: 500px) {
+  .\@\[500px\]\/setting\:acu-flex {
+    display: flex
+  }
+
+  .\@\[500px\]\/setting\:acu-w-1\/3 {
+    width: 33.333333%
+  }
+}
+
+@container panel (min-width: 600px) {
+  .\@\[600px\]\/panel\:acu-flex {
+    display: flex
+  }
+}
+
+@container (min-width: 600px) {
+  .\@\[600px\]\:acu-mr-6 {
+    margin-right: 30px
+  }
+
+  .\@\[600px\]\:acu-w-\[240px\] {
+    width: 240px
+  }
+}
+
+@container panel (min-width: 650px) {
+  .\@\[650px\]\/panel\:acu-flex {
+    display: flex
+  }
+}
+
+@container (min-width: 650px) {
+  .\@\[650px\]\:acu-mr-6 {
+    margin-right: 30px
+  }
+
+  .\@\[650px\]\:acu-w-\[240px\] {
+    width: 240px
+  }
+}
+
+@container panel (min-width: 700px) {
+  .\@\[700px\]\/panel\:acu-bg-\[red\] {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1))
+  }
+}
+
+@container panel (min-width: 750px) {
+  .\@\[750px\]\/panel\:acu-bg-\[red\] {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1))
+  }
+}
+
+@container panel (min-width: 780px) {
+  .\@\[780px\]\/panel\:acu-bg-\[red\] {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1))
+  }
 }
 
 @media (min-width: 782px) {

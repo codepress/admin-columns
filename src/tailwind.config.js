@@ -54,5 +54,7 @@ module.exports = {
 		},
 		extend : {},
 	},
-	plugins : [],
+	plugins : [
+		require('@tailwindcss/container-queries'),
+	],
 }
