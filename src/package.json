@@ -6,6 +6,7 @@
     "devDependencies": {
         "@babel/core": "7.22.20",
         "@babel/preset-typescript": "7.22.15",
+        "@tailwindcss/container-queries": "^0.1.1",
         "@types/jquery": "^3.5.5",
         "@types/lodash-es": "^4.17.12",
         "@types/node": "^20.6.2",
