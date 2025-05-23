@@ -8,6 +8,7 @@ use AC;
 use AC\ListScreen;
 use AC\Setting\Encoder;
 use AC\Storage\EncoderFactory;
+use ACP\Type\Url\Preview;
 
 class JsonListScreenSettingsFactory
 {
@@ -35,7 +36,9 @@ class JsonListScreenSettingsFactory
 
         return (new Json())->set_parameters([
             'read_only'       => $list_screen->is_read_only(),
-            'table_url'       => (string)$list_screen->get_table_url(),
+            'table_url'       => $is_template
+                ? (string)new Preview($list_screen->get_table_url(), 'columns')
+                : (string)$list_screen->get_table_url(),
             'settings'        => $encoder->encode(),
             'column_types'    => $this->get_column_types($list_screen->get_table_screen()),
             'column_settings' => $this->encode_column_settings($list_screen->get_columns()),
