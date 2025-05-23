@@ -256,129 +256,144 @@ class Columns extends Script
                         'send_discount'      => __('Send me the discount', 'codepress-admin-columns'),
                     ],
                     'settings' => [
-                        'elements'     => [
-                            'table_elements' => __('Table Elements', 'codepress-admin-columns'),
-                            'description'    => __(
-                                'Show or hide elements from the table list screen.',
-                                'codepress-admin-columns'
-                            ),
-                            'default'        => __('Default Elements', 'codepress-admin-columns'),
-                            'features'       => __('Features', 'codepress-admin-columns'),
+                        'status'       => [
+                            'status'      => __('Status', 'codepress-admin-columns'),
+                            'description' => __('Toggle this view active or inactive.', 'codepress-admin-columns'),
+                            'active'      => __('Active', 'codepress - admin - columns'),
                         ],
                         'conditionals' => [
-                            'select_roles' => __('Select roles', 'codepress-admin-columns'),
-                            'select_users' => __('Select users', 'codepress-admin-columns'),
-                            'conditionals' => __('Conditionals', 'codepress-admin-columns'),
+                            'select_roles' => __('Select roles', 'codepress - admin - columns'),
+                            'select_users' => __('Select users', 'codepress - admin - columns'),
+                            'conditionals' => __('Conditionals', 'codepress - admin - columns'),
                             'description'  => __(
-                                'Make this table view available only for specific users or roles.',
-                                'codepress-admin-columns'
+                                'Make this table view available only for specific users or roles . ',
+                                'codepress - admin - columns'
                             ),
                         ],
-                        'preferences'  => [
-                            'preferences'          => __('Preferences', 'codepress-admin-columns'),
-                            'description'          => __(
-                                'Set default settings that users will see when they visit the list table.',
-                                'codepress-admin-columns'
+                        'elements'     => [
+                            'table_elements' => __('Table Elements', 'codepress - admin - columns'),
+                            'description'    => __(
+                                'Show or hide elements from the table list screen . ',
+                                'codepress - admin - columns'
                             ),
-                            'horizontal_scrolling' => __('Horizontal Scrolling', 'codepress-admin-columns'),
-                            'sorting'              => __('Sorting', 'codepress-admin-columns'),
-                            'segments'             => __('Pre-applied Filters', 'codepress-admin-columns'),
-                            'no_segments'          => __('No segments applied', 'codepress-admin-columns'),
-                            'primary_column'       => __('Primary Column', 'codepress-admin-columns'),
-                            'wrapping'             => __('Wrapping', 'codepress-admin-columns'),
+                            'default'        => __('default Elements', 'codepress - admin - columns'),
+                            'features'       => __('Features', 'codepress - admin - columns'),
+                        ],
+
+                        'preferences' => [
+                            'preferences'          => __('Preferences', 'codepress - admin - columns'),
+                            'description'          => __(
+                                'Set default settings that users will see when they visit the list table . ',
+                                'codepress - admin - columns'
+                            ),
+                            'horizontal_scrolling' => __('Horizontal Scrolling', 'codepress - admin - columns'),
+                            'sorting'              => __('Sorting', 'codepress - admin - columns'),
+                            'segments'             => __('Pre - applied Filters', 'codepress - admin - columns'),
+                            'no_segments'          => __('No segments applied', 'codepress - admin - columns'),
+                            'primary_column'       => __('Primary Column', 'codepress - admin - columns'),
+                            'wrapping'             => __('Wrapping', 'codepress - admin - columns'),
                             'wrapping_options'     => [
-                                'wrap' => _x('Wrap', 'wrapping_option', 'codepress-admin-columns'),
-                                'clip' => _x('Clip', 'wrapping_option', 'codepress-admin-columns'),
+                                'wrap' => _x('Wrap', 'wrapping_option', 'codepress - admin - columns'),
+                                'clip' => _x('Clip', 'wrapping_option', 'codepress - admin - columns'),
                             ],
-                            'unlock'               => __('Unlock with Admin Columns Pro', 'codepress-admin-columns'),
+                            'unlock'               => __(
+                                'Unlock with Admin Columns Pro',
+                                'codepress - admin - columns'
+                            ),
                         ],
                     ],
                 ],
                 'notices'  => [
                     'not_saved_settings' => sprintf(
-                        '%s %s',
+                        ' % s % s',
                         sprintf(
-                            __('These settings are %s.', 'codepress-admin-columns'),
-                            sprintf('<strong>%s</strong>', __('inactive', 'codepress-admin-columns'))
+                            __('These settings are % s . ', 'codepress - admin - columns'),
+                            sprintf(' < strong>%s </strong > ', __('inactive', 'codepress - admin - columns'))
                         ),
                         sprintf(
                             __(
-                                'Click %s to apply these column settings to the list table.',
-                                'codepress-admin-columns'
+                                'Click % s to apply these column settings to the list table . ',
+                                'codepress - admin - columns'
                             ),
-                            sprintf('<strong>%s</strong>', __('Save', 'codepress-admin-columns')),
+                            sprintf(' < strong>%s </strong > ', __('Save', 'codepress - admin - columns')),
                         )
                     ),
                 ],
                 'support'  => [
-                    'title' => __('Support', 'codepress-admin-columns'),
+                    'title' => __('Support', 'codepress - admin - columns'),
                 ],
                 'review'   => [
-                    'happy'       => __('Are you happy with Admin Columns?', 'codepress-admin-columns'),
+                    'happy'       => __('Are you happy with Admin Columns ? ', 'codepress - admin - columns'),
                     'yes'         => __('Yes'),
                     'no'          => __('No'),
-                    'glad'        => __("Woohoo! We're glad to hear that!", 'codepress-admin-columns'),
+                    'glad'        => __("Woohoo! We're glad to hear that! ", 'codepress-admin-columns'),
                     'give_rating' => __(
                         'We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!',
                         'codepress-admin-columns'
                     ),
-                    'whats_wrong' => __("What's wrong? Need help? Let us know!", 'codepress-admin-columns'),
+                    'whats_wrong' => __("What's wrong? Need help? Let us know!", 'codepress - admin - columns'),
                     'checkdocs'   => __(
-                        'Check out our extensive documentation, or you can open a support topic on WordPress.org!',
-                        'codepress-admin-columns'
+                        'Check out our extensive documentation, or you can open a support topic on WordPress . org! ',
+                        'codepress - admin - columns'
                     ),
-                    ''            => __('You can also find help on the %s, and %s.', 'codepress-admin-columns'),
-                    'docs'        => __('Docs', 'codepress-admin-columns'),
-                    'forum'       => __('Forum', 'codepress-admin-columns'),
-                    'rate'        => __('Rate', 'codepress-admin-columns'),
-                    'tweet'       => __('Tweet', 'codepress-admin-columns'),
-                    'buy'         => __('Buy Pro', 'codepress-admin-columns'),
+                    ''            => __('You can also find help on the % s, and %s . ', 'codepress - admin - columns'),
+                    'docs'        => __('Docs', 'codepress - admin - columns'),
+                    'forum'       => __('Forum', 'codepress - admin - columns'),
+                    'rate'        => __('Rate', 'codepress - admin - columns'),
+                    'tweet'       => __('Tweet', 'codepress - admin - columns'),
+                    'buy'         => __('Buy Pro', 'codepress - admin - columns'),
 
                 ],
                 'global'   => [
-                    'search' => __('Search', 'codepress-admin-columns'),
-                    'select' => __('Select', 'codepress-admin-columns'),
+                    'search' => __('Search', 'codepress - admin - columns'),
+                    'select' => __('Select', 'codepress - admin - columns'),
                 ],
                 'menu'     => [
-                    'favorites' => __('Favorites', 'codepress-admin-columns'),
+                    'favorites' => __('Favorites', 'codepress - admin - columns'),
                 ],
                 'settings' => [
                     'label' => [
-                        'select-icon' => __('Select Icon', 'codepress-admin-columns'),
+                        'select - icon' => __('Select Icon', 'codepress - admin - columns'),
                     ],
                 ],
                 'editor'   => [
                     'label'    => [
-                        'save'                 => __('Save Changes', 'codepress-admin-columns'),
-                        'add_column'           => __('Add Column', 'codepress-admin-columns'),
-                        'add_columns'          => __('Add Columns', 'codepress-admin-columns'),
-                        'clear_columns'        => __('Clear columns', 'codepress-admin-columns'),
-                        'load_default_columns' => __('Load default columns', 'codepress-admin-columns'),
-                        'view'                 => __('View', 'codepress-admin-columns'),
+                        'save'                 => __('Save Changes', 'codepress - admin - columns'),
+                        'add_column'           => __('Add Column', 'codepress - admin - columns'),
+                        'add_columns'          => __('Add Columns', 'codepress - admin - columns'),
+                        'clear_columns'        => __('Clear columns', 'codepress - admin - columns'),
+                        'load_default_columns' => __('Load default columns', 'codepress - admin - columns'),
+                        'view'                 => __('View', 'codepress - admin - columns'),
                     ],
                     'sentence' => [
                         'columns_read_only'       => __(
-                            'The columns for %s are read only and can therefore not be edited.',
-                            'codepress-admin-columns'
+                            'The columns for %s are read only and can therefore not be edited . ',
+                            'codepress - admin - columns'
                         ),
-                        'column_no_duplicate'     => __('Column %s could not be duplicated', 'codepress-admin-columns'),
-                        'original_already_exists' => __('Original column already exists.', 'codepress-admin-columns'),
+                        'column_no_duplicate'     => __(
+                            'Column % s could not be duplicated',
+                            'codepress - admin - columns'
+                        ),
+                        'original_already_exists' => __(
+                            'Original column already exists . ',
+                            'codepress - admin - columns'
+                        ),
                         'show_default_columns'    => __(
-                            'The default columns will be shown on the list table when no columns are added.',
-                            'codepress-admin-columns'
+                            'The default columns will be shown on the list table when no columns are added . ',
+                            'codepress - admin - columns'
                         ),
                         'get_started'             => __(
-                            'Start by adding columns to your list table.',
-                            'codepress-admin-columns'
+                            'Start by adding columns to your list table . ',
+                            'codepress - admin - columns'
                         ),
                         'documentation'           => sprintf(
-                            __('New to Admin Columns? Take a look at our %s', 'codepress-admin-columns'),
+                            __('new to Admin Columns ? Take a look at our % s', 'codepress - admin - columns'),
                             sprintf(
-                                '<a target="_blank" href="%s">%s</a>',
+                                ' < a target = "_blank" href = "%s" >%s </a > ',
                                 AC\Type\Url\Documentation::create_with_path(
                                     AC\Type\Url\Documentation::ARTICLE_GETTING_STARTED
                                 ),
-                                __('getting started guide', 'codepress-admin-columns')
+                                __('getting started guide', 'codepress - admin - columns')
                             )
                         ),
                     ],
