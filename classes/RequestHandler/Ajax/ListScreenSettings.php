@@ -43,18 +43,24 @@ class ListScreenSettings implements RequestAjaxHandler
         $this->response_factory = $response_factory;
     }
 
-    public function handle(): void
+    protected function validate_request(Request $request): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
-            return;
-        }
-
-        $request = new Request();
         $response = new AC\Response\Json();
+
+        if ( ! current_user_can(Capabilities::MANAGE)) {
+            $response->error();
+        }
 
         if ( ! (new Nonce\Ajax())->verify($request)) {
             $response->error();
         }
+    }
+
+    public function handle(): void
+    {
+        $request = new Request();
+
+        $this->validate_request($request);
 
         $list_key = new TableId((string)$request->get('list_key'));
 
