@@ -379,7 +379,7 @@ class Columns extends Script
                             'codepress-admin-columns'
                         ),
                         'show_default_columns'    => __(
-                            'The default columns will be shown on the list table when no columns are added.z',
+                            'The default columns will be shown on the list table when no columns are added.',
                             'codepress-admin-columns'
                         ),
                         'get_started'             => __(

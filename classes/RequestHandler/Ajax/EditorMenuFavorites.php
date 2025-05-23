@@ -15,7 +15,7 @@ use AC\Type\TableId;
 class EditorMenuFavorites implements RequestAjaxHandler
 {
 
-    private $favorite_repository;
+    private Storage\Repository\EditorFavorites $favorite_repository;
 
     public function __construct(Storage\Repository\EditorFavorites $favorite_repository)
     {
