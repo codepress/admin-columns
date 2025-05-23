@@ -19,15 +19,15 @@ use InvalidArgumentException;
 class ListScreenSettings implements RequestAjaxHandler
 {
 
-    private Storage $storage;
+    protected Storage $storage;
 
-    private AC\TableScreenFactory\Aggregate $table_factory;
+    protected AC\TableScreenFactory\Aggregate $table_factory;
 
-    private Preference\ListScreen $preference;
+    protected Preference\ListScreen $preference;
 
-    private AC\ColumnTypeRepository $type_repository;
+    protected AC\ColumnTypeRepository $type_repository;
 
-    private AC\Response\JsonListScreenSettingsFactory $response_factory;
+    protected AC\Response\JsonListScreenSettingsFactory $response_factory;
 
     public function __construct(
         Storage $storage,

@@ -151,9 +151,6 @@ class Loader
 
         $handlers = [
             'ac-list-screen-settings'         => Ajax\ListScreenSettings::class,
-
-            // TODO remove
-            //'ac-list-screen-template-settings' => Ajax\ListScreenTemplateSettings::class,
             'ac-list-screen-delete'           => Ajax\ListScreenDelete::class,
             'ac-list-screen-save'             => Ajax\ListScreenSave::class,
             'ac-list-screen-add-column'       => Ajax\ListScreenAddColumn::class,
@@ -169,6 +166,7 @@ class Loader
             'ac-persist-admin-general-option' => Ajax\AdminGeneralOptionsPersist::class,
             'ac-get-admin-general-option'     => Ajax\AdminGeneralOptionsGet::class,
             'ac-restore-settings'             => Ajax\RestoreSettingsRequest::class,
+            // TODO move to PRO
             'acp-integration-toggle'          => Ajax\IntegrationToggle::class,
             'ac-integrations'                 => Ajax\Integrations::class,
         ];

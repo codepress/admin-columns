@@ -39,10 +39,10 @@ class BaseEncoder implements AC\Storage\Encoder
                 'title'    => $this->list_screen->get_title(),
                 'type'     => (string)$this->list_screen->get_table_id(),
                 'id'       => (string)$this->list_screen->get_id(),
+                'status'   => (string)$this->list_screen->get_status(),
                 'updated'  => $this->list_screen->get_updated()->getTimestamp(),
                 'columns'  => $this->encode_columns(),
                 'settings' => $this->get_preferences(),
-                'status'   => (string)$this->list_screen->get_status(),
             ];
         }
 
