@@ -43,7 +43,7 @@ class ListScreenSettings implements RequestAjaxHandler
         $this->response_factory = $response_factory;
     }
 
-    protected function validate_request(Request $request): void
+    protected function validate(): void
     {
         $response = new AC\Response\Json();
 
@@ -51,16 +51,16 @@ class ListScreenSettings implements RequestAjaxHandler
             $response->error();
         }
 
-        if ( ! (new Nonce\Ajax())->verify($request)) {
+        if ( ! (new Nonce\Ajax())->verify(new Request())) {
             $response->error();
         }
     }
 
     public function handle(): void
     {
-        $request = new Request();
+        $this->validate();
 
-        $this->validate_request($request);
+        $request = new Request();
 
         $list_key = new TableId((string)$request->get('list_key'));
 
