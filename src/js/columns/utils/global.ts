@@ -33,6 +33,11 @@ type AdminColumnsI18n = {
             send_discount: string
         }
         settings: {
+            status: {
+                status: string
+                description: string
+                active: string
+            }
             conditionals: {
                 conditionals: string
                 description: string
