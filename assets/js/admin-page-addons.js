@@ -3644,10 +3644,12 @@ function instance($$self, $$props, $$invalidate) {
   }
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
     $$invalidate(3, icon = determineIcon(type));
-    let noticeContainer = document.querySelector('[data-ac-notices]');
-    if (noticeContainer && element) {
-      noticeContainer.append(element);
-    }
+    setTimeout(() => {
+      let noticeContainer = document.querySelector('[data-ac-notices]');
+      if (noticeContainer && element) {
+        noticeContainer.append(element);
+      }
+    });
   });
   function div_binding($$value) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {

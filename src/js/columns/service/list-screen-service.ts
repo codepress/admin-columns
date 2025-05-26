@@ -11,7 +11,8 @@ import {
     listScreenDataHasChanges,
     listScreenDataStore,
     listScreenIsReadOnly,
-    listScreenIsStored
+    listScreenIsStored,
+    listScreenIsTemplate
 } from "../store";
 
 export const config = writable<{ [key: string]: AC.Vars.Settings.ColumnSetting[] }>({});
@@ -46,6 +47,7 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
         initialListScreenData.set(cloneDeep(listScreenData));
         listScreenDataHasChanges.set(false);
         listScreenIsStored.set(data.is_stored);
+        listScreenIsTemplate.set(data.is_template);
     } catch (error: any) {
         refreshState.error.set(error.message ?? 'Unknown error');
         throw error;

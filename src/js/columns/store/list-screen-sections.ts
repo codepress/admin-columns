@@ -8,7 +8,7 @@ type SectionsCollection = {
     [key: string]: Section[]
 }
 
-type Location = 'before_columns' | 'after_columns' | 'sidebar';
+type Location = 'before_columns' | 'after_columns' | 'sidebar' | 'notices';
 
 export default class ListScreenSections {
 

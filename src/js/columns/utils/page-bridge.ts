@@ -1,14 +1,18 @@
 import {Writable} from "svelte/store";
-import {currentListId, currentListKey} from "../store/current-list-screen";
-import {listScreenDataStore} from "../store/list-screen-data";
-import {listScreenIsReadOnly} from "../store/read_only";
-import {debugMode} from "../store/debug";
+import {
+    currentListId,
+    currentListKey,
+    debugMode,
+    listScreenDataStore,
+    listScreenIsReadOnly,
+    listScreenIsTemplate,
+    hasUsagePermissions
+} from "../store/";
 import {registerSettingType} from "../helper";
 import ListScreenSections from "../store/list-screen-sections";
-import {hasUsagePermissions} from "../store/permissions";
 
 export default class ColumnPageBridge {
-    private stores: { [key:string] : Writable<any> }
+    private stores: { [key: string]: Writable<any> }
 
     constructor() {
         this.stores = {
@@ -16,17 +20,18 @@ export default class ColumnPageBridge {
             currentListKey,
             listScreenDataStore,
             listScreenIsReadOnly,
+            listScreenIsTemplate,
             hasUsagePermissions,
             debugMode,
         }
     }
 
     addStore(name: string, store: Writable<any>) {
-        this.stores[ name ] = store;
+        this.stores[name] = store;
     }
 
     getStore(name: string) {
-        return this.stores[ name ];
+        return this.stores[name];
     }
 
     getTypes() {

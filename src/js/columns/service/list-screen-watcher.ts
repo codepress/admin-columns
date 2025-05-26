@@ -7,7 +7,7 @@ let debounceTimeout: ReturnType<typeof setTimeout>;
 function debounceRefresh(listKey: string, listId: string | null, delay = 300) {
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
-        refreshListScreenData(listKey, listId ?? '');
+        void refreshListScreenData(listKey, listId ?? '');
     }, delay);
 }
 

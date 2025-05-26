@@ -11,7 +11,10 @@
         listScreenDataHasChanges,
         listScreenDataStore,
         listScreenIsReadOnly,
-        openedColumnsStore
+        openedColumnsStore,
+        isLoadingColumnSettings,
+        listScreenIsStored,
+		listScreenIsTemplate
     } from "../store";
     import {createEventDispatcher, onMount, tick} from "svelte";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
@@ -21,10 +24,6 @@
     import ColumnTypeDropdownV2 from "./ColumnTypeDropdownV2.svelte";
     import {AcButton, AcDropdown, AcPanel, AcPanelFooter, AcPanelHeader, AcPanelTitle} from "ACUi/index";
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
-    import {isLoadingColumnSettings} from "../store/loading";
-    import {listScreenIsStored} from "../store/is_stored";
-
-
 
     const i18n = getColumnSettingsTranslation();
     const dispatch = createEventDispatcher();

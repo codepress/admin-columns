@@ -84,7 +84,9 @@
 			{#if typeof $listScreenDataStore !== 'undefined' && !$listScreenIsStored}
 				<AcNotice type="info" styled showIcon>{@html i18n.notices.not_saved_settings}</AcNotice>
 			{/if}
-
+			{#each ListScreenSections.getSections( 'notices' ) as component}
+				<HtmlSection component={component}></HtmlSection>
+			{/each}
 		</div>
 		<main class="ac-admin-page-main acu-px-4 acu-pt-2 2xl:acu-pt-[30px] 2xl:acu-px-[50px]">
 			<div class="acu-flex acu-flex-col-reverse xl:acu-gap-6 xl:acu-flex-row">
