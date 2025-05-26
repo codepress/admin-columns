@@ -4,26 +4,25 @@ namespace AC\Request\Middleware;
 
 use AC\Admin\Preference;
 use AC\ListScreen;
-use AC\ListScreenRepository\Storage;
+use AC\ListScreenRepository;
 use AC\Middleware;
 use AC\Request;
 use AC\TableScreen;
 use AC\Type\ListScreenId;
-use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use Exception;
 
 class ListScreenAdmin implements Middleware
 {
 
-    private Storage $storage;
+    private ListScreenRepository $storage;
 
     private TableScreen $table_screen;
 
     private Preference\ListScreen $preference;
 
     public function __construct(
-        Storage $storage,
+        ListScreenRepository $storage,
         TableScreen $table_screen,
         Preference\ListScreen $preference
     ) {
@@ -55,9 +54,7 @@ class ListScreenAdmin implements Middleware
     private function get_first_listscreen(): ?ListScreen
     {
         $list_screens = $this->storage->find_all_by_table_id(
-            $this->table_screen->get_id(),
-            null,
-            ListScreenStatus::create_active()
+            $this->table_screen->get_id()
         );
 
         return $list_screens->count() > 0

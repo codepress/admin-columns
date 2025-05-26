@@ -12,6 +12,7 @@ use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
 use AC\RequestAjaxHandler;
+use AC\TableScreen;
 use AC\Type\ListScreenId;
 use AC\Type\TableId;
 use InvalidArgumentException;
@@ -56,20 +57,8 @@ class ListScreenSettings implements RequestAjaxHandler
         }
     }
 
-    public function handle(): void
+    protected function add_middleware(Request $request, TableScreen $table_screen): void
     {
-        $this->validate();
-
-        $request = new Request();
-
-        $list_key = new TableId((string)$request->get('list_key'));
-
-        if ( ! $this->table_factory->can_create($list_key)) {
-            throw new InvalidArgumentException('Invalid table screen.');
-        }
-
-        $table_screen = $this->table_factory->create($list_key);
-
         $request->add_middleware(
             new Request\Middleware\ListScreenAdmin(
                 $this->storage,
@@ -77,6 +66,23 @@ class ListScreenSettings implements RequestAjaxHandler
                 $this->preference,
             )
         );
+    }
+
+    public function handle(): void
+    {
+        $this->validate();
+
+        $request = new Request();
+
+        $table_id = new TableId((string)$request->get('list_key'));
+
+        if ( ! $this->table_factory->can_create($table_id)) {
+            throw new InvalidArgumentException('Invalid table screen.');
+        }
+
+        $table_screen = $this->table_factory->create($table_id);
+
+        $this->add_middleware($request, $table_screen);
 
         $list_screen = $request->get('list_screen');
 
