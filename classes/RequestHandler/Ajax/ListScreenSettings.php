@@ -7,9 +7,9 @@ namespace AC\RequestHandler\Ajax;
 use AC;
 use AC\Admin\Preference;
 use AC\Capabilities;
+use AC\Form\NonceFactory;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
-use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Type\ListScreenId;
@@ -51,7 +51,7 @@ class ListScreenSettings implements RequestAjaxHandler
             $response->error();
         }
 
-        if ( ! (new Nonce\Ajax())->verify(new Request())) {
+        if ( ! NonceFactory::create_ajax()->verify(new Request())) {
             $response->error();
         }
     }

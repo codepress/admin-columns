@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AC\RequestHandler\Ajax;
 
+use AC\Form\NonceFactory;
 use AC\ListScreenRepository\Storage;
-use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
@@ -31,7 +31,7 @@ class ExtendedValue implements RequestAjaxHandler
         $request = new Request();
         $response = new Json();
 
-        if ( ! (new Nonce\Ajax())->verify($request)) {
+        if ( ! NonceFactory::create_ajax()->verify($request)) {
             $response->error();
         }
 

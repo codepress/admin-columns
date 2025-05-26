@@ -6,6 +6,7 @@ use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Capabilities;
+use AC\Form\NonceFactory;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Storage\Repository\EditorMenuStatus;
 use AC\Table\TableScreenCollection;
@@ -154,7 +155,7 @@ class Columns extends Script
 
         $this->add_inline_variable('ac_admin_columns', [
             'assets'                     => $this->parent_location->with_suffix('assets')->get_url(),
-            'nonce'                      => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
+            'nonce'                      => NonceFactory::create_ajax()->create(),
             'is_pro'                     => $this->is_pro,
             'list_key'                   => (string)$this->table_screen->get_id(),
             'list_id'                    => (string)$this->list_id,

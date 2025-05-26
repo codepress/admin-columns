@@ -3,6 +3,7 @@
 namespace AC\Admin\Asset\Script;
 
 use AC\AdminColumns;
+use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Script\Localize\Translation;
 use AC\Form\NonceFactory;
@@ -12,7 +13,7 @@ final class SettingsFactory
 
     public const HANDLE = 'ac-admin-page-settings';
 
-    private $location;
+    private Location $location;
 
     public function __construct(AdminColumns $plugins)
     {
@@ -40,7 +41,7 @@ final class SettingsFactory
             ),
         ];
 
-        $nonce = (new NonceFactory())->create_ajax();
+        $nonce = NonceFactory::create_ajax();
 
         $script = new Script(
             self::HANDLE,
