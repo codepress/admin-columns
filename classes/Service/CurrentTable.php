@@ -49,6 +49,12 @@ class CurrentTable implements Registerable
 
     public function handle(WP_Screen $wp_screen): void
     {
+        $user = wp_get_current_user();
+
+        if ( ! $user) {
+            return;
+        }
+
         if ( ! $this->table_screen_factory->can_create_from_wp_screen($wp_screen)) {
             return;
         }
@@ -61,7 +67,8 @@ class CurrentTable implements Registerable
             new Request\Middleware\ListScreenTable(
                 $this->storage,
                 $table_screen->get_id(),
-                $this->preference
+                $this->preference,
+                $user
             )
         );
 

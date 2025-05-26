@@ -41,14 +41,6 @@ trait ListScreenRepositoryTrait
         );
     }
 
-    // TODO add Sort
-    public function find_all_by_status(ListScreenStatus $status): ListScreenCollection
-    {
-        return (new Filter\ListScreenStatus($status))->filter(
-            $this->find_all_from_source()
-        );
-    }
-
     abstract protected function find_all_from_source(): ListScreenCollection;
 
     public function find_all_by_table_id(

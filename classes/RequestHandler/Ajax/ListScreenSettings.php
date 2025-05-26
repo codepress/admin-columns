@@ -12,7 +12,6 @@ use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
 use AC\RequestAjaxHandler;
-use AC\TableScreen;
 use AC\Type\ListScreenId;
 use AC\Type\TableId;
 use InvalidArgumentException;
@@ -57,7 +56,18 @@ class ListScreenSettings implements RequestAjaxHandler
         }
     }
 
-    protected function add_middleware(Request $request, TableScreen $table_screen): void
+    protected function set_preference(ListScreen $list_screen): void
+    {
+        $this->preference->set_last_visited_table($list_screen->get_table_id());
+        $this->preference->set_list_id($list_screen->get_table_id(), $list_screen->get_id());
+    }
+
+    protected function is_template(ListScreen $list_screen): bool
+    {
+        return false;
+    }
+
+    protected function add_middleware(Request $request, AC\TableScreen $table_screen): void
     {
         $request->add_middleware(
             new Request\Middleware\ListScreenAdmin(
@@ -87,7 +97,9 @@ class ListScreenSettings implements RequestAjaxHandler
         $list_screen = $request->get('list_screen');
 
         if ($list_screen instanceof ListScreen) {
-            $this->response_factory->create($list_screen)
+            $this->set_preference($list_screen);
+
+            $this->response_factory->create($list_screen, true, $this->is_template($list_screen))
                                    ->success();
         }
 
