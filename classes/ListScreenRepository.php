@@ -19,11 +19,6 @@ interface ListScreenRepository
 
     public function find_all(Sort $sort = null): ListScreenCollection;
 
-    // TODO
-    // public function find_all_by_network(bool $network = null): ListScreenCollection;
-
-    public function find_all_by_status(ListScreenStatus $type): ListScreenCollection;
-
     public function find_all_by_table_id(
         TableId $table_id,
         Sort $sort = null,

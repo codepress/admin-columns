@@ -9,7 +9,6 @@ use AC\Middleware;
 use AC\Request;
 use AC\TableScreen;
 use AC\Type\ListScreenId;
-use AC\Type\TableId;
 use Exception;
 
 class ListScreenAdmin implements Middleware
@@ -31,7 +30,7 @@ class ListScreenAdmin implements Middleware
         $this->preference = $preference;
     }
 
-    private function get_requested_list_screen(Request $request): ?ListScreen
+    private function get_requested_listscreen(Request $request): ?ListScreen
     {
         try {
             $id = new ListScreenId((string)$request->get('list_screen_id'));
@@ -75,7 +74,7 @@ class ListScreenAdmin implements Middleware
 
     public function handle(Request $request): void
     {
-        $list_screen = $this->get_requested_list_screen($request);
+        $list_screen = $this->get_requested_listscreen($request);
 
         if ( ! $list_screen) {
             $list_screen = $this->get_last_visited_listscreen();
@@ -85,19 +84,9 @@ class ListScreenAdmin implements Middleware
             $list_screen = $this->get_first_listscreen();
         }
 
-        if ($list_screen) {
-            $this->set_preference($list_screen->get_table_id(), $list_screen->get_id());
-        }
-
         $request->get_parameters()->merge([
             'list_screen' => $list_screen,
         ]);
-    }
-
-    private function set_preference(TableId $table_id, ListScreenId $id): void
-    {
-        $this->preference->set_last_visited_table($table_id);
-        $this->preference->set_list_id($table_id, $id);
     }
 
 }

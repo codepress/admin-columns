@@ -7,7 +7,6 @@ use AC\ListScreenCollection;
 use AC\Plugin\Version;
 use AC\Type\ColumnId;
 use AC\Type\ListScreenId;
-use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use AC\Type\Url;
 
@@ -61,9 +60,7 @@ if ( ! function_exists('ac_get_list_screens')) {
         }
 
         return Container::get_storage()->find_all_by_table_id(
-            new TableId($key),
-            null,
-            ListScreenStatus::create_active()
+            new TableId($key)
         );
     }
 }
