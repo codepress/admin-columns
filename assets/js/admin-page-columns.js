@@ -35557,6 +35557,8 @@ class ColumnPageBridge {
             listScreenIsTemplate: _store___WEBPACK_IMPORTED_MODULE_0__.listScreenIsTemplate,
             hasUsagePermissions: _store___WEBPACK_IMPORTED_MODULE_0__.hasUsagePermissions,
             debugMode: _store___WEBPACK_IMPORTED_MODULE_0__.debugMode,
+            listScreenIsStored: _store___WEBPACK_IMPORTED_MODULE_0__.listScreenIsStored,
+            listScreenDataHasChanges: _store___WEBPACK_IMPORTED_MODULE_0__.listScreenDataHasChanges
         };
     }
     addStore(name, store) {
