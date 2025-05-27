@@ -5,6 +5,7 @@ namespace AC\Table\Service;
 use AC;
 use AC\Registerable;
 use AC\Services;
+use AC\Table\InlineStyle\ColumnSize;
 use AC\Table\PrimaryColumnFactory;
 use AC\Table\TableFormView;
 
@@ -15,12 +16,12 @@ final class ListScreen implements Registerable
 
     private PrimaryColumnFactory $primary_column_factory;
 
-    private AC\Table\InlineStyle\ColumnSize $column_size;
+    private ColumnSize $column_size;
 
     public function __construct(
         AC\ListScreen $list_screen,
         PrimaryColumnFactory $primary_column_factory,
-        AC\Table\InlineStyle\ColumnSize $column_size
+        ColumnSize $column_size
     ) {
         $this->list_screen = $list_screen;
         $this->primary_column_factory = $primary_column_factory;

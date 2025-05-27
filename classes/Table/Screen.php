@@ -21,8 +21,6 @@ final class Screen implements Registerable
 
     private ?AC\ListScreen $list_screen;
 
-    private array $buttons = [];
-
     private array $screen_options = [];
 
     public function __construct(
@@ -43,11 +41,6 @@ final class Screen implements Registerable
         add_filter('admin_body_class', [$this, 'admin_class']);
         add_action('admin_footer', [$this, 'render_actions']);
         add_filter('screen_settings', [$this, 'screen_options']);
-    }
-
-    private function get_buttons(): array
-    {
-        return array_merge([], ...$this->buttons);
     }
 
     public function get_list_screen(): ?ListScreen
