@@ -5489,12 +5489,12 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[20] = list[i];
+  child_ctx[21] = list[i];
   return child_ctx;
 }
 function get_each_context_1(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[20] = list[i];
+  child_ctx[21] = list[i];
   return child_ctx;
 }
 
@@ -5508,10 +5508,10 @@ function create_if_block_7(ctx) {
       loading: /*isSaving*/ctx[3],
       softDisabled: /*isSaving*/ctx[3],
       disabled: ! /*$listScreenDataHasChanges*/ctx[7] && /*$listScreenIsStored*/ctx[8],
-      label: /*i18n*/ctx[12].editor.label.save
+      label: /*i18n*/ctx[13].editor.label.save
     }
   });
-  acbutton.$on("click", /*click_handler*/ctx[15]);
+  acbutton.$on("click", /*click_handler*/ctx[16]);
   return {
     c() {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acbutton.$$.fragment);
@@ -5546,7 +5546,7 @@ function create_if_block_7(ctx) {
 function create_default_slot_3(ctx) {
   let div;
   let a;
-  let t0_value = /*i18n*/ctx[12].editor.label.view + "";
+  let t0_value = /*i18n*/ctx[13].editor.label.view + "";
   let t0;
   let t1;
   let current;
@@ -5612,7 +5612,7 @@ function create_default_slot_3(ctx) {
   };
 }
 
-// (64:3) {#if $listScreenDataStore !== null && $listScreenIsReadOnly}
+// (64:3) {#if $listScreenDataStore !== null && $listScreenIsReadOnly && ! $listScreenIsTemplate}
 function create_if_block_6(ctx) {
   let acnotice;
   let current;
@@ -5639,7 +5639,7 @@ function create_if_block_6(ctx) {
     },
     p(ctx, dirty) {
       const acnotice_changes = {};
-      if (dirty & /*$$scope, $listScreenDataStore*/33554944) {
+      if (dirty & /*$$scope, $listScreenDataStore*/67109376) {
         acnotice_changes.$$scope = {
           dirty,
           ctx
@@ -5665,7 +5665,7 @@ function create_if_block_6(ctx) {
 // (65:4) <AcNotice type="info" styled showIcon>
 function create_default_slot_2(ctx) {
   let html_tag;
-  let raw_value = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.sprintf)(/*i18n*/ctx[12].editor.sentence.columns_read_only, `<strong>${/*$listScreenDataStore*/ctx[9]?.title}</strong>`) + "";
+  let raw_value = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.sprintf)(/*i18n*/ctx[13].editor.sentence.columns_read_only, `<strong>${/*$listScreenDataStore*/ctx[9]?.title}</strong>`) + "";
   let html_anchor;
   return {
     c() {
@@ -5678,7 +5678,7 @@ function create_default_slot_2(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, html_anchor, anchor);
     },
     p(ctx, dirty) {
-      if (dirty & /*$listScreenDataStore*/512 && raw_value !== (raw_value = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.sprintf)(/*i18n*/ctx[12].editor.sentence.columns_read_only, `<strong>${/*$listScreenDataStore*/ctx[9]?.title}</strong>`) + "")) html_tag.p(raw_value);
+      if (dirty & /*$listScreenDataStore*/512 && raw_value !== (raw_value = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_17__.sprintf)(/*i18n*/ctx[13].editor.sentence.columns_read_only, `<strong>${/*$listScreenDataStore*/ctx[9]?.title}</strong>`) + "")) html_tag.p(raw_value);
     },
     d(detaching) {
       if (detaching) {
@@ -5716,7 +5716,7 @@ function create_if_block_5(ctx) {
     },
     p(ctx, dirty) {
       const acnotice_changes = {};
-      if (dirty & /*$$scope*/33554432) {
+      if (dirty & /*$$scope*/67108864) {
         acnotice_changes.$$scope = {
           dirty,
           ctx
@@ -5742,7 +5742,7 @@ function create_if_block_5(ctx) {
 // (69:4) <AcNotice type="info" styled showIcon>
 function create_default_slot_1(ctx) {
   let html_tag;
-  let raw_value = /*i18n*/ctx[12].notices.not_saved_settings + "";
+  let raw_value = /*i18n*/ctx[13].notices.not_saved_settings + "";
   let html_anchor;
   return {
     c() {
@@ -5770,7 +5770,7 @@ function create_each_block_1(ctx) {
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
     props: {
-      component: /*component*/ctx[20]
+      component: /*component*/ctx[21]
     }
   });
   return {
@@ -5804,13 +5804,13 @@ function create_if_block_4(ctx) {
   let updating_data;
   let current;
   function listscreenform_isSaving_binding(value) {
-    /*listscreenform_isSaving_binding*/ctx[17](value);
+    /*listscreenform_isSaving_binding*/ctx[18](value);
   }
   function listscreenform_data_binding(value) {
-    /*listscreenform_data_binding*/ctx[18](value);
+    /*listscreenform_data_binding*/ctx[19](value);
   }
   let listscreenform_props = {
-    config: /*$config*/ctx[10],
+    config: /*$config*/ctx[11],
     locked: /*$listScreenIsReadOnly*/ctx[5] || ! /*$hasUsagePermissions*/ctx[6]
   };
   if (/*isSaving*/ctx[3] !== void 0) {
@@ -5823,7 +5823,7 @@ function create_if_block_4(ctx) {
     props: listscreenform_props
   });
   /*listscreenform_binding*/
-  ctx[16](listscreenform);
+  ctx[17](listscreenform);
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(listscreenform, 'isSaving', listscreenform_isSaving_binding));
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(listscreenform, 'data', listscreenform_data_binding));
   return {
@@ -5836,7 +5836,7 @@ function create_if_block_4(ctx) {
     },
     p(ctx, dirty) {
       const listscreenform_changes = {};
-      if (dirty & /*$config*/1024) listscreenform_changes.config = /*$config*/ctx[10];
+      if (dirty & /*$config*/2048) listscreenform_changes.config = /*$config*/ctx[11];
       if (dirty & /*$listScreenIsReadOnly, $hasUsagePermissions*/96) listscreenform_changes.locked = /*$listScreenIsReadOnly*/ctx[5] || ! /*$hasUsagePermissions*/ctx[6];
       if (!updating_isSaving && dirty & /*isSaving*/8) {
         updating_isSaving = true;
@@ -5860,7 +5860,7 @@ function create_if_block_4(ctx) {
       current = false;
     },
     d(detaching) {
-      /*listscreenform_binding*/ctx[16](null);
+      /*listscreenform_binding*/ctx[17](null);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(listscreenform, detaching);
     }
   };
@@ -5918,7 +5918,7 @@ function create_if_block_2(ctx) {
     },
     p(ctx, dirty) {
       const acpanel_changes = {};
-      if (dirty & /*$$scope, $listScreenDataStore*/33554944) {
+      if (dirty & /*$$scope, $listScreenDataStore*/67109376) {
         acpanel_changes.$$scope = {
           dirty,
           ctx
@@ -5984,7 +5984,7 @@ function create_each_block(ctx) {
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
     props: {
-      component: /*component*/ctx[20]
+      component: /*component*/ctx[21]
     }
   });
   return {
@@ -6018,7 +6018,7 @@ function create_if_block(ctx) {
   let t1;
   let supportpanel;
   let current;
-  let if_block = /*localConfig*/ctx[13].pro_banner && create_if_block_1(ctx);
+  let if_block = /*localConfig*/ctx[14].pro_banner && create_if_block_1(ctx);
   reviewcomponent = new _sidebar_review_ReviewComponent_svelte__WEBPACK_IMPORTED_MODULE_13__["default"]({});
   supportpanel = new _sidebar_SupportPanel_svelte__WEBPACK_IMPORTED_MODULE_14__["default"]({});
   return {
@@ -6038,7 +6038,7 @@ function create_if_block(ctx) {
       current = true;
     },
     p(ctx, dirty) {
-      if (/*localConfig*/ctx[13].pro_banner) if_block.p(ctx, dirty);
+      if (/*localConfig*/ctx[14].pro_banner) if_block.p(ctx, dirty);
     },
     i(local) {
       if (current) return;
@@ -6071,7 +6071,7 @@ function create_if_block_1(ctx) {
   let current;
   prosidebanner = new _sidebar_pro_banner_ProSideBanner_svelte__WEBPACK_IMPORTED_MODULE_11__["default"]({
     props: {
-      proBannerConfig: /*localConfig*/ctx[13].pro_banner
+      proBannerConfig: /*localConfig*/ctx[14].pro_banner
     }
   });
   return {
@@ -6138,8 +6138,8 @@ function create_fragment(ctx) {
       openedGroups: /*openedGroups*/ctx[1]
     }
   });
-  listscreenmenu.$on("itemSelect", /*handleMenuSelect*/ctx[14]);
-  let if_block0 = /*$listScreenDataStore*/ctx[9] !== null && /*$listScreenIsReadOnly*/ctx[5] && create_if_block_6(ctx);
+  listscreenmenu.$on("itemSelect", /*handleMenuSelect*/ctx[15]);
+  let if_block0 = /*$listScreenDataStore*/ctx[9] !== null && /*$listScreenIsReadOnly*/ctx[5] && ! /*$listScreenIsTemplate*/ctx[10] && create_if_block_6(ctx);
   let if_block1 = typeof /*$listScreenDataStore*/ctx[9] !== 'undefined' && ! /*$listScreenIsStored*/ctx[8] && create_if_block_5(ctx);
   let each_value_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(_store_list_screen_sections__WEBPACK_IMPORTED_MODULE_3__["default"].getSections('notices'));
   let each_blocks_1 = [];
@@ -6147,14 +6147,14 @@ function create_fragment(ctx) {
     each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
   }
   let if_block2 = /*$listScreenDataStore*/ctx[9] !== null && create_if_block_4(ctx);
-  let if_block3 = ! /*localConfig*/ctx[13].is_pro && create_if_block_3(ctx);
-  let if_block4 = /*$debugMode*/ctx[11] && create_if_block_2(ctx);
+  let if_block3 = ! /*localConfig*/ctx[14].is_pro && create_if_block_3(ctx);
+  let if_block4 = /*$debugMode*/ctx[12] && create_if_block_2(ctx);
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(_store_list_screen_sections__WEBPACK_IMPORTED_MODULE_3__["default"].getSections('sidebar'));
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
   }
-  let if_block5 = ! /*localConfig*/ctx[13].is_pro && create_if_block(ctx);
+  let if_block5 = ! /*localConfig*/ctx[14].is_pro && create_if_block(ctx);
   return {
     c() {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(adminheaderbar.$$.fragment);
@@ -6246,7 +6246,7 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       const adminheaderbar_changes = {};
-      if (dirty & /*$$scope, isSaving, $listScreenDataHasChanges, $listScreenIsStored, form, $listScreenIsReadOnly, $hasUsagePermissions, $currentTableUrl*/33554940) {
+      if (dirty & /*$$scope, isSaving, $listScreenDataHasChanges, $listScreenIsStored, form, $listScreenIsReadOnly, $hasUsagePermissions, $currentTableUrl*/67109372) {
         adminheaderbar_changes.$$scope = {
           dirty,
           ctx
@@ -6257,10 +6257,10 @@ function create_fragment(ctx) {
       if (dirty & /*menu*/1) listscreenmenu_changes.menu = /*menu*/ctx[0];
       if (dirty & /*openedGroups*/2) listscreenmenu_changes.openedGroups = /*openedGroups*/ctx[1];
       listscreenmenu.$set(listscreenmenu_changes);
-      if (/*$listScreenDataStore*/ctx[9] !== null && /*$listScreenIsReadOnly*/ctx[5]) {
+      if (/*$listScreenDataStore*/ctx[9] !== null && /*$listScreenIsReadOnly*/ctx[5] && ! /*$listScreenIsTemplate*/ctx[10]) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
-          if (dirty & /*$listScreenDataStore, $listScreenIsReadOnly*/544) {
+          if (dirty & /*$listScreenDataStore, $listScreenIsReadOnly, $listScreenIsTemplate*/1568) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
           }
         } else {
@@ -6314,10 +6314,10 @@ function create_fragment(ctx) {
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
-      if (/*$debugMode*/ctx[11]) {
+      if (/*$debugMode*/ctx[12]) {
         if (if_block4) {
           if_block4.p(ctx, dirty);
-          if (dirty & /*$debugMode*/2048) {
+          if (dirty & /*$debugMode*/4096) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block4, 1);
           }
         } else {
@@ -6333,7 +6333,7 @@ function create_fragment(ctx) {
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
-      if (! /*localConfig*/ctx[13].is_pro) if_block5.p(ctx, dirty);
+      if (! /*localConfig*/ctx[14].is_pro) if_block5.p(ctx, dirty);
     },
     i(local) {
       if (current) return;
@@ -6398,17 +6398,19 @@ function instance($$self, $$props, $$invalidate) {
   let $listScreenDataHasChanges;
   let $listScreenIsStored;
   let $listScreenDataStore;
+  let $listScreenIsTemplate;
   let $config;
   let $debugMode;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.currentListKey, $$value => $$invalidate(19, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.currentListKey, $$value => $$invalidate(20, $currentListKey = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.currentTableUrl, $$value => $$invalidate(4, $currentTableUrl = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.listScreenIsReadOnly, $$value => $$invalidate(5, $listScreenIsReadOnly = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.hasUsagePermissions, $$value => $$invalidate(6, $hasUsagePermissions = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.listScreenDataHasChanges, $$value => $$invalidate(7, $listScreenDataHasChanges = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.listScreenIsStored, $$value => $$invalidate(8, $listScreenIsStored = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.listScreenDataStore, $$value => $$invalidate(9, $listScreenDataStore = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _service_list_screen_service__WEBPACK_IMPORTED_MODULE_7__.config, $$value => $$invalidate(10, $config = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.debugMode, $$value => $$invalidate(11, $debugMode = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.listScreenIsTemplate, $$value => $$invalidate(10, $listScreenIsTemplate = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _service_list_screen_service__WEBPACK_IMPORTED_MODULE_7__.config, $$value => $$invalidate(11, $config = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.debugMode, $$value => $$invalidate(12, $debugMode = $$value));
   let {
     menu
   } = $$props;
@@ -6445,7 +6447,7 @@ function instance($$self, $$props, $$invalidate) {
     if ('menu' in $$props) $$invalidate(0, menu = $$props.menu);
     if ('openedGroups' in $$props) $$invalidate(1, openedGroups = $$props.openedGroups);
   };
-  return [menu, openedGroups, form, isSaving, $currentTableUrl, $listScreenIsReadOnly, $hasUsagePermissions, $listScreenDataHasChanges, $listScreenIsStored, $listScreenDataStore, $config, $debugMode, i18n, localConfig, handleMenuSelect, click_handler, listscreenform_binding, listscreenform_isSaving_binding, listscreenform_data_binding];
+  return [menu, openedGroups, form, isSaving, $currentTableUrl, $listScreenIsReadOnly, $hasUsagePermissions, $listScreenDataHasChanges, $listScreenIsStored, $listScreenDataStore, $listScreenIsTemplate, $config, $debugMode, i18n, localConfig, handleMenuSelect, click_handler, listscreenform_binding, listscreenform_isSaving_binding, listscreenform_data_binding];
 }
 class ColumnsPage extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
