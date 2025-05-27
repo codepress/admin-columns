@@ -5,8 +5,10 @@ import {
     debugMode,
     listScreenDataStore,
     listScreenIsReadOnly,
+    listScreenIsStored,
     listScreenIsTemplate,
-    hasUsagePermissions
+    hasUsagePermissions,
+    listScreenDataHasChanges
 } from "../store/";
 import {registerSettingType} from "../helper";
 import ListScreenSections from "../store/list-screen-sections";
@@ -23,6 +25,8 @@ export default class ColumnPageBridge {
             listScreenIsTemplate,
             hasUsagePermissions,
             debugMode,
+            listScreenIsStored,
+            listScreenDataHasChanges
         }
     }
 
