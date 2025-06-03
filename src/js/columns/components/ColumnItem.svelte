@@ -104,7 +104,7 @@
 		</div>
 		<div class="ac-column-header__label">
 			<strong on:click={toggle} on:keydown role="none">
-				<ColumnLabel bind:value={data.label} fallback={columnTypeLabel}/>
+				<ColumnLabel value={data.label??''} fallback={columnTypeLabel}/>
 			</strong>
 			<div class="ac-column-row-actions">
 				<a class="ac-column-row-action -edit" href={'#'} on:click|preventDefault={toggle}>Edit</a>

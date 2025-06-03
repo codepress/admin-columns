@@ -2167,10 +2167,10 @@ function create_if_block_2(ctx) {
   let updating_config;
   let current;
   function profeaturetoggles_data_binding(value) {
-    /*profeaturetoggles_data_binding*/ctx[18](value);
+    /*profeaturetoggles_data_binding*/ctx[17](value);
   }
   function profeaturetoggles_config_binding(value) {
-    /*profeaturetoggles_config_binding*/ctx[19](value);
+    /*profeaturetoggles_config_binding*/ctx[18](value);
   }
   let profeaturetoggles_props = {
     disabled: /*locked*/ctx[2]
@@ -2249,10 +2249,10 @@ function create_if_block(ctx) {
     }
   });
   function columnsettings_data_binding(value) {
-    /*columnsettings_data_binding*/ctx[22](value);
+    /*columnsettings_data_binding*/ctx[21](value);
   }
   function columnsettings_settings_binding(value) {
-    /*columnsettings_settings_binding*/ctx[23](value);
+    /*columnsettings_settings_binding*/ctx[22](value);
   }
   let columnsettings_props = {
     locked: /*locked*/ctx[2]
@@ -2291,7 +2291,7 @@ function create_if_block(ctx) {
     },
     p(ctx, dirty) {
       const columnsetting_changes = {};
-      if (dirty & /*$$scope, locked, data, config*/1073741831) {
+      if (dirty & /*$$scope, locked, data, config*/536870919) {
         columnsetting_changes.$$scope = {
           dirty,
           ctx
@@ -2374,10 +2374,10 @@ function create_default_slot(ctx) {
   let updating_columnConfig;
   let current;
   function typesetting_data_binding(value) {
-    /*typesetting_data_binding*/ctx[20](value);
+    /*typesetting_data_binding*/ctx[19](value);
   }
   function typesetting_columnConfig_binding(value) {
-    /*typesetting_columnConfig_binding*/ctx[21](value);
+    /*typesetting_columnConfig_binding*/ctx[20](value);
   }
   let typesetting_props = {
     disabled: /*locked*/ctx[2]
@@ -2513,7 +2513,6 @@ function create_fragment(ctx) {
   let div2;
   let strong;
   let columnlabel;
-  let updating_value;
   let t1;
   let div1;
   let a0;
@@ -2541,19 +2540,12 @@ function create_fragment(ctx) {
       size: "sm"
     }
   });
-  function columnlabel_value_binding(value) {
-    /*columnlabel_value_binding*/ctx[17](value);
-  }
-  let columnlabel_props = {
-    fallback: /*columnTypeLabel*/ctx[4]
-  };
-  if (/*data*/ctx[0].label !== void 0) {
-    columnlabel_props.value = /*data*/ctx[0].label;
-  }
   columnlabel = new _ColumnLabel_svelte__WEBPACK_IMPORTED_MODULE_13__["default"]({
-    props: columnlabel_props
+    props: {
+      value: /*data*/ctx[0].label ?? '',
+      fallback: /*columnTypeLabel*/ctx[4]
+    }
   });
-  svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(columnlabel, 'value', columnlabel_value_binding));
   let if_block0 = ! /*isOriginalColumn*/ctx[6] && create_if_block_5(ctx);
   let if_block1 = /*$showColumnInfo*/ctx[8] && create_if_block_4(ctx);
   let if_block2 = /*data*/ctx[0].width && /*data*/ctx[0].width_unit && create_if_block_3(ctx);
@@ -2644,12 +2636,8 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       const columnlabel_changes = {};
+      if (dirty & /*data*/1) columnlabel_changes.value = /*data*/ctx[0].label ?? '';
       if (dirty & /*columnTypeLabel*/16) columnlabel_changes.fallback = /*columnTypeLabel*/ctx[4];
-      if (!updating_value && dirty & /*data*/1) {
-        updating_value = true;
-        columnlabel_changes.value = /*data*/ctx[0].label;
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_value = false);
-      }
       columnlabel.$set(columnlabel_changes);
       if (! /*isOriginalColumn*/ctx[6]) {
         if (if_block0) {
@@ -2775,8 +2763,8 @@ function instance($$self, $$props, $$invalidate) {
   let $showColumnInfo;
   let $debugMode;
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.openedColumnsStore, $$value => $$invalidate(15, $openedColumnsStore = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.currentListKey, $$value => $$invalidate(24, $currentListKey = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.columnTypesStore, $$value => $$invalidate(25, $columnTypesStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.currentListKey, $$value => $$invalidate(23, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.columnTypesStore, $$value => $$invalidate(24, $columnTypesStore = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.showColumnInfo, $$value => $$invalidate(8, $showColumnInfo = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.debugMode, $$value => $$invalidate(9, $debugMode = $$value));
   let {
@@ -2850,12 +2838,6 @@ function instance($$self, $$props, $$invalidate) {
   function keydown_handler(event) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
   }
-  function columnlabel_value_binding(value) {
-    if ($$self.$$.not_equal(data.label, value)) {
-      data.label = value;
-      $$invalidate(0, data);
-    }
-  }
   function profeaturetoggles_data_binding(value) {
     data = value;
     $$invalidate(0, data);
@@ -2893,7 +2875,7 @@ function instance($$self, $$props, $$invalidate) {
       $: $$invalidate(7, opened = $openedColumnsStore.includes(data.name));
     }
   };
-  return [data, config, locked, checkAppliedSettings, columnTypeLabel, columnTypeName, isOriginalColumn, opened, $showColumnInfo, $debugMode, toggle, handleDelete, handleDuplicate, hasProfeatures, refreshSetting, $openedColumnsStore, keydown_handler, columnlabel_value_binding, profeaturetoggles_data_binding, profeaturetoggles_config_binding, typesetting_data_binding, typesetting_columnConfig_binding, columnsettings_data_binding, columnsettings_settings_binding];
+  return [data, config, locked, checkAppliedSettings, columnTypeLabel, columnTypeName, isOriginalColumn, opened, $showColumnInfo, $debugMode, toggle, handleDelete, handleDuplicate, hasProfeatures, refreshSetting, $openedColumnsStore, keydown_handler, profeaturetoggles_data_binding, profeaturetoggles_config_binding, typesetting_data_binding, typesetting_columnConfig_binding, columnsettings_data_binding, columnsettings_settings_binding];
 }
 class ColumnItem extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
