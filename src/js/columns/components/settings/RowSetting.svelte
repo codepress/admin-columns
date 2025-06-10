@@ -4,6 +4,7 @@
     import {ListScreenColumnData} from "../../../types/requests";
     import ColumnSettings from "../ColumnSettings.svelte";
     import ColumnInputSetting = AC.Column.Settings.ColumnInputSetting;
+    import {onMount} from "svelte";
 
     export let setting: AC.Column.Settings.AbstractColumnSetting;
     export let data: ListScreenColumnData;
@@ -20,7 +21,7 @@
 
 <ColumnSetting description={setting.description ?? ''} label={setting.label} {isSubComponent}>
 
-	{#if inputSetting.input}
+	{#if inputSetting.input && data[inputSetting.input?.name]}
 		<svelte:component
 			this={getInputType(inputSetting.input.type ?? '')}
 			bind:data={data}
