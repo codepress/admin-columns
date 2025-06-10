@@ -37,7 +37,7 @@ class PostFactory implements TableScreenFactory
 
     public function can_create(TableId $id): bool
     {
-        return null !== get_post_type_object((string)$id);
+        return $this->post_type_repository->exists((string)$id);
     }
 
     public function create(TableId $id): TableScreen
