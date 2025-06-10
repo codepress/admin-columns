@@ -1,7 +1,7 @@
 import {Writable, writable} from 'svelte/store';
 import {ListScreenData} from "../../types/requests";
 
-export interface ListScreenDataStore extends Writable<ListScreenData> {
+export interface ListScreenDataStore extends Writable<ListScreenData|null> {
     deleteColumn(columnName: string): void;
 }
 
