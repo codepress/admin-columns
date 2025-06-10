@@ -72,7 +72,8 @@ class CurrentTable implements Registerable
             )
         );
 
-        // TODO add templates...
+        do_action('ac/table/request', $request, $table_screen);
+
         $list_screen = $request->get('list_screen');
 
         do_action('ac/table/screen', $table_screen, $list_screen);
