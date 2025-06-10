@@ -239,7 +239,7 @@
 			{/if}
 
 			<div bind:this={sortableContainer}>
-				{#each data.columns as column_data(column_data.name)}
+				{#each data.columns as column_data (column_data.name)}
 
 					<ColumnItem
 						locked={locked}

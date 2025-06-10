@@ -26,6 +26,8 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
     isLoadingColumnSettings.set(true);
     refreshState.error.set(null);
 
+    listScreenDataStore.set(null);
+
     const abortController = new AbortController();
 
     try {
