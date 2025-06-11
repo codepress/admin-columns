@@ -86,6 +86,7 @@ class AdminColumns
             $services_fqn[] = Service\NoticeChecks::class;
             $services_fqn[] = PluginActionUpgrade::class;
             $services_fqn[] = Service\ColumnsMockup::class;
+            $services_fqn[] = Service\PluginUpdate::class;
         }
 
         $services = new Services();
