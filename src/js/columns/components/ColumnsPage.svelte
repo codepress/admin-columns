@@ -26,6 +26,7 @@
     import {AcNotice, AcPanel} from "ACUi/index";
     import {sprintf} from "@wordpress/i18n";
     import JSONTree from "svelte-json-tree";
+    import ListKeys from "../utils/list-keys";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -49,7 +50,7 @@
 
 <AdminHeaderBar title="Columns">
 	<div class="acu-flex acu-justify-end">
-		<a href="{$currentTableUrl}" class="acui-button acui-button-default acu-mr-2">{i18n.editor.label.view}</a>
+		<a href="{$currentTableUrl}" class="acui-button acui-button-default acu-mr-2">{i18n.editor.label.view} {ListKeys.getLabelForKey( $currentListKey ) ?? ''}</a>
 		{#if !$listScreenIsReadOnly && $hasUsagePermissions }
 			<AcButton
 				type="primary"
