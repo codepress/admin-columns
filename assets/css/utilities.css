@@ -390,6 +390,10 @@
   max-width: 1520px
 }
 
+.acu-max-w-\[1640px\] {
+  max-width: 1640px
+}
+
 .acu-max-w-\[260px\] {
   max-width: 260px
 }
@@ -742,6 +746,11 @@
   padding-right: 30px
 }
 
+.acu-px-\[0\] {
+  padding-left: 0;
+  padding-right: 0
+}
+
 .acu-px-\[20px\] {
   padding-left: 20px;
   padding-right: 20px
@@ -785,11 +794,6 @@
 .acu-py-\[2px\] {
   padding-top: 2px;
   padding-bottom: 2px
-}
-
-.acu-px-\[0\] {
-  padding-left: 0;
-  padding-right: 0
 }
 
 .acu-pb-10 {
@@ -995,11 +999,6 @@
   line-height: 1.375
 }
 
-.acu-text-\[\#135e96\] {
-  --tw-text-opacity: 1;
-  color: rgb(19 94 150 / var(--tw-text-opacity, 1))
-}
-
 .acu-text-\[\#777\] {
   --tw-text-opacity: 1;
   color: rgb(119 119 119 / var(--tw-text-opacity, 1))
@@ -1035,6 +1034,10 @@
   color: rgb(255 255 255 / var(--tw-text-opacity, 1))
 }
 
+.acu-text-\[--ac-link\] {
+  color: var(--ac-link)
+}
+
 .acu-text-\[white\] {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1))
@@ -1051,10 +1054,6 @@
 .acu-text-pink {
   --tw-text-opacity: 1;
   color: rgb(233 66 110 / var(--tw-text-opacity, 1))
-}
-
-.acu-text-\[--ac-link\] {
-  color: var(--ac-link)
 }
 
 .acu-underline {
