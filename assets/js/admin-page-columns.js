@@ -11328,7 +11328,7 @@ function create_default_slot(ctx) {
   let t;
   let if_block1_anchor;
   let current;
-  let if_block0 = /*inputSetting*/ctx[4].input && /*data*/ctx[0][/*inputSetting*/ctx[4].input?.name] && create_if_block_2(ctx);
+  let if_block0 = /*inputSetting*/ctx[4].input && create_if_block_2(ctx);
   let if_block1 = /*setting*/ctx[1].children && /*setting*/ctx[1].is_parent && create_if_block_1(ctx);
   return {
     c() {
@@ -11345,25 +11345,7 @@ function create_default_slot(ctx) {
       current = true;
     },
     p(ctx, dirty) {
-      if (/*inputSetting*/ctx[4].input && /*data*/ctx[0][/*inputSetting*/ctx[4].input?.name]) {
-        if (if_block0) {
-          if_block0.p(ctx, dirty);
-          if (dirty & /*data*/1) {
-            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
-          }
-        } else {
-          if_block0 = create_if_block_2(ctx);
-          if_block0.c();
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
-          if_block0.m(t.parentNode, t);
-        }
-      } else if (if_block0) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block0, 1, 1, () => {
-          if_block0 = null;
-        });
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
-      }
+      if (/*inputSetting*/ctx[4].input) if_block0.p(ctx, dirty);
       if (/*setting*/ctx[1].children && /*setting*/ctx[1].is_parent) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
