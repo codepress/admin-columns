@@ -74,7 +74,7 @@
 			on:itemSelect={handleMenuSelect}
 		/>
 	</aside>
-	<div class="acu-flex acu-flex-col acu-flex-grow">
+	<div class="acu-flex acu-flex-col acu-flex-grow acu-max-w-[1640px]">
 
 		<div class="acu-px-4 2xl:acu-px-[50px] acu-pt-[10px]" data-ac-notices>
 
