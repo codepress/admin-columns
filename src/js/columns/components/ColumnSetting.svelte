@@ -1,4 +1,6 @@
 <script lang="ts">
+    import {AcIcon, AcReferencedTooltip, AcTooltip} from "ACUi/index";
+
     export let description: string | null = null;
     export let label: string;
     export let extraClass: string = '';
@@ -31,7 +33,11 @@
 		<div class="acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px] acu-flex-shrink-0">
 			{label}
 			{#if attributes && attributes[ 'help-ref' ]}
-				sdfsdf
+				<AcReferencedTooltip reference="footer-thankyou">
+					<AcIcon icon="question"/>
+				</AcReferencedTooltip>
+
+
 			{/if}
 		</div>
 
