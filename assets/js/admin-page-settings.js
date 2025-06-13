@@ -3865,7 +3865,7 @@ function create_if_block(ctx) {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div.innerHTML = ``;
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acui-tooltip-content");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acui-tooltip-content -reference acu-shadow");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "is-top", /*position*/ctx[1] === 'top');
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "is-bottom", /*position*/ctx[1] === 'bottom');
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "is-right", /*position*/ctx[1] === 'right');

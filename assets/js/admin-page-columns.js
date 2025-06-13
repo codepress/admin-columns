@@ -3236,6 +3236,7 @@ function create_if_block_3(ctx) {
   acreferencedtooltip = new ACUi_index__WEBPACK_IMPORTED_MODULE_2__.AcReferencedTooltip({
     props: {
       reference: /*attributes*/ctx[4]['help-ref'],
+      position: "right",
       $$slots: {
         default: [create_default_slot]
       },
@@ -3278,7 +3279,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (34:4) <AcReferencedTooltip reference={attributes[ 'help-ref' ]}>
+// (34:4) <AcReferencedTooltip reference={attributes[ 'help-ref' ]} position="right">
 function create_default_slot(ctx) {
   let acicon;
   let current;
@@ -3311,7 +3312,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (48:3) {#if description}
+// (46:3) {#if description}
 function create_if_block_2(ctx) {
   let small;
   return {
@@ -20719,7 +20720,7 @@ function create_if_block(ctx) {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div.innerHTML = ``;
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acui-tooltip-content");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acui-tooltip-content -reference acu-shadow");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "is-top", /*position*/ctx[1] === 'top');
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "is-bottom", /*position*/ctx[1] === 'bottom');
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "is-right", /*position*/ctx[1] === 'right');

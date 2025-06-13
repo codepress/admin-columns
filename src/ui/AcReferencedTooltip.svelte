@@ -78,7 +78,7 @@
 	</div>
 	{#if active || 1 === 1 }
 		<div
-			class="acui-tooltip-content"
+			class="acui-tooltip-content -reference acu-shadow"
 			class:is-top={ position === 'top'}
 			class:is-bottom={ position === 'bottom'}
 			class:is-right={ position === 'right'}

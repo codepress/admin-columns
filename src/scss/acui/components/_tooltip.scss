@@ -51,7 +51,7 @@
 	font-size: 11px;
 	line-height: 16px;
 	z-index: 100000;
-	width :max-content;
+	width: max-content;
 	white-space: normal;
 	overflow-wrap: break-word;
 	word-wrap: break-word;
@@ -118,6 +118,14 @@
 		}
 	}
 
+	&.-reference {
+		background: #fff;
+		width: 250px;
+		color: var(--ac-text-color);
+		pointer-events: all;
+		border: 1px solid var(--ac-border-grey);
+		font-weight: normal;
+	}
 
 	&.hover {
 		opacity: 1;
