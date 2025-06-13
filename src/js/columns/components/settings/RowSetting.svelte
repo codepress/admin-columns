@@ -12,13 +12,15 @@
 
     let inputSetting = setting as ColumnInputSetting;
 
+    console.log( inputSetting);
+
     const getInputType = (type: string) => {
         return getInputComponent(type);
     }
 
 </script>
 
-<ColumnSetting description={setting.description ?? ''} label={setting.label} {isSubComponent}>
+<ColumnSetting description={setting.description ?? ''} label={setting.label} {isSubComponent} attributes={setting.attributes??{}}>
 
 	{#if inputSetting.input}
 		<svelte:component

@@ -3,6 +3,7 @@
     export let label: string;
     export let extraClass: string = '';
     export let isSubComponent: boolean = false;
+    export let attributes: null | Record<string, any> = null;
 </script>
 
 {#if isSubComponent}
@@ -29,6 +30,9 @@
 
 		<div class="acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px] acu-flex-shrink-0">
 			{label}
+			{#if attributes && attributes[ 'help-ref' ]}
+				sdfsdf
+			{/if}
 		</div>
 
 		<div class="acp-column-setting__value acu-flex-grow acu-py-1">

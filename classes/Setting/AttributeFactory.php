@@ -14,4 +14,9 @@ final class AttributeFactory
         return new Attribute('refresh', 'config');
     }
 
+    public static function create_help_reference(string $reference): Attribute
+    {
+        return new Attribute('help-ref', $reference);
+    }
+
 }

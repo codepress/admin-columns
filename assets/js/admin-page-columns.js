@@ -3041,23 +3041,27 @@ function create_else_block(ctx) {
   let div0;
   let t0;
   let t1;
-  let div1;
   let t2;
+  let div1;
+  let t3;
   let div2_class_value;
   let current;
-  const default_slot_template = /*#slots*/ctx[5].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[4], null);
-  let if_block = /*description*/ctx[0] && create_if_block_2(ctx);
+  let if_block0 = /*attributes*/ctx[4] && /*attributes*/ctx[4]['help-ref'] && create_if_block_3(ctx);
+  const default_slot_template = /*#slots*/ctx[6].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[5], null);
+  let if_block1 = /*description*/ctx[0] && create_if_block_2(ctx);
   return {
     c() {
       div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*label*/ctx[1]);
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block0) if_block0.c();
+      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       if (default_slot) default_slot.c();
-      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      if (if_block) if_block.c();
+      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block1) if_block1.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px] acu-flex-shrink-0");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acp-column-setting__value acu-flex-grow acu-py-1");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", div2_class_value = "acp-column-setting lg:acu-flex acu-px-6 acu-mb-2 " + /*extraClass*/ctx[2]);
@@ -3066,33 +3070,45 @@ function create_else_block(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div2, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, t0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, t1);
+      if (if_block0) if_block0.m(div0, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div1);
       if (default_slot) {
         default_slot.m(div1, null);
       }
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t2);
-      if (if_block) if_block.m(div1, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t3);
+      if (if_block1) if_block1.m(div1, null);
       current = true;
     },
     p(ctx, dirty) {
       if (!current || dirty & /*label*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, /*label*/ctx[1]);
+      if (/*attributes*/ctx[4] && /*attributes*/ctx[4]['help-ref']) {
+        if (if_block0) {} else {
+          if_block0 = create_if_block_3(ctx);
+          if_block0.c();
+          if_block0.m(div0, null);
+        }
+      } else if (if_block0) {
+        if_block0.d(1);
+        if_block0 = null;
+      }
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/16)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[4], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[4]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[4], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/32)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[5], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[5]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[5], dirty, null), null);
         }
       }
       if (/*description*/ctx[0]) {
-        if (if_block) {
-          if_block.p(ctx, dirty);
+        if (if_block1) {
+          if_block1.p(ctx, dirty);
         } else {
-          if_block = create_if_block_2(ctx);
-          if_block.c();
-          if_block.m(div1, null);
+          if_block1 = create_if_block_2(ctx);
+          if_block1.c();
+          if_block1.m(div1, null);
         }
-      } else if (if_block) {
-        if_block.d(1);
-        if_block = null;
+      } else if (if_block1) {
+        if_block1.d(1);
+        if_block1 = null;
       }
       if (!current || dirty & /*extraClass*/4 && div2_class_value !== (div2_class_value = "acp-column-setting lg:acu-flex acu-px-6 acu-mb-2 " + /*extraClass*/ctx[2])) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", div2_class_value);
@@ -3111,13 +3127,14 @@ function create_else_block(ctx) {
       if (detaching) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div2);
       }
+      if (if_block0) if_block0.d();
       if (default_slot) default_slot.d(detaching);
-      if (if_block) if_block.d();
+      if (if_block1) if_block1.d();
     }
   };
 }
 
-// (7:0) {#if isSubComponent}
+// (8:0) {#if isSubComponent}
 function create_if_block(ctx) {
   let div2;
   let div0;
@@ -3127,8 +3144,8 @@ function create_if_block(ctx) {
   let t2;
   let div2_class_value;
   let current;
-  const default_slot_template = /*#slots*/ctx[5].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[4], null);
+  const default_slot_template = /*#slots*/ctx[6].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[5], null);
   let if_block = /*description*/ctx[0] && create_if_block_1(ctx);
   return {
     c() {
@@ -3160,8 +3177,8 @@ function create_if_block(ctx) {
     p(ctx, dirty) {
       if (!current || dirty & /*label*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, /*label*/ctx[1]);
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/16)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[4], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[4]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[4], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/32)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[5], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[5]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[5], dirty, null), null);
         }
       }
       if (/*description*/ctx[0]) {
@@ -3199,7 +3216,25 @@ function create_if_block(ctx) {
   };
 }
 
-// (39:3) {#if description}
+// (32:3) {#if attributes && attributes[ 'help-ref' ]}
+function create_if_block_3(ctx) {
+  let t;
+  return {
+    c() {
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("sdfsdf");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+      }
+    }
+  };
+}
+
+// (43:3) {#if description}
 function create_if_block_2(ctx) {
   let small;
   return {
@@ -3223,7 +3258,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (20:3) {#if description}
+// (21:3) {#if description}
 function create_if_block_1(ctx) {
   let small;
   return {
@@ -3325,14 +3360,18 @@ function instance($$self, $$props, $$invalidate) {
   let {
     isSubComponent = false
   } = $$props;
+  let {
+    attributes = null
+  } = $$props;
   $$self.$$set = $$props => {
     if ('description' in $$props) $$invalidate(0, description = $$props.description);
     if ('label' in $$props) $$invalidate(1, label = $$props.label);
     if ('extraClass' in $$props) $$invalidate(2, extraClass = $$props.extraClass);
     if ('isSubComponent' in $$props) $$invalidate(3, isSubComponent = $$props.isSubComponent);
-    if ('$$scope' in $$props) $$invalidate(4, $$scope = $$props.$$scope);
+    if ('attributes' in $$props) $$invalidate(4, attributes = $$props.attributes);
+    if ('$$scope' in $$props) $$invalidate(5, $$scope = $$props.$$scope);
   };
-  return [description, label, extraClass, isSubComponent, $$scope, slots];
+  return [description, label, extraClass, isSubComponent, attributes, $$scope, slots];
 }
 class ColumnSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -3341,7 +3380,8 @@ class ColumnSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteC
       description: 0,
       label: 1,
       extraClass: 2,
-      isSubComponent: 3
+      isSubComponent: 3,
+      attributes: 4
     });
   }
 }
@@ -11288,7 +11328,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (27:1) {#if setting.children && setting.is_parent }
+// (28:1) {#if setting.children && setting.is_parent }
 function create_if_block_1(ctx) {
   let div;
   let columnsettings;
@@ -11351,7 +11391,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (14:0) <ColumnSetting description={setting.description ?? ''} label={setting.label} {isSubComponent}>
+// (15:0) <ColumnSetting description={setting.description ?? ''} label={setting.label} {isSubComponent} attributes={setting.attributes??{}}>
 function create_default_slot(ctx) {
   let t;
   let if_block1_anchor;
@@ -11416,7 +11456,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (41:0) {#if setting.children && !setting.is_parent }
+// (42:0) {#if setting.children && !setting.is_parent }
 function create_if_block(ctx) {
   let columnsettings;
   let updating_data;
@@ -11480,6 +11520,7 @@ function create_fragment(ctx) {
       description: /*setting*/ctx[1].description ?? '',
       label: /*setting*/ctx[1].label,
       isSubComponent: /*isSubComponent*/ctx[2],
+      attributes: /*setting*/ctx[1].attributes ?? {},
       $$slots: {
         default: [create_default_slot]
       },
@@ -11508,6 +11549,7 @@ function create_fragment(ctx) {
       if (dirty & /*setting*/2) columnsetting_changes.description = /*setting*/ctx[1].description ?? '';
       if (dirty & /*setting*/2) columnsetting_changes.label = /*setting*/ctx[1].label;
       if (dirty & /*isSubComponent*/4) columnsetting_changes.isSubComponent = /*isSubComponent*/ctx[2];
+      if (dirty & /*setting*/2) columnsetting_changes.attributes = /*setting*/ctx[1].attributes ?? {};
       if (dirty & /*$$scope, setting, disabled, data*/8203) {
         columnsetting_changes.$$scope = {
           dirty,
@@ -11570,6 +11612,7 @@ function instance($$self, $$props, $$invalidate) {
     disabled = false
   } = $$props;
   let inputSetting = setting;
+  console.log(inputSetting);
   const getInputType = type => {
     return (0,_helper__WEBPACK_IMPORTED_MODULE_3__.getInputComponent)(type);
   };
