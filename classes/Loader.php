@@ -166,8 +166,7 @@ class Loader
             'ac-persist-admin-general-option' => Ajax\AdminGeneralOptionsPersist::class,
             'ac-get-admin-general-option'     => Ajax\AdminGeneralOptionsGet::class,
             'ac-restore-settings'             => Ajax\RestoreSettingsRequest::class,
-            // TODO move to PRO
-            'acp-integration-toggle'          => Ajax\IntegrationToggle::class,
+            'ac-integration-toggle'           => Ajax\IntegrationToggle::class,
             'ac-integrations'                 => Ajax\Integrations::class,
         ];
 

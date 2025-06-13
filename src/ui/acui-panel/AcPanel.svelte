@@ -7,6 +7,7 @@
     export let title: string | undefined = '';
     export let classNames: string[] = [];
     export let containerClass: boolean = false;
+    export let id: string = null;
 
     let classes = ['acu-bg-[white]', 'acu-border', 'acu-border-solid', 'acu-border-ui-border', 'acu-mb-[15px]'];
 
@@ -28,7 +29,7 @@
 
     classes.push(...classNames);
 </script>
-<div class="{classes.join(' ')}">
+<div class="{classes.join(' ')}" {id}>
 	{#if title }
 		<AcPanelHeader title={title}/>
 	{/if}

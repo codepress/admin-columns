@@ -10,7 +10,6 @@ use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Storage\Repository\IntegrationStatus;
 
-// TODO move to PRO
 class IntegrationToggle implements RequestAjaxHandler
 {
 

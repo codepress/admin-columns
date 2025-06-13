@@ -39,7 +39,7 @@ type ToggleIntegrationStatusArgs = {
 
 export const toggleIntegrationStatus = (args: ToggleIntegrationStatusArgs): AxiosPromise<FetchIntegrationsResponse> => {
     const data = new FormData()
-    data.append('action', 'acp-integration-toggle');
+    data.append('action', 'ac-integration-toggle');
     data.append('integration', args.integration);
     data.append('_ajax_nonce', getAddonsConfig()._ajax_nonce);
 
