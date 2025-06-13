@@ -33,7 +33,7 @@
 		<div class="acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px] acu-flex-shrink-0">
 			{label}
 			{#if attributes && attributes[ 'help-ref' ]}
-				<AcReferencedTooltip reference={attributes[ 'help-ref' ]} position="right">
+				<AcReferencedTooltip reference={attributes[ 'help-ref' ]} position="right" closeDelay="1000">
 					<AcIcon icon="question"/>
 				</AcReferencedTooltip>
 			{/if}

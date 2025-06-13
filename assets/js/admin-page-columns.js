@@ -3237,6 +3237,7 @@ function create_if_block_3(ctx) {
     props: {
       reference: /*attributes*/ctx[4]['help-ref'],
       position: "right",
+      closeDelay: "1000",
       $$slots: {
         default: [create_default_slot]
       },
@@ -3279,7 +3280,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (34:4) <AcReferencedTooltip reference={attributes[ 'help-ref' ]} position="right">
+// (34:4) <AcReferencedTooltip reference={attributes[ 'help-ref' ]} position="right" closeDelay="1000">
 function create_default_slot(ctx) {
   let acicon;
   let current;
@@ -20716,10 +20717,13 @@ function create_if_block(ctx) {
   let div_intro;
   let div_outro;
   let current;
+  let mounted;
+  let dispose;
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div.innerHTML = ``;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "role", "none");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acui-tooltip-content -reference acu-shadow");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "is-top", /*position*/ctx[1] === 'top');
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "is-bottom", /*position*/ctx[1] === 'bottom');
@@ -20733,8 +20737,12 @@ function create_if_block(ctx) {
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
       /*div_binding*/
-      ctx[14](div);
+      ctx[16](div);
       current = true;
+      if (!mounted) {
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "mouseleave", /*handleContentMouseOut*/ctx[7]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "mouseenter", /*handleContentMouseEnter*/ctx[6])];
+        mounted = true;
+      }
     },
     p(ctx, dirty) {
       if (!current || dirty & /*position*/2) {
@@ -20791,8 +20799,10 @@ function create_if_block(ctx) {
       }
 
       /*div_binding*/
-      ctx[14](null);
+      ctx[16](null);
       if (detaching && div_outro) div_outro.end();
+      mounted = false;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
     }
   };
 }
@@ -20803,8 +20813,8 @@ function create_fragment(ctx) {
   let current;
   let mounted;
   let dispose;
-  const default_slot_template = /*#slots*/ctx[12].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[11], null);
+  const default_slot_template = /*#slots*/ctx[14].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[13], null);
   let if_block = (/*active*/ctx[0] || 1 === 1) && create_if_block(ctx);
   return {
     c() {
@@ -20825,19 +20835,19 @@ function create_fragment(ctx) {
       }
 
       /*div0_binding*/
-      ctx[13](div0);
+      ctx[15](div0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t);
       if (if_block) if_block.m(div1, null);
       current = true;
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "mouseenter", /*handleMouseEnter*/ctx[5]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "mouseleave", /*handleMouseOut*/ctx[6])];
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "mouseenter", /*handleMouseEnter*/ctx[5]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "mouseleave", /*handleMouseOut*/ctx[8])];
         mounted = true;
       }
     },
     p(ctx, [dirty]) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/2048)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[11], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[11]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[11], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/8192)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[13], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[13]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[13], dirty, null), null);
         }
       }
       if (/*active*/ctx[0] || 1 === 1) {
@@ -20871,7 +20881,7 @@ function create_fragment(ctx) {
       }
       if (default_slot) default_slot.d(detaching);
       /*div0_binding*/
-      ctx[13](null);
+      ctx[15](null);
       if (if_block) if_block.d();
       mounted = false;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
@@ -20953,6 +20963,14 @@ function instance($$self, $$props, $$invalidate) {
     clearTimeout(timeoutOut);
     timeoutIn = setTimeout(toggleOn, delay);
   });
+  const handleContentMouseEnter = () => __awaiter(void 0, void 0, void 0, function* () {
+    clearTimeout(timeoutOut);
+    clearTimeout(timeoutIn);
+  });
+  const handleContentMouseOut = () => __awaiter(void 0, void 0, void 0, function* () {
+    clearTimeout(timeoutIn);
+    timeoutIn = setTimeout(toggleOff, 0);
+  });
   const handleMouseOut = () => {
     clearTimeout(timeoutIn);
     timeoutIn = setTimeout(toggleOff, closeDelay);
@@ -20990,26 +21008,26 @@ function instance($$self, $$props, $$invalidate) {
     });
   }
   $$self.$$set = $$props => {
-    if ('reference' in $$props) $$invalidate(7, reference = $$props.reference);
+    if ('reference' in $$props) $$invalidate(9, reference = $$props.reference);
     if ('active' in $$props) $$invalidate(0, active = $$props.active);
-    if ('appendToBody' in $$props) $$invalidate(8, appendToBody = $$props.appendToBody);
-    if ('delay' in $$props) $$invalidate(9, delay = $$props.delay);
-    if ('closeDelay' in $$props) $$invalidate(10, closeDelay = $$props.closeDelay);
+    if ('appendToBody' in $$props) $$invalidate(10, appendToBody = $$props.appendToBody);
+    if ('delay' in $$props) $$invalidate(11, delay = $$props.delay);
+    if ('closeDelay' in $$props) $$invalidate(12, closeDelay = $$props.closeDelay);
     if ('position' in $$props) $$invalidate(1, position = $$props.position);
     if ('size' in $$props) $$invalidate(2, size = $$props.size);
-    if ('$$scope' in $$props) $$invalidate(11, $$scope = $$props.$$scope);
+    if ('$$scope' in $$props) $$invalidate(13, $$scope = $$props.$$scope);
   };
-  return [active, position, size, contentEl, triggerEl, handleMouseEnter, handleMouseOut, reference, appendToBody, delay, closeDelay, $$scope, slots, div0_binding, div_binding];
+  return [active, position, size, contentEl, triggerEl, handleMouseEnter, handleContentMouseEnter, handleContentMouseOut, handleMouseOut, reference, appendToBody, delay, closeDelay, $$scope, slots, div0_binding, div_binding];
 }
 class AcReferencedTooltip extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      reference: 7,
+      reference: 9,
       active: 0,
-      appendToBody: 8,
-      delay: 9,
-      closeDelay: 10,
+      appendToBody: 10,
+      delay: 11,
+      closeDelay: 12,
       position: 1,
       size: 2
     });
