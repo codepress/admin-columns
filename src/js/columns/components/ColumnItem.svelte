@@ -116,7 +116,6 @@
 		</div>
 		{#if $showColumnInfo}
 			<div class="acu-flex acu-flex-col acu-text-right acu-pr-2 acu-text-[#999] acu-leading-snug">
-				<small><strong class="acu-text-[#777] acu-pr-1">type:</strong>{columnTypeName}</small>
 				<small><strong class="acu-text-[#777] acu-pr-1">name:</strong>{data.name}</small>
 			</div>
 		{/if}
@@ -124,9 +123,9 @@
 		<div class="ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end">
 
 			{#if data.width && data.width_unit}
-				{data.width} {data.width_unit}
+				<span class="acu-font-mono acu-text-[10px]">{data.width}{data.width_unit}</span>
 			{/if}
-			<div class="acu-pr-2 acu-pl-2 acu-uppercase acu-text-[#aaa] acu-font-bold acu-text-[10px]">
+			<div class="acu-pr-2 acu-pl-2 acu-uppercase acu-text-[#bbb] acu-font-bold acu-text-[10px] acu-tracking-tight">
 				{columnTypeLabel}
 			</div>
 			{#if hasProfeatures( config )}
@@ -134,7 +133,7 @@
 			{/if}
 		</div>
 		<div class="ac-column-header__open-indicator acu-flex acu-justify-end">
-			<button class="ac-open-indicator" class:-open={opened} on:click={toggle}>
+			<button class="ac-open-indicator" class:-open={opened} on:click|stopPropagation={toggle}>
 				<span class="dashicons dashicons-arrow-down-alt2"></span>
 			</button>
 		</div>

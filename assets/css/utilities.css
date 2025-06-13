@@ -1011,6 +1011,14 @@
   line-height: 1.375
 }
 
+.acu-tracking-tight {
+  letter-spacing: -0.025em
+}
+
+.acu-tracking-tighter {
+  letter-spacing: -0.05em
+}
+
 .acu-text-\[\#777\] {
   --tw-text-opacity: 1;
   color: rgb(119 119 119 / var(--tw-text-opacity, 1))
@@ -1071,6 +1079,16 @@
 .acu-text-\[\#aaa\] {
   --tw-text-opacity: 1;
   color: rgb(170 170 170 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#bbb\] {
+  --tw-text-opacity: 1;
+  color: rgb(187 187 187 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#475569\] {
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity, 1))
 }
 
 .acu-underline {
