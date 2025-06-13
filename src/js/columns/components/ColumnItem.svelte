@@ -98,7 +98,7 @@
 </script>
 
 <div class="ac-column" class:-opened={opened} data-name={data.name}>
-	<header class="ac-column-header acu-flex acu-py-2 acu-pr-6 rtl:acu-pl-6 acu-items-center acu-bg-[#fff]">
+	<header class="ac-column-header acu-flex acu-py-2 acu-pr-6 rtl:acu-pl-6 acu-items-center acu-bg-[#fff]" on:click={toggle} on:keydown role="none">
 		<div class="ac-column-header__move acu-cursor-move">
 			<AcIcon icon="move" size="sm"/>
 		</div>
@@ -107,11 +107,11 @@
 				<ColumnLabel value={data.label??''} fallback={columnTypeLabel}/>
 			</strong>
 			<div class="ac-column-row-actions">
-				<a class="ac-column-row-action -edit" href={'#'} on:click|preventDefault={toggle}>Edit</a>
+				<a class="ac-column-row-action -edit" href={'#'} on:click|preventDefault|stopPropagation={toggle}>Edit</a>
 				{#if !isOriginalColumn}
-					<a class="ac-column-row-action -duplicate" href={'#'} on:click|preventDefault={handleDuplicate}>Duplicate</a>
+					<a class="ac-column-row-action -duplicate" href={'#'} on:click|preventDefault|stopPropagation={handleDuplicate}>Duplicate</a>
 				{/if}
-				<a class="ac-column-row-action -delete" href={'#'} on:click|preventDefault={handleDelete}>Delete</a>
+				<a class="ac-column-row-action -delete" href={'#'} on:click|preventDefault|stopPropagation={handleDelete}>Delete</a>
 			</div>
 		</div>
 		{#if $showColumnInfo}
@@ -120,10 +120,15 @@
 				<small><strong class="acu-text-[#777] acu-pr-1">name:</strong>{data.name}</small>
 			</div>
 		{/if}
+
 		<div class="ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end">
+
 			{#if data.width && data.width_unit}
 				{data.width} {data.width_unit}
 			{/if}
+			<div class="acu-pr-2 acu-pl-2 acu-uppercase acu-text-[#aaa] acu-font-bold acu-text-[10px]">
+				{columnTypeLabel}
+			</div>
 			{#if hasProfeatures( config )}
 				<ProFeatureToggles bind:data={data} bind:config={config} disabled={locked}/>
 			{/if}

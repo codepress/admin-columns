@@ -900,6 +900,10 @@
   padding-top: 70px
 }
 
+.acu-pl-2 {
+  padding-left: 10px
+}
+
 .acu-text-left {
   text-align: left
 }
@@ -957,6 +961,14 @@
 .acu-text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem
+}
+
+.acu-text-\[13px\] {
+  font-size: 13px
+}
+
+.acu-text-\[10px\] {
+  font-size: 10px
 }
 
 .acu-font-bold {
@@ -1054,6 +1066,11 @@
 .acu-text-pink {
   --tw-text-opacity: 1;
   color: rgb(233 66 110 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#aaa\] {
+  --tw-text-opacity: 1;
+  color: rgb(170 170 170 / var(--tw-text-opacity, 1))
 }
 
 .acu-underline {
