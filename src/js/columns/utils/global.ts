@@ -36,7 +36,6 @@ type AdminColumnsI18n = {
             status: {
                 status: string
                 description: string
-                active: string
             }
             conditionals: {
                 conditionals: string

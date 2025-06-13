@@ -263,7 +263,6 @@ class Columns extends Script
                                 'Toggle to show or hide this view on the list table.',
                                 'codepress-admin-columns'
                             ),
-                            'active'      => '',
                         ],
                         'conditionals' => [
                             'select_roles' => __('Select roles', 'codepress-admin-columns'),
