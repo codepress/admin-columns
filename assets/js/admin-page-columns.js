@@ -3087,6 +3087,7 @@ function create_else_block(ctx) {
       if (!current || dirty & /*label*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, /*label*/ctx[1]);
       if (/*attributes*/ctx[4] && /*attributes*/ctx[4]['help-ref']) {
         if (if_block0) {
+          if_block0.p(ctx, dirty);
           if (dirty & /*attributes*/16) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
           }
@@ -3234,7 +3235,7 @@ function create_if_block_3(ctx) {
   let current;
   acreferencedtooltip = new ACUi_index__WEBPACK_IMPORTED_MODULE_2__.AcReferencedTooltip({
     props: {
-      reference: "footer-thankyou",
+      reference: /*attributes*/ctx[4]['help-ref'],
       $$slots: {
         default: [create_default_slot]
       },
@@ -3251,6 +3252,17 @@ function create_if_block_3(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acreferencedtooltip, target, anchor);
       current = true;
     },
+    p(ctx, dirty) {
+      const acreferencedtooltip_changes = {};
+      if (dirty & /*attributes*/16) acreferencedtooltip_changes.reference = /*attributes*/ctx[4]['help-ref'];
+      if (dirty & /*$$scope*/64) {
+        acreferencedtooltip_changes.$$scope = {
+          dirty,
+          ctx
+        };
+      }
+      acreferencedtooltip.$set(acreferencedtooltip_changes);
+    },
     i(local) {
       if (current) return;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acreferencedtooltip.$$.fragment, local);
@@ -3266,7 +3278,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (34:4) <AcReferencedTooltip reference="footer-thankyou">
+// (34:4) <AcReferencedTooltip reference={attributes[ 'help-ref' ]}>
 function create_default_slot(ctx) {
   let acicon;
   let current;
