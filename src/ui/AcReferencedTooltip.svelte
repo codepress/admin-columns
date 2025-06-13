@@ -37,6 +37,17 @@
         timeoutIn = setTimeout(toggleOn, delay);
     }
 
+    const handleContentMouseEnter = async () => {
+        clearTimeout(timeoutOut);
+        clearTimeout(timeoutIn);
+    }
+
+    const handleContentMouseOut = async () => {
+        clearTimeout(timeoutIn);
+        timeoutIn = setTimeout(toggleOff, 0);
+    }
+
+
     const handleMouseOut = () => {
         clearTimeout(timeoutIn);
         timeoutIn = setTimeout(toggleOff, closeDelay);
@@ -69,7 +80,7 @@
 
 
 </script>
-
+<!-- TODO styling, stay on click -->
 <div class="acui-tooltip">
 	<div class="acui-tooltip-trigger"
 		on:mouseenter={handleMouseEnter}
@@ -78,7 +89,10 @@
 	</div>
 	{#if active || 1 === 1 }
 		<div
-			class="acui-tooltip-content"
+			role="none"
+			on:mouseleave={handleContentMouseOut}
+			on:mouseenter={handleContentMouseEnter}
+			class="acui-tooltip-content -reference acu-shadow"
 			class:is-top={ position === 'top'}
 			class:is-bottom={ position === 'bottom'}
 			class:is-right={ position === 'right'}

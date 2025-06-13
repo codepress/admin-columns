@@ -653,6 +653,14 @@ a.acui-button {
 .acui-tooltip-content.is-multiline.is-large {
   width: 300px;
 }
+.acui-tooltip-content.-reference {
+  background: #fff;
+  width: 250px;
+  color: var(--ac-text-color);
+  pointer-events: all;
+  border: 1px solid var(--ac-border-grey);
+  font-weight: normal;
+}
 .acui-tooltip-content.hover {
   opacity: 1;
 }
