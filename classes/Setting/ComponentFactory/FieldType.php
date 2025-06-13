@@ -6,6 +6,7 @@ namespace AC\Setting\ComponentFactory;
 
 use AC;
 use AC\Expression\StringComparisonSpecification;
+use AC\Setting\AttributeCollection;
 use AC\Setting\AttributeFactory;
 use AC\Setting\Children;
 use AC\Setting\Config;
@@ -118,6 +119,14 @@ class FieldType extends Builder
                 AttributeFactory::create_refresh(),
             ])
         );
+    }
+
+    protected function get_attributes(Config $config, AttributeCollection $attributes): AttributeCollection
+    {
+        // TODO only show tooltip for the serialized field type
+        return new AttributeCollection([
+            AttributeFactory::create_help_reference('doc-serialized'),
+        ]);
     }
 
     protected function get_field_type_options(): OptionCollection
