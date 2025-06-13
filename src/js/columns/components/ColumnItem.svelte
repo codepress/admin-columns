@@ -116,6 +116,7 @@
 		</div>
 		{#if $showColumnInfo}
 			<div class="acu-flex acu-flex-col acu-text-right acu-pr-2 acu-text-[#999] acu-leading-snug">
+				<small><strong class="acu-text-[#777] acu-pr-1">type:</strong>{columnTypeName}</small>
 				<small><strong class="acu-text-[#777] acu-pr-1">name:</strong>{data.name}</small>
 			</div>
 		{/if}
@@ -124,6 +125,7 @@
 
 			{#if data.width && data.width_unit}
 				<span class="acu-font-mono acu-text-[10px]">{data.width}{data.width_unit}</span>
+
 			{/if}
 			<div class="acu-pr-2 acu-pl-2 acu-uppercase acu-text-[#bbb] acu-font-bold acu-text-[10px] acu-tracking-tight">
 				{columnTypeLabel}
