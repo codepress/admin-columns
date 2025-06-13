@@ -13,13 +13,31 @@ final class PluginUpdate implements Registerable
     {
         add_action(
             'in_plugin_update_message-admin-columns/codepress-admin-columns.php',
-            [$this, 'renderAdditionalMessage'],
+            [$this, 'render_additional_message'],
             10,
             2
         );
+
+        add_action('admin_head', function () {
+            $screen = get_current_screen();
+
+            if ( ! $screen || $screen->base !== 'plugins') {
+                return;
+            }
+
+            ?>
+
+			<style>
+				p.ac-plugin-icon-upgrade::before {
+					content: '\f534'
+				}
+			</style>
+
+            <?php
+        });
     }
 
-    public function renderAdditionalMessage(array $data, object $response): void
+    public function render_additional_message(array $data, object $response): void
     {
         $get_major = static function (string $version): int {
             $parts = explode('.', $version);
@@ -34,28 +52,35 @@ final class PluginUpdate implements Registerable
             return;
         }
 
-        $tpl = '
-			<br><br>
-			<span class="dashicons dashicons-warning" style="padding-right: 3px; color: var(--ac-color-error);"></span>
-			You are upgrading to a new a major version <strong>(v%s)</strong>, which may include <strong>breaking changes</strong>. 
-			Please review the <a href="https://admincolumns.com/upgrade-to-v%s" target="_blank">upgrade guide</a> for details.
-		';
-
-        $notice = sprintf(
-            $tpl,
-            $update_major,
-            $update_major
+        $tpl = __(
+            'You are upgrading to a new a major version <strong>(version %s)</strong>, which may include <strong>breaking changes</strong>.',
+            'codepress-admin-columns'
         );
 
-        $message = wp_kses($notice, [
-                'span'   => ['class' => true, 'style' => true],
+        $tpl .= _x(
+            'Please review the %s for details.',
+            '%s contains the link to upgrade guide. Label is translated separately.',
+            'codepress-admin-columns'
+        );
+
+        $tpl = wp_kses($tpl, [
                 'strong' => [],
-                'br'     => [],
-                'a'      => ['href' => true],
             ]
         );
 
-        echo trim($message);
+        $url = sprintf(
+            '<a href="https://admincolumns.com/upgrade-to-version-%s" target="_blank">%s</a>',
+            $current_major,
+            esc_html_x('upgrade guide', 'Anchor text to upgrade guide.', 'codepress-admin-columns')
+        );
+
+        $message = sprintf(
+            $tpl,
+            $update_major,
+            $url
+        );
+
+        echo '</p><p class="ac-plugin-icon-upgrade">' . $message;
     }
 
 }
