@@ -6,6 +6,8 @@ namespace AC\Setting\ComponentFactory;
 
 use AC;
 use AC\Expression\StringComparisonSpecification;
+use AC\Setting\AttributeCollection;
+use AC\Setting\AttributeFactory;
 use AC\Setting\Children;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
@@ -61,6 +63,13 @@ class SerializedDisplay extends Builder
         }
 
         parent::add_formatters($config, $formatters);
+    }
+
+    protected function get_attributes(Config $config, AttributeCollection $attributes): AttributeCollection
+    {
+        return new AttributeCollection([
+            AttributeFactory::create_help_reference('doc-serialized'),
+        ]);
     }
 
 }
