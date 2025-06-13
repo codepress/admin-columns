@@ -123,13 +123,16 @@
 
 		<div class="ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end">
 
-			{#if data.width && data.width_unit}
-				<span class="acu-font-mono acu-text-[10px]">{data.width}{data.width_unit}</span>
-
-			{/if}
-			<div class="acu-pr-2 acu-pl-2 acu-uppercase acu-text-[#bbb] acu-font-bold acu-text-[10px] acu-tracking-tight">
+			<div class="acu-pr-1 acu-pl-2 acu-uppercase acu-text-[#bbb] acu-font-bold acu-text-[10px] acu-tracking-tight">
 				{columnTypeLabel}
 			</div>
+
+			<div class="acu-min-w-[35px] acu-text-right acu-pr-2">
+				{#if data.width && data.width_unit}
+					<span class="acu-font-mono acu-text-[10px]">{data.width}{data.width_unit}</span>
+				{/if}
+			</div>
+
 			{#if hasProfeatures( config )}
 				<ProFeatureToggles bind:data={data} bind:config={config} disabled={locked}/>
 			{/if}

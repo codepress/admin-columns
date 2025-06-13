@@ -366,8 +366,28 @@
   width: 100%
 }
 
+.acu-w-\[50px\] {
+  width: 50px
+}
+
+.acu-w-\[30px\] {
+  width: 30px
+}
+
 .acu-min-w-\[200px\] {
   min-width: 200px
+}
+
+.acu-min-w-\[30px\] {
+  min-width: 30px
+}
+
+.acu-min-w-\[34px\] {
+  min-width: 34px
+}
+
+.acu-min-w-\[35px\] {
+  min-width: 35px
 }
 
 .acu-max-w-\[1075px\] {
