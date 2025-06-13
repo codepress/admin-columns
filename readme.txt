@@ -2,9 +2,9 @@
 Contributors: codepress, tschutter, davidmosterd, dungengronovius, engelen
 Tags: admin, column, columns, table, tables
 Requires at least: 4.7.3
-Tested up to: 6.7.2
+Tested up to: 6.8.1
 Requires PHP: 7.2
-Stable tag: 4.7.14
+Stable tag: 4.7.15
 License: GPLv2
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -209,6 +209,12 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.7.15 =
+Release Date: tbd
+
+* [Fixed] Better null check for options to prevent PHP 8.3 issues
+* [Improved] Small UI changes in the admin view
 
 = 4.7.14 =
 Release Date: April 30th, 2025
