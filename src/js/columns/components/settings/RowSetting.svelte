@@ -10,21 +10,15 @@
     export let isSubComponent: boolean = false;
     export let disabled: boolean = false;
 
+
     let inputSetting = setting as ColumnInputSetting;
-
-    console.log( inputSetting);
-
-    const getInputType = (type: string) => {
-        return getInputComponent(type);
-    }
-
 </script>
 
 <ColumnSetting description={setting.description ?? ''} label={setting.label} {isSubComponent} attributes={setting.attributes??{}}>
 
 	{#if inputSetting.input}
 		<svelte:component
-			this={getInputType(inputSetting.input.type ?? '')}
+			this={getInputComponent(inputSetting.input.type ?? '')}
 			bind:data={data}
 			bind:value={data[inputSetting.input?.name]}
 			on:refresh

@@ -147,7 +147,6 @@
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
 
-			<!-- Specific Type setting -->
 			<ColumnSetting description="" label="Type" extraClass="-type">
 				<TypeSetting bind:data={data} bind:columnConfig={config} disabled={locked}/>
 			</ColumnSetting>
