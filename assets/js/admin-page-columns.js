@@ -3041,6 +3041,7 @@ __webpack_require__.r(__webpack_exports__);
 function create_else_block(ctx) {
   let div2;
   let div0;
+  let span;
   let t0;
   let t1;
   let t2;
@@ -3056,6 +3057,7 @@ function create_else_block(ctx) {
     c() {
       div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
       t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*label*/ctx[1]);
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block0) if_block0.c();
@@ -3064,14 +3066,16 @@ function create_else_block(ctx) {
       if (default_slot) default_slot.c();
       t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block1) if_block1.c();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px] acu-flex-shrink-0");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", "acu-flex-grow");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px] acu-flex-shrink-0 acu-flex acu-mr-2");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acp-column-setting__value acu-flex-grow acu-py-1");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", div2_class_value = "acp-column-setting lg:acu-flex acu-px-6 acu-mb-2 " + /*extraClass*/ctx[2]);
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div2, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, t0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, span);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span, t0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, t1);
       if (if_block0) if_block0.m(div0, null);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t2);
@@ -3229,7 +3233,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (33:3) {#if attributes && attributes[ 'help-ref' ]}
+// (34:3) {#if attributes && attributes[ 'help-ref' ]}
 function create_if_block_3(ctx) {
   let acreferencedtooltip;
   let current;
@@ -3237,7 +3241,7 @@ function create_if_block_3(ctx) {
     props: {
       reference: /*attributes*/ctx[4]['help-ref'],
       position: "right",
-      closeDelay: "1000",
+      closeDelay: 300,
       $$slots: {
         default: [create_default_slot]
       },
@@ -3280,8 +3284,9 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (34:4) <AcReferencedTooltip reference={attributes[ 'help-ref' ]} position="right" closeDelay="1000">
+// (36:4) <AcReferencedTooltip reference={attributes[ 'help-ref' ]} position="right" closeDelay={300}>
 function create_default_slot(ctx) {
+  let span;
   let acicon;
   let current;
   acicon = new ACUi_index__WEBPACK_IMPORTED_MODULE_2__.AcIcon({
@@ -3291,10 +3296,13 @@ function create_default_slot(ctx) {
   });
   return {
     c() {
+      span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acicon.$$.fragment);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", "acu-cursor-pointer acu-text-[#bbb]");
     },
     m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acicon, target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acicon, span, null);
       current = true;
     },
     p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
@@ -3308,12 +3316,15 @@ function create_default_slot(ctx) {
       current = false;
     },
     d(detaching) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acicon, detaching);
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(span);
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acicon);
     }
   };
 }
 
-// (46:3) {#if description}
+// (48:3) {#if description}
 function create_if_block_2(ctx) {
   let small;
   return {
@@ -20969,7 +20980,7 @@ function instance($$self, $$props, $$invalidate) {
   });
   const handleContentMouseOut = () => __awaiter(void 0, void 0, void 0, function* () {
     clearTimeout(timeoutIn);
-    timeoutIn = setTimeout(toggleOff, 0);
+    timeoutOut = setTimeout(toggleOff, 0);
   });
   const handleMouseOut = () => {
     clearTimeout(timeoutIn);

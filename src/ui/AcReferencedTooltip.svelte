@@ -44,7 +44,7 @@
 
     const handleContentMouseOut = async () => {
         clearTimeout(timeoutIn);
-        timeoutIn = setTimeout(toggleOff, 0);
+        timeoutOut = setTimeout(toggleOff, 0);
     }
 
 

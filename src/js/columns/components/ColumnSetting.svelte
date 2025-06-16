@@ -30,11 +30,13 @@
 {:else}
 	<div class="acp-column-setting lg:acu-flex acu-px-6 acu-mb-2 {extraClass}">
 
-		<div class="acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px] acu-flex-shrink-0">
-			{label}
+		<div
+			class="acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px] acu-flex-shrink-0 acu-flex acu-mr-2">
+			<span class="acu-flex-grow">{label}</span>
 			{#if attributes && attributes[ 'help-ref' ]}
-				<AcReferencedTooltip reference={attributes[ 'help-ref' ]} position="right" closeDelay="1000">
-					<AcIcon icon="question"/>
+
+				<AcReferencedTooltip reference={attributes[ 'help-ref' ]} position="right" closeDelay={300}>
+					<span class="acu-cursor-pointer acu-text-[#bbb]"><AcIcon icon="question"/></span>
 				</AcReferencedTooltip>
 			{/if}
 		</div>

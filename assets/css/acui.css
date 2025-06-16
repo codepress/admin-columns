@@ -664,6 +664,10 @@ a.acui-button {
 .acui-tooltip-content.hover {
   opacity: 1;
 }
+.acui-tooltip-content img {
+  max-width: 100%;
+  height: auto;
+}
 
 .acui-notifications {
   position: fixed;

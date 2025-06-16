@@ -4113,7 +4113,7 @@ function instance($$self, $$props, $$invalidate) {
   });
   const handleContentMouseOut = () => __awaiter(void 0, void 0, void 0, function* () {
     clearTimeout(timeoutIn);
-    timeoutIn = setTimeout(toggleOff, 0);
+    timeoutOut = setTimeout(toggleOff, 0);
   });
   const handleMouseOut = () => {
     clearTimeout(timeoutIn);
