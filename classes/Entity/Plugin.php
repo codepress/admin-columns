@@ -10,13 +10,13 @@ use AC\PluginUpdate;
 class Plugin
 {
 
-    private $basename;
+    private string $basename;
 
-    private $dir;
+    private string $dir;
 
-    private $url;
+    private string $url;
 
-    private $version;
+    private Version $version;
 
     public function __construct(string $basename, string $dir, string $url, Version $version)
     {

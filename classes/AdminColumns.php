@@ -19,6 +19,7 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\ListScreenDelete;
 use AC\Table\ListKeysFactoryInterface;
+use AC\Type\Url\Site;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
 
@@ -152,6 +153,8 @@ class AdminColumns
             ListKeysFactoryInterface::class         => autowire(Table\ListKeysFactory::class),
             Service\CommonAssets::class             => autowire()
                 ->constructorParameter(1, DI\get('translations.global')),
+            Service\PluginUpdate::class             => autowire()
+                ->constructorParameter(1, new Site('upgrade-to-ac-version-%s')),
             Admin\Colors\Shipped\ColorParser::class => autowire()
                 ->constructorParameter(0, ABSPATH . 'wp-admin/css/common.css'),
             Admin\Colors\ColorReader::class         => autowire(Admin\Colors\ColorRepository::class),

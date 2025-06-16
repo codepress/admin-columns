@@ -4,19 +4,33 @@ declare(strict_types=1);
 
 namespace AC\Service;
 
+use AC\Entity\Plugin;
+use AC\Plugin\Version;
 use AC\Registerable;
+use AC\Type\Url\Site;
 
 class PluginUpdate implements Registerable
 {
 
+    private Plugin $plugin;
+
+    private Site $upgrade_url_template;
+
+    public function __construct(Plugin $plugin, Site $upgrade_url_template)
+    {
+        $this->plugin = $plugin;
+        $this->upgrade_url_template = $upgrade_url_template;
+    }
+
     public function register(): void
     {
         add_action(
-            'in_plugin_update_message-' . $this->get_plugin_slug(),
+            'in_plugin_update_message-' . $this->plugin->get_basename(),
             [$this, 'render_additional_message'],
             10,
             2
         );
+        wp_clean_update_cache();
 
         // Use wp_clean_update_cache() to bypass cache
         add_filter('pre_set_site_transient_update_plugins', [$this, 'add_upgrade_notice_to_response'], 20);
@@ -40,18 +54,6 @@ class PluginUpdate implements Registerable
         });
     }
 
-    protected function get_plugin_slug(): string
-    {
-        return 'admin-columns/codepress-admin-columns.php';
-    }
-
-    protected function get_major_version(string $version): int
-    {
-        $parts = explode('.', $version);
-
-        return (int)$parts[0];
-    }
-
     private function get_general_warning_message(): string
     {
         return __(
@@ -62,10 +64,9 @@ class PluginUpdate implements Registerable
 
     public function render_additional_message(array $data, object $response): void
     {
-        $current_major = $this->get_major_version($data['Version']);
-        $update_major = $this->get_major_version($response->new_version);
+        $version = new Version($response->new_version);
 
-        if ($current_major >= $update_major) {
+        if ($this->plugin->get_version()->get_major_version() >= $version->get_major_version()) {
             return;
         }
 
@@ -80,9 +81,11 @@ class PluginUpdate implements Registerable
             ]
         );
 
+        $url = sprintf((string)$this->upgrade_url_template, $version->get_major_version());
+
         $url = sprintf(
             '<a href="%s" target="_blank">%s</a>',
-            $this->get_upgrade_guide_url($update_major),
+            $url,
             esc_html_x('upgrade guide', 'Anchor text to upgrade guide.', 'codepress-admin-columns')
         );
 
@@ -99,30 +102,29 @@ class PluginUpdate implements Registerable
      */
     public function add_upgrade_notice_to_response($transient): ?object
     {
-        $slug = $this->get_plugin_slug();
+        $basename = $this->plugin->get_basename();
 
         if (
             is_object($transient) &&
             isset($transient->checked, $transient->response) &&
-            ! empty($transient->checked[$slug]) &&
-            ! empty($transient->response[$slug])
+            ! empty($transient->checked[$basename]) &&
+            ! empty($transient->response[$basename])
         ) {
-            $current_major = $this->get_major_version($transient->checked[$slug]);
-            $update_major = $this->get_major_version($transient->response[$slug]->new_version);
+            $update_major = (new Version($transient->response[$basename]->new_version))->get_major_version();
 
-            if ($update_major > $current_major) {
-                $notice = esc_html(__('Warning') . ': ' . $this->get_general_warning_message());
+            if ($update_major > $this->plugin->get_version()->get_major_version()) {
+                $notice = sprintf(
+                    '%s: %s %s',
+                    esc_html__('Warning'),
+                    strip_tags($this->get_general_warning_message()),
+                    esc_html__('See the Plugins page for details.', 'codepress-admin-columns')
+                );
 
-                $transient->response[$this->get_plugin_slug()]->upgrade_notice = $notice;
+                $transient->response[$basename]->upgrade_notice = $notice;
             }
         }
 
         return $transient;
-    }
-
-    protected function get_upgrade_guide_url(int $version): string
-    {
-        return sprintf('https://admincolumns.com/upgrade-ac-to-version-%s', $version);
     }
 
 }
