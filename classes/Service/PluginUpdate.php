@@ -9,7 +9,7 @@ use AC\Plugin\Version;
 use AC\Registerable;
 use AC\Type\Url\Site;
 
-class PluginUpdate implements Registerable
+final class PluginUpdate implements Registerable
 {
 
     private Plugin $plugin;
