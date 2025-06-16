@@ -36,7 +36,7 @@
 			{#if attributes && attributes[ 'help-ref' ]}
 
 				<AcReferencedTooltip reference={attributes[ 'help-ref' ]} position="right" closeDelay={300}>
-					<span class="acu-cursor-pointer acu-text-[#bbb]"><AcIcon icon="question"/></span>
+					<span class="acu-cursor-pointer "><AcIcon icon="question" size="sm"/></span>
 				</AcReferencedTooltip>
 			{/if}
 		</div>

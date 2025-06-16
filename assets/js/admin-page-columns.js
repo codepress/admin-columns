@@ -3291,14 +3291,15 @@ function create_default_slot(ctx) {
   let current;
   acicon = new ACUi_index__WEBPACK_IMPORTED_MODULE_2__.AcIcon({
     props: {
-      icon: "question"
+      icon: "question",
+      size: "sm"
     }
   });
   return {
     c() {
       span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acicon.$$.fragment);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", "acu-cursor-pointer acu-text-[#bbb]");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", "acu-cursor-pointer ");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
