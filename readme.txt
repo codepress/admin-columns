@@ -211,7 +211,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.7.15 =
-Release Date: tbd
+Release Date: June 16th, 2025
 
 * [Fixed] Better null check for options to prevent PHP 8.3 issues
 * [Improved] Small UI changes in the admin view
