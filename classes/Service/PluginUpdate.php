@@ -52,6 +52,14 @@ class PluginUpdate implements Registerable
         return (int)$parts[0];
     }
 
+    private function get_general_warning_message(): string
+    {
+        return __(
+            'You are upgrading to a new a major version of Admin Columns, which can include <strong>breaking changes</strong>.',
+            'codepress-admin-columns'
+        );
+    }
+
     public function render_additional_message(array $data, object $response): void
     {
         $current_major = $this->get_major_version($data['Version']);
@@ -61,12 +69,7 @@ class PluginUpdate implements Registerable
             return;
         }
 
-        $tpl = __(
-            'You are upgrading to a new a major version <strong>(version %s)</strong>, which may include <strong>breaking changes</strong>.',
-            'codepress-admin-columns'
-        );
-
-        $tpl .= ' ' . _x(
+        $tpl = $this->get_general_warning_message() . ' ' . _x(
                 'Please review the %s for details.',
                 '%s contains the link to upgrade guide. Label is translated separately.',
                 'codepress-admin-columns'
@@ -85,7 +88,6 @@ class PluginUpdate implements Registerable
 
         $message = sprintf(
             $tpl,
-            $update_major,
             $url
         );
 
@@ -109,10 +111,7 @@ class PluginUpdate implements Registerable
             $update_major = $this->get_major_version($transient->response[$slug]->new_version);
 
             if ($update_major > $current_major) {
-                $notice = esc_html__(
-                    'Warning: You are upgrading to a new major version of Admin Columns, which can include changes that are not be backward compatible. See the Plugins page for details.',
-                    'codepress-admin-columns',
-                );
+                $notice = esc_html(__('Warning') . ': ' . $this->get_general_warning_message());
 
                 $transient->response[$this->get_plugin_slug()]->upgrade_notice = $notice;
             }
