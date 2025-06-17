@@ -128,6 +128,7 @@ class Loader
             Service\ManageHeadings::class,
             Service\SaveHeadings::class,
             Service\AdminBarEditColumns::class,
+            Service\PluginUpdate::class,
         ];
 
         if ( ! defined('ACP_FILE')) {

@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin;
 
-class Version
+final class Version
 {
 
     private string $value;
@@ -20,6 +22,13 @@ class Version
     public function is_valid(): bool
     {
         return ! empty($this->value);
+    }
+
+    public function get_major_version(): int
+    {
+        $parts = explode('.', $this->value);
+
+        return (int)$parts[0];
     }
 
     /**
@@ -66,7 +75,7 @@ class Version
 
     public function is_beta(): bool
     {
-        return false !== strpos($this->value, 'beta');
+        return str_contains($this->value, 'beta');
     }
 
     public function __toString(): string
