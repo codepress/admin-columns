@@ -29,6 +29,7 @@ class Site implements Type\Url
     public const PAGE_ADDON_WOOCOMMERCE = '/woocommerce-columns';
     public const PAGE_ADDON_YOAST_SEO = '/yoast-seo';
     public const PAGE_ADDON_RANK_MATH = '/rank-math';
+    public const PAGE_ADDON_SEOPRESS = '/seo-press';
 
     public function __construct(string $path = null)
     {

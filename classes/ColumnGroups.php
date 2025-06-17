@@ -28,7 +28,7 @@ class ColumnGroups
             $groups->add(new Group('media-file', __('File', 'codepress-admin-columns'), 35));
             $groups->add(new Group('custom', __('Custom', 'codepress-admin-columns'), 40));
 
-            do_action('ac/column_groups', $groups);
+            do_action('ac/column/groups', $groups);
         }
 
         return $groups;
