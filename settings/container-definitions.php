@@ -12,10 +12,12 @@ use AC\ListScreenRepository\Types;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
+use AC\Service\PluginUpdate;
 use AC\Setting\ContextFactory;
 use AC\Storage\EncoderFactory;
 use AC\TableIdsFactory;
 use AC\TableScreenFactory;
+use AC\Type\Url\Site;
 use AC\Vendor\DI\Container;
 use Psr\Container\ContainerInterface;
 
@@ -59,12 +61,14 @@ return [
         ->constructorParameter(0, admin_url('options-general.php')),
     Admin\PageFactory\Settings::class       => autowire()
         ->constructorParameter(2, defined('ACP_FILE')),
+    Admin\PageFactory\Help::class           => autowire()
+        ->constructorParameter(0, get(AdminColumns::class)),
     EncoderFactory::class                   => static function (AdminColumns $plugin) {
         return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
     },
     ContextFactory\Aggregate::class         => autowire()
         ->constructorParameter(0, get(ContextFactory\Column::class)),
     ContextFactory::class                   => get(ContextFactory\Aggregate::class),
-    Admin\PageFactory\Help::class           => autowire()
-        ->constructorParameter(0, get(AdminColumns::class)),
+    PluginUpdate::class                     => autowire()
+        ->constructorParameter(1, new Site('upgrade-to-ac-version-%s')),
 ];
