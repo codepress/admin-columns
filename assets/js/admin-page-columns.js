@@ -8589,9 +8589,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[6] = list[i];
-  child_ctx[7] = list;
-  child_ctx[8] = i;
+  child_ctx[7] = list[i];
+  child_ctx[8] = list;
+  child_ctx[9] = i;
   return child_ctx;
 }
 
@@ -8599,6 +8599,8 @@ function get_each_context(ctx, list, i) {
 function create_if_block(ctx) {
   let div;
   let current;
+  let mounted;
+  let dispose;
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*proFeatures*/ctx[3]);
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
@@ -8614,6 +8616,7 @@ function create_if_block(ctx) {
         each_blocks[i].c();
       }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acu-flex acu-items-center acu-gap-1");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "role", "none");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
@@ -8623,6 +8626,10 @@ function create_if_block(ctx) {
         }
       }
       current = true;
+      if (!mounted) {
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*click_handler*/ctx[5]));
+        mounted = true;
+      }
     },
     p(ctx, dirty) {
       if (dirty & /*getConfig, proFeatures, disabled, data*/29) {
@@ -8666,6 +8673,8 @@ function create_if_block(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
       }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
+      mounted = false;
+      dispose();
     }
   };
 }
@@ -8698,11 +8707,11 @@ function create_if_block_1(ctx) {
   let updating_value;
   let current;
   function headertoggle_value_binding(value) {
-    /*headertoggle_value_binding*/ctx[5](value, /*feature*/ctx[6]);
+    /*headertoggle_value_binding*/ctx[6](value, /*feature*/ctx[7]);
   }
   let headertoggle_props = {
-    defaultValue: /*getConfig*/ctx[4](/*feature*/ctx[6]).input.default,
-    title: /*feature*/ctx[6].title,
+    defaultValue: /*getConfig*/ctx[4](/*feature*/ctx[7]).input.default,
+    title: /*feature*/ctx[7].title,
     disabled: /*disabled*/ctx[2],
     $$slots: {
       default: [create_default_slot]
@@ -8711,8 +8720,8 @@ function create_if_block_1(ctx) {
       ctx
     }
   };
-  if (/*data*/ctx[0][/*feature*/ctx[6].feature] !== void 0) {
-    headertoggle_props.value = /*data*/ctx[0][/*feature*/ctx[6].feature];
+  if (/*data*/ctx[0][/*feature*/ctx[7].feature] !== void 0) {
+    headertoggle_props.value = /*data*/ctx[0][/*feature*/ctx[7].feature];
   }
   headertoggle = new _settings_HeaderToggle_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: headertoggle_props
@@ -8730,7 +8739,7 @@ function create_if_block_1(ctx) {
       ctx = new_ctx;
       const headertoggle_changes = {};
       if (dirty & /*disabled*/4) headertoggle_changes.disabled = /*disabled*/ctx[2];
-      if (dirty & /*$$scope*/512) {
+      if (dirty & /*$$scope*/1024) {
         headertoggle_changes.$$scope = {
           dirty,
           ctx
@@ -8738,7 +8747,7 @@ function create_if_block_1(ctx) {
       }
       if (!updating_value && dirty & /*data, proFeatures*/9) {
         updating_value = true;
-        headertoggle_changes.value = /*data*/ctx[0][/*feature*/ctx[6].feature];
+        headertoggle_changes.value = /*data*/ctx[0][/*feature*/ctx[7].feature];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_value = false);
       }
       headertoggle.$set(headertoggle_changes);
@@ -8767,7 +8776,7 @@ function create_default_slot(ctx) {
     c() {
       span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
       t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value = /*feature*/ctx[6].iconClass);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value = /*feature*/ctx[7].iconClass);
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
@@ -8793,7 +8802,7 @@ function create_each_block(ctx) {
   const if_block_creators = [create_if_block_1, create_else_block];
   const if_blocks = [];
   function select_block_type(ctx, dirty) {
-    if (/*getConfig*/ctx[4](/*feature*/ctx[6])) return 0;
+    if (/*getConfig*/ctx[4](/*feature*/ctx[7])) return 0;
     return 1;
   }
   current_block_type_index = select_block_type(ctx, -1);
@@ -8919,6 +8928,9 @@ function instance($$self, $$props, $$invalidate) {
     return config.find(c => c.input && c.input.name === feature.feature);
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {});
+  function click_handler(event) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
+  }
   function headertoggle_value_binding(value, feature) {
     if ($$self.$$.not_equal(data[feature.feature], value)) {
       data[feature.feature] = value;
@@ -8930,7 +8942,7 @@ function instance($$self, $$props, $$invalidate) {
     if ('config' in $$props) $$invalidate(1, config = $$props.config);
     if ('disabled' in $$props) $$invalidate(2, disabled = $$props.disabled);
   };
-  return [data, config, disabled, proFeatures, getConfig, headertoggle_value_binding];
+  return [data, config, disabled, proFeatures, getConfig, click_handler, headertoggle_value_binding];
 }
 class ProFeatureToggles extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {

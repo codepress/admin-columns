@@ -33,7 +33,7 @@
 
 </script>
 {#if config}
-	<div class="acu-flex acu-items-center acu-gap-1">
+	<div class="acu-flex acu-items-center acu-gap-1" on:click|stopPropagation role="none">
 		{#each proFeatures as feature}
 			{#if getConfig( feature ) }
 				<HeaderToggle
