@@ -54,7 +54,7 @@ class Icon
         ]);
     }
 
-    public function no(string $tooltip = null, string $title = null, string $class = 'red'): string
+    public function no(string $tooltip = null, string $title = null, ?string $class = 'red'): string
     {
         if (null === $title) {
             $title = __('No');
