@@ -30,7 +30,6 @@ final class PluginUpdate implements Registerable
             10,
             2
         );
-        wp_clean_update_cache();
 
         // Use wp_clean_update_cache() to bypass cache
         add_filter('pre_set_site_transient_update_plugins', [$this, 'add_upgrade_notice_to_response'], 20);
