@@ -2,10 +2,10 @@
 
 namespace AC\Plugin;
 
-class Version
+final class Version
 {
 
-    private $value;
+    private string $value;
 
     public function __construct(string $version)
     {
@@ -22,6 +22,13 @@ class Version
         return ! empty($this->value);
     }
 
+    public function get_major_version(): int
+    {
+        $parts = explode('.', $this->value);
+
+        return (int)$parts[0];
+    }
+
     /**
      * Greater than
      */
@@ -31,7 +38,7 @@ class Version
     }
 
     /**
-     * Lesser than
+     * Less than
      */
     public function is_lt(Version $version): bool
     {
@@ -39,7 +46,7 @@ class Version
     }
 
     /**
-     * Greater than or Equal
+     * Greater than or equal
      */
     public function is_gte(Version $version): bool
     {
@@ -47,7 +54,7 @@ class Version
     }
 
     /**
-     * Lesser than or Equal
+     * Less than or equal
      */
     public function is_lte(Version $version): bool
     {
@@ -66,7 +73,7 @@ class Version
 
     public function is_beta(): bool
     {
-        return false !== strpos($this->value, 'beta');
+        return str_contains($this->value, 'beta');
     }
 
     public function __toString()

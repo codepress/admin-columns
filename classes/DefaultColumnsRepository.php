@@ -24,7 +24,7 @@ class DefaultColumnsRepository
 
     public function get(string $list_screen_key): array
     {
-        return get_option($this->get_option_name($list_screen_key), []);
+        return get_option($this->get_option_name($list_screen_key), []) ?: [];
     }
 
     public function delete(string $list_screen_key): void
