@@ -290,6 +290,10 @@
   display: none
 }
 
+.acu-aspect-\[1\.91\/1\] {
+  aspect-ratio: 1.91/1
+}
+
 .acu-h-6 {
   height: 30px
 }
@@ -420,6 +424,10 @@
 
 .acu-max-w-full {
   max-width: 100%
+}
+
+.acu-max-w-\[500px\] {
+  max-width: 500px
 }
 
 .acu-flex-1 {
@@ -554,6 +562,14 @@
 
 .acu-whitespace-nowrap {
   white-space: nowrap
+}
+
+.acu-text-wrap {
+  text-wrap: wrap
+}
+
+.acu-break-words {
+  overflow-wrap: break-word
 }
 
 .acu-rounded {
