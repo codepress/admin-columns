@@ -35145,7 +35145,7 @@ function createColumnTypesStore() {
 }
 const getSortedColumnGroups = () => {
     return (0,_utils_global__WEBPACK_IMPORTED_MODULE_1__.getColumnSettingsConfig)().column_groups.sort((a, b) => {
-        return a.priority > b.priority ? 1 : -1;
+        return a.priority >= b.priority ? 1 : -1;
     });
 };
 const columnTypeSorter = (a, b) => {
@@ -35157,9 +35157,9 @@ const columnTypeSorter = (a, b) => {
         return groupPriorityA - groupPriorityB;
     }
     // If the groups have the same priority, compare based on the value
-    if (a.value < b.value)
+    if (a.label < b.label)
         return -1;
-    if (a.value > b.value)
+    if (a.label > b.label)
         return 1;
     return 0;
 };
