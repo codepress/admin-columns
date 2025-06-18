@@ -7,7 +7,6 @@
     import {getColumnSettingsConfig} from "../utils/global";
     import ColumnTypeGroupIcon from "./ColumnTypeGroupIcon.svelte";
 
-    const groups = getColumnSettingsConfig().column_groups
     let items = $columnTypesStore
     let listOpen = false;
 
@@ -43,7 +42,8 @@
 		on:blur={handleClose}
 		on:change={handleSelect}
 		items={items}
-		{groupBy}>
+		{groupBy}
+		label='searchable_label'>
 		<div slot="item" let:item>
 
 			{#if item.groupItem}
@@ -54,7 +54,7 @@
 					{item.label}
 				</span>
 			{:else}
-				{item.label}
+				{item.value}
 			{/if}
 		</div>
 	</Select>

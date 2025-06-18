@@ -56,13 +56,16 @@ class JsonListScreenSettingsFactory
         foreach ($this->type_repository->find_all($table_screen) as $column) {
             $group = $this->column_groups->find($column->get_group());
 
-            $column_types[] = [
+            $column_type = [
                 'label'     => $this->get_clean_label($column),
                 'value'     => $column->get_type(),
                 'group'     => $group ? $group->get_label() : __('Default', 'codepress-admin-columns'),
                 'group_key' => $column->get_group(),
                 'original'  => in_array($column->get_type(), $original_types, true),
             ];
+            $column_type['searchable_label'] = sprintf('%s %s', $column_type['label'], $column_type['group']);
+
+            $column_types[] = $column_type;
         }
 
         usort($column_types, function ($a, $b) {

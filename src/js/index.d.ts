@@ -12,6 +12,7 @@ declare namespace AC.Vars.Admin.Columns {
 
     type ColumnConfig = {
         label: string
+        searchable_label: string
         value: string
         group: string
         group_key: string
