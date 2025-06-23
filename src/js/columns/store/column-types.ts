@@ -14,7 +14,7 @@ function createColumnTypesStore(): Writable<ColumnConfig[]> {
 
 export const getSortedColumnGroups = () => {
     return getColumnSettingsConfig().column_groups.sort((a, b) => {
-        return a.priority > b.priority ? 1 : -1;
+        return a.priority >= b.priority ? 1 : -1;
     });
 }
 
@@ -30,8 +30,8 @@ export const columnTypeSorter = (a: ColumnConfig, b: ColumnConfig) => {
     }
 
     // If the groups have the same priority, compare based on the value
-    if (a.value < b.value) return -1;
-    if (a.value > b.value) return 1;
+    if (a.label < b.label) return -1;
+    if (a.label > b.label) return 1;
     return 0;
 }
 
