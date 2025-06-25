@@ -259,6 +259,7 @@
 					<AcButton
 						type="text"
 						on:click={clearColumns}
+						isDestructive
 						label={i18n.editor.label.clear_columns}
 					/>
 				{/if}

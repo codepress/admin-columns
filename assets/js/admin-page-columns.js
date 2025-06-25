@@ -4119,7 +4119,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (267:0) {:else}
+// (268:0) {:else}
 function create_else_block(ctx) {
   let columnsformskeleton;
   let current;
@@ -4916,6 +4916,7 @@ function create_if_block_2(ctx) {
   acbutton = new ACUi_index__WEBPACK_IMPORTED_MODULE_14__.AcButton({
     props: {
       type: "text",
+      isDestructive: true,
       label: /*i18n*/ctx[11].editor.label.clear_columns
     }
   });
@@ -4944,7 +4945,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (243:4) <AcDropdown      --acui-dropdown-width="300px"      customClass="-selectv2"      maxHeight="400px"      value      position="bottom-left" bind:this={columnTypeComponent}>
+// (244:4) <AcDropdown      --acui-dropdown-width="300px"      customClass="-selectv2"      maxHeight="400px"      value      position="bottom-left" bind:this={columnTypeComponent}>
 function create_default_slot_1(ctx) {
   let columntypedropdownv2;
   let current;
@@ -4975,7 +4976,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (250:5) 
+// (251:5) 
 function create_trigger_slot(ctx) {
   let acbutton;
   let current;
