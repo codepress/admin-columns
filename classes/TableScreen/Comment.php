@@ -20,8 +20,8 @@ class Comment extends TableScreen implements ListTable, MetaType
             new TableId('wp-comments'),
             'edit-comments',
             new Labels(
-                __('Comments'),
-                __('Comment')
+                __('Comment'),
+                __('Comments')
             ),
             new Url\ListTable('edit-comments.php'),
             '#the-comment-list'

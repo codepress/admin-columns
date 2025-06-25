@@ -79,11 +79,13 @@
 		<div class="acu-px-4 2xl:acu-px-[50px] acu-pt-[10px]" data-ac-notices>
 
 			<hr class="wp-header-end">
-			{#if $listScreenDataStore !== null && $listScreenIsReadOnly && ! $listScreenIsTemplate}
-				<AcNotice type="info" styled showIcon>{@html sprintf( i18n.editor.sentence.columns_read_only,
-					`<strong>${$listScreenDataStore?.title}</strong>` )}</AcNotice>
+			{#if ! $listScreenIsTemplate && 'inactive' === $listScreenDataStore?.status}
+				<AcNotice type="info" styled showIcon>{@html i18n.notices.inactive}</AcNotice>
 			{/if}
-			{#if typeof $listScreenDataStore !== 'undefined' && !$listScreenIsStored}
+			{#if $listScreenDataStore?.title && $listScreenIsReadOnly && ! $listScreenIsTemplate}
+				<AcNotice type="info" styled showIcon>{@html i18n.editor.sentence.columns_read_only}</AcNotice>
+			{/if}
+			{#if $listScreenDataStore?.title && !$listScreenIsStored}
 				<AcNotice type="info" styled showIcon>{@html i18n.notices.not_saved_settings}</AcNotice>
 			{/if}
 			{#each ListScreenSections.getSections( 'notices' ) as component}
