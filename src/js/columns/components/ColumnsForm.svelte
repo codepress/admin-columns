@@ -8,13 +8,12 @@
     import {
         columnTypesStore,
         currentListKey,
+        isLoadingColumnSettings,
         listScreenDataHasChanges,
         listScreenDataStore,
         listScreenIsReadOnly,
-        openedColumnsStore,
-        isLoadingColumnSettings,
         listScreenIsStored,
-		listScreenIsTemplate
+        openedColumnsStore
     } from "../store";
     import {createEventDispatcher, onMount, tick} from "svelte";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
@@ -252,6 +251,7 @@
 				{/each}
 			</div>
 		</div>
+
 		<AcPanelFooter slot="footer" classNames={['acu-flex acu-justify-end acu-gap-2']}>
 			{#if !$listScreenIsReadOnly && !locked}
 
@@ -292,10 +292,16 @@
 					/>
 
 				</AcDropdown>
-
-
+				{:else}
+				<AcButton
+					type="primary"
+					disabled
+					label={i18n.editor.label.save}
+				/>
 			{/if}
 		</AcPanelFooter>
+
+
 	</AcPanel>
 {:else}
 	<ColumnsFormSkeleton/>
