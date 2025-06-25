@@ -7,9 +7,9 @@ namespace AC\Type;
 class Labels
 {
 
-    private $singular;
+    private string $singular;
 
-    private $plural;
+    private string $plural;
 
     public function __construct(string $singular, string $plural)
     {

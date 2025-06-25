@@ -307,11 +307,18 @@ class Columns extends Script
                     ],
                 ],
                 'notices'  => [
+                    'inactive'           => sprintf(
+                        __(
+                            'This table view is %s and won’t appear on the list table.',
+                            'codepress-admin-columns'
+                        ),
+                        sprintf('<strong>%s</strong >', __('not active', 'codepress-admin-columns'))
+                    ),
                     'not_saved_settings' => sprintf(
                         '%s %s',
                         sprintf(
                             __('These settings are %s.', 'codepress-admin-columns'),
-                            sprintf('<strong>%s</strong >', __('inactive', 'codepress-admin-columns'))
+                            sprintf('<strong>%s</strong >', __('not saved', 'codepress-admin-columns'))
                         ),
                         sprintf(
                             __(
@@ -370,7 +377,14 @@ class Columns extends Script
                     ],
                     'sentence' => [
                         'columns_read_only'       => __(
-                            'The columns for %s are read only and can therefore not be edited.',
+                            sprintf(
+                                'This table view is %s and can therefore not be edited.'
+                                ,
+                                sprintf(
+                                    '<strong>%s</strong>',
+                                    __('read only', 'codepress-admin-columns')
+                                )
+                            ),
                             'codepress-admin-columns'
                         ),
                         'column_no_duplicate'     => __(

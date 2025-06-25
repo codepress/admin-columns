@@ -20,8 +20,8 @@ class User extends TableScreen implements ListTable, MetaType
             new TableId('wp-users'),
             'users',
             new Labels(
-                __('Users'),
-                __('User')
+                __('User'),
+                __('Users')
             ),
             new Url\ListTable('users.php')
         );

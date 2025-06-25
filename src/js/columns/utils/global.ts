@@ -98,6 +98,7 @@ type AdminColumnsI18n = {
     },
     notices: {
         not_saved_settings: string
+        inactive: string
     }
     review: {
         happy: string
