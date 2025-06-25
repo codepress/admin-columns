@@ -410,6 +410,10 @@
   max-width: 400px
 }
 
+.acu-max-w-\[500px\] {
+  max-width: 500px
+}
+
 .acu-max-w-\[700px\] {
   max-width: 700px
 }
@@ -424,10 +428,6 @@
 
 .acu-max-w-full {
   max-width: 100%
-}
-
-.acu-max-w-\[500px\] {
-  max-width: 500px
 }
 
 .acu-flex-1 {
@@ -630,21 +630,17 @@
   border-style: none
 }
 
+.acu-border-\[\#c3c4c7\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(195 196 199 / var(--tw-border-opacity, 1))
+}
+
 .acu-border-\[transparent\] {
   border-color: transparent
 }
 
 .acu-border-ui-border {
   border-color: var(--acui-border)
-}
-
-.acu-border-\[--ac-border\] {
-  border-color: var(--ac-border)
-}
-
-.acu-border-\[\#c3c4c7\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(195 196 199 / var(--tw-border-opacity, 1))
 }
 
 .acu-border-b-ui-border {
