@@ -30,8 +30,8 @@ export const columnTypeSorter = (a: ColumnConfig, b: ColumnConfig) => {
     }
 
     // If the groups have the same priority, compare based on the value
-    if (a.label < b.label) return -1;
-    if (a.label > b.label) return 1;
+    //if (a.label < b.label) return -1;
+    //if (a.label > b.label) return 1;
     return 0;
 }
 
