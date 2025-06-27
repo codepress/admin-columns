@@ -46,7 +46,11 @@ class ProcessFormatters
                         $collection = new ValueCollection($value->get_id());
 
                         foreach ($value as $item) {
-                            $collection->add($formatter->format($item));
+                            $_value = $formatter->format($item);
+
+                            if ($_value instanceof Value) {
+                                $collection->add($_value);
+                            }
                         }
 
                         $value = $collection;

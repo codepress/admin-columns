@@ -1,8 +1,3 @@
-<?php
-
-$location = ACP\Container::get_location();
-
-?>
 <template id="doc-serialized">
 	<h3>
         <?= __('Serialized Array Keys', 'codepress-admin-columns'); ?>
@@ -13,7 +8,6 @@ $location = ACP\Container::get_location();
 	<h4><?= __('Example') ?></h4>
 	<p>
 		<img src="<?= esc_url(
-        // TODO fix
             \AC\Container::get_location()->with_suffix('assets/images/tooltip/serialized-array.png')->get_url()
         ) ?>" alt="Serialized Array" style="box-sizing: border-box; border:1px solid #ddd;padding: 8px 10px;max-width: 100%;margin: 5px 0;">
 	</p>

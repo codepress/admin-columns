@@ -7,42 +7,27 @@ use AC\Renderable;
 abstract class Element implements Renderable
 {
 
-    /**
-     * @var array
-     */
-    protected $attributes = [];
+    protected array $attributes = [];
 
     /**
      * Options for element like select
-     * @var array
      */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * The elements value
      * @var mixed
      */
-    protected $value;
+    protected $value = null;
 
-    /**
-     * Label
-     * @var string
-     */
-    protected $label;
+    protected string $label = '';
 
-    /**
-     * Extra description
-     * @var string
-     */
-    protected $description;
+    protected string $description = '';
 
     /**
      * Setup element with base name and id
-     *
-     * @param string $name
-     * @param array  $options
      */
-    public function __construct($name, array $options = [])
+    public function __construct(string $name, array $options = [])
     {
         $this->set_name($name);
         $this->set_id($name);
@@ -271,18 +256,12 @@ abstract class Element implements Renderable
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function get_options()
+    public function get_options(): array
     {
         return $this->options;
     }
 
-    /**
-     * @return string
-     */
-    public function get_description()
+    public function get_description(): string
     {
         return $this->description;
     }

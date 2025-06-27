@@ -20,8 +20,14 @@ class IdCollectionFromArrayOrString implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        if (is_string($raw)) {
-            $raw = [$raw];
+        if (is_numeric($raw)) {
+            $raw = [
+                $raw,
+            ];
+        }
+
+        if ( ! is_array($raw)) {
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         $ids = array_filter($raw, 'is_numeric');

@@ -7,12 +7,9 @@ use AC\Form\Element;
 class Select extends Element
 {
 
-    /**
-     * @var string
-     */
-    protected $no_result = '';
+    protected string $no_result = '';
 
-    protected function render_options(array $options)
+    protected function render_options(array $options): string
     {
         $output = [];
 
@@ -23,19 +20,13 @@ class Select extends Element
                 continue;
             }
 
-            $output[] = $this->render_option($key, $option);
+            $output[] = $this->render_option((string)$key, (string)$option);
         }
 
         return implode("\n", $output);
     }
 
-    /**
-     * @param string $key
-     * @param string $label
-     *
-     * @return string
-     */
-    protected function render_option($key, $label)
+    protected function render_option(string $key, string $label): string
     {
         $template = '<option %s>%s</option>';
         $attributes = $this->get_option_attributes($key);
@@ -43,12 +34,7 @@ class Select extends Element
         return sprintf($template, $this->get_attributes_as_string($attributes), esc_html($label));
     }
 
-    /**
-     * @param string $key
-     *
-     * @return array
-     */
-    protected function get_option_attributes($key)
+    protected function get_option_attributes(string $key): array
     {
         $attributes = [];
         $attributes['value'] = $key;
@@ -60,22 +46,12 @@ class Select extends Element
         return $attributes;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function selected($value)
+    protected function selected(string $value): string
     {
         return selected($this->get_value(), $value, false);
     }
 
-    /**
-     * @param array $group
-     *
-     * @return string
-     */
-    protected function render_optgroup(array $group)
+    protected function render_optgroup(array $group): string
     {
         $template = '<optgroup %s>%s</optgroup>';
         $attributes = [];
@@ -91,9 +67,6 @@ class Select extends Element
         );
     }
 
-    /**
-     * @return string
-     */
     public function render(): string
     {
         if ( ! $this->get_options() && $this->get_no_result()) {
@@ -118,24 +91,9 @@ class Select extends Element
         );
     }
 
-    /**
-     * @return string
-     */
-    public function get_no_result()
+    public function get_no_result(): string
     {
         return $this->no_result;
-    }
-
-    /**
-     * @param string $no_result
-     *
-     * @return $this
-     */
-    public function set_no_result($no_result)
-    {
-        $this->no_result = (string)$no_result;
-
-        return $this;
     }
 
 }

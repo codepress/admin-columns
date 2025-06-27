@@ -21,8 +21,6 @@ use AC\Value\Formatter;
 class FieldType extends Builder
 {
 
-    private const NAME = 'field_type';
-
     public const TYPE_DEFAULT = '';
     public const TYPE_HTML = 'html';
     public const TYPE_ARRAY = 'array';
@@ -110,9 +108,9 @@ class FieldType extends Builder
     protected function get_input(Config $config): ?Input
     {
         return OptionFactory::create_select(
-            self::NAME,
+            'field_type',
             $this->get_field_type_options(),
-            $config->get(self::NAME, ''),
+            $config->get('field_type', ''),
             __('Select the field type', 'codepress-admin-columns'),
             false,
             new AC\Setting\AttributeCollection([
@@ -200,7 +198,7 @@ class FieldType extends Builder
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        switch ($config->get(self::NAME, self::TYPE_DEFAULT)) {
+        switch ($config->get('field_type', self::TYPE_DEFAULT)) {
             case self::TYPE_BOOLEAN:
                 $formatters->add(new AC\Value\Formatter\YesNoIcon());
                 break;
