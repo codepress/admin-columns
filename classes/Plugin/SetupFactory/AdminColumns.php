@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin\SetupFactory;
 
 use AC\Plugin\Install;
@@ -9,17 +11,23 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Update;
 use AC\Plugin\UpdateCollection;
 use AC\Plugin\Version;
+use AC\Storage\Table;
 
 final class AdminColumns extends SetupFactory
 {
 
+    private Table\AdminColumns $table;
+
     public function __construct(
         string $version_key,
         Version $version,
+        Table\AdminColumns $table,
         InstallCollection $installers = null,
         UpdateCollection $updates = null
     ) {
         parent::__construct($version_key, $version, $installers, $updates);
+
+        $this->table = $table;
     }
 
     public function create(string $type): Setup
@@ -29,16 +37,19 @@ final class AdminColumns extends SetupFactory
                 $this->installers = new InstallCollection([
                     new Install\Capabilities(),
                 ]);
+
                 break;
             case self::SITE:
                 $this->installers = new InstallCollection([
                     new Install\Capabilities(),
-                    new Install\Database(),
+                    new Install\Database($this->table),
                 ]);
+
                 $this->updates = new UpdateCollection([
                     new Update\V4000(),
-                    new Update\V5000(new Install\Database()),
+                    new Update\V5000(new Install\Database($this->table)),
                 ]);
+
                 break;
         }
 
