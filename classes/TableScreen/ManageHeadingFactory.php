@@ -14,6 +14,6 @@ interface ManageHeadingFactory
 
     public function can_create(TableScreen $table_screen): bool;
 
-    public function create(TableScreen $table_screen, array $headings): ?Registerable;
+    public function create(TableScreen $table_screen, array $headings): Registerable;
 
 }

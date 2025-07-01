@@ -72,7 +72,7 @@ class ManageHeadings implements Registerable
     {
         $factory = $this->get_factory($table_screen);
 
-        if ( ! $factory) {
+        if ( ! $factory || ! $factory->can_create($table_screen)) {
             return;
         }
 
@@ -82,13 +82,8 @@ class ManageHeadings implements Registerable
             return;
         }
 
-        $service = $factory->create($table_screen, $headings);
-
-        if ( ! $service) {
-            return;
-        }
-
-        $service->register();
+        $factory->create($table_screen, $headings)
+                ->register();
     }
 
 }
