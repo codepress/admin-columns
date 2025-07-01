@@ -54,8 +54,6 @@ class V5000 extends Update
                 // Delete obsolete default sortables
                 $this->delete_default_sortables();
 
-                // TODO are we missing anything else that needs updating?
-
                 break;
         }
     }

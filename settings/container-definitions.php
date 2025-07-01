@@ -70,6 +70,6 @@ return [
         ->constructorParameter(0, get(ContextFactory\Column::class)),
     ContextFactory::class                   => get(ContextFactory\Aggregate::class),
     PluginUpdate::class                     => autowire()
-        ->constructorParameter(1, get(AdminColumns::class))
+        ->constructorParameter(0, get(AdminColumns::class))
         ->constructorParameter(1, new Site('upgrade-to-ac-version-%s')),
 ];
