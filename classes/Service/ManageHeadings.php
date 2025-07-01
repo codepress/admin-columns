@@ -76,10 +76,13 @@ class ManageHeadings implements Registerable
             return;
         }
 
-        $service = $factory->create(
-            $table_screen,
-            $this->get_column_headings($list_screen)
-        );
+        $headings = $this->get_column_headings($list_screen);
+
+        if ( ! $headings) {
+            return;
+        }
+
+        $service = $factory->create($table_screen, $headings);
 
         if ( ! $service) {
             return;
