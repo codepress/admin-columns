@@ -121,10 +121,13 @@ class FieldType extends Builder
 
     protected function get_attributes(Config $config, AttributeCollection $attributes): AttributeCollection
     {
-        // TODO only show tooltip for the serialized field type
-        return new AttributeCollection([
-            AttributeFactory::create_help_reference('doc-serialized'),
-        ]);
+        $options = [];
+
+        if ('array' === $config->get('field_type')) {
+            $options[] = AttributeFactory::create_help_reference('doc-serialized');
+        }
+
+        return new AttributeCollection($options);
     }
 
     protected function get_field_type_options(): OptionCollection
