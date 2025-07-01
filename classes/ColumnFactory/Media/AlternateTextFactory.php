@@ -5,7 +5,7 @@ namespace AC\ColumnFactory\Media;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Media\MetaValue;
+use AC\Value\Formatter\Post\Meta;
 
 class AlternateTextFactory extends BaseColumnFactory
 {
@@ -26,7 +26,7 @@ class AlternateTextFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
 
-        $formatters->add(new MetaValue('_wp_attachment_image_alt'));
+        $formatters->add(new Meta('_wp_attachment_image_alt'));
 
         return $formatters;
     }

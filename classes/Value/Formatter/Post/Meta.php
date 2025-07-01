@@ -19,7 +19,14 @@ class Meta implements Formatter
 
     public function format(Value $value): Value
     {
-        return $value->with_value(get_post_meta((int)$value->get_id(), $this->meta_key, true));
+        $string = ac_helper()->array->implode_recursive(
+            ', ',
+            get_post_meta((int)$value->get_id(), $this->meta_key, true)
+        );
+
+        return $value->with_value(
+            $string
+        );
     }
 
 }
