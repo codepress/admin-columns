@@ -103,7 +103,6 @@ class ListScreenSettings implements RequestAjaxHandler
                                    ->success();
         }
 
-        // TODO Sorting of columns is determent by PHP -> Default columns based on ?? and Custom Alphabetical
         $list_screen = new ListScreen(
             ListScreenId::generate(),
             (string)$table_screen->get_labels(),

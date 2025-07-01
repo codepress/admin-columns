@@ -50,7 +50,7 @@ class JsonListScreenSettingsFactory
     private function get_column_types(AC\TableScreen $table_screen): array
     {
         $column_types = [];
-
+        
         $original_types = $this->get_original_types($table_screen);
 
         foreach ($this->type_repository->find_all($table_screen) as $column) {
@@ -69,6 +69,11 @@ class JsonListScreenSettingsFactory
         }
 
         usort($column_types, function ($a, $b) {
+            // ignore original columns
+            if ($a['original'] || $b['original']) {
+                return 0;
+            }
+
             return strcasecmp($a['label'], $b['label']);
         });
 
