@@ -142,6 +142,10 @@
   right: 15px
 }
 
+.acu-right-\[0\] {
+  right: 0
+}
+
 .acu-right-\[10px\] {
   right: 10px
 }
@@ -168,6 +172,10 @@
 
 .acu-z-10 {
   z-index: 10
+}
+
+.acu-m-1 {
+  margin: 5px
 }
 
 .acu-mx-\[50px\] {
@@ -322,12 +330,36 @@
   height: 40px
 }
 
+.acu-h-\[80px\] {
+  height: 80px
+}
+
+.acu-h-full {
+  height: 100%
+}
+
+.acu-h-\[60px\] {
+  height: 60px
+}
+
 .acu-max-h-\[80px\] {
   max-height: 80px
 }
 
 .acu-min-h-\[calc\(100vh_-_70px\)\] {
   min-height: calc(100vh - 70px)
+}
+
+.acu-min-h-\[200px\] {
+  min-height: 200px
+}
+
+.acu-min-h-\[100px\] {
+  min-height: 100px
+}
+
+.acu-min-h-\[150px\] {
+  min-height: 150px
 }
 
 .acu-w-1\/2 {
@@ -366,8 +398,21 @@
   width: 60px
 }
 
+.acu-w-\[80px\] {
+  width: 80px
+}
+
 .acu-w-full {
   width: 100%
+}
+
+.acu-w-\[500px\] {
+  width: 500px
+}
+
+.acu-w-fit {
+  width: -moz-fit-content;
+  width: fit-content
 }
 
 .acu-min-w-\[200px\] {
@@ -376,6 +421,14 @@
 
 .acu-min-w-\[35px\] {
   min-width: 35px
+}
+
+.acu-min-w-\[240px\] {
+  min-width: 240px
+}
+
+.acu-min-w-\[280px\] {
+  min-width: 280px
 }
 
 .acu-max-w-\[1075px\] {
@@ -428,6 +481,14 @@
 
 .acu-max-w-full {
   max-width: 100%
+}
+
+.acu-max-w-\[300px\] {
+  max-width: 300px
+}
+
+.acu-max-w-\[425px\] {
+  max-width: 425px
 }
 
 .acu-flex-1 {
@@ -1198,6 +1259,10 @@
 
 .acu-group:hover .group-hover\:acu-visible {
   visibility: visible
+}
+
+.acu-group:hover .group-hover\:acu-block {
+  display: block
 }
 
 @container setting (min-width: 500px) {
