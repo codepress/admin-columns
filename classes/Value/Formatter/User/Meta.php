@@ -10,17 +10,22 @@ use AC\Type\Value;
 class Meta implements Formatter
 {
 
-    private $key;
+    private string $meta_key;
 
-    public function __construct(string $key)
+    public function __construct(string $meta_key)
     {
-        $this->key = $key;
+        $this->meta_key = $meta_key;
     }
 
     public function format(Value $value): Value
     {
+        $string = ac_helper()->array->implode_recursive(
+            ', ',
+            get_user_meta((int)$value->get_id(), $this->meta_key, true)
+        );
+
         return $value->with_value(
-            get_user_meta((int)$value->get_id(), $this->key, true)
+            $string
         );
     }
 
