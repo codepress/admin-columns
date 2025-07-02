@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use Countable;
+use AC\Collection;
 
-class ConfigCollection extends Collection implements Countable
+class ConfigCollection extends Collection
 {
 
     public function __construct(array $configs = [])
@@ -17,11 +17,6 @@ class ConfigCollection extends Collection implements Countable
     public function add(Config $config): void
     {
         $this->data[] = $config;
-    }
-
-    public function count(): int
-    {
-        return count($this->data);
     }
 
     public static function create_from_array(array $data): ConfigCollection

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\Control;
 
-use AC\Setting\Collection;
+use AC\Collection;
 use AC\Setting\Control\Type\Option;
 
 final class OptionCollection extends Collection

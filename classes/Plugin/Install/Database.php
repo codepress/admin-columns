@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin\Install;
 
 use AC;
@@ -7,14 +9,14 @@ use AC;
 final class Database implements AC\Plugin\Install
 {
 
-    private AC\Storage\Table\AdminColumns $admin_columns;
+    private AC\Storage\Table\AdminColumns $table;
 
-    public function __construct( AC\Storage\Table\AdminColumns $admin_columns )
+    public function __construct(AC\Storage\Table\AdminColumns $table)
     {
-        $this->admin_columns = $admin_columns;
+        $this->table = $table;
     }
 
-    public function install() : void
+    public function install(): void
     {
         $this->create_database();
     }
@@ -23,20 +25,7 @@ final class Database implements AC\Plugin\Install
     {
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
-        dbDelta( $this->admin_columns->get_schema() );
-    }
-
-    public function verify_database_exists(): bool
-    {
-        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-
-        global $wpdb;
-
-        $suppress_errors = $wpdb->suppress_errors();
-        $created = dbDelta( $this->admin_columns->get_schema(), false );
-        $wpdb->suppress_errors($suppress_errors);
-
-        return 1 !== count($created);
+        dbDelta($this->table->get_schema());
     }
 
 }

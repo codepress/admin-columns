@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use AC\Collection;
 use AC\Setting\Type\Attribute;
 
 final class AttributeCollection extends Collection

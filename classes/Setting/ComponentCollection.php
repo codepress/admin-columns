@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use Countable;
+use AC\Collection;
 
-final class ComponentCollection extends Collection implements Countable
+final class ComponentCollection extends Collection
 {
 
     private int $added = 0;
@@ -33,11 +33,6 @@ final class ComponentCollection extends Collection implements Countable
     public function current(): Component
     {
         return current($this->data);
-    }
-
-    public function count(): int
-    {
-        return count($this->data);
     }
 
     public function merge(ComponentCollection $collection): ComponentCollection
