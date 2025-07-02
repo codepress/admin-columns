@@ -13,11 +13,11 @@ abstract class Message
     public const WARNING = 'notice-warning'; // yellow
     public const INFO = 'notice-info'; // blue
 
-    protected $message;
+    protected string $message;
 
-    protected $type;
+    protected ?string $type;
 
-    protected $id = '';
+    protected string $id = '';
 
     public function __construct(string $message, string $type = null)
     {

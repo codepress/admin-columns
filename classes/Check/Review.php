@@ -16,7 +16,7 @@ use AC\Type\Url\UtmTags;
 class Review implements Registerable
 {
 
-    private $location;
+    private Absolute $location;
 
     public function __construct(Absolute $location)
     {

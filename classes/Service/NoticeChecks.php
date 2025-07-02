@@ -12,13 +12,13 @@ use AC\Services;
 class NoticeChecks implements Registerable
 {
 
-    private $location;
-
     private IntegrationRepository $integration_repository;
+
+    private AdminColumns $plugin;
 
     public function __construct(AdminColumns $plugin, IntegrationRepository $integration_repository)
     {
-        $this->location = $plugin->get_location();
+        $this->plugin = $plugin;
         $this->integration_repository = $integration_repository;
     }
 
@@ -32,7 +32,7 @@ class NoticeChecks implements Registerable
         $services = new Services();
 
         if (current_user_can(Capabilities::MANAGE)) {
-            $services->add(new Check\Review($this->location));
+            $services->add(new Check\Review($this->plugin->get_location()));
 
             foreach ($this->integration_repository->find_all_by_active_plugins() as $integration) {
                 $services->add(new Check\AddonAvailable($integration));
