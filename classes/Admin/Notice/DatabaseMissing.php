@@ -28,11 +28,10 @@ final class DatabaseMissing implements Registerable
 
     public function render_notice(Screen $screen): void
     {
-        // TODO David this would alsno normally TRY to run create on the database, we now assume it's here. Check if
-        // that is valid.
-        if ( ! current_user_can(Capabilities::MANAGE)
-             || ! $screen->is_admin_screen()
-             || $this->table->exists()
+        // TODO Stefan test if this still works properly
+        if ( ! current_user_can(Capabilities::MANAGE) ||
+             ! $screen->is_admin_screen() ||
+             $this->table->exists()
         ) {
             return;
         }
