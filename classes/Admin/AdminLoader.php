@@ -12,16 +12,13 @@ use AC\View;
 class AdminLoader implements Registerable
 {
 
-    protected $hook;
+    protected string $hook;
 
-    protected $request_handler;
+    protected RequestHandlerInterface $request_handler;
 
-    protected $assets;
+    protected Enqueueables $assets;
 
-    /**
-     * @var Renderable|null
-     */
-    private $page;
+    private ?Renderable $page = null;
 
     public function __construct(string $hook, RequestHandlerInterface $request_handler, Enqueueables $assets)
     {
