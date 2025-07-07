@@ -138,7 +138,7 @@ a.acui-button {
     background: var(--ac-color-error-alt);
   }
 }
-.acui-dropdown {
+.acui-dropdown, .acui-dropdown-menu.-append-to-body {
   --acui-dropdown-text-color: var(--ac-text-color);
   --acui-dropdown-hover-background: var(--ac-select-hover-bg);
   --acui-dropdown-hover-color: #fff;

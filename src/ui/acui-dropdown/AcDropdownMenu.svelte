@@ -4,8 +4,9 @@
 
     export let trigger: HTMLElement;
     export let appendToBody: boolean = false;
-    export let maxHeight: string|null = null;
-    export let position: string|null = 'bottom-right';
+    export let maxHeight: string | null = null;
+    export let position: string | null = 'bottom-right';
+    export let zIndex: number | null = null;
 
     let rootElement: HTMLElement;
     let menuElement: HTMLElement;
@@ -18,14 +19,13 @@
 
         pos = {
             position: 'absolute',
-            top: (triggetBox.top + triggetBox.height).toString() + 'px',
-            left: triggetBox.left + 'px'
+            top: (Math.round(triggetBox.top + triggetBox.height)).toString() + 'px',
+            left:Math.round(triggetBox.left) + 'px'
         }
 
-        console.log(pos);
-
         if (position === 'bottom-left') {
-            pos.left = (triggetBox.left - menuElement.getBoundingClientRect().width + triggetBox.width) + 'px';
+            pos.left = Math.round((triggetBox.left - menuElement.getBoundingClientRect().width + triggetBox.width)) +
+				'px';
         }
     }
 
@@ -53,12 +53,13 @@
 {/if}
 
 <div class="acui-dropdown-menu"
-		class:-append-to-body={appendToBody}
-		class:-bottom-left={!appendToBody && position ==='bottom-left'}
-		style={rootElementStyle}
-		style:max-height={maxHeight}
-		in:fade={{ duration: 100}} out:fade={{ duration: 100}}
-		bind:this={menuElement}
+	class:-append-to-body={appendToBody}
+	class:-bottom-left={!appendToBody && position ==='bottom-left'}
+	style={rootElementStyle}
+	style:max-height={maxHeight}
+	style:z-index={zIndex}
+	in:fade={{ duration: 100}} out:fade={{ duration: 100}}
+	bind:this={menuElement}
 >
 	<div class="acui-dropdown-content" role="list">
 		<slot/>
