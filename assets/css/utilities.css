@@ -643,6 +643,11 @@
   border-color: var(--acui-border)
 }
 
+.acu-border-\[\#C8C8C8\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(200 200 200 / var(--tw-border-opacity, 1))
+}
+
 .acu-border-b-ui-border {
   border-bottom-color: var(--acui-border)
 }
@@ -960,6 +965,10 @@
 
 .acu-text-\[12px\] {
   font-size: 12px
+}
+
+.acu-text-\[14px\] {
+  font-size: 14px
 }
 
 .acu-text-\[15px\] {
