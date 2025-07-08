@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AC\TableScreen\ManageValue;
 
 use AC\CellRenderer;
-use AC\Registerable;
+use AC\TableScreen\ManageValueService;
 use DomainException;
 
-class User implements Registerable
+class User implements ManageValueService
 {
 
     private CellRenderer $renderable;
@@ -32,8 +32,10 @@ class User implements Registerable
         add_filter('manage_users_custom_column', [$this, 'render_value'], $this->priority, 3);
     }
 
-    public function render_value($value, $column_id, $row_id): ?string
+    public function render_value(...$args): ?string
     {
+        [$value, $column_id, $row_id] = $args;
+
         return $this->renderable->render_cell((string)$column_id, $row_id) ?? $value;
     }
 

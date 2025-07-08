@@ -8,6 +8,7 @@ use AC\CellRenderer;
 use AC\ListScreen;
 use LogicException;
 
+// TODO David what is with the static setter?
 class ListScreenRenderableFactory implements CellRendererFactory
 {
 

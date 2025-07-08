@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace AC\ThirdParty\MediaLibraryAssistant\TableScreen;
 
 use AC;
+use AC\TableScreen\ManageValueService;
 
-class ManageValue implements AC\Registerable
+class ManageValue implements ManageValueService
 {
 
     private AC\CellRenderer $renderable;
@@ -24,8 +25,10 @@ class ManageValue implements AC\Registerable
         add_filter('mla_list_table_column_default', [$this, 'render_value'], $this->priority, 3);
     }
 
-    public function render_value($value, $post, $column_name): ?string
+    public function render_value(...$args): ?string
     {
+        [$value, $post, $column_name] = $args;
+
         if (is_null($value)) {
             return $this->renderable->render_cell((string)$column_name, $post->ID) ?? $value;
         }
