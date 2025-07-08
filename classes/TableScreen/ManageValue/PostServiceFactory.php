@@ -6,12 +6,12 @@ namespace AC\TableScreen\ManageValue;
 
 use AC\CellRenderer;
 use AC\PostType;
-use AC\Registerable;
 use AC\TableScreen;
-use AC\TableScreen\ManageValueFactory;
+use AC\TableScreen\ManageValueService;
+use AC\TableScreen\ManageValueServiceFactory;
 use InvalidArgumentException;
 
-class PostFactory implements ManageValueFactory
+class PostServiceFactory implements ManageValueServiceFactory
 {
 
     public function can_create(TableScreen $table_screen): bool
@@ -23,7 +23,7 @@ class PostFactory implements ManageValueFactory
         TableScreen $table_screen,
         CellRenderer $renderable,
         int $priority = 100
-    ): Registerable {
+    ): ManageValueService {
         if ( ! $table_screen instanceof PostType) {
             throw new InvalidArgumentException('Invalid table screen.');
         }

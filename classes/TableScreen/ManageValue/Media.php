@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AC\TableScreen\ManageValue;
 
 use AC\CellRenderer;
-use AC\Registerable;
+use AC\TableScreen\ManageValueService;
 use DomainException;
 
-class Media implements Registerable
+class Media implements ManageValueService
 {
 
     private CellRenderer $renderable;
@@ -32,8 +32,10 @@ class Media implements Registerable
         add_action('manage_media_custom_column', [$this, 'render_value'], $this->priority, 2);
     }
 
-    public function render_value($column_id, $row_id): void
+    public function render_value(...$args): void
     {
+        [$column_id, $row_id] = $args;
+
         echo $this->renderable->render_cell((string)$column_id, $row_id);
     }
 
