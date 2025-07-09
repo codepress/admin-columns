@@ -12,7 +12,7 @@ class MultiSelect extends Select
         $this->set_attribute('multiple', 'multiple');
     }
 
-    protected function selected($value)
+    protected function selected($value): string
     {
         return in_array($value, (array)$this->get_value(), true);
     }

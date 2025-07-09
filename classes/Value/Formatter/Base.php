@@ -14,7 +14,7 @@ abstract class Base implements Formatter
     public function format(Value $value): Value
     {
         if ($value->get_value() instanceof ValueCollection) {
-            $collection = new ValueCollection();
+            $collection = new ValueCollection($value->get_id());
 
             iterator_apply($value->get_value(), function ($value) use ($collection) {
                 $collection->add($this->format_single($value));
