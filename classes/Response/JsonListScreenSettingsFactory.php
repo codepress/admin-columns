@@ -50,20 +50,25 @@ class JsonListScreenSettingsFactory
     private function get_column_types(AC\TableScreen $table_screen): array
     {
         $column_types = [];
-        
+
         $original_types = $this->get_original_types($table_screen);
 
         foreach ($this->type_repository->find_all($table_screen) as $column) {
             $group = $this->column_groups->find($column->get_group());
+            $label = $this->get_clean_label($column);
 
             $column_type = [
-                'label'     => $this->get_clean_label($column),
-                'value'     => $column->get_type(),
-                'group'     => $group ? $group->get_label() : __('Default', 'codepress-admin-columns'),
-                'group_key' => $column->get_group(),
-                'original'  => in_array($column->get_type(), $original_types, true),
+                'label'            => $label,
+                'value'            => $column->get_type(),
+                'group'            => $group ? $group->get_label() : __('Default', 'codepress-admin-columns'),
+                'group_key'        => $column->get_group(),
+                'original'         => in_array($column->get_type(), $original_types, true),
+                'searchable_label' => $label,
             ];
-            $column_type['searchable_label'] = sprintf('%s %s', $column_type['label'], $column_type['group']);
+
+            if ('custom' !== $column->get_group()) {
+                $column_type['searchable_label'] .= ' ' . $column_type['group'];
+            }
 
             $column_types[] = $column_type;
         }

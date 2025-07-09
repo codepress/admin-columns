@@ -10,8 +10,6 @@ class Plugin extends Message
 
     protected string $plugin_basename;
 
-    protected string $icon;
-
     public function __construct(string $message, string $plugin_basename, string $type = null)
     {
         if (null === $type) {
@@ -21,7 +19,6 @@ class Plugin extends Message
         parent::__construct($message, $type);
 
         $this->plugin_basename = $plugin_basename;
-        $this->icon = $this->get_icon_by_current_type();
     }
 
     public function register(): void
@@ -54,7 +51,7 @@ class Plugin extends Message
 
         $data = [
             'plugin_basename' => $this->plugin_basename,
-            'icon'            => $this->icon,
+            'icon'            => $this->get_icon_by_current_type(),
             'class'           => $class,
             'message'         => $this->message,
             'type'            => $this->type,
@@ -77,13 +74,6 @@ class Plugin extends Message
         ];
 
         return $mapping[$this->type] ?? '';
-    }
-
-    public function set_icon(string $icon): self
-    {
-        $this->icon = $icon;
-
-        return $this;
     }
 
 }
