@@ -36,7 +36,7 @@ if ( ! function_exists('ac_helper')) {
 }
 
 /**
- * For usage @see https://docs.admincolumns.com/article/64-template-functions
+ * For usage @see https://docs.admincolumns.com/article/57-code-snippets
  */
 if ( ! function_exists('ac_get_list_screen')) {
     function ac_get_list_screen(string $id): ?ListScreen
@@ -50,7 +50,7 @@ if ( ! function_exists('ac_get_list_screen')) {
 }
 
 /**
- * For usage @see https://docs.admincolumns.com/article/64-template-functions
+ * For usage @see https://docs.admincolumns.com/article/57-code-snippets
  */
 if ( ! function_exists('ac_get_list_screens')) {
     function ac_get_list_screens(string $key): ListScreenCollection
@@ -66,7 +66,7 @@ if ( ! function_exists('ac_get_list_screens')) {
 }
 
 /**
- * For usage @see https://docs.admincolumns.com/article/64-template-functions
+ * For usage @see https://docs.admincolumns.com/article/57-code-snippets
  */
 if ( ! function_exists('ac_get_column')) {
     function ac_get_column(string $column_name, string $list_screen_id): ?Column
@@ -92,7 +92,7 @@ if ( ! function_exists('ac_get_column')) {
 }
 
 /**
- * For usage @see https://docs.admincolumns.com/article/64-template-functions
+ * For usage @see https://docs.admincolumns.com/article/57-code-snippets
  */
 if ( ! function_exists('ac_get_columns')) {
     /**
