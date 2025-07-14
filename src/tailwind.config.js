@@ -50,6 +50,8 @@ module.exports = {
 			'ui-border': 'var(--acui-border)',
 			'link': 'var(--ac-link)',
 			'link-hover': 'var(--ac-link-hover)',
+			'acbutton': 'var(--ac-button-color)',
+			'acbutton-hover': 'var(--ac-button-hover)',
 			'notification-red': 'var(--ac-notification-red)',
 			'notification-blue': 'var(--ac-notification-blue)'
 		},
