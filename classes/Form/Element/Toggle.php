@@ -8,34 +8,26 @@ use AC\View;
 class Toggle extends Element
 {
 
-    /**
-     * @var bool
-     */
-    private $checked;
+    private bool $checked;
 
-    /**
-     * @var string
-     */
-    private $unchecked_value;
+    private string $unchecked_value;
 
-    /**
-     * @var array
-     */
-    private $container_attributes;
+    private array $container_attributes = [];
 
-    /**
-     * @var string
-     */
-    private $container_class;
+    private string $container_class = '';
 
-    public function __construct($name, $label, $checked = false, $value = null, $unchecked_value = 'false')
-    {
+    public function __construct(
+        string $name,
+        string $label,
+        bool $checked = false,
+        $value = null,
+        string $unchecked_value = 'false'
+    ) {
         parent::__construct($name);
 
         $this->set_label($label);
-        $this->checked = (bool)$checked;
-        $this->unchecked_value = (string)$unchecked_value;
-        $this->container_attributes = [];
+        $this->checked = $checked;
+        $this->unchecked_value = $unchecked_value;
 
         if ($value) {
             $this->set_value($value);
@@ -45,14 +37,14 @@ class Toggle extends Element
     public function set_container_attributes($attributes)
     {
         if (isset($attributes['class'])) {
-            $this->container_class = $attributes['class'];
+            $this->container_class = (string)$attributes['class'];
             unset($attributes['class']);
         }
 
         $this->container_attributes = (array)$attributes;
     }
 
-    protected function get_type()
+    protected function get_type(): string
     {
         return 'checkbox';
     }

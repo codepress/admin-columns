@@ -6,7 +6,6 @@ namespace AC\Setting;
 
 use AC\Collection;
 use InvalidArgumentException;
-use ReturnTypeWillChange;
 
 final class FormatterCollection extends Collection
 {
@@ -61,7 +60,7 @@ final class FormatterCollection extends Collection
     /**
      * @return Formatter|CollectionFormatter
      */
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return current($this->data);

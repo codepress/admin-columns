@@ -3,7 +3,6 @@
 namespace AC;
 
 use Iterator;
-use ReturnTypeWillChange;
 
 class ArrayIterator implements Iterator
 {
@@ -18,31 +17,31 @@ class ArrayIterator implements Iterator
         $this->array = $array;
     }
 
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return current($this->array);
     }
 
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function next()
     {
         return next($this->array);
     }
 
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return key($this->array);
     }
 
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return $this->key() !== null;
     }
 
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         return reset($this->array);
