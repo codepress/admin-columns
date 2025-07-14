@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace AC\Deprecated;
 
 use AC\Collection;
-use Countable;
 
-class HookCollection extends Collection implements Countable
+class HookCollection extends Collection
 {
 
     public function __construct(array $hooks)
@@ -23,11 +22,6 @@ class HookCollection extends Collection implements Countable
     public function current(): Hook
     {
         return current($this->data);
-    }
-
-    public function count(): int
-    {
-        return count($this->data);
     }
 
 }

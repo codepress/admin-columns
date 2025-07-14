@@ -83,10 +83,10 @@ class Loader
 
         // Value handlers
         $factories = [
-            TableScreen\ManageValue\PostFactory::class,
-            TableScreen\ManageValue\UserFactory::class,
-            TableScreen\ManageValue\MediaFactory::class,
-            TableScreen\ManageValue\CommentFactory::class,
+            TableScreen\ManageValue\PostServiceFactory::class,
+            TableScreen\ManageValue\UserServiceFactory::class,
+            TableScreen\ManageValue\MediaServiceFactory::class,
+            TableScreen\ManageValue\CommentServiceFactory::class,
         ];
 
         foreach ($factories as $factory) {

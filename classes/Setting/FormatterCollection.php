@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use Countable;
+use AC\Collection;
 use InvalidArgumentException;
 
-final class FormatterCollection extends Collection implements Countable
+final class FormatterCollection extends Collection
 {
 
     public function __construct(array $formatters = [])
@@ -64,11 +64,6 @@ final class FormatterCollection extends Collection implements Countable
     public function current()
     {
         return current($this->data);
-    }
-
-    public function count(): int
-    {
-        return count($this->data);
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace AC;
 
+// TODO David remove this class in favor of the general collection
 abstract class Iterator implements \Iterator
 {
 

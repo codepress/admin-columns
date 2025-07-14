@@ -9,6 +9,7 @@
     export let position: string | null = null;
     export let maxHeight: string | null = null;
     export let value: any | null | undefined = null;
+    export let zIndex: number|null|undefined = null;
 
     const dispatch = createEventDispatcher();
 
@@ -83,6 +84,7 @@
     }
 
     const handleOutsideClick = (e) => {
+        console.log( container )
         if (container && !container.contains(e.target)) {
             close();
         }
@@ -134,6 +136,7 @@
 	</div>
 	{#if opened}
 		<AcDropdownMenu {maxHeight} {appendToBody} trigger={trigger} position={position} on:click={handleSelect}
+			zIndex={zIndex}
 			on:itemSelect={( e ) => { e.stopPropagation(); handleSelect(e)}}>
 			<slot></slot>
 		</AcDropdownMenu>

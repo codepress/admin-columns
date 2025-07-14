@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Type;
 
-use AC\Setting\Collection;
-use Countable;
+use AC\Collection;
 
-final class ValueCollection extends Collection implements Countable
+final class ValueCollection extends Collection
 {
 
     private $id;
@@ -45,11 +44,6 @@ final class ValueCollection extends Collection implements Countable
     public function current(): Value
     {
         return current($this->data);
-    }
-
-    public function count(): int
-    {
-        return count($this->data);
     }
 
 }

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AC\TableScreen\ManageValue;
 
 use AC\CellRenderer;
-use AC\Registerable;
+use AC\TableScreen\ManageValueService;
 use AC\Type\PostTypeSlug;
 use DomainException;
 
-class Post implements Registerable
+class Post implements ManageValueService
 {
 
     private PostTypeSlug $post_type;
@@ -36,11 +36,13 @@ class Post implements Registerable
             throw new DomainException(sprintf("Method should be called before the %s action.", $action));
         }
 
-        add_action($action, [$this, 'manage_value'], $this->priority, 2);
+        add_action($action, [$this, 'render_value'], $this->priority, 2);
     }
 
-    public function manage_value($column_id, $row_id): void
+    public function render_value(...$args): void
     {
+        [$column_id, $row_id] = $args;
+
         echo $this->renderable->render_cell((string)$column_id, $row_id);
     }
 

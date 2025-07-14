@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Setting;
 
 use AC\Expression\Specification;
+use AC\Collection;
 
 final class ConditionalComponentFactoryCollection extends Collection
 {

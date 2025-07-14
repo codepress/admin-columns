@@ -15,6 +15,7 @@ use AC\RequestHandler\Ajax\RestoreSettingsRequest;
 use AC\Service\PluginUpdate;
 use AC\Setting\ContextFactory;
 use AC\Storage\EncoderFactory;
+use AC\Storage\Table;
 use AC\TableIdsFactory;
 use AC\TableScreenFactory;
 use AC\Type\Url\Site;
@@ -45,9 +46,10 @@ return [
     },
     TableScreenFactory::class               => autowire(TableScreenFactory\Aggregate::class),
     SetupFactory\AdminColumns::class        => static function (
-        AdminColumns $plugin
+        AdminColumns $plugin,
+        Table\AdminColumns $table
     ): SetupFactory\AdminColumns {
-        return new SetupFactory\AdminColumns('ac_version', $plugin->get_version());
+        return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $table);
     },
     GlobalTranslationFactory::class         => autowire()
         ->constructorParameter(1, get('translations.global')),

@@ -1,16 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\Notice;
 
 use AC\Capabilities;
 use AC\Message;
-use AC\Plugin\Install\Database;
 use AC\Registerable;
 use AC\Screen;
 use AC\Service\Setup;
+use AC\Storage\Table\AdminColumns;
 
 final class DatabaseMissing implements Registerable
 {
+
+    private AdminColumns $table;
+
+    public function __construct(AdminColumns $table)
+    {
+        $this->table = $table;
+    }
 
     public function register(): void
     {
@@ -19,17 +28,17 @@ final class DatabaseMissing implements Registerable
 
     public function render_notice(Screen $screen): void
     {
-        global $wpdb;
-
-        if ( ! current_user_can(Capabilities::MANAGE)
-             || ! $screen->is_admin_screen()
-             || Database::verify_database_exists()) {
+        // TODO Stefan test if this still works properly
+        if ( ! current_user_can(Capabilities::MANAGE) ||
+             ! $screen->is_admin_screen() ||
+             $this->table->exists()
+        ) {
             return;
         }
 
         $message = sprintf(
             __('Database table %s is missing.', 'codepress-admin-columns'),
-            '`' . $wpdb->prefix . 'admin_columns`'
+            '`' . $this->table->get_name() . '`'
         );
 
         $message .= ' ' . sprintf(
