@@ -42,6 +42,7 @@ let config = {
 		alias : {
 			svelte : path.resolve( 'node_modules', 'svelte/src/runtime' ),
 			ACUi : path.resolve( __dirname, 'ui' ),
+			"@ac/material-icons" : path.resolve( __dirname, 'packages/material-icons' ),
 		},
 	},
 	externals : {

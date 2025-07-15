@@ -11,15 +11,16 @@
         feature: string
         title: string
         iconClass: string
+        content: string
     }
 
     let proFeatures: Feature[] = [
-        {feature: 'export', title: 'Enable Export', iconClass: 'cpacicon cpacicon-download'},
-        {feature: 'sort', title: 'Enable Sorting', iconClass: 'dashicons dashicons-sort'},
-        {feature: 'edit', title: 'Enable Editing', iconClass: 'dashicons dashicons-edit'},
-        {feature: 'bulk_edit', title: 'Enable Bulk Editing', iconClass: 'cpacicon-bulk-edit'},
-        {feature: 'search', title: 'Enable Smart Filter', iconClass: 'cpacicon-smart-filter'},
-        {feature: 'filter', title: 'Enable Filtering', iconClass: 'dashicons dashicons-filter'},
+        {feature: 'export', title: 'Enable Export', iconClass: 'ac-material-symbols', content: 'download'},
+        {feature: 'sort', title: 'Enable Sorting', iconClass: 'ac-material-symbols', content: 'swap_vert'},
+        {feature: 'edit', title: 'Enable Editing', iconClass: 'ac-material-symbols', content: 'edit'},
+        {feature: 'bulk_edit', title: 'Enable Bulk Editing', iconClass: 'ac-material-symbols', content: 'stacks'},
+        {feature: 'search', title: 'Enable Smart Filter', iconClass: 'ac-material-symbols', content: 'filter_list'},
+        {feature: 'filter', title: 'Enable Filtering', iconClass: 'ac-material-symbols', content: 'filter_alt'},
     ];
 
     const getConfig = (feature: Feature) => {
@@ -42,7 +43,7 @@
 					title={feature.title}
 					disabled={disabled}>
 
-					<span class="{feature.iconClass}"></span>
+					<span class="{feature.iconClass} !acu-text-[20px]">{@html feature.content}</span>
 
 				</HeaderToggle>
 			{:else}

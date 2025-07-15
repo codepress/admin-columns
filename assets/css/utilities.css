@@ -218,6 +218,10 @@
   margin-bottom: 20px
 }
 
+.acu-mb-5 {
+  margin-bottom: 25px
+}
+
 .acu-mb-6 {
   margin-bottom: 30px
 }
@@ -288,10 +292,6 @@
 
 .acu-mt-\[0\] {
   margin-top: 0
-}
-
-.acu-mb-5 {
-  margin-bottom: 25px
 }
 
 .acu-block {
@@ -1050,9 +1050,38 @@
   line-height: 1.5rem
 }
 
+.acu-text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem
+}
+
 .acu-text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem
+}
+
+.acu-text-\[13px\] {
+  font-size: 13px
+}
+
+.\!acu-text-\[13px\] {
+  font-size: 13px !important
+}
+
+.\!acu-text-\[15px\] {
+  font-size: 15px !important
+}
+
+.\!acu-text-\[16px\] {
+  font-size: 16px !important
+}
+
+.\!acu-text-\[18px\] {
+  font-size: 18px !important
+}
+
+.\!acu-text-\[20px\] {
+  font-size: 20px !important
 }
 
 .acu-font-bold {
@@ -1152,6 +1181,10 @@
   color: rgb(255 255 255 / var(--tw-text-opacity, 1))
 }
 
+.acu-text-acbutton {
+  color: var(--ac-button-color)
+}
+
 .acu-text-link {
   color: var(--ac-link)
 }
@@ -1163,10 +1196,6 @@
 .acu-text-pink {
   --tw-text-opacity: 1;
   color: rgb(233 66 110 / var(--tw-text-opacity, 1))
-}
-
-.acu-text-acbutton {
-  color: var(--ac-button-color)
 }
 
 .acu-underline {
