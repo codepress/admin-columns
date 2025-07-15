@@ -54,8 +54,8 @@
 	</span>
 	<div slot="content">
 		{#each filteredIcons as icongroup}
-			<h3 class="acu-font-normal acu-mt-[0] acu-mb-1">{icongroup.name}</h3>
-			<div class="ac-ipicker__group">
+			<h3 class="acu-font-thin acu-mt-[0] acu-mb-1">{icongroup.name}</h3>
+			<div class="ac-ipicker__group acu-mb-6">
 				{#each icongroup.items as dashicon}
 					<button
 						class="ac-ipicker__icon"
