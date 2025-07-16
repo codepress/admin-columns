@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC;
 
 use AC\Exception\ContainerException;
-use Psr\Container\ContainerInterface;
+use AC\Vendor\Psr\Container\ContainerInterface;
 
 final class ContainerBuilder
 {
