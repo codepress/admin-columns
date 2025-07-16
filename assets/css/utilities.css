@@ -294,6 +294,10 @@
   margin-top: 0
 }
 
+.acu-mt-2 {
+  margin-top: 10px
+}
+
 .acu-block {
   display: block
 }
@@ -505,6 +509,21 @@
 
 .acu-translate-y-\[-1px\] {
   --tw-translate-y: -1px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+.acu-translate-y-\[2px\] {
+  --tw-translate-y: 2px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+.acu-translate-y-\[3px\] {
+  --tw-translate-y: 3px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+.acu-translate-y-\[4px\] {
+  --tw-translate-y: 4px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
 
@@ -1004,6 +1023,10 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 }
 
+.\!acu-text-\[20px\] {
+  font-size: 20px !important
+}
+
 .acu-text-2xl {
   font-size: 1.5rem;
   line-height: 2rem
@@ -1033,6 +1056,10 @@
   font-size: 16px
 }
 
+.acu-text-\[17px\] {
+  font-size: 17px
+}
+
 .acu-text-\[22px\] {
   font-size: 22px
 }
@@ -1050,38 +1077,21 @@
   line-height: 1.5rem
 }
 
-.acu-text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem
-}
-
 .acu-text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem
 }
 
-.acu-text-\[13px\] {
-  font-size: 13px
+.acu-text-\[18px\] {
+  font-size: 18px
 }
 
-.\!acu-text-\[13px\] {
-  font-size: 13px !important
+.acu-text-\[20px\] {
+  font-size: 20px
 }
 
-.\!acu-text-\[15px\] {
-  font-size: 15px !important
-}
-
-.\!acu-text-\[16px\] {
-  font-size: 16px !important
-}
-
-.\!acu-text-\[18px\] {
-  font-size: 18px !important
-}
-
-.\!acu-text-\[20px\] {
-  font-size: 20px !important
+.acu-text-\[24px\] {
+  font-size: 24px
 }
 
 .acu-font-bold {

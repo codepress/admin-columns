@@ -13,6 +13,7 @@
     import {refreshColumn} from "../ajax/ajax";
     import ColumnLabel from "./ColumnLabel.svelte";
     import JSONTree from "svelte-json-tree";
+    import {MaterialIcon} from "@ac/material-icons/src";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
@@ -139,7 +140,7 @@
 		</div>
 		<div class="ac-column-header__open-indicator acu-flex acu-justify-end">
 			<button class="ac-open-indicator" class:-open={opened} on:click|stopPropagation={toggle}>
-				<span class="dashicons dashicons-arrow-down-alt2"></span>
+				<MaterialIcon icon="keyboard_arrow_down" />
 			</button>
 		</div>
 	</header>

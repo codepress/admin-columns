@@ -7,22 +7,26 @@
     "types": "src/index.d.ts",
     "svelte": "src/index.js",
     "scripts": {
-        "check": "svelte-check --tsconfig ./tsconfig.json",
-        "fetchGoogleFont": "node src/fetchGoogleFont.js"
+        "fetchGoogleFont": "node src/fetchGoogleFont.js",
+        "copyToPlugin": "cp -R build/fonts/* ../../../assets/css/material/",
+        "createTypes": "node src/generateIconTypes.js"
     },
     "files": [
         "src",
         "build"
     ],
-    "keywords": ["svelte", "material-icons", "admin-columns"],
+    "keywords": [
+        "svelte",
+        "material-icons",
+        "admin-columns"
+    ],
     "author": "Your Name",
     "license": "ISC",
     "peerDependencies": {
         "svelte": "^3.0.0"
     },
     "devDependencies": {
-        "svelte": "^3.0.0",
-        "svelte-check": "^2.0.0",
+        "ts-node": "^10.9.2",
         "typescript": "^4.0.0"
     },
     "dependencies": {

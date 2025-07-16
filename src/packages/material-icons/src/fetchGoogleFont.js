@@ -2,32 +2,30 @@ import fetch from 'node-fetch';
 import fs from 'fs/promises';
 import path, {dirname} from 'path';
 import {fileURLToPath} from 'url';
-import {icons} from './iconList.ts';
+import {icons} from './icons.js';
 
 const __filename = fileURLToPath( import.meta.url );
 const __dirname = dirname( __filename );
 
 const GOOGLE_FONTS_BASE_URL = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined';
+//const GOOGLE_FONTS_BASE_URL = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400';
 
 async function downloadFont( icons ) {
 	// Construct the Google Fonts URL
 	const iconNames = icons.join( ',' );
 	const url = `${GOOGLE_FONTS_BASE_URL}&icon_names=${iconNames}&display=block`;
 
-	console.log( 'Fetching CSS from:', url );
-
 	// Fetch the CSS
 	const response = await fetch( url );
 	const css = await response.text();
 
-	console.log( css );
-	// Extract the font URL
 	const fontUrlMatch = css.match( /url\((https:\/\/[^)]+)\)/ );
 	if ( !fontUrlMatch ) {
 		throw new Error( 'Could not find font URL in CSS' );
 	}
 	const fontUrl = fontUrlMatch[ 1 ];
 
+	console.log( 'CSS:', url );
 	console.log( 'Downloading font from:', fontUrl );
 
 	// Download the font
@@ -55,7 +53,6 @@ async function downloadFont( icons ) {
   font-family: 'AcMaterialSymbolsOutlined';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;
   line-height: 1;
   letter-spacing: normal;
   text-transform: none;
@@ -63,6 +60,7 @@ async function downloadFont( icons ) {
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
+  -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }`;
 
@@ -73,6 +71,7 @@ async function downloadFont( icons ) {
 }
 
 // List of icons you want to include
+
 icons.sort();
 
 downloadFont( icons ).catch( console.error );
