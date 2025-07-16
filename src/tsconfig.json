@@ -3,18 +3,17 @@
         "js/**/*"
     ],
     "compilerOptions": {
-        "baseUrl": "./",
+        "baseUrl": ".",
         "outDir": "./dist/",
         "noImplicitAny": true,
-        //"noUnusedLocals": true,
         "strictNullChecks": true,
-        "module": "es6",
+        "module": "esnext",
         "target": "es6",
         "downlevelIteration": true,
         "allowJs": true,
         "emitDecoratorMetadata":false,
         "skipLibCheck": true,
-        "moduleResolution": "Node",
+        "moduleResolution": "node",
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
@@ -24,6 +23,9 @@
         "paths": {
             "ACUi/*": [
                 "ui/*"
+            ],
+            "@ac/material-icons/*": [
+                "packages/material-icons/*"
             ]
         }
     }

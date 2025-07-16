@@ -3,6 +3,9 @@
     "version": "1.0.0",
     "description": "Sass and JS for Admin Columns",
     "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
     "devDependencies": {
         "@babel/core": "7.22.20",
         "@babel/preset-typescript": "7.22.15",
@@ -54,6 +57,7 @@
         "normalize": true
     },
     "dependencies": {
+        "@ac/material-icons": "file:admin-columns/src/packages/material-icons",
         "@wordpress/i18n": "^5.9.0",
         "lodash-es": "^4.17.21",
         "svelte-json-tree": "^1.0.0",
