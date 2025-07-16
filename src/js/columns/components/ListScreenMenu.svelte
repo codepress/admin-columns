@@ -7,6 +7,7 @@
     import {getColumnSettingsTranslation} from "../utils/global";
     import {persistMenuStatus} from "../ajax/menu";
     import MenuGroupHeader from "./menu/MenuGroupHeader.svelte";
+    import {MaterialIcon} from "@ac/material-icons/src";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[] = [];
@@ -110,7 +111,9 @@
 		{#if Object.keys( favoriteItems ).length > 0}
 			<div class="acu-mb-[30px] acu-p-0">
 				<MenuGroupHeader indicator={false}>
-					<GroupIcon icon="dashicons-star-empty" defaultIcon="cpacicon-gf-article"></GroupIcon>
+					<div class="ac-menu-image">
+						<MaterialIcon icon="star" className="acu-text-[25px]"/>
+					</div>
 					{i18n.menu.favorites}
 				</MenuGroupHeader>
 				<ul class="ac-menu-group-list">
@@ -128,7 +131,7 @@
 		{#each Object.entries( menu ) as [ key, group ]}
 			<div class="acu-mb-[30px] acu-p-0">
 				<MenuGroupHeader on:click={()=>toggleGroup(key)} opened={openedGroups.includes( key )}>
-					<GroupIcon icon={group.icon} defaultIcon="cpacicon-gf-article"/>
+					<GroupIcon icon={group.icon} defaultIcon="material-description"/>
 					{group.title}
 				</MenuGroupHeader>
 

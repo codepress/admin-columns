@@ -5,6 +5,7 @@
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {getColumnSettingsTranslation} from "../utils/global";
     import {fade} from 'svelte/transition';
+    import {MaterialIcon} from "@ac/material-icons/src";
 
     const dispatch = createEventDispatcher();
     const i18n = getColumnSettingsTranslation();
@@ -52,6 +53,11 @@
 		on:click|preventDefault={ selectValue }>{label}
 
 		{#if $favoriteListKeysStore.includes( key ) }
+			<span
+				role="none"
+				class="ac-menu-group-list__favorite">
+				<MaterialIcon icon="star" className="acu-text-[25px]"/>
+			</span>
 			<span
 				role="none"
 				class="dashicons dashicons-star-filled ac-menu-group-list__favorite"

@@ -7,7 +7,7 @@ import {icons} from './icons.js';
 const __filename = fileURLToPath( import.meta.url );
 const __dirname = dirname( __filename );
 
-const GOOGLE_FONTS_BASE_URL = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined';
+const GOOGLE_FONTS_BASE_URL = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1';
 //const GOOGLE_FONTS_BASE_URL = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400';
 
 async function downloadFont( icons ) {
@@ -15,6 +15,7 @@ async function downloadFont( icons ) {
 	const iconNames = icons.join( ',' );
 	const url = `${GOOGLE_FONTS_BASE_URL}&icon_names=${iconNames}&display=block`;
 
+	console.log('URL', url);
 	// Fetch the CSS
 	const response = await fetch( url );
 	const css = await response.text();
@@ -25,7 +26,7 @@ async function downloadFont( icons ) {
 	}
 	const fontUrl = fontUrlMatch[ 1 ];
 
-	console.log( 'CSS:', url );
+
 	console.log( 'Downloading font from:', fontUrl );
 
 	// Download the font

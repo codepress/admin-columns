@@ -1076,6 +1076,10 @@
   line-height: 1.75rem
 }
 
+.acu-text-\[25px\] {
+  font-size: 25px
+}
+
 .acu-font-bold {
   font-weight: 700
 }
