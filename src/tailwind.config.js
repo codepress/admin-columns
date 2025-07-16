@@ -13,6 +13,7 @@ module.exports = {
 		"./../../src/editing/**/*.{js,ts,svelte}",
 		"./../../templates/**/*.php",
 		"./../templates/**/*.php",
+		"./packages/**/*.{js,ts,svelte}",
 		"./js/**/*.{js,ts,svelte}",
 		"./ui/**/*.{js,ts,svelte}",
 	],
