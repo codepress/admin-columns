@@ -294,10 +294,6 @@
   margin-top: 0
 }
 
-.acu-mt-2 {
-  margin-top: 10px
-}
-
 .acu-block {
   display: block
 }
@@ -509,16 +505,6 @@
 
 .acu-translate-y-\[-1px\] {
   --tw-translate-y: -1px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
-}
-
-.acu-translate-y-\[2px\] {
-  --tw-translate-y: 2px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
-}
-
-.acu-translate-y-\[3px\] {
-  --tw-translate-y: 3px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
 
@@ -1056,10 +1042,6 @@
   font-size: 16px
 }
 
-.acu-text-\[17px\] {
-  font-size: 17px
-}
-
 .acu-text-\[22px\] {
   font-size: 22px
 }
@@ -1080,18 +1062,6 @@
 .acu-text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem
-}
-
-.acu-text-\[18px\] {
-  font-size: 18px
-}
-
-.acu-text-\[20px\] {
-  font-size: 20px
-}
-
-.acu-text-\[24px\] {
-  font-size: 24px
 }
 
 .acu-font-bold {
@@ -1485,9 +1455,9 @@
   text-align: right
 }
 
-.\[\&\.-active\]\:acu-bg-\[\#E2E8F0\].-active {
+.\[\&\.-active\]\:acu-bg-\[\#F1F5F9\].-active {
   --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1))
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1))
 }
 
 .\[\&\.-active\]\:acu-text-\[\#475569\].-active {

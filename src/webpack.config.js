@@ -49,7 +49,10 @@ let config = {
 		jquery : 'jQuery',
 		jQuery : 'jQuery'
 	},
-	stats : 'minimal'
+	stats : 'minimal',
+	performance: {
+		hints: false
+	}
 
 };
 

@@ -10,6 +10,8 @@ export declare const icons: readonly [
     'filter_alt',
     'help',
     'info',
+    'ink_highlighter',
+    'ink_highlighter_move',
     'keep',
     'keyboard_arrow_up',
     'keyboard_arrow_right',
