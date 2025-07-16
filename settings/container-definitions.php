@@ -20,7 +20,7 @@ use AC\TableIdsFactory;
 use AC\TableScreenFactory;
 use AC\Type\Url\Site;
 use AC\Vendor\DI\Container;
-use Psr\Container\ContainerInterface;
+use AC\Vendor\Psr\Container\ContainerInterface;
 
 use function AC\Vendor\DI\autowire;
 use function AC\Vendor\DI\get;

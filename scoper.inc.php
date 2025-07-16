@@ -17,7 +17,7 @@ return [
         'vendor/php-di/php-di/src/Compiler/Template.php',
     ],
     'patchers'                => [],
-    'exclude-namespaces'      => ['Psr\Container'],
+    'exclude-namespaces'      => [],
     'exclude-classes'         => [],
     'exclude-functions'       => [],
     'exclude-constants'       => [],

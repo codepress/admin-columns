@@ -20,7 +20,7 @@ use AC\Table\SaveHeading;
 use AC\Value\Extended\MediaPreview;
 use AC\Value\Extended\Posts;
 use AC\Value\ExtendedValueRegistry;
-use Psr\Container\ContainerInterface;
+use AC\Vendor\Psr\Container\ContainerInterface;
 
 class Loader
 {
