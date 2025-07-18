@@ -9,11 +9,6 @@ use LogicException;
 abstract class Table
 {
 
-    public function get_timestamp_format(): string
-    {
-        return 'Y-m-d H:i:s';
-    }
-
     public function exists(): bool
     {
         global $wpdb;
