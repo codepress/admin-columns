@@ -42,6 +42,17 @@ final class Storage implements ListScreenRepositoryWritable
         $this->repositories = array_reverse($repositories);
     }
 
+    public function with_repository(string $name, ListScreenRepository\Storage\ListScreenRepository $repository): self
+    {
+        $repositories = $this->get_repositories();
+        $repositories[$name] = $repository;
+
+        $storage = new self();
+        $storage->set_repositories($repositories);
+
+        return $storage;
+    }
+
     public function has_repository($key): bool
     {
         return array_key_exists($key, $this->repositories);
