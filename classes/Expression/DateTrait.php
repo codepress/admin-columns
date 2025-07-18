@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
+use AC\DateFormats;
 use AC\Expression\Exception\InvalidDateFormatException;
 use DateTime;
 use DateTimeZone;
@@ -22,7 +23,7 @@ trait DateTrait
     {
         $date_time = DateTimeFactory::create_from_format($value, $this->format, $this->timezone);
 
-        if ($this->format === DateFormats::MYSQL_DATE) {
+        if ($this->format === DateFormats::DATE_MYSQL) {
             $date_time->setTime(0, 0);
         }
 

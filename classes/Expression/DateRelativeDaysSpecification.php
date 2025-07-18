@@ -7,6 +7,7 @@ namespace AC\Expression;
 use AC\Expression\Exception\InvalidDateFormatException;
 use AC\Expression\Exception\OperatorNotFoundException;
 use DateTimeZone;
+use AC\DateFormats;
 
 final class DateRelativeDaysSpecification extends OperatorExpression implements FactSpecification
 {
@@ -42,7 +43,7 @@ final class DateRelativeDaysSpecification extends OperatorExpression implements 
     public function is_satisfied_by($value): bool
     {
         // Format that discards time
-        $format = DateFormats::MYSQL_DATE;
+        $format = DateFormats::DATE_MYSQL;
 
         $today = DateTimeFactory::create($this->timezone)->format($format);
         $date = DateTimeFactory::create_from_format($value, $this->format, $this->timezone)->format($format);

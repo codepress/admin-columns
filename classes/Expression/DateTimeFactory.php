@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Expression;
 
+use AC\DateFormats;
 use AC\Expression\Exception\InvalidDateFormatException;
 use DateTime;
 use DateTimeZone;
@@ -25,7 +26,7 @@ final class DateTimeFactory
         ?DateTimeZone $timezone = null
     ): DateTime {
         $parsed = DateTime::createFromFormat(
-            $format ?: DateFormats::MYSQL_DATE,
+            $format ?: DateFormats::DATE_MYSQL,
             $date_time,
             self::resolve_timezone($timezone)
         );
