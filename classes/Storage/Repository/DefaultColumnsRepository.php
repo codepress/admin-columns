@@ -20,9 +20,7 @@ final class DefaultColumnsRepository
 
     public function update(TableId $id, DefaultColumns $columns): void
     {
-        $storage = $this->storage($id);
-
-        $data = $storage->get() ?: [];
+        $data = [];
 
         foreach ($columns as $column) {
             $args = [
@@ -36,7 +34,9 @@ final class DefaultColumnsRepository
             $data[$column->get_name()] = $args;
         }
 
-        $storage->save($data);
+        $data
+            ? $this->storage($id)->save($data)
+            : $this->delete($id);
     }
 
     public function exists(TableId $id): bool
@@ -54,7 +54,7 @@ final class DefaultColumnsRepository
     {
         $column_name = (string)$column_id;
 
-        $data = $this->get_cached_storage($id)[$column_name] ?? null;
+        $data = $this->get_cached($id)[$column_name] ?? null;
 
         return $data
             ? $this->create_column($column_name, $data)
@@ -65,7 +65,7 @@ final class DefaultColumnsRepository
     {
         $columns = [];
 
-        foreach ($this->get_cached_storage($id) as $column_name => $column_data) {
+        foreach ($this->get_cached($id) as $column_name => $column_data) {
             if ('cb' === $column_name) {
                 continue;
             }
@@ -85,7 +85,7 @@ final class DefaultColumnsRepository
         );
     }
 
-    private function get_cached_storage(TableId $id): array
+    private function get_cached(TableId $id): array
     {
         static $cached_storage;
 

@@ -33,11 +33,11 @@ class SaveHeadings implements Registerable
         add_action('ac/table/screen', [$this, 'handle']);
     }
 
-    public function get_factory(TableScreen $table_screen): ?SaveHeadingFactory
+    public function get_manage_column_service(TableScreen $table_screen): ?Registerable
     {
         foreach (array_reverse(self::$factories) as $factory) {
             if ($factory->can_create($table_screen)) {
-                return $factory;
+                return $factory->create($table_screen);
             }
         }
 
@@ -55,13 +55,12 @@ class SaveHeadings implements Registerable
         // Save an empty array in case the hook does not run properly.
         $this->repository->update($table_screen->get_id(), new DefaultColumns());
 
-        $factory = $this->get_factory($table_screen);
+        $service = $this->get_manage_column_service($table_screen);
 
         ob_start(); // prevent any output
 
-        if ($factory) {
-            $factory->create($table_screen)
-                    ->register();
+        if ($service) {
+            $service->register();
         }
     }
 

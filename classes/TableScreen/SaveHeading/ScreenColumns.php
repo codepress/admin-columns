@@ -56,19 +56,21 @@ class ScreenColumns implements Registerable
 
     public function save_columns($headings)
     {
-        $this->save(
-            DefaultColumns::create_by_headings($headings)
-        );
+        if ($headings && is_array($headings)) {
+            $this->save(
+                DefaultColumns::create_by_headings($headings)
+            );
+        }
 
         return $headings;
     }
 
-    public function save(DefaultColumns $columns)
+    public function save(DefaultColumns $columns): void
     {
         $this->repository->update($this->table_id, $columns);
     }
 
-    public function save_sortable_columns($sortable_columns)
+    public function save_sortable_columns($sortable_columns): void
     {
         $columns = new DefaultColumns();
 
