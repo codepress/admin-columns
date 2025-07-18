@@ -115,7 +115,7 @@ final class Screen implements Registerable
         $style = new Asset\Style(
             'ac-table',
             $this->location->with_suffix('assets/css/table.css'),
-            ['ac-ui']
+            ['ac-ui', 'ac-material-symbols']
         );
         $style->enqueue();
 

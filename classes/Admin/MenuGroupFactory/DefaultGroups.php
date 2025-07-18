@@ -30,7 +30,9 @@ class DefaultGroups implements MenuGroupFactory
                 }
 
                 if ($post_type->show_in_menu) {
-                    return new MenuGroup('post', __('Post Types', 'codepress-admin-columns'), 7, 'cpacicon-gf-article');
+                    return new MenuGroup(
+                        'post', __('Post Types', 'codepress-admin-columns'), 7, 'material-description'
+                    );
                 }
 
                 return new MenuGroup(

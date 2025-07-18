@@ -218,6 +218,10 @@
   margin-bottom: 20px
 }
 
+.acu-mb-5 {
+  margin-bottom: 25px
+}
+
 .acu-mb-6 {
   margin-bottom: 30px
 }
@@ -288,10 +292,6 @@
 
 .acu-mt-\[0\] {
   margin-top: 0
-}
-
-.acu-mb-5 {
-  margin-bottom: 25px
 }
 
 .acu-block {
@@ -505,6 +505,11 @@
 
 .acu-translate-y-\[-1px\] {
   --tw-translate-y: -1px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+.acu-translate-y-\[4px\] {
+  --tw-translate-y: 4px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
 
@@ -1004,6 +1009,10 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 }
 
+.\!acu-text-\[20px\] {
+  font-size: 20px !important
+}
+
 .acu-text-2xl {
   font-size: 1.5rem;
   line-height: 2rem
@@ -1033,8 +1042,20 @@
   font-size: 16px
 }
 
+.acu-text-\[18px\] {
+  font-size: 18px
+}
+
+.acu-text-\[20px\] {
+  font-size: 20px
+}
+
 .acu-text-\[22px\] {
   font-size: 22px
+}
+
+.acu-text-\[24px\] {
+  font-size: 24px
 }
 
 .acu-text-\[28px\] {
@@ -1053,6 +1074,10 @@
 .acu-text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem
+}
+
+.acu-text-\[25px\] {
+  font-size: 25px
 }
 
 .acu-font-bold {
@@ -1152,6 +1177,10 @@
   color: rgb(255 255 255 / var(--tw-text-opacity, 1))
 }
 
+.acu-text-acbutton {
+  color: var(--ac-button-color)
+}
+
 .acu-text-link {
   color: var(--ac-link)
 }
@@ -1163,10 +1192,6 @@
 .acu-text-pink {
   --tw-text-opacity: 1;
   color: rgb(233 66 110 / var(--tw-text-opacity, 1))
-}
-
-.acu-text-acbutton {
-  color: var(--ac-button-color)
 }
 
 .acu-underline {
@@ -1446,9 +1471,9 @@
   text-align: right
 }
 
-.\[\&\.-active\]\:acu-bg-\[\#E2E8F0\].-active {
+.\[\&\.-active\]\:acu-bg-\[\#F1F5F9\].-active {
   --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1))
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1))
 }
 
 .\[\&\.-active\]\:acu-text-\[\#475569\].-active {

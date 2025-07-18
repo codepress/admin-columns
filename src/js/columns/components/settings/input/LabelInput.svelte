@@ -1,6 +1,7 @@
 <script lang="ts">
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
     import LabelIconModal from "../../LabelIconModal.svelte";
+    import {MaterialIcon} from "@ac/material-icons/src";
 
     export let value: string;
     export let disabled: boolean = false;
@@ -26,7 +27,7 @@
 <AcInputGroup>
 	<input type="text" bind:value={value} {disabled}>
 	<div role="none" class="acui-input-group-text" on:click={addIcon} on:keypress>
-		<span class="dashicons dashicons-format-image"></span>
+		<MaterialIcon icon="sentiment_satisfied" className="acu-cursor-pointer" />
 	</div>
 
 	{#if showIconModal && !disabled}

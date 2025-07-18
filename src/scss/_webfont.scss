@@ -1,34 +1,27 @@
 $cpacicon-add-template: "\ea01";
-$cpacicon-bulk-edit: "\ea02";
-$cpacicon-delete: "\ea03";
-$cpacicon-download: "\ea04";
-$cpacicon-draft: "\ea05";
-$cpacicon-duplicate: "\ea06";
-$cpacicon-filter: "\ea07";
-$cpacicon-full-screen: "\ea08";
-$cpacicon-gf-article: "\ea09";
-$cpacicon-gf-auto-stories: "\ea0a";
-$cpacicon-gf-comment: "\ea0b";
-$cpacicon-gf-label: "\ea0c";
-$cpacicon-gf-media: "\ea0d";
-$cpacicon-gf-user: "\ea0e";
-$cpacicon-more: "\ea0f";
-$cpacicon-move: "\ea10";
-$cpacicon-question: "\ea11";
-$cpacicon-rename: "\ea12";
-$cpacicon-reset-password: "\ea13";
-$cpacicon-segment: "\ea14";
-$cpacicon-smart-filter: "\ea15";
-$cpacicon-text-clip: "\ea16";
-$cpacicon-text-wrap: "\ea17";
-$cpacicon-user-switch: "\ea18";
-$cpacicon-woo: "\ea19";
+$cpacicon-download: "\ea02";
+$cpacicon-draft: "\ea03";
+$cpacicon-duplicate: "\ea04";
+$cpacicon-filter: "\ea05";
+$cpacicon-full-screen: "\ea06";
+$cpacicon-gf-media: "\ea07";
+$cpacicon-more: "\ea08";
+$cpacicon-move: "\ea09";
+$cpacicon-question: "\ea0a";
+$cpacicon-rename: "\ea0b";
+$cpacicon-reset-password: "\ea0c";
+$cpacicon-segment: "\ea0d";
+$cpacicon-smart-filter: "\ea0e";
+$cpacicon-text-clip: "\ea0f";
+$cpacicon-text-wrap: "\ea10";
+$cpacicon-user-switch: "\ea11";
+$cpacicon-woo: "\ea12";
 
 @font-face {
     font-family: "cpac_icons";
     src:
-        url("../fonts/cpac_icons.woff2?v=863309") format("woff2"),
-        url("../fonts/cpac_icons.woff?v=837924") format("woff");
+        url("../fonts/cpac_icons.woff2?v=414167") format("woff2"),
+        url("../fonts/cpac_icons.woff?v=10502") format("woff");
     font-style: normal;
     font-weight: 400;
 }
@@ -53,14 +46,6 @@ $cpacicon-woo: "\ea19";
     content: $cpacicon-add-template;
 }
 
-.cpacicon-bulk-edit::before {
-    content: $cpacicon-bulk-edit;
-}
-
-.cpacicon-delete::before {
-    content: $cpacicon-delete;
-}
-
 .cpacicon-download::before {
     content: $cpacicon-download;
 }
@@ -81,28 +66,8 @@ $cpacicon-woo: "\ea19";
     content: $cpacicon-full-screen;
 }
 
-.cpacicon-gf-article::before {
-    content: $cpacicon-gf-article;
-}
-
-.cpacicon-gf-auto-stories::before {
-    content: $cpacicon-gf-auto-stories;
-}
-
-.cpacicon-gf-comment::before {
-    content: $cpacicon-gf-comment;
-}
-
-.cpacicon-gf-label::before {
-    content: $cpacicon-gf-label;
-}
-
 .cpacicon-gf-media::before {
     content: $cpacicon-gf-media;
-}
-
-.cpacicon-gf-user::before {
-    content: $cpacicon-gf-user;
 }
 
 .cpacicon-more::before {

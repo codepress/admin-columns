@@ -1,0 +1,35 @@
+{
+    "name": "@ac/material-icons",
+    "version": "1.0.0",
+    "description": "Material Icons package for Admin Columns",
+    "type": "module",
+    "main": "src/index.js",
+    "types": "src/index.d.ts",
+    "svelte": "src/index.js",
+    "scripts": {
+        "fetchGoogleFont": "node src/fetchGoogleFont.js",
+        "copyToPlugin": "cp -R build/fonts/* ../../../assets/css/material/",
+        "createTypes": "node src/generateIconTypes.js"
+    },
+    "files": [
+        "src",
+        "build"
+    ],
+    "keywords": [
+        "svelte",
+        "material-icons",
+        "admin-columns"
+    ],
+    "author": "Your Name",
+    "license": "ISC",
+    "peerDependencies": {
+        "svelte": "^3.0.0"
+    },
+    "devDependencies": {
+        "ts-node": "^10.9.2",
+        "typescript": "^4.0.0"
+    },
+    "dependencies": {
+        "node-fetch": "^3.3.2"
+    }
+}

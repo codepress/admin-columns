@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Exception;
 
+use AC\Vendor\Psr\Container\ContainerExceptionInterface;
 use LogicException;
-use Psr\Container\ContainerExceptionInterface;
 
 final class ContainerException extends LogicException implements ContainerExceptionInterface
 {

@@ -30,6 +30,10 @@ class CommonAssets implements Registerable
         $this->translation_factory->create();
         (new Style('ac-utilities', $this->location->with_suffix('assets/css/utilities.css')))->register();
         (new Style('ac-ui', $this->location->with_suffix('assets/css/acui.css')))->register();
+        (new Style(
+            'ac-material-symbols',
+            $this->location->with_suffix('assets/css/material/material-symbols-outlined.css')
+        ))->register();
     }
 
 }

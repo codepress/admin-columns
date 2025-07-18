@@ -1,8 +1,0 @@
-
-<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="gf-comment" fill="#000000" fill-rule="nonzero">
-            <path d="M4,12 L16,12 L16,10 L4,10 L4,12 Z M4,9 L16,9 L16,7 L4,7 L4,9 Z M4,6 L16,6 L16,4 L4,4 L4,6 Z M20,20 L16,16 L2,16 C1.45,16 0.979166667,15.8041667 0.5875,15.4125 C0.195833333,15.0208333 0,14.55 0,14 L0,2 C0,1.45 0.195833333,0.979166667 0.5875,0.5875 C0.979166667,0.195833333 1.45,0 2,0 L18,0 C18.55,0 19.0208333,0.195833333 19.4125,0.5875 C19.8041667,0.979166667 20,1.45 20,2 L20,20 Z M2,14 L16.85,14 L18,15.125 L18,2 L2,2 L2,14 Z M2.0375,14 L2.0375,2 L2.0375,14 Z" id="Shape"></path>
-        </g>
-    </g>
-</svg>

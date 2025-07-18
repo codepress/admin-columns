@@ -1,13 +1,14 @@
 <script lang="ts">
     import {onMount} from "svelte";
+    import {MaterialIcon} from "@ac/material-icons/src";
 
-    export let icon: string|null;
+    export let icon: string;
     export let defaultIcon: string;
 
-    let type: 'dashicon' | 'svg' | 'cpacicon';
+    let type: 'dashicon' | 'svg' | 'cpacicon' | 'material';
 
     onMount(() => {
-        if( ! icon && defaultIcon ){
+        if( ! icon ){
             icon = defaultIcon;
 		}
 
@@ -17,6 +18,8 @@
             type = 'svg';
         } else if (icon.startsWith('cpac')) {
             type = 'cpacicon';
+        } else if (icon.startsWith('material')) {
+            type = 'material';
         }
     });
 </script>
@@ -36,7 +39,13 @@
 {/if}
 
 {#if type === 'cpacicon' }
-	<div class="ac-menu-image">
+	<div class="ac-menu-image acu-text-[18px]">
 		<span class="{icon}"></span>
+	</div>
+{/if}
+
+{#if type === 'material' }
+	<div class="ac-menu-image acu-text-[18px]">
+		<MaterialIcon icon={icon.replace('material-', '')}></MaterialIcon>
 	</div>
 {/if}

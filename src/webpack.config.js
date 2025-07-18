@@ -42,13 +42,17 @@ let config = {
 		alias : {
 			svelte : path.resolve( 'node_modules', 'svelte/src/runtime' ),
 			ACUi : path.resolve( __dirname, 'ui' ),
+			"@ac/material-icons" : path.resolve( __dirname, 'packages/material-icons' ),
 		},
 	},
 	externals : {
 		jquery : 'jQuery',
 		jQuery : 'jQuery'
 	},
-	stats : 'minimal'
+	stats : 'minimal',
+	performance: {
+		hints: false
+	}
 
 };
 
