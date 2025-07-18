@@ -34,24 +34,21 @@ class SetupFactory
 
     public function create(string $type): Setup
     {
-        $installers = $this->installers ?: new InstallCollection();
-        $updates = $this->updates ?: new UpdateCollection();
-
         switch ($type) {
             case self::NETWORK:
                 return new Setup\Network(
                     new SiteOption($this->version_key),
                     $this->version,
-                    $installers,
-                    $updates
+                    $this->installers,
+                    $this->updates
                 );
 
             case self::SITE:
                 return new Setup\Site(
                     new Option($this->version_key),
                     $this->version,
-                    $installers,
-                    $updates
+                    $this->installers,
+                    $this->updates
                 );
 
             default:

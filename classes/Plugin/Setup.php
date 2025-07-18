@@ -18,13 +18,13 @@ abstract class Setup
     public function __construct(
         KeyValue $storage,
         Version $version,
-        InstallCollection $installers,
-        UpdateCollection $updates
+        InstallCollection $installers = null,
+        UpdateCollection $updates = null
     ) {
         $this->storage = $storage;
         $this->version = $version;
-        $this->installers = $installers;
-        $this->updates = $updates;
+        $this->installers = $installers ?? new InstallCollection();
+        $this->updates = $updates ?? new UpdateCollection();
     }
 
     protected function update_stored_version(Version $version): void
