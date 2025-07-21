@@ -30,6 +30,16 @@ class Plugin
         $this->version = $version;
     }
 
+    public static function from_plugin_file(string $file, Version $version): self
+    {
+        return new self(
+            plugin_basename($file),
+            plugin_dir_path($file),
+            plugin_dir_url($file),
+            $version
+        );
+    }
+
     public function get_basename(): string
     {
         return $this->basename;

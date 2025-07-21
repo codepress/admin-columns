@@ -17,14 +17,6 @@ final class Absolute implements Location
         $this->path = rtrim($path, '/');
     }
 
-    public static function create_by_plugin_file(string $file): self
-    {
-        return new self(
-            plugin_dir_url($file),
-            plugin_dir_path($file)
-        );
-    }
-
     public function with_suffix(string $suffix): self
     {
         $url = $this->get_url() . '/' . ltrim($suffix, '/');
