@@ -12,7 +12,7 @@
         listScreenDataStore,
         listScreenIsReadOnly,
         listScreenIsStored,
-		listScreenIsTemplate
+        listScreenIsTemplate
     } from "../store";
     import {config} from "../service/list-screen-service";
     import {startListScreenWatcher} from "../service/list-screen-watcher";
@@ -24,7 +24,6 @@
     import SupportPanel from "./sidebar/SupportPanel.svelte";
     import ProSettingsExample from "./ProSettingsExample.svelte";
     import {AcNotice, AcPanel} from "ACUi/index";
-    import {sprintf} from "@wordpress/i18n";
     import JSONTree from "svelte-json-tree";
     import ListKeys from "../utils/list-keys";
 
@@ -44,7 +43,7 @@
             return;
         }
 
-        currentListKey.set( e.detail );
+        currentListKey.set(e.detail);
     }
 </script>
 
@@ -79,10 +78,13 @@
 		<div class="acu-px-4 2xl:acu-px-[50px] acu-pt-[10px]" data-ac-notices>
 
 			<hr class="wp-header-end">
-			{#if ! $listScreenIsTemplate && 'inactive' === $listScreenDataStore?.status}
-				<AcNotice type="info" styled showIcon>{@html i18n.notices.inactive}</AcNotice>
+			{#if !$listScreenIsTemplate && $listScreenDataStore && 'inactive' === $listScreenDataStore.status}
+				<AcNotice type="info" styled showIcon>
+					<span class="acu-mr-4">{@html i18n.notices.inactive}</span>
+					<AcButton label={i18n.pro.settings.status.activate} on:click={()=>{ $listScreenDataStore.status = ''}}/>
+				</AcNotice>
 			{/if}
-			{#if $listScreenDataStore?.title && $listScreenIsReadOnly && ! $listScreenIsTemplate}
+			{#if $listScreenDataStore?.title && $listScreenIsReadOnly && !$listScreenIsTemplate}
 				<AcNotice type="info" styled showIcon>{@html i18n.editor.sentence.columns_read_only}</AcNotice>
 			{/if}
 			{#if $listScreenDataStore?.title && !$listScreenIsStored}
@@ -95,14 +97,13 @@
 		<main class="ac-admin-page-main acu-px-4 acu-pt-2 2xl:acu-pt-[30px] 2xl:acu-px-[50px]">
 			<div class="acu-flex acu-flex-col-reverse xl:acu-gap-6 xl:acu-flex-row">
 				<div class="acu-flex-grow acu-max-w-[1200px]">
-
-						<ListScreenForm
-							bind:this={form}
-							bind:isSaving={isSaving}
-							config={$config}
-							bind:data={$listScreenDataStore}
-							locked={$listScreenIsReadOnly || ! $hasUsagePermissions}
-						/>
+					<ListScreenForm
+						bind:this={form}
+						bind:isSaving={isSaving}
+						config={$config}
+						bind:data={$listScreenDataStore}
+						locked={$listScreenIsReadOnly || ! $hasUsagePermissions}
+					/>
 
 					{#if !localConfig.is_pro }
 						<ProSettingsExample/>

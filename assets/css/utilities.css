@@ -262,16 +262,16 @@
   margin-right: 10px
 }
 
+.acu-mr-4 {
+  margin-right: 20px
+}
+
 .acu-mt-1 {
   margin-top: 5px
 }
 
 .acu-mt-3 {
   margin-top: 15px
-}
-
-.acu-mt-4 {
-  margin-top: 20px
 }
 
 .acu-mt-6 {
@@ -1058,6 +1058,10 @@
   font-size: 24px
 }
 
+.acu-text-\[25px\] {
+  font-size: 25px
+}
+
 .acu-text-\[28px\] {
   font-size: 28px
 }
@@ -1074,10 +1078,6 @@
 .acu-text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem
-}
-
-.acu-text-\[25px\] {
-  font-size: 25px
 }
 
 .acu-font-bold {

@@ -34,6 +34,7 @@ type AdminColumnsI18n = {
         }
         settings: {
             status: {
+                activate: string
                 status: string
                 description: string
             }

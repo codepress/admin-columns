@@ -259,6 +259,7 @@ class Columns extends Script
                     'settings' => [
                         'status'       => [
                             'status'      => __('Active', 'codepress-admin-columns'),
+                            'activate'    => __('Activate', 'codepress-admin-columns'),
                             'description' => __(
                                 'Toggle to show or hide this view on the list table.',
                                 'codepress-admin-columns'

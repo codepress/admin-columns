@@ -5515,12 +5515,12 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[21] = list[i];
+  child_ctx[22] = list[i];
   return child_ctx;
 }
 function get_each_context_1(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[21] = list[i];
+  child_ctx[22] = list[i];
   return child_ctx;
 }
 
@@ -5646,7 +5646,7 @@ function create_default_slot_4(ctx) {
   };
 }
 
-// (64:3) {#if ! $listScreenIsTemplate && 'inactive' === $listScreenDataStore?.status}
+// (64:3) {#if !$listScreenIsTemplate && $listScreenDataStore && 'inactive' === $listScreenDataStore.status}
 function create_if_block_6(ctx) {
   let acnotice;
   let current;
@@ -5673,7 +5673,7 @@ function create_if_block_6(ctx) {
     },
     p(ctx, dirty) {
       const acnotice_changes = {};
-      if (dirty & /*$$scope*/67108864) {
+      if (dirty & /*$$scope, $listScreenDataStore*/134219776) {
         acnotice_changes.$$scope = {
           dirty,
           ctx
@@ -5698,30 +5698,52 @@ function create_if_block_6(ctx) {
 
 // (65:4) <AcNotice type="info" styled showIcon>
 function create_default_slot_3(ctx) {
-  let html_tag;
+  let span;
   let raw_value = /*i18n*/ctx[14].notices.inactive + "";
-  let html_anchor;
+  let t;
+  let acbutton;
+  let current;
+  acbutton = new ACUi_element_AcButton_svelte__WEBPACK_IMPORTED_MODULE_9__["default"]({
+    props: {
+      label: /*i18n*/ctx[14].pro.settings.status.activate
+    }
+  });
+  acbutton.$on("click", /*click_handler_1*/ctx[18]);
   return {
     c() {
-      html_tag = new svelte_internal__WEBPACK_IMPORTED_MODULE_0__.HtmlTag(false);
-      html_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
-      html_tag.a = html_anchor;
+      span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acbutton.$$.fragment);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", "acu-mr-4");
     },
     m(target, anchor) {
-      html_tag.m(raw_value, target, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, html_anchor, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
+      span.innerHTML = raw_value;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acbutton, target, anchor);
+      current = true;
     },
     p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acbutton.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acbutton.$$.fragment, local);
+      current = false;
+    },
     d(detaching) {
       if (detaching) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(html_anchor);
-        html_tag.d();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(span);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
       }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acbutton, detaching);
     }
   };
 }
 
-// (67:3) {#if $listScreenDataStore?.title && $listScreenIsReadOnly && ! $listScreenIsTemplate}
+// (70:3) {#if $listScreenDataStore?.title && $listScreenIsReadOnly && !$listScreenIsTemplate}
 function create_if_block_5(ctx) {
   let acnotice;
   let current;
@@ -5748,7 +5770,7 @@ function create_if_block_5(ctx) {
     },
     p(ctx, dirty) {
       const acnotice_changes = {};
-      if (dirty & /*$$scope*/67108864) {
+      if (dirty & /*$$scope*/134217728) {
         acnotice_changes.$$scope = {
           dirty,
           ctx
@@ -5771,7 +5793,7 @@ function create_if_block_5(ctx) {
   };
 }
 
-// (68:4) <AcNotice type="info" styled showIcon>
+// (71:4) <AcNotice type="info" styled showIcon>
 function create_default_slot_2(ctx) {
   let html_tag;
   let raw_value = /*i18n*/ctx[14].editor.sentence.columns_read_only + "";
@@ -5796,7 +5818,7 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (70:3) {#if $listScreenDataStore?.title && !$listScreenIsStored}
+// (73:3) {#if $listScreenDataStore?.title && !$listScreenIsStored}
 function create_if_block_4(ctx) {
   let acnotice;
   let current;
@@ -5823,7 +5845,7 @@ function create_if_block_4(ctx) {
     },
     p(ctx, dirty) {
       const acnotice_changes = {};
-      if (dirty & /*$$scope*/67108864) {
+      if (dirty & /*$$scope*/134217728) {
         acnotice_changes.$$scope = {
           dirty,
           ctx
@@ -5846,7 +5868,7 @@ function create_if_block_4(ctx) {
   };
 }
 
-// (71:4) <AcNotice type="info" styled showIcon>
+// (74:4) <AcNotice type="info" styled showIcon>
 function create_default_slot_1(ctx) {
   let html_tag;
   let raw_value = /*i18n*/ctx[14].notices.not_saved_settings + "";
@@ -5871,13 +5893,13 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (73:3) {#each ListScreenSections.getSections( 'notices' ) as component}
+// (76:3) {#each ListScreenSections.getSections( 'notices' ) as component}
 function create_each_block_1(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
     props: {
-      component: /*component*/ctx[21]
+      component: /*component*/ctx[22]
     }
   });
   return {
@@ -5904,7 +5926,7 @@ function create_each_block_1(ctx) {
   };
 }
 
-// (89:5) {#if !localConfig.is_pro }
+// (91:5) {#if !localConfig.is_pro }
 function create_if_block_3(ctx) {
   let prosettingsexample;
   let current;
@@ -5932,7 +5954,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (93:5) {#if $debugMode}
+// (95:5) {#if $debugMode}
 function create_if_block_2(ctx) {
   let acpanel;
   let current;
@@ -5956,7 +5978,7 @@ function create_if_block_2(ctx) {
     },
     p(ctx, dirty) {
       const acpanel_changes = {};
-      if (dirty & /*$$scope, $listScreenDataStore*/67110912) {
+      if (dirty & /*$$scope, $listScreenDataStore*/134219776) {
         acpanel_changes.$$scope = {
           dirty,
           ctx
@@ -5979,7 +6001,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (94:6) <AcPanel>
+// (96:6) <AcPanel>
 function create_default_slot(ctx) {
   let jsontree;
   let current;
@@ -6016,13 +6038,13 @@ function create_default_slot(ctx) {
   };
 }
 
-// (100:5) {#each ListScreenSections.getSections( 'sidebar' ) as component}
+// (102:5) {#each ListScreenSections.getSections( 'sidebar' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
     props: {
-      component: /*component*/ctx[21]
+      component: /*component*/ctx[22]
     }
   });
   return {
@@ -6049,7 +6071,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (104:6) {#if !localConfig.is_pro }
+// (106:6) {#if !localConfig.is_pro }
 function create_if_block(ctx) {
   let t0;
   let reviewcomponent;
@@ -6103,7 +6125,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (105:7) {#if localConfig.pro_banner }
+// (107:7) {#if localConfig.pro_banner }
 function create_if_block_1(ctx) {
   let prosidebanner;
   let current;
@@ -6181,7 +6203,7 @@ function create_fragment(ctx) {
     }
   });
   listscreenmenu.$on("itemSelect", /*handleMenuSelect*/ctx[16]);
-  let if_block0 = ! /*$listScreenIsTemplate*/ctx[10] && 'inactive' === /*$listScreenDataStore*/ctx[11]?.status && create_if_block_6(ctx);
+  let if_block0 = ! /*$listScreenIsTemplate*/ctx[10] && /*$listScreenDataStore*/ctx[11] && 'inactive' === /*$listScreenDataStore*/ctx[11].status && create_if_block_6(ctx);
   let if_block1 = /*$listScreenDataStore*/ctx[11]?.title && /*$listScreenIsReadOnly*/ctx[6] && ! /*$listScreenIsTemplate*/ctx[10] && create_if_block_5(ctx);
   let if_block2 = /*$listScreenDataStore*/ctx[11]?.title && ! /*$listScreenIsStored*/ctx[9] && create_if_block_4(ctx);
   let each_value_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(_store_list_screen_sections__WEBPACK_IMPORTED_MODULE_3__["default"].getSections('notices'));
@@ -6190,10 +6212,10 @@ function create_fragment(ctx) {
     each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
   }
   function listscreenform_isSaving_binding(value) {
-    /*listscreenform_isSaving_binding*/ctx[19](value);
+    /*listscreenform_isSaving_binding*/ctx[20](value);
   }
   function listscreenform_data_binding(value) {
-    /*listscreenform_data_binding*/ctx[20](value);
+    /*listscreenform_data_binding*/ctx[21](value);
   }
   let listscreenform_props = {
     config: /*$config*/ctx[12],
@@ -6209,7 +6231,7 @@ function create_fragment(ctx) {
     props: listscreenform_props
   });
   /*listscreenform_binding*/
-  ctx[18](listscreenform);
+  ctx[19](listscreenform);
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(listscreenform, 'isSaving', listscreenform_isSaving_binding));
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(listscreenform, 'data', listscreenform_data_binding));
   let if_block3 = ! /*localConfig*/ctx[15].is_pro && create_if_block_3(ctx);
@@ -6315,7 +6337,7 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       const adminheaderbar_changes = {};
-      if (dirty & /*$$scope, isSaving, $listScreenDataHasChanges, $listScreenIsStored, form, $listScreenIsReadOnly, $hasUsagePermissions, $currentTableUrl, $currentListKey*/67109884) {
+      if (dirty & /*$$scope, isSaving, $listScreenDataHasChanges, $listScreenIsStored, form, $listScreenIsReadOnly, $hasUsagePermissions, $currentTableUrl, $currentListKey*/134218748) {
         adminheaderbar_changes.$$scope = {
           dirty,
           ctx
@@ -6326,7 +6348,7 @@ function create_fragment(ctx) {
       if (dirty & /*menu*/1) listscreenmenu_changes.menu = /*menu*/ctx[0];
       if (dirty & /*openedGroups*/2) listscreenmenu_changes.openedGroups = /*openedGroups*/ctx[1];
       listscreenmenu.$set(listscreenmenu_changes);
-      if (! /*$listScreenIsTemplate*/ctx[10] && 'inactive' === /*$listScreenDataStore*/ctx[11]?.status) {
+      if (! /*$listScreenIsTemplate*/ctx[10] && /*$listScreenDataStore*/ctx[11] && 'inactive' === /*$listScreenDataStore*/ctx[11].status) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
           if (dirty & /*$listScreenIsTemplate, $listScreenDataStore*/3072) {
@@ -6469,7 +6491,7 @@ function create_fragment(ctx) {
       if (if_block2) if_block2.d();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks_1, detaching);
       /*listscreenform_binding*/
-      ctx[18](null);
+      ctx[19](null);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(listscreenform);
       if (if_block3) if_block3.d();
       if (if_block4) if_block4.d();
@@ -6517,6 +6539,9 @@ function instance($$self, $$props, $$invalidate) {
     _store__WEBPACK_IMPORTED_MODULE_6__.currentListKey.set(e.detail);
   };
   const click_handler = () => form.saveSettings();
+  const click_handler_1 = () => {
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store__WEBPACK_IMPORTED_MODULE_6__.listScreenDataStore, $listScreenDataStore.status = '', $listScreenDataStore);
+  };
   function listscreenform_binding($$value) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {
       form = $$value;
@@ -6535,7 +6560,7 @@ function instance($$self, $$props, $$invalidate) {
     if ('menu' in $$props) $$invalidate(0, menu = $$props.menu);
     if ('openedGroups' in $$props) $$invalidate(1, openedGroups = $$props.openedGroups);
   };
-  return [menu, openedGroups, form, isSaving, $currentListKey, $currentTableUrl, $listScreenIsReadOnly, $hasUsagePermissions, $listScreenDataHasChanges, $listScreenIsStored, $listScreenIsTemplate, $listScreenDataStore, $config, $debugMode, i18n, localConfig, handleMenuSelect, click_handler, listscreenform_binding, listscreenform_isSaving_binding, listscreenform_data_binding];
+  return [menu, openedGroups, form, isSaving, $currentListKey, $currentTableUrl, $listScreenIsReadOnly, $hasUsagePermissions, $listScreenDataHasChanges, $listScreenIsStored, $listScreenIsTemplate, $listScreenDataStore, $config, $debugMode, i18n, localConfig, handleMenuSelect, click_handler, click_handler_1, listscreenform_binding, listscreenform_isSaving_binding, listscreenform_data_binding];
 }
 class ColumnsPage extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
