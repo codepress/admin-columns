@@ -17,7 +17,9 @@ class FallBack implements AC\Setting\Formatter
 
     public function format(Value $value): Value
     {
-        return $value->get_value() ? $value : $value->with_value($this->fallback_value);
+        $current_value = trim($value->get_value());
+
+        return $current_value ? $value : $value->with_value($this->fallback_value);
     }
 
 }
