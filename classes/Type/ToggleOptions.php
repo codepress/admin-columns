@@ -7,15 +7,9 @@ use AC\Helper\Select\Option;
 final class ToggleOptions
 {
 
-    /**
-     * @var Option
-     */
-    private $disabled;
+    private Option $disabled;
 
-    /**
-     * @var Option
-     */
-    private $enabled;
+    private Option $enabled;
 
     public function __construct(Option $disabled, Option $enabled)
     {
@@ -23,18 +17,12 @@ final class ToggleOptions
         $this->enabled = $enabled;
     }
 
-    /**
-     * @return Option
-     */
-    public function get_enabled()
+    public function get_enabled(): Option
     {
         return $this->enabled;
     }
 
-    /**
-     * @return Option
-     */
-    public function get_disabled()
+    public function get_disabled(): Option
     {
         return $this->disabled;
     }

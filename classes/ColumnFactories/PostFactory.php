@@ -48,6 +48,7 @@ final class PostFactory extends BaseFactory
             Post\CommentStatusFactory::class,
             Post\ContentFactory::class,
             Post\DatePublishFactory::class,
+            Post\DiscussionFactory::class,
             Post\DepthFactory::class,
             Post\EstimateReadingTimeFactory::class,
             Post\MenuFactory::class,
