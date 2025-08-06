@@ -39,7 +39,7 @@ class ListScreenAdmin implements Middleware
             : null;
     }
 
-    protected function get_requested_listscreen_id(Request $request)
+    protected function get_requested_listscreen_id(Request $request): ?ListScreenId
     {
         try {
             $id = new ListScreenId((string)$request->get('list_screen_id'));
