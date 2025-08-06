@@ -30,7 +30,16 @@ class ListScreenAdmin implements Middleware
         $this->preference = $preference;
     }
 
-    private function get_requested_listscreen(Request $request): ?ListScreen
+    protected function get_requested_listscreen(Request $request): ?ListScreen
+    {
+        $id = $this->get_requested_listscreen_id($request);
+
+        return $id
+            ? $this->get_list_screen_by_id($id)
+            : null;
+    }
+
+    protected function get_requested_listscreen_id(Request $request)
     {
         try {
             $id = new ListScreenId((string)$request->get('list_screen_id'));
@@ -38,10 +47,10 @@ class ListScreenAdmin implements Middleware
             return null;
         }
 
-        return $this->get_list_screen_by_id($id);
+        return $id;
     }
 
-    private function get_list_screen_by_id(ListScreenId $id): ?ListScreen
+    protected function get_list_screen_by_id(ListScreenId $id): ?ListScreen
     {
         $list_screen = $this->storage->find($id);
 
