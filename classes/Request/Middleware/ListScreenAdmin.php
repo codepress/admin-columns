@@ -14,11 +14,11 @@ use Exception;
 class ListScreenAdmin implements Middleware
 {
 
-    private ListScreenRepository $storage;
+    protected ListScreenRepository $storage;
 
-    private TableScreen $table_screen;
+    protected TableScreen $table_screen;
 
-    private Preference\ListScreen $preference;
+    protected Preference\ListScreen $preference;
 
     public function __construct(
         ListScreenRepository $storage,
