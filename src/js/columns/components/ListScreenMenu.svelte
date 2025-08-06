@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {currentListKey,favoriteListKeysStore} from "../store";
+    import {currentListKey, favoriteListKeysStore} from "../store";
     import {createEventDispatcher, onMount} from "svelte";
     import GroupIcon from "./GroupIcon.svelte";
     import {SvelteSelectItem} from "../../types/select";
@@ -112,7 +112,9 @@
 			<div class="acu-mb-[30px] acu-p-0">
 				<MenuGroupHeader indicator={false}>
 					<div class="ac-menu-image">
-						<MaterialIcon icon="star" className="acu-text-[25px]"/>
+						<span
+							class="dashicons dashicons-star-empty"
+						></span>
 					</div>
 					{i18n.menu.favorites}
 				</MenuGroupHeader>
