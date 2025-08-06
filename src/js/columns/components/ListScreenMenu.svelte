@@ -7,7 +7,6 @@
     import {getColumnSettingsTranslation} from "../utils/global";
     import {persistMenuStatus} from "../ajax/menu";
     import MenuGroupHeader from "./menu/MenuGroupHeader.svelte";
-    import {MaterialIcon} from "@ac/material-icons/src";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[] = [];
