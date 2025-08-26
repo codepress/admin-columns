@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2025-06-16 10:42+0000\n"
+"POT-Creation-Date: 2025-08-26 08:37+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -304,18 +304,22 @@ msgstr ""
 msgid "%s Off from Black Friday to Cyber Monday"
 msgstr ""
 
-#: classes/Service/PluginUpdate.php:55
-msgid "You are upgrading to a new a major version <strong>(version %s)</strong>, which may include <strong>breaking changes</strong>."
+#: classes/Service/PluginUpdate.php:58
+msgid "You are upgrading to a new a major version of Admin Columns, which can include <strong>breaking changes</strong>."
 msgstr ""
 
-#: classes/Service/PluginUpdate.php:60
+#: classes/Service/PluginUpdate.php:72
 msgctxt "%s contains the link to upgrade guide. Label is translated separately."
 msgid "Please review the %s for details."
 msgstr ""
 
-#: classes/Service/PluginUpdate.php:74
+#: classes/Service/PluginUpdate.php:88
 msgctxt "Anchor text to upgrade guide."
 msgid "upgrade guide"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:119
+msgid "See the Plugins page for details."
 msgstr ""
 
 #: classes/Table/PrimaryColumn.php:48, classes/Table/PrimaryColumn.php:50, classes/Table/Screen.php:153, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
