@@ -11,9 +11,9 @@ use AC\Type\Value;
 class Meta implements Formatter
 {
 
-    private $meta_type;
+    private MetaType $meta_type;
 
-    private $meta_key;
+    private string $meta_key;
 
     public function __construct(MetaType $meta_type, string $meta_key)
     {
