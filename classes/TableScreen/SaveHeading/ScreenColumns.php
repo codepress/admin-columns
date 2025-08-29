@@ -9,6 +9,7 @@ use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\Type\DefaultColumns;
 use AC\Type\TableId;
 
+// TODO combination of Save columns and Sortable does not work. reproduce -> Remove al default columns, after that it will not repopulate
 class ScreenColumns implements Registerable
 {
 
