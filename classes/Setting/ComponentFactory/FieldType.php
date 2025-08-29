@@ -212,6 +212,10 @@ class FieldType extends Builder
 
                 $formatters->add(new AC\Value\Formatter\SelectOptionMapper($config));
                 break;
+            case self::TYPE_DATE:
+                $save_format = $config->get('date_save_format', 'Y-m-d H:i:s');
+                $formatters->prepend(new AC\Value\Formatter\DateMapper($save_format, 'U'));
+                break;
             case self::TYPE_COLOR:
                 $formatters->add(new AC\Value\Formatter\Color());
                 break;

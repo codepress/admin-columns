@@ -12,8 +12,6 @@ use AC\Setting\Control\OptionCollection;
 final class DateSaveFormat extends Builder
 {
 
-    public const NAME = 'comment_status';
-
     public const FORMAT_UNIX_TIMESTAMP = 'U';
     public const FORMAT_DATETIME = 'Y-m-d H:i:s';
     public const FORMAT_DATE = 'Y-m-d';
