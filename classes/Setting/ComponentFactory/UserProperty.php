@@ -75,9 +75,11 @@ class UserProperty extends Builder
             case self::PROPERTY_NICENAME:
             case self::PROPERTY_URL:
             case self::PROPERTY_NICKNAME:
-            case self::PROPERTY_ROLES:
+
                 $formatters->add(new Formatter\User\Property((string)$config->get('display_author_as')));
                 break;
+            case self::PROPERTY_ROLES:
+                $formatters->add(new Formatter\User\TranslatedRoles());
         }
     }
 
