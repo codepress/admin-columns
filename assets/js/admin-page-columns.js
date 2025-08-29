@@ -2168,10 +2168,10 @@ function create_if_block_2(ctx) {
   let updating_config;
   let current;
   function profeaturetoggles_data_binding(value) {
-    /*profeaturetoggles_data_binding*/ctx[18](value);
+    /*profeaturetoggles_data_binding*/ctx[17](value);
   }
   function profeaturetoggles_config_binding(value) {
-    /*profeaturetoggles_config_binding*/ctx[19](value);
+    /*profeaturetoggles_config_binding*/ctx[18](value);
   }
   let profeaturetoggles_props = {
     disabled: /*locked*/ctx[2]
@@ -2250,10 +2250,10 @@ function create_if_block(ctx) {
     }
   });
   function columnsettings_data_binding(value) {
-    /*columnsettings_data_binding*/ctx[22](value);
+    /*columnsettings_data_binding*/ctx[21](value);
   }
   function columnsettings_settings_binding(value) {
-    /*columnsettings_settings_binding*/ctx[23](value);
+    /*columnsettings_settings_binding*/ctx[22](value);
   }
   let columnsettings_props = {
     locked: /*locked*/ctx[2]
@@ -2292,7 +2292,7 @@ function create_if_block(ctx) {
     },
     p(ctx, dirty) {
       const columnsetting_changes = {};
-      if (dirty & /*$$scope, locked, data, config*/1073741831) {
+      if (dirty & /*$$scope, locked, data, config*/536870919) {
         columnsetting_changes.$$scope = {
           dirty,
           ctx
@@ -2375,10 +2375,10 @@ function create_default_slot(ctx) {
   let updating_columnConfig;
   let current;
   function typesetting_data_binding(value) {
-    /*typesetting_data_binding*/ctx[20](value);
+    /*typesetting_data_binding*/ctx[19](value);
   }
   function typesetting_columnConfig_binding(value) {
-    /*typesetting_columnConfig_binding*/ctx[21](value);
+    /*typesetting_columnConfig_binding*/ctx[20](value);
   }
   let typesetting_props = {
     disabled: /*locked*/ctx[2]
@@ -2653,7 +2653,7 @@ function create_fragment(ctx) {
       if (if_block4) if_block4.m(div7, null);
       current = true;
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(strong, "click", /*toggle*/ctx[10]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(strong, "keydown", /*keydown_handler_1*/ctx[17]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(a0, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(/*toggle*/ctx[10]))), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(a1, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(/*handleDelete*/ctx[11]))), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*toggle*/ctx[10])), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(header, "click", /*toggle*/ctx[10]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(header, "keydown", /*keydown_handler*/ctx[16])];
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(a0, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(/*toggle*/ctx[10]))), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(a1, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(/*handleDelete*/ctx[11]))), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*toggle*/ctx[10])), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(header, "click", /*toggle*/ctx[10]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(header, "keydown", /*keydown_handler*/ctx[16])];
         mounted = true;
       }
     },
@@ -2790,8 +2790,8 @@ function instance($$self, $$props, $$invalidate) {
   let $showColumnInfo;
   let $debugMode;
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.openedColumnsStore, $$value => $$invalidate(15, $openedColumnsStore = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.currentListKey, $$value => $$invalidate(24, $currentListKey = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.columnTypesStore, $$value => $$invalidate(25, $columnTypesStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.currentListKey, $$value => $$invalidate(23, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.columnTypesStore, $$value => $$invalidate(24, $columnTypesStore = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.showColumnInfo, $$value => $$invalidate(8, $showColumnInfo = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.debugMode, $$value => $$invalidate(9, $debugMode = $$value));
   let {
@@ -2865,9 +2865,6 @@ function instance($$self, $$props, $$invalidate) {
   function keydown_handler(event) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
   }
-  function keydown_handler_1(event) {
-    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
-  }
   function profeaturetoggles_data_binding(value) {
     data = value;
     $$invalidate(0, data);
@@ -2905,7 +2902,7 @@ function instance($$self, $$props, $$invalidate) {
       $: $$invalidate(7, opened = $openedColumnsStore.includes(data.name));
     }
   };
-  return [data, config, locked, checkAppliedSettings, columnTypeLabel, columnTypeName, isOriginalColumn, opened, $showColumnInfo, $debugMode, toggle, handleDelete, handleDuplicate, hasProfeatures, refreshSetting, $openedColumnsStore, keydown_handler, keydown_handler_1, profeaturetoggles_data_binding, profeaturetoggles_config_binding, typesetting_data_binding, typesetting_columnConfig_binding, columnsettings_data_binding, columnsettings_settings_binding];
+  return [data, config, locked, checkAppliedSettings, columnTypeLabel, columnTypeName, isOriginalColumn, opened, $showColumnInfo, $debugMode, toggle, handleDelete, handleDuplicate, hasProfeatures, refreshSetting, $openedColumnsStore, keydown_handler, profeaturetoggles_data_binding, profeaturetoggles_config_binding, typesetting_data_binding, typesetting_columnConfig_binding, columnsettings_data_binding, columnsettings_settings_binding];
 }
 class ColumnItem extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {

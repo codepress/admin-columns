@@ -10,6 +10,7 @@ use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
 use AC\Value\Formatter\Collection\LocalizeSeparator;
+use AC\Value\Formatter\MenuLink;
 use AC\Value\Formatter\Term\TermProperty;
 use AC\Value\Formatter\UsedByMenu;
 
@@ -58,6 +59,7 @@ class MenuFactory extends BaseColumnFactory
         $formatters = new FormatterCollection([
             new UsedByMenu($this->post_type),
             new TermProperty('name'),
+            new MenuLink(),
         ]);
         $formatters->merge(parent::get_formatters($config));
         $formatters->add(new LocalizeSeparator());

@@ -104,7 +104,7 @@
 			<AcIcon icon="move" size="sm"/>
 		</div>
 		<div class="ac-column-header__label">
-			<strong on:click={toggle} on:keydown role="none">
+			<strong role="none">
 				<ColumnLabel value={data.label??''} fallback={columnTypeLabel}/>
 			</strong>
 			<div class="ac-column-row-actions">
