@@ -109,6 +109,7 @@ class PostProperty extends Builder
                 break;
             case self::PROPERTY_DATE:
                 $formatters->add(new Formatter\Post\GmtDate());
+                $formatters->add(new Formatter\DateMapper('Y-m-d H:i:s', 'U'));
                 break;
         }
     }
