@@ -296,7 +296,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                             'show_actions'   => ! $this->list_screen->is_read_only(),
                             'show_clear_all' => apply_filters('ac/enable_clear_columns_button', false),
                         ]);
-
+     
                         do_action('ac/settings/before_columns', $this->list_screen);
 
                         echo $columns->set_template('admin/edit-columns');
