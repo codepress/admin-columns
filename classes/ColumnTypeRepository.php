@@ -51,7 +51,7 @@ class ColumnTypeRepository
     {
         $column_names = [];
 
-        foreach ($this->default_columns_repository->find_all($id) as $column) {
+        foreach ($this->default_columns_repository->find_all_cached($id) as $column) {
             $column_names[$column->get_name()] = $column->get_label();
         }
 
