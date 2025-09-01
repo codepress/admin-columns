@@ -12,7 +12,6 @@ use AC\Admin\PageRequestHandlers;
 use AC\Plugin\SetupFactory;
 use AC\RequestHandler\Ajax;
 use AC\Setting\ContextFactory;
-use AC\Table\ListScreenRenderableFactory;
 use AC\Table\ManageHeading;
 use AC\Table\ManageValue;
 use AC\Table\ManageValue\ListScreenServiceFactory;
@@ -82,18 +81,18 @@ class Loader
         PageRequestHandlers::add_handler($page_handler);
 
         // Value handlers
-        $factories = [
-            TableScreen\ManageValue\PostServiceFactory::class,
-            TableScreen\ManageValue\UserServiceFactory::class,
-            TableScreen\ManageValue\MediaServiceFactory::class,
-            TableScreen\ManageValue\CommentServiceFactory::class,
-        ];
-
-        foreach ($factories as $factory) {
+        foreach (
+            [
+                $container->get(TableScreen\ManageValue\PostServiceFactory::class),
+                $container->get(TableScreen\ManageValue\UserServiceFactory::class),
+                $container->get(TableScreen\ManageValue\MediaServiceFactory::class),
+                $container->get(TableScreen\ManageValue\CommentServiceFactory::class),
+            ] as $factory
+        ) {
             Service\ManageValue::add(
-                new ListScreenServiceFactory(
-                    $container->get($factory),
-                    $container->get(ListScreenRenderableFactory::class)
+                $container->make(
+                    ListScreenServiceFactory::class,
+                    ['factory' => $factory]
                 )
             );
         }

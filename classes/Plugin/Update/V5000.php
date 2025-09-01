@@ -198,6 +198,14 @@ class V5000 extends Update
             return $column;
         }
 
+        // The column gravatar has a new image size setting
+        if ($column['type'] === 'column-gravatar') {
+            // TODO fetch from image_size
+            $column['gravatar_size'] = 60;
+
+            return $column;
+        }
+
         return null;
     }
 
