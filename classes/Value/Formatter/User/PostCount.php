@@ -11,13 +11,13 @@ use AC\Value\Extended\ExtendedValue;
 class PostCount implements Formatter
 {
 
-    private ?string $post_type;
+    private ?array $post_type;
 
     private ?array $post_stati;
 
     private ExtendedValue $extended_value;
 
-    public function __construct(ExtendedValue $extended_value, string $post_type = null, array $post_stati = null)
+    public function __construct(ExtendedValue $extended_value, array $post_type = [], array $post_stati = null)
     {
         $this->post_type = $post_type;
         $this->post_stati = $post_stati;
@@ -63,16 +63,12 @@ class PostCount implements Formatter
 
     private function get_selected_post_types(): array
     {
-        if ('any' === $this->post_type) {
+        if (empty($this->post_type)) {
             // All post types, including the ones that are marked "exclude from search"
             return array_keys(get_post_types(['show_ui' => true]));
         }
 
-        if (post_type_exists($this->post_type)) {
-            return [$this->post_type];
-        }
-
-        return [];
+        return $this->post_type;
     }
 
 }
