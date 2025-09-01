@@ -58,7 +58,8 @@ class ScreenColumns implements Registerable
     public function save_columns($headings)
     {
         if ($headings && is_array($headings)) {
-            $this->save(
+            $this->repository->update(
+                $this->table_id,
                 DefaultColumns::create_by_headings($headings)
             );
         }
@@ -66,26 +67,24 @@ class ScreenColumns implements Registerable
         return $headings;
     }
 
-    public function save(DefaultColumns $columns): void
-    {
-        $this->repository->update($this->table_id, $columns);
-    }
-
     public function save_sortable_columns($sortable_columns): void
     {
-        $columns = new DefaultColumns();
+        $needs_update = false;
+
+        $columns = $this->repository->find_all($this->table_id);
 
         $sortables = array_keys($sortable_columns);
 
-        foreach ($this->repository->find_all($this->table_id) as $column) {
-            $is_sortable = in_array($column->get_name(), $sortables, true);
-
-            $columns->add(
-                $column->with_sortable($is_sortable)
+        foreach ($columns as $column) {
+            $column->set_sortable(
+                in_array($column->get_name(), $sortables, true)
             );
         }
 
-        $this->save($columns);
+        $this->repository->update(
+            $this->table_id,
+            $columns
+        );
 
         if ($this->do_exit) {
             ob_clean();

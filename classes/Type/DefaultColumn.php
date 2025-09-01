@@ -46,9 +46,9 @@ class DefaultColumn
         return $this->sortable;
     }
 
-    public function with_sortable(bool $sortable): self
+    public function set_sortable(bool $sortable): void
     {
-        return new self($this->name, $this->label, $sortable);
+        $this->sortable = $sortable;
     }
 
 }
