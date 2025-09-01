@@ -9,7 +9,6 @@ use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\Type\DefaultColumns;
 use AC\Type\TableId;
 
-// TODO combination of Save columns and Sortable does not work. reproduce -> Remove al default columns, after that it will not repopulate
 class ScreenColumns implements Registerable
 {
 
@@ -58,6 +57,12 @@ class ScreenColumns implements Registerable
     public function save_columns($headings)
     {
         if ($headings && is_array($headings)) {
+            remove_filter(
+                sprintf('manage_%s_columns', $this->screen_id),
+                [$this, 'save_columns'],
+                $this->priority
+            );
+
             $this->repository->update(
                 $this->table_id,
                 DefaultColumns::create_by_headings($headings)
@@ -69,7 +74,15 @@ class ScreenColumns implements Registerable
 
     public function save_sortable_columns($sortable_columns): void
     {
-        $needs_update = false;
+        if ( ! is_array($sortable_columns)) {
+            return;
+        }
+
+        remove_filter(
+            sprintf('manage_%s_sortable_columns', $this->screen_id),
+            [$this, 'save_sortable_columns'],
+            $this->priority
+        );
 
         $columns = $this->repository->find_all($this->table_id);
 

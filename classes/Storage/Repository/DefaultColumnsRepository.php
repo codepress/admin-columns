@@ -34,9 +34,7 @@ final class DefaultColumnsRepository
             $data[$column->get_name()] = $args;
         }
 
-        $data
-            ? $this->storage($id)->save($data)
-            : $this->delete($id);
+        $this->storage($id)->save($data);
     }
 
     public function exists(TableId $id): bool
@@ -54,18 +52,44 @@ final class DefaultColumnsRepository
     {
         $column_name = (string)$column_id;
 
-        $data = $this->get_cached($id)[$column_name] ?? null;
+        $data = $this->get($id)[$column_name] ?? null;
 
         return $data
             ? $this->create_column($column_name, $data)
             : null;
     }
 
-    public function find_all(TableId $id): DefaultColumns
+    public function find_all_cached(TableId $id): DefaultColumns
     {
         $columns = [];
 
         foreach ($this->get_cached($id) as $column_name => $column_data) {
+            if ('cb' === $column_name) {
+                continue;
+            }
+
+            $columns[] = $this->create_column($column_name, $column_data);
+        }
+
+        return new DefaultColumns($columns);
+    }
+
+    private function get_cached(TableId $id): array
+    {
+        static $cached_storage;
+
+        if ( ! isset($cached_storage[(string)$id])) {
+            $cached_storage[(string)$id] = $this->get($id);
+        }
+
+        return $cached_storage[(string)$id];
+    }
+
+    public function find_all(TableId $id): DefaultColumns
+    {
+        $columns = [];
+
+        foreach ($this->get($id) as $column_name => $column_data) {
             if ('cb' === $column_name) {
                 continue;
             }
@@ -83,17 +107,6 @@ final class DefaultColumnsRepository
             (string)($data['label'] ?? ''),
             (bool)($data['sortable'] ?? false)
         );
-    }
-
-    private function get_cached(TableId $id): array
-    {
-        static $cached_storage;
-
-        if ( ! isset($cached_storage[(string)$id])) {
-            $cached_storage[(string)$id] = $this->get($id);
-        }
-
-        return $cached_storage[(string)$id];
     }
 
     private function get(TableId $id): array
