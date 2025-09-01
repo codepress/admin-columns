@@ -80,7 +80,7 @@ class BaseEncoder implements AC\Storage\Encoder
             $data = $this->encode_settings($column->get_settings());
             $data['type'] = $column->get_type();
 
-            $encode[] = $data;
+            $encode[(string)$column->get_id()] = $data;
         }
 
         return $encode;
