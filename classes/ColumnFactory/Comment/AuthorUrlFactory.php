@@ -25,7 +25,7 @@ class AuthorUrlFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
         $formatters->add(new Property('comment_author_url'));
-        $formatters->add(new Linkable());
+        $formatters->add(new Linkable(null, '_self', true));
 
         return $formatters;
     }
