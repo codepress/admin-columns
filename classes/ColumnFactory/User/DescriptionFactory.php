@@ -40,11 +40,8 @@ class DescriptionFactory extends BaseColumnFactory
 
     protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters = parent::get_formatters($config);
-
-        $formatters->add(new Formatter\User\Meta('description'));
-
-        return $formatters;
+        return parent::get_formatters($config)
+                     ->prepend(new Formatter\User\Meta('description'));
     }
 
     protected function get_settings(Config $config): ComponentCollection
