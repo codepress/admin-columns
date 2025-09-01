@@ -3,12 +3,25 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
+use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Id;
+use AC\Setting\DefaultSettingsBuilder;
 
 class UserIdFactory extends BaseColumnFactory
 {
+
+    private BeforeAfter $before_after_factory;
+
+    public function __construct(
+        DefaultSettingsBuilder $default_settings_builder,
+        BeforeAfter $before_after_factory
+    ) {
+        parent::__construct(
+            $default_settings_builder
+        );
+        $this->before_after_factory = $before_after_factory;
+    }
 
     public function get_label(): string
     {
@@ -20,13 +33,11 @@ class UserIdFactory extends BaseColumnFactory
         return 'column-user_id';
     }
 
-    protected function get_formatters(Config $config): FormatterCollection
+    protected function get_settings(Config $config): ComponentCollection
     {
-        $formatters = parent::get_formatters($config);
-
-        $formatters->add(new Id());
-
-        return $formatters;
+        return new ComponentCollection([
+            $this->before_after_factory->create($config),
+        ]);
     }
 
 }
