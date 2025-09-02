@@ -10,6 +10,8 @@ use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use AC\Type\Uri;
 use AC\Type\Url;
+use ACP\ConditionalFormat\Entity\Rules;
+use ACP\Search\SegmentCollection;
 use DateTime;
 use WP_User;
 
@@ -31,6 +33,10 @@ final class ListScreen
     private bool $read_only = false;
 
     private ListScreenStatus $status;
+
+    private ?SegmentCollection $segments = null;
+
+    private ?Rules $conditional_format = null;
 
     public function __construct(
         ListScreenId $id,
@@ -99,6 +105,26 @@ final class ListScreen
     public function get_preferences(): array
     {
         return $this->preferences;
+    }
+
+    public function set_segments(SegmentCollection $segments): void
+    {
+        $this->segments = $segments;
+    }
+
+    public function get_segments(): ?SegmentCollection
+    {
+        return $this->segments;
+    }
+
+    public function set_conditional_format(Rules $conditional_format): void
+    {
+        $this->conditional_format = $conditional_format;
+    }
+
+    public function get_conditional_format(): ?Rules
+    {
+        return $this->conditional_format;
     }
 
     public function get_updated(): DateTime
