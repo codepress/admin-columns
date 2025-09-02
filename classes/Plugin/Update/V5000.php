@@ -200,8 +200,9 @@ class V5000 extends Update
 
         // The column gravatar has a new image size setting
         if ($column['type'] === 'column-gravatar') {
-            // TODO fetch from image_size
-            $column['gravatar_size'] = 60;
+            $column['gravatar_size'] = $column['image_size_w'] ?? 60;
+
+            unset($column['image_size'], $column['image_size_w'], $column['image_size_h']);
 
             return $column;
         }
