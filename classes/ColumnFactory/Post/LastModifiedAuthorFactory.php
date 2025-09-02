@@ -54,11 +54,7 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
 
     protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters = parent::get_formatters($config);
-
-        $formatters->prepend(new LastModifiedAuthor());
-
-        return $formatters;
+        return parent::get_formatters($config)->prepend(new LastModifiedAuthor());
     }
 
 }

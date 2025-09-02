@@ -28,7 +28,6 @@ final class DatabaseMissing implements Registerable
 
     public function render_notice(Screen $screen): void
     {
-        // TODO Stefan test if this still works properly
         if ( ! current_user_can(Capabilities::MANAGE) ||
              ! $screen->is_admin_screen() ||
              $this->table->exists()

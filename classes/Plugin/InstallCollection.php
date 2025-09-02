@@ -4,7 +4,7 @@ namespace AC\Plugin;
 
 use AC;
 
-final class InstallCollection extends AC\Iterator
+final class InstallCollection extends AC\Collection
 {
 
     public function __construct(array $data = [])
@@ -17,12 +17,9 @@ final class InstallCollection extends AC\Iterator
         $this->data[] = $install;
     }
 
-    /**
-     * @return Install
-     */
-    public function current()
+    public function current(): Install
     {
-        return parent::current();
+        return current($this->data);
     }
 
 }
