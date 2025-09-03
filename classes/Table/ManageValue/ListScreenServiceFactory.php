@@ -14,11 +14,11 @@ class ListScreenServiceFactory implements AC\Table\ManageValueServiceFactory
 
     private TableScreen\ManageValueServiceFactory $factory;
 
-    private AC\Table\ListScreenRenderableFactory $renderable_factory;
+    private AC\Table\ManageValue\ListScreenRenderableFactory $renderable_factory;
 
     public function __construct(
         TableScreen\ManageValueServiceFactory $factory,
-        AC\Table\ListScreenRenderableFactory $renderable_factory
+        AC\Table\ManageValue\ListScreenRenderableFactory $renderable_factory
     ) {
         $this->factory = $factory;
         $this->renderable_factory = $renderable_factory;

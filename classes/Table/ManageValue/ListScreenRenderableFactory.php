@@ -7,9 +7,8 @@ namespace AC\Table\ManageValue;
 use AC\CellRenderer;
 use AC\ListScreen;
 use AC\Setting\ContextFactory;
-use AC\Table\CellRendererFactory;
 
-class ListScreenRenderableFactory implements CellRendererFactory
+class ListScreenRenderableFactory
 {
 
     private ContextFactory $context_factory;

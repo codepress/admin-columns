@@ -13,7 +13,6 @@ use AC\Plugin\SetupFactory;
 use AC\RequestHandler\Ajax;
 use AC\Setting\ContextFactory;
 use AC\Table\ManageHeading;
-use AC\Table\ManageValue;
 use AC\Table\ManageValue\ListScreenServiceFactory;
 use AC\Table\SaveHeading;
 use AC\Value\Extended\MediaPreview;
@@ -61,8 +60,6 @@ class Loader
         foreach ($factories as $factory) {
             ColumnFactories\Aggregate::add($container->get($factory));
         }
-
-        Table\ListScreenRenderableFactory::set($container->get(ManageValue\ListScreenRenderableFactory::class));
 
         ExtendedValueRegistry::add($container->get(MediaPreview::class));
         ExtendedValueRegistry::add($container->get(Posts::class));
