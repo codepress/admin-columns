@@ -10,7 +10,7 @@ use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use AC\Type\Uri;
 use AC\Type\Url;
-use ACP\ConditionalFormat\Entity\Rules;
+use ACP\ConditionalFormat\RulesCollection;
 use ACP\Search\SegmentCollection;
 use DateTime;
 use WP_User;
@@ -34,18 +34,21 @@ final class ListScreen
 
     private ListScreenStatus $status;
 
-    private ?SegmentCollection $segments = null;
+    // TODO David test Segments in constructor, props and methods
+    private ?SegmentCollection $segments;
 
-    private ?Rules $conditional_format = null;
+    private ?RulesCollection $conditional_format;
 
     public function __construct(
         ListScreenId $id,
         string $title,
         TableScreen $table_screen,
-        ColumnIterator $columns = null,
+        ?ColumnIterator $columns = null,
         array $preferences = [],
-        ListScreenStatus $status = null,
-        DateTime $updated = null
+        ?ListScreenStatus $status = null,
+        ?DateTime $updated = null,
+        ?SegmentCollection $segments = null,
+        ?RulesCollection $conditional_format = null
     ) {
         $this->id = $id;
         $this->title = $title;
@@ -54,6 +57,8 @@ final class ListScreen
         $this->preferences = $preferences;
         $this->status = $status ?? new ListScreenStatus();
         $this->updated = $updated ?? new DateTime();
+        $this->segments = $segments;
+        $this->conditional_format = $conditional_format;
     }
 
     public function get_id(): ListScreenId
@@ -117,12 +122,12 @@ final class ListScreen
         return $this->segments;
     }
 
-    public function set_conditional_format(Rules $conditional_format): void
+    public function set_conditional_format(RulesCollection $rules_collection): void
     {
-        $this->conditional_format = $conditional_format;
+        $this->conditional_format = $rules_collection;
     }
 
-    public function get_conditional_format(): ?Rules
+    public function get_conditional_format(): ?RulesCollection
     {
         return $this->conditional_format;
     }
