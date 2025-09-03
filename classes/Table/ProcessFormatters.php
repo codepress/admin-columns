@@ -15,6 +15,8 @@ use AC\Value\Formatter\Collection\Separator;
 class ProcessFormatters
 {
 
+    public const DEFAULT = '&ndash;';
+
     private FormatterCollection $formatters;
 
     private string $default;
@@ -22,7 +24,7 @@ class ProcessFormatters
     public function __construct(FormatterCollection $formatters, string $default = null)
     {
         $this->formatters = $formatters;
-        $this->default = $default ?? '&ndash;';
+        $this->default = $default ?? self::DEFAULT;
     }
 
     public function format(Value $value): Value
