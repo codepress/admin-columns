@@ -19,6 +19,7 @@ use AC\TableScreenFactory;
 use AC\Type\ListScreenId;
 use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
+use ACP\Exception\FailedToSaveListScreen;
 use DateTime;
 use RuntimeException;
 
@@ -98,7 +99,7 @@ class Database implements ListScreenRepositoryWritable
 
         if ($status) {
             $is_empty = '' === (string)$status;
-            
+
             $sql .= $is_empty
                 ? " AND ( status = '' OR STATUS IS NULL )"
                 : $wpdb->prepare(' AND status = %s', (string)$status);
@@ -109,6 +110,9 @@ class Database implements ListScreenRepositoryWritable
         );
     }
 
+    /**
+     * @throws FailedToSaveListScreen
+     */
     public function save(ListScreen $list_screen): void
     {
         global $wpdb;
@@ -153,7 +157,7 @@ class Database implements ListScreenRepositoryWritable
         }
 
         if ($wpdb->last_error) {
-            throw new RuntimeException('Failed to update list screen: ' . $wpdb->last_error);
+            throw new FailedToSaveListScreen('Failed to save list screen: ' . $wpdb->last_error);
         }
     }
 
@@ -190,7 +194,7 @@ class Database implements ListScreenRepositoryWritable
             : [];
     }
 
-    private function create_list_screen(object $data): ?ListScreen
+    protected function create_list_screen(object $data): ?ListScreen
     {
         $table_id = new TableId($data->list_key);
 
