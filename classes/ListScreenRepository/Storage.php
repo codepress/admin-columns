@@ -101,7 +101,7 @@ final class Storage implements ListScreenRepositoryWritable
 
     protected function find_all_by_table_id_from_source(
         TableId $table_id,
-        ListScreenStatus $status = null
+        ?ListScreenStatus $status = null
     ): ListScreenCollection {
         $collection = new ListScreenCollection();
 

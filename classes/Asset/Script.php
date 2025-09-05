@@ -13,7 +13,7 @@ class Script extends Enqueueable
 
     public function __construct(
         string $handle,
-        Location $location = null,
+        ?Location $location = null,
         array $dependencies = [],
         bool $in_footer = false
     ) {
@@ -81,7 +81,7 @@ class Script extends Enqueueable
         return $this;
     }
 
-    public function add_inline(string $data, Position $position = null): self
+    public function add_inline(string $data, ?Position $position = null): self
     {
         if ( ! $this->is_registered()) {
             $this->register();

@@ -31,7 +31,7 @@ class Site implements Type\Url
     public const PAGE_ADDON_RANK_MATH = '/rank-math';
     public const PAGE_ADDON_SEOPRESS = '/seo-press';
 
-    public function __construct(string $path = null)
+    public function __construct(?string $path = null)
     {
         if ($path) {
             $this->set_path($path);

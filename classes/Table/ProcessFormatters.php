@@ -21,7 +21,7 @@ class ProcessFormatters
 
     private string $default;
 
-    public function __construct(FormatterCollection $formatters, string $default = null)
+    public function __construct(FormatterCollection $formatters, ?string $default = null)
     {
         $this->formatters = $formatters;
         $this->default = $default ?? self::DEFAULT;

@@ -11,7 +11,7 @@ class VisibilityType implements GroupFormatter
 
     private $label;
 
-    public function __construct(string $label = null)
+    public function __construct(?string $label = null)
     {
         if (null === $label) {
             $label = __('Default', 'codepress-admin-columns');

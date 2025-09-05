@@ -10,7 +10,7 @@ use AC\Type\TableId;
 class EditorNetworkColumns extends EditorNetwork
 {
 
-    public function __construct(TableId $table_id, ListScreenId $list_id = null)
+    public function __construct(TableId $table_id, ?ListScreenId $list_id = null)
     {
         parent::__construct('columns');
 

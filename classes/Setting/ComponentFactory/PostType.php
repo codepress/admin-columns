@@ -22,7 +22,7 @@ final class PostType implements ComponentFactory
         $this->show_any = $show_any;
     }
 
-    public function create(Config $config, Specification $conditions = null): Component
+    public function create(Config $config, ?Specification $conditions = null): Component
     {
         $post_type_options = $this->create_options($this->show_any);
         $post_type = $config->has('post_type') ? $config->get('post_type') : $post_type_options->current()->get_value();

@@ -23,7 +23,7 @@ class Taxonomy implements ComponentFactory
         $this->post_type = $post_type;
     }
 
-    public function create(Config $config, Specification $conditions = null): Component
+    public function create(Config $config, ?Specification $conditions = null): Component
     {
         $taxonomies = $this->get_taxonomies();
 

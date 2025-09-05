@@ -26,7 +26,7 @@ final class ExifData implements ComponentFactory
         $this->before_after = $before_after;
     }
 
-    public function create(Config $config, Specification $conditions = null): Component
+    public function create(Config $config, ?Specification $conditions = null): Component
     {
         $value = (string)$config->get(self::NAME);
 

@@ -9,7 +9,7 @@ use AC\Type\Url\ListTable;
 class Taxonomy extends ListTable
 {
 
-    public function __construct(string $taxonomy, string $post_type = null)
+    public function __construct(string $taxonomy, ?string $post_type = null)
     {
         parent::__construct('edit-tags.php');
 

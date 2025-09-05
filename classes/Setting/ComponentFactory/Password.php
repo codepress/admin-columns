@@ -18,7 +18,7 @@ final class Password implements ComponentFactory
 
     private const NAME = 'password';
 
-    public function create(Config $config, Specification $conditions = null): Component
+    public function create(Config $config, ?Specification $conditions = null): Component
     {
         $value = (string)$config->get(self::NAME, '');
 

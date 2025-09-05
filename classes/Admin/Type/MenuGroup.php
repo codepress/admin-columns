@@ -15,7 +15,7 @@ class MenuGroup
 
     private ?string $icon;
 
-    public function __construct(string $name, string $label, int $priority = 40, string $icon = null)
+    public function __construct(string $name, string $label, int $priority = 40, ?string $icon = null)
     {
         $this->name = $name;
         $this->label = $label;

@@ -11,7 +11,7 @@ class Hook
 
     private ?string $slug;
 
-    public function __construct(string $name, string $version, string $slug = null)
+    public function __construct(string $name, string $version, ?string $slug = null)
     {
         $this->name = $name;
         $this->version = $version;

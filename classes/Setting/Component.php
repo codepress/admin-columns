@@ -29,14 +29,14 @@ class Component
     private ?string $type;
 
     public function __construct(
-        string $label = null,
-        string $description = null,
-        Input $input = null,
-        Specification $conditions = null,
-        FormatterCollection $formatters = null,
-        Children $children = null,
-        AttributeCollection $attributes = null,
-        string $type = null
+        ?string $label = null,
+        ?string $description = null,
+        ?Input $input = null,
+        ?Specification $conditions = null,
+        ?FormatterCollection $formatters = null,
+        ?Children $children = null,
+        ?AttributeCollection $attributes = null,
+        ?string $type = null
     ) {
         if ($conditions === null) {
             $conditions = new NullSpecification();

@@ -19,7 +19,7 @@ class PostLink extends Builder
 
     private ?Relation $relation;
 
-    public function __construct(Relation $relation = null)
+    public function __construct(?Relation $relation = null)
     {
         $this->relation = $relation;
     }

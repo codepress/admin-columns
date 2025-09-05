@@ -15,7 +15,7 @@ final class BeforeAfter implements Formatter
 
     private string $after;
 
-    public function __construct(string $before = null, string $after = null)
+    public function __construct(?string $before = null, ?string $after = null)
     {
         $this->before = (string)$before;
         $this->after = (string)$after;

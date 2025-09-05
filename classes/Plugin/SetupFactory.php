@@ -23,8 +23,8 @@ class SetupFactory
     public function __construct(
         string $version_key,
         Version $version,
-        InstallCollection $installers = null,
-        UpdateCollection $updates = null
+        ?InstallCollection $installers = null,
+        ?UpdateCollection $updates = null
     ) {
         $this->version_key = $version_key;
         $this->version = $version;

@@ -60,7 +60,7 @@ class Button
         return implode(' ', $output);
     }
 
-    protected function get_attribute_as_string(string $key, string $value = null): string
+    protected function get_attribute_as_string(string $key, ?string $value = null): string
     {
         if (null === $value) {
             $value = $this->get_attribute($key);

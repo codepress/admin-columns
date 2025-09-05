@@ -26,7 +26,7 @@ class Html
         return $style;
     }
 
-    public function link(string $url, string $label = null, array $attributes = []): string
+    public function link(string $url, ?string $label = null, array $attributes = []): string
     {
         if ( ! $url) {
             return $label;
@@ -316,7 +316,7 @@ class Html
         return ob_get_clean();
     }
 
-    public function images(string $html, int $removed = null): string
+    public function images(string $html, ?int $removed = null): string
     {
         if ( ! $html) {
             return '';

@@ -18,7 +18,7 @@ final class WordsPerMinute implements ComponentFactory
 
     private const WORDS_PER_MINUTE = 'words_per_minute';
 
-    public function create(Config $config, Specification $conditions = null): Component
+    public function create(Config $config, ?Specification $conditions = null): Component
     {
         $words_per_minute = (int)$config->get(self::WORDS_PER_MINUTE, 200);
 

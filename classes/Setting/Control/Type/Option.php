@@ -13,14 +13,14 @@ final class Option
 
     private $group;
 
-    public function __construct(string $label, string $value, string $group = null)
+    public function __construct(string $label, string $value, ?string $group = null)
     {
         $this->label = $label;
         $this->value = $value;
         $this->group = $group;
     }
 
-    public static function from_value(string $value, string $group = null): self
+    public static function from_value(string $value, ?string $group = null): self
     {
         return new self($value, $value, $group);
     }

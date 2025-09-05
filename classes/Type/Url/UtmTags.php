@@ -13,7 +13,7 @@ class UtmTags extends Uri
     public const ARG_CONTENT = 'utm_content';
     public const ARG_CAMPAIGN = 'utm_campaign';
 
-    public function __construct(Url $url, string $medium = null, string $content = null, string $campaign = null)
+    public function __construct(Url $url, ?string $medium = null, ?string $content = null, ?string $campaign = null)
     {
         parent::__construct($url->get_url());
 

@@ -12,7 +12,7 @@ class YesIcon implements Formatter
 
     private $class;
 
-    public function __construct(string $class = null)
+    public function __construct(?string $class = null)
     {
         $this->class = $class;
     }

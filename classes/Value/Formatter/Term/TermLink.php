@@ -16,7 +16,7 @@ class TermLink implements Formatter
 
     private $post_type;
 
-    public function __construct(string $link_to, PostTypeSlug $post_type = null)
+    public function __construct(string $link_to, ?PostTypeSlug $post_type = null)
     {
         $this->link_to = $link_to;
         $this->post_type = $post_type;

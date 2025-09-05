@@ -14,8 +14,8 @@ final class Site extends Setup
     public function __construct(
         Option $storage,
         Version $version,
-        InstallCollection $installers = null,
-        UpdateCollection $updates = null
+        ?InstallCollection $installers = null,
+        ?UpdateCollection $updates = null
     ) {
         parent::__construct($storage, $version, $installers, $updates);
     }

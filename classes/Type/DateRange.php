@@ -27,7 +27,7 @@ class DateRange
         return $this->end;
     }
 
-    public function in_range(DateTime $date = null): bool
+    public function in_range(?DateTime $date = null): bool
     {
         if (null === $date) {
             $date = new DateTime();

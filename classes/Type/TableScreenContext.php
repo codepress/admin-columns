@@ -19,8 +19,8 @@ final class TableScreenContext
 
     public function __construct(
         MetaType $meta_type,
-        PostTypeSlug $post_type = null,
-        TaxonomySlug $taxonomy = null
+        ?PostTypeSlug $post_type = null,
+        ?TaxonomySlug $taxonomy = null
     ) {
         $this->meta_type = $meta_type;
         $this->post_type = $post_type;

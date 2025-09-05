@@ -13,7 +13,7 @@ abstract class Enqueueable
 
     protected array $dependencies;
 
-    public function __construct(string $handle, Absolute $location = null, array $dependencies = [])
+    public function __construct(string $handle, ?Absolute $location = null, array $dependencies = [])
     {
         $this->handle = $handle;
         $this->location = $location;

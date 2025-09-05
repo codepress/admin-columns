@@ -16,7 +16,7 @@ class Posts implements ExtendedValue
 
     private array $post_stati;
 
-    public function __construct(array $post_types = null, array $post_stati = null)
+    public function __construct(?array $post_types = null, ?array $post_stati = null)
     {
         $this->post_types = $post_types ?? get_post_types(['show_ui' => true]);
         $this->post_stati = $post_stati ?? get_post_stati(['internal' => 0]);
@@ -120,7 +120,7 @@ class Posts implements ExtendedValue
         );
     }
 
-    private function get_recent_posts(int $user_id, int $limit = null): array
+    private function get_recent_posts(int $user_id, ?int $limit = null): array
     {
         return get_posts([
             'author'         => $user_id,

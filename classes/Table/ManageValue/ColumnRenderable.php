@@ -28,7 +28,7 @@ class ColumnRenderable
         FormatterCollection $formatters,
         Context $context,
         ListScreen $list_screen,
-        string $default = null
+        ?string $default = null
     ) {
         $this->formatters = $formatters;
         $this->context = $context;

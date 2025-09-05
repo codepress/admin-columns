@@ -9,7 +9,7 @@ use AC\Type\Url\ListTable;
 class Media extends ListTable
 {
 
-    public function __construct(string $page = null)
+    public function __construct(?string $page = null)
     {
         parent::__construct('upload.php');
 

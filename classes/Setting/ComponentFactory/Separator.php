@@ -21,7 +21,7 @@ final class Separator implements ComponentFactory
     public const NONE = 'none';
     public const WHITE_SPACE = 'white_space';
 
-    public function create(Config $config, Specification $conditions = null): Component
+    public function create(Config $config, ?Specification $conditions = null): Component
     {
         return (new ComponentBuilder())
             ->set_label(__('Separator', 'codepress-admin-columns'))

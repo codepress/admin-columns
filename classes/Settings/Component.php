@@ -22,8 +22,8 @@ class Component extends AC\Setting\Component
     public function ____construct(
         string $type,
         string $label,
-        string $description = null,
-        AttributeCollection $attributes = null
+        ?string $description = null,
+        ?AttributeCollection $attributes = null
     ) {
         if (null === $attributes) {
             $attributes = new AttributeCollection();

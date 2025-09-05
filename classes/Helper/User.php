@@ -38,7 +38,7 @@ class User
         return $roles;
     }
 
-    public function get_display_name($user, string $format = null): ?string
+    public function get_display_name($user, ?string $format = null): ?string
     {
         $user = $this->get_user($user);
 

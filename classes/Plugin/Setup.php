@@ -18,8 +18,8 @@ abstract class Setup
     public function __construct(
         KeyValue $storage,
         Version $version,
-        InstallCollection $installers = null,
-        UpdateCollection $updates = null
+        ?InstallCollection $installers = null,
+        ?UpdateCollection $updates = null
     ) {
         $this->storage = $storage;
         $this->version = $version;

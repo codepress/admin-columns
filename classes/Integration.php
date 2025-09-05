@@ -24,8 +24,8 @@ abstract class Integration
         string $title,
         string $logo,
         string $description,
-        Url $plugin_link = null,
-        Url $url = null
+        ?Url $plugin_link = null,
+        ?Url $url = null
     ) {
         if (null === $plugin_link) {
             $plugin_link = new Url\PluginSearch($title);

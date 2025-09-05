@@ -30,8 +30,8 @@ class Base implements Column
         string $label,
         ComponentCollection $settings,
         ColumnId $id,
-        FormatterCollection $formatters = null,
-        string $group = null
+        ?FormatterCollection $formatters = null,
+        ?string $group = null
     ) {
         $this->type = $type;
         $this->label = $label;

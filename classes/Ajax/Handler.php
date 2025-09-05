@@ -21,7 +21,7 @@ class Handler implements Registerable
 
     protected int $priority = 10;
 
-    public function __construct(bool $wp_ajax = null)
+    public function __construct(?bool $wp_ajax = null)
     {
         $this->wp_ajax = $wp_ajax === null;
 
@@ -88,7 +88,7 @@ class Handler implements Registerable
         return $this->callback;
     }
 
-    public function set_nonce(string $nonce = null): void
+    public function set_nonce(?string $nonce = null): void
     {
         if (null === $nonce) {
             $nonce = wp_create_nonce(self::NONCE_ACTION);
@@ -97,7 +97,7 @@ class Handler implements Registerable
         $this->params['_ajax_nonce'] = $nonce;
     }
 
-    public function verify_request(string $action = null): void
+    public function verify_request(?string $action = null): void
     {
         if (null === $action) {
             $action = self::NONCE_ACTION;

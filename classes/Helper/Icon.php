@@ -39,7 +39,7 @@ class Icon
         );
     }
 
-    public function yes(string $tooltip = null, string $title = null, string $class = null): string
+    public function yes(?string $tooltip = null, ?string $title = null, ?string $class = null): string
     {
         $class = $class ?: 'green';
         if (null === $title) {
@@ -54,7 +54,7 @@ class Icon
         ]);
     }
 
-    public function no(string $tooltip = null, string $title = null, ?string $class = 'red'): string
+    public function no(?string $tooltip = null, ?string $title = null, ?string $class = 'red'): string
     {
         if (null === $title) {
             $title = __('No');
@@ -68,7 +68,7 @@ class Icon
         ]);
     }
 
-    public function yes_or_no(bool $is_true, string $tooltip = null): string
+    public function yes_or_no(bool $is_true, ?string $tooltip = null): string
     {
         return $is_true
             ? $this->yes($tooltip)

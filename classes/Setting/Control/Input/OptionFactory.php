@@ -16,9 +16,9 @@ final class OptionFactory
         string $name,
         OptionCollection $options,
         $default = null,
-        string $placeholder = null,
-        bool $multiple = null,
-        AttributeCollection $attributes = null
+        ?string $placeholder = null,
+        ?bool $multiple = null,
+        ?AttributeCollection $attributes = null
     ): Option {
         return new Option(
             $name,
@@ -36,9 +36,9 @@ final class OptionFactory
         string $handler,
         $default = null,
         array $data = [],
-        string $placeholder = null,
-        bool $multiple = null,
-        AttributeCollection $attributes = null
+        ?string $placeholder = null,
+        ?bool $multiple = null,
+        ?AttributeCollection $attributes = null
     ): Option {
         if (null === $attributes) {
             $attributes = new AttributeCollection();
@@ -72,8 +72,8 @@ final class OptionFactory
     public static function create_radio(
         string $name,
         OptionCollection $options,
-        string $default = null,
-        AttributeCollection $attributes = null
+        ?string $default = null,
+        ?AttributeCollection $attributes = null
     ): Option {
         return new Option(
             $name,
@@ -88,9 +88,9 @@ final class OptionFactory
 
     public static function create_toggle(
         string $name,
-        OptionCollection $options = null,
-        string $default = null,
-        AttributeCollection $attributes = null
+        ?OptionCollection $options = null,
+        ?string $default = null,
+        ?AttributeCollection $attributes = null
     ): Option {
         if (null === $options) {
             $options = (new ToggleOptionCollection())->create();

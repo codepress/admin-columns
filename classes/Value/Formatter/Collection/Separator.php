@@ -17,7 +17,7 @@ class Separator implements CollectionFormatter
 
     private int $limit;
 
-    public function __construct(string $separator = null, int $limit = 0)
+    public function __construct(?string $separator = null, int $limit = 0)
     {
         $this->separator = $separator ?? ', ';
         $this->limit = $limit;

@@ -15,7 +15,7 @@ class Taxonomy
         $this->html = new Html();
     }
 
-    public function get_term_links(array $terms, string $post_type = null): array
+    public function get_term_links(array $terms, ?string $post_type = null): array
     {
         $values = [];
 
@@ -33,7 +33,7 @@ class Taxonomy
         return $values;
     }
 
-    public function get_filter_by_term_url(WP_Term $term, string $post_type = null): string
+    public function get_filter_by_term_url(WP_Term $term, ?string $post_type = null): string
     {
         $args = [
             'taxonomy' => $term->taxonomy,

@@ -14,11 +14,11 @@ class Open extends Input
 
     public function __construct(
         string $name,
-        string $type = null,
-        string $default = null,
-        string $placeholder = null,
-        AttributeCollection $attributes = null,
-        string $append = null
+        ?string $type = null,
+        ?string $default = null,
+        ?string $placeholder = null,
+        ?AttributeCollection $attributes = null,
+        ?string $append = null
     ) {
         if (null === $type) {
             $type = 'text';

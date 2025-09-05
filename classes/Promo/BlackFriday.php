@@ -12,7 +12,7 @@ class BlackFriday extends Promo
 
     private string $coupon_code;
 
-    public function __construct(DateRange $date_range, string $coupon_code = null)
+    public function __construct(DateRange $date_range, ?string $coupon_code = null)
     {
         parent::__construct(
             'black-friday',

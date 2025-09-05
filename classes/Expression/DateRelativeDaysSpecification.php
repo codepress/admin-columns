@@ -15,7 +15,7 @@ final class DateRelativeDaysSpecification extends OperatorExpression implements 
     use DateTrait;
     use FactTrait;
 
-    public function __construct(string $operator, int $fact, string $format = null, DateTimeZone $timezone = null)
+    public function __construct(string $operator, int $fact, ?string $format = null, ?DateTimeZone $timezone = null)
     {
         parent::__construct($operator);
 

@@ -18,7 +18,7 @@ use AC\Setting\FormatterCollection;
 abstract class Builder implements ComponentFactory
 {
 
-    public function create(Config $config, Specification $conditions = null): Component
+    public function create(Config $config, ?Specification $conditions = null): Component
     {
         $builder = new ComponentBuilder();
         $formatters = new FormatterCollection();
@@ -97,7 +97,7 @@ abstract class Builder implements ComponentFactory
     protected function add_component_formatters(
         FormatterCollection $formatters,
         ComponentCollection $components,
-        string $condition = null
+        ?string $condition = null
     ): void {
         foreach ($components as $component) {
             if ($component->get_conditions()->is_satisfied_by((string)$condition)) {

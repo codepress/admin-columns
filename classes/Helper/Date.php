@@ -44,7 +44,7 @@ class Date
         return strtotime($date) ?: null;
     }
 
-    public function date(string $date, string $date_format = null): ?string
+    public function date(string $date, ?string $date_format = null): ?string
     {
         return $this->date_by_timestamp(
             $this->strtotime($date),
@@ -52,7 +52,7 @@ class Date
         );
     }
 
-    public function date_by_timestamp(int $timestamp, string $date_format = null): ?string
+    public function date_by_timestamp(int $timestamp, ?string $date_format = null): ?string
     {
         if ( ! $date_format) {
             $date_format = 'wp_date';
@@ -97,7 +97,7 @@ class Date
         return wp_date($format, $timestamp) ?: null;
     }
 
-    public function format_date(string $format, int $timestamp = null, DateTimeZone $timezone = null)
+    public function format_date(string $format, ?int $timestamp = null, ?DateTimeZone $timezone = null)
     {
         _deprecated_function(__METHOD__, 'NEWVERSION', 'wp_date()');
 

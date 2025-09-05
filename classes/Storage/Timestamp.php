@@ -17,7 +17,7 @@ final class Timestamp implements Expirable, KeyValue
         $this->storage = $storage;
     }
 
-    public function is_expired(int $timestamp = null): bool
+    public function is_expired(?int $timestamp = null): bool
     {
         if (null === $timestamp) {
             $timestamp = time();

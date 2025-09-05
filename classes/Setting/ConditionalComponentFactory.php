@@ -13,7 +13,7 @@ final class ConditionalComponentFactory
 
     private $conditions;
 
-    public function __construct(ComponentFactory $factory, Specification $conditions = null)
+    public function __construct(ComponentFactory $factory, ?Specification $conditions = null)
     {
         $this->factory = $factory;
         $this->conditions = $conditions;

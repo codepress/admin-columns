@@ -14,11 +14,11 @@ final class Custom extends Input
 
     public function __construct(
         string $name,
-        string $type = null,
+        ?string $type = null,
         array $data = [],
         $value = null,
-        string $placeholder = null,
-        AttributeCollection $attributes = null
+        ?string $placeholder = null,
+        ?AttributeCollection $attributes = null
     ) {
         if ($type === null) {
             $type = $name;

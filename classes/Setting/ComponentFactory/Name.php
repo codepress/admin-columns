@@ -14,7 +14,7 @@ use AC\Setting\Control\Input;
 final class Name implements ComponentFactory
 {
 
-    public function create(Config $config, Specification $conditions = null): Component
+    public function create(Config $config, ?Specification $conditions = null): Component
     {
         return (new ComponentBuilder())
             ->set_input(

@@ -14,7 +14,7 @@ class ListScreenStatus
 
     private string $status;
 
-    public function __construct(string $status = null)
+    public function __construct(?string $status = null)
     {
         $this->status = $status ?? self::ACTIVE;
         $this->validate();

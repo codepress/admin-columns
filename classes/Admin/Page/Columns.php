@@ -57,7 +57,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         TableScreenRepository $table_screen_repository,
         ColumnGroups $column_groups,
         Promos $promos,
-        ListScreenId $list_id = null
+        ?ListScreenId $list_id = null
     ) {
         $this->location = $plugin->get_location();
         $this->head = $head;

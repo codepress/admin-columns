@@ -12,7 +12,7 @@ class Post
         return sprintf("'%s'", implode("','", array_map('esc_sql', $array)));
     }
 
-    public function count_user_posts(int $user_id, array $post_types = null, array $post_stati = null): int
+    public function count_user_posts(int $user_id, ?array $post_types = null, ?array $post_stati = null): int
     {
         global $wpdb;
 

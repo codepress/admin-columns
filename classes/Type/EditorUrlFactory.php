@@ -8,7 +8,7 @@ use AC\Type\Url\EditorNetworkColumns;
 class EditorUrlFactory
 {
 
-    public static function create(TableId $table_id, bool $is_network, ListScreenId $list_id = null): Uri
+    public static function create(TableId $table_id, bool $is_network, ?ListScreenId $list_id = null): Uri
     {
         return $is_network
             ? new EditorNetworkColumns($table_id, $list_id)

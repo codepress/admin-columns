@@ -17,7 +17,7 @@ class Control
 
     public function __construct(
         Input $input,
-        Specification $conditions = null
+        ?Specification $conditions = null
     ) {
         $this->input = $input;
         $this->conditions = $conditions;

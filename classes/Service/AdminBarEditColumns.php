@@ -18,7 +18,7 @@ class AdminBarEditColumns implements Registerable
         add_action('ac/table/screen', [$this, 'init'], 10, 2);
     }
 
-    public function init(TableScreen $table, ListScreen $listscreen = null): void
+    public function init(TableScreen $table, ?ListScreen $listscreen = null): void
     {
         if ( ! current_user_can(Capabilities::MANAGE)) {
             return;

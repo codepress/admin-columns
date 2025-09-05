@@ -13,7 +13,7 @@ class UserMeta implements UserData
 
     private bool $single;
 
-    public function __construct(string $key, int $user_id = null, bool $single = true)
+    public function __construct(string $key, ?int $user_id = null, bool $single = true)
     {
         if (null === $user_id) {
             $user_id = get_current_user_id();

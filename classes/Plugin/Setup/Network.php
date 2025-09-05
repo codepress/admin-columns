@@ -14,8 +14,8 @@ final class Network extends Setup
     public function __construct(
         SiteOption $storage,
         Version $version,
-        InstallCollection $installers = null,
-        UpdateCollection $updates = null
+        ?InstallCollection $installers = null,
+        ?UpdateCollection $updates = null
     ) {
         parent::__construct($storage, $version, $installers, $updates);
     }

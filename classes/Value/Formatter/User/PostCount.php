@@ -17,7 +17,7 @@ class PostCount implements Formatter
 
     private ExtendedValue $extended_value;
 
-    public function __construct(ExtendedValue $extended_value, array $post_type = [], array $post_stati = null)
+    public function __construct(ExtendedValue $extended_value, array $post_type = [], ?array $post_stati = null)
     {
         $this->post_type = $post_type;
         $this->post_stati = $post_stati;

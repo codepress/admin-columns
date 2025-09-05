@@ -14,7 +14,7 @@ class UserOption implements UserData
 
     private int $user_id;
 
-    public function __construct(string $key, int $user_id = null)
+    public function __construct(string $key, ?int $user_id = null)
     {
         if (null === $user_id) {
             $user_id = get_current_user_id();

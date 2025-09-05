@@ -13,7 +13,7 @@ class TableListOrder
 
     private Preference $storage;
 
-    public function __construct(int $user_id = null)
+    public function __construct(?int $user_id = null)
     {
         $this->storage = (new SiteFactory())->create('list_order', $user_id);
     }

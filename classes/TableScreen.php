@@ -29,7 +29,7 @@ class TableScreen
         string $screen_id,
         Labels $labels,
         Uri $url,
-        string $attr_id = null,
+        ?string $attr_id = null,
         bool $network = false
     ) {
         $this->id = $id;

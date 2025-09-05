@@ -15,7 +15,7 @@ class Group
 
     private ?string $icon;
 
-    public function __construct(string $slug, string $label, int $priority = 10, string $icon = null)
+    public function __construct(string $slug, string $label, int $priority = 10, ?string $icon = null)
     {
         $this->slug = $slug;
         $this->label = $label;

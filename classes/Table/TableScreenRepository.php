@@ -31,7 +31,7 @@ class TableScreenRepository
             : null;
     }
 
-    public function find_all_by_ids(TableIdCollection $ids, Sort $sort = null): TableScreenCollection
+    public function find_all_by_ids(TableIdCollection $ids, ?Sort $sort = null): TableScreenCollection
     {
         $table_screens = new TableScreenCollection();
 
@@ -50,7 +50,7 @@ class TableScreenRepository
         return $table_screens;
     }
 
-    public function find_all(Sort $sort = null): TableScreenCollection
+    public function find_all(?Sort $sort = null): TableScreenCollection
     {
         $table_screens = new TableScreenCollection();
 

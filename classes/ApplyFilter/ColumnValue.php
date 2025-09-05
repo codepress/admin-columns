@@ -23,7 +23,7 @@ class ColumnValue
         $this->list_screen = $list_screen;
     }
 
-    public function apply_filter(string $value = null): ?string
+    public function apply_filter(?string $value = null): ?string
     {
         $value = apply_filters(
             'ac/column/render',

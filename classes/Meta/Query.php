@@ -87,7 +87,7 @@ class Query
     /**
      * @see get_where_clause()
      */
-    public function join_where(string $field, string $operator = null, $value = null, string $boolean = 'AND'): self
+    public function join_where(string $field, ?string $operator = null, $value = null, string $boolean = 'AND'): self
     {
         // set default join
         if ( ! $this->join) {
@@ -135,7 +135,7 @@ class Query
      *
      * @return array
      */
-    private function get_where_clause($field, string $operator = null, $value = null, string $boolean = 'AND'): array
+    private function get_where_clause($field, ?string $operator = null, $value = null, string $boolean = 'AND'): array
     {
         // allows to omit operator
         if (null === $value) {
@@ -176,7 +176,7 @@ class Query
     /**
      * @see get_where_clause()
      */
-    public function remove_where($field, string $operator = null, $value = null, string $boolean = 'AND'): self
+    public function remove_where($field, ?string $operator = null, $value = null, string $boolean = 'AND'): self
     {
         $where = $this->get_where_clause($field, $operator, $value, $boolean);
 
@@ -192,7 +192,7 @@ class Query
     /**
      * @see get_where_clause()
      */
-    public function where($field, string $operator = null, $value = null, string $boolean = 'AND'): self
+    public function where($field, ?string $operator = null, $value = null, string $boolean = 'AND'): self
     {
         $this->where[] = $this->get_where_clause($field, $operator, $value, $boolean);
 
@@ -202,7 +202,7 @@ class Query
     /**
      * @see get_where_clause()
      */
-    public function or_where($field, string $operator = null, $value = null): self
+    public function or_where($field, ?string $operator = null, $value = null): self
     {
         return $this->where($field, $operator, $value, 'OR');
     }

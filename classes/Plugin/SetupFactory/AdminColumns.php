@@ -22,8 +22,8 @@ final class AdminColumns extends SetupFactory
         string $version_key,
         Version $version,
         Table\AdminColumns $table,
-        InstallCollection $installers = null,
-        UpdateCollection $updates = null
+        ?InstallCollection $installers = null,
+        ?UpdateCollection $updates = null
     ) {
         parent::__construct($version_key, $version, $installers, $updates);
 

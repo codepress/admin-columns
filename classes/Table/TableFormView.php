@@ -15,7 +15,7 @@ final class TableFormView implements Registerable
 
     private int $priority;
 
-    public function __construct(string $meta_type, string $html, int $priority = null)
+    public function __construct(string $meta_type, string $html, ?int $priority = null)
     {
         if (null === $priority) {
             $priority = 10;

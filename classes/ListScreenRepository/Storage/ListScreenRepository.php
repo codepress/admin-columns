@@ -19,8 +19,8 @@ final class ListScreenRepository
 
     public function __construct(
         AC\ListScreenRepository $list_screen_repository,
-        bool $writable = null,
-        Rules $rules = null
+        ?bool $writable = null,
+        ?Rules $rules = null
     ) {
         if (null === $writable) {
             $writable = false;

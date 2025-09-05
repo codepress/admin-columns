@@ -9,7 +9,7 @@ class MetaData
 
     private MetaType $meta_type;
 
-    public function __construct(MetaType $meta_type = null)
+    public function __construct(?MetaType $meta_type = null)
     {
         $this->meta_type = $meta_type ?? MetaType::create_post_type();
     }

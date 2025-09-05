@@ -46,7 +46,7 @@ final class ComponentCollection extends Collection
         return $merged;
     }
 
-    public function find(string $name, ComponentCollection $settings = null): ?Component
+    public function find(string $name, ?ComponentCollection $settings = null): ?Component
     {
         $settings = $settings ?: $this;
 

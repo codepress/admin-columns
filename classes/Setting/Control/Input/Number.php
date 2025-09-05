@@ -17,13 +17,13 @@ final class Number extends Open
 
     public function __construct(
         string $name,
-        string $min = null,
-        string $max = null,
-        string $step = null,
-        string $default = null,
-        string $placeholder = null,
-        AttributeCollection $attributes = null,
-        string $append = null
+        ?string $min = null,
+        ?string $max = null,
+        ?string $step = null,
+        ?string $default = null,
+        ?string $placeholder = null,
+        ?AttributeCollection $attributes = null,
+        ?string $append = null
     ) {
         parent::__construct($name, 'number', $default, $placeholder, $attributes, $append);
 
@@ -34,12 +34,12 @@ final class Number extends Open
 
     public static function create_single_step(
         string $name,
-        int $min = null,
-        int $max = null,
-        int $default = null,
-        string $placeholder = null,
-        AttributeCollection $attributes = null,
-        string $append = null
+        ?int $min = null,
+        ?int $max = null,
+        ?int $default = null,
+        ?string $placeholder = null,
+        ?AttributeCollection $attributes = null,
+        ?string $append = null
     ): self {
         return new self(
             $name,

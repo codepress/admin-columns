@@ -86,7 +86,7 @@ class Screen implements Registerable
         return $this->is_screen($screen);
     }
 
-    public function is_admin_screen(string $slug = null): bool
+    public function is_admin_screen(?string $slug = null): bool
     {
         if (null !== $slug) {
             $tabs = [$slug];

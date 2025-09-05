@@ -37,7 +37,7 @@ final class CommentStatus extends Builder
         );
     }
 
-    public function create(Config $config, Specification $conditions = null): Component
+    public function create(Config $config, ?Specification $conditions = null): Component
     {
         $builder = (new ComponentBuilder())
             ->set_label(__('Comment Status', 'codepress-admin-columns'))

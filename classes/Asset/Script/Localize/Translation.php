@@ -28,7 +28,7 @@ final class Translation
         return self::create(array_merge($this->translations, $translations));
     }
 
-    public function get_translation(string $component = null): array
+    public function get_translation(?string $component = null): array
     {
         $translations = $this->translations;
 

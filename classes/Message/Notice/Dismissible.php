@@ -14,7 +14,7 @@ class Dismissible extends Notice
 
     protected $handler;
 
-    public function __construct(string $message, Handler $handler = null, string $type = null)
+    public function __construct(string $message, ?Handler $handler = null, ?string $type = null)
     {
         if (null === $handler) {
             $handler = new NullHandler();

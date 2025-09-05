@@ -11,7 +11,7 @@ class ColumnParent
 
     private $group;
 
-    public function __construct(string $label, string $group = null)
+    public function __construct(string $label, ?string $group = null)
     {
         $this->label = $label;
         $this->group = $group;

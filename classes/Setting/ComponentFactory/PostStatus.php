@@ -17,7 +17,7 @@ final class PostStatus implements ComponentFactory
 
     private const NAME = 'post_status';
 
-    public function create(Config $config, Specification $conditions = null): Component
+    public function create(Config $config, ?Specification $conditions = null): Component
     {
         $value = $config->has(self::NAME) ? $config->get(self::NAME) : null;
 

@@ -23,8 +23,8 @@ class Input
         string $name,
         string $type,
         $value = null,
-        string $placeholder = null,
-        AttributeCollection $attributes = null
+        ?string $placeholder = null,
+        ?AttributeCollection $attributes = null
     ) {
         if ($attributes === null) {
             $attributes = new AttributeCollection();

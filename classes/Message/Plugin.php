@@ -10,7 +10,7 @@ class Plugin extends Message
 
     protected string $plugin_basename;
 
-    public function __construct(string $message, string $plugin_basename, string $type = null)
+    public function __construct(string $message, string $plugin_basename, ?string $type = null)
     {
         if (null === $type) {
             $type = self::WARNING;

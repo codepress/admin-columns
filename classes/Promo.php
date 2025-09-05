@@ -52,7 +52,7 @@ abstract class Promo
         return $this->date_range;
     }
 
-    public function is_active(DateTime $date = null): bool
+    public function is_active(?DateTime $date = null): bool
     {
         return $this->date_range->in_range($date);
     }

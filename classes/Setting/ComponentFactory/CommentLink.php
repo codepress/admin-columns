@@ -16,7 +16,7 @@ use AC\Value\Formatter;
 final class CommentLink implements ComponentFactory
 {
 
-    public function create(Config $config, Specification $conditions = null): Component
+    public function create(Config $config, ?Specification $conditions = null): Component
     {
         $comment_link_to = (string)$config->get('comment_link_to');
 

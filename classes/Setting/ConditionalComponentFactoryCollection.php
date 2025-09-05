@@ -10,7 +10,7 @@ use AC\Collection;
 final class ConditionalComponentFactoryCollection extends Collection
 {
 
-    public function add(ComponentFactory $factory, Specification $conditions = null): self
+    public function add(ComponentFactory $factory, ?Specification $conditions = null): self
     {
         $this->data[] = new ConditionalComponentFactory($factory, $conditions);
 

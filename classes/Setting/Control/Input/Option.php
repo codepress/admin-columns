@@ -21,8 +21,8 @@ class Option extends Input
         OptionCollection $options,
         $default = null,
         $placeholder = null,
-        bool $multiple = null,
-        AttributeCollection $attributes = null
+        ?bool $multiple = null,
+        ?AttributeCollection $attributes = null
     ) {
         parent::__construct($name, $type, $default, $placeholder, $attributes);
 

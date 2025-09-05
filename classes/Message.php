@@ -19,7 +19,7 @@ abstract class Message
 
     protected string $id = '';
 
-    public function __construct(string $message, string $type = null)
+    public function __construct(string $message, ?string $type = null)
     {
         if (null === $type) {
             $type = self::SUCCESS;

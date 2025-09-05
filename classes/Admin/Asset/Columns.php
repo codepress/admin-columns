@@ -52,7 +52,7 @@ class Columns extends Script
         AC\Promos $promos,
         Location $parent_location,
         bool $is_pro = false,
-        ListScreenId $list_id = null
+        ?ListScreenId $list_id = null
     ) {
         parent::__construct($handle, $location, [
             'jquery-ui-sortable',

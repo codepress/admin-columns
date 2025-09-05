@@ -96,7 +96,7 @@ class Strings
     /**
      * Trims a string and strips tags if there is any HTML
      */
-    public function trim_characters(string $string, int $limit = 10, string $trail = null): string
+    public function trim_characters(string $string, int $limit = 10, ?string $trail = null): string
     {
         if (1 > $limit) {
             return $string;
