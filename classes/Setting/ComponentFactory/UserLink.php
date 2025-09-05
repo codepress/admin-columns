@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
-use AC\Setting\Component;
-use AC\Setting\ComponentBuilder;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
+use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
 use AC\Value\Formatter;
 
-final class UserLink implements ComponentFactory
+final class UserLink extends Builder
 {
 
     public const PROPERTY_EDIT_USER = 'edit_user';
@@ -24,31 +22,30 @@ final class UserLink implements ComponentFactory
 
     private ?PostTypeSlug $post_type;
 
-    public function __construct(PostTypeSlug $post_type = null)
+    public function __construct(?PostTypeSlug $post_type = null)
     {
         $this->post_type = $post_type;
     }
 
-    public function create(Config $config, Specification $conditions = null): Component
+    protected function get_label(Config $config): ?string
     {
-        $builder = (new ComponentBuilder())
-            ->set_label(__('Link To', 'codepress-admin-columns'))
-            ->set_input(
-                OptionFactory::create_select(
-                    'user_link_to',
-                    OptionCollection::from_array($this->get_input_options()),
-                    (string)$config->get('user_link_to')
-                )
-            )
-            ->set_formatter(
-                new Formatter\User\UserLink((string)$config->get('user_link_to'), $this->post_type)
-            );
+        return __('Link To', 'codepress-admin-columns');
+    }
 
-        if ($conditions) {
-            $builder->set_conditions($conditions);
+    protected function get_input(Config $config): ?Input
+    {
+        return OptionFactory::create_select(
+            'user_link_to',
+            OptionCollection::from_array($this->get_input_options()),
+            (string)$config->get('user_link_to')
+        );
+    }
+
+    protected function add_formatters(Config $config, FormatterCollection $formatters): void
+    {
+        if ($config->get('user_link_to') !== '') {
+            $formatters->add(new Formatter\User\UserLink(self::PROPERTY_EDIT_USER, $this->post_type));
         }
-
-        return $builder->build();
     }
 
     protected function get_input_options(): array
