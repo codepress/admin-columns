@@ -7,6 +7,7 @@ namespace AC\Storage\Table;
 use AC\Storage\Table;
 
 // TODO David make sure this is run on an install and update
+// TODO David ac-force-install=1 is (was) used to force an install or at least an update with dbDelta. It seems there is no way to let users correct the table. dbDelta should still be used with ac-force-install=1.   
 final class AdminColumns extends Table
 {
 
