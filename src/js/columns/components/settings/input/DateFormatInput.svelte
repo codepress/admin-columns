@@ -54,7 +54,6 @@
             customDateFormat = value;
             retrieveDateExample();
         }
-        console.log(config.input.data);
     });
 
     onDestroy(() => {
