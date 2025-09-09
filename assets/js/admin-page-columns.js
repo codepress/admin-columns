@@ -12041,7 +12041,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (61:3) {#if option.value === 'wp_default' && config.input?.data[ 'wp_date_format' ] }
+// (60:3) {#if option.value === 'wp_default' && config.input?.data[ 'wp_date_format' ] }
 function create_if_block_1(ctx) {
   let code;
   let t_value = /*config*/ctx[0].input?.data['wp_date_format'] + "";
@@ -12067,7 +12067,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (56:2) <AcRadio bind:group={selectedOption}    value={option.value}    {disabled}    on:change={handleSelection}    --AcuiRadioMarginBottom="5px">
+// (55:2) <AcRadio bind:group={selectedOption}    value={option.value}    {disabled}    on:change={handleSelection}    --AcuiRadioMarginBottom="5px">
 function create_default_slot_1(ctx) {
   let t0_value = /*option*/ctx[16].label + "";
   let t0;
@@ -12113,7 +12113,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (55:1) {#each options as option}
+// (54:1) {#each options as option}
 function create_each_block(ctx) {
   let acradio;
   let div;
@@ -12185,7 +12185,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (67:2) <AcRadio bind:group={selectedOption} value="custom" {disabled}>
+// (66:2) <AcRadio bind:group={selectedOption} value="custom" {disabled}>
 function create_default_slot(ctx) {
   let t;
   return {
@@ -12203,7 +12203,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (75:1) {#if config.input.data[ 'wp_date_info' ] && selectedOption === 'wp_default' }
+// (74:1) {#if config.input.data[ 'wp_date_info' ] && selectedOption === 'wp_default' }
 function create_if_block(ctx) {
   let div;
   let raw_value = /*config*/ctx[0].input.data['wp_date_info'] + "";
@@ -12453,7 +12453,6 @@ function instance($$self, $$props, $$invalidate) {
       $$invalidate(5, customDateFormat = value);
       retrieveDateExample();
     }
-    console.log(config.input.data);
   });
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onDestroy)(() => {
     dispatch('destroy', config);

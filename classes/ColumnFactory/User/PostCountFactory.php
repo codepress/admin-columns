@@ -8,7 +8,6 @@ use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
-use AC\Value\Extended\Posts;
 use AC\Value\Formatter;
 
 class PostCountFactory extends BaseColumnFactory
@@ -41,17 +40,13 @@ class PostCountFactory extends BaseColumnFactory
 
     protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters = parent::get_formatters($config);
-        
-        $formatters->add(
-            new Formatter\User\PostCount(
-                new Posts($this->get_post_types($config), $config->get('post_status')),
-                $this->get_post_types($config) ?: [],
-                $config->get('post_status')
-            )
-        );
-
-        return $formatters;
+        return parent::get_formatters($config)
+                     ->add(
+                         new Formatter\User\PostCount(
+                             $this->get_post_types($config) ?: [],
+                             $config->get('post_status') ?: []
+                         )
+                     );
     }
 
     protected function get_settings(Config $config): ComponentCollection

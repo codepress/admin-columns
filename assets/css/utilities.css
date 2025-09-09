@@ -366,6 +366,10 @@
   width: 50%
 }
 
+.acu-w-1\/3 {
+  width: 33.333333%
+}
+
 .acu-w-\[100\%\] {
   width: 100%
 }
@@ -415,12 +419,12 @@
   min-width: 280px
 }
 
-.acu-min-w-\[35px\] {
-  min-width: 35px
-}
-
 .acu-min-w-\[300px\] {
   min-width: 300px
+}
+
+.acu-min-w-\[35px\] {
+  min-width: 35px
 }
 
 .acu-max-w-\[1075px\] {
@@ -1060,10 +1064,6 @@
 
 .acu-text-\[24px\] {
   font-size: 24px
-}
-
-.acu-text-\[25px\] {
-  font-size: 25px
 }
 
 .acu-text-\[28px\] {

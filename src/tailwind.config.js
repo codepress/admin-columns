@@ -11,6 +11,7 @@ module.exports = {
 		"./../**/*.php",
 		"./../../classes/**/*.php",
 		"./../../src/core/**/*.{js,ts,svelte}",
+		"./../../src/search/**/*.{js,ts,svelte}",
 		"./../../src/conditional-format/**/*.{js,ts,svelte}",
 		"./../../src/editing/**/*.{js,ts,svelte}",
 		"./../../templates/**/*.php",

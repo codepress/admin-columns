@@ -18,7 +18,7 @@ use AC\Setting\Control\Type\Option;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class FieldType extends Builder
+class CustomFieldType extends Builder
 {
 
     public const TYPE_DEFAULT = '';
