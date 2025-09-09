@@ -5,7 +5,7 @@ namespace AC\ColumnFactory;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
-use AC\Setting\ComponentFactory\FieldType;
+use AC\Setting\ComponentFactory\CustomFieldType;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
@@ -17,7 +17,7 @@ class CustomFieldFactory extends BaseColumnFactory
 
     private ComponentFactory\CustomFieldFactory $custom_field_factory;
 
-    private FieldType $field_type;
+    private CustomFieldType $field_type;
 
     private TableScreenContext $table_screen_context;
 
@@ -29,7 +29,7 @@ class CustomFieldFactory extends BaseColumnFactory
         DefaultSettingsBuilder $default_settings_builder,
         ComponentFactory\CustomFieldFactory $custom_field_factory,
         TableScreenContext $table_screen_context,
-        FieldType $field_type,
+        CustomFieldType $field_type,
         ComponentFactory\BeforeAfter $before_after,
         ComponentFactory\Pro\TogglePromotionFactory $pro_promotion_factory
     ) {
