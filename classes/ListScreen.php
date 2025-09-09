@@ -34,7 +34,6 @@ final class ListScreen
 
     private ListScreenStatus $status;
 
-    // TODO David test Segments in constructor, props and methods
     private ?SegmentCollection $segments;
 
     private ?RulesCollection $conditional_format;
