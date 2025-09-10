@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter\User;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 use AC\Value\Extended\Posts;
@@ -25,6 +26,12 @@ class PostCount implements Formatter
     public function format(Value $value): Value
     {
         $user_id = (int)$value->get_id();
+
+        $user = get_userdata($user_id);
+
+        if ( ! $user) {
+            throw ValueNotFoundException::from_id($user_id);
+        }
 
         $count = $this->get_post_count(
             $user_id
@@ -57,11 +64,13 @@ class PostCount implements Formatter
             );
         }
 
+        $username = ac_helper()->user->get_formatted_name($user);
+
         $link = (new Posts())->get_link($user_id, $label)
                              ->with_title(
                                  sprintf(
                                      __('Recent items by %s', 'codepress-admin-columns'),
-                                     sprintf('”%s”', ac_helper()->user->get_display_name($user_id)),
+                                     sprintf('”%s”', $username),
                                  )
                              )
                              ->with_params($params);
