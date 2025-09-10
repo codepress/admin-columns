@@ -6,11 +6,12 @@ namespace AC\Column;
 
 use AC\Setting\Config;
 use AC\Type\ColumnId;
+use AC\Type\KeyGenerator;
 
-final class ColumnIdFactory
+final class ColumnIdGenerator extends KeyGenerator
 {
 
-    public static function createFromConfig(Config $config): ColumnId
+    public function from_config(Config $config): ColumnId
     {
         $id = (string)$config->get('name');
 
@@ -18,12 +19,12 @@ final class ColumnIdFactory
             return new ColumnId($id);
         }
 
-        return self::create();
+        return $this->generate();
     }
 
-    public static function create(): ColumnId
+    public function generate(): ColumnId
     {
-        return new ColumnId(uniqid());
+        return new ColumnId($this->generate_raw());
     }
 
 }

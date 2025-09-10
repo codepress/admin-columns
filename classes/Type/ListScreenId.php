@@ -25,11 +25,6 @@ final class ListScreenId
         return is_string($id) && '' !== $id;
     }
 
-    public static function generate(): self
-    {
-        return new self(uniqid());
-    }
-
     public function get_id(): string
     {
         return $this->id;

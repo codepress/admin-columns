@@ -22,12 +22,14 @@ abstract class BaseColumnFactory extends ColumnFactory
 
     public function create(Config $config): Column
     {
+        $column_id_generator = new ColumnIdGenerator();
+
         return new Base(
             $this->get_column_type(),
             $this->get_label(),
             $this->default_settings_builder->build($config)
                                            ->merge($this->get_settings($config)),
-            ColumnIdFactory::createFromConfig($config),
+            $column_id_generator->from_config($config),
             $this->get_formatters($config),
             $this->get_group()
         );

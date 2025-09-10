@@ -12,7 +12,6 @@ use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
 use AC\RequestAjaxHandler;
-use AC\Type\ListScreenId;
 use AC\Type\TableId;
 use InvalidArgumentException;
 
@@ -29,18 +28,22 @@ class ListScreenSettings implements RequestAjaxHandler
 
     protected AC\Response\JsonListScreenSettingsFactory $response_factory;
 
+    private AC\Type\ListScreenIdGenerator $list_screen_id_generator;
+
     public function __construct(
         Storage $storage,
         AC\TableScreenFactory\Aggregate $table_factory,
         AC\ColumnTypeRepository $type_repository,
         Preference\ListScreen $preference,
-        AC\Response\JsonListScreenSettingsFactory $response_factory
+        AC\Response\JsonListScreenSettingsFactory $response_factory,
+        AC\Type\ListScreenIdGenerator $list_screen_id_generator
     ) {
         $this->storage = $storage;
         $this->table_factory = $table_factory;
         $this->preference = $preference;
         $this->type_repository = $type_repository;
         $this->response_factory = $response_factory;
+        $this->list_screen_id_generator = $list_screen_id_generator;
     }
 
     protected function validate(): void
@@ -104,7 +107,7 @@ class ListScreenSettings implements RequestAjaxHandler
         }
 
         $list_screen = new ListScreen(
-            ListScreenId::generate(),
+            $this->list_screen_id_generator->generate(),
             (string)$table_screen->get_labels(),
             $table_screen,
             $this->type_repository->find_all_by_original($table_screen)
