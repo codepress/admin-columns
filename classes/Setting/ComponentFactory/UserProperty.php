@@ -57,7 +57,9 @@ class UserProperty extends Builder
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        switch ($config->get('display_author_as')) {
+        $property = $config->get('display_author_as');
+
+        switch ($property) {
             case self::PROPERTY_GRAVATAR:
                 $formatters->add(new Formatter\User\Property('user_email'));
                 $formatters->add(new Formatter\Gravatar((int)$config->get('gravatar_size', '60')));
@@ -75,8 +77,7 @@ class UserProperty extends Builder
             case self::PROPERTY_NICENAME:
             case self::PROPERTY_URL:
             case self::PROPERTY_NICKNAME:
-
-                $formatters->add(new Formatter\User\Property((string)$config->get('display_author_as')));
+                $formatters->add(new Formatter\User\Property((string)$property));
                 break;
             case self::PROPERTY_ROLES:
                 $formatters->add(new Formatter\User\TranslatedRoles());

@@ -7,20 +7,11 @@ use WP_User;
 class User
 {
 
-    public function get_user_field(string $field, int $user_id)
+    public function get_formatted_name(WP_User $user): ?string
     {
-        return get_user_by('id', $user_id)->{$field} ?? null;
-    }
-
-    public function get_user($user): ?WP_User
-    {
-        if (is_numeric($user)) {
-            $user = get_userdata($user);
-        }
-
-        return $user instanceof WP_User
-            ? $user
-            : null;
+        return trim($user->first_name . ' ' . $user->last_name)
+            ?: $user->display_name
+                ?: $user->user_login;
     }
 
     public function translate_roles(array $role_names): array
@@ -36,43 +27,6 @@ class User
         }
 
         return $roles;
-    }
-
-    public function get_display_name($user, ?string $format = null): ?string
-    {
-        $user = $this->get_user($user);
-
-        if ( ! $user) {
-            return null;
-        }
-
-        if (null === $format) {
-            return $user->display_name;
-        }
-
-        switch ($format) {
-            case 'first_last_name' :
-            case 'full_name' :
-                $name_parts = [];
-
-                if ($user->first_name) {
-                    $name_parts[] = $user->first_name;
-                }
-                if ($user->last_name) {
-                    $name_parts[] = $user->last_name;
-                }
-
-                return $name_parts
-                    ? implode(' ', $name_parts)
-                    : $user->display_name;
-            case 'roles' :
-                return ac_helper()->string->enumeration_list(
-                    $this->get_roles_names($user->roles),
-                    'and'
-                );
-            default :
-                return $user->{$format} ?? $user->display_name;
-        }
     }
 
     public function get_roles_names(array $names): array
@@ -125,6 +79,48 @@ class User
         set_site_transient('ac_available_translations', wp_get_available_translations(), WEEK_IN_SECONDS);
 
         return $translations;
+    }
+
+    /**
+     * @deprecated 5.0
+     */
+    public function get_display_name($user, ?string $format = null): ?string
+    {
+        _deprecated_function(__METHOD__, '5.0', 'get_fullname');
+
+        $user = get_userdata($user);
+
+        if ( ! $user) {
+            return null;
+        }
+
+        return $this->get_formatted_name($user);
+    }
+
+    /**
+     * @deprecated 5.0
+     */
+    public function get_user_field(string $field, int $user_id)
+    {
+        _deprecated_function(__METHOD__, '5.0');
+
+        return get_user_by('id', $user_id)->{$field} ?? null;
+    }
+
+    /**
+     * @deprecated 5.0
+     */
+    public function get_user($user): ?WP_User
+    {
+        _deprecated_function(__METHOD__, '5.0', 'get_userdata');
+
+        if (is_numeric($user)) {
+            $user = get_userdata($user);
+        }
+
+        return $user instanceof WP_User
+            ? $user
+            : null;
     }
 
 }

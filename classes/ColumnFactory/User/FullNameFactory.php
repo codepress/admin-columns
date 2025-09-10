@@ -23,7 +23,7 @@ class FullNameFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->add(new Formatter\User\Property('full_name'));
+                     ->add(new Formatter\User\FullName());
     }
 
 }

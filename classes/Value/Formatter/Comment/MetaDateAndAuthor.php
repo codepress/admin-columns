@@ -54,7 +54,7 @@ class MetaDateAndAuthor implements Formatter
             return sprintf(
                 '<a href="%s">%s</a>',
                 add_query_arg('user_id', $comment->user_id, admin_url('edit-comments.php')),
-                ac_helper()->user->get_display_name($user)
+                ac_helper()->user->get_formatted_name($user)
             );
         }
 

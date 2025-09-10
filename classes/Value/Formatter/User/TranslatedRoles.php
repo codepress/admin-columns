@@ -5,15 +5,19 @@ declare(strict_types=1);
 namespace AC\Value\Formatter\User;
 
 use AC;
+use AC\Exception\ValueNotFoundException;
 use AC\Type\Value;
-use WP_User;
 
 class TranslatedRoles implements AC\Setting\Formatter
 {
 
     public function format(Value $value)
     {
-        $user = new WP_User($value->get_id());
+        $user = get_userdata($value->get_id());
+
+        if ( ! $user) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
 
         $translated_roles = ac_helper()->user->translate_roles($user->roles);
 
@@ -26,7 +30,7 @@ class TranslatedRoles implements AC\Setting\Formatter
         }
 
         if (empty($roles)) {
-            throw AC\Exception\ValueNotFoundException::from_id($value->get_id());
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         return $value->with_value(
