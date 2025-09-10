@@ -13,13 +13,13 @@ abstract class KeyGenerator
     {
         do {
             try {
-                $id = substr(bin2hex(random_bytes(7)), 0, 13);
+                $key = substr(bin2hex(random_bytes(7)), 0, 13);
             } catch (Throwable $e) {
-                $id = uniqid();
+                $key = uniqid();
             }
-        } while ( ! strpbrk($id, 'abcdef'));
+        } while ( ! strpbrk($key, 'abcdef'));
 
-        return $id;
+        return $key;
     }
 
 }
