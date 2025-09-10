@@ -1,10 +1,10 @@
 import {getParamFromUrl} from "./global";
 import {initAcServices} from "./admin-columns";
 import {LocalizedAcTable} from "../types/table";
-
-declare const AC: LocalizedAcTable;
+import {getTableConfig} from "../table/utils/global";
 
 export const getIdFromTableRow = (row: HTMLTableRowElement): number => {
+    const tableConfig = getTableConfig();
     if (row.classList.contains('no-items')) {
         return 0;
     }
@@ -42,7 +42,7 @@ export const getIdFromTableRow = (row: HTMLTableRowElement): number => {
 
         if( editLink ){
             let params = new URLSearchParams( editLink.href.split('?')[1] ?? '' );
-            let user_id = params.get('user_id')  ?? AC.current_user_id.toString();
+            let user_id = params.get('user_id')  ?? tableConfig.current_user_id.toString();
 
             item_id = parseInt( user_id );
         }

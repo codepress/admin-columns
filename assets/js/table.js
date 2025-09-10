@@ -6567,10 +6567,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./global */ "./js/helpers/global.ts");
 /* harmony import */ var _admin_columns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin-columns */ "./js/helpers/admin-columns.ts");
+/* harmony import */ var _table_utils_global__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../table/utils/global */ "./js/table/utils/global.ts");
+
 
 
 const getIdFromTableRow = (row) => {
     var _a, _b, _c, _d, _e, _f;
+    const tableConfig = (0,_table_utils_global__WEBPACK_IMPORTED_MODULE_2__.getTableConfig)();
     if (row.classList.contains('no-items')) {
         return 0;
     }
@@ -6599,7 +6602,7 @@ const getIdFromTableRow = (row) => {
         let editLink = (_d = row.querySelector('.row-actions .edit a')) !== null && _d !== void 0 ? _d : null;
         if (editLink) {
             let params = new URLSearchParams((_e = editLink.href.split('?')[1]) !== null && _e !== void 0 ? _e : '');
-            let user_id = (_f = params.get('user_id')) !== null && _f !== void 0 ? _f : AC.current_user_id.toString();
+            let user_id = (_f = params.get('user_id')) !== null && _f !== void 0 ? _f : tableConfig.current_user_id.toString();
             item_id = parseInt(user_id);
         }
     }
