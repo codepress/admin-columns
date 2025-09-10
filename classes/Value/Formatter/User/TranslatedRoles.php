@@ -19,15 +19,17 @@ class TranslatedRoles implements AC\Setting\Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $translated_roles = ac_helper()->user->translate_roles($user->roles);
-
-        natcasesort($translated_roles);
-
         $roles = [];
 
-        foreach ($translated_roles as $role => $label) {
-            $roles[] = ac_helper()->html->tooltip($label, $role);
+        foreach ((new AC\Helper\UserRoles())->find_all() as $role) {
+            if ( ! in_array($role->get_name(), $user->roles, true)) {
+                continue;
+            }
+
+            $roles[] = ac_helper()->html->tooltip($role->get_translate_label(), $role->get_name());
         }
+
+        natcasesort($roles);
 
         if (empty($roles)) {
             throw ValueNotFoundException::from_id($value->get_id());
