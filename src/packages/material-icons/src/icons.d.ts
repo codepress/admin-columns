@@ -1,4 +1,5 @@
 export declare const icons: readonly [
+    'add_circle',
     'chevron_left',
     'chevron_right',
     'content_copy',

@@ -402,6 +402,10 @@
   width: 60px
 }
 
+.acu-w-\[70px\] {
+  width: 70px
+}
+
 .acu-w-fit {
   width: -moz-fit-content;
   width: fit-content

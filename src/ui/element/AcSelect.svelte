@@ -40,7 +40,7 @@
 
 <div class="acui-select" class:-empty={value === ''} style={customStyles}>
 
-	<select bind:value>
+	<select bind:value on:change>
 		{#if placeholder}
 			<option hidden="hidden" disabled value="">{@html placeholder}</option>
 		{/if}
