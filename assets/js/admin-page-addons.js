@@ -1296,7 +1296,7 @@ function create_if_block_2(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, button, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button, span);
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", /*close*/ctx[7]);
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(/*close*/ctx[7]));
         mounted = true;
       }
     },
@@ -8962,7 +8962,7 @@ function create_fragment(ctx) {
       if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
       if (default_slot) default_slot.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(select, "class", "svelte-uajacp");
-      if (/*value*/ctx[0] === void 0) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_render_callback)(() => /*select_change_handler*/ctx[5].call(select));
+      if (/*value*/ctx[0] === void 0) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_render_callback)(() => /*select_change_handler*/ctx[6].call(select));
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acui-select svelte-uajacp");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "style", /*customStyles*/ctx[1]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "-empty", /*value*/ctx[0] === '');
@@ -8978,7 +8978,7 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.select_option)(select, /*value*/ctx[0], true);
       current = true;
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(select, "change", /*select_change_handler*/ctx[5]);
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(select, "change", /*select_change_handler*/ctx[6]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(select, "change", /*change_handler*/ctx[5])];
         mounted = true;
       }
     },
@@ -9026,7 +9026,7 @@ function create_fragment(ctx) {
       if (if_block) if_block.d();
       if (default_slot) default_slot.d(detaching);
       mounted = false;
-      dispose();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
     }
   };
 }
@@ -9044,6 +9044,9 @@ function instance($$self, $$props, $$invalidate) {
   let {
     placeholder = ''
   } = $$props;
+  function change_handler(event) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
+  }
   function select_change_handler() {
     value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.select_value)(this);
     $$invalidate(0, value);
@@ -9054,7 +9057,7 @@ function instance($$self, $$props, $$invalidate) {
     if ('placeholder' in $$props) $$invalidate(2, placeholder = $$props.placeholder);
     if ('$$scope' in $$props) $$invalidate(3, $$scope = $$props.$$scope);
   };
-  return [value, customStyles, placeholder, $$scope, slots, select_change_handler];
+  return [value, customStyles, placeholder, $$scope, slots, change_handler, select_change_handler];
 }
 class AcSelect extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
