@@ -4,13 +4,22 @@ declare(strict_types=1);
 
 namespace AC\Type;
 
+use Throwable;
+
 abstract class KeyGenerator
 {
 
-    // TODO David rethink this, was uniqeid not just fine?
     protected function generate_raw(): string
     {
-        return bin2hex(random_bytes(7));
+        do {
+            try {
+                $key = substr(bin2hex(random_bytes(7)), 0, 13);
+            } catch (Throwable $e) {
+                $key = uniqid();
+            }
+        } while ( ! strpbrk($key, 'abcdef'));
+
+        return $key;
     }
 
 }

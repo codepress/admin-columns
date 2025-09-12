@@ -14,71 +14,14 @@ class User
                 ?: $user->user_login;
     }
 
-    public function translate_roles(array $role_names): array
-    {
-        $roles = [];
-
-        $wp_roles = wp_roles()->roles;
-
-        foreach ($role_names as $role) {
-            if (isset($wp_roles[$role])) {
-                $roles[$role] = translate_user_role($wp_roles[$role]['name']);
-            }
-        }
-
-        return $roles;
-    }
-
-    public function get_roles_names(array $names): array
-    {
-        $labels = [];
-
-        $roles = $this->get_roles();
-
-        foreach ($names as $name) {
-            $label = $roles[$name] ?? null;
-
-            if ($label) {
-                $labels[$name] = $label;
-            }
-        }
-
-        return $labels;
-    }
-
-    public function get_role_name(string $role): ?string
-    {
-        return $this->get_roles()[$role] ?? null;
-    }
-
-    public function get_roles(): array
-    {
-        $roles = [];
-        foreach (wp_roles()->roles as $k => $role) {
-            $roles[$k] = translate_user_role($role['name']);
-        }
-
-        return $roles;
-    }
-
     /**
-     * Fetches remote translations. Expires in 7 days.
+     * @deprecated 5.0
      */
     public function get_translations_remote(): array
     {
-        $translations = get_site_transient('ac_available_translations');
+        _deprecated_function(__METHOD__, '5.0', 'AC\Herlper\Translations::get_available_translations()');
 
-        if (false !== $translations) {
-            return $translations;
-        }
-
-        require_once(ABSPATH . 'wp-admin/includes/translation-install.php');
-
-        $translations = wp_get_available_translations();
-
-        set_site_transient('ac_available_translations', wp_get_available_translations(), WEEK_IN_SECONDS);
-
-        return $translations;
+        return [];
     }
 
     /**
@@ -121,6 +64,51 @@ class User
         return $user instanceof WP_User
             ? $user
             : null;
+    }
+
+    /**
+     * @deprecated 5.0
+     */
+    public function get_roles_names(array $names): array
+    {
+        _deprecated_function(__METHOD__, '5.0');
+
+        return [];
+    }
+
+    /**
+     * @deprecated 5.0
+     */
+    public function get_role_name(string $role): ?string
+    {
+        _deprecated_function(__METHOD__, '5.0');
+
+        return $this->get_roles()[$role] ?? null;
+    }
+
+    /**
+     * @deprecated 5.0
+     */
+    public function get_roles(): array
+    {
+        _deprecated_function(__METHOD__, '5.0', 'AC\Helper\UserRoles::find_all_roles');
+
+        $roles = [];
+        foreach (wp_roles()->roles as $k => $role) {
+            $roles[$k] = translate_user_role($role['name']);
+        }
+
+        return $roles;
+    }
+
+    /**
+     * @deprecated 5.0
+     */
+    public function translate_roles(array $role_names): array
+    {
+        _deprecated_function(__METHOD__, '5.0', 'AC\Helper\UserRoles::find_all_roles');
+
+        return [];
     }
 
 }

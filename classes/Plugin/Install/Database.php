@@ -20,6 +20,8 @@ final class Database implements AC\Plugin\Install
     {
         if ( ! $this->table->exists()) {
             $this->table->create();
+        } else {
+            $this->table->update();
         }
     }
 

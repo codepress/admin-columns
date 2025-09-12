@@ -18,6 +18,11 @@ abstract class Table
         return $wpdb->get_var($query) === $this->get_name();
     }
 
+    public function update(): void
+    {
+        dbDelta($this->get_schema());
+    }
+
     public function create(): bool
     {
         global $wpdb;
