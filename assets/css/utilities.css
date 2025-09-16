@@ -270,6 +270,10 @@
   margin-top: 5px
 }
 
+.acu-mt-2 {
+  margin-top: 10px
+}
+
 .acu-mt-3 {
   margin-top: 15px
 }
@@ -292,10 +296,6 @@
 
 .acu-mt-\[0\] {
   margin-top: 0
-}
-
-.acu-mt-2 {
-  margin-top: 10px
 }
 
 .acu-block {
@@ -328,10 +328,6 @@
 
 .acu-h-\[120px\] {
   height: 120px
-}
-
-.acu-h-\[150px\] {
-  height: 150px
 }
 
 .acu-h-\[16px\] {
@@ -392,6 +388,10 @@
 
 .acu-w-\[180px\] {
   width: 180px
+}
+
+.acu-w-\[190px\] {
+  width: 190px
 }
 
 .acu-w-\[260px\] {
@@ -586,6 +586,10 @@
 
 .acu-justify-center {
   justify-content: center
+}
+
+.acu-justify-between {
+  justify-content: space-between
 }
 
 .acu-gap-1 {
