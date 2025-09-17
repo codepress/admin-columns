@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Collection;
 
+use AC\Collection;
 use AC\Column\ColumnFactory;
-use AC\Iterator;
 
-class ColumnFactories extends Iterator
+class ColumnFactories extends Collection
 {
 
     public function __construct(array $factories = [])
@@ -22,6 +22,6 @@ class ColumnFactories extends Iterator
 
     public function current(): ColumnFactory
     {
-        return parent::current();
+        return current($this->data);
     }
 }

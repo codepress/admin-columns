@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AC\Admin\Colors;
 
 use AC\Admin\Colors\Type\Color;
-use AC\Iterator;
+use AC\Collection;
 
-final class ColorCollection extends Iterator
+final class ColorCollection extends Collection
 {
 
     public function __construct(array $colors = [])
@@ -22,7 +22,7 @@ final class ColorCollection extends Iterator
 
     public function current(): Color
     {
-        return parent::current();
+        return current($this->data);
     }
 
 }

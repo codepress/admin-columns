@@ -2,9 +2,9 @@
 
 namespace AC\Type;
 
-use AC\Iterator;
+use AC\Collection;
 
-final class Groups extends Iterator
+final class Groups extends Collection
 {
 
     public function __construct(array $groups = [])
@@ -17,6 +17,11 @@ final class Groups extends Iterator
         $this->data[] = $group;
 
         return $this;
+    }
+
+    public function current(): Group
+    {
+        return current($this->data);
     }
 
 }
