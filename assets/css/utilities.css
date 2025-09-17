@@ -318,11 +318,6 @@
   aspect-ratio: 1.91/1
 }
 
-.acu-size-10 {
-  width: 50px;
-  height: 50px
-}
-
 .acu-size-6 {
   width: 30px;
   height: 30px
@@ -1150,6 +1145,11 @@
   letter-spacing: -0.025em
 }
 
+.acu-text-\[\#555\] {
+  --tw-text-opacity: 1;
+  color: rgb(85 85 85 / var(--tw-text-opacity, 1))
+}
+
 .acu-text-\[\#777\] {
   --tw-text-opacity: 1;
   color: rgb(119 119 119 / var(--tw-text-opacity, 1))
@@ -1288,9 +1288,9 @@
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
 }
 
-.hover\:acu-bg-\[\#ccc\]:hover {
+.hover\:acu-bg-\[\#dadada\]:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(204 204 204 / var(--tw-bg-opacity, 1))
+  background-color: rgb(218 218 218 / var(--tw-bg-opacity, 1))
 }
 
 .hover\:acu-bg-\[\#fafafa\]:hover {
@@ -1303,9 +1303,9 @@
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
 }
 
-.hover\:acu-bg-\[\#ddd\]:hover {
+.hover\:acu-bg-\[\#e6e6e6\]:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(221 221 221 / var(--tw-bg-opacity, 1))
+  background-color: rgb(230 230 230 / var(--tw-bg-opacity, 1))
 }
 
 .hover\:acu-text-\[\#fff\]:hover {
