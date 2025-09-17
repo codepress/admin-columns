@@ -84,7 +84,6 @@
     }
 
     const handleOutsideClick = (e) => {
-        console.log( container )
         if (container && !container.contains(e.target)) {
             close();
         }
