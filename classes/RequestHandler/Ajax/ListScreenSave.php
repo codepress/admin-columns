@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AC\RequestHandler\Ajax;
 
+use AC;
 use AC\Capabilities;
+use AC\Collection\ColumnFactories;
 use AC\Column\LabelEncoder;
 use AC\ColumnCollection;
 use AC\ColumnFactories\Aggregate;
@@ -150,14 +152,25 @@ class ListScreenSave implements RequestAjaxHandler
         return $configs;
     }
 
+    private function get_column_factory(ColumnFactories $factories, string $type): ?AC\Column\ColumnFactory
+    {
+        foreach ($factories as $factory) {
+            if ($factory->get_column_type() === $type) {
+                return $factory;
+            }
+        }
+
+        return null;
+    }
+
     private function decode_columns(TableScreen $table_screen, ConfigCollection $configs): ColumnCollection
     {
         $columns = new ColumnCollection();
 
-        $factories = iterator_to_array($this->column_factory->create($table_screen));
+        $factories = $this->column_factory->create($table_screen);
 
         foreach ($configs as $config) {
-            $factory = $factories[$config->get('type')] ?? null;
+            $factory = $this->get_column_factory($factories, $config->get('type'));
 
             if ($factory) {
                 $columns->add($factory->create($config));

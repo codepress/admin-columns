@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Collection\ColumnFactories;
+use AC\Column\ColumnFactory;
 use AC\ColumnFactories\Aggregate;
 use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\Type\TableId;
@@ -21,9 +23,20 @@ class ColumnTypeRepository
         $this->default_columns_repository = $default_columns_repository;
     }
 
+    private function find_column_factory(ColumnFactories $factories, string $type): ?ColumnFactory
+    {
+        foreach ($factories as $column_factory) {
+            if ($type === $column_factory->get_column_type()) {
+                return $column_factory;
+            }
+        }
+
+        return null;
+    }
+
     public function find(TableScreen $table_screen, string $type): ?Column
     {
-        $factory = iterator_to_array($this->aggregate->create($table_screen))[$type] ?? null;
+        $factory = $this->find_column_factory($this->aggregate->create($table_screen), $type);
 
         if ( ! $factory) {
             return null;
@@ -64,7 +77,9 @@ class ColumnTypeRepository
 
         $originals = $this->get_originals($table_screen->get_id());
 
-        foreach ($this->aggregate->create($table_screen) as $type => $factory) {
+        foreach ($this->aggregate->create($table_screen) as $factory) {
+            $type = $originals[$factory->get_column_type()] ?? '';
+
             if ( ! isset($originals[$type])) {
                 continue;
             }
