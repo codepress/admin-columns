@@ -27,8 +27,8 @@ final class DateMapper implements Formatter
         if (empty($value->get_value()) || ! is_scalar($value->get_value())) {
             throw new ValueNotFoundException();
         }
-
-        $date = DateTime::createFromFormat($this->from_format, $value->get_value());
+        
+        $date = DateTime::createFromFormat($this->from_format, (string)$value->get_value());
 
         if ( ! $date) {
             throw new ValueNotFoundException();
