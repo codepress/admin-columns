@@ -2,99 +2,38 @@
 
 namespace AC;
 
-use Iterator;
-
-class ArrayIterator implements Iterator
+class ArrayIterator extends Collection
 {
 
-    /**
-     * @var array
-     */
-    protected $array;
-
-    public function __construct(array $array = [])
+    public function __construct(array $data = [])
     {
-        $this->array = $array;
+        $this->data = $data;
     }
 
     #[\ReturnTypeWillChange]
     public function current()
     {
-        return current($this->array);
+        return current($this->data);
     }
 
-    #[\ReturnTypeWillChange]
-    public function next()
-    {
-        return next($this->array);
-    }
-
-    #[\ReturnTypeWillChange]
-    public function key()
-    {
-        return key($this->array);
-    }
-
-    #[\ReturnTypeWillChange]
-    public function valid()
-    {
-        return $this->key() !== null;
-    }
-
-    #[\ReturnTypeWillChange]
-    public function rewind()
-    {
-        return reset($this->array);
-    }
-
-    /**
-     * @param string $offset
-     *
-     * @return false|mixed
-     */
     public function get_offset($offset)
     {
-        if ( ! $this->has_offset($offset)) {
-            return false;
-        }
-
-        return $this->array[$offset];
+        return $this->data[$offset];
     }
 
-    /**
-     * @param string $offset
-     *
-     * @return bool
-     */
-    public function has_offset($offset)
+    public function has_offset($offset): bool
     {
-        return array_key_exists($offset, $this->array);
+        return array_key_exists($offset, $this->data);
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @return bool
-     */
-    public function search($value)
+    public function search($value): bool
     {
-        return in_array($value, $this->array, true);
+        return in_array($value, $this->data, true);
     }
 
-    /**
-     * @return int
-     */
-    public function count()
+    public function get_copy(): array
     {
-        return count($this->array);
-    }
-
-    /**
-     * @return array
-     */
-    public function get_copy()
-    {
-        $copy = $this->array;
+        $copy = $this->data;
 
         reset($copy);
 
