@@ -17,7 +17,7 @@ class ColumnFactories extends Collection
 
     public function add(ColumnFactory $factory): void
     {
-        $this->data[] = $factory;
+        $this->data[$factory->get_column_type()] = $factory;
     }
 
     public function current(): ColumnFactory
