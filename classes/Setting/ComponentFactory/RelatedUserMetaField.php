@@ -13,9 +13,9 @@ use AC\Type\TableScreenContext;
 class RelatedUserMetaField extends CustomField
 {
 
-    private CustomFieldType $field_type;
+    private FieldType $field_type;
 
-    public function __construct(CustomFieldType $field_type)
+    public function __construct(FieldType $field_type)
     {
         parent::__construct(new TableScreenContext(MetaType::create_user_type()));
 
