@@ -78,9 +78,10 @@ class ColumnTypeRepository
         $originals = $this->get_originals($table_screen->get_id());
 
         foreach ($this->aggregate->create($table_screen) as $factory) {
-            $type = $originals[$factory->get_column_type()] ?? '';
+            $type = $factory->get_column_type();
+            $label = $originals[$type] ?? null;
 
-            if ( ! isset($originals[$type])) {
+            if (null === $label) {
                 continue;
             }
 
@@ -88,7 +89,7 @@ class ColumnTypeRepository
                 $factory->create(
                     new Setting\Config([
                         'name'  => $type,
-                        'label' => (string)$originals[$type],
+                        'label' => (string)$label,
                     ])
                 )
             );
