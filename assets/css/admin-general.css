@@ -170,14 +170,6 @@ body .ac-modal__dialog__content.-accent {
 body .ac-modal__dialog__content.-hide {
   display: none;
 }
-body .ac-modal__dialog__list li {
-  position: relative;
-  padding-left: 25px;
-  font-weight: 400;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-}
 body .ac-modal__dialog__list li:before {
   content: "\f147";
   font-family: Dashicons;
@@ -188,6 +180,14 @@ body .ac-modal__dialog__list li:before {
 }
 body .ac-modal__dialog__list li:nth-child(2n) {
   color: #e9426e;
+}
+body .ac-modal__dialog__list li {
+  position: relative;
+  padding-left: 25px;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
 }
 body .ac-modal__dialog__footer {
   padding: 12px 20px;
@@ -1046,11 +1046,11 @@ table.ac-form-table > tbody > tr > td,
 table.ac-form-table > tbody > tr > th {
   vertical-align: top;
 }
-table.ac-form-table.settings tr th {
-  font-weight: normal;
-}
 table.ac-form-table.settings tr th h2 {
   margin: 0;
+}
+table.ac-form-table.settings tr th {
+  font-weight: normal;
 }
 table.ac-form-table.settings tr td {
   padding-top: 58px;
