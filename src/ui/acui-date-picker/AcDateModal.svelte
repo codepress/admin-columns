@@ -13,16 +13,6 @@
     let valueYear: number = new Date().getFullYear();
     let valueMonth: number = new Date().getMonth();
 
-    const shortMonth = (month: number): string => {
-        let padded = month.toString().length === 1 ? '0' + month.toString() : month.toString();
-
-        return new Date('2022-' + padded).toLocaleString('default', {month: 'short'})
-    }
-
-    const padMonth = (month: number): string => {
-        return month.toString().length === 1 ? '0' + month.toString() : month.toString();
-    }
-
     const handleNextYear = () => {
         displayYear++;
     }
@@ -44,15 +34,9 @@
         dispatch('change', value);
     }
 
-    const isActive = (month: number) => {
-        return month === valueMonth;
-    }
-
     onMount(() => {
         if (value === null) {
             value = '';
-            //let newDate = new Date();
-            //value = newDate.getFullYear() + '-' + padMonth(newDate.getMonth() + 1);
         }
         if (value.length === 7) {
             let date = new Date(value);
