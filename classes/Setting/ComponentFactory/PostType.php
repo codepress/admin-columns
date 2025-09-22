@@ -73,6 +73,7 @@ final class PostType implements ComponentFactory
     {
         $options = [];
 
+        // TODO check
         $post_types = get_post_types();
 
         if ( ! is_array($post_types)) {
