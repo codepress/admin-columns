@@ -486,14 +486,14 @@ a.acui-button {
 }
 
 @layer acui {
-  .acui-skeleton + .acui-skeleton {
-    margin-top: 0.5rem;
-  }
   .acui-skeleton {
     display: inline-flex;
     flex-direction: column;
     width: 100%;
     vertical-align: middle;
+  }
+  .acui-skeleton + .acui-skeleton {
+    margin-top: 0.5rem;
   }
   .acui-skeleton.-medium .acui-skeleton-item {
     line-height: 1.3rem;
@@ -504,13 +504,13 @@ a.acui-button {
   .acui-skeleton.-circle .acui-skeleton-item {
     border-radius: 50%;
   }
-  .acui-skeleton-item + .acui-skeleton-item {
-    margin-top: 0.5rem;
-  }
   .acui-skeleton-item {
     background: #eee;
     border-radius: 3px;
     line-height: 1rem;
+  }
+  .acui-skeleton-item + .acui-skeleton-item {
+    margin-top: 0.5rem;
   }
   .acui-skeleton-item:before {
     content: " ";
