@@ -4,7 +4,7 @@ Tags: admin, column, columns, table, tables
 Requires at least: 4.7.3
 Tested up to: 6.8.2
 Requires PHP: 7.2
-Stable tag: 4.7.17
+Stable tag: 4.7.18
 License: GPLv2
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.7.18 =
+Release Date: September 22nd, 2025
+
+* [Improved] Prepared backward compatibility for upcoming 7.0 release
 
 = 4.7.17 =
 Release Date: August 27th, 2025

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-07-12 17:26:18+0000\n"
+"PO-Revision-Date: 2025-09-02 07:43:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -371,7 +371,7 @@ msgstr "Lijsttabel aanpassen"
 
 #: templates/admin/page/settings-section-pro-cta.php:118
 msgid "And of course, all network sites can use Admin Columns."
-msgstr "En natuurlijk kunnen alle netwerksites Admin Columns gebruiken."
+msgstr "En natuurlijk kunnen alle netwerk sites Admin Columns gebruiken."
 
 #: templates/admin/page/settings-section-pro-cta.php:117
 msgid "Get insights about your entire network of sites."
@@ -637,7 +637,7 @@ msgstr "Producten"
 
 #: templates/settings/setting-label-icons.php:288
 msgid "Buddicons"
-msgstr "Buddpictogrammen"
+msgstr "Buddicons"
 
 #: templates/settings/setting-label-icons.php:271
 msgid "WordPress.org"
@@ -685,7 +685,7 @@ msgstr "Sleutel"
 
 #: templates/admin/side-banner.php:52
 msgid "Export table contents to CSV"
-msgstr "Exporteer tabelinhouden naar CSV"
+msgstr "Exporteer tabel inhoud naar CSV"
 
 #: templates/tooltip/bulk-editing.php:37 templates/tooltip/custom-field.php:22
 #: templates/tooltip/export-disabled.php:17 templates/tooltip/export.php:32
@@ -838,7 +838,7 @@ msgstr "Klik op de exportknop en alle items worden geëxporteerd naar CSV."
 
 #: templates/tooltip/export.php:10
 msgid "Export for Admin Columns Pro, allows you to export the contents of your columns to CSV."
-msgstr "Exporteren voor Admin Columns Pro, hiermee kan je de inhoud van je kolommen exporteren naar CSV."
+msgstr "Export for Admin Columns Pro, hiermee kan je de inhoud van je kolommen exporteren naar CSV."
 
 #: templates/tooltip/inline-editing.php:34
 msgid "It is possible to undo and redo all changes made with Inline Editing, so using it is without risk."
@@ -846,7 +846,7 @@ msgstr "Het is mogelijk om alle wijzigingen die zijn aangebracht met inline bewe
 
 #: templates/tooltip/inline-editing.php:28
 msgid "Click on the pencil icon to start editing the value of a field."
-msgstr "Klik op het potlood pictogram om de waarde van een veld te bewerken."
+msgstr "Klik op het potlood icoon om de waarde van een veld te bewerken."
 
 #: templates/tooltip/custom-field.php:10
 #: templates/tooltip/inline-editing.php:19
@@ -1106,7 +1106,7 @@ msgstr "Selecteer een type"
 
 #: classes/Settings/Column/Time.php:19
 msgid "WordPress Time Format"
-msgstr "WordPress tijd format"
+msgstr "WordPress tijdnotatie"
 
 #: classes/Settings/Column/Time.php:13
 msgid "This will determine how the time will be displayed."
@@ -1114,7 +1114,7 @@ msgstr "Dit bepaalt hoe de tijd getoond wordt."
 
 #: classes/Settings/Column/Time.php:12
 msgid "Time Format"
-msgstr "Tijd format"
+msgstr "Tijdnotatie"
 
 #: classes/Settings/Column/StringLimit.php:35
 msgid "No limit"
@@ -1156,7 +1156,7 @@ msgstr "Bewerk %s"
 
 #: classes/Settings/Column/PostFormatIcon.php:30
 msgid "Use an icon instead of text for displaying."
-msgstr "Toon een pictogram in plaats van tekst."
+msgstr "Toon een icoon in plaats van tekst."
 
 #: classes/Settings/Column/Post.php:122
 msgctxt "post"
@@ -1288,12 +1288,12 @@ msgstr "Privé"
 
 #: classes/Settings/Column/StatusIcon.php:30
 msgid "Use an icon instead of text for displaying the status."
-msgstr "Toon een pictogram in plaats van een tekst voor de status te tonen."
+msgstr "Toon een icoon in plaats van tekst voor het tonen van de status."
 
 #: classes/Settings/Column/PostFormatIcon.php:29
 #: classes/Settings/Column/StatusIcon.php:29
 msgid "Use an icon?"
-msgstr "Pictogram gebruiken?"
+msgstr "Icoon gebruiken?"
 
 #: classes/Helper/Strings.php:176
 msgid "&hellip;"
@@ -2607,11 +2607,11 @@ msgstr "Ja"
 
 #: classes/Settings/Column/ActionIcons.php:28
 msgid "Use icons instead of text for displaying the actions."
-msgstr "Gebruik pictogrammen in plaats van tekst om acties te tonen."
+msgstr "Gebruik iconen in plaats van tekst om acties te tonen."
 
 #: classes/Settings/Column/ActionIcons.php:27
 msgid "Use icons?"
-msgstr "Gebruik pictogrammen?"
+msgstr "Iconen gebruiken?"
 
 #: classes/Column/Actions.php:19
 msgid "Actions"

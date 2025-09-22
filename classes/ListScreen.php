@@ -246,7 +246,11 @@ abstract class ListScreen implements PostType
     private function set_columns(): void
     {
         foreach ($this->get_settings() as $name => $data) {
-            $data['name'] = $name;
+            // for backwards compatibility with the upcoming 7.0 release
+            if (empty($data['name'])) {
+                $data['name'] = $name;
+            }
+
             $column = $this->create_column($data);
 
             if ($column) {
