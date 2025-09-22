@@ -51,7 +51,7 @@ class ListScreenAddColumn implements RequestAjaxHandler
         if ( ! $this->table_screen_factory->can_create($list_key)) {
             $response->error();
         }
-   
+
         $column = $this->repository->find(
             $this->table_screen_factory->create($list_key),
             (string)$request->get('column_type')

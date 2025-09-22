@@ -6,7 +6,6 @@ namespace AC;
 
 /**
  * Ensure same formats for date storage and retrieval.
- *
  * The default for all storage is the DATE_MYSQL_TIME constant
  */
 interface DateFormats

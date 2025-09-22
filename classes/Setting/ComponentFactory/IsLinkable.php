@@ -30,10 +30,10 @@ class IsLinkable extends Builder
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        if( $config->get('is_linkable') === 'on' ){
-            $formatters->add( new Linkable() );
+        if ($config->get('is_linkable') === 'on') {
+            $formatters->add(new Linkable());
         }
-        $formatters->add( new Linkable() );
+        $formatters->add(new Linkable());
     }
 
 }

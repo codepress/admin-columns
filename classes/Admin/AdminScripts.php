@@ -24,7 +24,7 @@ class AdminScripts implements Enqueueables
             new Style(
                 'ac-admin',
                 $this->location->with_suffix('assets/css/admin-general.css'),
-                ['ac-ui', 'ac-utilities','ac-material-symbols']
+                ['ac-ui', 'ac-utilities', 'ac-material-symbols']
             ),
         ]);
     }
