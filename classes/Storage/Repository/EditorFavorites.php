@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AC\Storage\Repository;
 
 use AC\Storage\UserOption;
-use AC\TableIdCollection;
 use AC\Type\TableId;
+use AC\Type\TableIdCollection;
 
 class EditorFavorites
 {

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AC\TableIdsFactory;
 
 use AC\PostTypeRepository;
-use AC\TableIdCollection;
 use AC\TableIdsFactory;
 use AC\Type\TableId;
+use AC\Type\TableIdCollection;
 
 class BaseFactory implements TableIdsFactory
 {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Relation;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
@@ -17,11 +16,11 @@ class PostLink extends Builder
 
     protected const NAME = 'post_link_to';
 
-    private ?Relation $relation;
+    private ?string $label;
 
-    public function __construct(?Relation $relation = null)
+    public function __construct(?string $label = null)
     {
-        $this->relation = $relation;
+        $this->label = $label;
     }
 
     protected function get_label(Config $config): ?string
@@ -54,7 +53,7 @@ class PostLink extends Builder
             'view_author' => __('View Public Post Author Page', 'codepress-admin-columns'),
         ];
 
-        if ($this->relation) {
+        if ($this->label) {
             $relation_options = [
                 'edit_post'   => _x('Edit %s', 'post'),
                 'view_post'   => _x('View %s', 'post'),
@@ -62,10 +61,8 @@ class PostLink extends Builder
                 'view_author' => _x('View Public %s Author Page', 'post', 'codepress-admin-columns'),
             ];
 
-            $label = $this->relation->get_labels()->singular_name;
-
             foreach ($relation_options as $k => $option) {
-                $options[$k] = sprintf($option, $label);
+                $options[$k] = sprintf($option, $this->label);
             }
         }
 

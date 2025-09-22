@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use AC\Type\TableIdCollection;
+
 interface TableIdsFactory
 {
 
