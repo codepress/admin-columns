@@ -84,9 +84,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
     public function get_assets(): Assets
     {
         return new Assets([
-            new Style(
-                'jquery-ui-lightness', $this->location->with_suffix('assets/ui-theme/jquery-ui-1.8.18.custom.css')
-            ),
             new Script('jquery-ui-slider'),
             new Admin\Asset\Columns(
                 'ac-admin-page-columns',
