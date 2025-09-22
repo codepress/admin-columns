@@ -21,7 +21,6 @@ use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use ACP\Exception\FailedToSaveListScreen;
 use DateTime;
-use RuntimeException;
 
 class Database implements ListScreenRepositoryWritable
 {

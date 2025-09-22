@@ -27,7 +27,6 @@ abstract class TypedArrayIterator extends ArrayIterator
 
     /**
      * Optional validation when a type was set
-     *
      * @throws LogicException
      */
     protected function validate(): void
