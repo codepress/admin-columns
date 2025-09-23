@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-07-05 01:59:40+0000\n"
+"PO-Revision-Date: 2025-08-24 16:51:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -88,7 +88,7 @@ msgstr ""
 
 #: templates/tooltip/conditional-format.php:1
 msgid "Conditional Format"
-msgstr ""
+msgstr "Bedingtes Format"
 
 #: settings/translations/global.php:6
 msgid "Cancel"
@@ -96,15 +96,15 @@ msgstr "Abbrechen"
 
 #: settings/translations/global.php:5
 msgid "Ok"
-msgstr "Ok"
+msgstr "OK"
 
 #: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:26
 msgid "Assistant"
-msgstr ""
+msgstr "Assistent"
 
 #: classes/Settings/Column/Separator.php:27
 msgid "Horizontal Rule"
-msgstr ""
+msgstr "Horizontal-Regel"
 
 #: classes/Integration/MediaLibraryAssistant.php:19
 msgid "The Media Library Assistant plugin from David Lingren provides several enhancements for managing the Media Library."
@@ -118,7 +118,7 @@ msgstr ""
 #: classes/Controller/AjaxColumnModalValue.php:52
 #: classes/Controller/AjaxColumnValue.php:50
 msgid "Invalid list ID."
-msgstr ""
+msgstr "Ungültige Listen-ID."
 
 #: classes/Check/AddonAvailable.php:63
 msgid "Did you know Admin Columns Pro has full support for %s?"
@@ -155,7 +155,7 @@ msgstr ""
 
 #: classes/Settings/Column/VideoDisplay.php:21
 msgid "Embed"
-msgstr ""
+msgstr "Einbetten"
 
 #: classes/Settings/Column/User.php:94
 msgid "User Website"
@@ -245,11 +245,11 @@ msgstr "Datenformat"
 #: classes/Settings/Column/FileMetaAudio.php:19
 #: classes/Settings/Column/FileMetaVideo.php:12
 msgid "Created Timestamp"
-msgstr ""
+msgstr "Erstellter Zeitstempel"
 
 #: classes/Settings/Column/FileMetaAudio.php:18
 msgid "Compression Ratio"
-msgstr ""
+msgstr "Kompressionsverhältnis"
 
 #: classes/Settings/Column/FileMetaAudio.php:17
 #: classes/Settings/Column/FileMetaVideo.php:26
@@ -514,7 +514,7 @@ msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:74
 msgid "Filters"
-msgstr ""
+msgstr "Filter"
 
 #: templates/admin/list-screen-settings-mockup.php:72
 msgid "Inline Edit"
@@ -2017,7 +2017,7 @@ msgstr ""
 
 #: classes/Check/Review.php:132
 msgid "click here"
-msgstr ""
+msgstr "hier klicken"
 
 #: classes/Check/Review.php:126
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
