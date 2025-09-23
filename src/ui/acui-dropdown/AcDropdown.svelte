@@ -9,7 +9,8 @@
     export let position: string | null = null;
     export let maxHeight: string | null = null;
     export let value: any | null | undefined = null;
-    export let zIndex: number|null|undefined = null;
+    export let zIndex: number | null | undefined = null;
+    export let menuStyle: string | undefined = '';
 
     const dispatch = createEventDispatcher();
 
@@ -134,7 +135,7 @@
 		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}
-		<AcDropdownMenu {maxHeight} {appendToBody} trigger={trigger} position={position} on:click={handleSelect}
+		<AcDropdownMenu {maxHeight} style={menuStyle} {appendToBody} trigger={trigger} position={position} on:click={handleSelect}
 			zIndex={zIndex}
 			on:itemSelect={( e ) => { e.stopPropagation(); handleSelect(e)}}>
 			<slot></slot>
