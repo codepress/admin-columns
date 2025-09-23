@@ -1,11 +1,13 @@
 export declare const icons: readonly [
     'add_circle',
+    'cancel',
     'chevron_left',
     'chevron_right',
     'content_copy',
     'download',
     'delete',
     'description',
+    'do_not_disturb_on',
     'drag_indicator',
     'edit',
     'filter_list',

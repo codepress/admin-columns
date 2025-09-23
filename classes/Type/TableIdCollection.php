@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace AC;
+namespace AC\Type;
 
-use AC\Type\TableId;
 use Countable;
 use Iterator;
 

@@ -8,6 +8,7 @@ use AC\ColumnFactories\Aggregate;
 use AC\ColumnIterator;
 use AC\ColumnIterator\ProxyColumnIterator;
 use AC\ColumnRepository\EncodedData;
+use AC\Exception\FailedToSaveListScreen;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepositoryWritable;
@@ -19,7 +20,6 @@ use AC\TableScreenFactory;
 use AC\Type\ListScreenId;
 use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
-use ACP\Exception\FailedToSaveListScreen;
 use DateTime;
 
 class Database implements ListScreenRepositoryWritable

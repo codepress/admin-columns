@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AC\TableIdsFactory;
 
-use AC\TableIdCollection;
 use AC\TableIdsFactory;
+use AC\Type\TableIdCollection;
 
 class Aggregate implements TableIdsFactory
 {

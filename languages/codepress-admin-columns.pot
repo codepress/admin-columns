@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2025-07-16 11:16+0000\n"
+"POT-Creation-Date: 2025-09-23 10:49+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/ColumnGroups.php:18, classes/Response/JsonListScreenSettingsFactory.php:63, classes/RequestHandler/Ajax/CustomFieldKeys.php:73, classes/Setting/ComponentFactory/FieldType.php:145, classes/Setting/ComponentFactory/ImageSize.php:86, classes/Setting/ComponentFactory/Separator.php:32, classes/Setting/ComponentFactory/UserProperty.php:130, templates/admin/help-tab/custom-fields.php:6, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:17
+#: classes/ColumnGroups.php:18, classes/Response/JsonListScreenSettingsFactory.php:63, classes/RequestHandler/Ajax/CustomFieldKeys.php:73, classes/Setting/ComponentFactory/FieldType.php:145, classes/Setting/ComponentFactory/ImageSize.php:86, classes/Setting/ComponentFactory/Separator.php:32, classes/Setting/ComponentFactory/UserProperty.php:133, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:17
 msgid "Default"
 msgstr ""
 
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Custom Fields"
 msgstr ""
 
-#: classes/ColumnGroups.php:21, classes/Setting/ComponentFactory/FieldType.php:181, templates/admin/help-tab/custom-fields.php:34
+#: classes/ColumnGroups.php:21, classes/Setting/ComponentFactory/FieldType.php:181
 msgid "Media"
 msgstr ""
 
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Meta"
 msgstr ""
 
-#: classes/ColumnGroups.php:24, classes/ColumnFactory/Media/ImageFactory.php:39, classes/Setting/ComponentFactory/FieldType.php:171, templates/admin/help-tab/custom-fields.php:30
+#: classes/ColumnGroups.php:24, classes/ColumnFactory/Media/ImageFactory.php:39, classes/Setting/ComponentFactory/FieldType.php:171
 msgid "Image"
 msgstr ""
 
@@ -120,19 +120,19 @@ msgstr ""
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr ""
 
-#: classes/Check/Review.php:155
+#: classes/Check/Review.php:157
 msgid "documentation page"
 msgstr ""
 
-#: classes/Check/Review.php:162, classes/Admin/Asset/Columns.php:349
+#: classes/Check/Review.php:164, classes/Admin/Asset/Columns.php:350
 msgid "You can also find help on the %s, and %s."
 msgstr ""
 
-#: classes/Check/Review.php:163
+#: classes/Check/Review.php:165
 msgid "Admin Columns forum on WordPress.org"
 msgstr ""
 
-#: classes/Check/Review.php:167
+#: classes/Check/Review.php:169
 msgid "find answers to frequently asked questions"
 msgstr ""
 
@@ -326,7 +326,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: classes/Table/Screen.php:126, templates/admin/edit-menu.php:35, classes/Admin/Asset/Columns.php:376, classes/Setting/ComponentFactory/MediaLink.php:30, classes/Value/Formatter/Media/PreviewViewLink.php:49
+#: classes/Table/Screen.php:126, classes/Admin/Asset/Columns.php:377, classes/Setting/ComponentFactory/MediaLink.php:30, classes/Value/Formatter/Media/PreviewViewLink.php:49
 msgid "View"
 msgstr ""
 
@@ -344,10 +344,6 @@ msgstr ""
 
 #: settings/translations/global.php:9
 msgid "Filter"
-msgstr ""
-
-#: templates/admin/edit-menu.php:22
-msgid "Select type"
 msgstr ""
 
 #: templates/tooltip/bulk-editing.php:8
@@ -506,7 +502,7 @@ msgctxt "smart filtering help"
 msgid "When you return to your list table you can easily select them again from the menu."
 msgstr ""
 
-#: templates/tooltip/sorting-include-empty.php:10, templates/tooltip/sorting.php:8, classes/Admin/Asset/Columns.php:293
+#: templates/tooltip/sorting-include-empty.php:10, templates/tooltip/sorting.php:8, classes/Admin/Asset/Columns.php:294
 msgid "Sorting"
 msgstr ""
 
@@ -622,7 +618,7 @@ msgstr ""
 msgid "Status (Quick Links)"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:191, classes/Admin/Asset/Columns.php:358
+#: classes/Admin/Asset/Columns.php:191, classes/Admin/Asset/Columns.php:359
 msgid "Search"
 msgstr ""
 
@@ -735,220 +731,224 @@ msgid "Active"
 msgstr ""
 
 #: classes/Admin/Asset/Columns.php:262
+msgid "Activate"
+msgstr ""
+
+#: classes/Admin/Asset/Columns.php:263
 msgid "Toggle to show or hide this view on the list table."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:268
+#: classes/Admin/Asset/Columns.php:269
 msgid "Select roles"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:269
+#: classes/Admin/Asset/Columns.php:270
 msgid "Select users"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:270
+#: classes/Admin/Asset/Columns.php:271
 msgid "Conditionals"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:271
+#: classes/Admin/Asset/Columns.php:272
 msgid "Make this table view available only for specific users or roles."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:277
+#: classes/Admin/Asset/Columns.php:278
 msgid "Table Elements"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:278
+#: classes/Admin/Asset/Columns.php:279
 msgid "Show or hide elements from the table list screen."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:282
+#: classes/Admin/Asset/Columns.php:283
 msgid "default Elements"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:283
+#: classes/Admin/Asset/Columns.php:284
 msgid "Features"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:287
+#: classes/Admin/Asset/Columns.php:288
 msgid "Preferences"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:288
+#: classes/Admin/Asset/Columns.php:289
 msgid "Set default settings that users will see when they visit the list table."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:292
+#: classes/Admin/Asset/Columns.php:293
 msgid "Horizontal Scrolling"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:294
+#: classes/Admin/Asset/Columns.php:295
 msgid "Pre - applied Filters"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:295
+#: classes/Admin/Asset/Columns.php:296
 msgid "No segments applied"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:296
+#: classes/Admin/Asset/Columns.php:297
 msgid "Primary Column"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:297
+#: classes/Admin/Asset/Columns.php:298
 msgid "Wrapping"
-msgstr ""
-
-#: classes/Admin/Asset/Columns.php:299
-msgctxt "wrapping_option"
-msgid "Wrap"
 msgstr ""
 
 #: classes/Admin/Asset/Columns.php:300
 msgctxt "wrapping_option"
+msgid "Wrap"
+msgstr ""
+
+#: classes/Admin/Asset/Columns.php:301
+msgctxt "wrapping_option"
 msgid "Clip"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:302
+#: classes/Admin/Asset/Columns.php:303
 msgid "Unlock with Admin Columns Pro"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:311
+#: classes/Admin/Asset/Columns.php:312
 msgid "This table view is %s and won’t appear on the list table."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:315
+#: classes/Admin/Asset/Columns.php:316
 msgid "not active"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:320
+#: classes/Admin/Asset/Columns.php:321
 msgid "These settings are %s."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:321
+#: classes/Admin/Asset/Columns.php:322
 msgid "not saved"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:324
+#: classes/Admin/Asset/Columns.php:325
 msgid "Click %s to apply these column settings to the list table."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:328
+#: classes/Admin/Asset/Columns.php:329
 msgid "Save"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:333
+#: classes/Admin/Asset/Columns.php:334
 msgid "Support"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:336
+#: classes/Admin/Asset/Columns.php:337
 msgid "Are you happy with Admin Columns ?"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:339
+#: classes/Admin/Asset/Columns.php:340
 msgid "Woohoo! We're glad to hear that! "
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:340
+#: classes/Admin/Asset/Columns.php:341
 msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:344
+#: classes/Admin/Asset/Columns.php:345
 msgid "What's wrong? Need help? Let us know!"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:345
+#: classes/Admin/Asset/Columns.php:346
 msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:350
+#: classes/Admin/Asset/Columns.php:351
 msgid "Docs"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:351
+#: classes/Admin/Asset/Columns.php:352
 msgid "Forum"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:352
+#: classes/Admin/Asset/Columns.php:353
 msgid "Rate"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:353
+#: classes/Admin/Asset/Columns.php:354
 msgid "Tweet"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:354
+#: classes/Admin/Asset/Columns.php:355
 msgid "Buy Pro"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:359, classes/Setting/ComponentFactory/CustomField.php:63, classes/Setting/ComponentFactory/FieldType.php:178
+#: classes/Admin/Asset/Columns.php:360, classes/Setting/ComponentFactory/CustomField.php:63, classes/Setting/ComponentFactory/FieldType.php:178
 msgid "Select"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:362
+#: classes/Admin/Asset/Columns.php:363
 msgid "Favorites"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:366
+#: classes/Admin/Asset/Columns.php:367
 msgid "Select Icon"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:371
+#: classes/Admin/Asset/Columns.php:372
 msgid "Save Changes"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:372
+#: classes/Admin/Asset/Columns.php:373
 msgid "Add Column"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:373
+#: classes/Admin/Asset/Columns.php:374
 msgid "Add Columns"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:374
+#: classes/Admin/Asset/Columns.php:375
 msgid "Clear columns"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:375
+#: classes/Admin/Asset/Columns.php:376
 msgid "Load default columns"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:390
+#: classes/Admin/Asset/Columns.php:391
 msgid "Column %s could not be duplicated"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:394
+#: classes/Admin/Asset/Columns.php:395
 msgid "Original column already exists."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:398
+#: classes/Admin/Asset/Columns.php:399
 msgid "The default columns will be shown on the list table when no columns are added."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:402
+#: classes/Admin/Asset/Columns.php:403
 msgid "Start by adding columns to your list table."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:407
+#: classes/Admin/Asset/Columns.php:408
 msgid "New to Admin Columns? Take a look at our %s"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:413
+#: classes/Admin/Asset/Columns.php:414
 msgid "getting started guide"
 msgstr ""
 
-#: classes/Admin/MenuGroupFactory/Aggregate.php:34, classes/RequestHandler/Ajax/NetworkPostStati.php:85, classes/Setting/ComponentFactory/UserProperty.php:134
+#: classes/Admin/MenuGroupFactory/Aggregate.php:34, classes/RequestHandler/Ajax/NetworkPostStati.php:85, classes/Setting/ComponentFactory/UserProperty.php:137
 msgid "Other"
 msgstr ""
 
-#: classes/Admin/MenuGroupFactory/DefaultGroups.php:33
+#: classes/Admin/MenuGroupFactory/DefaultGroups.php:34
 msgid "Post Types"
 msgstr ""
 
-#: classes/Admin/MenuGroupFactory/DefaultGroups.php:40
+#: classes/Admin/MenuGroupFactory/DefaultGroups.php:42
 msgid "Custom Post Types"
 msgstr ""
 
-#: classes/Admin/MenuGroupFactory/DefaultGroups.php:41
+#: classes/Admin/MenuGroupFactory/DefaultGroups.php:43
 msgid "hidden"
 msgstr ""
 
@@ -956,11 +956,11 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin/Notice/DatabaseMissing.php:40
+#: classes/Admin/Notice/DatabaseMissing.php:39
 msgid "Database table %s is missing."
 msgstr ""
 
-#: classes/Admin/Notice/DatabaseMissing.php:50
+#: classes/Admin/Notice/DatabaseMissing.php:49
 msgid "Create database table."
 msgstr ""
 
@@ -1020,15 +1020,15 @@ msgstr ""
 msgid "Date GMT"
 msgstr ""
 
-#: classes/ColumnFactory/Comment/ExcerptFactory.php:36, classes/ColumnFactory/Post/ExcerptFactory.php:38, templates/admin/help-tab/custom-fields.php:22
+#: classes/ColumnFactory/Comment/ExcerptFactory.php:36, classes/ColumnFactory/Post/ExcerptFactory.php:38
 msgid "Excerpt"
 msgstr ""
 
-#: classes/ColumnFactory/Comment/IdFactory.php:15, classes/ColumnFactory/Post/IdFactory.php:32
+#: classes/ColumnFactory/Comment/IdFactory.php:28, classes/ColumnFactory/Post/IdFactory.php:32
 msgid "ID"
 msgstr ""
 
-#: classes/ColumnFactory/Comment/PostFactory.php:35, classes/Setting/ComponentFactory/FieldType.php:182, templates/admin/help-tab/custom-fields.php:46
+#: classes/ColumnFactory/Comment/PostFactory.php:35, classes/Setting/ComponentFactory/FieldType.php:182
 msgid "Post"
 msgstr ""
 
@@ -1040,7 +1040,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: classes/ColumnFactory/Comment/UserFactory.php:42, classes/Setting/ComponentFactory/FieldType.php:183, templates/admin/help-tab/custom-fields.php:58
+#: classes/ColumnFactory/Comment/UserFactory.php:42, classes/Setting/ComponentFactory/FieldType.php:183
 msgid "User"
 msgstr ""
 
@@ -1172,7 +1172,7 @@ msgstr ""
 msgid "Last Modified"
 msgstr ""
 
-#: classes/ColumnFactory/Post/MenuFactory.php:46
+#: classes/ColumnFactory/Post/MenuFactory.php:47
 msgid "Menu"
 msgstr ""
 
@@ -1212,7 +1212,7 @@ msgstr ""
 msgid "Shortlink"
 msgstr ""
 
-#: classes/ColumnFactory/Post/SlugFactory.php:29
+#: classes/ColumnFactory/Post/SlugFactory.php:15
 msgid "Slug"
 msgstr ""
 
@@ -1240,11 +1240,11 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: classes/ColumnFactory/User/DisplayNameFactory.php:15, classes/Setting/ComponentFactory/UserProperty.php:116
+#: classes/ColumnFactory/User/DisplayNameFactory.php:15, classes/Setting/ComponentFactory/UserProperty.php:119
 msgid "Display Name"
 msgstr ""
 
-#: classes/ColumnFactory/User/FirstNameFactory.php:15, classes/Setting/ComponentFactory/UserProperty.php:117
+#: classes/ColumnFactory/User/FirstNameFactory.php:15, classes/Setting/ComponentFactory/UserProperty.php:120
 msgid "First Name"
 msgstr ""
 
@@ -1252,11 +1252,11 @@ msgstr ""
 msgid "First Post"
 msgstr ""
 
-#: classes/ColumnFactory/User/FullNameFactory.php:15, classes/Setting/ComponentFactory/UserProperty.php:118
+#: classes/ColumnFactory/User/FullNameFactory.php:15, classes/Setting/ComponentFactory/UserProperty.php:121
 msgid "Full Name"
 msgstr ""
 
-#: classes/ColumnFactory/User/LastNameFactory.php:15, classes/Setting/ComponentFactory/UserProperty.php:119
+#: classes/ColumnFactory/User/LastNameFactory.php:15, classes/Setting/ComponentFactory/UserProperty.php:122
 msgid "Last Name"
 msgstr ""
 
@@ -1264,11 +1264,11 @@ msgstr ""
 msgid "Last Post"
 msgstr ""
 
-#: classes/ColumnFactory/User/NicknameFactory.php:27, classes/Setting/ComponentFactory/UserProperty.php:120
+#: classes/ColumnFactory/User/NicknameFactory.php:27, classes/Setting/ComponentFactory/UserProperty.php:123
 msgid "Nickname"
 msgstr ""
 
-#: classes/ColumnFactory/User/PostCountFactory.php:34
+#: classes/ColumnFactory/User/PostCountFactory.php:33
 msgid "Post Count"
 msgstr ""
 
@@ -1280,7 +1280,7 @@ msgstr ""
 msgid "Show Toolbar"
 msgstr ""
 
-#: classes/ColumnFactory/User/UserIdFactory.php:15, classes/Setting/ComponentFactory/UserProperty.php:123
+#: classes/ColumnFactory/User/UserIdFactory.php:28, classes/Setting/ComponentFactory/UserProperty.php:126
 msgid "User ID"
 msgstr ""
 
@@ -1328,19 +1328,19 @@ msgstr ""
 msgid "Table view %s successfully deleted."
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:68
+#: classes/RequestHandler/Ajax/ListScreenSave.php:70
 msgid "List screen not found"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:111
+#: classes/RequestHandler/Ajax/ListScreenSave.php:113
 msgid "Column settings could not be saved."
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:121
+#: classes/RequestHandler/Ajax/ListScreenSave.php:123
 msgid "Settings for %s updated successfully."
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:126
+#: classes/RequestHandler/Ajax/ListScreenSave.php:128
 msgid "View %s screen"
 msgstr ""
 
@@ -1420,7 +1420,7 @@ msgstr ""
 msgid "Edit Comment"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/CommentLink.php:25, classes/Setting/ComponentFactory/LinkToMenu.php:16, classes/Setting/ComponentFactory/TermLink.php:27, classes/Setting/ComponentFactory/UserLink.php:35
+#: classes/Setting/ComponentFactory/CommentLink.php:25, classes/Setting/ComponentFactory/LinkToMenu.php:16, classes/Setting/ComponentFactory/TermLink.php:27, classes/Setting/ComponentFactory/UserLink.php:32
 msgid "Link To"
 msgstr ""
 
@@ -1472,19 +1472,19 @@ msgstr ""
 msgid "WordPress Date Format"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:23
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:21
 msgid "Date Save Format"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:33, classes/Setting/ComponentFactory/FieldType.php:168, templates/admin/help-tab/custom-fields.php:18
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:31, classes/Setting/ComponentFactory/FieldType.php:168
 msgid "Date"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:36
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:34
 msgid "Datetime (ISO)"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:37, classes/Setting/ComponentFactory/ExifData.php:62
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:35, classes/Setting/ComponentFactory/ExifData.php:62
 msgid "Timestamp"
 msgstr ""
 
@@ -1556,7 +1556,7 @@ msgstr ""
 msgid "Multiple"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:167, templates/admin/help-tab/custom-fields.php:10
+#: classes/Setting/ComponentFactory/FieldType.php:167
 msgid "Color"
 msgstr ""
 
@@ -1568,19 +1568,19 @@ msgstr ""
 msgid "HTML"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:172, templates/admin/help-tab/custom-fields.php:54
+#: classes/Setting/ComponentFactory/FieldType.php:172
 msgid "URL"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:173, templates/admin/help-tab/custom-fields.php:42
+#: classes/Setting/ComponentFactory/FieldType.php:173
 msgid "Number"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:176, templates/admin/help-tab/custom-fields.php:26
+#: classes/Setting/ComponentFactory/FieldType.php:176
 msgid "Has Content"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:177, templates/admin/help-tab/custom-fields.php:50
+#: classes/Setting/ComponentFactory/FieldType.php:177
 msgid "True / False"
 msgstr ""
 
@@ -1588,7 +1588,7 @@ msgstr ""
 msgid "Number of Fields"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:189, templates/admin/help-tab/custom-fields.php:38
+#: classes/Setting/ComponentFactory/FieldType.php:189
 msgid "Multiple Values"
 msgstr ""
 
@@ -1664,7 +1664,7 @@ msgstr ""
 msgid "This will make the title link to the menu."
 msgstr ""
 
-#: classes/Setting/ComponentFactory/MediaLink.php:21, classes/Setting/ComponentFactory/PostLink.php:29
+#: classes/Setting/ComponentFactory/MediaLink.php:21, classes/Setting/ComponentFactory/PostLink.php:28
 msgid "Link to"
 msgstr ""
 
@@ -1728,20 +1728,20 @@ msgstr ""
 msgid "Path scope"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/PostLink.php:53
+#: classes/Setting/ComponentFactory/PostLink.php:52
 msgid "Edit Post Author"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/PostLink.php:54
+#: classes/Setting/ComponentFactory/PostLink.php:53
 msgid "View Public Post Author Page"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/PostLink.php:61
+#: classes/Setting/ComponentFactory/PostLink.php:60
 msgctxt "post"
 msgid "Edit %s Author"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/PostLink.php:62
+#: classes/Setting/ComponentFactory/PostLink.php:61
 msgctxt "post"
 msgid "View Public %s Author Page"
 msgstr ""
@@ -1842,19 +1842,19 @@ msgstr ""
 msgid "Use an icon instead of text for displaying."
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserLink.php:58
+#: classes/Setting/ComponentFactory/UserLink.php:55
 msgid "Edit User Profile"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserLink.php:59, classes/Setting/ComponentFactory/UserProperty.php:122
+#: classes/Setting/ComponentFactory/UserLink.php:56, classes/Setting/ComponentFactory/UserProperty.php:125
 msgid "User Email"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserLink.php:60
+#: classes/Setting/ComponentFactory/UserLink.php:57
 msgid "View Public Author Page"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserLink.php:64
+#: classes/Setting/ComponentFactory/UserLink.php:61
 msgid "View User Posts"
 msgstr ""
 
@@ -1862,27 +1862,27 @@ msgstr ""
 msgid "User Display"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserProperty.php:95
+#: classes/Setting/ComponentFactory/UserProperty.php:98
 msgid "Image Size"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserProperty.php:121
+#: classes/Setting/ComponentFactory/UserProperty.php:124
 msgid "User Login"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserProperty.php:124
+#: classes/Setting/ComponentFactory/UserProperty.php:127
 msgid "User Nicename"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserProperty.php:125
+#: classes/Setting/ComponentFactory/UserProperty.php:128
 msgid "User Website"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserProperty.php:136
+#: classes/Setting/ComponentFactory/UserProperty.php:139
 msgid "Roles"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserProperty.php:137
+#: classes/Setting/ComponentFactory/UserProperty.php:140
 msgid "Gravatar"
 msgstr ""
 
@@ -1922,11 +1922,11 @@ msgstr ""
 msgid "Preview not available"
 msgstr ""
 
-#: classes/Value/Extended/Posts.php:49
+#: classes/Value/Extended/Posts.php:42
 msgid "No items"
 msgstr ""
 
-#: classes/Value/Extended/Posts.php:84
+#: classes/Value/Extended/Posts.php:77
 msgid "Recent items"
 msgstr ""
 
@@ -1941,98 +1941,6 @@ msgid "second"
 msgid_plural "seconds"
 msgstr[0] ""
 msgstr[1] ""
-
-#: templates/admin/help-tab/basics.php:1
-msgid "Change order"
-msgstr ""
-
-#: templates/admin/help-tab/basics.php:3
-msgid "By dragging the columns you can change the order which they will appear in."
-msgstr ""
-
-#: templates/admin/help-tab/basics.php:6
-msgid "Change label"
-msgstr ""
-
-#: templates/admin/help-tab/basics.php:8
-msgid "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading."
-msgstr ""
-
-#: templates/admin/help-tab/basics.php:11
-msgid "Change column width"
-msgstr ""
-
-#: templates/admin/help-tab/basics.php:13
-msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:2
-msgid "The custom field column uses the custom fields from posts and users. There are 14 types which you can set."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:7
-msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by commas."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:11
-msgid "Value: Hex value color, such as #808080."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:14
-msgid "Counter"
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:15
-msgid "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:19
-msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:23
-msgid "Value: This will show the first 20 words of the Post content."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:27
-msgid "Value: This will show if the field has content or not."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:31
-msgid "Value: Should contain one or more Image URLs or Attachment IDs, separated by commas."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:35
-msgid "Value: Should contain one or more Attachment IDs, separated by commas."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:39
-msgid "Value: Should be an array. This will flatten any ( multi dimensional ) array."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:43
-msgid "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:47
-msgid "Value: Should contain one or more Post IDs, separated by commas."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:51
-msgid "Value: Should be a 1 (one) or 0 (zero)."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:55
-msgid "Value: Should contain a URL."
-msgstr ""
-
-#: templates/admin/help-tab/custom-fields.php:59
-msgid "Value: Should contain one or more User IDs, separated by commas."
-msgstr ""
-
-#: templates/admin/help-tab/introduction.php:2
-msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
-msgstr ""
 
 #: templates/admin/page/help-v2.php:17
 msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
@@ -2089,6 +1997,10 @@ msgid "Delete all column settings and restore the default settings."
 msgstr ""
 
 #: classes/Admin/Asset/Script/SettingsFactory.php:38
+msgid "Settings saved successfully."
+msgstr ""
+
+#: classes/Admin/Asset/Script/SettingsFactory.php:39
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -2210,6 +2122,10 @@ msgstr ""
 
 #: classes/Value/Formatter/Post/IsPasswordProtected.php:23
 msgid "Password"
+msgstr ""
+
+#: classes/Value/Formatter/User/PostCount.php:72
+msgid "Recent items by %s"
 msgstr ""
 
 #: templates/admin/page/component/deprecated-hook.php:12

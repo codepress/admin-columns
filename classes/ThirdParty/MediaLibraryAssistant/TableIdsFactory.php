@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
-use AC\TableIdCollection;
 use AC\Type\TableId;
+use AC\Type\TableIdCollection;
 
 class TableIdsFactory implements AC\TableIdsFactory
 {

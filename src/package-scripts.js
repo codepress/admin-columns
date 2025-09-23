@@ -16,7 +16,7 @@ module.exports = {
 			),
 		},
 		//clean_old : npsUtils.rimraf( `${core_path}*/*.map` ),
-		clean : '',
+		clean : npsUtils.rimraf( `${core_path}*/*.map` ),
 		styles : `sass scss:${core_path}css/`,
 		scripts : 'webpack',
 		languages : {

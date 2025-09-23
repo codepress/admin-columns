@@ -7,24 +7,25 @@
     export let maxHeight: string | null = null;
     export let position: string | null = 'bottom-right';
     export let zIndex: number | null = null;
+    export let style: string | undefined = '';
 
     let rootElement: HTMLElement;
     let menuElement: HTMLElement;
     let pos: any = {};
 
     const positionBodyElement = () => {
-        let triggetBox = trigger.getBoundingClientRect();
         rootElement.append(menuElement);
         document.body.append(rootElement);
+        let triggerBox = trigger.getBoundingClientRect();
 
         pos = {
             position: 'absolute',
-            top: (Math.round(triggetBox.top + triggetBox.height)).toString() + 'px',
-            left:Math.round(triggetBox.left) + 'px'
+            top: (Math.round(triggerBox.top + triggerBox.height)).toString() + 'px',
+            left:Math.round(triggerBox.left) + 'px'
         }
 
         if (position === 'bottom-left') {
-            pos.left = Math.round((triggetBox.left - menuElement.getBoundingClientRect().width + triggetBox.width)) +
+            pos.left = Math.round((triggerBox.left - menuElement.getBoundingClientRect().width + triggerBox.width)) +
 				'px';
         }
     }
@@ -42,7 +43,7 @@
 
     $:rootElementStyle = Object.entries(pos)
         .map(([key, value]) => `${key}:${value}`)
-        .join(';');
+        .join(';') + style;
 
 </script>
 

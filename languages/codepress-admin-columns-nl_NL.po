@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-07-12 17:26:18+0000\n"
+"PO-Revision-Date: 2025-09-02 07:43:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,32 @@ msgstr ""
 "X-Generator: GlotPress/4.0.1\n"
 "Language: nl\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
+
+#: templates/admin/edit-menu.php:35
+msgid "View %s"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:119
+msgid "See the Plugins page for details."
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:117
+msgid "Warning"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:88
+msgctxt "Anchor text to upgrade guide."
+msgid "upgrade guide"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:72
+msgctxt "%s contains the link to upgrade guide. Label is translated separately."
+msgid "Please review the %s for details."
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:58
+msgid "You are upgrading to a new a major version of Admin Columns, which can include <strong>breaking changes</strong>."
+msgstr ""
 
 #: templates/settings/setting-label-icons.php:334
 msgid "Miscellaneous"
@@ -371,7 +397,7 @@ msgstr "Lijsttabel aanpassen"
 
 #: templates/admin/page/settings-section-pro-cta.php:118
 msgid "And of course, all network sites can use Admin Columns."
-msgstr "En natuurlijk kunnen alle netwerksites Admin Columns gebruiken."
+msgstr "En natuurlijk kunnen alle netwerk sites Admin Columns gebruiken."
 
 #: templates/admin/page/settings-section-pro-cta.php:117
 msgid "Get insights about your entire network of sites."
@@ -637,7 +663,7 @@ msgstr "Producten"
 
 #: templates/settings/setting-label-icons.php:288
 msgid "Buddicons"
-msgstr "Buddpictogrammen"
+msgstr "Buddicons"
 
 #: templates/settings/setting-label-icons.php:271
 msgid "WordPress.org"
@@ -685,7 +711,7 @@ msgstr "Sleutel"
 
 #: templates/admin/side-banner.php:52
 msgid "Export table contents to CSV"
-msgstr "Exporteer tabelinhouden naar CSV"
+msgstr "Exporteer tabel inhoud naar CSV"
 
 #: templates/tooltip/bulk-editing.php:37 templates/tooltip/custom-field.php:22
 #: templates/tooltip/export-disabled.php:17 templates/tooltip/export.php:32
@@ -838,7 +864,7 @@ msgstr "Klik op de exportknop en alle items worden geëxporteerd naar CSV."
 
 #: templates/tooltip/export.php:10
 msgid "Export for Admin Columns Pro, allows you to export the contents of your columns to CSV."
-msgstr "Exporteren voor Admin Columns Pro, hiermee kan je de inhoud van je kolommen exporteren naar CSV."
+msgstr "Export for Admin Columns Pro, hiermee kan je de inhoud van je kolommen exporteren naar CSV."
 
 #: templates/tooltip/inline-editing.php:34
 msgid "It is possible to undo and redo all changes made with Inline Editing, so using it is without risk."
@@ -846,7 +872,7 @@ msgstr "Het is mogelijk om alle wijzigingen die zijn aangebracht met inline bewe
 
 #: templates/tooltip/inline-editing.php:28
 msgid "Click on the pencil icon to start editing the value of a field."
-msgstr "Klik op het potlood pictogram om de waarde van een veld te bewerken."
+msgstr "Klik op het potlood icoon om de waarde van een veld te bewerken."
 
 #: templates/tooltip/custom-field.php:10
 #: templates/tooltip/inline-editing.php:19
@@ -964,7 +990,7 @@ msgstr "%s korting van Black Friday tot Cyber ​​Monday"
 msgid "Get %s now"
 msgstr "Download %s nu"
 
-#: classes/Helper/Html.php:495
+#: classes/Helper/Html.php:498
 msgid "%s more"
 msgstr "%s meer"
 
@@ -1100,13 +1126,13 @@ msgstr "Upgrade naar PRO en breng Admin Columns naar het volgende niveau:"
 msgid "Do you like Admin Columns?"
 msgstr "Tevreden met Admin Columns?"
 
-#: templates/admin/edit-menu.php:17
+#: templates/admin/edit-menu.php:22
 msgid "Select type"
 msgstr "Selecteer een type"
 
 #: classes/Settings/Column/Time.php:19
 msgid "WordPress Time Format"
-msgstr "WordPress tijd format"
+msgstr "WordPress tijdnotatie"
 
 #: classes/Settings/Column/Time.php:13
 msgid "This will determine how the time will be displayed."
@@ -1114,7 +1140,7 @@ msgstr "Dit bepaalt hoe de tijd getoond wordt."
 
 #: classes/Settings/Column/Time.php:12
 msgid "Time Format"
-msgstr "Tijd format"
+msgstr "Tijdnotatie"
 
 #: classes/Settings/Column/StringLimit.php:35
 msgid "No limit"
@@ -1156,7 +1182,7 @@ msgstr "Bewerk %s"
 
 #: classes/Settings/Column/PostFormatIcon.php:30
 msgid "Use an icon instead of text for displaying."
-msgstr "Toon een pictogram in plaats van tekst."
+msgstr "Toon een icoon in plaats van tekst."
 
 #: classes/Settings/Column/Post.php:122
 msgctxt "post"
@@ -1288,12 +1314,12 @@ msgstr "Privé"
 
 #: classes/Settings/Column/StatusIcon.php:30
 msgid "Use an icon instead of text for displaying the status."
-msgstr "Toon een pictogram in plaats van een tekst voor de status te tonen."
+msgstr "Toon een icoon in plaats van tekst voor het tonen van de status."
 
 #: classes/Settings/Column/PostFormatIcon.php:29
 #: classes/Settings/Column/StatusIcon.php:29
 msgid "Use an icon?"
-msgstr "Pictogram gebruiken?"
+msgstr "Icoon gebruiken?"
 
 #: classes/Helper/Strings.php:176
 msgid "&hellip;"
@@ -1540,7 +1566,7 @@ msgstr "Deze tekst zal na de kolomwaarde verschijnen."
 msgid " or "
 msgstr " of "
 
-#: classes/Helper/Html.php:496
+#: classes/Helper/Html.php:499
 msgid "Hide"
 msgstr "Verbergen"
 
@@ -1627,7 +1653,7 @@ msgstr "Verouderde filters"
 msgid "Help"
 msgstr "Hulp"
 
-#: templates/admin/edit-column.php:36 templates/admin/edit-column.php:80
+#: templates/admin/edit-column.php:46 templates/admin/edit-column.php:95
 msgid "Close"
 msgstr "Sluiten"
 
@@ -1851,11 +1877,11 @@ msgstr "Ben je blij met Admin Columns?"
 msgid "Get Admin Columns Pro"
 msgstr "Verkrijg Admin Columns Pro"
 
-#: classes/Admin/MenuFactory.php:40 classes/Admin/Page/Columns.php:166
+#: classes/Admin/MenuFactory.php:40 classes/Admin/Page/Columns.php:167
 msgid "Columns"
 msgstr "Kolommen"
 
-#: classes/Admin/Page/Columns.php:207
+#: classes/Admin/Page/Columns.php:212
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr "Waarschuwing. De kolomgegevens van %s worden verwijderd. Dit kan niet ongedaan gemaakt worden. 'OK' om te verwijderen, 'Annuleren' om te stoppen met verwijderen"
 
@@ -1863,7 +1889,7 @@ msgstr "Waarschuwing. De kolomgegevens van %s worden verwijderd. Dit kan niet on
 msgid "Update"
 msgstr "Update"
 
-#: classes/Admin/Page/Columns.php:186
+#: classes/Admin/Page/Columns.php:191
 msgid "Store settings"
 msgstr "Instellingen opslaan"
 
@@ -2026,7 +2052,7 @@ msgstr "We willen je niet storen, maar je gebruikt %s nu al een tijdje, en we vr
 #. Plugin Name of the plugin
 #: codepress-admin-columns.php classes/Admin/MenuPageFactory/Menu.php:16
 #: classes/Admin/MenuPageFactory/SubMenu.php:17 classes/Check/Review.php:116
-#: classes/Table/Screen.php:346
+#: classes/Table/Screen.php:349
 msgid "Admin Columns"
 msgstr "Admin Columns"
 
@@ -2058,7 +2084,7 @@ msgstr "Deze naam zal verschijnen als kolom header."
 msgid "Label"
 msgstr "Label"
 
-#: classes/Settings/Column/Type.php:48 templates/admin/edit-column.php:30
+#: classes/Settings/Column/Type.php:48 templates/admin/edit-column.php:32
 msgid "Name"
 msgstr "Naam"
 
@@ -2066,7 +2092,7 @@ msgstr "Naam"
 msgid "Choose a column type."
 msgstr "Kies een kolom type."
 
-#: templates/admin/edit-column.php:38 templates/admin/edit-column.php:82
+#: templates/admin/edit-column.php:50 templates/admin/edit-column.php:99
 msgid "Clone"
 msgstr "Kloon"
 
@@ -2074,7 +2100,7 @@ msgstr "Kloon"
 msgid "Display format"
 msgstr "Weergave format"
 
-#: classes/Settings/Column/User.php:91 classes/Settings/Column/UserLink.php:79
+#: classes/Settings/Column/User.php:91 classes/Settings/Column/UserLink.php:88
 msgid "User Email"
 msgstr "Gebruiker e-mail"
 
@@ -2161,7 +2187,7 @@ msgstr "Schermnaam"
 msgid "Comment Count"
 msgstr "Aantal reacties"
 
-#: templates/admin/edit-column.php:40 templates/admin/edit-column.php:84
+#: templates/admin/edit-column.php:54 templates/admin/edit-column.php:103
 msgid "Remove"
 msgstr "Verwijderen"
 
@@ -2215,7 +2241,7 @@ msgstr "Permalink"
 msgid "Path"
 msgstr "Pad"
 
-#: classes/Column/Post/PostParent.php:14
+#: classes/Column/Post/PostParent.php:16
 msgid "Parent"
 msgstr "Hoofd"
 
@@ -2293,15 +2319,15 @@ msgstr "In afwachting"
 msgid "Total"
 msgstr "Totaal"
 
-#: classes/Settings/Column/UserLink.php:81
+#: classes/Settings/Column/UserLink.php:90
 msgid "View Public Author Page"
 msgstr "Bekijk publieke auteur pagina"
 
-#: classes/Settings/Column/UserLink.php:80
+#: classes/Settings/Column/UserLink.php:89
 msgid "View User Posts"
 msgstr "Bekijk gebruiker berichten"
 
-#: classes/Settings/Column/UserLink.php:78
+#: classes/Settings/Column/UserLink.php:87
 msgid "Edit User Profile"
 msgstr "Gebruikersprofiel bewerken"
 
@@ -2310,7 +2336,7 @@ msgstr "Gebruikersprofiel bewerken"
 #: classes/Settings/Column/PostLink.php:73
 #: classes/Settings/Column/Separator.php:29
 #: classes/Settings/Column/TermLink.php:40
-#: classes/Settings/Column/UserLink.php:87
+#: classes/Settings/Column/UserLink.php:96
 msgid "None"
 msgstr "Geen"
 
@@ -2318,7 +2344,7 @@ msgstr "Geen"
 #: classes/Settings/Column/MediaLink.php:52
 #: classes/Settings/Column/PostLink.php:62
 #: classes/Settings/Column/TermLink.php:30
-#: classes/Settings/Column/UserLink.php:69
+#: classes/Settings/Column/UserLink.php:77
 msgid "Link To"
 msgstr "Link aan"
 
@@ -2419,7 +2445,7 @@ msgid "Available Sizes"
 msgstr "Beschikbare grootte"
 
 #: classes/Column/Media/Preview.php:50 classes/Settings/Column/MediaLink.php:63
-#: templates/admin/edit-menu.php:27
+#: classes/Table/Screen.php:154
 msgid "View"
 msgstr "Bekijken"
 
@@ -2501,7 +2527,7 @@ msgstr "Gebruiker"
 #: classes/Column/Comment/Type.php:14
 #: classes/Settings/Column/CustomFieldType.php:85
 #: classes/Settings/Column/Type.php:45 classes/Settings/Column/Type.php:54
-#: templates/admin/edit-column.php:31
+#: templates/admin/edit-column.php:37
 msgid "Type"
 msgstr "Type"
 
@@ -2570,7 +2596,7 @@ msgstr "Toegestaan"
 msgid "Agent"
 msgstr "Agent"
 
-#: classes/Table/Screen.php:152 templates/admin/edit-column.php:35
+#: classes/Table/Screen.php:152 templates/admin/edit-column.php:44
 msgid "Edit"
 msgstr "Bewerken"
 
@@ -2607,11 +2633,11 @@ msgstr "Ja"
 
 #: classes/Settings/Column/ActionIcons.php:28
 msgid "Use icons instead of text for displaying the actions."
-msgstr "Gebruik pictogrammen in plaats van tekst om acties te tonen."
+msgstr "Gebruik iconen in plaats van tekst om acties te tonen."
 
 #: classes/Settings/Column/ActionIcons.php:27
 msgid "Use icons?"
-msgstr "Gebruik pictogrammen?"
+msgstr "Iconen gebruiken?"
 
 #: classes/Column/Actions.php:19
 msgid "Actions"

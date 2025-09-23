@@ -35,6 +35,7 @@ final class SettingsFactory
                 'Delete all column settings and restore the default settings.',
                 'codepress-admin-columns'
             ),
+            'settings_saved_successful'    => __('Settings saved successfully.', 'codepress-admin-columns'),
             'restore_settings_warning'     => __(
                 "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop",
                 'codepress-admin-columns'
@@ -50,8 +51,8 @@ final class SettingsFactory
                 Script\GlobalTranslationFactory::HANDLE,
             ]
         );
-        $script->localize('AC_SETTINGS_I18N', Translation::create($translations))
-               ->add_inline_variable('AC_SETTINGS', [
+        $script->localize('ac_settings_i18n', Translation::create($translations))
+               ->add_inline_variable('ac_settings', [
                    $nonce->get_name() => $nonce->create(),
                ]);
 

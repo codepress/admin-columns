@@ -2,7 +2,7 @@
     import AdminHeaderBar from "../components/AdminHeaderBar.svelte";
     import AcPanel from "ACUi/acui-panel/AcPanel.svelte";
     import AcPanelHeader from "ACUi/acui-panel/AcPanelHeader.svelte";
-    import {getAdminSettingsTranslation} from "./utils/global";
+    import {getAdminSettingsConfig, getAdminSettingsTranslation} from "./utils/global";
     import AcPanelBody from "ACUi/acui-panel/AcPanelBody.svelte";
     import AcToggle from "ACUi/element/AcToggle.svelte";
     import HtmlSection from "../columns/components/HtmlSection.svelte";
@@ -15,10 +15,11 @@
 
 
     const i18n = getAdminSettingsTranslation();
+    const config = getAdminSettingsConfig();
     let loadingShowButtonValue = true;
     let showButtonValue = true;
 
-    getGeneralOption({name: 'show_edit_button', nonce: AC_SETTINGS._ajax_nonce}).then(r => {
+    getGeneralOption({name: 'show_edit_button', nonce: config._ajax_nonce}).then(r => {
         if (r.data.success) {
             showButtonValue = r.data.data === '1';
             loadingShowButtonValue = false;
@@ -27,12 +28,12 @@
 
     const handleToggleShowButton = () => {
         persistGeneralOption({
-            nonce: AC_SETTINGS._ajax_nonce,
+            nonce: config._ajax_nonce,
             name: 'show_edit_button',
             value: showButtonValue ? '1' : '0'
         }).then(() => {
             NotificationProgrammatic.open({
-                message: "Success",
+                message: i18n.settings_saved_successful,
                 type: "success",
             })
         })

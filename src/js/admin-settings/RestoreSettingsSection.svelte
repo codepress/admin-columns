@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {getAdminSettingsTranslation} from "./utils/global";
+    import {getAdminSettingsConfig, getAdminSettingsTranslation} from "./utils/global";
     import SettingSection from "./component/SettingSection.svelte";
     import AcButton from "ACUi/element/AcButton.svelte";
     import AcConfirmation from "../plugin/ac-confirmation";
@@ -7,9 +7,10 @@
     import {NotificationProgrammatic} from "../ui-wrapper/notification";
 
     const i18n = getAdminSettingsTranslation();
+    const config = getAdminSettingsConfig();
 
     const handleRestoreSettings = () => {
-        restoreSettings({nonce: AC_SETTINGS._ajax_nonce}).then(( r ) => {
+        restoreSettings({nonce: config._ajax_nonce}).then(( r ) => {
 			if( r.data.success ) {
                 NotificationProgrammatic.open({
 					type: "success",

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AC\Table;
 
 use AC\Table\TableScreenRepository\Sort;
-use AC\TableIdCollection;
 use AC\TableIdsFactory;
 use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\TableId;
+use AC\Type\TableIdCollection;
 
 class TableScreenRepository
 {
