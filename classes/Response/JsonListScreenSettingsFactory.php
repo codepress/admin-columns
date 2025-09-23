@@ -8,7 +8,7 @@ use AC;
 use AC\ListScreen;
 use AC\Setting\Encoder;
 use AC\Storage\EncoderFactory;
-use ACP\Type\Url\Preview;
+use AC\Type\Url\Preview;
 
 class JsonListScreenSettingsFactory
 {
