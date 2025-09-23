@@ -11,6 +11,32 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
+#: templates/admin/edit-menu.php:35
+msgid "View %s"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:119
+msgid "See the Plugins page for details."
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:117
+msgid "Warning"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:88
+msgctxt "Anchor text to upgrade guide."
+msgid "upgrade guide"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:72
+msgctxt "%s contains the link to upgrade guide. Label is translated separately."
+msgid "Please review the %s for details."
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:58
+msgid "You are upgrading to a new a major version of Admin Columns, which can include <strong>breaking changes</strong>."
+msgstr ""
+
 #: templates/settings/setting-label-icons.php:334
 msgid "Miscellaneous"
 msgstr "Divers"
@@ -964,7 +990,7 @@ msgstr "%s de remise du Black Friday jusqu‘au Cyber Monday"
 msgid "Get %s now"
 msgstr "Obtenez %s maintenant"
 
-#: classes/Helper/Html.php:495
+#: classes/Helper/Html.php:498
 msgid "%s more"
 msgstr "%s de plus"
 
@@ -1100,7 +1126,7 @@ msgstr "Passez à la version PRO et amenez Admin Columns au niveau supérieur :
 msgid "Do you like Admin Columns?"
 msgstr "Aimez-vous Admin Columns ?"
 
-#: templates/admin/edit-menu.php:17
+#: templates/admin/edit-menu.php:22
 msgid "Select type"
 msgstr "Sélectionner le type"
 
@@ -1540,7 +1566,7 @@ msgstr "Ce texte apparaîtra après la valeur de la colonne."
 msgid " or "
 msgstr "ou"
 
-#: classes/Helper/Html.php:496
+#: classes/Helper/Html.php:499
 msgid "Hide"
 msgstr "Masquer"
 
@@ -1627,7 +1653,7 @@ msgstr "Filtres dépréciés"
 msgid "Help"
 msgstr "Aide"
 
-#: templates/admin/edit-column.php:36 templates/admin/edit-column.php:80
+#: templates/admin/edit-column.php:46 templates/admin/edit-column.php:95
 msgid "Close"
 msgstr "Fermer"
 
@@ -1851,11 +1877,11 @@ msgstr "Êtes-vous satisfait d’Admin Columns ?"
 msgid "Get Admin Columns Pro"
 msgstr "Obtenir Admin Columns Pro"
 
-#: classes/Admin/MenuFactory.php:40 classes/Admin/Page/Columns.php:166
+#: classes/Admin/MenuFactory.php:40 classes/Admin/Page/Columns.php:167
 msgid "Columns"
 msgstr "Colonnes"
 
-#: classes/Admin/Page/Columns.php:207
+#: classes/Admin/Page/Columns.php:212
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr "Attention ! Les données des colonnes %s vont être supprimées. Cela ne peut pas être annulé. « OK » pour supprimer, « Annuler » pour interrompre"
 
@@ -1863,7 +1889,7 @@ msgstr "Attention ! Les données des colonnes %s vont être supprimées. Cela n
 msgid "Update"
 msgstr "Mettre à jour"
 
-#: classes/Admin/Page/Columns.php:186
+#: classes/Admin/Page/Columns.php:191
 msgid "Store settings"
 msgstr "Enregistrer les réglages"
 
@@ -2026,7 +2052,7 @@ msgstr "Nous ne voulons pas vous déranger mais vous utilisez %s depuis un momen
 #. Plugin Name of the plugin
 #: codepress-admin-columns.php classes/Admin/MenuPageFactory/Menu.php:16
 #: classes/Admin/MenuPageFactory/SubMenu.php:17 classes/Check/Review.php:116
-#: classes/Table/Screen.php:346
+#: classes/Table/Screen.php:349
 msgid "Admin Columns"
 msgstr "Admin Columns"
 
@@ -2058,7 +2084,7 @@ msgstr "C’est le nom qui apparaitra comme en-tête de colonne."
 msgid "Label"
 msgstr "Libellé"
 
-#: classes/Settings/Column/Type.php:48 templates/admin/edit-column.php:30
+#: classes/Settings/Column/Type.php:48 templates/admin/edit-column.php:32
 msgid "Name"
 msgstr "Nom"
 
@@ -2066,7 +2092,7 @@ msgstr "Nom"
 msgid "Choose a column type."
 msgstr "Choisir un type de colonne."
 
-#: templates/admin/edit-column.php:38 templates/admin/edit-column.php:82
+#: templates/admin/edit-column.php:50 templates/admin/edit-column.php:99
 msgid "Clone"
 msgstr "Cloner"
 
@@ -2074,7 +2100,7 @@ msgstr "Cloner"
 msgid "Display format"
 msgstr "Format d’affichage"
 
-#: classes/Settings/Column/User.php:91 classes/Settings/Column/UserLink.php:79
+#: classes/Settings/Column/User.php:91 classes/Settings/Column/UserLink.php:88
 msgid "User Email"
 msgstr "E-mail utilisateur"
 
@@ -2161,7 +2187,7 @@ msgstr "Pseudonyme"
 msgid "Comment Count"
 msgstr "Nombre de commentaires"
 
-#: templates/admin/edit-column.php:40 templates/admin/edit-column.php:84
+#: templates/admin/edit-column.php:54 templates/admin/edit-column.php:103
 msgid "Remove"
 msgstr "Supprimer"
 
@@ -2215,7 +2241,7 @@ msgstr "Permalien"
 msgid "Path"
 msgstr "Chemin"
 
-#: classes/Column/Post/PostParent.php:14
+#: classes/Column/Post/PostParent.php:16
 msgid "Parent"
 msgstr "Parent"
 
@@ -2293,15 +2319,15 @@ msgstr "En attente"
 msgid "Total"
 msgstr "Total"
 
-#: classes/Settings/Column/UserLink.php:81
+#: classes/Settings/Column/UserLink.php:90
 msgid "View Public Author Page"
 msgstr "Voir la page publique de l’auteur·e"
 
-#: classes/Settings/Column/UserLink.php:80
+#: classes/Settings/Column/UserLink.php:89
 msgid "View User Posts"
 msgstr "Voir les articles de l’utilisateur·rice"
 
-#: classes/Settings/Column/UserLink.php:78
+#: classes/Settings/Column/UserLink.php:87
 msgid "Edit User Profile"
 msgstr "Modifier le profil de l’utilisateur·rice"
 
@@ -2310,7 +2336,7 @@ msgstr "Modifier le profil de l’utilisateur·rice"
 #: classes/Settings/Column/PostLink.php:73
 #: classes/Settings/Column/Separator.php:29
 #: classes/Settings/Column/TermLink.php:40
-#: classes/Settings/Column/UserLink.php:87
+#: classes/Settings/Column/UserLink.php:96
 msgid "None"
 msgstr "Aucun"
 
@@ -2318,7 +2344,7 @@ msgstr "Aucun"
 #: classes/Settings/Column/MediaLink.php:52
 #: classes/Settings/Column/PostLink.php:62
 #: classes/Settings/Column/TermLink.php:30
-#: classes/Settings/Column/UserLink.php:69
+#: classes/Settings/Column/UserLink.php:77
 msgid "Link To"
 msgstr "Lien vers"
 
@@ -2419,7 +2445,7 @@ msgid "Available Sizes"
 msgstr "Tailles disponibles"
 
 #: classes/Column/Media/Preview.php:50 classes/Settings/Column/MediaLink.php:63
-#: templates/admin/edit-menu.php:27
+#: classes/Table/Screen.php:154
 msgid "View"
 msgstr "Afficher"
 
@@ -2501,7 +2527,7 @@ msgstr "Utilisateur"
 #: classes/Column/Comment/Type.php:14
 #: classes/Settings/Column/CustomFieldType.php:85
 #: classes/Settings/Column/Type.php:45 classes/Settings/Column/Type.php:54
-#: templates/admin/edit-column.php:31
+#: templates/admin/edit-column.php:37
 msgid "Type"
 msgstr "Type"
 
@@ -2570,7 +2596,7 @@ msgstr "Approuvé"
 msgid "Agent"
 msgstr "Agent"
 
-#: classes/Table/Screen.php:152 templates/admin/edit-column.php:35
+#: classes/Table/Screen.php:152 templates/admin/edit-column.php:44
 msgid "Edit"
 msgstr "Modifier"
 

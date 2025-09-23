@@ -39,6 +39,8 @@ then
     done
 fi
 
+echo "Starting download of language files..."
+
 for index in "${languages[@]}" ; do
     KEY="${index%%::*}"
     LOCALE="${index##*::}"
@@ -46,9 +48,13 @@ for index in "${languages[@]}" ; do
     #url="https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns/stable/${KEY}/default/export-translations/"
     url="https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns/stable/${KEY}/default/export-translations/?format="
 
+    echo "Downloading language ${LOCALE}"
+
     for ext in "${exts[@]}"; do
         curl $url$ext --silent --output codepress-admin-columns-$LOCALE.$ext &
     done
+
+    sleep 1
 
 done
 
