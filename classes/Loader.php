@@ -149,6 +149,7 @@ class Loader
 
         $handlers = [
             'ac-list-screen-settings'         => Ajax\ListScreenSettings::class,
+            // TODO Tobias is this used anywhere? Surfaced because of the double hook 'ac-list-screen-delete'
             'ac-list-screen-delete'           => Ajax\ListScreenDelete::class,
             'ac-list-screen-save'             => Ajax\ListScreenSave::class,
             'ac-list-screen-add-column'       => Ajax\ListScreenAddColumn::class,
