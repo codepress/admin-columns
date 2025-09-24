@@ -26,6 +26,7 @@ export declare const icons: readonly [
     'mood',
     'more_horiz',
     'more_vert',
+    'open_in_new',
     'perm_media',
     'swap_vert',
     'stacks',

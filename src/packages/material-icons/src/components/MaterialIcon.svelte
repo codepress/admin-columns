@@ -13,6 +13,6 @@
         custom: '' // Define with class
     };
 
-    $: sizeClass = sizeClasses[size] || sizeClasses.default;
+    $: sizeClass = sizeClasses[size];
 </script>
 <span class="ac-material-symbols {className} {sizeClass}">{icon}</span>

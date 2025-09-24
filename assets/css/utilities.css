@@ -294,6 +294,10 @@
   margin-top: 0
 }
 
+.acu-mb-\[0\] {
+  margin-bottom: 0
+}
+
 .acu-block {
   display: block
 }
@@ -304,6 +308,10 @@
 
 .acu-flex {
   display: flex
+}
+
+.acu-inline-flex {
+  display: inline-flex
 }
 
 .acu-hidden {
@@ -558,6 +566,10 @@
 
 .acu-flex-wrap {
   flex-wrap: wrap
+}
+
+.acu-place-items-center {
+  place-items: center
 }
 
 .acu-items-center {
@@ -1276,11 +1288,6 @@
 
 .hover\:acu-text-notification-red:hover {
   color: var(--ac-notification-red)
-}
-
-.hover\:acu-text-\[\#2271b1\]:hover {
-  --tw-text-opacity: 1;
-  color: rgb(34 113 177 / var(--tw-text-opacity, 1))
 }
 
 .acu-group:focus-within .group-focus-within\:acu-visible {
