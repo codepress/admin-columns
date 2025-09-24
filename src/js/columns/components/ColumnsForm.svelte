@@ -23,6 +23,7 @@
     import ColumnTypeDropdownV2 from "./ColumnTypeDropdownV2.svelte";
     import {AcButton, AcDropdown, AcPanel, AcPanelFooter, AcPanelHeader, AcPanelTitle} from "ACUi/index";
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
+    import {clone} from "lodash-es";
 
     const i18n = getColumnSettingsTranslation();
     const dispatch = createEventDispatcher();
@@ -32,6 +33,7 @@
     export let locked: boolean = true;
     export let isSaving: boolean = false;
 
+    let undoState: ListScreenData | null = null;
     let start: number | null = 0;
     let end: number | null = 0;
     let sortableContainer: HTMLElement | null;
@@ -39,7 +41,15 @@
     let columnTypeComponent: AcDropdown | null;
 
     const clearColumns = () => {
+        undoState = clone(data);
         data['columns'] = [];
+    }
+
+    const undo = () => {
+        if (undoState) {
+            data = clone(undoState);
+            undoState = null;
+        }
     }
 
     const addColumn = (column_type: string) => {
@@ -77,6 +87,7 @@
                 type: 'error'
             });
         });
+        undoState = null;
     }
 
     const duplicateColumn = async (columnName: string) => {
@@ -262,6 +273,13 @@
 						isDestructive
 						label={i18n.editor.label.clear_columns}
 					/>
+				{:else if undoState !== null}
+					<AcButton
+						type="text"
+						on:click={undo}
+						isDestructive
+						label="Undo"
+					/>
 				{/if}
 
 				<AcButton
@@ -291,7 +309,7 @@
 					/>
 
 				</AcDropdown>
-				{:else}
+			{:else}
 				<AcButton
 					type="primary"
 					disabled

@@ -59,6 +59,7 @@
     "dependencies": {
         "@ac/material-icons": "file:admin-columns/src/packages/material-icons",
         "@wordpress/i18n": "^5.9.0",
+        "deep-clone": "^4.0.0",
         "lodash-es": "^4.17.21",
         "svelte-json-tree": "^1.0.0",
         "svelte-select": "5.7.0"
