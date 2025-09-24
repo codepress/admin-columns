@@ -85,6 +85,7 @@ type AdminColumnsI18n = {
             add_columns: string
             load_default_columns: string
             clear_columns: string
+            undo: string
             save: string
             view: string
         }

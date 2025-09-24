@@ -4992,7 +4992,7 @@ function create_if_block_3(ctx) {
     props: {
       type: "text",
       isDestructive: true,
-      label: "Undo"
+      label: /*i18n*/ctx[12].editor.label.undo
     }
   });
   acbutton.$on("click", /*undo*/ctx[15]);

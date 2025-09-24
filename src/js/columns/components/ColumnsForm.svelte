@@ -278,7 +278,7 @@
 						type="text"
 						on:click={undo}
 						isDestructive
-						label="Undo"
+						label={i18n.editor.label.undo}
 					/>
 				{/if}
 
