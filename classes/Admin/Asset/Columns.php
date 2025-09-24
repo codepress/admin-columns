@@ -308,14 +308,19 @@ class Columns extends Script
                     ],
                 ],
                 'notices'  => [
-                    'inactive'           => sprintf(
+                    'unsaved_changes'       => __('You have unsaved changes', 'codepress-admin-columns'),
+                    'unsaved_changes_leave' => __(
+                        'If you leave this page, all unsaved changes will be lost. Are you sure you want to leave?',
+                        'codepress-admin-columns'
+                    ),
+                    'inactive'              => sprintf(
                         __(
                             'This table view is %s and won’t appear on the list table.',
                             'codepress-admin-columns'
                         ),
                         sprintf('<strong>%s</strong >', __('not active', 'codepress-admin-columns'))
                     ),
-                    'not_saved_settings' => sprintf(
+                    'not_saved_settings'    => sprintf(
                         '%s %s',
                         sprintf(
                             __('These settings are %s.', 'codepress-admin-columns'),

@@ -5,6 +5,7 @@ import {getGlobalTranslation} from "../global-translations";
 type ConfirmationConfig = {
     message: string,
     confirm: Function,
+    oncancel?: Function,
     lastFocus?: HTMLElement | null
     translation?: ModuleConfirmationTranslation
 }
@@ -33,7 +34,8 @@ export default class AcConfirmation {
                 onClose: () => {
                     this.component.$destroy();
                     element.remove()
-                }
+                },
+                onCancel: this.config.oncancel??null
             }
         });
     }

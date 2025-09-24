@@ -26,6 +26,8 @@
     import {AcNotice, AcPanel} from "ACUi/index";
     import JSONTree from "svelte-json-tree";
     import ListKeys from "../utils/list-keys";
+    import AcConfirmation from "../../plugin/ac-confirmation";
+    import {checkChangesWarning} from "../utils/unsaved-changes";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[];
@@ -38,7 +40,13 @@
 
     startListScreenWatcher();
 
-    const handleMenuSelect = (e: CustomEvent<string>) => {
+    const handleMenuSelect = async (e: CustomEvent<string>) => {
+		const passChangesCheck = await checkChangesWarning();
+
+        if( ! passChangesCheck) {
+            return false;
+		}
+
         if ($currentListKey === e.detail) {
             return;
         }

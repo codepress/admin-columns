@@ -3,16 +3,23 @@
 
     export let message: string;
     export let onConfirm: Function;
+    export let onCancel: Function | null = null;
     export let onClose: Function;
-    export let lastFocusElement: HTMLElement|null|undefined;
+    export let lastFocusElement: HTMLElement | null | undefined;
 
     export let ok;
     export let cancel;
 
     let okButton: HTMLButtonElement;
 
-    const confirm = () => {
+    const handleConfirm = () => {
         onConfirm();
+        close();
+    }
+
+    const handleCancel = () => {
+        if (onCancel) onCancel();
+
         close();
     }
 
@@ -45,8 +52,8 @@
 			{@html message}
 		</div>
 		<div class="ac-confirmation__modal__footer">
-			<button on:click={close} class="button">{cancel}</button>
-			<button on:click={confirm} class="button button-primary" bind:this={okButton}>{ok}</button>
+			<button on:click={handleCancel} class="button">{cancel}</button>
+			<button on:click={handleConfirm} class="button button-primary" bind:this={okButton}>{ok}</button>
 		</div>
 	</div>
 </div>

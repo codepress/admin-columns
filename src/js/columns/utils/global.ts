@@ -98,6 +98,8 @@ type AdminColumnsI18n = {
         }
     },
     notices: {
+        unsaved_changes: string
+        unsaved_changes_leave: string
         not_saved_settings: string
         inactive: string
     }

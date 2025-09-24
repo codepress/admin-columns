@@ -9,7 +9,7 @@ import {
     hasUsagePermissions,
     initialListScreenData,
     listScreenDataHasChanges,
-    listScreenDataStore, listScreenIsTemplate,
+    listScreenDataStore, listScreenIsReadOnly,
     showColumnInfo
 } from "./columns/store";
 import {getColumnSettingsConfig} from "./columns/utils/global";
@@ -63,6 +63,14 @@ listScreenDataStore.subscribe(d => {
     checkForChanges();
 })
 
+window.addEventListener("beforeunload", function (event) {
+    const hasChanges = get(listScreenDataHasChanges);
+    const readOnly = get(listScreenIsReadOnly);
+    if (hasChanges &&!readOnly) {
+        event.preventDefault();
+        event.returnValue = "";
+    }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('admin-columns__columns')
