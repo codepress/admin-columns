@@ -195,7 +195,7 @@
 				</div>
 				<div class="acu-flex-grow acu-max-w-[400px]">
 					<AcInputGroup>
-						<input bind:value={data.title} disabled={locked} type="text"/>
+						<input bind:value={data.title} disabled={locked} type="text" placeholder={ListKeys.getLabelForKey( data.type )}/>
 					</AcInputGroup>
 				</div>
 			</div>
@@ -282,7 +282,6 @@
 
 					<AcButton
 						slot="trigger"
-						type="primary"
 						label={`+ ${i18n.editor.label.add_column}`}
 					/>
 
