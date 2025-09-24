@@ -47,7 +47,7 @@ class AdminLoader implements Registerable
         }
 
         if ($this->page instanceof Registerable) {
-            $this->register();
+            $this->page->register();
         }
 
         $screen = get_current_screen();
