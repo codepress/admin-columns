@@ -20441,7 +20441,7 @@ function instance($$self, $$props, $$invalidate) {
   };
   $$self.$$.update = () => {
     if ($$self.$$.dirty & /*size*/8) {
-      $: $$invalidate(2, sizeClass = sizeClasses[size] || sizeClasses.default);
+      $: $$invalidate(2, sizeClass = sizeClasses[size]);
     }
   };
   return [icon, className, sizeClass, size];
@@ -55082,6 +55082,7 @@ const icons = [
 	'mood',
 	'more_horiz',
 	'more_vert',
+	'open_in_new',
 	'perm_media',
 	'swap_vert',
 	'stacks',
