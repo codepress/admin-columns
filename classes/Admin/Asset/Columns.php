@@ -293,7 +293,7 @@ class Columns extends Script
                             'horizontal_scrolling' => __('Horizontal Scrolling', 'codepress-admin-columns'),
                             'sorting'              => __('Sorting', 'codepress-admin-columns'),
                             'segments'             => __('Pre - applied Filters', 'codepress-admin-columns'),
-                            'no_segments'          => __('No segments applied', 'codepress-admin-columns'),
+                            'no_segments'          => __('No saved filters available.', 'codepress-admin-columns'),
                             'primary_column'       => __('Primary Column', 'codepress-admin-columns'),
                             'wrapping'             => __('Wrapping', 'codepress-admin-columns'),
                             'wrapping_options'     => [
