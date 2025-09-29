@@ -10,11 +10,11 @@ use ACP\Type\SiteUrl;
 class Account extends Site
 {
 
-    private ActivationToken $token;
+    private ?ActivationToken $token;
 
     private SiteUrl $site_url;
 
-    public function __construct(SiteUrl $site_url, ActivationToken $token = null)
+    public function __construct(SiteUrl $site_url, ?ActivationToken $token = null)
     {
         parent::__construct(Site::PAGE_ACCOUNT_SUBSCRIPTIONS);
 
