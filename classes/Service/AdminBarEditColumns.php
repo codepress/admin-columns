@@ -8,7 +8,7 @@ use AC\Capabilities;
 use AC\ListScreen;
 use AC\Registerable;
 use AC\TableScreen;
-use AC\Type\Url\EditorColumns;
+use AC\Type\EditorUrlFactory;
 
 class AdminBarEditColumns implements Registerable
 {
@@ -25,8 +25,9 @@ class AdminBarEditColumns implements Registerable
         }
 
         $admin_bar = new AdminBar(
-            new EditorColumns(
+            EditorUrlFactory::create(
                 $table->get_id(),
+                $table->is_network(),
                 $listscreen
                     ? $listscreen->get_id()
                     : null
