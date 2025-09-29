@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Request\Middleware;
 
+use AC\Capabilities;
 use AC\ListScreen;
 use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\Storage;
@@ -82,7 +83,11 @@ class ListScreenTable implements Middleware
         if ( ! $list_screen ||
              ! $list_screen->is_user_allowed($this->user) ||
              ! $this->list_key->equals($list_screen->get_table_id()) ||
-             ! $list_screen->get_status()->equals(ListScreenStatus::create_active())
+             (
+                 $list_screen->get_status()->equals(ListScreenStatus::create_inactive()) &&
+                 // allow admin users to view inactive lists when needed
+                 ! user_can($this->user, Capabilities::MANAGE)
+             )
         ) {
             return null;
         }
