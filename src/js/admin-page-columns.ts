@@ -8,8 +8,10 @@ import {
     favoriteListKeysStore,
     hasUsagePermissions,
     initialListScreenData,
+    isInitializingColumnSettings,
     listScreenDataHasChanges,
-    listScreenDataStore, listScreenIsReadOnly,
+    listScreenDataStore,
+    listScreenIsReadOnly,
     showColumnInfo
 } from "./columns/store";
 import {getColumnSettingsConfig} from "./columns/utils/global";
@@ -55,6 +57,11 @@ currentListId.subscribe((d) => {
 const checkForChanges = debounce(() => {
     const orig = get(initialListScreenData);
     const current = get(listScreenDataStore);
+    const isInitializing = get(isInitializingColumnSettings);
+
+    if (isInitializing) {
+        return;
+    }
 
     listScreenDataHasChanges.set(JSON.stringify(orig) !== JSON.stringify(current));
 }, 300);
@@ -66,7 +73,7 @@ listScreenDataStore.subscribe(d => {
 window.addEventListener("beforeunload", function (event) {
     const hasChanges = get(listScreenDataHasChanges);
     const readOnly = get(listScreenIsReadOnly);
-    if (hasChanges &&!readOnly) {
+    if (hasChanges && !readOnly) {
         event.preventDefault();
         event.returnValue = "";
     }

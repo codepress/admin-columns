@@ -6,7 +6,7 @@ import {
     columnTypesStore,
     currentListId,
     currentTableUrl,
-    initialListScreenData,
+    initialListScreenData, isInitializingColumnSettings,
     isLoadingColumnSettings,
     listScreenDataHasChanges,
     listScreenDataStore,
@@ -24,6 +24,7 @@ export const refreshState = {
 
 export async function refreshListScreenData(listKey: string, listId: string = '') {
     isLoadingColumnSettings.set(true);
+    isInitializingColumnSettings.set( true );
     refreshState.error.set(null);
 
     listScreenDataStore.set(null);
@@ -55,5 +56,8 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
         throw error;
     } finally {
         isLoadingColumnSettings.set(false);
+        setTimeout( () => {
+            isInitializingColumnSettings.set( false );
+        },1000);
     }
 }
