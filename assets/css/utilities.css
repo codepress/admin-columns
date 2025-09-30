@@ -230,6 +230,10 @@
   margin-bottom: 40px
 }
 
+.acu-mb-\[0\] {
+  margin-bottom: 0
+}
+
 .acu-mb-\[10px\] {
   margin-bottom: 10px
 }
@@ -294,10 +298,6 @@
   margin-top: 0
 }
 
-.acu-mb-\[0\] {
-  margin-bottom: 0
-}
-
 .acu-block {
   display: block
 }
@@ -308,10 +308,6 @@
 
 .acu-flex {
   display: flex
-}
-
-.acu-inline-flex {
-  display: inline-flex
 }
 
 .acu-hidden {
@@ -340,10 +336,6 @@
 
 .acu-h-\[200px\] {
   height: 200px
-}
-
-.acu-h-\[38px\] {
-  height: 38px
 }
 
 .acu-h-\[40px\] {
@@ -515,8 +507,8 @@
   table-layout: fixed
 }
 
-.acu-translate-y-\[-1px\] {
-  --tw-translate-y: -1px;
+.acu-translate-y-\[3px\] {
+  --tw-translate-y: 3px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
 
@@ -626,10 +618,6 @@
   white-space: nowrap
 }
 
-.acu-whitespace-nowrap {
-  white-space: nowrap
-}
-
 .acu-text-wrap {
   text-wrap: wrap
 }
@@ -652,10 +640,6 @@
 
 .acu-rounded-\[5px\] {
   border-radius: 5px
-}
-
-.acu-rounded-full {
-  border-radius: 9999px
 }
 
 .acu-rounded-lg {
@@ -716,11 +700,6 @@
 
 .acu-border-b-ui-border {
   border-bottom-color: var(--acui-border)
-}
-
-.acu-bg-\[\#E2E8F0\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1))
 }
 
 .acu-bg-\[\#F1F5F9\] {
@@ -923,10 +902,6 @@
 
 .acu-pl-2 {
   padding-left: 10px
-}
-
-.acu-pl-3 {
-  padding-left: 15px
 }
 
 .acu-pl-4 {
