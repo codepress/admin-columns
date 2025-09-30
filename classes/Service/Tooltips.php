@@ -23,7 +23,10 @@ class Tooltips implements Registerable
     public function render(string $html): string
     {
         $tooltips = array_map(
-            [$this, 'create_view'],
+            [
+                $this,
+                'create_view',
+            ],
             [
                 'custom-field',
                 'serialized',
