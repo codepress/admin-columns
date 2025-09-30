@@ -102,6 +102,10 @@ class ListScreenSettings implements RequestAjaxHandler
         if ($list_screen instanceof ListScreen) {
             $this->set_preference($list_screen);
 
+            if ( ! $list_screen->get_title()) {
+                $list_screen->set_title((string)$table_screen->get_labels());
+            }
+
             $this->response_factory->create($list_screen, true, $this->is_template($list_screen))
                                    ->success();
         }
