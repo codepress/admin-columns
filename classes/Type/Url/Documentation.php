@@ -31,6 +31,7 @@ class Documentation implements Type\Url
     public const ARTICLE_SORTING = '/article/34-how-to-enable-sorting';
     public const ARTICLE_SUBSCRIPTION_QUESTIONS = '/article/96-subscription-or-license-questions';
     public const ARTICLE_UPGRADE_V3_TO_V4 = '/article/91-how-to-upgrade-from-v3-to-v4';
+    public const ARTICLE_UPGRADE_V6_TO_V7 = '/article/117-how-to-upgrade-from-v6-to-v7';
     public const ARTICLE_RELEASE_6 = '/article/109-admin-columns-pro-6-0-changes';
 
     public function __construct(?string $path = null, ?string $fragment = null)

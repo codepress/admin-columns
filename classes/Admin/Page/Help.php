@@ -45,7 +45,7 @@ class Help implements Enqueueables, Renderable, RenderableHead
         $this->hooks->get_count(true);
 
         $view = new View([
-            'documentation_url'  => (new Url\Documentation(Url\Documentation::ARTICLE_UPGRADE_V3_TO_V4))->get_url(),
+            'documentation_url'  => (new Url\Documentation(Url\Documentation::ARTICLE_UPGRADE_V6_TO_V7))->get_url(),
             'deprecated_filters' => $this->hooks->get_deprecated_filters(),
             'deprecated_actions' => $this->hooks->get_deprecated_actions(),
         ]);
