@@ -419,7 +419,10 @@ a.acui-button {
   font-weight: 500;
 }
 .ac-menu-group-list .ac-menu-group-list__link:hover {
-  background: #fff;
+  background: #FFF;
+}
+.ac-menu-group-list.-white .ac-menu-group-list__link:hover {
+	background: #F1F5F9;
 }
 .ac-menu-group-list .ac-menu-group-list__link:hover .ac-menu-group-list__favorite {
   display: block;
