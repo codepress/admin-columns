@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AC;
 
 use AC\Type\ColumnId;
+use AC\Type\EditorUrlFactory;
 use AC\Type\ListScreenId;
 use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use AC\Type\Uri;
-use AC\Type\Url;
 use ACP\ConditionalFormat\RulesCollection;
 use ACP\Search\SegmentCollection;
 use DateTime;
@@ -188,7 +188,11 @@ final class ListScreen
 
     public function get_editor_url(): Uri
     {
-        return new Url\EditorColumns($this->get_table_id(), $this->id);
+        return EditorUrlFactory::create(
+            $this->get_table_id(),
+            $this->table_screen->is_network(),
+            $this->id
+        );
     }
 
     public function is_user_allowed(WP_User $user): bool
