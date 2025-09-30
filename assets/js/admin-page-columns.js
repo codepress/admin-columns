@@ -36718,9 +36718,10 @@ const checkChangesWarning = () => __awaiter(void 0, void 0, void 0, function* ()
     return new Promise((resolve, reject) => {
         const i18n = (0,_global__WEBPACK_IMPORTED_MODULE_2__.getColumnSettingsTranslation)();
         const bridge = services.getService('ColumnPage');
+        const isStored = (0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.get)(bridge === null || bridge === void 0 ? void 0 : bridge.getStore('listScreenIsStored'));
         const hasChanges = (0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.get)(bridge === null || bridge === void 0 ? void 0 : bridge.getStore('listScreenDataHasChanges'));
         const isReadOnly = (0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.get)(bridge === null || bridge === void 0 ? void 0 : bridge.getStore('listScreenIsReadOnly'));
-        if (!hasChanges || isReadOnly) {
+        if (!hasChanges || isReadOnly || !isStored) {
             resolve(true);
             return;
         }
