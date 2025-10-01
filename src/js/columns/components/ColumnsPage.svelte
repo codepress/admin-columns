@@ -133,8 +133,8 @@
 								<ProSideBanner proBannerConfig={localConfig.pro_banner}/>
 							{/if}
 							<ReviewComponent/>
-							<SupportPanel/>
 						{/if}
+						<SupportPanel/>
 					</div>
 
 				</aside>

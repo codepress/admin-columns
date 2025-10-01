@@ -6147,28 +6147,21 @@ function create_each_block(ctx) {
 
 // (120:6) {#if !localConfig.is_pro }
 function create_if_block(ctx) {
-  let t0;
+  let t;
   let reviewcomponent;
-  let t1;
-  let supportpanel;
   let current;
   let if_block = /*localConfig*/ctx[15].pro_banner && create_if_block_1(ctx);
   reviewcomponent = new _sidebar_review_ReviewComponent_svelte__WEBPACK_IMPORTED_MODULE_13__["default"]({});
-  supportpanel = new _sidebar_SupportPanel_svelte__WEBPACK_IMPORTED_MODULE_14__["default"]({});
   return {
     c() {
       if (if_block) if_block.c();
-      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(reviewcomponent.$$.fragment);
-      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(supportpanel.$$.fragment);
     },
     m(target, anchor) {
       if (if_block) if_block.m(target, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t0, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(reviewcomponent, target, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t1, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(supportpanel, target, anchor);
       current = true;
     },
     p(ctx, dirty) {
@@ -6178,23 +6171,19 @@ function create_if_block(ctx) {
       if (current) return;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(reviewcomponent.$$.fragment, local);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(supportpanel.$$.fragment, local);
       current = true;
     },
     o(local) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(reviewcomponent.$$.fragment, local);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(supportpanel.$$.fragment, local);
       current = false;
     },
     d(detaching) {
       if (detaching) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t0);
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t1);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
       }
       if (if_block) if_block.d(detaching);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(reviewcomponent, detaching);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(supportpanel, detaching);
     }
   };
 }
@@ -6258,6 +6247,8 @@ function create_fragment(ctx) {
   let aside1;
   let t10;
   let div2;
+  let t11;
+  let supportpanel;
   let current;
   adminheaderbar = new _components_AdminHeaderBar_svelte__WEBPACK_IMPORTED_MODULE_10__["default"]({
     props: {
@@ -6316,6 +6307,7 @@ function create_fragment(ctx) {
     each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
   }
   let if_block5 = ! /*localConfig*/ctx[15].is_pro && create_if_block(ctx);
+  supportpanel = new _sidebar_SupportPanel_svelte__WEBPACK_IMPORTED_MODULE_14__["default"]({});
   return {
     c() {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(adminheaderbar.$$.fragment);
@@ -6354,6 +6346,8 @@ function create_fragment(ctx) {
       t10 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       if (if_block5) if_block5.c();
+      t11 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(supportpanel.$$.fragment);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(aside0, "class", "ac-admin-page-menu acu-relative acu-pl-4 acu-pr-[30px] acu-py-8 2xl:acu-w-[250px] 2xl:acu-pt-[30px]");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(hr, "class", "wp-header-end");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acu-px-4 2xl:acu-px-[50px] acu-pt-[10px]");
@@ -6407,6 +6401,8 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(aside1, t10);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(aside1, div2);
       if (if_block5) if_block5.m(div2, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t11);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(supportpanel, div2, null);
       current = true;
     },
     p(ctx, [dirty]) {
@@ -6531,6 +6527,7 @@ function create_fragment(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(each_blocks[i]);
       }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block5);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(supportpanel.$$.fragment, local);
       current = true;
     },
     o(local) {
@@ -6551,6 +6548,7 @@ function create_fragment(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(each_blocks[i]);
       }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block5);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(supportpanel.$$.fragment, local);
       current = false;
     },
     d(detaching) {
@@ -6571,6 +6569,7 @@ function create_fragment(ctx) {
       if (if_block4) if_block4.d();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
       if (if_block5) if_block5.d();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(supportpanel);
     }
   };
 }
