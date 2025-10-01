@@ -39,7 +39,7 @@
         }
 
         if (! ColumnTypesUtils.isOriginalColumnType(oldValue)) {
-            data.name = ColumnUtils.generateId();
+            //data.name = ColumnUtils.generateId();
         }
 
         if (columnType) {
