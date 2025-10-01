@@ -49,10 +49,19 @@ class MenuFactory implements MenuFactoryInterface
         $hook_count = $this->hooks->get_count();
 
         if ($hook_count > 0) {
-            $items[Page\Help::NAME] = sprintf(
-                '%s %s',
-                __('Help', 'codepress-admin-columns'),
-                '<span class="ac-badge">' . $hook_count . '</span>'
+            $menu->add_item(
+                new MenuItem(
+                    Page\Help::NAME,
+                    $this->create_menu_link(Page\Help::NAME),
+                    sprintf(
+                        '%s %s',
+                        __('Help', 'codepress-admin-columns'),
+                        '<span class="ac-badge">' . $hook_count . '</span>'
+                    ),
+                    sprintf('-%s %s', Page\Help::NAME, $current === Page\Help::NAME ? '-active' : ''),
+                    '',
+                    20
+                )
             );
         }
 
