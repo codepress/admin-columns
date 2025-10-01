@@ -116,8 +116,12 @@ final class ListScreen
         $this->segments = $segments;
     }
 
-    public function get_segments(): ?SegmentCollection
+    public function get_segments(): SegmentCollection
     {
+        if ( ! $this->segments) {
+            $this->segments = new SegmentCollection();
+        }
+
         return $this->segments;
     }
 
@@ -126,8 +130,12 @@ final class ListScreen
         $this->conditional_format = $rules_collection;
     }
 
-    public function get_conditional_format(): ?RulesCollection
+    public function get_conditional_format(): RulesCollection
     {
+        if ( ! $this->conditional_format) {
+            $this->conditional_format = new RulesCollection();
+        }
+
         return $this->conditional_format;
     }
 

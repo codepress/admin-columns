@@ -28,7 +28,7 @@ abstract class Collection implements Iterator, Countable
 
     public function valid(): bool
     {
-        return count($this->data) > $this->index;
+        return $this->count() > $this->index;
     }
 
     public function rewind(): void
