@@ -9,13 +9,13 @@ class Hook
 
     private string $version;
 
-    private ?string $slug;
+    private ?string $replacement;
 
-    public function __construct(string $name, string $version, ?string $slug = null)
+    public function __construct(string $name, string $version, ?string $replacement = null)
     {
         $this->name = $name;
         $this->version = $version;
-        $this->slug = $slug;
+        $this->replacement = $replacement;
     }
 
     public function get_name(): string
@@ -28,9 +28,14 @@ class Hook
         return $this->version;
     }
 
-    public function get_slug(): ?string
+    public function get_replacement(): string
     {
-        return $this->slug;
+        return $this->replacement;
+    }
+
+    public function has_replacement(): bool
+    {
+        return null !== $this->replacement;
     }
 
     public function has_hook(): bool

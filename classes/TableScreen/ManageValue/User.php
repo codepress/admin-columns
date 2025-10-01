@@ -32,7 +32,7 @@ class User implements ManageValueService
         add_filter('manage_users_custom_column', [$this, 'render_value'], $this->priority, 3);
     }
 
-    public function render_value(...$args): ?string
+    public function render_value(...$args)
     {
         [$value, $column_id, $row_id] = $args;
 

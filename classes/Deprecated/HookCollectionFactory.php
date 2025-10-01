@@ -7,9 +7,20 @@ namespace AC\Deprecated;
 class HookCollectionFactory
 {
 
+    private string $core_version;
+
+    public function __construct()
+    {
+        // Use Pro version number for core filters when its available
+        $this->core_version = defined('ACP_FILE') && ACP_FILE
+            ? '7.0'
+            : '5.0';
+    }
+
     public function create_filters(): HookCollection
     {
         $hooks = [];
+
         $free_filters = [
             'ac/column/value'                         => 'ac/column/render',
             'ac/column/value/sanitize'                => 'ac/column/render/sanitize',
@@ -28,8 +39,8 @@ class HookCollectionFactory
             'ac/list_screen/preferences'              => null,
         ];
 
-        foreach ($free_filters as $old => $new) {
-            $hooks[] = new Hook($old, '5.0', $new);
+        foreach ($free_filters as $old => $replacement) {
+            $hooks[] = new Hook($old, $this->core_version, $replacement);
         }
 
         $pro_filters = [
@@ -78,8 +89,8 @@ class HookCollectionFactory
             'acp/sorting/post_status'                      => null,
         ];
 
-        foreach ($pro_filters as $old => $new) {
-            $hooks[] = new Hook($old, '7.0', $new);
+        foreach ($pro_filters as $old => $replacement) {
+            $hooks[] = new Hook($old, '7.0', $replacement);
         }
 
         return new HookCollection($hooks);
@@ -93,8 +104,8 @@ class HookCollectionFactory
             'ac/columns_stored' => 'ac/columns/stored',
         ];
 
-        foreach ($free_actions as $old => $new) {
-            $hooks[] = new Hook($old, '5.0', $new);
+        foreach ($free_actions as $old => $replacement) {
+            $hooks[] = new Hook($old, $this->core_version, $replacement);
         }
 
         $pro_actions = [
@@ -109,8 +120,8 @@ class HookCollectionFactory
             'acp/admin/settings/table_elements' => 'ac/admin/settings/table_elements',
         ];
 
-        foreach ($pro_actions as $old => $new) {
-            $hooks[] = new Hook($old, '7.0', $new);
+        foreach ($pro_actions as $old => $replacement) {
+            $hooks[] = new Hook($old, '7.0', $replacement);
         }
 
         return new HookCollection($hooks);
