@@ -47,7 +47,7 @@ $callbacks = $hook->get_callbacks();
 
         <?php
         if ( ! empty($callbacks)) : ?>
-			<div class="acu-bg-[#F1F5F9] acu-p-3 acu-rounded-lg">
+			<div class="acu-bg-[#F1F5F9] acu-p-3 acu-rounded-lg acu-mt-2">
                 <?php
 
                 $deprecated_string = _x(

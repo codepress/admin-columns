@@ -298,6 +298,10 @@
   margin-top: 0
 }
 
+.acu-mt-2 {
+  margin-top: 10px
+}
+
 .acu-line-clamp-3 {
   overflow: hidden;
   display: -webkit-box;
