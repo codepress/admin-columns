@@ -74,15 +74,21 @@ class Hook
                     $messages[] = get_class($function[0]) . '::' . $function[1];
                     continue;
                 }
-                
+
                 // Anonymous function
-                $messages[] = __('Anonymous Function', 'codepress-admin-columns');
+                $messages[] = sprintf(
+                    '%s (%s)',
+                    __('Unknown', 'codepress-admin-columns'),
+                    __('anonymous function', 'codepress-admin-columns')
+                );
             }
         }
 
         if ( ! $messages) {
             return null;
         }
+
+        natcasesort($messages);
 
         return $messages;
     }
