@@ -42,6 +42,7 @@ use AC\View; ?>
                     <?php
                     foreach ($this->deprecated_filters as $hook) {
                         $view = new View([
+                            'type'              => 'filter',
                             'hook'              => $hook,
                             'documentation_url' => $this->documentation_url,
                         ]);
@@ -53,6 +54,7 @@ use AC\View; ?>
                     <?php
                     foreach ($this->deprecated_actions as $hook) {
                         $view = new View([
+                            'type'              => 'action',
                             'hook'              => $hook,
                             'documentation_url' => $this->documentation_url,
                         ]);

@@ -27,11 +27,20 @@ $callbacks = $hook->get_callbacks();
         <?php
         if ($hook->has_replacement()) : ?>
             <?php
-            printf(
+            $translation = $this->type === 'action'
+                ?
                 __(
                     'The action %s used on this website is deprecated since %s and replaced by %s.',
                     'codepress-admin-columns'
-                ),
+                )
+                :
+                __(
+                    'The filter %s used on this website is deprecated since %s and replaced by %s.',
+                    'codepress-admin-columns'
+                );
+
+            printf(
+                $translation,
                 '<code>' . $hook->get_name() . '</code>',
                 '<strong>' . $hook->get_version() . '</strong>',
                 '<code>' . $hook->get_replacement() . '</code>'
