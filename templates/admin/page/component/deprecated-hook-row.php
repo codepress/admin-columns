@@ -21,28 +21,41 @@ $count = count($callbacks);
 			$translation = $this->type === 'action'
 					?
 					__(
-							'The action %s used on this website is deprecated since %s and replaced by %s.',
+							'The action %s is replaced by %s since %s.',
 							'codepress-admin-columns'
 					)
 					:
 					__(
-							'The filter %s used on this website is deprecated since %s and replaced by %s.',
+							'The filter %s is replaced by %s since %s.',
 							'codepress-admin-columns'
 					);
 
 			printf(
 					$translation,
 					'<code class="acu-text-[12px]">' . $hook->get_name() . '</code>',
-					'<strong>' . $hook->get_version() . '</strong>',
-					'<code class="acu-text-[12px]">' . $hook->get_replacement() . '</code>'
+					'<code class="acu-text-[12px]">' . $hook->get_replacement() . '</code>',
+					'<strong>' . $hook->get_version() . '</strong>'
 			);
 
 		else:
-			printf(
-					__('The action %s used on this website is deprecated since %s.', 'codepress-admin-columns'),
-					'<code class="acu-text-[12px]">' . $hook->get_name() . '</code>',
-					'<strong>' . $hook->get_version() . '</strong>'
-			);
+
+			echo $this->type === 'action'
+					? sprintf(
+							__(
+									'The action %s has been removed since %s.',
+									'codepress-admin-columns'
+							),
+							'<code class="acu-text-[12px]">' . $hook->get_name() . '</code>',
+							'<strong>' . $hook->get_version() . '</strong>'
+					)
+					: sprintf(
+							__(
+									'The filter %s has been removed since %s.',
+									'codepress-admin-columns'
+							),
+							'<code class="acu-text-[12px]">' . $hook->get_name() . '</code>',
+							'<strong>' . $hook->get_version() . '</strong>'
+					);
 
 		endif; ?>
 
@@ -64,7 +77,7 @@ $count = count($callbacks);
 				if (1 === $count) {
 					printf(
 							_x(
-									'This deprecated hook has %s with this callback: %s',
+									'This deprecated hook has %s on this site with this callback: %s',
 									'callback usages',
 									'codepress-admin-columns'
 							),
@@ -74,7 +87,7 @@ $count = count($callbacks);
 				} else {
 					printf(
 							_x(
-									'This deprecated hook has %s with these callbacks:',
+									'This deprecated hook has %s on this site with these callbacks:',
 									'callback usages',
 									'codepress-admin-columns'
 							),
