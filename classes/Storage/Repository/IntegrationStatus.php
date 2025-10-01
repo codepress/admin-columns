@@ -32,10 +32,23 @@ class IntegrationStatus
         $this->get_storage()->save('integration_' . $slug, 'inactive');
     }
 
+    private function get_cached_states(): array
+    {
+        static $states = null;
+
+        if (null === $states) {
+            $states = $this->get_storage()->all();
+        }
+
+        return $states;
+    }
+
     public function is_active(string $slug): bool
     {
+        $state = $this->get_cached_states()['integration_' . $slug] ?? null;
+
         return in_array(
-            $this->get_storage()->get('integration_' . $slug),
+            $state,
             ['active', null],
             true
         );

@@ -2,30 +2,27 @@
 
 namespace AC\Type;
 
-use AC\ArrayIterator;
+use AC\Collection;
 use AC\Integration;
 
-class Integrations extends ArrayIterator
+class Integrations extends Collection
 {
 
-    /**
-     * @return Integration[]
-     */
-    public function all()
+    public function __construct(array $data = [])
     {
-        return parent::get_copy();
+        foreach ($data as $integration) {
+            $this->add($integration);
+        }
     }
 
-    public function add(Integration $integration)
+    public function add(Integration $integration): void
     {
-        $this->array[] = $integration;
-
-        return $this;
+        $this->data[] = $integration;
     }
 
-    public function exists()
+    public function current(): Integration
     {
-        return ! empty($this->array);
+        return current($this->data);
     }
 
 }
