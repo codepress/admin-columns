@@ -3,6 +3,7 @@
 
     export let label: string = '';
     export let helpRef: string = '';
+    export let helpRefPosition: string = 'right';
 </script>
 
 <div class="ac-listscreen-prefs-item @[500px]/setting:acu-flex acu-pb-4 acu-mb-4 acu-border-0 acu-border-solid lg::acu-border-b acu-border-ui-border">
@@ -10,7 +11,7 @@
 		<span class="acu-flex-grow"><slot name="label"></slot></span>
 		{#if helpRef }
 		<span class="acu-pr-2">
-			<AcReferencedTooltip reference={helpRef} position="right" closeDelay={300}>
+			<AcReferencedTooltip reference={helpRef} position={helpRefPosition} closeDelay={300}>
 				<span class="acu-cursor-pointer"><AcIcon icon="question" size="sm"/></span>
 			</AcReferencedTooltip>
 		</span>
