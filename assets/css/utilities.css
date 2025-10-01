@@ -298,6 +298,17 @@
   margin-top: 0
 }
 
+.acu-mt-2 {
+  margin-top: 10px
+}
+
+.acu-line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3
+}
+
 .acu-block {
   display: block
 }
@@ -471,10 +482,6 @@
   max-width: 80%
 }
 
-.acu-max-w-\[960px\] {
-  max-width: 960px
-}
-
 .acu-max-w-full {
   max-width: 100%
 }
@@ -620,6 +627,10 @@
 
 .acu-text-wrap {
   text-wrap: wrap
+}
+
+.acu-text-nowrap {
+  text-wrap: nowrap
 }
 
 .acu-break-words {
@@ -789,6 +800,10 @@
 
 .acu-p-\[5px\] {
   padding: 5px
+}
+
+.acu-p-3 {
+  padding: 15px
 }
 
 .acu-px-1 {
@@ -992,6 +1007,10 @@
   text-align: right
 }
 
+.acu-align-top {
+  vertical-align: top
+}
+
 .acu-font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 }
@@ -1105,6 +1124,18 @@
 
 .acu-leading-snug {
   line-height: 1.375
+}
+
+.acu-leading-3 {
+  line-height: .75rem
+}
+
+.acu-leading-6 {
+  line-height: 1.5rem
+}
+
+.acu-leading-5 {
+  line-height: 1.25rem
 }
 
 .acu-tracking-tight {

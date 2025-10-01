@@ -9,13 +9,13 @@ class Hook
 
     private string $version;
 
-    private ?string $slug;
+    private ?string $replacement;
 
-    public function __construct(string $name, string $version, ?string $slug = null)
+    public function __construct(string $name, string $version, ?string $replacement = null)
     {
         $this->name = $name;
         $this->version = $version;
-        $this->slug = $slug;
+        $this->replacement = $replacement;
     }
 
     public function get_name(): string
@@ -28,9 +28,14 @@ class Hook
         return $this->version;
     }
 
-    public function get_slug(): ?string
+    public function get_replacement(): string
     {
-        return $this->slug;
+        return $this->replacement;
+    }
+
+    public function has_replacement(): bool
+    {
+        return null !== $this->replacement;
     }
 
     public function has_hook(): bool
@@ -38,36 +43,52 @@ class Hook
         return has_filter($this->name);
     }
 
-    public function get_callbacks(): ?array
+    public function usage_count(): int
+    {
+        return count($this->get_callbacks());
+    }
+
+    private function get_filter_callbacks(): array
     {
         global $wp_filter;
 
-        $callbacks = $wp_filter[$this->name]->callbacks ?? null;
+        return $wp_filter[$this->name]->callbacks ?? [];
+    }
 
-        if ( ! $callbacks) {
-            return null;
-        }
-
+    public function get_callbacks(): ?array
+    {
         $messages = [];
 
-        foreach ($callbacks as $callback) {
+        foreach ($this->get_filter_callbacks() as $callback) {
             foreach ($callback as $cb) {
+                $function = $cb['function'];
+
                 // Function
-                if (is_scalar($cb['function'])) {
-                    $messages[] = $cb['function'];
+                if (is_scalar($function)) {
+                    $messages[] = $function;
                     continue;
                 }
 
                 // Method
-                if (is_array($cb['function'])) {
-                    $messages[] = get_class($cb['function'][0]) . '::' . $cb['function'][1];
+                if (is_array($function)) {
+                    $messages[] = get_class($function[0]) . '::' . $function[1];
+                    continue;
                 }
+
+                // Anonymous function
+                $messages[] = sprintf(
+                    '%s (%s)',
+                    __('Unknown', 'codepress-admin-columns'),
+                    __('anonymous function', 'codepress-admin-columns')
+                );
             }
         }
 
         if ( ! $messages) {
             return null;
         }
+
+        natcasesort($messages);
 
         return $messages;
     }

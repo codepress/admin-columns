@@ -27,7 +27,7 @@
         const columnType = $columnTypesStore.find(c => c.value === selectValue);
 
         if (ColumnTypesUtils.isOriginalColumnType(selectValue)) {
-            if ($listScreenDataStore.columns.find(c => c.name === selectValue)) {
+            if ($listScreenDataStore && $listScreenDataStore.columns.find(c => c.name === selectValue)) {
                 value = data.type;
                 NotificationProgrammatic.open({
                     type: "error",
@@ -38,8 +38,8 @@
             data.name = selectValue;
         }
 
-        if (ColumnTypesUtils.isOriginalColumnType(oldValue)) {
-            data.name = ColumnUtils.generateId();
+        if (! ColumnTypesUtils.isOriginalColumnType(oldValue)) {
+            //data.name = ColumnUtils.generateId();
         }
 
         if (columnType) {

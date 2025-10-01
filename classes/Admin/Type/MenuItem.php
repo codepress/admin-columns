@@ -5,23 +5,32 @@ namespace AC\Admin\Type;
 class MenuItem
 {
 
-    private $slug;
+    private string $slug;
 
-    private $url;
+    private string $url;
 
-    private $label;
+    private string $label;
 
-    private $class;
+    private string $class;
 
-    private $target;
+    private string $target;
 
-    public function __construct(string $slug, string $url, string $label, string $class = '', string $target = '')
-    {
+    private int $position;
+
+    public function __construct(
+        string $slug,
+        string $url,
+        string $label,
+        string $class = '',
+        string $target = '',
+        int $position = 10
+    ) {
         $this->slug = $slug;
         $this->url = $url;
         $this->label = $label;
         $this->class = $class;
         $this->target = $target;
+        $this->position = $position;
     }
 
     public function get_slug(): string
@@ -47,6 +56,11 @@ class MenuItem
     public function get_target(): string
     {
         return $this->target;
+    }
+
+    public function get_position(): int
+    {
+        return $this->position;
     }
 
 }

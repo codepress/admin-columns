@@ -15,21 +15,21 @@ class User
     }
 
     /**
-     * @deprecated 5.0
+     * @deprecated 7.0
      */
     public function get_translations_remote(): array
     {
-        _deprecated_function(__METHOD__, '5.0', 'AC\Herlper\Translations::get_available_translations()');
+        _deprecated_function(__METHOD__, '7.0', 'AC\Herlper\Translations::get_available_translations()');
 
         return [];
     }
 
     /**
-     * @deprecated 5.0
+     * @deprecated 7.0
      */
     public function get_display_name($user, ?string $format = null): ?string
     {
-        _deprecated_function(__METHOD__, '5.0', 'get_fullname');
+        _deprecated_function(__METHOD__, '7.0', 'get_fullname');
 
         $user = get_userdata($user);
 
@@ -41,21 +41,21 @@ class User
     }
 
     /**
-     * @deprecated 5.0
+     * @deprecated 7.0
      */
     public function get_user_field(string $field, int $user_id)
     {
-        _deprecated_function(__METHOD__, '5.0');
+        _deprecated_function(__METHOD__, '7.0');
 
         return get_user_by('id', $user_id)->{$field} ?? null;
     }
 
     /**
-     * @deprecated 5.0
+     * @deprecated 7.0
      */
     public function get_user($user): ?WP_User
     {
-        _deprecated_function(__METHOD__, '5.0', 'get_userdata');
+        _deprecated_function(__METHOD__, '7.0', 'get_userdata');
 
         if (is_numeric($user)) {
             $user = get_userdata($user);
@@ -67,31 +67,31 @@ class User
     }
 
     /**
-     * @deprecated 5.0
+     * @deprecated 7.0
      */
     public function get_roles_names(array $names): array
     {
-        _deprecated_function(__METHOD__, '5.0');
+        _deprecated_function(__METHOD__, '7.0');
 
         return [];
     }
 
     /**
-     * @deprecated 5.0
+     * @deprecated 7.0
      */
     public function get_role_name(string $role): ?string
     {
-        _deprecated_function(__METHOD__, '5.0');
+        _deprecated_function(__METHOD__, '7.0');
 
         return $this->get_roles()[$role] ?? null;
     }
 
     /**
-     * @deprecated 5.0
+     * @deprecated 7.0
      */
     public function get_roles(): array
     {
-        _deprecated_function(__METHOD__, '5.0', 'AC\Helper\UserRoles::find_all_roles');
+        _deprecated_function(__METHOD__, '7.0', 'AC\Helper\UserRoles::find_all_roles');
 
         $roles = [];
         foreach (wp_roles()->roles as $k => $role) {
@@ -102,11 +102,11 @@ class User
     }
 
     /**
-     * @deprecated 5.0
+     * @deprecated 7.0
      */
     public function translate_roles(array $role_names): array
     {
-        _deprecated_function(__METHOD__, '5.0', 'AC\Helper\UserRoles::find_all_roles');
+        _deprecated_function(__METHOD__, '7.0', 'AC\Helper\UserRoles::find_all_roles');
 
         return [];
     }

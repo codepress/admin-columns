@@ -1,4 +1,4 @@
-import {listScreenDataHasChanges, listScreenIsReadOnly} from "../store";
+import {listScreenDataHasChanges, listScreenIsReadOnly, listScreenIsStored} from "../store";
 import {get} from "svelte/store";
 import AcConfirmation from "../../plugin/ac-confirmation";
 import {getColumnSettingsTranslation} from "./global";
@@ -11,10 +11,11 @@ export const checkChangesWarning = async () => {
         const i18n = getColumnSettingsTranslation();
         const bridge = services.getService<ColumnPageBridge>('ColumnPage');
 
+        const isStored = get( bridge?.getStore( 'listScreenIsStored' )! );
         const hasChanges = get( bridge?.getStore( 'listScreenDataHasChanges' )! );
         const isReadOnly = get( bridge?.getStore( 'listScreenIsReadOnly' )! );
 
-        if (!hasChanges || isReadOnly) {
+        if (!hasChanges || isReadOnly || ! isStored) {
             resolve(true);
             return;
         }
