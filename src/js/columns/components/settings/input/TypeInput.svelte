@@ -38,7 +38,7 @@
             data.name = selectValue;
         }
 
-        if (ColumnTypesUtils.isOriginalColumnType(oldValue)) {
+        if (! ColumnTypesUtils.isOriginalColumnType(oldValue)) {
             data.name = ColumnUtils.generateId();
         }
 

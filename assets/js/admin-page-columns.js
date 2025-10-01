@@ -10454,7 +10454,7 @@ __webpack_require__.r(__webpack_exports__);
 const get_label_slot_changes = dirty => ({});
 const get_label_slot_context = ctx => ({});
 
-// (9:2) {#if helpRef }
+// (10:2) {#if helpRef }
 function create_if_block(ctx) {
   let span;
   let acreferencedtooltip;
@@ -10462,7 +10462,7 @@ function create_if_block(ctx) {
   acreferencedtooltip = new ACUi_index__WEBPACK_IMPORTED_MODULE_2__.AcReferencedTooltip({
     props: {
       reference: /*helpRef*/ctx[1],
-      position: "right",
+      position: /*helpRefPosition*/ctx[2],
       closeDelay: 300,
       $$slots: {
         default: [create_default_slot]
@@ -10486,7 +10486,8 @@ function create_if_block(ctx) {
     p(ctx, dirty) {
       const acreferencedtooltip_changes = {};
       if (dirty & /*helpRef*/2) acreferencedtooltip_changes.reference = /*helpRef*/ctx[1];
-      if (dirty & /*$$scope*/8) {
+      if (dirty & /*helpRefPosition*/4) acreferencedtooltip_changes.position = /*helpRefPosition*/ctx[2];
+      if (dirty & /*$$scope*/16) {
         acreferencedtooltip_changes.$$scope = {
           dirty,
           ctx
@@ -10512,7 +10513,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (11:3) <AcReferencedTooltip reference={helpRef} position="right" closeDelay={300}>
+// (12:3) <AcReferencedTooltip reference={helpRef} position={helpRefPosition} closeDelay={300}>
 function create_default_slot(ctx) {
   let span;
   let acicon;
@@ -10562,11 +10563,11 @@ function create_fragment(ctx) {
   let t3;
   let div1;
   let current;
-  const label_slot_template = /*#slots*/ctx[2].label;
-  const label_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(label_slot_template, ctx, /*$$scope*/ctx[3], get_label_slot_context);
+  const label_slot_template = /*#slots*/ctx[3].label;
+  const label_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(label_slot_template, ctx, /*$$scope*/ctx[4], get_label_slot_context);
   let if_block = /*helpRef*/ctx[1] && create_if_block(ctx);
-  const default_slot_template = /*#slots*/ctx[2].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[3], null);
+  const default_slot_template = /*#slots*/ctx[3].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[4], null);
   return {
     c() {
       div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -10606,8 +10607,8 @@ function create_fragment(ctx) {
     p(ctx, [dirty]) {
       if (!current || dirty & /*label*/1) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, /*label*/ctx[0]);
       if (label_slot) {
-        if (label_slot.p && (!current || dirty & /*$$scope*/8)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(label_slot, label_slot_template, ctx, /*$$scope*/ctx[3], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[3]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(label_slot_template, /*$$scope*/ctx[3], dirty, get_label_slot_changes), get_label_slot_context);
+        if (label_slot.p && (!current || dirty & /*$$scope*/16)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(label_slot, label_slot_template, ctx, /*$$scope*/ctx[4], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[4]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(label_slot_template, /*$$scope*/ctx[4], dirty, get_label_slot_changes), get_label_slot_context);
         }
       }
       if (/*helpRef*/ctx[1]) {
@@ -10630,8 +10631,8 @@ function create_fragment(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/8)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[3], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[3]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[3], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/16)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[4], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[4]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[4], dirty, null), null);
         }
       }
     },
@@ -10669,19 +10670,24 @@ function instance($$self, $$props, $$invalidate) {
   let {
     helpRef = ''
   } = $$props;
+  let {
+    helpRefPosition = 'right'
+  } = $$props;
   $$self.$$set = $$props => {
     if ('label' in $$props) $$invalidate(0, label = $$props.label);
     if ('helpRef' in $$props) $$invalidate(1, helpRef = $$props.helpRef);
-    if ('$$scope' in $$props) $$invalidate(3, $$scope = $$props.$$scope);
+    if ('helpRefPosition' in $$props) $$invalidate(2, helpRefPosition = $$props.helpRefPosition);
+    if ('$$scope' in $$props) $$invalidate(4, $$scope = $$props.$$scope);
   };
-  return [label, helpRef, slots, $$scope];
+  return [label, helpRef, helpRefPosition, slots, $$scope];
 }
 class PreferenceSettingItem extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       label: 0,
-      helpRef: 1
+      helpRef: 1,
+      helpRefPosition: 2
     });
   }
 }
@@ -15024,7 +15030,7 @@ function instance($$self, $$props, $$invalidate) {
       }
       $$invalidate(6, data.name = selectValue, data);
     }
-    if (_utils_column_types__WEBPACK_IMPORTED_MODULE_6__.ColumnTypesUtils.isOriginalColumnType(oldValue)) {
+    if (!_utils_column_types__WEBPACK_IMPORTED_MODULE_6__.ColumnTypesUtils.isOriginalColumnType(oldValue)) {
       $$invalidate(6, data.name = _utils_column__WEBPACK_IMPORTED_MODULE_5__["default"].generateId(), data);
     }
     if (columnType) {
