@@ -16,14 +16,21 @@ class GeneralOption
 
     public function get(string $key)
     {
-        $data = $this->storage->get() ?: [];
+        return $this->all()[$key] ?? null;
+    }
 
-        return $data[$key] ?? null;
+    public function all(): array
+    {
+        $data = $this->storage->get();
+
+        return $data && is_array($data)
+            ? $data
+            : [];
     }
 
     public function delete(string $key): void
     {
-        $data = $this->storage->get() ?: [];
+        $data = $this->all();
 
         unset($data[$key]);
 
@@ -34,7 +41,7 @@ class GeneralOption
 
     public function save(string $key, $value): void
     {
-        $data = $this->storage->get() ?: [];
+        $data = $this->all();
 
         $data[$key] = $value;
 
