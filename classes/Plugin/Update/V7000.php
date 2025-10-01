@@ -6,10 +6,10 @@ use AC\Plugin\Install\Database;
 use AC\Plugin\Update;
 use AC\Plugin\Version;
 
-class V5000 extends Update
+class V7000 extends Update
 {
 
-    public const PROGRESS_KEY = 'ac_update_progress_v5000';
+    public const PROGRESS_KEY = 'ac_update_progress_v7000';
 
     private int $next_step;
 
@@ -17,7 +17,7 @@ class V5000 extends Update
 
     public function __construct(Database $database)
     {
-        parent::__construct(new Version('5.0.0'));
+        parent::__construct(new Version('7.0.0'));
 
         $this->database = $database;
         // because `get_option` could be cached we only fetch the next step from the DB on initialisation.
