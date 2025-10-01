@@ -6,7 +6,7 @@ use AC\View; ?>
 		<hr class="wp-header-end acu-hidden">
 	</div>
 	<main class="acu-flex acu-gap-4 acu-w-full">
-		<div class="acu-bg-[white] acu-border acu-border-solid acu-border-ui-border acu-mb-[15px] acu-shadow acu-rounded-[10px] acu-flex-grow acu-max-w-[1200px]">
+		<div class="acu-bg-[white] acu-border acu-border-solid acu-border-ui-border acu-mb-[15px] acu-shadow acu-rounded-[10px] acu-flex-grow">
 			<div class="acu-px-[20px] acu-pt-[20px] acu-pb-[20px] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border">
 				<h2 class="acu-my-[0] acu-text-2xl acu-font-normal">
                     <?= __('Help', 'codepress-admin-columns') ?>
