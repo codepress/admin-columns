@@ -7,16 +7,6 @@ namespace AC\Deprecated;
 class HookCollectionFactory
 {
 
-    private string $core_version;
-
-    public function __construct()
-    {
-        // Use Pro version number for core filters when its available
-        $this->core_version = defined('ACP_FILE') && ACP_FILE
-            ? '7.0'
-            : '5.0';
-    }
-
     public function create_filters(): HookCollection
     {
         $hooks = [];
@@ -40,7 +30,7 @@ class HookCollectionFactory
         ];
 
         foreach ($free_filters as $old => $replacement) {
-            $hooks[] = new Hook($old, $this->core_version, $replacement);
+            $hooks[] = new Hook($old, '7.0', $replacement);
         }
 
         $pro_filters = [
@@ -105,7 +95,7 @@ class HookCollectionFactory
         ];
 
         foreach ($free_actions as $old => $replacement) {
-            $hooks[] = new Hook($old, $this->core_version, $replacement);
+            $hooks[] = new Hook($old, '7.0', $replacement);
         }
 
         $pro_actions = [
