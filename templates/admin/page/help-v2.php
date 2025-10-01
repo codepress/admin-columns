@@ -33,7 +33,6 @@ use AC\View; ?>
 					<thead>
 					<tr>
 						<th class="acu-p-1 acu-px-3 acu-py-3 acu-text-left">Deprecated Hook</th>
-						<th class="acu-p-1 acu-px-3 acu-py-3 acu-text-left">Replacement Hook</th>
 						<th class="acu-p-1 acu-px-3 acu-py-3 acu-text-left">Description</th>
 						<th class="acu-p-1 acu-px-3 acu-py-3 acu-text-left">Documentation</th>
 					</tr>
