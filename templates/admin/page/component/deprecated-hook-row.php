@@ -12,7 +12,7 @@ $callbacks = $hook->get_callbacks();
 	<td class="acu-p-1 acu-px-3 acu-py-3 acu-align-top" colspan="1">
 		<code class="acu-text-[12px]"><?= $hook->get_name() ?></code>
 	</td>
-	
+
 	<td class="acu-p-1 acu-px-3 acu-py-3 acu-align-top acu-leading-5" style="width:100%" colspan="1">
         <?php
         if ($hook->has_replacement()) : ?>
@@ -47,19 +47,33 @@ $callbacks = $hook->get_callbacks();
 
         <?php
         if ( ! empty($callbacks)) : ?>
-			<p>
-                <?= sprintf(
+			<div class="acu-bg-[#F1F5F9] acu-p-3 acu-rounded-lg">
+                <?php
+
+                $deprecated_string = _x(
+                    'This deprecated hook has %s with these callbacks:',
+                    'callback usages',
+                    'codepress-admin-columns'
+                );
+                $count_string = sprintf(
                     _n(
-                        'The callback used is %s.',
-                        'The callbacks used are %s.',
+                        '%d usage',
+                        '%d usages',
                         count($callbacks),
                         'codepress-admin-columns'
                     ),
-                    '<code>' . implode('</code>, <code>', $callbacks) . '</code>'
+                    count($callbacks)
                 );
+                $count_string = sprintf('<strong>%s</strong>', $count_string)
                 ?>
-			</p>
 
+                <?= sprintf($deprecated_string, $count_string); ?>
+                <?= '<br/><code class="acu-bg-[transparent] acu-text-[12px]">' . implode(
+                    '</code><br/><code class="acu-bg-[transparent] acu-text-[12px]">',
+                    $callbacks
+                ) . '</code>'; ?>
+
+			</div>
         <?php
         endif; ?>
 
