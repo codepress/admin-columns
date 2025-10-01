@@ -15018,7 +15018,7 @@ function instance($$self, $$props, $$invalidate) {
     const oldValue = (_a = data.type) !== null && _a !== void 0 ? _a : '';
     const columnType = $columnTypesStore.find(c => c.value === selectValue);
     if (_utils_column_types__WEBPACK_IMPORTED_MODULE_5__.ColumnTypesUtils.isOriginalColumnType(selectValue)) {
-      if ($listScreenDataStore.columns.find(c => c.name === selectValue)) {
+      if ($listScreenDataStore && $listScreenDataStore.columns.find(c => c.name === selectValue)) {
         $$invalidate(2, value = data.type);
         _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_7__.NotificationProgrammatic.open({
           type: "error",
