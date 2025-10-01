@@ -66,7 +66,7 @@ const checkForChanges = debounce(() => {
     listScreenDataHasChanges.set(JSON.stringify(orig) !== JSON.stringify(current));
 }, 300);
 
-listScreenDataStore.subscribe(d => {
+listScreenDataStore.subscribe(() => {
     checkForChanges();
 })
 
@@ -75,7 +75,6 @@ window.addEventListener("beforeunload", function (event) {
     const readOnly = get(listScreenIsReadOnly);
     if (hasChanges && !readOnly) {
         event.preventDefault();
-        event.returnValue = "";
     }
 });
 

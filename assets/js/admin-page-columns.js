@@ -55498,7 +55498,7 @@ const checkForChanges = debounce(() => {
     }
     _columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataHasChanges.set(JSON.stringify(orig) !== JSON.stringify(current));
 }, 300);
-_columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataStore.subscribe(d => {
+_columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataStore.subscribe(() => {
     checkForChanges();
 });
 window.addEventListener("beforeunload", function (event) {
@@ -55506,7 +55506,6 @@ window.addEventListener("beforeunload", function (event) {
     const readOnly = (0,svelte_store__WEBPACK_IMPORTED_MODULE_7__.get)(_columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenIsReadOnly);
     if (hasChanges && !readOnly) {
         event.preventDefault();
-        event.returnValue = "";
     }
 });
 document.addEventListener('DOMContentLoaded', () => {
