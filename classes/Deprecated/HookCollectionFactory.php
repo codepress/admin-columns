@@ -12,9 +12,7 @@ class HookCollectionFactory
     public function __construct()
     {
         // Use Pro version number for core filters when its available
-        $this->core_version = defined('ACP_FILE') && ACP_FILE
-            ? '7.0'
-            : '5.0';
+        $this->core_version = '7.0';
     }
 
     public function create_filters(): HookCollection
