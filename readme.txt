@@ -209,6 +209,99 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 7.0.0 =
+
+* [Important] Version numbering jumped ahead to 7.0 to align with the Pro version.
+* [Breaking] Custom columns created for versions below 7.0 are no longer compatible and must be rewritten. (See upgrade path.)
+* [Breaking] Many hooks have been renamed or modified to fit the new architecture and to prevent fatal errors.
+* [Improved] Completely new design and interface for the settings pages.
+
+= 4.7.18 =
+Release Date: September 22nd, 2025
+
+* [Improved] Prepared backward compatibility for upcoming 7.0 release
+
+= 4.7.17 =
+Release Date: August 27th, 2025
+
+* [Fixed] Security fixes (Axios update)
+
+= 4.7.16 =
+Release Date: June 17th, 2025
+
+* [Fixed] Cache optimization
+
+= 4.7.15 =
+Release Date: June 16th, 2025
+
+* [Fixed] Better null check for options to prevent PHP 8.3 issues
+* [Improved] Small UI changes in the admin view
+
+= 4.7.14 =
+Release Date: April 30th, 2025
+
+* [Improved] Column values with modals can now contain extra links
+
+= 4.7.13 =
+Release Date: March 19th, 2025
+
+* [Improved] Compacter display of the Value modal of the Images column
+
+= 4.7.12 =
+Release Date: March 12th, 2025
+
+* [Fixed] Corruption issues affecting certain languages in the core.
+
+= 4.7.11 =
+Release Date: March 3rd, 2025
+
+* [Updated] Axios library updates because of know security issues with older version
+
+= 4.7.10 =
+Release Date: January 7th, 2025
+
+* [Fixed] Prevent conflicting classnames for generated column names
+
+= 4.7.9 =
+Release Date: November 5th, 2024
+
+* [Improved] Better edit term link with taxonomy as parameter
+
+= 4.7.8 =
+Release Date: October 1st, 2024
+
+* [Improved] WordPress tested up to 6.6.2
+
+= 4.7.7 =
+Release Date: June 10th, 2024
+
+* [Fixed] Gravity Forms column no longer relies on namespace check
+
+= 4.7.6 =
+Release Date: June 4th, 2024
+
+* [Fixed] Custom Field column with Post as Display value could give an error
+
+= 4.7.5 =
+Release Date: April 14th, 2024
+
+* [Fixed] SVG Support in image columns
+
+= 4.7.4 =
+Release Date: March 4th, 2024
+
+* [Fixed] The Custom Field column setting gave an error when using the text field hook
+
+= 4.7.3 =
+Release Date: February 6th, 2024
+
+* [Improved] Better loading of available integrations
+
+= 4.7.2 =
+Release Date: January 16th, 2024
+
+* [Fixed] Fatal error when Restoring the settings in the Settings tab
+
 = 4.7.1 =
 Release Date: January 9th, 2024
 
