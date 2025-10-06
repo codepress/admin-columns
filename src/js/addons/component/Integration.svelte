@@ -4,6 +4,7 @@
     import AcButton from "ACUi/element/AcButton.svelte";
     import AcIcon from "ACUi/AcIcon.svelte";
     import {getAddonsConfig, getAddonsTranslation} from "../global";
+    import {NotificationProgrammatic} from "../../ui-wrapper/notification";
 
     export let integration: IntegrationItem;
     export let isPro: boolean;
@@ -14,7 +15,12 @@
         toggleIntegrationStatus({
             integration: integration.slug,
             status: checked
-        })
+        }).then( response => {
+            NotificationProgrammatic.open({
+                type: "success",
+                message: response.data.data
+            });
+		})
     }
 
     const addons = getAddonsConfig();
