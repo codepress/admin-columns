@@ -22,6 +22,11 @@ type FetchIntegrationsResponse = {
     }
 }
 
+type ToggleIntegrationStatusResponse = {
+    success: true;
+    data: string
+}
+
 export const fetchIntegrations = (): AxiosPromise<FetchIntegrationsResponse> => {
     return axios.get(ajaxurl,
         {
@@ -37,7 +42,7 @@ type ToggleIntegrationStatusArgs = {
     status: boolean
 }
 
-export const toggleIntegrationStatus = (args: ToggleIntegrationStatusArgs): AxiosPromise<FetchIntegrationsResponse> => {
+export const toggleIntegrationStatus = (args: ToggleIntegrationStatusArgs): AxiosPromise<ToggleIntegrationStatusResponse> => {
     const data = new FormData()
     data.append('action', 'ac-integration-toggle');
     data.append('integration', args.integration);
