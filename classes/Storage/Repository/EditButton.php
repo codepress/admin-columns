@@ -5,26 +5,20 @@ declare(strict_types=1);
 namespace AC\Storage\Repository;
 
 use AC\Settings\GeneralOption;
-use AC\Settings\GeneralOptionFactory;
 
 class EditButton
 {
 
-    private $option_factory;
+    private GeneralOption $storage;
 
-    public function __construct()
+    public function __construct(GeneralOption $storage)
     {
-        $this->option_factory = new GeneralOptionFactory();
-    }
-
-    private function get_storage(): GeneralOption
-    {
-        return $this->option_factory->create();
+        $this->storage = $storage;
     }
 
     public function is_active(): bool
     {
-        $value = $this->get_storage()->get('show_edit_button');
+        $value = $this->storage->get('show_edit_button');
 
         return in_array($value, ['1', null], true);
     }

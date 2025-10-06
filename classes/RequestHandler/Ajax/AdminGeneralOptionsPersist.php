@@ -9,16 +9,16 @@ use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
-use AC\Settings\GeneralOptionFactory;
+use AC\Settings\GeneralOption;
 
 class AdminGeneralOptionsPersist implements RequestAjaxHandler
 {
 
-    private $option_factory;
+    private GeneralOption $option_storage;
 
-    public function __construct(GeneralOptionFactory $option_factory)
+    public function __construct(GeneralOption $option_storage)
     {
-        $this->option_factory = $option_factory;
+        $this->option_storage = $option_storage;
     }
 
     public function handle(): void
@@ -37,8 +37,7 @@ class AdminGeneralOptionsPersist implements RequestAjaxHandler
         $name = (string)$request->filter('option_name');
         $value = (string)$request->filter('option_value');
 
-        $this->option_factory->create()
-                             ->save($name, $value);
+        $this->option_storage->save($name, $value);
 
         wp_send_json_success();
     }

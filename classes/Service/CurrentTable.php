@@ -7,6 +7,7 @@ use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Request;
+use AC\Settings\GeneralOption;
 use AC\Table;
 use AC\TableScreenFactory;
 use WP_Screen;
@@ -26,13 +27,16 @@ class CurrentTable implements Registerable
 
     private AdminColumns $plugin;
 
+    private GeneralOption $option_storage;
+
     public function __construct(
         Storage $storage,
         AdminColumns $plugin,
         TableScreenFactory $table_screen_factory,
         Table\LayoutPreference $preference,
         Table\PrimaryColumnFactory $primary_column_factory,
-        Table\InlineStyle\ColumnSize $column_size
+        Table\InlineStyle\ColumnSize $column_size,
+        GeneralOption $option_storage
     ) {
         $this->storage = $storage;
         $this->preference = $preference;
@@ -40,6 +44,7 @@ class CurrentTable implements Registerable
         $this->table_screen_factory = $table_screen_factory;
         $this->column_size = $column_size;
         $this->plugin = $plugin;
+        $this->option_storage = $option_storage;
     }
 
     public function register(): void
@@ -97,6 +102,7 @@ class CurrentTable implements Registerable
         $table = new Table\Screen(
             $this->plugin,
             $table_screen,
+            $this->option_storage,
             $list_screen
         );
 

@@ -5,47 +5,30 @@ declare(strict_types=1);
 namespace AC\Storage\Repository;
 
 use AC\Settings\GeneralOption;
-use AC\Settings\GeneralOptionFactory;
 
 class IntegrationStatus
 {
 
-    private GeneralOptionFactory $factory;
+    private GeneralOption $storage;
 
-    public function __construct(GeneralOptionFactory $factory)
+    public function __construct(GeneralOption $storage)
     {
-        $this->factory = $factory;
-    }
-
-    private function get_storage(): GeneralOption
-    {
-        return $this->factory->create();
+        $this->storage = $storage;
     }
 
     public function set_active(string $slug): void
     {
-        $this->get_storage()->delete('integration_' . $slug);
+        $this->storage->delete('integration_' . $slug);
     }
 
     public function set_inactive(string $slug): void
     {
-        $this->get_storage()->save('integration_' . $slug, 'inactive');
-    }
-
-    private function get_cached_states(): array
-    {
-        static $states = null;
-
-        if (null === $states) {
-            $states = $this->get_storage()->all();
-        }
-
-        return $states;
+        $this->storage->save('integration_' . $slug, 'inactive');
     }
 
     public function is_active(string $slug): bool
     {
-        $state = $this->get_cached_states()['integration_' . $slug] ?? null;
+        $state = $this->storage->get('integration_' . $slug) ?? null;
 
         return in_array(
             $state,
