@@ -15,13 +15,13 @@ class BaseFactory implements TableRowsFactory
     {
         switch (true) {
             case $table_screen instanceof TableScreen\Post :
-                return new TableScreen\TableRows\Post($table_screen->list_table());
+                return new TableScreen\TableRows\Post($table_screen);
             case $table_screen instanceof TableScreen\Media :
-                return new TableScreen\TableRows\Media($table_screen->list_table());
+                return new TableScreen\TableRows\Media($table_screen);
             case $table_screen instanceof TableScreen\Comment :
-                return new TableScreen\TableRows\Comment($table_screen->list_table());
+                return new TableScreen\TableRows\Comment($table_screen);
             case $table_screen instanceof TableScreen\User :
-                return new TableScreen\TableRows\User($table_screen->list_table());
+                return new TableScreen\TableRows\User($table_screen);
             default:
                 return null;
         }

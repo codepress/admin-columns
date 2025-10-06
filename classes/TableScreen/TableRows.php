@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace AC\TableScreen;
 
-use AC\ListTable;
 use AC\Registerable;
 use AC\Request;
 use AC\RequestHandler;
 use AC\Response;
+use AC\TableScreen;
 
 abstract class TableRows implements Registerable, RequestHandler
 {
 
-    private ListTable $list_table;
+    private TableScreen\ListTable $table_screen;
 
-    public function __construct(ListTable $list_table)
+    public function __construct(TableScreen\ListTable $table_screen)
     {
-        $this->list_table = $list_table;
+        $this->table_screen = $table_screen;
     }
 
     public function is_request(Request $request): bool
@@ -39,8 +39,10 @@ abstract class TableRows implements Registerable, RequestHandler
 
         $rows = [];
 
+        $list_table = $this->table_screen->list_table();
+
         foreach ($ids as $id) {
-            $rows[$id] = $this->list_table->render_row($id);
+            $rows[$id] = $list_table->render_row($id);
         }
 
         $response->set_parameter('table_rows', $rows);
