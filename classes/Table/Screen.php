@@ -23,14 +23,18 @@ final class Screen implements Registerable
 
 	private array $screen_options = [];
 
+	private AC\Settings\GeneralOption $option_storage;
+
 	public function __construct(
 			AC\AdminColumns $plugin,
 			TableScreen $table_screen,
+			AC\Settings\GeneralOption $option_storage,
 			?ListScreen $list_screen = null
 	) {
 		$this->location = $plugin->get_location();
 		$this->table_screen = $table_screen;
 		$this->list_screen = $list_screen;
+		$this->option_storage = $option_storage;
 	}
 
 	public function register(): void
@@ -54,7 +58,7 @@ final class Screen implements Registerable
 			return false;
 		}
 
-		return (new AC\Storage\Repository\EditButton())->is_active();
+		return (new AC\Storage\Repository\EditButton($this->option_storage))->is_active();
 	}
 
 	public function render_actions(): void

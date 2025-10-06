@@ -9,9 +9,11 @@ class GeneralOption
 
     private Storage\OptionData $storage;
 
-    public function __construct(Storage\OptionData $storage)
+    private ?array $data = null;
+
+    public function __construct()
     {
-        $this->storage = $storage;
+        $this->storage = new Storage\Option('cpac_general_options');
     }
 
     public function get(string $key)
@@ -19,13 +21,22 @@ class GeneralOption
         return $this->all()[$key] ?? null;
     }
 
-    public function all(): array
+    private function all(): array
     {
-        $data = $this->storage->get();
+        if (null === $this->data) {
+            $data = $this->storage->get();
 
-        return $data && is_array($data)
-            ? $data
-            : [];
+            $this->data = $data && is_array($data)
+                ? $data
+                : [];
+        }
+
+        return $this->data;
+    }
+
+    private function flush_cache(): void
+    {
+        $this->data = null;
     }
 
     public function delete(string $key): void
@@ -37,6 +48,8 @@ class GeneralOption
         $data
             ? $this->storage->save($data)
             : $this->storage->delete();
+
+        $this->flush_cache();
     }
 
     public function save(string $key, $value): void
@@ -46,6 +59,8 @@ class GeneralOption
         $data[$key] = $value;
 
         $this->storage->save($data);
+
+        $this->flush_cache();
     }
 
 }
