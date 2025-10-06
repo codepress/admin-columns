@@ -40,7 +40,7 @@ if ( ! is_admin()) {
 }
 
 define('AC_FILE', __FILE__);
-define('AC_VERSION', '7.0.0-RC1');
+define('AC_VERSION', '7.0.0rc1');
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
