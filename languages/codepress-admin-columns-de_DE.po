@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-08-24 16:51:56+0000\n"
+"PO-Revision-Date: 2025-10-05 20:59:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -134,7 +134,7 @@ msgstr "Horizontal-Regel"
 
 #: classes/Integration/MediaLibraryAssistant.php:19
 msgid "The Media Library Assistant plugin from David Lingren provides several enhancements for managing the Media Library."
-msgstr ""
+msgstr "Das Plugin Media Library Assistant von David Lingren bietet mehrere Verbesserungen für die Verwaltung der Mediathek."
 
 #: classes/Integration/MediaLibraryAssistant.php:17
 #: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:25
@@ -148,11 +148,11 @@ msgstr "Ungültige Listen-ID."
 
 #: classes/Check/AddonAvailable.php:63
 msgid "Did you know Admin Columns Pro has full support for %s?"
-msgstr ""
+msgstr "Wusstest du, dass Admin Columns Pro volle Unterstützung für %s bietet?"
 
 #: templates/tooltip/sorting-include-empty.php:19
 msgid "Read more &raquo;"
-msgstr ""
+msgstr "Weiterlesen &raquo;"
 
 #: templates/tooltip/sorting-include-empty.php:12
 msgid "By enabling this setting the sorting results will include empty values."
@@ -169,15 +169,15 @@ msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:60
 msgid "Table Elements"
-msgstr ""
+msgstr "Tabellenelemente"
 
 #: classes/Table/Screen.php:151
 msgid "Loading..."
-msgstr ""
+msgstr "Wird geladen …"
 
 #: classes/Settings/Column/VideoDisplay.php:22
 msgid "Pop Up"
-msgstr ""
+msgstr "Pop-up"
 
 #: classes/Settings/Column/VideoDisplay.php:21
 msgid "Embed"
@@ -201,7 +201,7 @@ msgstr "px"
 
 #: classes/Settings/Column/FileMetaVideo.php:41
 msgid "audio"
-msgstr ""
+msgstr "Audio"
 
 #: classes/Settings/Column/FileMetaVideo.php:27
 msgid "Codec"
@@ -239,7 +239,7 @@ msgstr "Kbps"
 #: classes/Settings/Column/FileMetaAudio.php:28
 #: classes/Settings/Column/FileMetaVideo.php:30
 msgid "Sample Rate"
-msgstr ""
+msgstr "Abtastrate"
 
 #: classes/Settings/Column/FileMetaAudio.php:26
 #: classes/Settings/Column/FileMetaVideo.php:29
@@ -262,7 +262,7 @@ msgstr "Dateiformat"
 
 #: classes/Settings/Column/FileMetaAudio.php:21
 msgid "Encoder Options"
-msgstr ""
+msgstr "Encoder-Optionen"
 
 #: classes/Settings/Column/FileMetaAudio.php:20
 msgid "Data Format"
@@ -297,7 +297,7 @@ msgstr "Bitrate"
 
 #: classes/Settings/Column/CustomFieldType.php:153
 msgid "Serialized"
-msgstr ""
+msgstr "Serialisiert"
 
 #: classes/ColumnGroups.php:20
 msgid "File"
@@ -337,7 +337,7 @@ msgstr "Audio-Meta"
 
 #: classes/Column/Media/ExifData.php:16
 msgid "Image Meta (EXIF)"
-msgstr ""
+msgstr "Bild-Meta (EXIF)"
 
 #: classes/Column/Media/AudioPlayer.php:22 classes/Column/Media/Preview.php:64
 msgid "No support for audio player"
@@ -365,7 +365,7 @@ msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:153
 msgid "View all Pro features"
-msgstr ""
+msgstr "Alle Pro-Funktionen anzeigen"
 
 #: templates/admin/page/settings-section-pro-cta.php:147
 msgid "Insert a post, user or anything really directly from the overview."
@@ -377,7 +377,7 @@ msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:139
 msgid "All integration add-ons"
-msgstr ""
+msgstr "Alle Integrations-Add-ons"
 
 #: templates/admin/page/settings-section-pro-cta.php:133
 msgid "Manage columns for your Taxonomy overview pages"
@@ -405,7 +405,7 @@ msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:114
 msgid "Multisite Support"
-msgstr ""
+msgstr "Multisite-Unterstützung"
 
 #: templates/admin/page/settings-section-pro-cta.php:107
 msgid "Admin Columns can generate a fully customized and downloadable CSV."
@@ -417,7 +417,7 @@ msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:103
 msgid "Export Table to CSV"
-msgstr ""
+msgstr "Tabelle nach CSV exportieren"
 
 #: templates/admin/page/settings-section-pro-cta.php:96
 msgid "Simply scroll through your columns horizontally so your overview can be complete and functional."
@@ -449,7 +449,7 @@ msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:59
 msgid "Unlimited Columns"
-msgstr ""
+msgstr "Unbegrenzte Spalten"
 
 #: templates/admin/page/settings-section-pro-cta.php:52
 msgid "Switching between sets is easy and can be done from any list table."
@@ -465,7 +465,7 @@ msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:47
 msgid "Multiple Table Views"
-msgstr ""
+msgstr "Mehrere Tabellenansichten"
 
 #: templates/admin/page/settings-section-pro-cta.php:41
 msgid "Keep your column names on top of the screen when scrolling down the page"
@@ -498,7 +498,7 @@ msgstr "Sortierbare Spalten"
 #: templates/admin/page/component/addon/network-activate-disabled.php:2
 #: templates/admin/page/component/addon/network-install.php:2
 msgid "Network Enable"
-msgstr ""
+msgstr "Netzwerkweit aktivieren"
 
 #: templates/admin/page/component/addon/activate-disabled.php:2
 #: templates/admin/page/component/addon/install.php:2
@@ -516,7 +516,7 @@ msgstr ""
 #: templates/admin/list-screen-settings-mockup.php:108
 #: templates/admin/page/settings-section-pro-cta.php:92
 msgid "Horizontal Scrolling"
-msgstr ""
+msgstr "Horizontales Scrollen"
 
 #: templates/admin/list-screen-settings-mockup.php:99
 msgid "Set default settings that users will see when they visit the list table."
@@ -524,7 +524,7 @@ msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:98
 msgid "Preferences"
-msgstr ""
+msgstr "Voreinstellungen"
 
 #: templates/admin/list-screen-settings-mockup.php:80
 msgid "Bulk Actions"
@@ -532,7 +532,7 @@ msgstr "Mehrfachaktionen"
 
 #: templates/admin/list-screen-settings-mockup.php:79
 msgid "Search"
-msgstr ""
+msgstr "Suchen"
 
 #: templates/admin/list-screen-settings-mockup.php:78
 msgid "Status (Quick Links)"
@@ -544,7 +544,7 @@ msgstr "Filter"
 
 #: templates/admin/list-screen-settings-mockup.php:72
 msgid "Inline Edit"
-msgstr ""
+msgstr "Inline bearbeiten"
 
 #: templates/admin/list-screen-settings-mockup.php:36
 msgid "Make this table view available only for specific users or roles."
@@ -552,7 +552,7 @@ msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:35
 msgid "Conditionals"
-msgstr ""
+msgstr "Bedingungen"
 
 #: templates/admin/list-screen-settings-mockup.php:23
 msgid "Unlock with Admin Columns Pro"
@@ -635,7 +635,7 @@ msgstr "Künstler"
 
 #: templates/admin/page/component/addon/network-active-label.php:3
 msgid "Network Active"
-msgstr ""
+msgstr "Netzwerkweit aktiviert"
 
 #: classes/Column/User/LastPost.php:17
 msgid "Last Post"
@@ -647,11 +647,11 @@ msgstr "Erster Beitrag"
 
 #: classes/Settings/Column/PostStatus.php:32
 msgid "Post Status"
-msgstr ""
+msgstr "Beitragsstatus"
 
 #: templates/settings/setting-label-icons.php:316
 msgid "Notifications"
-msgstr ""
+msgstr "Benachrichtigungen"
 
 #: templates/settings/setting-label-icons.php:315
 msgid "Widgets"
@@ -683,7 +683,7 @@ msgstr "TinyMCE"
 
 #: templates/settings/setting-label-icons.php:138
 msgid "Block Editor"
-msgstr ""
+msgstr "Block-Editor"
 
 #: templates/settings/setting-label-icons.php:130
 msgid "Databases"
@@ -691,19 +691,19 @@ msgstr "Datenbanken"
 
 #: templates/settings/setting-label-icons.php:119
 msgid "Image Editing"
-msgstr ""
+msgstr "Bildbearbeitung"
 
 #: templates/settings/setting-label-icons.php:80
 msgid "Post Formats"
-msgstr ""
+msgstr "Beitragsformate"
 
 #: templates/settings/setting-label-icons.php:72
 msgid "Welcome Screen"
-msgstr ""
+msgstr "Willkommensbildschirm"
 
 #: templates/settings/setting-label-icons.php:43
 msgid "Admin Menu"
-msgstr ""
+msgstr "Admin-Menü"
 
 #: templates/admin/edit-actions.php:40
 msgid "Key"
@@ -718,15 +718,15 @@ msgstr ""
 #: templates/tooltip/inline-editing.php:43
 #: templates/tooltip/smart-filtering.php:42 templates/tooltip/sorting.php:36
 msgid "Learn more &raquo;"
-msgstr ""
+msgstr "Mehr erfahren &raquo;"
 
 #: classes/Column/User/Login.php:24
 msgid "Super Admin"
-msgstr ""
+msgstr "Super-Administrator"
 
 #: classes/Column/User/Nicename.php:11
 msgid "Author Slug"
-msgstr ""
+msgstr "Autor-Titelform"
 
 #: classes/Admin/ScreenOption/ColumnId.php:33
 msgid "Column Name"
@@ -738,11 +738,11 @@ msgstr ""
 
 #: classes/Admin/ScreenOption/ListScreenId.php:33
 msgid "List Screen ID"
-msgstr ""
+msgstr "Bildschirm-ID auflisten"
 
 #: classes/Column/User/FullName.php:11 classes/Settings/Column/User.php:86
 msgid "Full Name"
-msgstr ""
+msgstr "Vollständiger Name"
 
 #: templates/tooltip/export-disabled.php:13
 msgid "Third-party columns and some custom columns cannot be exported unless there is build-in support for that specific column."
@@ -754,12 +754,12 @@ msgstr ""
 
 #: templates/tooltip/export-disabled.php:7
 msgid "Export Unavailable"
-msgstr ""
+msgstr "Export nicht verfügbar"
 
 #: templates/admin/list-screen-settings-mockup.php:73
 #: templates/tooltip/bulk-editing.php:27
 msgid "Bulk Edit"
-msgstr ""
+msgstr "Mehrfachbearbeitung"
 
 #: templates/tooltip/bulk-editing.php:23
 msgid "Clicking the %s button will display a popup that allows you to add or change the current value of all selected items."
@@ -779,7 +779,7 @@ msgstr ""
 
 #: templates/tooltip/sorting.php:25
 msgid "Reset Sorting"
-msgstr ""
+msgstr "Sortierung zurücksetzen"
 
 #: templates/tooltip/sorting.php:24
 msgid "Reset the sorting by clicking the %s button."
@@ -801,7 +801,7 @@ msgstr ""
 #: templates/admin/page/settings-section-pro-cta.php:29
 #: templates/tooltip/filtering.php:16
 msgid "Smart Filters"
-msgstr ""
+msgstr "Intelligente Filter"
 
 #: templates/tooltip/filtering.php:15
 msgid "We recommend using %s"
@@ -817,7 +817,7 @@ msgstr ""
 
 #: templates/tooltip/filtering.php:21
 msgid "%s is an improved version of %s."
-msgstr ""
+msgstr "%s ist eine verbesserte Version von %s."
 
 #: templates/tooltip/filtering.php:12
 msgid "Filters vs Smart Filters"
@@ -843,7 +843,7 @@ msgstr ""
 
 #: templates/tooltip/smart-filtering.php:18
 msgid "Add Filter"
-msgstr ""
+msgstr "Filter hinzufügen"
 
 #: templates/tooltip/smart-filtering.php:8
 msgctxt "smart filtering help"
@@ -856,7 +856,7 @@ msgstr ""
 
 #: templates/tooltip/export.php:20
 msgid "The result is a CSV file."
-msgstr ""
+msgstr "Das Ergebnis ist eine CSV-Datei."
 
 #: templates/tooltip/export.php:16
 msgid "Click the export button and all items will be exported to CSV."
@@ -898,11 +898,11 @@ msgstr ""
 #: classes/Integration/MetaBox.php:17 classes/Integration/MetaBox.php:23
 #: classes/Integration/MetaBox.php:30
 msgid "Meta Box"
-msgstr ""
+msgstr "Metabox"
 
 #: classes/Admin/ScreenOption/ColumnType.php:33
 msgid "Column Type"
-msgstr ""
+msgstr "Spaltentyp"
 
 #: classes/Admin/Page/Help.php:169
 msgid "No deprecated hooks or filters found."
@@ -912,23 +912,23 @@ msgstr ""
 #: templates/tooltip/filtering.php:22 templates/tooltip/filtering.php:39
 #: templates/tooltip/smart-filtering.php:6
 msgid "Smart Filtering"
-msgstr ""
+msgstr "Intelligente Filterung"
 
 #: classes/Settings/Column/Pro/BulkEditing.php:11
 #: templates/admin/page/settings-section-pro-cta.php:81
 #: templates/tooltip/bulk-editing.php:7
 msgid "Bulk Editing"
-msgstr ""
+msgstr "Mehrfachbearbeitung"
 
 #: classes/Settings/Column/Pro/InlineEditing.php:13
 #: templates/admin/page/settings-section-pro-cta.php:70
 #: templates/tooltip/inline-editing.php:7
 msgid "Inline Editing"
-msgstr ""
+msgstr "Inline-Bearbeitung"
 
 #: classes/Settings/Column/PostType.php:35
 msgid "All Post Types"
-msgstr ""
+msgstr "Alle Inhaltstypen"
 
 #: templates/admin/modal-pro.php:28
 msgid "Bulk edit any content, including custom fields."
@@ -936,7 +936,7 @@ msgstr ""
 
 #: templates/admin/loading-message.php:14
 msgid "Loading Columns"
-msgstr ""
+msgstr "Spalten werden geladen"
 
 #: classes/PluginActionUpgrade.php:32
 msgid "Go Pro"
@@ -948,7 +948,7 @@ msgstr "Original"
 
 #: classes/Column/Post/EstimatedReadingTime.php:15
 msgid "Read Time"
-msgstr ""
+msgstr "Lesedauer"
 
 #: classes/Column/Post/PasswordProtected.php:11
 msgid "Password Protected"
@@ -956,31 +956,31 @@ msgstr "Passwortgeschützt"
 
 #: classes/Settings/Column/NumberFormat.php:100
 msgid "Number Format"
-msgstr ""
+msgstr "Zahlenformat"
 
 #: classes/Settings/Column/NumberFormat.php:89
 msgid "Formatted"
-msgstr ""
+msgstr "Formatiert"
 
 #: classes/Settings/Column/NumberFormat.php:69
 msgid "Thousands separator"
-msgstr ""
+msgstr "Tausendertrennzeichen"
 
 #: classes/Settings/Column/NumberFormat.php:58
 msgid "Decimal point"
-msgstr ""
+msgstr "Dezimalpunkt"
 
 #: classes/Settings/Column/NumberFormat.php:47
 msgid "Decimals"
-msgstr ""
+msgstr "Dezimalstellen"
 
 #: classes/Settings/Column/TermLink.php:42
 msgid "Edit Term"
-msgstr ""
+msgstr "Begriff bearbeiten"
 
 #: classes/Settings/Column/TermLink.php:41
 msgid "Filter by Term"
-msgstr ""
+msgstr "Nach Begriff filtern"
 
 #: classes/Promo/BlackFriday.php:22
 msgid "%s Off from Black Friday to Cyber Monday"
@@ -988,15 +988,15 @@ msgstr ""
 
 #: classes/Check/Promotion.php:76
 msgid "Get %s now"
-msgstr ""
+msgstr "Jetzt %s holen"
 
 #: classes/Helper/Html.php:498
 msgid "%s more"
-msgstr ""
+msgstr "%s mehr"
 
 #: classes/Settings/Column/CommentLink.php:66
 msgid "View Comment"
-msgstr ""
+msgstr "Kommentar anzeigen"
 
 #: classes/Admin/Asset/Columns.php:61
 msgid "The column could not be loaded because of an unknown error"
@@ -1016,11 +1016,11 @@ msgstr ""
 
 #: templates/admin/side-banner.php:50
 msgid "Filter any content"
-msgstr ""
+msgstr "Beliebige Inhalte filtern"
 
 #: templates/admin/side-banner.php:49
 msgid "Sort any content"
-msgstr ""
+msgstr "Beliebige Inhalte sortieren"
 
 #: templates/admin/side-banner.php:48
 msgid "Bulk Edit any content"
@@ -1028,11 +1028,11 @@ msgstr ""
 
 #: templates/admin/side-banner.php:46
 msgid "Search any content"
-msgstr ""
+msgstr "Beliebige Inhalte suchen"
 
 #: templates/settings/setting-label-icons.php:440
 msgid "Select"
-msgstr ""
+msgstr "Auswählen"
 
 #: templates/settings/setting-label-icons.php:33
 msgid "Select Icon"
@@ -1040,12 +1040,12 @@ msgstr "Icon auswählen"
 
 #: classes/Settings/Column/PathScope.php:28
 msgid "Local Path"
-msgstr ""
+msgstr "Lokaler Pfad"
 
 #: classes/Integration/EventsCalendar.php:17
 #: classes/Integration/EventsCalendar.php:23
 msgid "Events Calendar"
-msgstr ""
+msgstr "Veranstaltungskalender"
 
 #: classes/Settings/Column/CustomFieldType.php:98
 msgid "Uses one or more %s IDs to display information about it."
@@ -1096,7 +1096,7 @@ msgstr ""
 #: templates/admin/list-screen-settings-mockup.php:76
 #: templates/tooltip/export.php:7
 msgid "Export"
-msgstr ""
+msgstr "Exportieren"
 
 #: templates/admin/page/settings-section-pro-cta.php:74
 msgid "Edit your content directly from the overview."
@@ -1568,7 +1568,7 @@ msgstr "oder"
 
 #: classes/Helper/Html.php:499
 msgid "Hide"
-msgstr "Verstecken"
+msgstr "Ausblenden"
 
 #: classes/Column/User/Url.php:14
 msgid "Website"
@@ -1605,7 +1605,7 @@ msgstr ""
 
 #: classes/Admin/Tooltip.php:23
 msgid "Notice"
-msgstr "Notiz"
+msgstr "Hinweis"
 
 #: classes/Admin/Tooltip.php:24
 msgid "Instructions"
@@ -2447,7 +2447,7 @@ msgstr "Verfügbare Größen"
 #: classes/Column/Media/Preview.php:50 classes/Settings/Column/MediaLink.php:63
 #: classes/Table/Screen.php:154
 msgid "View"
-msgstr "Ansehen"
+msgstr "Anzeigen"
 
 #: classes/Column/Comment/Status.php:31 classes/Column/Comment/Status.php:32
 #: classes/Settings/Column/CommentCount.php:59

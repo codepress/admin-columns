@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-09-02 07:43:54+0000\n"
+"PO-Revision-Date: 2025-09-23 12:06:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,29 +13,29 @@ msgstr ""
 
 #: templates/admin/edit-menu.php:35
 msgid "View %s"
-msgstr ""
+msgstr "Bekijk %s"
 
 #: classes/Service/PluginUpdate.php:119
 msgid "See the Plugins page for details."
-msgstr ""
+msgstr "Zie de pagina Plugin voor details."
 
 #: classes/Service/PluginUpdate.php:117
 msgid "Warning"
-msgstr ""
+msgstr "Waarschuwing"
 
 #: classes/Service/PluginUpdate.php:88
 msgctxt "Anchor text to upgrade guide."
 msgid "upgrade guide"
-msgstr ""
+msgstr "upgrade gids"
 
 #: classes/Service/PluginUpdate.php:72
 msgctxt "%s contains the link to upgrade guide. Label is translated separately."
 msgid "Please review the %s for details."
-msgstr ""
+msgstr "Kijk op %s voor details."
 
 #: classes/Service/PluginUpdate.php:58
 msgid "You are upgrading to a new a major version of Admin Columns, which can include <strong>breaking changes</strong>."
-msgstr ""
+msgstr "Je bent bezig met een upgrade naar een nieuwe grote versie van Admin Columns, die <strong>brekende wijzigingen kan bevatten</strong>."
 
 #: templates/settings/setting-label-icons.php:334
 msgid "Miscellaneous"
