@@ -44,7 +44,7 @@ class IntegrationToggle implements RequestAjaxHandler
             ? $this->repository->set_active($integration)
             : $this->repository->set_inactive($integration);
 
-        wp_send_json_success();
+        wp_send_json_success(__('Settings saved successfully.', 'codepress-admin-columns'));
     }
 
 }
