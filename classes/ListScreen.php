@@ -136,6 +136,8 @@ final class ListScreen
             $this->conditional_format = new RulesCollection();
         }
 
+        $this->conditional_format->rewind();
+
         return $this->conditional_format;
     }
 

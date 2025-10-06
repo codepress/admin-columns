@@ -28,6 +28,7 @@ abstract class Collection implements Iterator, Countable
 
     public function valid(): bool
     {
+        // TODO David/Tobias we need to always rewind the collection when used... else it will be invalid for the next call
         return $this->count() > $this->index;
     }
 
