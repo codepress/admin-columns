@@ -25,7 +25,9 @@ final class PostType implements ComponentFactory
     public function create(Config $config, ?Specification $conditions = null): Component
     {
         $post_type_options = $this->create_options($this->show_any);
-        $post_type = $config->has('post_type') ? $config->get('post_type') : $post_type_options->current()->get_value();
+        $post_type = $config->has('post_type')
+            ? $config->get('post_type')
+            : $post_type_options->first()->get_value();
 
         $builder = (new ComponentBuilder())
             ->set_label(__('Post Type', 'codepress-admin-columns'))

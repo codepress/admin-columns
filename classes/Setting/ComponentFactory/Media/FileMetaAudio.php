@@ -23,12 +23,12 @@ final class FileMetaAudio extends Builder
     protected function get_input(Config $config): ?Input
     {
         $options = $this->get_meta_options();
-        $first = $options->current()->get_value();
+        $option = $options->first();
 
         return OptionFactory::create_select(
             'media_meta_key',
             $options,
-            $config->get('media_meta_key', $first)
+            $config->get('media_meta_key', $option ? $option->get_value() : '')
         );
     }
 

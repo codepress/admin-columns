@@ -18,11 +18,13 @@ class ManualOrder implements Sort
 
     public function sort(ListScreenCollection $list_screens): ListScreenCollection
     {
-        if ( ! $list_screens->count()) {
+        $list_screen = $list_screens->first();
+
+        if ( ! $list_screen) {
             return $list_screens;
         }
 
-        $key = $list_screens->get_first()->get_table_id();
+        $key = $list_screen->get_table_id();
 
         $layouts = [];
 

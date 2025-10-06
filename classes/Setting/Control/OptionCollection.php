@@ -56,4 +56,9 @@ final class OptionCollection extends Collection
         return current($this->data);
     }
 
+    public function first(): ?Option
+    {
+        return parent::first();
+    }
+
 }

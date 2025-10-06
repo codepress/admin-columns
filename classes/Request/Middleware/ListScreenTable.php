@@ -42,18 +42,12 @@ class ListScreenTable implements Middleware
 
     private function get_first_list_screen(): ?ListScreen
     {
-        $list_screens = $this->storage->find_all_by_assigned_user(
+        return $this->storage->find_all_by_assigned_user(
             $this->list_key,
             $this->user,
             new Sort\UserOrder($this->user, $this->list_key),
             ListScreenStatus::create_active()
-        );
-
-        if ( ! $list_screens->valid()) {
-            return null;
-        }
-
-        return $list_screens->current();
+        )->first();
     }
 
     private function get_preference_list_screen(): ?ListScreen

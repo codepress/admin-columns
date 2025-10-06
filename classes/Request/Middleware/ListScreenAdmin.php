@@ -61,13 +61,8 @@ class ListScreenAdmin implements Middleware
 
     private function get_first_listscreen(): ?ListScreen
     {
-        $list_screens = $this->storage->find_all_by_table_id(
-            $this->table_screen->get_id()
-        );
-
-        return $list_screens->count() > 0
-            ? $list_screens->current()
-            : null;
+        return $this->storage->find_all_by_table_id($this->table_screen->get_id())
+                             ->first();
     }
 
     private function get_last_visited_listscreen(): ?ListScreen
