@@ -11,6 +11,7 @@ class Site implements Type\Url
 
     public const URL = 'https://www.admincolumns.com';
 
+    public const PAGE_CHANGELOG = '/changelog';
     public const PAGE_PRICING = '/pricing-purchase';
     public const PAGE_ABOUT_PRO = '/admin-columns-pro';
     public const PAGE_FEATURES = '/features';
@@ -30,6 +31,7 @@ class Site implements Type\Url
     public const PAGE_ADDON_YOAST_SEO = '/yoast-seo';
     public const PAGE_ADDON_RANK_MATH = '/rank-math';
     public const PAGE_ADDON_SEOPRESS = '/seo-press';
+    public const PAGE_SUPPORT = '/documentation';
 
     public function __construct(?string $path = null)
     {
@@ -46,6 +48,16 @@ class Site implements Type\Url
     public static function create_admin_columns_pro(): self
     {
         return new self(self::PAGE_ABOUT_PRO);
+    }
+
+    public static function create_support(): self
+    {
+        return new self(self::PAGE_SUPPORT);
+    }
+
+    public static function create_changelog(): self
+    {
+        return new self(self::PAGE_CHANGELOG);
     }
 
     public function get_url(): string
