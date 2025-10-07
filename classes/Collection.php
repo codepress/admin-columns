@@ -45,8 +45,10 @@ abstract class Collection implements Iterator, Countable
 
     public function first()
     {
-        return $this->count()
-            ? $this->data[array_key_first($this->data)]
+        $key = array_key_first($this->data);
+
+        return $key !== null
+            ? $this->data[$key]
             : null;
     }
 
