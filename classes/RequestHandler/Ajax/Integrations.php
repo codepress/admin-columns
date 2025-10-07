@@ -37,7 +37,7 @@ class Integrations implements RequestAjaxHandler
         foreach ($this->integrations->find_all_inactive() as $integration) {
             $integrations[] = $this->encode($integration, false);
         }
-  
+
         $response->set_parameter('integrations', $integrations);
 
         $response->success();

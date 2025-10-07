@@ -12,7 +12,7 @@ class Menu extends View
     {
         $items = $menu->get_items();
         $this->sort_by_position($items);
-    
+
         parent::__construct(['menu_items' => $items]);
 
         $this->set_template('admin/menu');
