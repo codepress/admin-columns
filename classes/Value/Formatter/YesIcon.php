@@ -20,7 +20,9 @@ class YesIcon implements Formatter
     public function format(Value $value): Value
     {
         return $value->with_value(
-            (bool)$value->get_value() ? ac_helper()->icon->yes(null, null, $this->class) : false
+            $value->get_value()
+                ? ac_helper()->icon->yes(null, null, $this->class)
+                : false
         );
     }
 

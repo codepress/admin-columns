@@ -18,7 +18,7 @@ class ListScreenRenderableFactory
         $this->context_factory = $context_factory;
     }
 
-    public function create(Listscreen $list_screen): CellRenderer
+    public function create(ListScreen $list_screen): CellRenderer
     {
         return new ListScreenRenderable($list_screen, $this->context_factory);
     }
