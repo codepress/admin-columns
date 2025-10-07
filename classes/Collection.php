@@ -10,9 +10,7 @@ use Iterator;
 abstract class Collection implements Iterator, Countable
 {
 
-    private const FIRST_INDEX = 0;
-
-    protected int $index = self::FIRST_INDEX;
+    protected int $index = 0;
 
     protected array $data = [];
 
@@ -37,7 +35,7 @@ abstract class Collection implements Iterator, Countable
     {
         reset($this->data);
 
-        $this->index = self::FIRST_INDEX;
+        $this->index = 0;
     }
 
     public function count(): int
@@ -47,8 +45,10 @@ abstract class Collection implements Iterator, Countable
 
     public function first()
     {
-        return $this->count()
-            ? $this->data[self::FIRST_INDEX]
+        $key = array_key_first($this->data);
+
+        return $key !== null
+            ? $this->data[$key]
             : null;
     }
 
