@@ -26,7 +26,6 @@
     import {AcNotice, AcPanel} from "ACUi/index";
     import JSONTree from "svelte-json-tree";
     import ListKeys from "../utils/list-keys";
-    import AcConfirmation from "../../plugin/ac-confirmation";
     import {checkChangesWarning} from "../utils/unsaved-changes";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
@@ -41,11 +40,11 @@
     startListScreenWatcher();
 
     const handleMenuSelect = async (e: CustomEvent<string>) => {
-		const passChangesCheck = await checkChangesWarning();
+        const passChangesCheck = await checkChangesWarning();
 
-        if( ! passChangesCheck) {
+        if (!passChangesCheck) {
             return false;
-		}
+        }
 
         if ($currentListKey === e.detail) {
             return;
@@ -56,8 +55,11 @@
 </script>
 
 <AdminHeaderBar title="Columns">
-	<div class="acu-flex acu-justify-end">
-		<a href="{$currentTableUrl}" class="acui-button acui-button-default acu-mr-2">{i18n.editor.label.view} {ListKeys.getLabelForKey( $currentListKey ) ?? ''}</a>
+	<div class="acu-flex acu-justify-end acu-gap-2">
+		{#each ListScreenSections.getSections( 'header_bar' ) as component}
+			<HtmlSection component={component}></HtmlSection>
+		{/each}
+		<a href="{$currentTableUrl}" class="acui-button acui-button-default">{i18n.editor.label.view} {ListKeys.getLabelForKey( $currentListKey ) ?? ''}</a>
 		{#if !$listScreenIsReadOnly && $hasUsagePermissions }
 			<AcButton
 				type="primary"

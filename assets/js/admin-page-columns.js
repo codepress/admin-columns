@@ -5597,8 +5597,46 @@ function get_each_context_1(ctx, list, i) {
   child_ctx[23] = list[i];
   return child_ctx;
 }
+function get_each_context_2(ctx, list, i) {
+  const child_ctx = ctx.slice();
+  child_ctx[23] = list[i];
+  return child_ctx;
+}
 
-// (50:2) {#if !$listScreenIsReadOnly && $hasUsagePermissions }
+// (49:2) {#each ListScreenSections.getSections( 'header_bar' ) as component}
+function create_each_block_2(ctx) {
+  let htmlsection;
+  let current;
+  htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
+    props: {
+      component: /*component*/ctx[23]
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(htmlsection.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(htmlsection, target, anchor);
+      current = true;
+    },
+    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(htmlsection.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(htmlsection.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(htmlsection, detaching);
+    }
+  };
+}
+
+// (53:2) {#if !$listScreenIsReadOnly && $hasUsagePermissions }
 function create_if_block_7(ctx) {
   let acbutton;
   let current;
@@ -5645,40 +5683,56 @@ function create_if_block_7(ctx) {
 // (47:0) <AdminHeaderBar title="Columns">
 function create_default_slot_4(ctx) {
   let div;
-  let a;
-  let t0_value = /*i18n*/ctx[14].editor.label.view + "";
   let t0;
+  let a;
+  let t1_value = /*i18n*/ctx[14].editor.label.view + "";
   let t1;
-  let t2_value = (_utils_list_keys__WEBPACK_IMPORTED_MODULE_18__["default"].getLabelForKey(/*$currentListKey*/ctx[4]) ?? '') + "";
   let t2;
+  let t3_value = (_utils_list_keys__WEBPACK_IMPORTED_MODULE_18__["default"].getLabelForKey(/*$currentListKey*/ctx[4]) ?? '') + "";
   let t3;
+  let t4;
   let current;
+  let each_value_2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(_store_list_screen_sections__WEBPACK_IMPORTED_MODULE_3__["default"].getSections('header_bar'));
+  let each_blocks = [];
+  for (let i = 0; i < each_value_2.length; i += 1) {
+    each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+  }
   let if_block = ! /*$listScreenIsReadOnly*/ctx[6] && /*$hasUsagePermissions*/ctx[7] && create_if_block_7(ctx);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        each_blocks[i].c();
+      }
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       a = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("a");
-      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
-      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t2_value);
-      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
+      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t3_value);
+      t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block) if_block.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*$currentTableUrl*/ctx[5]);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "acui-button acui-button-default acu-mr-2");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acu-flex acu-justify-end");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "acui-button acui-button-default");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acu-flex acu-justify-end acu-gap-2");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        if (each_blocks[i]) {
+          each_blocks[i].m(div, null);
+        }
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, a);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(a, t0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(a, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(a, t2);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(a, t3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t4);
       if (if_block) if_block.m(div, null);
       current = true;
     },
     p(ctx, dirty) {
-      if ((!current || dirty & /*$currentListKey*/16) && t2_value !== (t2_value = (_utils_list_keys__WEBPACK_IMPORTED_MODULE_18__["default"].getLabelForKey(/*$currentListKey*/ctx[4]) ?? '') + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t2, t2_value);
+      if ((!current || dirty & /*$currentListKey*/16) && t3_value !== (t3_value = (_utils_list_keys__WEBPACK_IMPORTED_MODULE_18__["default"].getLabelForKey(/*$currentListKey*/ctx[4]) ?? '') + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t3, t3_value);
       if (!current || dirty & /*$currentTableUrl*/32) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*$currentTableUrl*/ctx[5]);
       }
@@ -5704,10 +5758,17 @@ function create_default_slot_4(ctx) {
     },
     i(local) {
       if (current) return;
+      for (let i = 0; i < each_value_2.length; i += 1) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(each_blocks[i]);
+      }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block);
       current = true;
     },
     o(local) {
+      each_blocks = each_blocks.filter(Boolean);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(each_blocks[i]);
+      }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block);
       current = false;
     },
@@ -5715,12 +5776,13 @@ function create_default_slot_4(ctx) {
       if (detaching) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
       }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
       if (if_block) if_block.d();
     }
   };
 }
 
-// (78:3) {#if !$listScreenIsTemplate && $listScreenDataStore && 'inactive' === $listScreenDataStore.status}
+// (81:3) {#if !$listScreenIsTemplate && $listScreenDataStore && 'inactive' === $listScreenDataStore.status}
 function create_if_block_6(ctx) {
   let acnotice;
   let current;
@@ -5747,7 +5809,7 @@ function create_if_block_6(ctx) {
     },
     p(ctx, dirty) {
       const acnotice_changes = {};
-      if (dirty & /*$$scope, $listScreenDataStore*/268437504) {
+      if (dirty & /*$$scope, $listScreenDataStore*/1073743872) {
         acnotice_changes.$$scope = {
           dirty,
           ctx
@@ -5770,7 +5832,7 @@ function create_if_block_6(ctx) {
   };
 }
 
-// (79:4) <AcNotice type="info" styled showIcon>
+// (82:4) <AcNotice type="info" styled showIcon>
 function create_default_slot_3(ctx) {
   let span;
   let raw_value = /*i18n*/ctx[14].notices.inactive + "";
@@ -5817,7 +5879,7 @@ function create_default_slot_3(ctx) {
   };
 }
 
-// (84:3) {#if $listScreenDataStore?.title && $listScreenIsReadOnly && !$listScreenIsTemplate}
+// (87:3) {#if $listScreenDataStore?.title && $listScreenIsReadOnly && !$listScreenIsTemplate}
 function create_if_block_5(ctx) {
   let acnotice;
   let current;
@@ -5844,7 +5906,7 @@ function create_if_block_5(ctx) {
     },
     p(ctx, dirty) {
       const acnotice_changes = {};
-      if (dirty & /*$$scope*/268435456) {
+      if (dirty & /*$$scope*/1073741824) {
         acnotice_changes.$$scope = {
           dirty,
           ctx
@@ -5867,7 +5929,7 @@ function create_if_block_5(ctx) {
   };
 }
 
-// (85:4) <AcNotice type="info" styled showIcon>
+// (88:4) <AcNotice type="info" styled showIcon>
 function create_default_slot_2(ctx) {
   let html_tag;
   let raw_value = /*i18n*/ctx[14].editor.sentence.columns_read_only + "";
@@ -5892,7 +5954,7 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (87:3) {#if $listScreenDataStore?.title && !$listScreenIsStored}
+// (90:3) {#if $listScreenDataStore?.title && !$listScreenIsStored}
 function create_if_block_4(ctx) {
   let acnotice;
   let current;
@@ -5919,7 +5981,7 @@ function create_if_block_4(ctx) {
     },
     p(ctx, dirty) {
       const acnotice_changes = {};
-      if (dirty & /*$$scope*/268435456) {
+      if (dirty & /*$$scope*/1073741824) {
         acnotice_changes.$$scope = {
           dirty,
           ctx
@@ -5942,7 +6004,7 @@ function create_if_block_4(ctx) {
   };
 }
 
-// (88:4) <AcNotice type="info" styled showIcon>
+// (91:4) <AcNotice type="info" styled showIcon>
 function create_default_slot_1(ctx) {
   let html_tag;
   let raw_value = /*i18n*/ctx[14].notices.not_saved_settings + "";
@@ -5967,7 +6029,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (90:3) {#each ListScreenSections.getSections( 'notices' ) as component}
+// (93:3) {#each ListScreenSections.getSections( 'notices' ) as component}
 function create_each_block_1(ctx) {
   let htmlsection;
   let current;
@@ -6000,7 +6062,7 @@ function create_each_block_1(ctx) {
   };
 }
 
-// (105:5) {#if !localConfig.is_pro }
+// (108:5) {#if !localConfig.is_pro }
 function create_if_block_3(ctx) {
   let prosettingsexample;
   let current;
@@ -6028,7 +6090,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (109:5) {#if $debugMode}
+// (112:5) {#if $debugMode}
 function create_if_block_2(ctx) {
   let acpanel;
   let current;
@@ -6052,7 +6114,7 @@ function create_if_block_2(ctx) {
     },
     p(ctx, dirty) {
       const acpanel_changes = {};
-      if (dirty & /*$$scope, $listScreenDataStore*/268437504) {
+      if (dirty & /*$$scope, $listScreenDataStore*/1073743872) {
         acpanel_changes.$$scope = {
           dirty,
           ctx
@@ -6075,7 +6137,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (110:6) <AcPanel>
+// (113:6) <AcPanel>
 function create_default_slot(ctx) {
   let jsontree;
   let current;
@@ -6112,7 +6174,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (116:5) {#each ListScreenSections.getSections( 'sidebar' ) as component}
+// (119:5) {#each ListScreenSections.getSections( 'sidebar' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
@@ -6145,7 +6207,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (120:6) {#if !localConfig.is_pro }
+// (123:6) {#if !localConfig.is_pro }
 function create_if_block(ctx) {
   let t;
   let reviewcomponent;
@@ -6188,7 +6250,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (121:7) {#if localConfig.pro_banner }
+// (124:7) {#if localConfig.pro_banner }
 function create_if_block_1(ctx) {
   let prosidebanner;
   let current;
@@ -6407,7 +6469,7 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       const adminheaderbar_changes = {};
-      if (dirty & /*$$scope, isSaving, $listScreenDataHasChanges, $listScreenIsStored, form, $listScreenIsReadOnly, $hasUsagePermissions, $currentTableUrl, $currentListKey*/268436476) {
+      if (dirty & /*$$scope, isSaving, $listScreenDataHasChanges, $listScreenIsStored, form, $listScreenIsReadOnly, $hasUsagePermissions, $currentTableUrl, $currentListKey*/1073742844) {
         adminheaderbar_changes.$$scope = {
           dirty,
           ctx
