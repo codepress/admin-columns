@@ -13,12 +13,12 @@ use Exception;
 class TableScreenAdmin implements Middleware
 {
 
-    private Preference\ListScreen $preference;
+    private Preference\EditorPreference $preference;
 
     private TableScreenCollection $table_screens;
 
     public function __construct(
-        Preference\ListScreen $preference,
+        Preference\EditorPreference $preference,
         TableScreenCollection $table_screens
     ) {
         $this->preference = $preference;
@@ -49,10 +49,10 @@ class TableScreenAdmin implements Middleware
 
     private function get_last_visited_table_screen(): ?TableScreen
     {
-        $list_key = $this->preference->get_last_visited_table();
+        $table_id = $this->preference->get_table_id();
 
-        return $list_key ?
-            $this->get_table_screen_by_id($list_key)
+        return $table_id ?
+            $this->get_table_screen_by_id($table_id)
             : null;
     }
 

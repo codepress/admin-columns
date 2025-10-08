@@ -17,7 +17,7 @@ class CurrentTable implements Registerable
 
     private Storage $storage;
 
-    private Table\LayoutPreference $preference;
+    private Table\TablePreference $preference;
 
     private Table\PrimaryColumnFactory $primary_column_factory;
 
@@ -33,7 +33,7 @@ class CurrentTable implements Registerable
         Storage $storage,
         AdminColumns $plugin,
         TableScreenFactory $table_screen_factory,
-        Table\LayoutPreference $preference,
+        Table\TablePreference $preference,
         Table\PrimaryColumnFactory $primary_column_factory,
         Table\InlineStyle\ColumnSize $column_size,
         GeneralOption $option_storage

@@ -37,16 +37,20 @@ class ListScreenSave implements RequestAjaxHandler
 
     private LabelEncoder $label_encoder;
 
+    private AC\Table\TablePreference $table_preference;
+
     public function __construct(
         Storage $storage,
         Aggregate $column_factory,
         TableScreenFactory $table_screen_factory,
-        LabelEncoder $label_encoder
+        LabelEncoder $label_encoder,
+        AC\Table\TablePreference $table_preference
     ) {
         $this->storage = $storage;
         $this->column_factory = $column_factory;
         $this->table_screen_factory = $table_screen_factory;
         $this->label_encoder = $label_encoder;
+        $this->table_preference = $table_preference;
     }
 
     public function handle(): void
@@ -113,6 +117,12 @@ class ListScreenSave implements RequestAjaxHandler
         if ( ! $this->storage->exists($id)) {
             $response->set_message(__('Column settings could not be saved.', 'codepress-admin-columns'))->error();
         }
+
+        // Update the user preference to show this view as their preferred list screen.
+        $this->table_preference->save(
+            $list_screen->get_table_screen()->get_id(),
+            $list_screen->get_id()
+        );
 
         do_action('ac/columns/stored', $list_screen);
 

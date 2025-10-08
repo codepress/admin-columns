@@ -22,7 +22,7 @@ class ListScreenTable implements Middleware
 
     private Storage $storage;
 
-    private Table\LayoutPreference $preference;
+    private Table\TablePreference $preference;
 
     private TableId $list_key;
 
@@ -31,7 +31,7 @@ class ListScreenTable implements Middleware
     public function __construct(
         Storage $storage,
         TableId $list_key,
-        Table\LayoutPreference $preference,
+        Table\TablePreference $preference,
         WP_User $user
     ) {
         $this->storage = $storage;
@@ -52,7 +52,7 @@ class ListScreenTable implements Middleware
 
     private function get_preference_list_screen(): ?ListScreen
     {
-        $list_id = $this->preference->find_list_id($this->list_key);
+        $list_id = $this->preference->get_list_id($this->list_key);
 
         return $list_id
             ? $this->get_list_screen_by_id($list_id)
