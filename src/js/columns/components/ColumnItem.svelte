@@ -1,6 +1,13 @@
 <script lang="ts">
 
-    import {columnTypesStore, currentListKey, debugMode, openedColumnsStore, showColumnInfo} from "../store";
+    import {
+        columnTypesStore,
+        currentListKey,
+        debugMode,
+        listScreenIsReadOnly,
+        openedColumnsStore,
+        showColumnInfo
+    } from "../store";
     import {slide} from 'svelte/transition';
     import {createEventDispatcher, onMount} from "svelte";
     import {ColumnTypesUtils} from "../utils/column-types";
@@ -109,10 +116,12 @@
 			</strong>
 			<div class="ac-column-row-actions">
 				<a class="ac-column-row-action -edit" href={'#'} on:click|preventDefault|stopPropagation={toggle}>Edit</a>
-				{#if !isOriginalColumn}
+				{#if !isOriginalColumn && ! $listScreenIsReadOnly}
 					<a class="ac-column-row-action -duplicate" href={'#'} on:click|preventDefault|stopPropagation={handleDuplicate}>Duplicate</a>
 				{/if}
-				<a class="ac-column-row-action -delete" href={'#'} on:click|preventDefault|stopPropagation={handleDelete}>Delete</a>
+				{#if !$listScreenIsReadOnly}
+					<a class="ac-column-row-action -delete" href={'#'} on:click|preventDefault|stopPropagation={handleDelete}>Delete</a>
+				{/if}
 			</div>
 		</div>
 		{#if $showColumnInfo}
@@ -140,7 +149,7 @@
 		</div>
 		<div class="ac-column-header__open-indicator acu-flex acu-justify-end">
 			<button class="ac-open-indicator" class:-open={opened} on:click|stopPropagation={toggle}>
-				<MaterialIcon icon="keyboard_arrow_down" />
+				<MaterialIcon icon="keyboard_arrow_down"/>
 			</button>
 		</div>
 	</header>
