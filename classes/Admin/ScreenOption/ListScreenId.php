@@ -30,7 +30,7 @@ class ListScreenId extends ScreenOption
 		<label for="ac-list-screen-id" data-ac-screen-option="<?= self::KEY ?>">
 			<input id="ac-list-screen-id" type="checkbox" <?php
 			checked($this->is_active()); ?>>
-			<?= __('List Screen ID', 'codepress-admin-columns') ?>
+			<?= __('ID', 'codepress-admin-columns') ?>
 		</label>
 		<?php
 		return ob_get_clean();

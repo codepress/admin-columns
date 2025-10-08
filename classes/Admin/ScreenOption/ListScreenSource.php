@@ -28,7 +28,7 @@ class ListScreenSource extends ScreenOption
 		<label for="ac-list-screen-source" data-ac-screen-option="show_tools_list_screen_source">
 			<input id="ac-list-screen-source" type="checkbox" <?php
 			checked($this->is_active()); ?>>
-			<?= __('List Screen Source', 'codepress-admin-columns') ?>
+			<?= __('Source', 'codepress-admin-columns') ?>
 		</label>
 		<?php
 		return ob_get_clean();
