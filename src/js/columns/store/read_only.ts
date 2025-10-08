@@ -1,3 +1,3 @@
 import {writable} from 'svelte/store';
 
-export const listScreenIsReadOnly = writable<boolean>();
+export const listScreenIsReadOnly = writable<boolean>(true);

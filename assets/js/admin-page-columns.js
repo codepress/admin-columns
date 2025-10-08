@@ -36375,7 +36375,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var svelte_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/store */ "./node_modules/svelte/src/runtime/store/index.js");
 
-const listScreenIsReadOnly = (0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.writable)();
+const listScreenIsReadOnly = (0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.writable)(true);
 
 
 /***/ }),
