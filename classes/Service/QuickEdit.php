@@ -5,8 +5,8 @@ namespace AC\Service;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Setting\ContextFactory;
-use AC\Table\LayoutPreference;
 use AC\Table\PrimaryColumnFactory;
+use AC\Table\TablePreference;
 use AC\TableScreenFactory;
 use AC\Type\TableId;
 
@@ -15,7 +15,7 @@ class QuickEdit implements Registerable
 
     private Storage $storage;
 
-    private LayoutPreference $preference;
+    private TablePreference $preference;
 
     private PrimaryColumnFactory $primary_column_factory;
 
@@ -25,7 +25,7 @@ class QuickEdit implements Registerable
 
     public function __construct(
         Storage $storage,
-        LayoutPreference $preference,
+        TablePreference $preference,
         PrimaryColumnFactory $primary_column_factory,
         TableScreenFactory $table_screen_factory,
         ContextFactory $context_factory
@@ -75,7 +75,7 @@ class QuickEdit implements Registerable
                 return;
         }
 
-        $list_id = $this->preference->find_list_id(new TableId($table_id));
+        $list_id = $this->preference->get_list_id(new TableId($table_id));
 
         if ( ! $list_id) {
             return;

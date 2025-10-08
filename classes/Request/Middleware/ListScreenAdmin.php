@@ -18,12 +18,12 @@ class ListScreenAdmin implements Middleware
 
     protected TableScreen $table_screen;
 
-    protected Preference\ListScreen $preference;
+    protected Preference\EditorPreference $preference;
 
     public function __construct(
         ListScreenRepository $storage,
         TableScreen $table_screen,
-        Preference\ListScreen $preference
+        Preference\EditorPreference $preference
     ) {
         $this->storage = $storage;
         $this->table_screen = $table_screen;

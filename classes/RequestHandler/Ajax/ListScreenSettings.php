@@ -22,7 +22,7 @@ class ListScreenSettings implements RequestAjaxHandler
 
     protected AC\TableScreenFactory\Aggregate $table_factory;
 
-    protected Preference\ListScreen $preference;
+    protected Preference\EditorPreference $editor_preference;
 
     protected AC\ColumnTypeRepository $type_repository;
 
@@ -34,13 +34,13 @@ class ListScreenSettings implements RequestAjaxHandler
         Storage $storage,
         AC\TableScreenFactory\Aggregate $table_factory,
         AC\ColumnTypeRepository $type_repository,
-        Preference\ListScreen $preference,
+        Preference\EditorPreference $preference,
         AC\Response\JsonListScreenSettingsFactory $response_factory,
         AC\Type\ListScreenIdGenerator $list_screen_id_generator
     ) {
         $this->storage = $storage;
         $this->table_factory = $table_factory;
-        $this->preference = $preference;
+        $this->editor_preference = $preference;
         $this->type_repository = $type_repository;
         $this->response_factory = $response_factory;
         $this->list_screen_id_generator = $list_screen_id_generator;
@@ -59,10 +59,12 @@ class ListScreenSettings implements RequestAjaxHandler
         }
     }
 
-    protected function set_preference(ListScreen $list_screen): void
+    protected function set_editor_preference(ListScreen $list_screen): void
     {
-        $this->preference->set_last_visited_table($list_screen->get_table_id());
-        $this->preference->set_list_id($list_screen->get_table_id(), $list_screen->get_id());
+        $this->editor_preference->save(
+            $list_screen->get_table_screen()->get_id(),
+            $list_screen->get_id()
+        );
     }
 
     protected function is_template(ListScreen $list_screen): bool
@@ -76,7 +78,7 @@ class ListScreenSettings implements RequestAjaxHandler
             new Request\Middleware\ListScreenAdmin(
                 $this->storage,
                 $table_screen,
-                $this->preference,
+                $this->editor_preference,
             )
         );
     }
@@ -100,7 +102,7 @@ class ListScreenSettings implements RequestAjaxHandler
         $list_screen = $request->get('list_screen');
 
         if ($list_screen instanceof ListScreen) {
-            $this->set_preference($list_screen);
+            $this->set_editor_preference($list_screen);
 
             if ( ! $list_screen->get_title()) {
                 $list_screen->set_title((string)$table_screen->get_labels());

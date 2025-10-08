@@ -7,7 +7,7 @@ use AC\Preferences\SiteFactory;
 use AC\Type\ListScreenId;
 use AC\Type\TableId;
 
-class LayoutPreference
+class TablePreference
 {
 
     public function storage(): Preference
@@ -15,7 +15,7 @@ class LayoutPreference
         return (new SiteFactory())->create('layout_table');
     }
 
-    public function find_list_id(TableId $table_id): ?ListScreenId
+    public function get_list_id(TableId $table_id): ?ListScreenId
     {
         $list_id = $this->storage()->find((string)$table_id);
 
