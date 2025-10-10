@@ -75,7 +75,6 @@ final class PostType implements ComponentFactory
     {
         $options = [];
 
-        // TODO check
         $post_types = get_post_types();
 
         if ( ! is_array($post_types)) {
@@ -84,8 +83,9 @@ final class PostType implements ComponentFactory
 
         foreach ($post_types as $post_type) {
             $post_type_object = get_post_type_object($post_type);
+            
             if ($post_type_object) {
-                $options[$post_type] = $post_type_object->labels->name;
+                $options[$post_type_object->name] = $post_type_object->labels->name;
             }
         }
 
