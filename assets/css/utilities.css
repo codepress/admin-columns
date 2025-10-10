@@ -274,6 +274,10 @@
   margin-top: 5px
 }
 
+.acu-mt-2 {
+  margin-top: 10px
+}
+
 .acu-mt-3 {
   margin-top: 15px
 }
@@ -296,17 +300,6 @@
 
 .acu-mt-\[0\] {
   margin-top: 0
-}
-
-.acu-mt-2 {
-  margin-top: 10px
-}
-
-.acu-line-clamp-3 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3
 }
 
 .acu-block {
@@ -395,6 +388,10 @@
 
 .acu-w-\[180px\] {
   width: 180px
+}
+
+.acu-w-\[200px\] {
+  width: 200px
 }
 
 .acu-w-\[260px\] {
@@ -778,6 +775,10 @@
   padding: 10px
 }
 
+.acu-p-3 {
+  padding: 15px
+}
+
 .acu-p-4 {
   padding: 20px
 }
@@ -800,10 +801,6 @@
 
 .acu-p-\[5px\] {
   padding: 5px
-}
-
-.acu-p-3 {
-  padding: 15px
 }
 
 .acu-px-1 {
@@ -859,11 +856,6 @@
 .acu-py-1 {
   padding-top: 5px;
   padding-bottom: 5px
-}
-
-.acu-py-1\.5 {
-  padding-top: 8px;
-  padding-bottom: 8px
 }
 
 .acu-py-2 {
@@ -1118,24 +1110,12 @@
   font-style: italic
 }
 
-.acu-leading-relaxed {
-  line-height: 1.625
+.acu-leading-5 {
+  line-height: 1.25rem
 }
 
 .acu-leading-snug {
   line-height: 1.375
-}
-
-.acu-leading-3 {
-  line-height: .75rem
-}
-
-.acu-leading-6 {
-  line-height: 1.5rem
-}
-
-.acu-leading-5 {
-  line-height: 1.25rem
 }
 
 .acu-tracking-tight {
@@ -1409,12 +1389,12 @@
     flex-direction: row
   }
 
-  .xl\:acu-gap-6 {
-    gap: 30px
+  .xl\:acu-items-start {
+    align-items: flex-start
   }
 
-  .xl\:acu-gap-8 {
-    gap: 40px
+  .xl\:acu-gap-6 {
+    gap: 30px
   }
 }
 
