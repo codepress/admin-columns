@@ -100,7 +100,7 @@ class ListScreenSave implements RequestAjaxHandler
         } else {
             $list_screen = new ListScreen(
                 $id,
-                (string)$table_screen->get_labels(),
+                (string)$table_screen->get_labels()->get_singular(),
                 $this->table_screen_factory->create($list_key),
                 $columns,
                 (array)$data['settings'],
