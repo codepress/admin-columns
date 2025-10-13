@@ -34,16 +34,22 @@ class JsonListScreenSettingsFactory
         $encoder = $this->encoder_factory->create()
                                          ->set_list_screen($list_screen);
 
+        $table_screen = $list_screen->get_table_screen();
+
         return (new Json())->set_parameters([
             'read_only'       => $list_screen->is_read_only(),
             'table_url'       => $is_template
                 ? (string)new Preview($list_screen->get_table_url(), 'columns')
                 : (string)$list_screen->get_table_url(),
             'settings'        => $encoder->encode(),
-            'column_types'    => $this->get_column_types($list_screen->get_table_screen()),
+            'column_types'    => $this->get_column_types($table_screen),
             'column_settings' => $this->encode_column_settings($list_screen->get_columns()),
             'is_stored'       => $is_stored,
             'is_template'     => $is_template,
+            'labels'          => [
+                'singular' => $table_screen->get_labels()->get_singular(),
+                'plural'   => $table_screen->get_labels()->get_plural(),
+            ],
         ]);
     }
 

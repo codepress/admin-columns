@@ -104,7 +104,7 @@ class ListScreenSettings implements RequestAjaxHandler
         if ($list_screen instanceof ListScreen) {
             $this->set_editor_preference($list_screen);
 
-            if ( ! $list_screen->get_title()) {
+            if ( ! trim($list_screen->get_title())) {
                 $list_screen->set_title((string)$table_screen->get_labels());
             }
 
@@ -114,7 +114,7 @@ class ListScreenSettings implements RequestAjaxHandler
 
         $list_screen = new ListScreen(
             $this->list_screen_id_generator->generate(),
-            (string)$table_screen->get_labels(),
+            (string)$table_screen->get_labels()->get_singular(),
             $table_screen,
             $this->type_repository->find_all_by_original($table_screen)
         );
