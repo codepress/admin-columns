@@ -6,26 +6,30 @@ use AC\Admin\Type\MenuItem;
  * @var MenuItem[] $items
  */
 $items = $this->menu_items;
+
+$first = $items[0];
 ?>
 
 <header class="acu-relative acu-z-10 acu-flex acu-flex-col md:acu-flex-row acu-bg-gray-dark acu-px-4 md:acu-px-[50px] acu-py-3" id="acMenu">
 	<div class="acu-w-[260px] acu-items-center acu-flex ">
-		<img class="acu-w-[180px]" src="<?= esc_url(ac_get_url('assets/images/logo-ac-light.svg')) ?>" alt="">
+		<a href="<?= escl_url($first->get_url()) ?>">
+			<img class="acu-w-[180px]" src="<?= esc_url(ac_get_url('assets/images/logo-ac-light.svg')) ?>" alt="">
+		</a>
 	</div>
 	<div class="acu-flex acu-flex-grow">
 		<ul class="acu-flex ac-admin-nav acu-gap-2 acu-flex-wrap acu-flex-grow">
-            <?php
-            foreach ($items as $item) : ?>
+			<?php
+			foreach ($items as $item) : ?>
 				<li class="ac-admin-nav__item <?= esc_attr($item->get_class()); ?>">
 					<a href="<?= esc_url(
-                        $item->get_url()
-                    ) ?>" class="acu-text-[#fff] acu-inline-block ac-admin-nav__link"
-                        <?= $item->get_target() ? sprintf(' target="%s"', $item->get_target()) : '' ?>>
-                        <?= $item->get_label() ?>
+							$item->get_url()
+					) ?>" class="acu-text-[#fff] acu-inline-block ac-admin-nav__link"
+							<?= $item->get_target() ? sprintf(' target="%s"', $item->get_target()) : '' ?>>
+						<?= $item->get_label() ?>
 					</a>
 				</li>
-            <?php
-            endforeach; ?>
+			<?php
+			endforeach; ?>
 		</ul>
 	</div>
 </header>
