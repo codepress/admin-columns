@@ -206,7 +206,7 @@
 				</div>
 				<div class="acu-flex-grow acu-max-w-[400px]">
 					<AcInputGroup>
-						<input bind:value={data.title} disabled={locked} type="text" placeholder={ListKeys.getLabelForKey( data.type )}/>
+						<input bind:value={data.title} id="listTitle" disabled={locked} type="text" placeholder={ListKeys.getLabelForKey( data.type )}/>
 					</AcInputGroup>
 				</div>
 			</div>

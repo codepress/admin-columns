@@ -4278,6 +4278,7 @@ function create_default_slot_5(ctx) {
   return {
     c() {
       input = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("input");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "id", "listTitle");
       input.disabled = /*locked*/ctx[2];
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "type", "text");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "placeholder", input_placeholder_value = _utils_list_keys__WEBPACK_IMPORTED_MODULE_6__["default"].getLabelForKey(/*data*/ctx[0].type));
