@@ -2,6 +2,7 @@
 
     import HeaderToggle from "./settings/HeaderToggle.svelte";
     import {onMount} from "svelte";
+    import {AcTooltip} from "ACUi/index";
 
     export let data: any = {};
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
@@ -37,15 +38,18 @@
 	<div class="acu-flex acu-items-center acu-gap-1" on:click|stopPropagation role="none">
 		{#each proFeatures as feature}
 			{#if getConfig( feature ) }
-				<HeaderToggle
-					defaultValue={getConfig( feature ).input.default}
-					bind:value={data[feature.feature]}
-					title={feature.title}
-					disabled={disabled}>
+				<AcTooltip label={feature.title}>
+					<HeaderToggle
+						defaultValue={getConfig( feature ).input.default}
+						bind:value={data[feature.feature]}
+						title={feature.title}
+						disabled={disabled}>
 
-					<span class="{feature.iconClass} !acu-text-[20px]">{@html feature.content}</span>
+						<span class="{feature.iconClass} !acu-text-[20px]">{@html feature.content}</span>
 
-				</HeaderToggle>
+					</HeaderToggle>
+				</AcTooltip>
+
 			{:else}
 				<div class="ac-header-toggle acu-invisible -skeleton acu-border-[transparent] acu-bg-none acu-cursor-default"></div>
 			{/if}

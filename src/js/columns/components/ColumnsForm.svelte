@@ -263,7 +263,7 @@
 			</div>
 		</div>
 
-		<AcPanelFooter slot="footer" classNames={['acu-flex acu-justify-end acu-gap-2']}>
+		<AcPanelFooter slot="footer" border={data.columns.length === 0}  classNames={['acu-flex acu-justify-end acu-gap-2']}>
 			{#if !$listScreenIsReadOnly && !locked}
 
 				{#if data.columns.length > 0}
