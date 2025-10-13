@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2025-10-06 08:17+0000\n"
+"POT-Creation-Date: 2025-10-13 08:32+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -96,7 +96,7 @@ msgstr ""
 msgid "Get Admin Columns Pro"
 msgstr ""
 
-#: classes/Check/Review.php:115, classes/Table/Screen.php:85, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17, classes/Table/Service/ScreenOptions.php:39
+#: classes/Check/Review.php:115, classes/Table/Screen.php:89, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17, classes/Table/Service/ScreenOptions.php:39
 msgid "Admin Columns"
 msgstr ""
 
@@ -318,27 +318,27 @@ msgstr ""
 msgid "See the Plugins page for details."
 msgstr ""
 
-#: classes/Table/PrimaryColumn.php:65, classes/Table/PrimaryColumn.php:69, classes/Table/Screen.php:127, classes/ColumnFactory/Media/DownloadFactory.php:20, classes/Setting/ComponentFactory/MediaLink.php:31, classes/Value/Formatter/Media/Download.php:25
+#: classes/Table/PrimaryColumn.php:65, classes/Table/PrimaryColumn.php:69, classes/Table/Screen.php:131, classes/ColumnFactory/Media/DownloadFactory.php:20, classes/Setting/ComponentFactory/MediaLink.php:31, classes/Value/Formatter/Media/Download.php:25
 msgid "Download"
 msgstr ""
 
-#: classes/Table/Screen.php:122, classes/Admin/Asset/Script/SettingsFactory.php:31
+#: classes/Table/Screen.php:126, classes/Admin/Asset/Script/SettingsFactory.php:31
 msgid "Edit columns"
 msgstr ""
 
-#: classes/Table/Screen.php:124
+#: classes/Table/Screen.php:128
 msgid "Loading..."
 msgstr ""
 
-#: classes/Table/Screen.php:125
+#: classes/Table/Screen.php:129
 msgid "Edit"
 msgstr ""
 
-#: classes/Table/Screen.php:126, classes/Admin/Asset/Columns.php:387, classes/Setting/ComponentFactory/MediaLink.php:30, classes/Value/Formatter/Media/PreviewViewLink.php:49
+#: classes/Table/Screen.php:130, classes/Admin/Asset/Columns.php:387, classes/Setting/ComponentFactory/MediaLink.php:30, classes/Value/Formatter/Media/PreviewViewLink.php:49
 msgid "View"
 msgstr ""
 
-#: classes/Table/Screen.php:130, classes/Admin/Asset/Script/SettingsFactory.php:30
+#: classes/Table/Screen.php:134, classes/Admin/Asset/Script/SettingsFactory.php:30
 msgid "Show %s button on table screen."
 msgstr ""
 
@@ -992,14 +992,6 @@ msgstr ""
 msgid "Column Info"
 msgstr ""
 
-#: classes/Admin/ScreenOption/ListScreenId.php:33
-msgid "List Screen ID"
-msgstr ""
-
-#: classes/Admin/ScreenOption/ListScreenSource.php:31
-msgid "List Screen Source"
-msgstr ""
-
 #: classes/Admin/ScreenOption/ListScreenType.php:33
 msgid "List Screen Key"
 msgstr ""
@@ -1348,23 +1340,27 @@ msgstr ""
 msgid "Invalid view."
 msgstr ""
 
+#: classes/RequestHandler/Ajax/IntegrationToggle.php:47, classes/Admin/Asset/Script/SettingsFactory.php:38
+msgid "Settings saved successfully."
+msgstr ""
+
 #: classes/RequestHandler/Ajax/ListScreenDelete.php:50
 msgid "Table view %s successfully deleted."
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:70
+#: classes/RequestHandler/Ajax/ListScreenSave.php:74
 msgid "List screen not found"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:114
+#: classes/RequestHandler/Ajax/ListScreenSave.php:118
 msgid "Column settings could not be saved."
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:124
+#: classes/RequestHandler/Ajax/ListScreenSave.php:134
 msgid "Settings for %s updated successfully."
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:129
+#: classes/RequestHandler/Ajax/ListScreenSave.php:139
 msgid "View %s screen"
 msgstr ""
 
@@ -1782,11 +1778,11 @@ msgstr ""
 msgid "Use an icon?"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/PostType.php:31
+#: classes/Setting/ComponentFactory/PostType.php:33
 msgid "Post Type"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/PostType.php:52
+#: classes/Setting/ComponentFactory/PostType.php:54
 msgid "All Post Types"
 msgstr ""
 
@@ -2010,10 +2006,6 @@ msgstr ""
 
 #: classes/Admin/Asset/Script/SettingsFactory.php:34
 msgid "Delete all column settings and restore the default settings."
-msgstr ""
-
-#: classes/Admin/Asset/Script/SettingsFactory.php:38
-msgid "Settings saved successfully."
 msgstr ""
 
 #: classes/Admin/Asset/Script/SettingsFactory.php:39
