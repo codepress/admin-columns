@@ -680,6 +680,14 @@
   border-top-width: 1px
 }
 
+.acu-border-t-0 {
+  border-top-width: 0px
+}
+
+.acu-border-t-\[0\] {
+  border-top-width: 0
+}
+
 .acu-border-solid {
   border-style: solid
 }

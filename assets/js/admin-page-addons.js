@@ -4844,13 +4844,17 @@ function create_fragment(ctx) {
   let div;
   let div_class_value;
   let current;
-  const default_slot_template = /*#slots*/ctx[4].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[3], null);
+  const default_slot_template = /*#slots*/ctx[3].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[2], null);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       if (default_slot) default_slot.c();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", div_class_value = /*classes*/ctx[0].join(' '));
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", div_class_value = 'acu-px-[20px] acu-pt-[20px] acu-pb-[20px] ' + /*classNames*/ctx[1].join(' '));
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-0", ! /*border*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-t", ! /*border*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-solid", ! /*border*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-ui-border", ! /*border*/ctx[0]);
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
@@ -4861,9 +4865,24 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/8)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[3], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[3]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[3], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/4)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[2], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[2]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[2], dirty, null), null);
         }
+      }
+      if (!current || dirty & /*classNames*/2 && div_class_value !== (div_class_value = 'acu-px-[20px] acu-pt-[20px] acu-pb-[20px] ' + /*classNames*/ctx[1].join(' '))) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", div_class_value);
+      }
+      if (!current || dirty & /*classNames, border*/3) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-0", ! /*border*/ctx[0]);
+      }
+      if (!current || dirty & /*classNames, border*/3) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-t", ! /*border*/ctx[0]);
+      }
+      if (!current || dirty & /*classNames, border*/3) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-solid", ! /*border*/ctx[0]);
+      }
+      if (!current || dirty & /*classNames, border*/3) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-ui-border", ! /*border*/ctx[0]);
       }
     },
     i(local) {
@@ -4894,23 +4913,19 @@ function instance($$self, $$props, $$invalidate) {
   let {
     classNames = []
   } = $$props;
-  let classes = ['acu-px-[20px] acu-pt-[20px] acu-pb-[20px] ', ...classNames];
-  if (border) {
-    classes.push('acu-border-0 acu-border-t acu-border-solid acu-border-ui-border');
-  }
   $$self.$$set = $$props => {
-    if ('border' in $$props) $$invalidate(1, border = $$props.border);
-    if ('classNames' in $$props) $$invalidate(2, classNames = $$props.classNames);
-    if ('$$scope' in $$props) $$invalidate(3, $$scope = $$props.$$scope);
+    if ('border' in $$props) $$invalidate(0, border = $$props.border);
+    if ('classNames' in $$props) $$invalidate(1, classNames = $$props.classNames);
+    if ('$$scope' in $$props) $$invalidate(2, $$scope = $$props.$$scope);
   };
-  return [classes, border, classNames, $$scope, slots];
+  return [border, classNames, $$scope, slots];
 }
 class AcPanelFooter extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      border: 1,
-      classNames: 2
+      border: 0,
+      classNames: 1
     });
   }
 }
