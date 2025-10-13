@@ -384,7 +384,7 @@ class Columns extends Script
                         'clear_columns'        => __('Clear columns', 'codepress-admin-columns'),
                         'undo'                 => __('Undo', 'codepress-admin-columns'),
                         'load_default_columns' => __('Load default columns', 'codepress-admin-columns'),
-                        'view'                 => __('View', 'codepress-admin-columns'),
+                        'view'                 => __('View Table', 'codepress-admin-columns'),
                     ],
                     'sentence' => [
                         'columns_read_only'       => __(

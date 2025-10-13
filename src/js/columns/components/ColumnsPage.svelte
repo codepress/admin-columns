@@ -59,7 +59,7 @@
 		{#each ListScreenSections.getSections( 'header_bar' ) as component}
 			<HtmlSection component={component}></HtmlSection>
 		{/each}
-		<a href="{$currentTableUrl}" class="acui-button acui-button-default">{i18n.editor.label.view} {ListKeys.getLabelForKey( $currentListKey ) ?? ''}</a>
+		<a href="{$currentTableUrl}" class="acui-button acui-button-default">{i18n.editor.label.view}</a>
 		{#if !$listScreenIsReadOnly && $hasUsagePermissions }
 			<AcButton
 				type="primary"
