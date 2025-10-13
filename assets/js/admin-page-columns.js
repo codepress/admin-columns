@@ -55599,7 +55599,8 @@ const checkForChanges = debounce(() => {
     const orig = (0,svelte_store__WEBPACK_IMPORTED_MODULE_7__.get)(_columns_store__WEBPACK_IMPORTED_MODULE_2__.initialListScreenData);
     const current = (0,svelte_store__WEBPACK_IMPORTED_MODULE_7__.get)(_columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataStore);
     const isInitializing = (0,svelte_store__WEBPACK_IMPORTED_MODULE_7__.get)(_columns_store__WEBPACK_IMPORTED_MODULE_2__.isInitializingColumnSettings);
-    if (isInitializing) {
+    const isStored = (0,svelte_store__WEBPACK_IMPORTED_MODULE_7__.get)(_columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenIsStored);
+    if (isInitializing || !isStored) {
         return;
     }
     _columns_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataHasChanges.set(JSON.stringify(orig) !== JSON.stringify(current));

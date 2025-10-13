@@ -12,6 +12,7 @@ import {
     listScreenDataHasChanges,
     listScreenDataStore,
     listScreenIsReadOnly,
+    listScreenIsStored,
     showColumnInfo
 } from "./columns/store";
 import {getColumnSettingsConfig} from "./columns/utils/global";
@@ -58,8 +59,9 @@ const checkForChanges = debounce(() => {
     const orig = get(initialListScreenData);
     const current = get(listScreenDataStore);
     const isInitializing = get(isInitializingColumnSettings);
+    const isStored = get(listScreenIsStored);
 
-    if (isInitializing) {
+    if (isInitializing || !isStored) {
         return;
     }
 
