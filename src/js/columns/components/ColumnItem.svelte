@@ -119,7 +119,7 @@
 				{#if !isOriginalColumn && ! $listScreenIsReadOnly}
 					<a class="ac-column-row-action -duplicate" href={'#'} on:click|preventDefault|stopPropagation={handleDuplicate}>Duplicate</a>
 				{/if}
-				{#if !$listScreenIsReadOnly}
+				{#if !$listScreenIsReadOnly && !locked}
 					<a class="ac-column-row-action -delete" href={'#'} on:click|preventDefault|stopPropagation={handleDelete}>Delete</a>
 				{/if}
 			</div>
