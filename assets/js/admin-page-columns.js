@@ -4227,7 +4227,7 @@ function create_if_block(ctx) {
     },
     p(ctx, dirty) {
       const acpanel_changes = {};
-      if (dirty[0] & /*columnTypeComponent, isSaving, $listScreenDataHasChanges, $listScreenIsStored, data, undoState, $listScreenIsReadOnly, locked, sortableContainer, config, loadingDefaultColumns*/3839 | dirty[1] & /*$$scope*/4096) {
+      if (dirty[0] & /*data, columnTypeComponent, isSaving, $listScreenDataHasChanges, $listScreenIsStored, undoState, $listScreenIsReadOnly, locked, sortableContainer, config, loadingDefaultColumns*/3839 | dirty[1] & /*$$scope*/4096) {
         acpanel_changes.$$scope = {
           dirty,
           ctx
@@ -5163,7 +5163,7 @@ function create_trigger_slot(ctx) {
   };
 }
 
-// (234:2) <AcPanelFooter slot="footer" classNames={['acu-flex acu-justify-end acu-gap-2']}>
+// (234:2) <AcPanelFooter slot="footer" border={data.columns.length === 0}  classNames={['acu-flex acu-justify-end acu-gap-2']}>
 function create_default_slot(ctx) {
   let current_block_type_index;
   let if_block;
@@ -5234,6 +5234,7 @@ function create_footer_slot(ctx) {
   acpanelfooter = new ACUi_index__WEBPACK_IMPORTED_MODULE_14__.AcPanelFooter({
     props: {
       slot: "footer",
+      border: /*data*/ctx[0].columns.length === 0,
       classNames: ['acu-flex acu-justify-end acu-gap-2'],
       $$slots: {
         default: [create_default_slot]
@@ -5253,6 +5254,7 @@ function create_footer_slot(ctx) {
     },
     p(ctx, dirty) {
       const acpanelfooter_changes = {};
+      if (dirty[0] & /*data*/1) acpanelfooter_changes.border = /*data*/ctx[0].columns.length === 0;
       if (dirty[0] & /*columnTypeComponent, isSaving, $listScreenDataHasChanges, $listScreenIsStored, data, undoState, $listScreenIsReadOnly, locked*/3741 | dirty[1] & /*$$scope*/4096) {
         acpanelfooter_changes.$$scope = {
           dirty,
@@ -24897,10 +24899,10 @@ function create_fragment(ctx) {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       if (default_slot) default_slot.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", div_class_value = 'acu-px-[20px] acu-pt-[20px] acu-pb-[20px] ' + /*classNames*/ctx[1].join(' '));
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-0", ! /*border*/ctx[0]);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-t", ! /*border*/ctx[0]);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-solid", ! /*border*/ctx[0]);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-ui-border", ! /*border*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-0", /*border*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-t", /*border*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-solid", /*border*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-ui-border", /*border*/ctx[0]);
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
@@ -24919,16 +24921,16 @@ function create_fragment(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", div_class_value);
       }
       if (!current || dirty & /*classNames, border*/3) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-0", ! /*border*/ctx[0]);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-0", /*border*/ctx[0]);
       }
       if (!current || dirty & /*classNames, border*/3) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-t", ! /*border*/ctx[0]);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-t", /*border*/ctx[0]);
       }
       if (!current || dirty & /*classNames, border*/3) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-solid", ! /*border*/ctx[0]);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-solid", /*border*/ctx[0]);
       }
       if (!current || dirty & /*classNames, border*/3) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-ui-border", ! /*border*/ctx[0]);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div, "acu-border-ui-border", /*border*/ctx[0]);
       }
     },
     i(local) {
