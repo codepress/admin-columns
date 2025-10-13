@@ -20,6 +20,10 @@ export type listScreenSettingsResponse = {
         is_template: boolean
         column_settings: { [key: string]: AC.Vars.Settings.ColumnSetting[] }
         column_types: ColumnConfig[]
+        labels: {
+            singular: string,
+            plural: string,
+        }
     },
     success: true
 }

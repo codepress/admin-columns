@@ -12,7 +12,7 @@ import {
     listScreenDataStore,
     listScreenIsReadOnly,
     listScreenIsStored,
-    listScreenIsTemplate
+    listScreenIsTemplate, listScreenLabels
 } from "../store";
 
 export const config = writable<{ [key: string]: AC.Vars.Settings.ColumnSetting[] }>({});
@@ -46,6 +46,7 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
         columnTypesStore.set(data.column_types.sort(columnTypeSorter));
         listScreenIsReadOnly.set(data.read_only);
         listScreenDataStore.set(listScreenData);
+        listScreenLabels.set(data.labels);
         currentListId.set(listScreenData.id);
         initialListScreenData.set(cloneDeep(listScreenData));
         listScreenDataHasChanges.set(false);

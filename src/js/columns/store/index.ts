@@ -3,6 +3,7 @@ export * from "./current-list-screen";
 export * from "./debug";
 export * from "./favorite-listkeys";
 export * from "./list-screen-data";
+export * from "./list-screen-labels";
 export * from "./opened-columns";
 export * from "./permissions";
 export * from "./read_only";

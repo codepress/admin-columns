@@ -12,7 +12,7 @@
         listScreenDataHasChanges,
         listScreenDataStore,
         listScreenIsReadOnly,
-        listScreenIsStored,
+        listScreenIsStored, listScreenLabels,
         openedColumnsStore
     } from "../store";
     import {createEventDispatcher, onMount, tick} from "svelte";
@@ -190,6 +190,7 @@
         setTimeout(makeSortable, 1000);
     });
 
+    listScreenLabels
 </script>
 
 <!--<DebugToolbar bind:data={data} bind:config={config}/>-->
@@ -206,7 +207,11 @@
 				</div>
 				<div class="acu-flex-grow acu-max-w-[400px]">
 					<AcInputGroup>
-						<input bind:value={data.title} id="listTitle" disabled={locked} type="text" placeholder={ListKeys.getLabelForKey( data.type )}/>
+						<input bind:value={data.title}
+							id="listTitle"
+							disabled={locked}
+							type="text"
+							placeholder={$listScreenLabels?.singular}/>
 					</AcInputGroup>
 				</div>
 			</div>
