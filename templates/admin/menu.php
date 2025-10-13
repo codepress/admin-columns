@@ -12,7 +12,7 @@ $first = $items[0];
 
 <header class="acu-relative acu-z-10 acu-flex acu-flex-col md:acu-flex-row acu-bg-gray-dark acu-px-4 md:acu-px-[50px] acu-py-3" id="acMenu">
 	<div class="acu-w-[260px] acu-items-center acu-flex ">
-		<a href="<?= escl_url($first->get_url()) ?>">
+		<a href="<?= esc_url($first->get_url()) ?>">
 			<img class="acu-w-[180px]" src="<?= esc_url(ac_get_url('assets/images/logo-ac-light.svg')) ?>" alt="">
 		</a>
 	</div>
