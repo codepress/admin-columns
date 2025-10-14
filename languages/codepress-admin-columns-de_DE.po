@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-10-05 20:59:40+0000\n"
+"PO-Revision-Date: 2025-10-13 22:56:15+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2209,7 +2209,7 @@ msgstr "Taxonomie"
 
 #: classes/Column/Post/Sticky.php:16
 msgid "Sticky"
-msgstr "Anpinnen"
+msgstr "Oben halten"
 
 #: classes/Column/Comment/Status.php:14 classes/Column/Post/Status.php:12
 #: classes/Settings/Column/Post.php:124
