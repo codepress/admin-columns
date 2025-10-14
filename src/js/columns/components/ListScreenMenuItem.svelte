@@ -11,6 +11,7 @@
 
     export let key: string;
     export let label: string
+    export let showActiveFavorite: boolean = false;
 
     const showUnknownErrorMessage = () => {
         NotificationProgrammatic.open({type: 'error', message: i18n.errors.ajax_unknown})
@@ -52,6 +53,7 @@
 		on:click|preventDefault={ selectValue }>{label}
 
 		{#if $favoriteListKeysStore.includes( key ) }
+			{#if showActiveFavorite}
 			<span
 				role="none"
 				class="dashicons dashicons-star-filled ac-menu-group-list__favorite"
@@ -59,7 +61,9 @@
 			>
 
 			</span>
-		{:else}
+			{/if}
+
+		{:else }
 			<span
 				role="none"
 				class="dashicons dashicons-star-empty ac-menu-group-list__favorite"

@@ -8251,6 +8251,7 @@ function create_each_block_2(ctx) {
   }
   listscreenmenuitem = new _ListScreenMenuItem_svelte__WEBPACK_IMPORTED_MODULE_5__["default"]({
     props: {
+      showActiveFavorite: true,
       key: /*key*/ctx[20],
       label: /*label*/ctx[24]
     }
@@ -8286,7 +8287,7 @@ function create_each_block_2(ctx) {
   };
 }
 
-// (115:4) <MenuGroupHeader on:click={()=>toggleGroup(key)} opened={openedGroups.includes( key )}>
+// (116:4) <MenuGroupHeader on:click={()=>toggleGroup(key)} opened={openedGroups.includes( key )}>
 function create_default_slot(ctx) {
   let groupicon;
   let t0;
@@ -8336,7 +8337,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (120:4) {#if openedGroups.includes( key )}
+// (121:4) {#if openedGroups.includes( key )}
 function create_if_block(ctx) {
   let ul;
   let current;
@@ -8411,7 +8412,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (122:6) {#each Object.entries( group.options ) as [ key, label ]}
+// (123:6) {#each Object.entries( group.options ) as [ key, label ]}
 function create_each_block_1(ctx) {
   let listscreenmenuitem;
   let current;
@@ -8455,7 +8456,7 @@ function create_each_block_1(ctx) {
   };
 }
 
-// (113:2) {#each Object.entries( menu ) as [ key, group ]}
+// (114:2) {#each Object.entries( menu ) as [ key, group ]}
 function create_each_block(ctx) {
   let div;
   let menugroupheader;
@@ -8821,7 +8822,7 @@ function create_else_block(ctx) {
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(span, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(/*favoriteItem*/ctx[4])));
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(span, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(/*favoriteItem*/ctx[5])));
         mounted = true;
       }
     },
@@ -8836,8 +8837,44 @@ function create_else_block(ctx) {
   };
 }
 
-// (44:2) {#if $favoriteListKeysStore.includes( key ) }
+// (45:2) {#if $favoriteListKeysStore.includes( key ) }
 function create_if_block(ctx) {
+  let if_block_anchor;
+  let if_block = /*showActiveFavorite*/ctx[2] && create_if_block_1(ctx);
+  return {
+    c() {
+      if (if_block) if_block.c();
+      if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+    },
+    m(target, anchor) {
+      if (if_block) if_block.m(target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
+    },
+    p(ctx, dirty) {
+      if (/*showActiveFavorite*/ctx[2]) {
+        if (if_block) {
+          if_block.p(ctx, dirty);
+        } else {
+          if_block = create_if_block_1(ctx);
+          if_block.c();
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
+      }
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(if_block_anchor);
+      }
+      if (if_block) if_block.d(detaching);
+    }
+  };
+}
+
+// (46:3) {#if showActiveFavorite}
+function create_if_block_1(ctx) {
   let span;
   let mounted;
   let dispose;
@@ -8851,7 +8888,7 @@ function create_if_block(ctx) {
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(span, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(/*unfavoriteItem*/ctx[5])));
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(span, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(/*unfavoriteItem*/ctx[6])));
         mounted = true;
       }
     },
@@ -8877,8 +8914,8 @@ function create_fragment(ctx) {
   let mounted;
   let dispose;
   function select_block_type(ctx, dirty) {
-    if (dirty & /*$favoriteListKeysStore, key*/9) show_if = null;
-    if (show_if == null) show_if = !! /*$favoriteListKeysStore*/ctx[3].includes(/*key*/ctx[0]);
+    if (dirty & /*$favoriteListKeysStore, key*/17) show_if = null;
+    if (show_if == null) show_if = !! /*$favoriteListKeysStore*/ctx[4].includes(/*key*/ctx[0]);
     if (show_if) return create_if_block;
     return create_else_block;
   }
@@ -8893,9 +8930,9 @@ function create_fragment(ctx) {
       if_block.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "ac-menu-group-list__link");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", a_href_value = '#');
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "active", /*$currentListKey*/ctx[2] === /*key*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "active", /*$currentListKey*/ctx[3] === /*key*/ctx[0]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(li, "class", "ac-menu-group-list__item");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(li, "active", /*$currentListKey*/ctx[2] === /*key*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(li, "active", /*$currentListKey*/ctx[3] === /*key*/ctx[0]);
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, li, anchor);
@@ -8905,7 +8942,7 @@ function create_fragment(ctx) {
       if_block.m(a, null);
       current = true;
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(a, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(/*selectValue*/ctx[6]));
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(a, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(/*selectValue*/ctx[7]));
         mounted = true;
       }
     },
@@ -8921,11 +8958,11 @@ function create_fragment(ctx) {
           if_block.m(a, null);
         }
       }
-      if (!current || dirty & /*$currentListKey, key*/5) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "active", /*$currentListKey*/ctx[2] === /*key*/ctx[0]);
+      if (!current || dirty & /*$currentListKey, key*/9) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(a, "active", /*$currentListKey*/ctx[3] === /*key*/ctx[0]);
       }
-      if (!current || dirty & /*$currentListKey, key*/5) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(li, "active", /*$currentListKey*/ctx[2] === /*key*/ctx[0]);
+      if (!current || dirty & /*$currentListKey, key*/9) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(li, "active", /*$currentListKey*/ctx[3] === /*key*/ctx[0]);
       }
     },
     i(local) {
@@ -8964,8 +9001,8 @@ function create_fragment(ctx) {
 function instance($$self, $$props, $$invalidate) {
   let $currentListKey;
   let $favoriteListKeysStore;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.currentListKey, $$value => $$invalidate(2, $currentListKey = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.favoriteListKeysStore, $$value => $$invalidate(3, $favoriteListKeysStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.currentListKey, $$value => $$invalidate(3, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_2__.favoriteListKeysStore, $$value => $$invalidate(4, $favoriteListKeysStore = $$value));
   const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_3__.createEventDispatcher)();
   const i18n = (0,_utils_global__WEBPACK_IMPORTED_MODULE_6__.getColumnSettingsTranslation)();
   let {
@@ -8973,6 +9010,9 @@ function instance($$self, $$props, $$invalidate) {
   } = $$props;
   let {
     label
+  } = $$props;
+  let {
+    showActiveFavorite = false
   } = $$props;
   const showUnknownErrorMessage = () => {
     _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_5__.NotificationProgrammatic.open({
@@ -9004,15 +9044,17 @@ function instance($$self, $$props, $$invalidate) {
   $$self.$$set = $$props => {
     if ('key' in $$props) $$invalidate(0, key = $$props.key);
     if ('label' in $$props) $$invalidate(1, label = $$props.label);
+    if ('showActiveFavorite' in $$props) $$invalidate(2, showActiveFavorite = $$props.showActiveFavorite);
   };
-  return [key, label, $currentListKey, $favoriteListKeysStore, favoriteItem, unfavoriteItem, selectValue];
+  return [key, label, showActiveFavorite, $currentListKey, $favoriteListKeysStore, favoriteItem, unfavoriteItem, selectValue];
 }
 class ListScreenMenuItem extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       key: 0,
-      label: 1
+      label: 1,
+      showActiveFavorite: 2
     });
   }
 }

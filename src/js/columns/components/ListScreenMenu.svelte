@@ -120,6 +120,7 @@
 				<ul class="ac-menu-group-list">
 					{#each Object.entries( favoriteItems ) as [ key, label ]}
 						<ListScreenMenuItem
+							showActiveFavorite={true}
 							{key}
 							{label}
 							on:selectItem={ () => handleMenuSelect(key)}
