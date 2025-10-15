@@ -21,7 +21,7 @@
 
     getGeneralOption({name: 'show_edit_button', nonce: config._ajax_nonce}).then(r => {
         if (r.data.success) {
-            showButtonValue = r.data.data === '1';
+            showButtonValue = r.data.data === '1' || typeof r.data.data === 'undefined';
             loadingShowButtonValue = false;
         }
     })
