@@ -191,6 +191,10 @@ class V7000 extends Update
 
     private function modify_column_options(array $column): ?array
     {
+        if ( ! isset($column['type'])) {
+            return null;
+        }
+
         // User column: `column-user_posts` has been replaced with `column-user_postcount`
         if ($column['type'] === 'column-user_posts') {
             $column['type'] = 'column-user_postcount';
