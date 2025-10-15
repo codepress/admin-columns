@@ -36068,6 +36068,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var svelte_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/store */ "./node_modules/svelte/src/runtime/store/index.js");
 /* harmony import */ var _ajax_ajax__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ajax/ajax */ "./js/columns/ajax/ajax.ts");
 /* harmony import */ var lodash_es_cloneDeep__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash-es/cloneDeep */ "./node_modules/lodash-es/cloneDeep.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./js/columns/store/index.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -36082,19 +36083,25 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 
+
 const config = (0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.writable)({});
 const loadedListId = (0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.writable)(null);
 const refreshState = {
     error: (0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.writable)(null),
 };
+let currentAbortController;
 function refreshListScreenData(listKey_1) {
     return __awaiter(this, arguments, void 0, function* (listKey, listId = '') {
         var _a;
+        if (currentAbortController) {
+            currentAbortController.abort();
+        }
         _store__WEBPACK_IMPORTED_MODULE_2__.isLoadingColumnSettings.set(true);
         _store__WEBPACK_IMPORTED_MODULE_2__.isInitializingColumnSettings.set(true);
         refreshState.error.set(null);
         _store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataStore.set(null);
         const abortController = new AbortController();
+        currentAbortController = abortController;
         try {
             const response = yield (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_1__.getListScreenSettings)(listKey, listId, abortController);
             const data = response.data.data;
@@ -36116,16 +36123,22 @@ function refreshListScreenData(listKey_1) {
             _store__WEBPACK_IMPORTED_MODULE_2__.listScreenIsTemplate.set(data.is_template);
         }
         catch (error) {
+            if ((0,axios__WEBPACK_IMPORTED_MODULE_4__.isCancel)(error)) {
+                return;
+            }
             refreshState.error.set((_a = error.message) !== null && _a !== void 0 ? _a : 'Unknown error');
             throw error;
         }
         finally {
+            if (abortController.signal.aborted) {
+                return;
+            }
             _store__WEBPACK_IMPORTED_MODULE_2__.isLoadingColumnSettings.set(false);
             setTimeout(() => {
                 // Let the form 'correct' the data that is loaded by the settings
                 _store__WEBPACK_IMPORTED_MODULE_2__.initialListScreenData.set((0,lodash_es_cloneDeep__WEBPACK_IMPORTED_MODULE_3__["default"])((0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.get)(_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataStore)));
                 _store__WEBPACK_IMPORTED_MODULE_2__.isInitializingColumnSettings.set(false);
-            }, 500);
+            }, 1000);
         }
     });
 }
@@ -40191,6 +40204,63 @@ function rectToClientRect(rect) {
     y
   };
 }
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/index.js":
+/*!*************************************!*\
+  !*** ./node_modules/axios/index.js ***!
+  \*************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Axios: () => (/* binding */ Axios),
+/* harmony export */   AxiosError: () => (/* binding */ AxiosError),
+/* harmony export */   AxiosHeaders: () => (/* binding */ AxiosHeaders),
+/* harmony export */   Cancel: () => (/* binding */ Cancel),
+/* harmony export */   CancelToken: () => (/* binding */ CancelToken),
+/* harmony export */   CanceledError: () => (/* binding */ CanceledError),
+/* harmony export */   HttpStatusCode: () => (/* binding */ HttpStatusCode),
+/* harmony export */   VERSION: () => (/* binding */ VERSION),
+/* harmony export */   all: () => (/* binding */ all),
+/* harmony export */   "default": () => (/* reexport safe */ _lib_axios_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   formToJSON: () => (/* binding */ formToJSON),
+/* harmony export */   getAdapter: () => (/* binding */ getAdapter),
+/* harmony export */   isAxiosError: () => (/* binding */ isAxiosError),
+/* harmony export */   isCancel: () => (/* binding */ isCancel),
+/* harmony export */   mergeConfig: () => (/* binding */ mergeConfig),
+/* harmony export */   spread: () => (/* binding */ spread),
+/* harmony export */   toFormData: () => (/* binding */ toFormData)
+/* harmony export */ });
+/* harmony import */ var _lib_axios_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/axios.js */ "./node_modules/axios/lib/axios.js");
+
+
+// This module is intended to unwrap Axios default export as named.
+// Keep top-level export same with static properties
+// so that it can keep same with es module or cjs
+const {
+  Axios,
+  AxiosError,
+  CanceledError,
+  isCancel,
+  CancelToken,
+  VERSION,
+  all,
+  Cancel,
+  isAxiosError,
+  spread,
+  toFormData,
+  AxiosHeaders,
+  HttpStatusCode,
+  formToJSON,
+  getAdapter,
+  mergeConfig
+} = _lib_axios_js__WEBPACK_IMPORTED_MODULE_0__["default"];
 
 
 

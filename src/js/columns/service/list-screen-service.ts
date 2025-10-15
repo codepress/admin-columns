@@ -1,6 +1,7 @@
 import {get, writable} from "svelte/store";
 import {getListScreenSettings} from "../ajax/ajax";
 import cloneDeep from "lodash-es/cloneDeep";
+import {isCancel} from "axios";
 import {
     columnTypeSorter,
     columnTypesStore,
@@ -22,7 +23,13 @@ export const refreshState = {
     error: writable<string | null>(null),
 };
 
+let currentAbortController: AbortController;
+
 export async function refreshListScreenData(listKey: string, listId: string = '') {
+    if (currentAbortController) {
+        currentAbortController.abort();
+    }
+
     isLoadingColumnSettings.set(true);
     isInitializingColumnSettings.set( true );
     refreshState.error.set(null);
@@ -30,6 +37,7 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
     listScreenDataStore.set(null);
 
     const abortController = new AbortController();
+    currentAbortController = abortController;
 
     try {
         const response = await getListScreenSettings(listKey, listId, abortController);
@@ -53,15 +61,21 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
         listScreenIsStored.set(data.is_stored);
         listScreenIsTemplate.set(data.is_template);
     } catch (error: any) {
+        if (isCancel(error)) {
+            return;
+        }
         refreshState.error.set(error.message ?? 'Unknown error');
         throw error;
     } finally {
+        if (abortController.signal.aborted) {
+            return;
+        }
         isLoadingColumnSettings.set(false);
         setTimeout( () => {
             // Let the form 'correct' the data that is loaded by the settings
             initialListScreenData.set( cloneDeep(get(listScreenDataStore)) );
             isInitializingColumnSettings.set( false );
-        },500)
+        },1000)
 
     }
 }
