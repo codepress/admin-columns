@@ -80,6 +80,10 @@ class V7000 extends Update
         }
 
         foreach ($results as $item) {
+            if ( ! isset($item->option_name)) {
+                continue;
+            }
+
             $list_key = ac_helper()->string->remove_prefix($item->option_name, 'cpac_options_');
             $list_key = ac_helper()->string->remove_suffix($list_key, '__default');
 
@@ -149,11 +153,22 @@ class V7000 extends Update
                 continue;
             }
 
-            $has_changed_columns = false;
             $columns = unserialize($view->columns, ['allowed_classes' => false]);
+
+            if ( ! $columns || ! is_array($columns)) {
+                continue;
+            }
+
+            $has_changed_columns = false;
+
             $columns = array_values($columns);
 
             foreach ($columns as $i => $column) {
+                // invalid data
+                if ( ! is_array($column) || ! $column) {
+                    continue;
+                }
+
                 $updated_column = $this->modify_column_options($column);
 
                 if ($updated_column) {
