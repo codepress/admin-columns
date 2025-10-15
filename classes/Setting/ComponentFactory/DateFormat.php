@@ -97,7 +97,7 @@ abstract class DateFormat extends Builder
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $date_format = $this->get_date_formatter(
-            (string)$config->get('date_format')
+            (string)$config->get('date_format') ?: $this->get_default_option()
         );
 
         if ($date_format) {
