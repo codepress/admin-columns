@@ -1,8 +1,9 @@
 <script lang="ts">
     import Select from "svelte-select"
-    import {createEventDispatcher, onDestroy, onMount} from "svelte";
+    import {createEventDispatcher, onDestroy, onMount, tick} from "svelte";
     import {SvelteSelectItem} from "../../../../types/select";
     import {getRemoteSelectOptions} from "../../../ajax/settings";
+    import {debounce} from "lodash-es";
 
     export let config: AC.Column.Settings.SelectRemoteSetting;
     export let disabled: boolean = false;
@@ -45,8 +46,14 @@
 
     })
 
-    const selectEnter = (e) => {
-        if (e.key === 'Enter' && allowCreation && typeof emptyElement !== 'undefined' && emptyElement !== null) {
+    const selectEnter = async (e:KeyboardEvent) => {
+		if( ! allowCreation ){
+            return;
+		}
+
+        let option = options.find( o => o.value === searchTerm);
+
+        if (e.key === 'Enter' && typeof option === 'undefined' && searchTerm.length > 0) {
             selectNewItem();
         }
     }
