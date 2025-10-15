@@ -1,4 +1,4 @@
-import {writable} from "svelte/store";
+import {get, writable} from "svelte/store";
 import {getListScreenSettings} from "../ajax/ajax";
 import cloneDeep from "lodash-es/cloneDeep";
 import {
@@ -58,7 +58,10 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
     } finally {
         isLoadingColumnSettings.set(false);
         setTimeout( () => {
+            // Let the form 'correct' the data that is loaded by the settings
+            initialListScreenData.set( cloneDeep(get(listScreenDataStore)) );
             isInitializingColumnSettings.set( false );
-        },1000);
+        },500)
+
     }
 }

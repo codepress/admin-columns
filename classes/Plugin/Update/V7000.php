@@ -5,6 +5,7 @@ namespace AC\Plugin\Update;
 use AC\Plugin\Install\Database;
 use AC\Plugin\Update;
 use AC\Plugin\Version;
+use AC\Transient;
 
 class V7000 extends Update
 {
@@ -53,9 +54,16 @@ class V7000 extends Update
 
                 // Delete obsolete default sortables
                 $this->delete_default_sortables();
+                $this->flush_help_transient();
 
                 break;
         }
+    }
+
+    private function flush_help_transient(): void
+    {
+        $cache = new Transient('ac-deprecated-message-count');
+        $cache->delete();
     }
 
     private function delete_default_sortables(): void
