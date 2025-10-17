@@ -84,8 +84,9 @@ class MenuFactory implements MenuFactoryInterface
                 $url,
                 sprintf('%s %s', 'Admin Columns Pro', '<span class="dashicons dashicons-external"></span>'),
                 '-pro',
-                '_blank'
-            )
+                '_blank',
+                30
+            ),
         );
 
         do_action('ac/admin/page/menu', $menu);

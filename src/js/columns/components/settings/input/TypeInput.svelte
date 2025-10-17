@@ -38,8 +38,9 @@
             data.name = selectValue;
         }
 
-        if (! ColumnTypesUtils.isOriginalColumnType(oldValue)) {
-            //data.name = ColumnUtils.generateId();
+
+        if ( ColumnTypesUtils.isOriginalColumnType(oldValue) && ! ColumnTypesUtils.isOriginalColumnType(selectValue)) {
+            data.name = ColumnUtils.generateId();
         }
 
         if (columnType) {
