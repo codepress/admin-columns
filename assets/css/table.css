@@ -737,6 +737,10 @@ html.wp-toolbar .ac-tooltip {
   width: 100px;
   display: flex;
   justify-content: flex-end;
+  border-radius: 0 0 6px 0;
+}
+.ac-value-modal__navigation button.btn:last-child {
+  border-radius: 0 0 6px 0;
 }
 .ac-value-modal .ac-badge {
   background: #eee;
