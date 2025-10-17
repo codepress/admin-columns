@@ -636,12 +636,14 @@ html.wp-toolbar .ac-tooltip {
 .ac-value-modal .ac-value-modal-panel {
   background: #fff;
   width: 600px;
+  border-radius: 6px;
 }
 .ac-value-modal .ac-value-modal-panel__header {
   background: #fafafa;
   border-bottom: 1px solid #ccc;
   text-align: right;
   display: flex;
+  border-radius: 6px 6px 0 0;
 }
 .ac-value-modal .ac-value-modal-panel__header .ac-value-modal-title {
   text-align: left;
@@ -666,6 +668,7 @@ html.wp-toolbar .ac-tooltip {
 }
 .ac-value-modal .ac-value-modal-panel__header .ac-value-modal-actions button {
   border: none;
+  border-radius: 0 6px 0 0;
   background-color: transparent;
   cursor: pointer;
   border-left: 1px solid #ccc;
@@ -697,6 +700,7 @@ html.wp-toolbar .ac-tooltip {
   display: flex;
   border-top: 1px solid #ccc;
   background: #fafafa;
+  border-radius: 0 0 6px 6px;
 }
 .ac-value-modal .ac-value-modal-panel__footer .ac-value-modal__edit a {
   margin-top: 5px;
