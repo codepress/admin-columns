@@ -30,7 +30,8 @@ body .ac-modal {
 	}
 
 	&__dialog {
-		border: 1px solid #C8C8C8;
+		border: 1px solid #787878;
+		border-radius: 6px;
 		background: #fff;
 		position: fixed;
 		width: var(--modalWidth,650px);
@@ -44,6 +45,7 @@ body .ac-modal {
 		}
 
 		&__close {
+			border-radius: 6px;
 			display: inline-block;
 			padding: 0;
 			margin: 0;
@@ -121,10 +123,12 @@ body .ac-modal {
 		}
 
 		&__footer {
+			border-radius: 0 0 6px 6px;
 			padding: 12px 20px;
 			border-top: 1px solid #DBDBDB;
 			background: #F9F9F9;
 			font-size: 13px;
+
 
 			.button {
 				margin-left: 0;
