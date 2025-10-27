@@ -2,18 +2,18 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-06-10 09:59:59+0000\n"
+"PO-Revision-Date: 2025-10-15 12:05:51+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.1\n"
+"X-Generator: GlotPress/4.0.3\n"
 "Language: sv_SE\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
 #: templates/admin/edit-menu.php:35
 msgid "View %s"
-msgstr ""
+msgstr "Visa %s"
 
 #: classes/Service/PluginUpdate.php:119
 msgid "See the Plugins page for details."
@@ -21,12 +21,12 @@ msgstr ""
 
 #: classes/Service/PluginUpdate.php:117
 msgid "Warning"
-msgstr ""
+msgstr "Varning"
 
 #: classes/Service/PluginUpdate.php:88
 msgctxt "Anchor text to upgrade guide."
 msgid "upgrade guide"
-msgstr ""
+msgstr "uppgraderingsguide"
 
 #: classes/Service/PluginUpdate.php:72
 msgctxt "%s contains the link to upgrade guide. Label is translated separately."
@@ -47,7 +47,7 @@ msgstr "Stigande"
 
 #: templates/admin/edit-submenu.php:10
 msgid "Table Views"
-msgstr ""
+msgstr "Tabellvyer"
 
 #: settings/translations/global.php:9
 msgid "Filter"
@@ -249,7 +249,7 @@ msgstr "Förlustfri"
 #: classes/Settings/Column/FileMetaAudio.php:25
 #: classes/Settings/Column/FileMetaVideo.php:17
 msgid "Length Formatted"
-msgstr ""
+msgstr "Längd formaterad"
 
 #: classes/Settings/Column/FileMetaAudio.php:23
 msgid "Filesize"

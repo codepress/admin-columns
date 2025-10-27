@@ -1,14 +1,14 @@
-# Translation of Plugins - Admin Columns - Stable (latest release) in Hungarian
+# Translation of Plugins - Admin Columns - Stable (latest release) in Chinese (China)
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-11-09 10:25:54+0000\n"
+"PO-Revision-Date: 2021-03-23 13:26:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/4.0.3\n"
-"Language: hu\n"
+"Language: zh_CN\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
 #: templates/admin/edit-menu.php:35
@@ -57,7 +57,6 @@ msgstr ""
 msgid "channel"
 msgid_plural "channels"
 msgstr[0] ""
-msgstr[1] ""
 
 #: classes/Settings/Column/DateFormat.php:40
 msgid "Date Save Format"
@@ -230,7 +229,6 @@ msgstr ""
 msgid "channels"
 msgid_plural "channels"
 msgstr[0] ""
-msgstr[1] ""
 
 #: classes/Settings/Column/FileMetaAudio.php:41
 msgid "Kbps"
@@ -651,74 +649,74 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:316
 msgid "Notifications"
-msgstr ""
+msgstr "通知"
 
 #: templates/settings/setting-label-icons.php:315
 msgid "Widgets"
-msgstr ""
+msgstr "小工具"
 
 #: templates/settings/setting-label-icons.php:301
 msgid "Products"
-msgstr ""
+msgstr "产品"
 
 #: templates/settings/setting-label-icons.php:288
 msgid "Buddicons"
-msgstr ""
+msgstr "Buddicons"
 
 #: templates/settings/setting-label-icons.php:271
 msgid "WordPress.org"
-msgstr ""
+msgstr "WordPress.org"
 
 #: templates/settings/setting-label-icons.php:245
 msgid "Social"
-msgstr ""
+msgstr "社会化"
 
 #: templates/settings/setting-label-icons.php:207
 msgid "Posts Screen"
-msgstr ""
+msgstr "文章列表页面"
 
 #: templates/settings/setting-label-icons.php:172
 msgid "TinyMCE"
-msgstr ""
+msgstr "TinyMCE"
 
 #: templates/settings/setting-label-icons.php:138
 msgid "Block Editor"
-msgstr ""
+msgstr "区块编辑器"
 
 #: templates/settings/setting-label-icons.php:130
 msgid "Databases"
-msgstr ""
+msgstr "数据库"
 
 #: templates/settings/setting-label-icons.php:119
 msgid "Image Editing"
-msgstr ""
+msgstr "图像编辑"
 
 #: templates/settings/setting-label-icons.php:80
 msgid "Post Formats"
-msgstr ""
+msgstr "文章格式"
 
 #: templates/settings/setting-label-icons.php:72
 msgid "Welcome Screen"
-msgstr ""
+msgstr "欢迎屏幕"
 
 #: templates/settings/setting-label-icons.php:43
 msgid "Admin Menu"
-msgstr ""
+msgstr "管理菜单"
 
 #: templates/admin/edit-actions.php:40
 msgid "Key"
-msgstr ""
+msgstr "键"
 
 #: templates/admin/side-banner.php:52
 msgid "Export table contents to CSV"
-msgstr ""
+msgstr "导出表格内容到CSV"
 
 #: templates/tooltip/bulk-editing.php:37 templates/tooltip/custom-field.php:22
 #: templates/tooltip/export-disabled.php:17 templates/tooltip/export.php:32
 #: templates/tooltip/inline-editing.php:43
 #: templates/tooltip/smart-filtering.php:42 templates/tooltip/sorting.php:36
 msgid "Learn more &raquo;"
-msgstr ""
+msgstr "阅读更多&raquo;"
 
 #: classes/Column/User/Login.php:24
 msgid "Super Admin"
@@ -1627,7 +1625,6 @@ msgstr ""
 msgid "The callback used is %s."
 msgid_plural "The callbacks used are %s."
 msgstr[0] ""
-msgstr[1] ""
 
 #: classes/Admin/Page/Help.php:49
 msgid "View documentation"
@@ -1753,7 +1750,7 @@ msgstr ""
 
 #: classes/ColumnGroups.php:14
 msgid "Custom Fields"
-msgstr " Egyedi mezők"
+msgstr "自定义域"
 
 #. Author of the plugin
 #: codepress-admin-columns.php
@@ -1774,12 +1771,12 @@ msgstr ""
 #: classes/Admin/Section/Partial/ShowEditButton.php:24
 #: classes/Table/Screen.php:138
 msgid "Edit columns"
-msgstr "Oszlopok szerkesztése"
+msgstr "编辑列"
 
 #: templates/admin/list-screen-settings-mockup.php:29
 #: templates/admin/modal-pro.php:41
 msgid "Upgrade"
-msgstr "Frissítés"
+msgstr "升级"
 
 #: classes/Controller/ListScreen/Save.php:67
 msgid "Settings for %s updated successfully."
@@ -1819,11 +1816,11 @@ msgstr ""
 
 #: templates/admin/page/component/addon/active-label.php:3
 msgid "Active"
-msgstr "Bekapcsolva"
+msgstr ""
 
 #: templates/admin/edit-columns.php:40
 msgid "Add Column"
-msgstr "Oszlop hozzáadása"
+msgstr "添加列"
 
 #: templates/admin/side-support.php:14
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>."
@@ -1831,7 +1828,7 @@ msgstr ""
 
 #: templates/admin/side-support.php:10
 msgid "Support"
-msgstr "Segítség"
+msgstr "支持"
 
 #: templates/admin/side-feedback.php:63
 msgid "Buy Pro"
@@ -1887,11 +1884,11 @@ msgstr ""
 
 #: templates/admin/edit-actions.php:23 templates/admin/edit-columns.php:38
 msgid "Update"
-msgstr "Frisítés"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:191
 msgid "Store settings"
-msgstr "Beállítások tárolása"
+msgstr "保存设置"
 
 #: classes/Admin/MenuFactory.php:42 classes/Admin/Page/Addons.php:54
 msgid "Add-ons"
@@ -1901,7 +1898,7 @@ msgstr ""
 #: templates/admin/list-screen-settings-mockup.php:13
 #: templates/admin/page/settings.php:7
 msgid "Settings"
-msgstr "Beállítások"
+msgstr "设置"
 
 #: templates/settings/setting-label-icons.php:314
 msgid "Taxonomies"
@@ -1921,28 +1918,28 @@ msgstr ""
 
 #: classes/Admin/Section/Restore.php:21
 msgid "Restore Settings"
-msgstr "Beállítások visszaállítása"
+msgstr "恢复设置"
 
 #: templates/admin/edit-actions.php:24 templates/admin/edit-columns.php:39
 msgid "Save"
-msgstr "Mentés"
+msgstr ""
 
 #: classes/Admin/Section/General.php:40
 #: classes/Settings/Column/DateTimeFormat.php:45
 msgid "General Settings"
-msgstr "Általános beállítások"
+msgstr "常规设置"
 
 #: templates/admin/help-tab/custom-fields.php:15
 msgid "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item."
-msgstr "Érték: karakterlánc vagy tömb. Megjeleníti, hogy az elem hányszor használja a meta kulcsot."
+msgstr ""
 
 #: templates/admin/help-tab/custom-fields.php:11
 msgid "Value: Hex value color, such as #808080."
-msgstr "Érték: hex színkód, pl. #808080."
+msgstr ""
 
 #: templates/admin/help-tab/custom-fields.php:51
 msgid "Value: Should be a 1 (one) or 0 (zero)."
-msgstr "Érték: 1 (egy) vagy 0 (nulla)."
+msgstr ""
 
 #: classes/Column/User/Login.php:11
 msgid "Username"
@@ -1950,19 +1947,19 @@ msgstr ""
 
 #: templates/admin/help-tab/custom-fields.php:19
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
-msgstr "Érték: unix időpecsét vagy a <a href='%s'>Codex</a>-ben leírt dátumformátum. A visszaadott dátum értékét az <a href='%s'>általános beállítások</a> oldalon lehet beállítani."
+msgstr "值：可以是 Unix 时间戳或<a href='%s'>规则</a>中描述的一种日期格式。你可以在 <a href='%s'>常规设置</a> 页面修改输出的日期格式。"
 
 #: templates/admin/help-tab/custom-fields.php:43
 msgid "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values."
-msgstr "Érték: csak egész számok.<br/>Ha rendelkezésre áll a \"Rendezés\" kiegészítő, ez az érték fog a rendezés alapjául szolgálni, tehát a bejegyzéseket numerikus (egyedi mező) értékek alapján lehet rendezni. "
+msgstr "值：只能是数字。<br/>如果你安装了“排序扩展”，这将用于排序，所以你可以通过这个数字（自定义字段）值来排序文章。"
 
 #: templates/admin/help-tab/custom-fields.php:39
 msgid "Value: Should be an array. This will flatten any ( multi dimensional ) array."
-msgstr "Érték: tömb. A többdimenziós tömbökből egydimenziósak lesznek."
+msgstr ""
 
 #: templates/admin/help-tab/custom-fields.php:23
 msgid "Value: This will show the first 20 words of the Post content."
-msgstr "Érték: az első 20 szót fogja tartalmazni a Bejegyzés tartalmából."
+msgstr "值：将显示文章内容的前 20 个字。"
 
 #: templates/admin/help-tab/custom-fields.php:7
 msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by commas."
@@ -1970,48 +1967,48 @@ msgstr ""
 
 #: templates/admin/help-tab/custom-fields.php:2
 msgid "The custom field column uses the custom fields from posts and users. There are 14 types which you can set."
-msgstr "Az egyedi mező oszlop a bejegyzések és felhasználók egyedi mezőit használja. 10-féle típust lehet beállítani."
+msgstr ""
 
 #: templates/admin/help-tab/basics.php:13
 msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
-msgstr "A nyílra kattintva láthatóvá válnak az oszlop beállításai. Itt lehet módosítani az oszlopok fejléceinek neveit. A csúszka húzásával beállítható az oszlopok százalékos szélessége."
+msgstr "点击三角形，你会看到列的选项。你可以通过拖动滑块设置列的百分比宽度。"
 
 #: templates/admin/help-tab/basics.php:11
 msgid "Change column width"
-msgstr "Oszlopszélesség módosítása"
+msgstr "更改列宽"
 
 #: templates/admin/help-tab/basics.php:8
 msgid "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading."
-msgstr "A nyílra kattintva láthatóvá válnak az oszlop beállításai. Itt lehet módosítani az oszlopok fejléceinek neveit."
+msgstr "点击三角形，你会看到列的选项。在这里，你可以改变每个标签的列标题栏。"
 
 #: templates/admin/help-tab/basics.php:6
 msgid "Change label"
-msgstr "Címke megváltoztatása"
+msgstr "更改标签"
 
 #: templates/admin/help-tab/basics.php:3
 msgid "By dragging the columns you can change the order which they will appear in."
-msgstr "Az oszlopok más helyre húzásával lehet változtatni az oszlopok sorrendjén."
+msgstr "拖动排序这些列，你可以重新排列它们显示的顺序。"
 
 #: templates/admin/help-tab/basics.php:1
 msgid "Change order"
-msgstr "Sorrend megváltoztatása"
+msgstr "更改排序"
 
 #: templates/admin/help-tab/introduction.php:2
 msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
-msgstr "A plugin segítségével további oszlopokat lehet hozzáadni bejegyzések (egyedi bejegyzéstípusok), oldalak, médiatár, hivatkozások és felhasználók adminisztrációs felületekhez."
+msgstr "该插件用来从管理界面中添加或移除额外的列，比如文章（自定义文章类型）、页面、媒体库、评论、链接和用户的管理界面。修改列的标题和重新排序它们。"
 
 #: classes/Controller/RestoreSettingsRequest.php:51
 msgid "Default settings successfully restored."
-msgstr "Alapértelmezett beállítások sikeresen visszaállítva."
+msgstr ""
 
 #: classes/Admin/Asset/Columns.php:54 classes/Controller/ColumnRequest.php:53
 msgid "%s column is already present and can not be duplicated."
-msgstr "A %s oszlop már a listában van, és nem szerepelhet egynél többször."
+msgstr "%s 这个列已经存在，不能被复制。"
 
 #: classes/Admin/MenuPageFactory/Menu.php:15
 #: classes/Admin/MenuPageFactory/SubMenu.php:16
 msgid "Admin Columns Settings"
-msgstr "Admin Columns beállítások"
+msgstr "Admin Columns 设置"
 
 #: classes/Check/Review.php:168
 msgid "find answers to frequently asked questions"
@@ -2078,19 +2075,19 @@ msgstr ""
 
 #: classes/Settings/Column/Label.php:32
 msgid "This is the name which will appear as the column header."
-msgstr "Ez a név fog megjelenni az oszlop fejlécében."
+msgstr "该名称将显示为列标题。"
 
 #: classes/Admin/Asset/Columns.php:53 classes/Settings/Column/Label.php:31
 msgid "Label"
-msgstr "Címke"
+msgstr "标签"
 
 #: classes/Settings/Column/Type.php:48 templates/admin/edit-column.php:32
 msgid "Name"
-msgstr "Név"
+msgstr ""
 
 #: classes/Settings/Column/Type.php:42
 msgid "Choose a column type."
-msgstr "Válassz egy oszloptípust."
+msgstr "选择一个列类型。"
 
 #: templates/admin/edit-column.php:50 templates/admin/edit-column.php:99
 msgid "Clone"
@@ -2102,64 +2099,64 @@ msgstr ""
 
 #: classes/Settings/Column/User.php:91 classes/Settings/Column/UserLink.php:88
 msgid "User Email"
-msgstr "Felhasználó email"
+msgstr "用户邮箱"
 
 #: classes/Settings/Column/User.php:90
 msgid "User Login"
-msgstr "Felhasználó bejelentkezés"
+msgstr "用户名"
 
 #: classes/Column/User/LastName.php:14 classes/Settings/Column/User.php:87
 msgid "Last Name"
-msgstr "Családnév"
+msgstr "姓氏"
 
 #: classes/Column/User/FirstName.php:14 classes/Settings/Column/User.php:85
 msgid "First Name"
-msgstr "Keresztnév"
+msgstr "名字"
 
 #: classes/Column/User/DisplayName.php:14 classes/Settings/Column/User.php:84
 msgid "Display Name"
-msgstr "Megjelenő név"
+msgstr "公开显示为"
 
 #: classes/Settings/Column/BeforeAfter.php:73
 msgid "After"
-msgstr "Utána"
+msgstr "后"
 
 #: classes/Settings/Column/BeforeAfter.php:65
 msgid "This text will appear before the column value."
-msgstr "Ez a szöveg fog megjelenni az egyedi mező értéke előtt."
+msgstr ""
 
 #: classes/Settings/Column/BeforeAfter.php:64
 msgid "Before"
-msgstr "Előtte"
+msgstr "前"
 
 #: classes/Settings/Column/Width.php:68
 msgid "width"
-msgstr "szélesség"
+msgstr "宽度"
 
 #: classes/ColumnGroups.php:21 classes/Settings/Column/CustomFieldType.php:190
 #: classes/Settings/Column/Image.php:112
 msgid "Custom"
-msgstr "Egyedi"
+msgstr "自定义"
 
 #: classes/Settings/Column/DateTimeFormat.php:63
 msgid "This will determine how the date will be displayed."
-msgstr "Meghatározza, hogy fog a dátum megjelenni."
+msgstr "用来决定如何显示日期"
 
 #: classes/Settings/Column/DateTimeFormat.php:62
 msgid "Date Format"
-msgstr "Dátumformátum"
+msgstr "日期格式"
 
 #: classes/Settings/Column/Image.php:76
 msgid "Large"
-msgstr "Nagy"
+msgstr "大尺寸"
 
 #: classes/Settings/Column/Image.php:75
 msgid "Medium"
-msgstr "Közepes"
+msgstr "中等大小"
 
 #: classes/Settings/Column/Image.php:74
 msgid "Thumbnail"
-msgstr "Bélyegkép"
+msgstr "缩略图"
 
 #: classes/Column/User/RichEditing.php:11
 msgid "Visual Editor"
@@ -2167,21 +2164,21 @@ msgstr ""
 
 #: classes/Column/User/Registered.php:15
 msgid "Registered"
-msgstr "Feliratkozott"
+msgstr "注册"
 
 #: classes/ListScreenGroupsFactory.php:10
 #: classes/Settings/Column/CustomFieldType.php:112
 #: classes/Settings/Column/PostType.php:43
 msgid "Post Type"
-msgstr "Bejegyzés típus"
+msgstr "文章类型"
 
 #: classes/Column/User/PostCount.php:14
 msgid "Post Count"
-msgstr "Bejegyzések száma"
+msgstr "文章数量"
 
 #: classes/Column/User/Nickname.php:14 classes/Settings/Column/User.php:88
 msgid "Nickname"
-msgstr "Becenév"
+msgstr "昵称"
 
 #: classes/Column/Post/CommentCount.php:17
 msgid "Comment Count"
@@ -2189,11 +2186,11 @@ msgstr ""
 
 #: templates/admin/edit-column.php:54 templates/admin/edit-column.php:103
 msgid "Remove"
-msgstr "Törlés"
+msgstr "删除"
 
 #: classes/Column/User/ID.php:14 classes/Settings/Column/User.php:92
 msgid "User ID"
-msgstr "Felhasználó ID "
+msgstr "用户ID"
 
 #: classes/Settings/Column/LinkToMenu.php:26
 msgid "This will make the title link to the menu."
@@ -2205,20 +2202,20 @@ msgstr ""
 
 #: classes/Column/Taxonomy.php:19 classes/Settings/Column/Taxonomy.php:51
 msgid "Taxonomy"
-msgstr "Taxonómia"
+msgstr "分类法"
 
 #: classes/Column/Post/Sticky.php:16
 msgid "Sticky"
-msgstr "Kiemelt"
+msgstr "置顶"
 
 #: classes/Column/Comment/Status.php:14 classes/Column/Post/Status.php:12
 #: classes/Settings/Column/Post.php:124
 msgid "Status"
-msgstr "Státusz"
+msgstr "状态"
 
 #: classes/Column/Post/Slug.php:17 classes/Settings/Column/Term.php:31
 msgid "Slug"
-msgstr "Keresőbarát név/slug"
+msgstr "别名"
 
 #: classes/Column/Post/Shortcodes.php:13
 msgid "Shortcodes"
@@ -2227,11 +2224,11 @@ msgstr ""
 #: classes/Settings/Column/User.php:89
 #: templates/admin/list-screen-settings-mockup.php:47
 msgid "Roles"
-msgstr "Jogkörök"
+msgstr "角色"
 
 #: classes/Column/Post/PingStatus.php:14
 msgid "Ping Status"
-msgstr "Ping státusz"
+msgstr ""
 
 #: classes/Column/Post/Permalink.php:15
 msgid "Permalink"
@@ -2243,11 +2240,11 @@ msgstr ""
 
 #: classes/Column/Post/PostParent.php:16
 msgid "Parent"
-msgstr "Szülő"
+msgstr "父级"
 
 #: classes/Column/Post/PageTemplate.php:14
 msgid "Page Template"
-msgstr "Oldal sablon"
+msgstr "页面模板"
 
 #: classes/Column/Post/Order.php:14
 msgid "Order"
@@ -2255,7 +2252,7 @@ msgstr ""
 
 #: classes/Column/Post/Modified.php:15
 msgid "Last Modified"
-msgstr "Utoljára módosítva"
+msgstr ""
 
 #: classes/Column/Post/LastModifiedAuthor.php:18
 msgid "Last Modified Author"
@@ -2263,11 +2260,11 @@ msgstr ""
 
 #: classes/Column/Post/Formats.php:15
 msgid "Post Format"
-msgstr "Bejegyzés formátum"
+msgstr "文章形式"
 
 #: classes/Column/Post/FeaturedImage.php:15
 msgid "Featured Image"
-msgstr "Kiemelt kép"
+msgstr "特色图像"
 
 #: classes/Settings/Column/WordsPerMinute.php:33
 msgid "Estimated reading time in words per minute."
@@ -2281,13 +2278,11 @@ msgstr ""
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] ""
-msgstr[1] ""
 
 #: classes/Settings/Column/WordsPerMinute.php:84
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] ""
-msgstr[1] ""
 
 #: classes/Column/Post/Depth.php:14
 msgid "Depth"
@@ -2299,25 +2294,25 @@ msgstr ""
 
 #: classes/Settings/Column/CommentCount.php:44
 msgid "Select which comment status you like to display."
-msgstr "Válasz ki, melyik hozzászólás státuszt szeretnéd megjeleníteni."
+msgstr "选择你要显示的评论状态"
 
 #: classes/Settings/Column/CommentCount.php:43
 msgid "Comment status"
-msgstr "Hozzászólás státusza"
+msgstr "评论状态"
 
 #: classes/Column/Comment/Status.php:33
 #: classes/Settings/Column/CommentCount.php:58
 msgid "Spam"
-msgstr "Levélszemét"
+msgstr "垃圾评论"
 
 #: classes/Column/Comment/Status.php:35
 #: classes/Settings/Column/CommentCount.php:57
 msgid "Pending"
-msgstr "Folyamatban"
+msgstr "待审"
 
 #: classes/Settings/Column/CommentCount.php:65
 msgid "Total"
-msgstr "Összesen"
+msgstr "所有"
 
 #: classes/Settings/Column/UserLink.php:90
 msgid "View Public Author Page"
@@ -2338,7 +2333,7 @@ msgstr ""
 #: classes/Settings/Column/TermLink.php:40
 #: classes/Settings/Column/UserLink.php:96
 msgid "None"
-msgstr "Nincs"
+msgstr ""
 
 #: classes/Settings/Column/CommentLink.php:56
 #: classes/Settings/Column/MediaLink.php:52
@@ -2355,24 +2350,24 @@ msgstr ""
 #: classes/Column/Media/Preview.php:14
 #: classes/Settings/Column/NumberFormat.php:78
 msgid "Preview"
-msgstr "Előnézet"
+msgstr ""
 
 #: classes/Column/Media/Width.php:17
 #: classes/Settings/Column/FileMetaVideo.php:18
 #: classes/Settings/Column/Image.php:41 classes/Settings/Column/Width.php:57
 msgid "Width"
-msgstr "Szélesség"
+msgstr "宽度"
 
 #: classes/Column/Media/MimeType.php:16
 #: classes/Settings/Column/FileMetaAudio.php:27
 msgid "Mime Type"
-msgstr "Mime típus"
+msgstr ""
 
 #: classes/Column/Media/Height.php:15
 #: classes/Settings/Column/FileMetaVideo.php:15
 #: classes/Settings/Column/Image.php:47
 msgid "Height"
-msgstr "Magasság"
+msgstr "高度"
 
 #: classes/Settings/Column/PathScope.php:27
 msgid "Relative to main uploads folder"
@@ -2392,20 +2387,20 @@ msgstr ""
 
 #: classes/Column/Media/FileSize.php:14
 msgid "File Size"
-msgstr "Fájlméret"
+msgstr ""
 
 #: classes/Column/Media/FileName.php:14
 msgid "Filename"
-msgstr "Fájlnév"
+msgstr ""
 
 #: classes/Settings/Column/ExifData.php:81 classes/Settings/Column/Post.php:119
 #: classes/Settings/Column/Term.php:30
 msgid "Title"
-msgstr "Cím"
+msgstr "标题"
 
 #: classes/Settings/Column/ExifData.php:80
 msgid "Shutter Speed"
-msgstr "Zársebesség"
+msgstr "快门速度"
 
 #: classes/Settings/Column/ExifData.php:79
 msgid "ISO"
@@ -2413,89 +2408,89 @@ msgstr "ISO"
 
 #: classes/Settings/Column/ExifData.php:78
 msgid "Focal Length"
-msgstr "Fókusztávolság"
+msgstr "焦距"
 
 #: classes/Settings/Column/DateFormat.php:36
 #: classes/Settings/Column/ExifData.php:76
 msgid "Timestamp"
-msgstr "Időbélyeg"
+msgstr "时间戳"
 
 #: classes/Settings/Column/ExifData.php:74
 msgid "Camera"
-msgstr "Fényképezőgép"
+msgstr "相机"
 
 #: classes/Settings/Column/ExifData.php:73
 msgid "Credit"
-msgstr "Érdem"
+msgstr "信用"
 
 #: classes/Settings/Column/ExifData.php:72
 msgid "Aperture"
-msgstr "Rekesz"
+msgstr "光圈"
 
 #: classes/Column/Media/Dimensions.php:16
 msgid "Dimensions"
-msgstr "Kép kiterjedése"
+msgstr "尺寸"
 
 #: classes/Column/Media/Caption.php:15 classes/Settings/Column/ExifData.php:75
 msgid "Caption"
-msgstr "Kép felirata"
+msgstr "标题"
 
 #: classes/Column/Media/AvailableSizes.php:16
 msgid "Available Sizes"
-msgstr "Elérhető méretek"
+msgstr "可用尺寸"
 
 #: classes/Column/Media/Preview.php:50 classes/Settings/Column/MediaLink.php:63
 #: classes/Table/Screen.php:154
 msgid "View"
-msgstr "Megtekintés"
+msgstr "查看"
 
 #: classes/Column/Comment/Status.php:31 classes/Column/Comment/Status.php:32
 #: classes/Settings/Column/CommentCount.php:59
 msgid "Trash"
-msgstr "Kuka"
+msgstr "回收站"
 
 #: classes/Settings/Column/FileMetaAudio.php:24
 #: classes/Settings/Column/FileMetaVideo.php:16
 msgid "Length"
-msgstr "Hossz"
+msgstr "长度"
 
 #: classes/Column/Media/Description.php:13
 #: classes/Column/User/Description.php:14
 msgid "Description"
-msgstr "Leírás"
+msgstr "描述"
 
 #: classes/Settings/Column/CustomFieldType.php:82
 msgid "This will determine how the value will be displayed."
-msgstr "Meghatározza, hogy fog az érték megjelenni."
+msgstr "用来确定如何显示值"
 
 #: classes/Settings/Column/CustomFieldType.php:89
 msgid "Field Type"
-msgstr "Mező típusa"
+msgstr "字段类型"
 
 #: classes/Settings/Column/CustomFieldType.php:152
 #: templates/admin/help-tab/custom-fields.php:38
 msgid "Multiple Values"
-msgstr "Többszörös érték"
+msgstr "多个值"
 
 #: classes/Column/Media/Image.php:12 classes/ColumnGroups.php:16
 #: classes/Settings/Column/CustomFieldType.php:135
 #: templates/admin/help-tab/custom-fields.php:30
 msgid "Image"
-msgstr "Kép"
+msgstr "图像"
 
 #: classes/Column/Post/Excerpt.php:15
 #: templates/admin/help-tab/custom-fields.php:22
 msgid "Excerpt"
-msgstr "Kivonat"
+msgstr "摘要"
 
 #: templates/admin/help-tab/custom-fields.php:14
 msgid "Counter"
-msgstr "Számláló"
+msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:132
 #: templates/admin/help-tab/custom-fields.php:10
 msgid "Color"
-msgstr "Szín"
+msgstr "颜色"
 
 #: classes/ColumnGroups.php:12
 #: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20
@@ -2507,33 +2502,33 @@ msgstr "Szín"
 #: templates/admin/help-tab/custom-fields.php:6
 #: templates/admin/list-screen-settings-mockup.php:132
 msgid "Default"
-msgstr "Alapérték"
+msgstr "默认"
 
 #: classes/Column/CustomField.php:20 templates/tooltip/custom-field.php:7
 msgid "Custom Field"
-msgstr "Egyedi mező"
+msgstr "自定义字段"
 
 #: classes/Column/Comment/WordCount.php:14 classes/Column/Post/WordCount.php:14
 msgid "Word Count"
-msgstr "Szavak száma"
+msgstr ""
 
 #: classes/Column/Comment/User.php:15 classes/ListScreen/User.php:22
 #: classes/Settings/Column/CustomFieldType.php:116
 #: classes/Settings/Column/CustomFieldType.php:146
 #: templates/admin/help-tab/custom-fields.php:58
 msgid "User"
-msgstr "Felhasználó"
+msgstr ""
 
 #: classes/Column/Comment/Type.php:14
 #: classes/Settings/Column/CustomFieldType.php:85
 #: classes/Settings/Column/Type.php:45 classes/Settings/Column/Type.php:54
 #: templates/admin/edit-column.php:37
 msgid "Type"
-msgstr "Típus"
+msgstr "类型"
 
 #: classes/Column/Comment/ReplyTo.php:14
 msgid "In Reply To"
-msgstr "Válaszolva erre:"
+msgstr "回应给"
 
 #: classes/Column/Comment/Post.php:14
 #: classes/Settings/Column/CustomFieldType.php:145
@@ -2543,7 +2538,7 @@ msgstr ""
 
 #: classes/Column/Comment/Excerpt.php:15 classes/Column/Post/Content.php:15
 msgid "Content"
-msgstr "Tartalom"
+msgstr ""
 
 #: classes/Settings/Column/Comment.php:126
 #: classes/Settings/Column/CustomFieldType.php:133
@@ -2551,7 +2546,7 @@ msgstr "Tartalom"
 #: classes/Settings/Column/Post.php:123
 #: templates/admin/help-tab/custom-fields.php:18
 msgid "Date"
-msgstr "Dátum"
+msgstr "日期"
 
 #: classes/Column/Comment/DateGmt.php:17
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
@@ -2559,16 +2554,16 @@ msgstr ""
 
 #: classes/Column/Comment/DateGmt.php:11
 msgid "Date GMT"
-msgstr "GMT dátum"
+msgstr "日期GMT"
 
 #: classes/Column/Post/AuthorName.php:18
 #: classes/Settings/Column/Comment.php:124 classes/Settings/Column/Post.php:121
 msgid "Author"
-msgstr "Szerző"
+msgstr "作者"
 
 #: classes/Column/Comment/AuthorUrl.php:14
 msgid "Author URL"
-msgstr "Szerző URL-je"
+msgstr ""
 
 #: classes/Column/Comment/AuthorName.php:13
 msgid "Author Name"
@@ -2576,7 +2571,7 @@ msgstr ""
 
 #: classes/Column/Comment/AuthorIP.php:11
 msgid "Author IP"
-msgstr "Szerző IP-je"
+msgstr "作者IP"
 
 #: classes/Column/Comment/AuthorEmail.php:14
 #: classes/Settings/Column/Comment.php:125
@@ -2585,20 +2580,20 @@ msgstr ""
 
 #: classes/Column/Comment/AuthorAvatar.php:14
 msgid "Avatar"
-msgstr "Avatar"
+msgstr "头像"
 
 #: classes/Column/Comment/Approved.php:14 classes/Column/Comment/Status.php:34
 #: classes/Settings/Column/CommentCount.php:56
 msgid "Approved"
-msgstr "Jóváhagyva"
+msgstr "已通过"
 
 #: classes/Column/Comment/Agent.php:14
 msgid "Agent"
-msgstr "Ügynök"
+msgstr "代理(Agent)"
 
 #: classes/Table/Screen.php:152 templates/admin/edit-column.php:44
 msgid "Edit"
-msgstr "Szerkesztés"
+msgstr "编辑"
 
 #: classes/Settings/Column/CommentLink.php:67
 msgid "Edit Comment"
@@ -2619,7 +2614,7 @@ msgstr "ID"
 #: templates/admin/list-screen-settings-mockup.php:116
 #: templates/admin/side-feedback.php:14
 msgid "No"
-msgstr "Nem"
+msgstr ""
 
 #: classes/Helper/Icon.php:46 classes/Settings/Column/ActionIcons.php:22
 #: classes/Settings/Column/MissingImageSize.php:22
@@ -2629,7 +2624,7 @@ msgstr "Nem"
 #: templates/admin/list-screen-settings-mockup.php:113
 #: templates/admin/side-feedback.php:13
 msgid "Yes"
-msgstr "Igen"
+msgstr ""
 
 #: classes/Settings/Column/ActionIcons.php:28
 msgid "Use icons instead of text for displaying the actions."
@@ -2641,7 +2636,7 @@ msgstr ""
 
 #: classes/Column/Actions.php:19
 msgid "Actions"
-msgstr "Műveletek"
+msgstr "操作"
 
 #: classes/Integration/WooCommerce.php:17
 #: classes/Integration/WooCommerce.php:23
