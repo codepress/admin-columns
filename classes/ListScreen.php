@@ -260,27 +260,27 @@ final class ListScreen
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     public function get_layout_id(): ?string
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_id()');
+        _deprecated_function(__METHOD__, '7.0', 'AC\ListScreen::get_id()');
 
         return (string)$this->id;
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     public function get_column_by_name(string $name): ?Column
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_column()');
+        _deprecated_function(__METHOD__, '7.0', 'AC\ListScreen::get_column()');
 
         return $this->get_column(new ColumnId($name));
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     public function get_screen_link(): string
     {
@@ -290,7 +290,7 @@ final class ListScreen
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     public function get_edit_link(): string
     {
@@ -300,29 +300,29 @@ final class ListScreen
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     protected function set_meta_type(string $meta_type): void
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
 
         $this->meta_type = $meta_type;
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     public function deregister_column(string $column_name): void
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     public function set_layout_id(string $layout_id): void
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::set_id()');
+        _deprecated_function(__METHOD__, '7.0', 'AC\ListScreen::set_id()');
 
         if (ListScreenId::is_valid_id($layout_id)) {
             $this->id = new ListScreenId($layout_id);
@@ -330,91 +330,91 @@ final class ListScreen
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     protected function set_label(): void
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     protected function register_column_types_from_list(array $list): void
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\TableScreen::set_column_type()');
+        _deprecated_function(__METHOD__, '7.0', 'AC\TableScreen::set_column_type()');
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     public function deregister_column_type(): void
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     public function register_column_type(Column $column): void
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\TableScreen::set_column_type()');
+        _deprecated_function(__METHOD__, '7.0', 'AC\TableScreen::set_column_type()');
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     public function get_original_columns(): array
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
 
         return [];
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     public function get_group(): string
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
 
         return '';
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
 
     public function has_id(): bool
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
 
         return true;
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     public function get_storage_key(): string
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
 
         return $this->get_table_id() . $this->id;
     }
 
     /**
-     * @deprecated NEWVERSION
+     * @deprecated 7.0
      */
     public function get_settings(): array
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
 
         return [];
     }
 
     public function get_key(): TableId
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_table_id()');
+        _deprecated_function(__METHOD__, '7.0', 'AC\ListScreen::get_table_id()');
 
         return $this->get_table_id();
     }
