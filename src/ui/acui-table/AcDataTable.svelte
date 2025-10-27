@@ -43,7 +43,7 @@
 							{:else if field.render }
 								<svelte:component this={field.render} item={itemRow}/>
 							{:else}
-								{itemRow[ field.id ]}
+								{@html itemRow[ field.id ]}
 							{/if}
 						</AcTableCell>
 					{/each}
