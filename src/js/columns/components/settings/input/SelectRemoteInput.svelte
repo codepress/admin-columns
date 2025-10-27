@@ -36,9 +36,14 @@
             if (typeof value === 'undefined') {
                 if (config.input.default) {
                     selectValue = getValue(config.input.default);
-                }
+                    value = config.input.default ?? '';
+                } else {
+                    const firstValue: string|number = options.length > 0? options[0].value : '';
+                    value = firstValue;
+                    selectValue = getValue(firstValue as string)
+				}
 
-                value = config.input.default ?? '';
+
             } else {
                 selectValue = getValue(value.toString());
             }
