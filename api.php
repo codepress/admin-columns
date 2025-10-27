@@ -127,6 +127,13 @@ if ( ! function_exists('ac_format_date')) {
     }
 }
 
+if ( ! function_exists('ac_is_pro_active')) {
+    function ac_is_pro_active(): bool
+    {
+        return Container::is_pro();
+    }
+}
+
 function ac_get_admin_url(string $slug = null): string
 {
     _deprecated_function(__METHOD__, '4.5', 'Url\Editor');
@@ -176,13 +183,6 @@ if ( ! function_exists('ac_load_columns')) {
     {
         _deprecated_function(__METHOD__, '4.1');
     }
-}
-
-function ac_is_pro_active(): bool
-{
-    _deprecated_function(__METHOD__, '6.0');
-
-    return defined('ACP_FILE');
 }
 
 
