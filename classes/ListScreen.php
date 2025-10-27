@@ -315,8 +315,6 @@ final class ListScreen
     public function deregister_column(string $column_name): void
     {
         _deprecated_function(__METHOD__, 'NEWVERSION');
-
-        unset($this->columns[$column_name]);
     }
 
     /**
