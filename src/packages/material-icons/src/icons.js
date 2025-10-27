@@ -1,5 +1,6 @@
 export const icons = [
 	'add_circle',
+	'bug_report',
 	'cancel',
 	'chevron_left',
 	'chevron_right',
