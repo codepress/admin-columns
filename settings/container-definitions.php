@@ -30,6 +30,7 @@ return [
         return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
     },
     ContainerInterface::class               => autowire(Container::class),
+    'is.pro'                                => defined('ACP_FILE'),
     Storage::class                          => static function (Database $database): Storage {
         $storage = new Storage();
         $storage->set_repositories([
@@ -62,7 +63,7 @@ return [
     Admin\MenuFactoryInterface::class       => autowire(Admin\MenuFactory::class)
         ->constructorParameter(0, admin_url('options-general.php')),
     Admin\PageFactory\Settings::class       => autowire()
-        ->constructorParameter(2, defined('ACP_FILE')),
+        ->constructorParameter(2, get('is.pro')),
     Admin\PageFactory\Help::class           => autowire()
         ->constructorParameter(0, get(AdminColumns::class)),
     EncoderFactory::class                   => static function (AdminColumns $plugin) {

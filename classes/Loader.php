@@ -53,7 +53,7 @@ class Loader
             ColumnFactories\ThirdPartyFactory::class,
         ];
 
-        if ( ! defined('ACP_FILE')) {
+        if ( ! $container->get('is.pro')) {
             $factories[] = ColumnFactories\IntegrationFactory::class;
         }
 
@@ -128,7 +128,7 @@ class Loader
             Service\Tooltips::class,
         ];
 
-        if ( ! defined('ACP_FILE')) {
+        if ( ! $container->get('is.pro')) {
             $services_fqn[] = Service\NoticeChecks::class;
             $services_fqn[] = PluginActionUpgrade::class;
         }

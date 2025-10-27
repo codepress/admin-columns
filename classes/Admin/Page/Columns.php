@@ -14,6 +14,7 @@ use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\ColumnGroups;
+use AC\Container;
 use AC\Promos;
 use AC\Renderable;
 use AC\Storage\Repository\EditorFavorites;
@@ -96,7 +97,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 $this->column_groups,
                 $this->promos,
                 $this->location,
-                defined('ACP_FILE'),
+                Container::is_pro(),
                 $this->list_id
             ),
             new Style(

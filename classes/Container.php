@@ -33,4 +33,9 @@ final class Container
         return self::$instance->get(Storage::class);
     }
 
+    public static function is_pro(): bool
+    {
+        return self::$instance->get('is.pro');
+    }
+
 }
