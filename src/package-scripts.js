@@ -10,6 +10,11 @@ module.exports = {
 				'languages',
 				'clean'
 			),
+			lite : npsUtils.series.nps(
+				'styles.build --style=compressed --no-source-map',
+				'scripts --mode=production',
+				'clean'
+			),
 			development : npsUtils.concurrent.nps(
 				'styles.build -w',
 				'scripts --mode=development'
