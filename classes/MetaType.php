@@ -42,6 +42,11 @@ final class MetaType
         return new self(self::COMMENT);
     }
 
+    public static function create_term_type(): self
+    {
+        return new self(self::TERM);
+    }
+
     /**
      * @throws LogicException
      */
