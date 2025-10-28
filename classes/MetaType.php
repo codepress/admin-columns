@@ -27,22 +27,22 @@ final class MetaType
         return $this->meta_type;
     }
 
-    public static function create_post_type(): self
+    public static function create_post_meta(): self
     {
         return new self(self::POST);
     }
 
-    public static function create_user_type(): self
+    public static function create_user_meta(): self
     {
         return new self(self::USER);
     }
 
-    public static function create_comment_type(): self
+    public static function create_comment_meta(): self
     {
         return new self(self::COMMENT);
     }
 
-    public static function create_term_type(): self
+    public static function create_term_meta(): self
     {
         return new self(self::TERM);
     }

@@ -17,7 +17,7 @@ class RelatedUserMetaField extends CustomField
 
     public function __construct(FieldType $field_type)
     {
-        parent::__construct(new TableScreenContext(MetaType::create_user_type()));
+        parent::__construct(new TableScreenContext(MetaType::create_user_meta()));
 
         $this->field_type = $field_type;
     }

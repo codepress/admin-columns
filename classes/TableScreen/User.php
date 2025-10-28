@@ -34,7 +34,7 @@ class User extends TableScreen implements ListTable, MetaType
 
     public function get_meta_type(): AC\MetaType
     {
-        return AC\MetaType::create_user_type();
+        return AC\MetaType::create_user_meta();
     }
 
 }

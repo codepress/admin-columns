@@ -11,7 +11,7 @@ class MetaData
 
     public function __construct(?MetaType $meta_type = null)
     {
-        $this->meta_type = $meta_type ?? MetaType::create_post_type();
+        $this->meta_type = $meta_type ?? MetaType::create_post_meta();
     }
 
     public function get(int $id, string $key, bool $single = true)
