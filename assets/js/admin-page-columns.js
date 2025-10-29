@@ -22310,6 +22310,94 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function create_if_block(ctx) {
+  let div1;
+  let div0;
+  let t;
+  let current;
+  let mounted;
+  let dispose;
+  const default_slot_template = /*#slots*/ctx[15].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[14], null);
+  let if_block = (/*active*/ctx[0] || 1 === 1) && create_if_block_1(ctx);
+  return {
+    c() {
+      div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      if (default_slot) default_slot.c();
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block) if_block.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acui-tooltip-trigger");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "role", "none");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div0, "has-border", /*border*/ctx[2]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acui-tooltip");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div1, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, div0);
+      if (default_slot) {
+        default_slot.m(div0, null);
+      }
+
+      /*div0_binding*/
+      ctx[16](div0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t);
+      if (if_block) if_block.m(div1, null);
+      current = true;
+      if (!mounted) {
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "mouseenter", /*handleMouseEnter*/ctx[9]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "mouseleave", /*handleMouseOut*/ctx[10])];
+        mounted = true;
+      }
+    },
+    p(ctx, dirty) {
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/16384)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[14], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[14]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[14], dirty, null), null);
+        }
+      }
+      if (!current || dirty & /*border*/4) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div0, "has-border", /*border*/ctx[2]);
+      }
+      if (/*active*/ctx[0] || 1 === 1) {
+        if (if_block) {
+          if_block.p(ctx, dirty);
+          if (dirty & /*active*/1) {
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
+          }
+        } else {
+          if_block = create_if_block_1(ctx);
+          if_block.c();
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
+          if_block.m(div1, null);
+        }
+      } else {}
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div1);
+      }
+      if (default_slot) default_slot.d(detaching);
+      /*div0_binding*/
+      ctx[16](null);
+      if (if_block) if_block.d();
+      mounted = false;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
+    }
+  };
+}
+
+// (74:2) {#if active || 1 === 1 }
+function create_if_block_1(ctx) {
   let div;
   let div_intro;
   let div_outro;
@@ -22405,88 +22493,54 @@ function create_if_block(ctx) {
   };
 }
 function create_fragment(ctx) {
-  let div1;
-  let div0;
-  let t;
+  let if_block_anchor;
   let current;
-  let mounted;
-  let dispose;
-  const default_slot_template = /*#slots*/ctx[15].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[14], null);
-  let if_block = (/*active*/ctx[0] || 1 === 1) && create_if_block(ctx);
+  let if_block = /*label*/ctx[1] && create_if_block(ctx);
   return {
     c() {
-      div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      if (default_slot) default_slot.c();
-      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block) if_block.c();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acui-tooltip-trigger");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "role", "none");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div0, "has-border", /*border*/ctx[2]);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acui-tooltip");
+      if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
     },
     m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div1, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, div0);
-      if (default_slot) {
-        default_slot.m(div0, null);
-      }
-
-      /*div0_binding*/
-      ctx[16](div0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t);
-      if (if_block) if_block.m(div1, null);
+      if (if_block) if_block.m(target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
       current = true;
-      if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "mouseenter", /*handleMouseEnter*/ctx[9]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "mouseleave", /*handleMouseOut*/ctx[10])];
-        mounted = true;
-      }
     },
     p(ctx, [dirty]) {
-      if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/16384)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[14], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)(/*$$scope*/ctx[14]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[14], dirty, null), null);
-        }
-      }
-      if (!current || dirty & /*border*/4) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div0, "has-border", /*border*/ctx[2]);
-      }
-      if (/*active*/ctx[0] || 1 === 1) {
+      if (/*label*/ctx[1]) {
         if (if_block) {
           if_block.p(ctx, dirty);
-          if (dirty & /*active*/1) {
+          if (dirty & /*label*/2) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
           }
         } else {
           if_block = create_if_block(ctx);
           if_block.c();
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
-          if_block.m(div1, null);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
         }
-      } else {}
+      } else if (if_block) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block, 1, 1, () => {
+          if_block = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+      }
     },
     i(local) {
       if (current) return;
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block);
       current = true;
     },
     o(local) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block);
       current = false;
     },
     d(detaching) {
       if (detaching) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div1);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(if_block_anchor);
       }
-      if (default_slot) default_slot.d(detaching);
-      /*div0_binding*/
-      ctx[16](null);
-      if (if_block) if_block.d();
-      mounted = false;
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
+      if (if_block) if_block.d(detaching);
     }
   };
 }
@@ -55967,6 +56021,7 @@ const icons = [
 	'edit',
 	'filter_list',
 	'filter_alt',
+	'group',
 	'help',
 	'info',
 	'ink_highlighter',
@@ -55983,6 +56038,8 @@ const icons = [
 	'more_vert',
 	'open_in_new',
 	'perm_media',
+	'person',
+	'person_shield',
 	'swap_vert',
 	'stacks',
 	'sentiment_satisfied',
