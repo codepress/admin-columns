@@ -40,6 +40,7 @@
     let loadingDefaultColumns: boolean = false;
     let columnTypeComponent: AcDropdown | null;
 
+
     const clearColumns = () => {
         undoState = clone(data);
         data['columns'] = [];
@@ -211,7 +212,8 @@
 							id="listTitle"
 							disabled={locked}
 							type="text"
-							placeholder={$listScreenLabels?.singular}/>
+							data-default={$listScreenLabels?.singular}
+							placeholder={i18n.settings.label.table_view_label}/>
 					</AcInputGroup>
 				</div>
 			</div>

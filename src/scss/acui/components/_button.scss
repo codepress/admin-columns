@@ -19,10 +19,6 @@
 	line-height: 18px;
 
 
-	&:hover, &:focus, &:active {
-		border-color: #111;
-	}
-
 	&.-disabled {
 		border-color: #C4C4C4 !important;
 		background: #E6E6E6 !important;
@@ -118,7 +114,6 @@ a.acui-button {
 
 .acui-button-default {
 	&:hover, &:active, &:focus {
-		color: #135e96;
 		background-color: #F1F5F9;
 	}
 }

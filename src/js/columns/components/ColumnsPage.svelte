@@ -40,14 +40,14 @@
     startListScreenWatcher();
 
     const handleMenuSelect = async (e: CustomEvent<string>) => {
+        if ($currentListKey === e.detail) {
+            return;
+        }
+
         const passChangesCheck = await checkChangesWarning();
 
         if (!passChangesCheck) {
             return false;
-        }
-
-        if ($currentListKey === e.detail) {
-            return;
         }
 
         currentListKey.set(e.detail);
