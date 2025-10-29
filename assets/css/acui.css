@@ -103,6 +103,7 @@ a.acui-button {
 }
 
 .acui-button-default:hover, .acui-button-default:active, .acui-button-default:focus {
+  color: #1E293B;
   background-color: #F1F5F9;
 }
 
