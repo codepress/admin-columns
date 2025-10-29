@@ -77,7 +77,7 @@
 			on:mouseleave={handleMouseOut} bind:this={triggerEl} role="none">
 			<slot></slot>
 		</div>
-		{#if active || 1 === 1 }
+		{#if active }
 			<div
 				class="acui-tooltip-content"
 				class:is-multiline={multiline}

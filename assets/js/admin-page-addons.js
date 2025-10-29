@@ -2411,7 +2411,7 @@ function create_if_block(ctx) {
   let dispose;
   const default_slot_template = /*#slots*/ctx[15].default;
   const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[14], null);
-  let if_block = (/*active*/ctx[0] || 1 === 1) && create_if_block_1(ctx);
+  let if_block = /*active*/ctx[0] && create_if_block_1(ctx);
   return {
     c() {
       div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -2450,7 +2450,7 @@ function create_if_block(ctx) {
       if (!current || dirty & /*border*/4) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div0, "has-border", /*border*/ctx[2]);
       }
-      if (/*active*/ctx[0] || 1 === 1) {
+      if (/*active*/ctx[0]) {
         if (if_block) {
           if_block.p(ctx, dirty);
           if (dirty & /*active*/1) {
@@ -2462,7 +2462,13 @@ function create_if_block(ctx) {
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
           if_block.m(div1, null);
         }
-      } else {}
+      } else if (if_block) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block, 1, 1, () => {
+          if_block = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+      }
     },
     i(local) {
       if (current) return;
@@ -2489,7 +2495,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (74:2) {#if active || 1 === 1 }
+// (74:2) {#if active }
 function create_if_block_1(ctx) {
   let div;
   let div_intro;
