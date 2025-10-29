@@ -253,7 +253,7 @@
 				</div>
 			{/if}
 
-			<div bind:this={sortableContainer}>
+			<div bind:this={sortableContainer} class="acu-relative">
 				{#each data.columns as column_data (column_data.name)}
 
 					<ColumnItem
