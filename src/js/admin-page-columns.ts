@@ -17,7 +17,6 @@ import {
 } from "./columns/store";
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import {initListScreenHeadings, initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
-import InfoScreenOption from "./modules/screen-options";
 import ColumnPageBridge from "./columns/utils/page-bridge";
 import {get} from "svelte/store";
 
@@ -110,8 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initListScreenHeadings();
 
-    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_info"] input').forEach(el =>
-        new InfoScreenOption('show_column_info', el, showColumnInfo, ac_admin_columns.nonce)
-    );
+
+    showColumnInfo.set(localConfig.show_column_info);
 
 });

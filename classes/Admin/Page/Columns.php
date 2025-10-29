@@ -6,7 +6,6 @@ namespace AC\Admin\Page;
 
 use AC\Admin;
 use AC\Admin\RenderableHead;
-use AC\Admin\ScreenOption;
 use AC\AdminColumns;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
@@ -23,7 +22,7 @@ use AC\Table\TableScreenRepository;
 use AC\TableScreen;
 use AC\Type\ListScreenId;
 
-class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, RenderableHead
+class Columns implements Enqueueables, Renderable, RenderableHead
 {
 
     public const NAME = 'columns';
@@ -108,18 +107,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
             new Style('ac-select2'),
             new Script('ac-select2'),
         ]);
-    }
-
-    private function get_column_info(): ScreenOption\ColumnInfo
-    {
-        return new ScreenOption\ColumnInfo(new Admin\Preference\ScreenOptions());
-    }
-
-    public function get_screen_options(): array
-    {
-        return [
-            $this->get_column_info(),
-        ];
     }
 
     public function render(): string

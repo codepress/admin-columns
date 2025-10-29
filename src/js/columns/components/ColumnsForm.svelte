@@ -13,7 +13,7 @@
         listScreenDataStore,
         listScreenIsReadOnly,
         listScreenIsStored, listScreenLabels,
-        openedColumnsStore
+        openedColumnsStore, showColumnInfo
     } from "../store";
     import {createEventDispatcher, onMount, tick} from "svelte";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
@@ -21,9 +21,11 @@
     import {getColumnSettingsTranslation} from "../utils/global";
     import {sprintf} from "@wordpress/i18n";
     import ColumnTypeDropdownV2 from "./ColumnTypeDropdownV2.svelte";
-    import {AcButton, AcDropdown, AcPanel, AcPanelFooter, AcPanelHeader, AcPanelTitle} from "ACUi/index";
+    import {AcButton, AcCheckbox, AcDropdown, AcPanel, AcPanelFooter, AcPanelHeader, AcPanelTitle} from "ACUi/index";
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
     import {clone} from "lodash-es";
+    import {MaterialIcon} from "@ac/material-icons/src";
+    import {persistScreenOptions} from "../ajax/settings";
 
     const i18n = getColumnSettingsTranslation();
     const dispatch = createEventDispatcher();
@@ -187,11 +189,14 @@
         component.close();
     }
 
+    const toggleColumnInfo = ( e ) => {
+        persistScreenOptions( 'show_column_info', e.detail === true ? 1 : 0)
+	}
+
     onMount(() => {
         setTimeout(makeSortable, 1000);
     });
 
-    listScreenLabels
 </script>
 
 <!--<DebugToolbar bind:data={data} bind:config={config}/>-->
@@ -199,14 +204,14 @@
 	<AcPanel>
 		<AcPanelHeader slot="header" border>
 
-			<div class="acu-flex acu-gap-4">
+			<div class="acu-flex acu-gap-4 acu-items-center">
 				<div class="acu-flex acu-gap-2 acu-items-center">
 					<AcPanelTitle title={ListKeys.getLabelForKey( data.type ) ?? ''}/>
 					{#if $listScreenIsReadOnly}
 						<span class="dashicons dashicons-lock"></span>
 					{/if}
 				</div>
-				<div class="acu-flex-grow acu-max-w-[400px]">
+				<div class="acu-flex-grow">
 					<AcInputGroup>
 						<input bind:value={data.title}
 							id="listTitle"
@@ -216,6 +221,13 @@
 							placeholder={i18n.settings.label.table_view_label}/>
 					</AcInputGroup>
 				</div>
+				<AcDropdown closeOnClick={false}>
+					<MaterialIcon icon="more_vert" slot="trigger" className="acu-cursor-pointer"/>
+					<div on:click|stopPropagation role="none" class="acu-p-4">
+						<AcCheckbox label={i18n.settings.label.column_info} bind:value={$showColumnInfo}
+							on:input={toggleColumnInfo}/>
+					</div>
+				</AcDropdown>
 			</div>
 
 		</AcPanelHeader>

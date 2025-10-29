@@ -154,8 +154,10 @@ class Columns extends Script
         }
 
         $this->add_inline_variable('ac_admin_columns', [
+
             'assets'                     => $this->parent_location->with_suffix('assets')->get_url(),
             'nonce'                      => NonceFactory::create_ajax()->create(),
+            'show_column_info'           => (new AC\Admin\Preference\ScreenOptions())->is_active('show_column_info'),
             'is_pro'                     => $this->is_pro,
             'list_key'                   => (string)$this->table_screen->get_id(),
             'list_id'                    => (string)$this->list_id,
@@ -373,8 +375,9 @@ class Columns extends Script
                 ],
                 'settings' => [
                     'label' => [
+                        'column_info'      => __('Column Info', 'codepress-admin-columns'),
                         'table_view_label' => __('Table View Label', 'codepress-admin-columns'),
-                        'select - icon'    => __('Select Icon', 'codepress-admin-columns'),
+                        'select_icon'      => __('Select Icon', 'codepress-admin-columns'),
                     ],
                 ],
                 'editor'   => [

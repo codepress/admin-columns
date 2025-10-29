@@ -3,6 +3,7 @@ import {getColumnSettingsConfig} from "../utils/global";
 import JsonSuccessResponse = AC.Ajax.JsonSuccessResponse;
 import JsonDefaultFailureResponse = AC.Ajax.JsonDefaultFailureResponse;
 import {SvelteSelectItem} from "../../types/select";
+import {mapDataToFormData} from "../../helpers/global";
 
 declare const ajaxurl: string;
 
@@ -21,4 +22,13 @@ export const getRemoteSelectOptions = (handler: string, data: Object): AxiosProm
         params
     })
 
+}
+
+export const persistScreenOptions = ( name: string, value : any) => {
+    return axios.post(ajaxurl, mapDataToFormData({
+        action: 'ac-admin-screen-options',
+        _ajax_nonce: getColumnSettingsConfig().nonce,
+        option_name: name,
+        option_value: value
+    }))
 }
