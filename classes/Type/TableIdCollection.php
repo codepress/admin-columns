@@ -4,16 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Type;
 
-use Countable;
-use Iterator;
+use AC\Collection;
 
-final class TableIdCollection implements Iterator, Countable
+final class TableIdCollection extends Collection
 {
-
-    /**
-     * @var TableId[]
-     */
-    private array $data = [];
 
     public function __construct(array $ids = [])
     {
@@ -44,31 +38,6 @@ final class TableIdCollection implements Iterator, Countable
     public function current(): TableId
     {
         return current($this->data);
-    }
-
-    public function next(): void
-    {
-        next($this->data);
-    }
-
-    public function key(): int
-    {
-        return key($this->data);
-    }
-
-    public function valid(): bool
-    {
-        return key($this->data) !== null;
-    }
-
-    public function rewind(): void
-    {
-        reset($this->data);
-    }
-
-    public function count(): int
-    {
-        return count($this->data);
     }
 
 }

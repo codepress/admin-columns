@@ -39,7 +39,7 @@ final class DefaultColumnsRepository
 
     public function exists(TableId $id): bool
     {
-        return false !== $this->storage($id)->get();
+        return false !== $this->get_cached($id);
     }
 
     public function delete(TableId $id): void
@@ -50,12 +50,18 @@ final class DefaultColumnsRepository
 
     public function find(TableId $id, ColumnId $column_id): ?DefaultColumn
     {
+        $data = $this->get_cached($id);
+
+        if ( ! $data) {
+            return null;
+        }
+
         $column_name = (string)$column_id;
 
-        $data = $this->get($id)[$column_name] ?? null;
+        $column_data = $data[$column_name] ?? null;
 
         return $data
-            ? $this->create_column($column_name, $data)
+            ? $this->create_column($column_name, $column_data)
             : null;
     }
 
@@ -63,23 +69,27 @@ final class DefaultColumnsRepository
     {
         $columns = [];
 
-        foreach ($this->get_cached($id) as $column_name => $column_data) {
-            if ('cb' === $column_name) {
-                continue;
-            }
+        $data = $this->get_cached($id);
 
-            $columns[] = $this->create_column($column_name, $column_data);
+        if ($data) {
+            foreach ($data as $column_name => $column_data) {
+                if ('cb' === $column_name) {
+                    continue;
+                }
+
+                $columns[] = $this->create_column($column_name, $column_data);
+            }
         }
 
         return new DefaultColumns($columns);
     }
 
-    private function get_cached(TableId $id): array
+    private function get_cached(TableId $id)
     {
         static $cached_storage;
 
         if ( ! isset($cached_storage[(string)$id])) {
-            $cached_storage[(string)$id] = $this->get($id);
+            $cached_storage[(string)$id] = $this->storage($id)->get();
         }
 
         return $cached_storage[(string)$id];

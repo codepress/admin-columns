@@ -26,7 +26,7 @@
     }
 
     let icon = determineIcon(type);
-    let classNames = ['notice-' + type, 'ac-message', 'inline']
+    let classNames = ['ac-notice', 'notice-' + type, 'ac-message', 'inline']
 
     if (styled) {
         classNames.push('ac-message--styled');

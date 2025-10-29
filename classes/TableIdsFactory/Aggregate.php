@@ -25,8 +25,12 @@ class Aggregate implements TableIdsFactory
         $ids = new TableIdCollection();
 
         foreach (self::$factories as $factory) {
-            foreach ($factory->create() as $key) {
-                $ids->add($key);
+            foreach ($factory->create() as $table_id) {
+                if ($ids->contains($table_id)) {
+                    continue;
+                }
+
+                $ids->add($table_id);
             }
         }
 

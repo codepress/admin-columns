@@ -32,7 +32,7 @@ class UninitializedScreens
 
         $table_screens = iterator_to_array($collection);
         $table_screens = array_filter($table_screens, [$this, 'is_uninitialized']);
-
+        
         return new TableScreenCollection(array_filter($table_screens));
     }
 
