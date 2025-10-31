@@ -105,7 +105,7 @@ class V7000 extends Update
                 continue;
             }
 
-            $option_name = "ac_columns_default_" . $list_key;
+            $option_name = "_ac_columns_default_" . $list_key;
 
             $exists = $wpdb->get_var(
                 $wpdb->prepare("SELECT option_name FROM $wpdb->options WHERE option_name = %s", $option_name)

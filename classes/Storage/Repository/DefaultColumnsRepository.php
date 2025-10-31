@@ -14,7 +14,7 @@ final class DefaultColumnsRepository
     private function storage(TableId $id): Option
     {
         return new Option(
-            sprintf('ac_columns_default_%s', $id)
+            sprintf('_ac_columns_default_%s', $id)
         );
     }
 

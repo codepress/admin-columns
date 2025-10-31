@@ -64,6 +64,7 @@ class RestoreSettingsRequest implements RequestAjaxHandler
         global $wpdb;
 
         $wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_api_request%'");
+        $wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_cache_expires_%'");
         $wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_cache_data%'");
         $wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_sorting_%'");
         $wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'cpac_options%__default'");
