@@ -60,7 +60,7 @@ final class DefaultColumnsRepository
 
         $column_data = $data[$column_name] ?? null;
 
-        return $data
+        return $column_data
             ? $this->create_column($column_name, $column_data)
             : null;
     }
