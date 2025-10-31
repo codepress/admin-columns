@@ -56,6 +56,7 @@ class V7000 extends Update
                 $this->delete_default_sortables();
                 $this->flush_help_transient();
 
+                $this->clear_next_step();
                 break;
         }
     }
@@ -249,6 +250,11 @@ class V7000 extends Update
         update_option(self::PROGRESS_KEY, $this->next_step, false);
 
         return $this;
+    }
+
+    private function clear_next_step(): void
+    {
+        delete_option(self::PROGRESS_KEY);
     }
 
     private function update_database(): void

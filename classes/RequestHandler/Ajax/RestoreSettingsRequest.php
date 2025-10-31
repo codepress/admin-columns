@@ -57,6 +57,7 @@ class RestoreSettingsRequest implements RequestAjaxHandler
         global $wpdb;
 
         $wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key LIKE '{$wpdb->get_blog_prefix()}ac_preferences_%'");
+        $wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key LIKE 'ac_conditional_format_%'");
     }
 
     private function delete_options(): void
