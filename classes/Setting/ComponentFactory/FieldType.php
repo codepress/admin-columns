@@ -149,8 +149,8 @@ class FieldType extends Builder
             foreach ($options as $value => $label) {
                 $collection->add(
                     new Option(
-                        $label,
-                        $value,
+                        (string)$label,
+                        (string)$value,
                         $groups[$group] ?? $group
                     )
                 );

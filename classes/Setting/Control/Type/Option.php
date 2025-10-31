@@ -7,11 +7,11 @@ namespace AC\Setting\Control\Type;
 final class Option
 {
 
-    protected $label;
+    protected string $label;
 
-    private $value;
+    private string $value;
 
-    private $group;
+    private ?string $group = null;
 
     public function __construct(string $label, string $value, ?string $group = null)
     {

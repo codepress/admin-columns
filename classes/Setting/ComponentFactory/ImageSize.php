@@ -102,7 +102,7 @@ final class ImageSize extends Builder
             $options->add(
                 new Option(
                     ucwords(str_replace(['-', '_'], ' ', $size)),
-                    $size,
+                    (string)$size,
                     $custom_group
                 )
             );
