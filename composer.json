@@ -7,7 +7,7 @@
   "config": {
     "autoloader-suffix": "AdminColumns",
     "platform": {
-      "php": "7.4"
+      "php": "7.4.33"
     }
   },
   "require": {
