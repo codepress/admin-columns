@@ -7,15 +7,9 @@ use AC\ListScreenRepository\Rule;
 class EqualType implements Rule
 {
 
-    /**
-     * @var string
-     */
-    private $type;
+    private string $type;
 
-    /**
-     * @param string $type
-     */
-    public function __construct($type)
+    public function __construct(string $type)
     {
         $this->type = $type;
     }
