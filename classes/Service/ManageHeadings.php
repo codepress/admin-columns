@@ -81,7 +81,7 @@ class ManageHeadings implements Registerable
         if ( ! $headings) {
             return;
         }
-
+        
         $factory->create($table_screen, $headings)
                 ->register();
     }
