@@ -13,6 +13,7 @@ export declare const icons: readonly [
     'edit',
     'filter_list',
     'filter_alt',
+    'functions',
     'group',
     'help',
     'info',
