@@ -68,7 +68,7 @@ class Hook
 
                 // Function
                 if (is_scalar($function)) {
-                    $messages[] = sprintf('%s: %s()', __('Function', 'codepress-admin-columns'), $function);
+                    $messages[] = sprintf('%s is called %s()', __('Function', 'codepress-admin-columns'), $function);
                     continue;
                 }
 
@@ -98,7 +98,7 @@ class Hook
                     }
 
                     $messages[] = sprintf(
-                        '%s: %s',
+                        '%s is called from %s',
                         __('Anonymous Function', 'codepress-admin-columns'),
                         $reflection->getFileName(),
                     );
