@@ -872,6 +872,10 @@
   padding-bottom: 2px
 }
 
+.\!acu-pr-6 {
+  padding-right: 30px !important
+}
+
 .acu-pb-10 {
   padding-bottom: 50px
 }
@@ -922,10 +926,6 @@
 
 .acu-pr-1 {
   padding-right: 5px
-}
-
-.acu-pr-10 {
-  padding-right: 50px
 }
 
 .acu-pr-2 {
@@ -982,14 +982,6 @@
 
 .acu-pt-\[70px\] {
   padding-top: 70px
-}
-
-.\!acu-pr-10 {
-  padding-right: 50px !important
-}
-
-.\!acu-pr-6 {
-  padding-right: 30px !important
 }
 
 .acu-text-left {

@@ -15,12 +15,12 @@
         toggleIntegrationStatus({
             integration: integration.slug,
             status: checked
-        }).then( response => {
+        }).then(response => {
             NotificationProgrammatic.open({
                 type: "success",
                 message: response.data.data
             });
-		})
+        })
     }
 
     const addons = getAddonsConfig();
@@ -28,10 +28,11 @@
 
 </script>
 <div class="acu-rounded-[10px] acu-border-solid acu-border-ui-border acu-w-full acu-max-w-[260px] acu-overflow-hidden">
-	<div class="acu-bg-[#F1F5F9] acu-p-4 acu-text-center acu-flex acu-h-[100px] acu-items-center acu-justify-center">
-		<img src="{addons.asset_location}/{integration.plugin_logo}" alt="{integration.title}"
-			class="acu-max-h-[80px] acu-max-w-[80%]"/>
-
+	<div class="acu-bg-[#F1F5F9] ">
+		<a href="{integration.external_link}" class="acu-p-4 acu-text-center acu-flex acu-h-[100px] acu-items-center acu-justify-center">
+			<img src="{addons.asset_location}/{integration.plugin_logo}" alt="{integration.title}"
+				class="acu-max-h-[80px] acu-max-w-[80%]"/>
+		</a>
 	</div>
 	<div class="acu-p-4">
 		<h3>{integration.title}</h3>
