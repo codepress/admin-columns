@@ -77,13 +77,15 @@ $count = count($callbacks);
 				if (1 === $count) {
 					printf(
 							_x(
-									'This deprecated hook has %s on this site with this callback: %s',
+									'This deprecated hook has %s on this site with this callback:',
 									'callback usages',
 									'codepress-admin-columns'
 							),
 							'<strong>' . $count_string . '</strong>',
-							'<code class="acu-bg-[transparent] acu-text-[12px]">' . $callbacks[0] . '</code>'
-					);
+					); ?>
+					<br/>
+					<code class="acu-bg-[transparent] acu-text-[12px]"><?= $callbacks[0] ?></code>
+					<?php
 				} else {
 					printf(
 							_x(
