@@ -68,13 +68,13 @@ class Hook
 
                 // Function
                 if (is_scalar($function)) {
-                    $messages[] = sprintf('%s: %s', __('Function', 'codepress-admin-columns'), $function);
+                    $messages[] = sprintf('%s: %s()', __('Function', 'codepress-admin-columns'), $function);
                     continue;
                 }
 
                 // Method
                 if (is_array($function)) {
-                    $messages[] = sprintf('%s::%s', get_class($function[0]), $function[1]);
+                    $messages[] = sprintf('%s::%s()', get_class($function[0]), $function[1]);
                     continue;
                 }
 
@@ -89,7 +89,7 @@ class Hook
 
                     if ($class_name) {
                         $messages[] = sprintf(
-                            '%s: %s',
+                            '%s is called from %s',
                             __('Anonymous function', 'codepress-admin-columns'),
                             $class_name,
                         );
