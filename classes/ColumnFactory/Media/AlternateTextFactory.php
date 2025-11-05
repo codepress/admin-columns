@@ -10,11 +10,14 @@ use AC\Value\Formatter\Post\Meta;
 class AlternateTextFactory extends BaseColumnFactory
 {
 
-    // Group to group: 'media-audio'
+    protected function get_group(): ?string
+    {
+        return 'media-image';
+    }
 
     public function get_column_type(): string
     {
-        return 'media-image';
+        return 'column-alternate_text';
     }
 
     public function get_label(): string
