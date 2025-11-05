@@ -22,6 +22,7 @@ final class MediaFactory extends BaseFactory
 
         $factories = [
             Media\AlbumFactory::class,
+            Media\AlternateTextFactory::class,
             Media\ArtistFactory::class,
             Media\AudioPlayerFactory::class,
             Media\AvailableSizesFactory::class,

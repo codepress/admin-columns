@@ -10,6 +10,11 @@ use AC\Value\Formatter\Media\Dimensions;
 class DimensionsFactory extends BaseColumnFactory
 {
 
+    protected function get_group(): ?string
+    {
+        return 'media-image';
+    }
+
     public function get_column_type(): string
     {
         return 'column-dimensions';
