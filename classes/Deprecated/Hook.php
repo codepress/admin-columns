@@ -2,6 +2,9 @@
 
 namespace AC\Deprecated;
 
+use Closure;
+use ReflectionFunction;
+
 class Hook
 {
 
@@ -65,22 +68,43 @@ class Hook
 
                 // Function
                 if (is_scalar($function)) {
-                    $messages[] = $function;
+                    $messages[] = sprintf('%s is called %s()', __('Function', 'codepress-admin-columns'), $function);
                     continue;
                 }
 
                 // Method
                 if (is_array($function)) {
-                    $messages[] = get_class($function[0]) . '::' . $function[1];
+                    $messages[] = sprintf('%s::%s()', get_class($function[0]), $function[1]);
                     continue;
                 }
 
                 // Anonymous function
-                $messages[] = sprintf(
-                    '%s (%s)',
-                    __('Unknown', 'codepress-admin-columns'),
-                    __('anonymous function', 'codepress-admin-columns')
-                );
+                if ($function instanceof Closure) {
+                    $reflection = new ReflectionFunction($function);
+                    $closure = $reflection->getClosureScopeClass();
+
+                    $class_name = $closure
+                        ? $closure->getName()
+                        : null;
+
+                    if ($class_name) {
+                        $messages[] = sprintf(
+                            '%s is called from %s',
+                            __('Anonymous function', 'codepress-admin-columns'),
+                            $class_name,
+                        );
+
+                        continue;
+                    }
+
+                    $messages[] = sprintf(
+                        '%s is called from %s',
+                        __('Anonymous Function', 'codepress-admin-columns'),
+                        $reflection->getFileName(),
+                    );
+
+                    continue;
+                }
             }
         }
 
