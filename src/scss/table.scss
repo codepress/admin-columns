@@ -38,7 +38,7 @@
 -------------------------------------------------------------- */
 .ac-image-sizes {
 	.ac-missing-size {
-		color: color.scale( #8a8a8a, $lightness:3% );
+		color: color.scale(#8a8a8a, $lightness: 3%);
 	}
 }
 
@@ -671,7 +671,7 @@ table.ac-table-items.-user-posts {
 
 		.ac-bar {
 			height: 100%;
-			background-color: color.scale( #46b450, $lightness: 10%);
+			background-color: color.scale(#46b450, $lightness: 10%);
 			border-right: 1px solid #fff;
 		}
 
@@ -922,6 +922,7 @@ div.cpac-color span {
 			&.switch_to_user a:before {
 				content: webfont.$cpacicon-user-switch;
 			}
+
 			&.copy {
 				background: red;
 
@@ -1119,6 +1120,7 @@ div.cpac-color span {
 		width: 1200px;
 	}
 }
+
 .ac-value-modal-container .ac-modal-images-container {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
@@ -1133,7 +1135,7 @@ div.cpac-color span {
 	.ac-image-container {
 		border: 1px solid #c3c4c7;
 		margin-bottom: 0;
-		overflow : hidden;
+		overflow: hidden;
 
 
 		.ac-image-center {
@@ -1155,17 +1157,54 @@ div.cpac-color span {
 		.ac-image-meta {
 			padding: 14px 20px;
 		}
+
 		.ac-image-button {
 			flex: 1;
 			border-radius: 5px;
-			background: rgba(255,255,255,.95);
+			background: rgba(255, 255, 255, .95);
 			text-align: center;
 			text-decoration: none;
 			padding: 10px 0;
 			transition: all .5s;
+
 			&:hover {
-				background: rgba(255,255,255,1);
+				background: rgba(255, 255, 255, 1);
 			}
 		}
 	}
+}
+
+/**
+ * Exended Value Modals
+ */
+table.ac-table-items.-clean {
+	width: 100%;
+
+	tr {
+		td, th {
+			padding: 12px 20px 14px;
+		}
+	}
+
+	thead tr > * {
+		padding-bottom: 5px;
+		border-bottom: 1px solid #eee;
+	}
+
+	tbody {
+		tr {
+			td, th {
+				border-bottom: 1px solid #eee;
+			}
+		}
+
+		tr:last-child {
+			td, th {
+				border-bottom: none;
+			}
+		}
+	}
+}
+table.ac-table-items.-plugins {
+	// custom styles here
 }
