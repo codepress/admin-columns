@@ -322,6 +322,26 @@
   aspect-ratio: 1.91/1
 }
 
+.acu-size-5 {
+  width: 25px;
+  height: 25px
+}
+
+.acu-size-4 {
+  width: 20px;
+  height: 20px
+}
+
+.acu-size-8 {
+  width: 40px;
+  height: 40px
+}
+
+.acu-size-6 {
+  width: 30px;
+  height: 30px
+}
+
 .acu-h-6 {
   height: 30px
 }
@@ -523,6 +543,16 @@
 
 .acu-transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+@keyframes acu-spin {
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+.acu-animate-spin {
+  animation: acu-spin 1s linear infinite
 }
 
 .acu-cursor-default {
@@ -1071,6 +1101,11 @@
   line-height: 1.75rem
 }
 
+.acu-text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem
+}
+
 .acu-font-bold {
   font-weight: 700
 }
@@ -1195,6 +1230,14 @@
 
 .acu-opacity-50 {
   opacity: 0.5
+}
+
+.acu-opacity-25 {
+  opacity: 0.25
+}
+
+.acu-opacity-75 {
+  opacity: 0.75
 }
 
 .acu-shadow {

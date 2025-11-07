@@ -14,6 +14,7 @@ module.exports = {
 		"./../../src/search/**/*.{js,ts,svelte}",
 		"./../../src/conditional-format/**/*.{js,ts,svelte}",
 		"./../../src/editing/**/*.{js,ts,svelte}",
+		"./../../src/metric/**/*.{js,ts,svelte}",
 		"./../../templates/**/*.php",
 		"./../templates/**/*.php",
 		"./packages/material-icons/src/**/*.{js,ts,svelte}",

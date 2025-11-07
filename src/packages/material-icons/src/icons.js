@@ -38,6 +38,7 @@ export const icons = [
 	'sentiment_satisfied',
 	'star',
 	'sell',
+	'sync',
 	'undo',
 	'visibility',
 	'visibility_lock',

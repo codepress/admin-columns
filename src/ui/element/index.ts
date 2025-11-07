@@ -5,3 +5,4 @@ export { default as AcRadio } from "./AcRadio.svelte";
 export { default as AcSelect } from "./AcSelect.svelte";
 export { default as AcSkeleton } from "./AcSkeleton.svelte";
 export { default as AcToggle } from "./AcToggle.svelte";
+export { default as AcLoading } from "./AcLoading.svelte";

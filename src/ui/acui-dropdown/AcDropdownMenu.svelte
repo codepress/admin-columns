@@ -20,7 +20,7 @@
 
         pos = {
             position: 'absolute',
-            top: (Math.round(triggerBox.top + triggerBox.height)).toString() + 'px',
+            top: (Math.round(triggerBox.top + window.scrollY + triggerBox.height)).toString() + 'px',
             left:Math.round(triggerBox.left) + 'px'
         }
 
