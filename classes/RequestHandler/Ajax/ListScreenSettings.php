@@ -101,25 +101,30 @@ class ListScreenSettings implements RequestAjaxHandler
 
         $list_screen = $request->get('list_screen');
 
+        // List Screen and context properties
+        $is_template = false;
+        $is_stored = false;
+        $title = $table_screen->get_labels()->get_singular();
+
         if ($list_screen instanceof ListScreen) {
             $this->set_editor_preference($list_screen);
 
             if ( ! trim($list_screen->get_title())) {
-                $list_screen->set_title((string)$table_screen->get_labels());
+                $list_screen->set_title($title);
             }
 
-            $this->response_factory->create($list_screen, true, $this->is_template($list_screen))
-                                   ->success();
+            $is_template = $this->is_template($list_screen);
+            $is_stored = true;
+        } else {
+            $list_screen = new ListScreen(
+                $this->list_screen_id_generator->generate(),
+                $title,
+                $table_screen
+            );
         }
 
-        $list_screen = new ListScreen(
-            $this->list_screen_id_generator->generate(),
-            (string)$table_screen->get_labels()->get_singular(),
-            $table_screen,
-            $this->type_repository->find_all_by_original($table_screen)
-        );
-
-        $this->response_factory->create($list_screen, false)
+        // TODO Stefan fetch defaults when empty and stored = false
+        $this->response_factory->create($list_screen, $is_stored, $is_template)
                                ->success();
     }
 
