@@ -1206,5 +1206,15 @@ table.ac-table-items.-clean {
 	}
 }
 table.ac-table-items.-plugins {
-	// custom styles here
+
+	tr {
+		td, th {
+			padding: 12px 0px 14px;
+		}
+	}
+	
+	thead tr th {
+		text-align: left;
+	}
+
 }
