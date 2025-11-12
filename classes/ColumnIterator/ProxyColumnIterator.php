@@ -36,10 +36,9 @@ class ProxyColumnIterator implements ColumnIterator
         return $this->forward()->current();
     }
 
-    #[\ReturnTypeWillChange]
-    public function next()
+    public function next(): void
     {
-        return $this->forward()->next();
+        $this->forward()->next();
     }
 
     #[\ReturnTypeWillChange]
