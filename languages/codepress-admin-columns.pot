@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2025-11-11 12:22+0000\n"
+"POT-Creation-Date: 2025-11-14 08:37+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Enable Filtering"
 msgstr ""
 
-#: classes/ColumnFactory/CustomFieldFactory.php:69, templates/tooltip/custom-field.php:8
+#: classes/ColumnFactory/CustomFieldFactory.php:69, templates/tooltip/custom-field.php:8, classes/Setting/ComponentFactory/PostExtendedProperty.php:47
 msgid "Custom Field"
 msgstr ""
 
@@ -976,7 +976,7 @@ msgstr ""
 msgid "getting started guide"
 msgstr ""
 
-#: classes/Admin/MenuGroupFactory/Aggregate.php:34, classes/RequestHandler/Ajax/NetworkPostStati.php:85, classes/Setting/ComponentFactory/UserProperty.php:137
+#: classes/Admin/MenuGroupFactory/Aggregate.php:34, classes/RequestHandler/Ajax/NetworkPostStati.php:85, classes/Setting/ComponentFactory/PostExtendedProperty.php:49, classes/Setting/ComponentFactory/UserProperty.php:137
 msgid "Other"
 msgstr ""
 
