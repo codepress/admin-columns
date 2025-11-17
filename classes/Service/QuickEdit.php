@@ -4,7 +4,6 @@ namespace AC\Service;
 
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
-use AC\Setting\ContextFactory;
 use AC\Table\PrimaryColumnFactory;
 use AC\Table\TablePreference;
 use AC\TableScreenFactory;
@@ -21,20 +20,16 @@ class QuickEdit implements Registerable
 
     private TableScreenFactory $table_screen_factory;
 
-    private ContextFactory $context_factory;
-
     public function __construct(
         Storage $storage,
         TablePreference $preference,
         PrimaryColumnFactory $primary_column_factory,
-        TableScreenFactory $table_screen_factory,
-        ContextFactory $context_factory
+        TableScreenFactory $table_screen_factory
     ) {
         $this->storage = $storage;
         $this->preference = $preference;
         $this->primary_column_factory = $primary_column_factory;
         $this->table_screen_factory = $table_screen_factory;
-        $this->context_factory = $context_factory;
     }
 
     public function register(): void
@@ -95,7 +90,7 @@ class QuickEdit implements Registerable
             20
         );
 
-        (new ManageHeadings($this->context_factory))->handle($list_screen, $table_screen);
+        (new ManageHeadings())->handle($list_screen, $table_screen);
         (new ManageValue())->handle($list_screen, $table_screen);
     }
 

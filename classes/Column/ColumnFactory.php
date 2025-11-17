@@ -5,6 +5,7 @@ namespace AC\Column;
 use AC\Column;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
+use AC\Setting\Context;
 use AC\Setting\FormatterCollection;
 
 abstract class ColumnFactory
@@ -19,6 +20,11 @@ abstract class ColumnFactory
     protected function get_settings(Config $config): ComponentCollection
     {
         return new ComponentCollection();
+    }
+
+    protected function get_context(Config $config): Context
+    {
+        return new Context($config);
     }
 
     protected function get_formatters(Config $config): FormatterCollection
