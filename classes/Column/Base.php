@@ -7,6 +7,7 @@ namespace AC\Column;
 use AC\Column;
 use AC\Setting\Component;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Context;
 use AC\Setting\FormatterCollection;
 use AC\Type\ColumnId;
 
@@ -19,23 +20,27 @@ class Base implements Column
 
     protected ComponentCollection $settings;
 
-    protected string $group;
+    private ColumnId $id;
+
+    private Context $context;
 
     private FormatterCollection $formatters;
 
-    private ColumnId $id;
+    protected string $group;
 
     public function __construct(
         string $type,
         string $label,
         ComponentCollection $settings,
         ColumnId $id,
+        Context $context,
         ?FormatterCollection $formatters = null,
         ?string $group = null
     ) {
         $this->type = $type;
         $this->label = $label;
         $this->settings = $settings;
+        $this->context = $context;
         $this->id = $id;
         $this->formatters = $formatters ?? new FormatterCollection();
         $this->group = $group ?? 'custom';
@@ -74,6 +79,11 @@ class Base implements Column
     public function get_setting(string $name): ?Component
     {
         return $this->settings->find($name);
+    }
+
+    public function get_context(): Context
+    {
+        return $this->context;
     }
 
 }

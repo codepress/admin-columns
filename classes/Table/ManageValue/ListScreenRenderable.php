@@ -7,7 +7,6 @@ namespace AC\Table\ManageValue;
 use AC\CellRenderer;
 use AC\Column;
 use AC\ListScreen;
-use AC\Setting\ContextFactory;
 use AC\Type\ColumnId;
 
 class ListScreenRenderable implements CellRenderer
@@ -15,12 +14,9 @@ class ListScreenRenderable implements CellRenderer
 
     private ListScreen $list_screen;
 
-    private ContextFactory $context_factory;
-
-    public function __construct(ListScreen $list_screen, ContextFactory $context_factory)
+    public function __construct(ListScreen $list_screen)
     {
         $this->list_screen = $list_screen;
-        $this->context_factory = $context_factory;
     }
 
     private function get_renderable(Column $column): ColumnRenderable
@@ -32,7 +28,7 @@ class ListScreenRenderable implements CellRenderer
 
             $renderable = new ColumnRenderable(
                 $formatters,
-                $this->context_factory->create($column, $this->list_screen->get_table_screen()),
+                $column->get_context(),
                 $this->list_screen
             );
 

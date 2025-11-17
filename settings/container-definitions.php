@@ -13,7 +13,6 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
 use AC\Service\PluginUpdate;
-use AC\Setting\ContextFactory;
 use AC\Storage\EncoderFactory;
 use AC\Storage\Table;
 use AC\TableIdsFactory;
@@ -69,9 +68,6 @@ return [
     EncoderFactory::class                   => static function (AdminColumns $plugin) {
         return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
     },
-    ContextFactory\Aggregate::class         => autowire()
-        ->constructorParameter(0, get(ContextFactory\Column::class)),
-    ContextFactory::class                   => get(ContextFactory\Aggregate::class),
     PluginUpdate::class                     => autowire()
         ->constructorParameter(0, get(AdminColumns::class))
         ->constructorParameter(1, new Site('upgrade-to-ac-version-%s')),

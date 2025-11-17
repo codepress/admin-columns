@@ -7,7 +7,6 @@ namespace AC\Service;
 use AC\ColumnRepository\Sort\ManualOrder;
 use AC\ListScreen;
 use AC\Registerable;
-use AC\Setting\ContextFactory;
 use AC\TableScreen;
 use AC\TableScreen\ManageHeadingFactory;
 
@@ -15,13 +14,6 @@ class ManageHeadings implements Registerable
 {
 
     private static array $factories = [];
-
-    private ContextFactory $context_factory;
-
-    public function __construct(ContextFactory $context_factory)
-    {
-        $this->context_factory = $context_factory;
-    }
 
     public static function add(ManageHeadingFactory $factory): void
     {
@@ -60,7 +52,7 @@ class ManageHeadings implements Registerable
             $headings[(string)$column->get_id()] = apply_filters(
                 'ac/column/heading/label',
                 $label,
-                $this->context_factory->create($column, $list_screen->get_table_screen()),
+                $column->get_context(),
                 $list_screen->get_table_screen()
             );
         }
@@ -81,7 +73,7 @@ class ManageHeadings implements Registerable
         if ( ! $headings) {
             return;
         }
-        
+
         $factory->create($table_screen, $headings)
                 ->register();
     }

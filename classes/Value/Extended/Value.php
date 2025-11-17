@@ -6,7 +6,6 @@ namespace AC\Value\Extended;
 
 use AC\Column;
 use AC\ListScreen;
-use AC\Setting\ContextFactory;
 use AC\Setting\FormatterCollection;
 use AC\Table\ManageValue\ColumnRenderable;
 use AC\Value\ExtendedValueLink;
@@ -14,14 +13,6 @@ use AC\Value\Formatter;
 
 class Value implements ExtendedValue
 {
-
-    private ContextFactory $context_factory;
-
-    public function __construct(
-        ContextFactory $context_factory
-    ) {
-        $this->context_factory = $context_factory;
-    }
 
     public function render(
         int $id,
@@ -41,7 +32,7 @@ class Value implements ExtendedValue
 
         $renderable = new ColumnRenderable(
             new FormatterCollection($formatters),
-            $this->context_factory->create($column, $list_screen->get_table_screen()),
+            $column->get_context(),
             $list_screen
         );
 

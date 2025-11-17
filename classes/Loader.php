@@ -11,7 +11,6 @@ use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
 use AC\Plugin\SetupFactory;
 use AC\RequestHandler\Ajax;
-use AC\Setting\ContextFactory;
 use AC\Table\ManageHeading;
 use AC\Table\ManageValue\ListScreenServiceFactory;
 use AC\Table\SaveHeading;
@@ -96,11 +95,6 @@ class Loader
 
         Service\ManageHeadings::add($container->get(ManageHeading\WpListTableFactory::class));
         Service\SaveHeadings::add($container->get(SaveHeading\WpListTableFactory::class));
-
-        $aggregateContextFactory = $container->get(ContextFactory\Aggregate::class);
-        if ($aggregateContextFactory instanceof ContextFactory\Aggregate) {
-            $aggregateContextFactory->add($container->get(ContextFactory\CustomField::class));
-        }
 
         // Services
         $services_fqn = [
