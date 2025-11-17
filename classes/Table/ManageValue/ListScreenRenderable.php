@@ -17,6 +17,7 @@ class ListScreenRenderable implements CellRenderer
 
     private ContextFactory $context_factory;
 
+    // TODO remove ContextFactory
     public function __construct(ListScreen $list_screen, ContextFactory $context_factory)
     {
         $this->list_screen = $list_screen;
@@ -32,7 +33,7 @@ class ListScreenRenderable implements CellRenderer
 
             $renderable = new ColumnRenderable(
                 $formatters,
-                $this->context_factory->create($column, $this->list_screen->get_table_screen()),
+                $column->get_context(),
                 $this->list_screen
             );
 
