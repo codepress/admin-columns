@@ -60,7 +60,7 @@ class TableScreenAdmin implements Middleware
     {
         $table_screen = $this->get_table_screen_by_id(new TableId('post'));
 
-        return $table_screen ?: $this->table_screens->offsetGet($this->table_screens->count() - 1);
+        return $table_screen ?: $this->table_screens->last();
     }
 
     private function get_table_screen(Request $request): ?TableScreen
