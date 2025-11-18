@@ -26,15 +26,15 @@ class PostProperty extends Builder
     public const PROPERTY_DATE = 'date';
     public const PROPERTY_STATUS = 'status';
 
-    private StringLimit $string_limit;
+    protected StringLimit $string_limit;
 
-    private ImageSize $image_size;
+    protected ImageSize $image_size;
 
-    private UserProperty $user_property;
+    protected UserProperty $user_property;
 
-    private PostStatusIcon $post_status_icon;
+    protected PostStatusIcon $post_status_icon;
 
-    private Date $date;
+    protected Date $date;
 
     public function __construct(
         StringLimit $string_limit,

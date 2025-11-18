@@ -322,19 +322,14 @@
   aspect-ratio: 1.91/1
 }
 
-.acu-size-5 {
-  width: 25px;
-  height: 25px
-}
-
 .acu-size-4 {
   width: 20px;
   height: 20px
 }
 
-.acu-size-8 {
-  width: 40px;
-  height: 40px
+.acu-size-5 {
+  width: 25px;
+  height: 25px
 }
 
 .acu-size-6 {
@@ -1101,11 +1096,6 @@
   line-height: 1.75rem
 }
 
-.acu-text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem
-}
-
 .acu-font-bold {
   font-weight: 700
 }
@@ -1228,12 +1218,12 @@
   text-decoration-line: none
 }
 
-.acu-opacity-50 {
-  opacity: 0.5
-}
-
 .acu-opacity-25 {
   opacity: 0.25
+}
+
+.acu-opacity-50 {
+  opacity: 0.5
 }
 
 .acu-opacity-75 {
