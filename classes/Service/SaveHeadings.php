@@ -6,19 +6,19 @@ namespace AC\Service;
 
 use AC\Registerable;
 use AC\Request;
-use AC\Storage\Repository\DefaultColumnsRepository;
+use AC\Storage\Repository\OriginalColumnsRepository;
 use AC\Table\SaveHeadingFactory;
 use AC\TableScreen;
-use AC\Type\DefaultColumns;
+use AC\Type\OriginalColumns;
 
 class SaveHeadings implements Registerable
 {
 
     private static array $factories = [];
 
-    private DefaultColumnsRepository $repository;
+    private OriginalColumnsRepository $repository;
 
-    public function __construct(DefaultColumnsRepository $repository)
+    public function __construct(OriginalColumnsRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -53,7 +53,7 @@ class SaveHeadings implements Registerable
         }
 
         // Save an empty array in case the hook does not run properly.
-        $this->repository->update($table_screen->get_id(), new DefaultColumns());
+        $this->repository->update($table_screen->get_id(), new OriginalColumns());
 
         $service = $this->get_manage_column_service($table_screen);
 

@@ -6,7 +6,7 @@ namespace AC\Type;
 
 use AC\Collection;
 
-class DefaultColumns extends Collection
+class OriginalColumns extends Collection
 {
 
     public function __construct(array $data = [])
@@ -14,7 +14,7 @@ class DefaultColumns extends Collection
         array_map([$this, 'add'], $data);
     }
 
-    public static function create_by_headings(array $headings): self
+    public static function create_from_headings(array $headings): self
     {
         $columns = [];
 
@@ -23,22 +23,22 @@ class DefaultColumns extends Collection
                 continue;
             }
 
-            if (DefaultColumn::validate($column_name, $label)) {
-                $columns[] = new DefaultColumn((string)$column_name, (string)$label);
+            if (OriginalColumn::validate($column_name, $label)) {
+                $columns[] = new OriginalColumn((string)$column_name, (string)$label);
             }
         }
 
         return new self($columns);
     }
 
-    public function add(DefaultColumn $component): self
+    public function add(OriginalColumn $component): self
     {
         $this->data[] = $component;
 
         return $this;
     }
 
-    public function current(): DefaultColumn
+    public function current(): OriginalColumn
     {
         return current($this->data);
     }

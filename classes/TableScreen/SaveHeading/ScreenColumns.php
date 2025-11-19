@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AC\TableScreen\SaveHeading;
 
 use AC\Registerable;
-use AC\Storage\Repository\DefaultColumnsRepository;
-use AC\Type\DefaultColumns;
+use AC\Storage\Repository\OriginalColumnsRepository;
+use AC\Type\OriginalColumns;
 use AC\Type\TableId;
 
 class ScreenColumns implements Registerable
@@ -14,7 +14,7 @@ class ScreenColumns implements Registerable
 
     private string $screen_id;
 
-    private DefaultColumnsRepository $repository;
+    private OriginalColumnsRepository $repository;
 
     private TableId $table_id;
 
@@ -25,7 +25,7 @@ class ScreenColumns implements Registerable
     public function __construct(
         string $screen_id,
         TableId $table_id,
-        DefaultColumnsRepository $repository,
+        OriginalColumnsRepository $repository,
         int $priority = 199,
         bool $do_exit = true
     ) {
@@ -65,7 +65,7 @@ class ScreenColumns implements Registerable
 
             $this->repository->update(
                 $this->table_id,
-                DefaultColumns::create_by_headings($headings)
+                OriginalColumns::create_from_headings($headings)
             );
         }
 

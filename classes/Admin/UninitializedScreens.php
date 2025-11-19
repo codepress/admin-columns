@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Admin;
 
-use AC\Storage\Repository\DefaultColumnsRepository;
+use AC\Storage\Repository\OriginalColumnsRepository;
 use AC\Table\TableScreenCollection;
 use AC\Table\TableScreenRepository;
 use AC\TableScreen;
@@ -14,14 +14,14 @@ class UninitializedScreens
 
     private TableScreenRepository $table_screen_repository;
 
-    private DefaultColumnsRepository $default_columns_repository;
+    private OriginalColumnsRepository $original_columns_repository;
 
     public function __construct(
         TableScreenRepository $table_screen_repository,
-        DefaultColumnsRepository $default_columns_repository
+        OriginalColumnsRepository $original_columns_repository
     ) {
         $this->table_screen_repository = $table_screen_repository;
-        $this->default_columns_repository = $default_columns_repository;
+        $this->original_columns_repository = $original_columns_repository;
     }
 
     private function find_all(bool $is_network): TableScreenCollection
@@ -32,13 +32,13 @@ class UninitializedScreens
 
         $table_screens = iterator_to_array($collection);
         $table_screens = array_filter($table_screens, [$this, 'is_uninitialized']);
-        
+
         return new TableScreenCollection(array_filter($table_screens));
     }
 
     private function is_uninitialized(TableScreen $table_screen): bool
     {
-        return ! $this->default_columns_repository->exists($table_screen->get_id());
+        return ! $this->original_columns_repository->exists($table_screen->get_id());
     }
 
     public function find_all_network(): TableScreenCollection

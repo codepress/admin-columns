@@ -6,7 +6,7 @@ namespace AC\Type;
 
 use InvalidArgumentException;
 
-class DefaultColumn
+class OriginalColumn
 {
 
     private string $name;

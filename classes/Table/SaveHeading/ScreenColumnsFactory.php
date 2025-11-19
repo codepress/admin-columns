@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace AC\Table\SaveHeading;
 
 use AC\Registerable;
-use AC\Storage\Repository\DefaultColumnsRepository;
+use AC\Storage\Repository\OriginalColumnsRepository;
 use AC\Table\SaveHeadingFactory;
 use AC\TableScreen;
 
 abstract class ScreenColumnsFactory implements SaveHeadingFactory
 {
 
-    private DefaultColumnsRepository $repository;
+    private OriginalColumnsRepository $repository;
 
-    public function __construct(DefaultColumnsRepository $repository)
+    public function __construct(OriginalColumnsRepository $repository)
     {
         $this->repository = $repository;
     }
