@@ -71,7 +71,7 @@ class ColumnTypeRepository
         return $column_names;
     }
 
-    public function find_all_by_original(TableScreen $table_screen): ColumnCollection
+    public function find_all_original(TableScreen $table_screen): ColumnCollection
     {
         $columns = new ColumnCollection();
 

@@ -10,12 +10,14 @@ use AC\Setting\Encoder;
 use AC\Storage\EncoderFactory;
 use AC\Type\Url\Preview;
 
+// TODO Stefan should not be the case here as well, defaults
+
 class JsonListScreenSettingsFactory
 {
 
     private EncoderFactory $encoder_factory;
 
-    private AC\ColumnTypeRepository $type_repository;
+    //private AC\ColumnTypeRepository $type_repository;
 
     private AC\ColumnGroups $column_groups;
 
@@ -94,7 +96,7 @@ class JsonListScreenSettingsFactory
     private function get_original_types(AC\TableScreen $table_screen): array
     {
         $types = [];
-        foreach ($this->type_repository->find_all_by_original($table_screen) as $column) {
+        foreach ($this->type_repository->find_all_original($table_screen) as $column) {
             $types[] = $column->get_type();
         }
 

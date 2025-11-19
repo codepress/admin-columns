@@ -24,7 +24,7 @@ class ListScreenSettings implements RequestAjaxHandler
 
     protected Preference\EditorPreference $editor_preference;
 
-    protected AC\ColumnTypeRepository $type_repository;
+    //protected AC\ColumnTypeRepository $type_repository;
 
     protected AC\Response\JsonListScreenSettingsFactory $response_factory;
 
@@ -33,7 +33,7 @@ class ListScreenSettings implements RequestAjaxHandler
     public function __construct(
         Storage $storage,
         AC\TableScreenFactory\Aggregate $table_factory,
-        AC\ColumnTypeRepository $type_repository,
+        //AC\ColumnTypeRepository $type_repository,
         Preference\EditorPreference $preference,
         AC\Response\JsonListScreenSettingsFactory $response_factory,
         AC\Type\ListScreenIdGenerator $list_screen_id_generator
@@ -41,7 +41,7 @@ class ListScreenSettings implements RequestAjaxHandler
         $this->storage = $storage;
         $this->table_factory = $table_factory;
         $this->editor_preference = $preference;
-        $this->type_repository = $type_repository;
+        //$this->type_repository = $type_repository;
         $this->response_factory = $response_factory;
         $this->list_screen_id_generator = $list_screen_id_generator;
     }

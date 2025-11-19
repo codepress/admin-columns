@@ -5,6 +5,7 @@ use AC\Admin\PageRequestHandlers;
 use AC\AdminColumns;
 use AC\Asset\Script\GlobalTranslationFactory;
 use AC\Asset\Script\Localize\Translation;
+use AC\DefaultColumnHandler;
 use AC\ListScreenRepository;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
@@ -44,6 +45,7 @@ return [
     AdminColumns::class                     => static function (): AdminColumns {
         return new AdminColumns(AC_FILE, new Version(AC_VERSION));
     },
+    DefaultColumnHandler::class             => autowire(DefaultColumnHandler\Aggregate::class),
     TableScreenFactory::class               => autowire(TableScreenFactory\Aggregate::class),
     SetupFactory\AdminColumns::class        => static function (
         AdminColumns $plugin,
