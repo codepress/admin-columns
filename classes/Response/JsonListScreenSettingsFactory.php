@@ -17,7 +17,7 @@ class JsonListScreenSettingsFactory
 
     private EncoderFactory $encoder_factory;
 
-    //private AC\ColumnTypeRepository $type_repository;
+    private AC\ColumnTypeRepository $type_repository;
 
     private AC\ColumnGroups $column_groups;
 
