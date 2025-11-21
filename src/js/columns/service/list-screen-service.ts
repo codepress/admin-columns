@@ -68,8 +68,10 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
 
             if (defaultData.data.success) {
                 listScreenData.columns = defaultData.data.data.columns;
-                // @ts-ignore
-                config.set(defaultData.data.data.config);
+                let defaultConfig = defaultData.data.data.config as unknown as {
+                    [key: string]: AC.Vars.Settings.ColumnSetting[]
+                }
+                config.set(defaultConfig);
             }
         }
     } catch (error: any) {

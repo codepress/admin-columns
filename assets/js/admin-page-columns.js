@@ -36458,8 +36458,8 @@ function refreshListScreenData(listKey_1) {
                 const defaultData = yield (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_1__.loadDefaultColumns)(listKey);
                 if (defaultData.data.success) {
                     listScreenData.columns = defaultData.data.data.columns;
-                    // @ts-ignore
-                    config.set(defaultData.data.data.config);
+                    let defaultConfig = defaultData.data.data.config;
+                    config.set(defaultConfig);
                 }
             }
         }
