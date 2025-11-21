@@ -19,18 +19,16 @@
         isSaving = true;
         saveListScreen(data, $currentListKey).then((response) => {
             if (response.data.success) {
-                isSaving = false;
                 NotificationProgrammatic.open({message: response.data.data.message, type: 'success'})
+                initialListScreenData.set(cloneDeep(data));
+                listScreenIsStored.set(true);
+                listScreenDataHasChanges.set(false);
             } else {
                 NotificationProgrammatic.open({message: response.data.data.message, type: 'error'})
             }
-
-            initialListScreenData.set(cloneDeep(data));
-            listScreenIsStored.set( true );
-            listScreenDataHasChanges.set(false);
-
         }).catch((c: AxiosError) => {
             NotificationProgrammatic.open({message: c.message, type: 'error'})
+        }).finally(() => {
             isSaving = false;
         });
     }

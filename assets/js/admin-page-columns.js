@@ -7979,25 +7979,25 @@ function instance($$self, $$props, $$invalidate) {
     $$invalidate(2, isSaving = true);
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.saveListScreen)(data, $currentListKey).then(response => {
       if (response.data.success) {
-        $$invalidate(2, isSaving = false);
         _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_5__.NotificationProgrammatic.open({
           message: response.data.data.message,
           type: 'success'
         });
+        _store__WEBPACK_IMPORTED_MODULE_6__.initialListScreenData.set((0,lodash_es_cloneDeep__WEBPACK_IMPORTED_MODULE_9__["default"])(data));
+        _store_is_stored__WEBPACK_IMPORTED_MODULE_8__.listScreenIsStored.set(true);
+        _store__WEBPACK_IMPORTED_MODULE_6__.listScreenDataHasChanges.set(false);
       } else {
         _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_5__.NotificationProgrammatic.open({
           message: response.data.data.message,
           type: 'error'
         });
       }
-      _store__WEBPACK_IMPORTED_MODULE_6__.initialListScreenData.set((0,lodash_es_cloneDeep__WEBPACK_IMPORTED_MODULE_9__["default"])(data));
-      _store_is_stored__WEBPACK_IMPORTED_MODULE_8__.listScreenIsStored.set(true);
-      _store__WEBPACK_IMPORTED_MODULE_6__.listScreenDataHasChanges.set(false);
     }).catch(c => {
       _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_5__.NotificationProgrammatic.open({
         message: c.message,
         type: 'error'
       });
+    }).finally(() => {
       $$invalidate(2, isSaving = false);
     });
   };
