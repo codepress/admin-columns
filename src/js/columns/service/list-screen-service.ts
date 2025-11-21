@@ -1,5 +1,5 @@
 import {get, writable} from "svelte/store";
-import {getListScreenSettings} from "../ajax/ajax";
+import {getListScreenSettings, loadDefaultColumns} from "../ajax/ajax";
 import cloneDeep from "lodash-es/cloneDeep";
 import {isCancel} from "axios";
 import {
@@ -7,13 +7,15 @@ import {
     columnTypesStore,
     currentListId,
     currentTableUrl,
-    initialListScreenData, isInitializingColumnSettings,
+    initialListScreenData,
+    isInitializingColumnSettings,
     isLoadingColumnSettings,
     listScreenDataHasChanges,
     listScreenDataStore,
     listScreenIsReadOnly,
     listScreenIsStored,
-    listScreenIsTemplate, listScreenLabels
+    listScreenIsTemplate,
+    listScreenLabels
 } from "../store";
 
 export const config = writable<{ [key: string]: AC.Vars.Settings.ColumnSetting[] }>({});
@@ -31,7 +33,7 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
     }
 
     isLoadingColumnSettings.set(true);
-    isInitializingColumnSettings.set( true );
+    isInitializingColumnSettings.set(true);
     refreshState.error.set(null);
 
     listScreenDataStore.set(null);
@@ -60,6 +62,16 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
         listScreenDataHasChanges.set(false);
         listScreenIsStored.set(data.is_stored);
         listScreenIsTemplate.set(data.is_template);
+
+        if (!data.is_stored && listScreenData.columns.length === 0) {
+            const defaultData = await loadDefaultColumns(listKey);
+
+            if (defaultData.data.success) {
+                listScreenData.columns = defaultData.data.data.columns;
+                // @ts-ignore
+                config.set(defaultData.data.data.config);
+            }
+        }
     } catch (error: any) {
         if (isCancel(error)) {
             return;
@@ -71,11 +83,11 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
             return;
         }
         isLoadingColumnSettings.set(false);
-        setTimeout( () => {
+        setTimeout(() => {
             // Let the form 'correct' the data that is loaded by the settings
-            initialListScreenData.set( cloneDeep(get(listScreenDataStore)) );
-            isInitializingColumnSettings.set( false );
-        },1000)
+            initialListScreenData.set(cloneDeep(get(listScreenDataStore)));
+            isInitializingColumnSettings.set(false);
+        }, 1000)
 
     }
 }
