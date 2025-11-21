@@ -66,8 +66,6 @@ class ListScreenSave implements RequestAjaxHandler
             $response->error();
         }
 
-        wp_send_json_error(['message' => __('List screen not found', 'codepress-admin-columns')]);
-
         $list_key = new TableId($request->get('list_key', '') ?? '');
         $data = $request->get('data', '');
         $data = json_decode($data, true);
