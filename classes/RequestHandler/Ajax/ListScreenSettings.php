@@ -122,8 +122,7 @@ class ListScreenSettings implements RequestAjaxHandler
                 $table_screen
             );
         }
-
-        // TODO Stefan fetch defaults when empty and stored = false
+        
         $this->response_factory->create($list_screen, $is_stored, $is_template)
                                ->success();
     }
