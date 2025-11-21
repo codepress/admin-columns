@@ -10,8 +10,6 @@ use AC\Setting\Encoder;
 use AC\Storage\EncoderFactory;
 use AC\Type\Url\Preview;
 
-// TODO Stefan should not be the case here as well, defaults
-
 class JsonListScreenSettingsFactory
 {
 

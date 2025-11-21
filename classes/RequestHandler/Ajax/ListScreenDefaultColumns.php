@@ -13,7 +13,6 @@ use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response;
 use AC\Setting\Encoder;
-use AC\TableScreen;
 use AC\TableScreenFactory\Aggregate;
 use AC\Type\TableId;
 
@@ -61,10 +60,6 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
             $table_screen,
             $this->column_type_repository->find_all_original($table_screen)
         );
-
-        // TODO David implement the handler for data sources
-        // TODO David use the defaults over the originals?
-        // TODO Stefan implement the proper settings to be returned
 
         $response->set_parameter('columns', $this->get_columns($default_columns));
         $response->set_parameter('config', $this->get_config($default_columns));

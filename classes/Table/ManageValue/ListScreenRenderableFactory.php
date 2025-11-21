@@ -12,7 +12,6 @@ class ListScreenRenderableFactory
 
     public function create(ListScreen $list_screen): CellRenderer
     {
-        // TODO Stefan remove factory?
         return new ListScreenRenderable($list_screen);
     }
 

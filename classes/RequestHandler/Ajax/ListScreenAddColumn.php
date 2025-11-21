@@ -52,7 +52,6 @@ class ListScreenAddColumn implements RequestAjaxHandler
             $response->error();
         }
 
-        // TODO Stefan this seems to find a single column... that is still intended behaviour?
         $column = $this->repository->find(
             $this->table_screen_factory->create($list_key),
             (string)$request->get('column_type')
