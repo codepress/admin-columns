@@ -14,6 +14,7 @@ use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Media\Dimensions;
 use AC\Value\Formatter\Media\FileSize;
 use AC\Value\Formatter\ReadableFileSize;
 
@@ -39,8 +40,9 @@ class FeaturedImageDisplay extends Builder
         return OptionFactory::create_select(
             self::NAME,
             OptionCollection::from_array([
-                'image'    => __('Image'),
-                'filesize' => __('Filesize', 'codepress-admin-columns'),
+                'image'      => __('Image'),
+                'filesize'   => __('Filesize', 'codepress-admin-columns'),
+                'dimensions' => __('Dimensions', 'codepress-admin-columns'),
             ]),
             $config->get(self::NAME, 'image')
         );
@@ -63,6 +65,10 @@ class FeaturedImageDisplay extends Builder
         if ('filesize' === $this->get_input($config)->get_value()) {
             $formatters->add(new FileSize());
             $formatters->add(new ReadableFileSize());
+        }
+
+        if ('dimensions' === $this->get_input($config)->get_value()) {
+            $formatters->add(new Dimensions());
         }
     }
 
