@@ -8,8 +8,6 @@ use WP_MS_Users_List_Table;
 class NetworkUser implements ListTable
 {
 
-    use WpListTableTrait;
-
     public function __construct(WP_MS_Users_List_Table $table)
     {
         $this->table = $table;

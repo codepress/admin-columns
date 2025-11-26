@@ -8,8 +8,6 @@ use WP_MS_Sites_List_Table;
 class NetworkSite implements ListTable
 {
 
-    use WpListTableTrait;
-
     public function __construct(WP_MS_Sites_List_Table $table)
     {
         $this->table = $table;
