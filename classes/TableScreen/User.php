@@ -11,8 +11,10 @@ use AC\Type\Labels;
 use AC\Type\TableId;
 use AC\Type\Url;
 
-class User extends TableScreen implements ListTable, MetaType
+class User extends TableScreen implements ListTable, MetaType, TotalItems
 {
+
+    use AC\ListTable\TotalItemsTrait;
 
     public function __construct()
     {

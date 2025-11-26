@@ -8,7 +8,7 @@ use WP_Posts_List_Table;
 class Post implements ListTable
 {
 
-    use WpListTableTrait;
+    private WP_Posts_List_Table $table;
 
     public function __construct(WP_Posts_List_Table $table)
     {
