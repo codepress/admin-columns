@@ -34,7 +34,6 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
         return new PostTypeSlug('attachment');
     }
 
-    // TODO remove
     public function list_table(): AC\ListTable
     {
         return new ListTable(new WpListTableFactory());

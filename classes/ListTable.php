@@ -2,7 +2,6 @@
 
 namespace AC;
 
-// TODO Tobias
 interface ListTable extends CellRenderer
 {
 
