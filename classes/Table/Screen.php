@@ -124,6 +124,7 @@ final class Screen implements Registerable
 		?>
 		<script>
 			var ac_table_total_items = <?= $count ?>;
+			var ac_table_total_items_formatted = <?= number_format_i18n($count) ?>;
 		</script>
 		<?php
 	}
