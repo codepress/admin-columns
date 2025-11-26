@@ -8,6 +8,8 @@ use WP_Comments_List_Table;
 class Comment implements ListTable
 {
 
+    private WP_Comments_List_Table $table;
+
     public function __construct(WP_Comments_List_Table $table)
     {
         $this->table = $table;

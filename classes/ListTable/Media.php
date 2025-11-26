@@ -8,6 +8,8 @@ use WP_Media_List_Table;
 class Media implements ListTable
 {
 
+    private WP_Media_List_Table $table;
+
     public function __construct(WP_Media_List_Table $table)
     {
         $this->table = $table;

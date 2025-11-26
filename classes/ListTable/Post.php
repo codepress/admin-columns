@@ -8,6 +8,8 @@ use WP_Posts_List_Table;
 class Post implements ListTable
 {
 
+    private WP_Posts_List_Table $table;
+
     public function __construct(WP_Posts_List_Table $table)
     {
         $this->table = $table;
