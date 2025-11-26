@@ -11,7 +11,7 @@ class Taxonomy implements ListTable
 
     private WP_Terms_List_Table $table;
 
-    private $taxonomy;
+    private string $taxonomy;
 
     public function __construct(WP_Terms_List_Table $table, string $taxonomy)
     {
