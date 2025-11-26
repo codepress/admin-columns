@@ -42,6 +42,7 @@ final class Screen implements Registerable
 		(new AC\Table\AdminHeadStyle())->register();
 
 		add_action('admin_enqueue_scripts', [$this, 'admin_scripts']);
+		add_action('admin_footer', [$this, 'admin_scripts_footer']);
 		add_filter('admin_body_class', [$this, 'admin_class']);
 		add_action('admin_footer', [$this, 'render_actions']);
 		add_filter('screen_settings', [$this, 'screen_options']);
@@ -114,6 +115,19 @@ final class Screen implements Registerable
 		);
 	}
 
+	public function admin_scripts_footer(): void
+	{
+		$count = $this->table_screen instanceof TableScreen\TotalItems
+				? $this->table_screen->get_total_items()
+				: null;
+
+		?>
+		<script>
+			var ac_table_total_items = <?= $count ?>;
+		</script>
+		<?php
+	}
+
 	public function admin_scripts(): void
 	{
 		$style = new Asset\Style(
@@ -139,8 +153,10 @@ final class Screen implements Registerable
 		$script = new Asset\Script(
 				'ac-table',
 				$this->location->with_suffix('assets/js/table.js'),
-				['jquery', Asset\Script\GlobalTranslationFactory::HANDLE]
+				['jquery', Asset\Script\GlobalTranslationFactory::HANDLE],
 		);
+
+		$table_screen = $this->table_screen;
 
 		$args = [
 				'layout'            => '',
@@ -162,6 +178,10 @@ final class Screen implements Registerable
 				'meta_type'         => $this->table_screen instanceof AC\TableScreen\MetaType
 						? (string)$this->table_screen->get_meta_type()
 						: '',
+				'total_items'       => $this->table_screen instanceof AC\TableScreen\TotalItems
+						? $this->table_screen->get_total_items()
+						: null,
+
 		];
 
 		if ($this->list_screen) {

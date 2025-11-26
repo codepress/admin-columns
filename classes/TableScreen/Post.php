@@ -15,8 +15,11 @@ use AC\Type\TableId;
 use AC\Type\Url;
 use WP_Post_Type;
 
-class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaType
+// TODO remove ListTable interface
+class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaType, TotalItems
 {
+
+    use AC\ListTable\TotalItemsTrait;
 
     protected WP_Post_Type $post_type;
 

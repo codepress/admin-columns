@@ -6,6 +6,8 @@ namespace AC\TableScreen;
 
 use AC;
 
+// TODO remove this clas. check all usages.
+
 interface ListTable
 {
 
