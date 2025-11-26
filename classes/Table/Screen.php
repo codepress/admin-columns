@@ -26,10 +26,10 @@ final class Screen implements Registerable
 	private AC\Settings\GeneralOption $option_storage;
 
 	public function __construct(
-		AC\AdminColumns $plugin,
-		TableScreen $table_screen,
-		AC\Settings\GeneralOption $option_storage,
-		?ListScreen $list_screen = null
+			AC\AdminColumns $plugin,
+			TableScreen $table_screen,
+			AC\Settings\GeneralOption $option_storage,
+			?ListScreen $list_screen = null
 	) {
 		$this->location = $plugin->get_location();
 		$this->table_screen = $table_screen;
@@ -109,21 +109,25 @@ final class Screen implements Registerable
 	private function get_edit_columns_url(): string
 	{
 		return EditorUrlFactory::create(
-			$this->table_screen->get_id(),
-			$this->table_screen->is_network(),
-			$this->list_screen ? $this->list_screen->get_id() : null
+				$this->table_screen->get_id(),
+				$this->table_screen->is_network(),
+				$this->list_screen ? $this->list_screen->get_id() : null
 		);
 	}
 
 	public function admin_scripts_footer(): void
 	{
 		$count = $this->table_screen instanceof TableScreen\TotalItems
-			? $this->table_screen->get_total_items()
-			: null;
+				? $this->table_screen->get_total_items()
+				: null;
+
+		$formatted = $count
+				? number_format_i18n($count)
+				: null;
 		?>
 		<script>
-			var ac_table_total_items = <?= $count ?>;
-			var ac_table_total_items_formatted = '<?= number_format_i18n($count) ?>';
+			var ac_table_total_items = <?= $count ?: 'null' ?>;
+			var ac_table_total_items_formatted = '<?= $formatted ?>';
 		</script>
 		<?php
 	}
@@ -131,57 +135,53 @@ final class Screen implements Registerable
 	public function admin_scripts(): void
 	{
 		$style = new Asset\Style(
-			'ac-table',
-			$this->location->with_suffix('assets/css/table.css'),
-			['ac-ui', 'ac-material-symbols']
+				'ac-table',
+				$this->location->with_suffix('assets/css/table.css'),
+				['ac-ui', 'ac-material-symbols']
 		);
 		$style->enqueue();
 
 		$edit_columns_translation = __('Edit columns', 'codepress-admin-columns');
 		$table_translation = Asset\Script\Localize\Translation::create([
-			'value_loading'        => __('Loading...', 'codepress-admin-columns'),
-			'edit'                 => __('Edit', 'codepress-admin-columns'),
-			'view'                 => __('View', 'codepress-admin-columns'),
-			'download'             => __('Download', 'codepress-admin-columns'),
-			'edit_columns'         => $edit_columns_translation,
-			'edit_columns_tooltip' => sprintf(
-				__("Show %s button on table screen.", 'codepress-admin-columns'),
-				$edit_columns_translation
-			),
+				'value_loading'        => __('Loading...', 'codepress-admin-columns'),
+				'edit'                 => __('Edit', 'codepress-admin-columns'),
+				'view'                 => __('View', 'codepress-admin-columns'),
+				'download'             => __('Download', 'codepress-admin-columns'),
+				'edit_columns'         => $edit_columns_translation,
+				'edit_columns_tooltip' => sprintf(
+						__("Show %s button on table screen.", 'codepress-admin-columns'),
+						$edit_columns_translation
+				),
 		]);
 
 		$script = new Asset\Script(
-			'ac-table',
-			$this->location->with_suffix('assets/js/table.js'),
-			['jquery', Asset\Script\GlobalTranslationFactory::HANDLE],
+				'ac-table',
+				$this->location->with_suffix('assets/js/table.js'),
+				['jquery', Asset\Script\GlobalTranslationFactory::HANDLE],
 		);
 
 		$table_screen = $this->table_screen;
 
 		$args = [
-			'layout'            => '',
-			'column_types'      => '',
-			'read_only'         => false,
-			'assets'            => $this->location->with_suffix('assets/')->get_url(),
-			'list_screen'       => (string)$this->table_screen->get_id(),
-			'ajax_nonce'        => wp_create_nonce('ac-ajax'),
-			'table_id'          => $this->table_screen->get_attr_id(),
-			'screen'            => $this->table_screen->get_screen_id(),
-			'list_screen_link'  => $this->get_list_screen_clear_link(),
-			'show_edit_columns' => $this->show_edit_columns_action(),
-			'edit_columns_url'  => $this->get_edit_columns_url(),
-			'current_user_id'   => get_current_user_id(),
-			'number_format'     => [
-				'decimal_point' => $this->get_local_number_format('decimal_point'),
-				'thousands_sep' => $this->get_local_number_format('thousands_sep'),
-			],
-			'meta_type'         => $this->table_screen instanceof AC\TableScreen\MetaType
-				? (string)$this->table_screen->get_meta_type()
-				: '',
-			'total_items'       => $this->table_screen instanceof AC\TableScreen\TotalItems
-				? $this->table_screen->get_total_items()
-				: null,
-
+				'layout'            => '',
+				'column_types'      => '',
+				'read_only'         => false,
+				'assets'            => $this->location->with_suffix('assets/')->get_url(),
+				'list_screen'       => (string)$this->table_screen->get_id(),
+				'ajax_nonce'        => wp_create_nonce('ac-ajax'),
+				'table_id'          => $this->table_screen->get_attr_id(),
+				'screen'            => $this->table_screen->get_screen_id(),
+				'list_screen_link'  => $this->get_list_screen_clear_link(),
+				'show_edit_columns' => $this->show_edit_columns_action(),
+				'edit_columns_url'  => $this->get_edit_columns_url(),
+				'current_user_id'   => get_current_user_id(),
+				'number_format'     => [
+						'decimal_point' => $this->get_local_number_format('decimal_point'),
+						'thousands_sep' => $this->get_local_number_format('thousands_sep'),
+				],
+				'meta_type'         => $this->table_screen instanceof AC\TableScreen\MetaType
+						? (string)$this->table_screen->get_meta_type()
+						: '',
 		];
 
 		if ($this->list_screen) {
@@ -193,9 +193,9 @@ final class Screen implements Registerable
 		}
 
 		$script
-			->add_inline_variable('ac_table', $args)
-			->localize('ac_table_i18n', $table_translation)
-			->enqueue();
+				->add_inline_variable('ac_table', $args)
+				->localize('ac_table_i18n', $table_translation)
+				->enqueue();
 	}
 
 	public function admin_class($classes): string
@@ -225,13 +225,13 @@ final class Screen implements Registerable
 	private function get_list_screen_clear_link(): string
 	{
 		$url = $this->list_screen
-			? $this->list_screen->get_table_url()
-			: $this->table_screen->get_url();
+				? $this->list_screen->get_table_url()
+				: $this->table_screen->get_url();
 
 		$query_args_whitelist = [
-			'layout',
-			'orderby',
-			'order',
+				'layout',
+				'orderby',
+				'order',
 		];
 
 		switch (true) {
