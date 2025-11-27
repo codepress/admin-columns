@@ -10,4 +10,5 @@ interface FieldTypeConfigurator
 {
 
     public function configure(FieldTypeBuilder $builder): void;
+
 }

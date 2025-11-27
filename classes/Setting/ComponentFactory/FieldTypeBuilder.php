@@ -27,6 +27,7 @@ class FieldTypeBuilder
     public function add_option(string $type, string $label, string $group): self
     {
         $this->field_types[$group][$type] = $label;
+
         natcasesort($this->field_types[$group]);
 
         return $this;

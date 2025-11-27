@@ -15,6 +15,10 @@ class DateConfigurator implements FieldTypeConfigurator
 
     public const TYPE = 'date';
 
+    protected ComponentFactory\DateFormat\Date $date_format;
+
+    protected ComponentFactory\DateSaveFormat $date_save_format;
+
     public function __construct(
         ComponentFactory\DateFormat\Date $date_format,
         ComponentFactory\DateSaveFormat $date_save_format
