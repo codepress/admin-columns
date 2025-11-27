@@ -13,9 +13,9 @@ use AC\TableScreen;
 abstract class TableRows implements Registerable, RequestHandler
 {
 
-    private ?TableScreen\ListTable $table_screen;
+    private TableScreen\ListTable $table_screen;
 
-    public function __construct(TableScreen\ListTable $table_screen = null)
+    public function __construct(TableScreen\ListTable $table_screen)
     {
         $this->table_screen = $table_screen;
     }
@@ -24,8 +24,6 @@ abstract class TableRows implements Registerable, RequestHandler
     {
         return $request->get('ac_action') === 'get_table_rows';
     }
-
-    // TODO make abstract method?
 
     protected function get_rows(array $ids): array
     {
