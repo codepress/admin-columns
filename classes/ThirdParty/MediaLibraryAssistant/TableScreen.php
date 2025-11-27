@@ -12,7 +12,8 @@ use AC\Type\TableId;
 use AC\Type\Url;
 use MLACore;
 
-class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC\TableScreen\MetaType, AC\PostType
+class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC\TableScreen\MetaType, AC\PostType,
+                                                    AC\TableScreen\TotalItems
 {
 
     public function __construct()
@@ -41,6 +42,12 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
     public function get_meta_type(): MetaType
     {
         return new MetaType(MetaType::POST);
+    }
+
+    public function get_total_items(): int
+    {
+        return (new WpListTableFactory())->create()
+                                         ->get_pagination_arg('total_items');
     }
 
 }

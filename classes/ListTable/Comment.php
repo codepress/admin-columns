@@ -8,7 +8,7 @@ use WP_Comments_List_Table;
 class Comment implements ListTable
 {
 
-    use WpListTableTrait;
+    private WP_Comments_List_Table $table;
 
     public function __construct(WP_Comments_List_Table $table)
     {

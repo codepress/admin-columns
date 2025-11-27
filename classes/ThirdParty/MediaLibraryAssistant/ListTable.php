@@ -36,11 +36,6 @@ class ListTable implements AC\ListTable
         return (string)$table->column_default($item, $column_id);
     }
 
-    public function get_total_items(): int
-    {
-        return $this->factory->create()->get_pagination_arg('total_items');
-    }
-
     public function render_row($id): string
     {
         ob_start();

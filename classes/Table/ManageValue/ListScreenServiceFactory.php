@@ -14,14 +14,9 @@ class ListScreenServiceFactory implements AC\Table\ManageValueServiceFactory
 
     private TableScreen\ManageValueServiceFactory $factory;
 
-    private AC\Table\ManageValue\ListScreenRenderableFactory $renderable_factory;
-
-    public function __construct(
-        TableScreen\ManageValueServiceFactory $factory,
-        AC\Table\ManageValue\ListScreenRenderableFactory $renderable_factory
-    ) {
+    public function __construct(TableScreen\ManageValueServiceFactory $factory)
+    {
         $this->factory = $factory;
-        $this->renderable_factory = $renderable_factory;
     }
 
     public function create(TableScreen $table_screen, ListScreen $list_screen): ?Registerable
@@ -32,7 +27,7 @@ class ListScreenServiceFactory implements AC\Table\ManageValueServiceFactory
 
         return $this->factory->create(
             $table_screen,
-            $this->renderable_factory->create($list_screen)
+            new ListScreenRenderable($list_screen)
         );
     }
 

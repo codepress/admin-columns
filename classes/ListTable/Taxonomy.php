@@ -9,9 +9,9 @@ use WP_Terms_List_Table;
 class Taxonomy implements ListTable
 {
 
-    use WpListTableTrait;
+    private WP_Terms_List_Table $table;
 
-    private $taxonomy;
+    private string $taxonomy;
 
     public function __construct(WP_Terms_List_Table $table, string $taxonomy)
     {
