@@ -13,9 +13,9 @@ use AC\TableScreen;
 abstract class TableRows implements Registerable, RequestHandler
 {
 
-    private TableScreen\ListTable $table_screen;
+    private ?TableScreen\ListTable $table_screen;
 
-    public function __construct(TableScreen\ListTable $table_screen)
+    public function __construct(TableScreen\ListTable $table_screen = null)
     {
         $this->table_screen = $table_screen;
     }
