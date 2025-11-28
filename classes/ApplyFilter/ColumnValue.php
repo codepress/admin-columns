@@ -6,6 +6,7 @@ namespace AC\ApplyFilter;
 
 use AC\ListScreen;
 use AC\Setting\Context;
+use AC\Type\Value;
 
 class ColumnValue
 {
@@ -23,20 +24,22 @@ class ColumnValue
         $this->list_screen = $list_screen;
     }
 
-    public function apply_filter(?string $value = null): ?string
+    public function apply_filter(Value $value): Value
     {
-        $value = apply_filters(
+        $render = apply_filters(
             'ac/column/render',
-            $value,
+            $value->get_value(),
             $this->context,
             $this->id,
             $this->list_screen->get_table_screen(),
             $this->list_screen->get_id()
         );
 
-        return is_scalar($value)
-            ? (string)$value
-            : null;
+        if (is_scalar($render)) {
+            $value = $value->with_value($render);
+        }
+
+        return $value;
     }
 
 }

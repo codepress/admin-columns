@@ -24,8 +24,6 @@ class ListScreenSettings implements RequestAjaxHandler
 
     protected Preference\EditorPreference $editor_preference;
 
-    protected AC\ColumnTypeRepository $type_repository;
-
     protected AC\Response\JsonListScreenSettingsFactory $response_factory;
 
     private AC\Type\ListScreenIdGenerator $list_screen_id_generator;
@@ -33,7 +31,6 @@ class ListScreenSettings implements RequestAjaxHandler
     public function __construct(
         Storage $storage,
         AC\TableScreenFactory\Aggregate $table_factory,
-        AC\ColumnTypeRepository $type_repository,
         Preference\EditorPreference $preference,
         AC\Response\JsonListScreenSettingsFactory $response_factory,
         AC\Type\ListScreenIdGenerator $list_screen_id_generator
@@ -41,7 +38,6 @@ class ListScreenSettings implements RequestAjaxHandler
         $this->storage = $storage;
         $this->table_factory = $table_factory;
         $this->editor_preference = $preference;
-        $this->type_repository = $type_repository;
         $this->response_factory = $response_factory;
         $this->list_screen_id_generator = $list_screen_id_generator;
     }
@@ -101,25 +97,29 @@ class ListScreenSettings implements RequestAjaxHandler
 
         $list_screen = $request->get('list_screen');
 
+        // List Screen and context properties
+        $is_template = false;
+        $is_stored = false;
+        $title = $table_screen->get_labels()->get_singular();
+
         if ($list_screen instanceof ListScreen) {
             $this->set_editor_preference($list_screen);
 
             if ( ! trim($list_screen->get_title())) {
-                $list_screen->set_title((string)$table_screen->get_labels());
+                $list_screen->set_title($title);
             }
 
-            $this->response_factory->create($list_screen, true, $this->is_template($list_screen))
-                                   ->success();
+            $is_template = $this->is_template($list_screen);
+            $is_stored = true;
+        } else {
+            $list_screen = new ListScreen(
+                $this->list_screen_id_generator->generate(),
+                $title,
+                $table_screen
+            );
         }
 
-        $list_screen = new ListScreen(
-            $this->list_screen_id_generator->generate(),
-            (string)$table_screen->get_labels()->get_singular(),
-            $table_screen,
-            $this->type_repository->find_all_by_original($table_screen)
-        );
-
-        $this->response_factory->create($list_screen, false)
+        $this->response_factory->create($list_screen, $is_stored, $is_template)
                                ->success();
     }
 

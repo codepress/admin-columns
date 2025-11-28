@@ -7,7 +7,8 @@ namespace AC\Value\Extended;
 use AC\Column;
 use AC\ListScreen;
 use AC\Setting\FormatterCollection;
-use AC\Table\ManageValue\ColumnRenderable;
+use AC\Table\ManageValue\ColumnFormatter;
+use AC\Type;
 use AC\Value\ExtendedValueLink;
 use AC\Value\Formatter;
 
@@ -30,17 +31,16 @@ class Value implements ExtendedValue
             $formatters[] = $formatter;
         }
 
-        $renderable = new ColumnRenderable(
+        $renderable = new ColumnFormatter(
             new FormatterCollection($formatters),
             $column->get_context(),
             $list_screen
         );
 
-        ob_start();
-
-        echo $renderable->render($id);
-
-        return (string)ob_get_clean();
+        // TODO test
+        return (string)$renderable->format(
+            new Type\Value($id)
+        );
     }
 
     public function can_render(string $view): bool

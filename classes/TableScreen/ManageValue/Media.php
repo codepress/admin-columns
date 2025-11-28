@@ -4,22 +4,24 @@ declare(strict_types=1);
 
 namespace AC\TableScreen\ManageValue;
 
-use AC\CellRenderer;
+use AC\Table\ManageValue\ValueFormatter;
 use AC\TableScreen\ManageValueService;
+use AC\Type\ColumnId;
+use AC\Type\Value;
 use DomainException;
 
 class Media implements ManageValueService
 {
 
-    private CellRenderer $renderable;
+    private ValueFormatter $formatter;
 
     private int $priority;
 
     public function __construct(
-        CellRenderer $renderable,
+        ValueFormatter $formatter,
         int $priority = 100
     ) {
-        $this->renderable = $renderable;
+        $this->formatter = $formatter;
         $this->priority = $priority;
     }
 
@@ -36,7 +38,10 @@ class Media implements ManageValueService
     {
         [$column_id, $row_id] = $args;
 
-        echo $this->renderable->render_cell((string)$column_id, $row_id);
+        echo $this->formatter->format(
+            new ColumnId($column_id),
+            new Value($row_id, '')
+        );
     }
 
 }
