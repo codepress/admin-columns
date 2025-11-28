@@ -9,7 +9,7 @@ use AC\Setting\Component;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 
-class TestFieldExample implements ComponentFactory
+class FieldBuilderFactory implements ComponentFactory
 {
 
     private TextConfigurator $text_configurator;
@@ -38,6 +38,10 @@ class TestFieldExample implements ComponentFactory
 
     private RelatedUserConfigurator $user_configurator;
 
+    private CountConfigurator $count_configurator;
+
+    private SerializedConfigurator $serialized_configurator;
+
     public function __construct(
         TextConfigurator $text_configurator,
         ColorConfigurator $color_configurator,
@@ -51,7 +55,9 @@ class TestFieldExample implements ComponentFactory
         SelectConfigurator $select_configurator,
         MediaConfigurator $media_configurator,
         RelatedPostConfigurator $post_configurator,
-        RelatedUserConfigurator $user_configurator
+        RelatedUserConfigurator $user_configurator,
+        CountConfigurator $count_configurator,
+        SerializedConfigurator $serialized_configurator
     ) {
         $this->text_configurator = $text_configurator;
         $this->color_configurator = $color_configurator;
@@ -66,6 +72,8 @@ class TestFieldExample implements ComponentFactory
         $this->media_configurator = $media_configurator;
         $this->post_configurator = $post_configurator;
         $this->user_configurator = $user_configurator;
+        $this->count_configurator = $count_configurator;
+        $this->serialized_configurator = $serialized_configurator;
     }
 
     public function create(Config $config, ?Specification $conditions = null): Component
@@ -83,7 +91,9 @@ class TestFieldExample implements ComponentFactory
             ->with($this->select_configurator)
             ->with($this->media_configurator)
             ->with($this->post_configurator)
-            ->with($this->user_configurator);
+            ->with($this->user_configurator)
+            ->with($this->count_configurator)
+            ->with($this->serialized_configurator);
 
         return $builder->build()->create($config, $conditions);
     }
