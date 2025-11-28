@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
 use AC\Setting\FormatterCollection;
 use AC\Type\TableScreenContext;
-use AC\Value\Formatter\Meta;
+use AC\Value\Formatter;
 
 class CustomFieldFactory extends BaseColumnFactory
 {
@@ -71,10 +71,24 @@ class CustomFieldFactory extends BaseColumnFactory
 
     protected function get_formatters(Config $config): FormatterCollection
     {
-        return parent::get_formatters($config)
-                     ->prepend(
-                         new Meta($this->table_screen_context->get_meta_type(), $config->get('field', ''))
-                     );
+        $formatters = parent::get_formatters($config);
+
+        if ($config->get('field_type') === FieldType::TYPE_COUNT) {
+            $formatters->prepend(
+                new Formatter\Aggregate(new FormatterCollection([
+                    new Formatter\MetaCollection(
+                        $this->table_screen_context->get_meta_type(), $config->get('field', '')
+                    ),
+                    new Formatter\Count(),
+                ]))
+            );
+        } else {
+            $formatters->prepend(
+                new Formatter\Meta($this->table_screen_context->get_meta_type(), $config->get('field', ''))
+            );
+        }
+
+        return $formatters;
     }
 
 }
