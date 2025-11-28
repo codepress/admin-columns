@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AC\TableScreen\ManageValue;
 
-use AC\CellRenderer;
 use AC\PostType;
+use AC\Table\ManageValue\ValueFormatter;
 use AC\TableScreen;
 use AC\TableScreen\ManageValueService;
 use AC\TableScreen\ManageValueServiceFactory;
@@ -21,7 +21,7 @@ class PostServiceFactory implements ManageValueServiceFactory
 
     public function create(
         TableScreen $table_screen,
-        CellRenderer $renderable,
+        ValueFormatter $formatter,
         int $priority = 100
     ): ManageValueService {
         if ( ! $table_screen instanceof PostType) {
@@ -30,7 +30,7 @@ class PostServiceFactory implements ManageValueServiceFactory
 
         return new Post(
             $table_screen->get_post_type(),
-            $renderable,
+            $formatter,
             $priority
         );
     }

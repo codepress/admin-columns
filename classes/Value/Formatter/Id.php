@@ -10,9 +10,9 @@ use AC\Type\Value;
 class Id implements Formatter
 {
 
-    public function format(Value $value): Value
+    public function format(Value $value)
     {
-        return new Value((int)$value->get_value());
+        return $value->with_value($value->get_id());
     }
 
 }

@@ -7,6 +7,8 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Id;
 
 class IdFactory extends BaseColumnFactory
 {
@@ -30,6 +32,12 @@ class IdFactory extends BaseColumnFactory
     public function get_label(): string
     {
         return __('ID', 'codepress-admin-columns');
+    }
+
+    protected function get_formatters(Config $config): FormatterCollection
+    {
+        return parent::get_formatters($config)
+                     ->with_formatter(new Id());
     }
 
     protected function get_settings(Config $config): ComponentCollection
