@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\RequestHandler\Ajax;
 
 use AC\Capabilities;
+use AC\Column;
 use AC\ColumnCollection;
 use AC\ColumnTypeRepository;
 use AC\DefaultColumnHandler;
@@ -66,12 +67,17 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
         $response->success();
     }
 
+    private function get_name(Column $column): string
+    {
+        return (string)$column->get_id();
+    }
+
     private function get_config(ColumnCollection $columns): array
     {
         $settings = [];
 
         foreach ($columns as $column) {
-            $settings[$column->get_type()] = (new Encoder($column->get_settings()))->encode();
+            $settings[$this->get_name($column)] = (new Encoder($column->get_settings()))->encode();
         }
 
         return $settings;
@@ -85,7 +91,7 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
             $abstracts[] = [
                 'type'  => $column->get_type(),
                 'label' => $column->get_label(),
-                'name'  => $column->get_type(),
+                'name'  => $this->get_name($column),
             ];
         }
 
