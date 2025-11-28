@@ -4,24 +4,23 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory\FieldType;
 
+use AC;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting;
-use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactory\FieldTypeBuilder;
-use AC\Value\Formatter;
 
-class ImageConfigurator implements FieldTypeConfigurator
+class MediaConfigurator implements FieldTypeConfigurator
 {
 
-    public const TYPE = 'image';
+    private const TYPE = 'library_id';
 
-    private ComponentFactory\ImageSize $image_size;
+    private Setting\ComponentFactory\ImageSize $image_size;
 
-    private ComponentFactory\MediaLink $media_link;
+    private Setting\ComponentFactory\MediaLink $media_link;
 
     public function __construct(
-        ComponentFactory\ImageSize $image_size,
-        ComponentFactory\MediaLink $media_link
+        Setting\ComponentFactory\ImageSize $image_size,
+        Setting\ComponentFactory\MediaLink $media_link
     ) {
         $this->image_size = $image_size;
         $this->media_link = $media_link;
@@ -30,11 +29,11 @@ class ImageConfigurator implements FieldTypeConfigurator
     public function configure(FieldTypeBuilder $builder): void
     {
         $builder
-            ->add_option(self::TYPE, __('Image', 'codepress-admin-columns'), 'basic')
+            ->add_option(self::TYPE, __('Media', 'codepress-admin-columns'), 'relational')
             ->add_formatter(
                 self::TYPE,
                 function (Setting\Config $config, Setting\FormatterCollection $formatters) {
-                    $formatters->add(new Formatter\IdCollectionFromArrayOrString());
+                    $formatters->add(new AC\Value\Formatter\IdCollectionFromArrayOrString());
                 }
             )->add_child_component(
                 $this->image_size,

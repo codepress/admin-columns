@@ -26,6 +26,18 @@ class TestFieldExample implements ComponentFactory
 
     private NumericConfigurator $numeric_configurator;
 
+    private HasContentConfigurator $has_content_configurator;
+
+    private BooleanConfigurator $boolean_configurator;
+
+    private SelectConfigurator $select_configurator;
+
+    private MediaConfigurator $media_configurator;
+
+    private RelatedPostConfigurator $post_configurator;
+
+    private RelatedUserConfigurator $user_configurator;
+
     public function __construct(
         TextConfigurator $text_configurator,
         ColorConfigurator $color_configurator,
@@ -33,7 +45,13 @@ class TestFieldExample implements ComponentFactory
         HtmlConfigurator $html_configurator,
         ImageConfigurator $image_configurator,
         UrlConfigurator $url_configurator,
-        NumericConfigurator $numeric_configurator
+        NumericConfigurator $numeric_configurator,
+        HasContentConfigurator $has_content_configurator,
+        BooleanConfigurator $boolean_configurator,
+        SelectConfigurator $select_configurator,
+        MediaConfigurator $media_configurator,
+        RelatedPostConfigurator $post_configurator,
+        RelatedUserConfigurator $user_configurator
     ) {
         $this->text_configurator = $text_configurator;
         $this->color_configurator = $color_configurator;
@@ -42,6 +60,12 @@ class TestFieldExample implements ComponentFactory
         $this->image_configurator = $image_configurator;
         $this->url_configurator = $url_configurator;
         $this->numeric_configurator = $numeric_configurator;
+        $this->has_content_configurator = $has_content_configurator;
+        $this->boolean_configurator = $boolean_configurator;
+        $this->select_configurator = $select_configurator;
+        $this->media_configurator = $media_configurator;
+        $this->post_configurator = $post_configurator;
+        $this->user_configurator = $user_configurator;
     }
 
     public function create(Config $config, ?Specification $conditions = null): Component
@@ -53,7 +77,13 @@ class TestFieldExample implements ComponentFactory
             ->with($this->text_configurator)
             ->with($this->image_configurator)
             ->with($this->url_configurator)
-            ->with($this->numeric_configurator);
+            ->with($this->numeric_configurator)
+            ->with($this->has_content_configurator)
+            ->with($this->boolean_configurator)
+            ->with($this->select_configurator)
+            ->with($this->media_configurator)
+            ->with($this->post_configurator)
+            ->with($this->user_configurator);
 
         return $builder->build()->create($config, $conditions);
     }
