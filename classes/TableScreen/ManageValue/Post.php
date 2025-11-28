@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace AC\TableScreen\ManageValue;
 
-use AC\CellRenderer;
+use AC\Table\ManageValue\ValueFormatter;
 use AC\TableScreen\ManageValueService;
+use AC\Type\ColumnId;
 use AC\Type\PostTypeSlug;
+use AC\Type\Value;
 use DomainException;
 
 class Post implements ManageValueService
@@ -16,15 +18,15 @@ class Post implements ManageValueService
 
     private int $priority;
 
-    private CellRenderer $renderable;
+    private ValueFormatter $formatter;
 
     public function __construct(
         PostTypeSlug $post_type,
-        CellRenderer $renderable,
+        ValueFormatter $formatter,
         int $priority = 100
     ) {
         $this->post_type = $post_type;
-        $this->renderable = $renderable;
+        $this->formatter = $formatter;
         $this->priority = $priority;
     }
 
@@ -43,7 +45,10 @@ class Post implements ManageValueService
     {
         [$column_id, $row_id] = $args;
 
-        echo $this->renderable->render_cell((string)$column_id, $row_id);
+        echo $this->formatter->format(
+            new ColumnId((string)$column_id),
+            new Value((int)$row_id, '')
+        );
     }
 
 }

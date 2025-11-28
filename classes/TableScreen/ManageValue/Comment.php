@@ -4,22 +4,24 @@ declare(strict_types=1);
 
 namespace AC\TableScreen\ManageValue;
 
-use AC\CellRenderer;
+use AC;
 use AC\TableScreen\ManageValueService;
+use AC\Type\ColumnId;
+use AC\Type\Value;
 use DomainException;
 
 class Comment implements ManageValueService
 {
 
-    private CellRenderer $renderable;
+    private AC\Table\ManageValue\ValueFormatter $formatter;
 
     private int $priority;
 
     public function __construct(
-        CellRenderer $renderable,
+        AC\Table\ManageValue\ValueFormatter $formatter,
         int $priority = 100
     ) {
-        $this->renderable = $renderable;
+        $this->formatter = $formatter;
         $this->priority = $priority;
     }
 
@@ -36,7 +38,10 @@ class Comment implements ManageValueService
     {
         [$column_id, $row_id] = $args;
 
-        echo $this->renderable->render_cell((string)$column_id, $row_id);
+        echo $this->formatter->format(
+            new ColumnId((string)$column_id),
+            new Value((int)$row_id, '')
+        );
     }
 
 }
