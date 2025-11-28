@@ -7,6 +7,8 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
+use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Id;
 
 class UserIdFactory extends BaseColumnFactory
 {
@@ -31,6 +33,11 @@ class UserIdFactory extends BaseColumnFactory
     public function get_column_type(): string
     {
         return 'column-user_id';
+    }
+
+    protected function get_formatters(Config $config): FormatterCollection
+    {
+        return parent::get_formatters($config)->with_formatter(new Id());
     }
 
     protected function get_settings(Config $config): ComponentCollection

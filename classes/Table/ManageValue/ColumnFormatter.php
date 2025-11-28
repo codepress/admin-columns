@@ -13,7 +13,7 @@ use AC\Setting\FormatterCollection;
 use AC\Table\ProcessFormatters;
 use AC\Type\Value;
 
-class ColumnRenderable
+class ColumnFormatter
 {
 
     private FormatterCollection $formatters;
@@ -36,21 +36,23 @@ class ColumnRenderable
         $this->list_screen = $list_screen;
     }
 
-    public function render($row_id): ?string
+    public function format(Value $value): Value
     {
-        $value = null;
-
         if ($this->formatters->count() > 0) {
             $formatter = new ProcessFormatters($this->formatters, $this->default);
 
-            $value = (string)$this->sanitize_value(
-                $formatter->format(new Value($row_id)),
+            $value = $formatter->format($value);
+
+            $value = $this->sanitize_value(
+                $value,
                 $this->context,
-                $row_id
+                $value->get_id()
             );
         }
 
-        return (new ColumnValue($this->context, $row_id, $this->list_screen))->apply_filter($value);
+        $filter = new ColumnValue($this->context, $value->get_id(), $this->list_screen);
+
+        return $filter->apply_filter($value);
     }
 
     private function use_sanitize(Context $context, $id): bool
