@@ -26,10 +26,6 @@ class ManageValue implements Registerable
 
     private function get_service(TableScreen $table_screen, ListScreen $list_screen): ?Registerable
     {
-        echo '<pre>';
-        print_r(array_reverse(self::$factories));
-        echo '</pre>';
-        exit;
         foreach (array_reverse(self::$factories) as $factory) {
             $service = $factory->create($table_screen, $list_screen);
 
