@@ -15,7 +15,7 @@ use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Control\Type\Option;
 
-class FieldTypeFactory extends Builder
+class FieldTypeFactory extends BaseComponentFactory
 {
 
     private array $field_types;
@@ -102,8 +102,8 @@ class FieldTypeFactory extends Builder
 
         foreach ($this->children_configs as $child_config) {
             /**
-             * @var Builder       $component_factory
-             * @var Specification $specification
+             * @var BaseComponentFactory $component_factory
+             * @var Specification        $specification
              */
             [$component_factory, $specification] = $child_config;
 

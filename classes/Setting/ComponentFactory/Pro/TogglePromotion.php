@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory\Pro;
 
-use AC\Setting\ComponentFactory\Builder;
+use AC\Setting\ComponentFactory\BaseComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 
-class TogglePromotion extends Builder
+class TogglePromotion extends BaseComponentFactory
 {
 
     private string $label;

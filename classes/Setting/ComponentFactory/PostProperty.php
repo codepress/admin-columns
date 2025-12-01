@@ -15,7 +15,7 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class PostProperty extends Builder
+class PostProperty extends BaseComponentFactory
 {
 
     public const NAME = 'post';

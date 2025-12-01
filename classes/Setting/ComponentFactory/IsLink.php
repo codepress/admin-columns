@@ -8,7 +8,7 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 
-final class IsLink extends Builder
+final class IsLink extends BaseComponentFactory
 {
 
     protected function get_label(Config $config): ?string

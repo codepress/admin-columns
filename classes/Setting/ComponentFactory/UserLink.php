@@ -12,7 +12,7 @@ use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
 use AC\Value\Formatter;
 
-final class UserLink extends Builder
+final class UserLink extends BaseComponentFactory
 {
 
     public const PROPERTY_EDIT_USER = 'edit_user';

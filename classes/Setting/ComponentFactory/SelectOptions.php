@@ -9,7 +9,7 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 
-final class SelectOptions extends Builder
+final class SelectOptions extends BaseComponentFactory
 {
 
     private const NAME = 'select_options';

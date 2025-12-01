@@ -14,7 +14,7 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-final class CommentDisplay extends Builder
+final class CommentDisplay extends BaseComponentFactory
 {
 
     public const PROPERTY_COMMENT = 'comment';

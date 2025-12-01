@@ -8,7 +8,7 @@ use AC\Sanitize\Kses;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 
-final class Label extends Builder
+final class Label extends BaseComponentFactory
 {
 
     protected function get_label(Config $config): ?string

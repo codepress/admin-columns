@@ -7,7 +7,7 @@ namespace AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 
-final class HiddenInput extends Builder
+final class HiddenInput extends BaseComponentFactory
 {
 
     private string $name;

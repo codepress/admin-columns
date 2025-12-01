@@ -9,7 +9,7 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class TermProperty extends Builder
+class TermProperty extends BaseComponentFactory
 {
 
     private const NAME = 'term_property';

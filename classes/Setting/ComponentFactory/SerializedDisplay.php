@@ -13,7 +13,7 @@ use AC\Setting\Control\Input;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 
-class SerializedDisplay extends Builder
+class SerializedDisplay extends BaseComponentFactory
 {
 
     private SerializedArrayKeys $array_keys;

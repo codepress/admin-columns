@@ -7,7 +7,7 @@ namespace AC\Setting\ComponentFactory\Post;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Children;
 use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactory\Builder;
+use AC\Setting\ComponentFactory\BaseComponentFactory;
 use AC\Setting\ComponentFactory\ImageSize;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
@@ -18,7 +18,7 @@ use AC\Value\Formatter\Media\Dimensions;
 use AC\Value\Formatter\Media\FileSize;
 use AC\Value\Formatter\ReadableFileSize;
 
-class FeaturedImageDisplay extends Builder
+class FeaturedImageDisplay extends BaseComponentFactory
 {
 
     public const NAME = 'featured_image_display';

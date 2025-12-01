@@ -15,7 +15,7 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\FormatterCollection;
 
-abstract class Builder implements ComponentFactory
+abstract class BaseComponentFactory implements ComponentFactory
 {
 
     public function create(Config $config, ?Specification $conditions = null): Component

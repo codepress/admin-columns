@@ -12,7 +12,7 @@ use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 
-final class CommentStatus extends Builder
+final class CommentStatus extends BaseComponentFactory
 {
 
     public const NAME = 'comment_status';

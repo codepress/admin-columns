@@ -16,7 +16,7 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class NumberFormat extends Builder
+class NumberFormat extends BaseComponentFactory
 {
 
     private const NAME = 'number_format';

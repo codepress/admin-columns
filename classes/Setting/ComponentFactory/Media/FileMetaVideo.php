@@ -2,7 +2,7 @@
 
 namespace AC\Setting\ComponentFactory\Media;
 
-use AC\Setting\ComponentFactory\Builder;
+use AC\Setting\ComponentFactory\BaseComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
@@ -10,7 +10,7 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class FileMetaVideo extends Builder
+class FileMetaVideo extends BaseComponentFactory
 {
 
     protected function get_label(Config $config): ?string
