@@ -7,10 +7,10 @@ namespace AC\Value\Extended;
 use AC\Column;
 use AC\ListScreen;
 use AC\Setting\FormatterCollection;
-use AC\Table\ManageValue\ColumnFormatter;
 use AC\Type;
 use AC\Value\ExtendedValueLink;
 use AC\Value\Formatter;
+use AC\Value\Formatter\Aggregate;
 
 class Value implements ExtendedValue
 {
@@ -31,15 +31,9 @@ class Value implements ExtendedValue
             $formatters[] = $formatter;
         }
 
-        $renderable = new ColumnFormatter(
-            new FormatterCollection($formatters),
-            $column->get_context(),
-            $list_screen->get_table_screen(),
-            $list_screen->get_id()
-        );
+        $formatter = new Aggregate(new FormatterCollection($formatters));
 
-        // TODO test
-        return (string)$renderable->format(
+        return (string)$formatter->format(
             new Type\Value($id)
         );
     }
