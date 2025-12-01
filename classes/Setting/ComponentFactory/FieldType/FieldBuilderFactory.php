@@ -42,6 +42,7 @@ class FieldBuilderFactory implements ComponentFactory
 
     private SerializedConfigurator $serialized_configurator;
 
+    // TODO Stefan: Make Configurtator Registry
     public function __construct(
         TextConfigurator $text_configurator,
         ColorConfigurator $color_configurator,
@@ -78,22 +79,23 @@ class FieldBuilderFactory implements ComponentFactory
 
     public function create(Config $config, ?Specification $conditions = null): Component
     {
-        $builder = (new ComponentFactory\FieldTypeBuilder())
-            ->with($this->color_configurator)
-            ->with($this->date_configurator)
-            ->with($this->html_configurator)
-            ->with($this->text_configurator)
-            ->with($this->image_configurator)
-            ->with($this->url_configurator)
-            ->with($this->numeric_configurator)
-            ->with($this->has_content_configurator)
-            ->with($this->boolean_configurator)
-            ->with($this->select_configurator)
-            ->with($this->media_configurator)
-            ->with($this->post_configurator)
-            ->with($this->user_configurator)
-            ->with($this->count_configurator)
-            ->with($this->serialized_configurator);
+        $builder = (new ComponentFactory\FieldTypeBuilder());
+
+        $this->color_configurator->configure($builder);
+        $this->date_configurator->configure($builder);
+        $this->html_configurator->configure($builder);
+        $this->text_configurator->configure($builder);
+        $this->image_configurator->configure($builder);
+        $this->url_configurator->configure($builder);
+        $this->numeric_configurator->configure($builder);
+        $this->has_content_configurator->configure($builder);
+        $this->boolean_configurator->configure($builder);
+        $this->select_configurator->configure($builder);
+        $this->media_configurator->configure($builder);
+        $this->post_configurator->configure($builder);
+        $this->user_configurator->configure($builder);
+        $this->count_configurator->configure($builder);
+        $this->serialized_configurator->configure($builder);
 
         return $builder->build()->create($config, $conditions);
     }

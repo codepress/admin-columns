@@ -20,6 +20,13 @@ use AC\Value\Formatter\Image;
 final class ImageSize extends BaseComponentFactory
 {
 
+    private bool $check_image;
+
+    public function __construct(bool $check_image = false)
+    {
+        $this->check_image = $check_image;
+    }
+
     protected function get_label(Config $config): ?string
     {
         return __('Image size', 'codepress-admin-columns');
@@ -45,7 +52,7 @@ final class ImageSize extends BaseComponentFactory
             ];
         }
 
-        $formatters->add(new Image($size));
+        $formatters->add(new Image($size, $this->check_image));
     }
 
     protected function get_children(Config $config): ?Children

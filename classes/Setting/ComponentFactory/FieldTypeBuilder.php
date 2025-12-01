@@ -6,7 +6,6 @@ namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\Specification;
 use AC\Setting;
-use AC\Setting\ComponentFactory\FieldType\FieldTypeConfigurator;
 
 class FieldTypeBuilder
 {
@@ -16,14 +15,7 @@ class FieldTypeBuilder
     private array $formatter_configs = [];
 
     private array $children_configs = [];
-
-    public function with(FieldTypeConfigurator $configurator): self
-    {
-        $configurator->configure($this);
-
-        return $this;
-    }
-
+    
     public function add_option(string $type, string $label, string $group): self
     {
         $this->field_types[$group][$type] = $label;

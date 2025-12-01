@@ -34,7 +34,8 @@ class Value implements ExtendedValue
         $renderable = new ColumnFormatter(
             new FormatterCollection($formatters),
             $column->get_context(),
-            $list_screen
+            $list_screen->get_table_screen(),
+            $list_screen->get_id()
         );
 
         // TODO test
