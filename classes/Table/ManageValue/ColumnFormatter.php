@@ -32,8 +32,8 @@ class ColumnFormatter
     ) {
         $this->formatters = $formatters;
         $this->context = $context;
-        $this->default = $default;
         $this->list_screen = $list_screen;
+        $this->default = $default;
     }
 
     public function format(Value $value): Value
