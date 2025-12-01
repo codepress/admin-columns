@@ -209,7 +209,6 @@ class FieldType extends Builder
                 if ($config->get('is_multiple', 'off') === 'on') {
                     $formatters->add(new AC\Value\Formatter\ArrayToCollection());
                 }
-
                 $formatters->add(new AC\Value\Formatter\SelectOptionMapper($config));
                 break;
             case self::TYPE_DATE:
