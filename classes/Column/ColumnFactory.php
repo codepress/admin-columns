@@ -7,6 +7,7 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Context;
 use AC\Setting\FormatterCollection;
+use AC\Type\ColumnId;
 
 abstract class ColumnFactory
 {
@@ -16,6 +17,17 @@ abstract class ColumnFactory
     abstract public function get_column_type(): string;
 
     abstract public function get_label(): string;
+
+    protected function resolve_id(Config $config): ColumnId
+    {
+        $id = (string)$config->get('name');
+
+        if (ColumnId::is_valid_id($id)) {
+            return new ColumnId($id);
+        }
+
+        return (new ColumnIdGenerator())->generate();
+    }
 
     protected function get_settings(Config $config): ComponentCollection
     {
