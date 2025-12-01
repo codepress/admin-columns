@@ -10,7 +10,7 @@ use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Linkable;
 
-class IsLinkable extends Builder
+class IsLinkable extends BaseComponentFactory
 {
 
     protected function get_label(Config $config): ?string

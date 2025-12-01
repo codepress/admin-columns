@@ -11,7 +11,7 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-final class MediaLink extends Builder
+final class MediaLink extends BaseComponentFactory
 {
 
     private const NAME = 'media_link_to';

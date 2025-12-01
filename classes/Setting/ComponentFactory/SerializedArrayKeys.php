@@ -7,7 +7,7 @@ namespace AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 
-class SerializedArrayKeys extends Builder
+class SerializedArrayKeys extends BaseComponentFactory
 {
 
     protected function get_label(Config $config): ?string

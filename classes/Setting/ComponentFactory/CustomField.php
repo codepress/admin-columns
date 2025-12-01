@@ -9,7 +9,7 @@ use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Type\TableScreenContext;
 
-class CustomField extends Builder
+class CustomField extends BaseComponentFactory
 {
 
     private const NAME = 'field';

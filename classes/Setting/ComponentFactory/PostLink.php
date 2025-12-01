@@ -11,7 +11,7 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class PostLink extends Builder
+class PostLink extends BaseComponentFactory
 {
 
     protected const NAME = 'post_link_to';

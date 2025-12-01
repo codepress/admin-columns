@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory\Media;
 
-use AC\Setting\ComponentFactory\Builder;
+use AC\Setting\ComponentFactory\BaseComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
@@ -12,7 +12,7 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-final class FileMetaAudio extends Builder
+final class FileMetaAudio extends BaseComponentFactory
 {
 
     protected function get_label(Config $config): ?string

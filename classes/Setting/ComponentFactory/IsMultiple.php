@@ -8,7 +8,7 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 
-final class IsMultiple extends Builder
+final class IsMultiple extends BaseComponentFactory
 {
 
     private bool $default_multiple;

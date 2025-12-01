@@ -9,7 +9,7 @@ use AC\Setting\Control\OptionCollectionFactory\ToggleOptionCollection;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class PostStatusIcon extends Builder
+class PostStatusIcon extends BaseComponentFactory
 {
 
     protected function get_label(Config $config): ?string

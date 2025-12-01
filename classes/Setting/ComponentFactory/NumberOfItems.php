@@ -6,7 +6,7 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\Number;
 
-class NumberOfItems extends Builder
+class NumberOfItems extends BaseComponentFactory
 {
 
     protected function get_label(Config $config): ?string

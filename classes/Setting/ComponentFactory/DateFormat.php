@@ -16,7 +16,7 @@ use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 use AC\Value;
 
-abstract class DateFormat extends Builder
+abstract class DateFormat extends BaseComponentFactory
 {
 
     private string $source_format;

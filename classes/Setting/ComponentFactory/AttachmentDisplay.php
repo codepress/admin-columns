@@ -14,7 +14,7 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-final class AttachmentDisplay extends Builder
+final class AttachmentDisplay extends BaseComponentFactory
 {
 
     private const NAME = 'attachment_display';

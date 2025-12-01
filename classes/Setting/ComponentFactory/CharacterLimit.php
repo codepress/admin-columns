@@ -10,7 +10,7 @@ use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\Number;
 use AC\Setting\FormatterCollection;
 
-final class CharacterLimit extends Builder
+final class CharacterLimit extends BaseComponentFactory
 {
 
     protected function get_label(Config $config): ?string

@@ -12,7 +12,7 @@ use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 
-final class StringLimit extends Builder
+final class StringLimit extends BaseComponentFactory
 {
 
     private const OPTION_CHARACTER = 'character_limit';

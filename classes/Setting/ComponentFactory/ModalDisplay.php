@@ -13,7 +13,7 @@ use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollectionFactory\ToggleOptionCollection;
 
-class ModalDisplay extends Builder
+class ModalDisplay extends BaseComponentFactory
 {
 
     public const TOGGLE = 'show_modal_link';

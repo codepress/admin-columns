@@ -12,7 +12,7 @@ use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
 use AC\Value\Formatter;
 
-final class TermLink extends Builder
+final class TermLink extends BaseComponentFactory
 {
 
     private ?PostTypeSlug $post_type;

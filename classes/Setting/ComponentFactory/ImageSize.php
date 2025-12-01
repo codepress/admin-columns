@@ -17,7 +17,7 @@ use AC\Setting\Control\Type\Option;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Image;
 
-final class ImageSize extends Builder
+final class ImageSize extends BaseComponentFactory
 {
 
     protected function get_label(Config $config): ?string

@@ -8,7 +8,7 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 
-class LinkToMenu extends Builder
+class LinkToMenu extends BaseComponentFactory
 {
 
     protected function get_label(Config $config): ?string

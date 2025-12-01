@@ -19,7 +19,7 @@ use AC\Setting\Control\Type\Option;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
-class UserProperty extends Builder
+class UserProperty extends BaseComponentFactory
 {
 
     public const KEY = 'display_author_as';

@@ -5,7 +5,7 @@ namespace AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 
-class Message extends Builder
+class Message extends BaseComponentFactory
 {
 
     private string $label;
