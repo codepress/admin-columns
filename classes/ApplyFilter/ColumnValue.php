@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace AC\ApplyFilter;
 
-use AC\ListScreen;
 use AC\Setting\Context;
+use AC\TableScreen;
+use AC\Type\ListScreenId;
 use AC\Type\Value;
 
 class ColumnValue
@@ -15,13 +16,16 @@ class ColumnValue
 
     private Context $context;
 
-    private ListScreen $list_screen;
+    private TableScreen $table_screem;
 
-    public function __construct(Context $context, $id, ListScreen $list_screen)
+    private ListScreenId $list_id;
+
+    public function __construct(Context $context, $id, TableScreen $table_screem, ListScreenId $list_id)
     {
         $this->id = $id;
         $this->context = $context;
-        $this->list_screen = $list_screen;
+        $this->table_screem = $table_screem;
+        $this->list_id = $list_id;
     }
 
     public function apply_filter(Value $value): Value
@@ -31,8 +35,8 @@ class ColumnValue
             $value->get_value(),
             $this->context,
             $this->id,
-            $this->list_screen->get_table_screen(),
-            $this->list_screen->get_id()
+            $this->table_screem,
+            $this->list_id
         );
 
         if (is_scalar($render)) {

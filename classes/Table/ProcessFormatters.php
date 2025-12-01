@@ -12,6 +12,7 @@ use AC\Type\Value;
 use AC\Type\ValueCollection;
 use AC\Value\Formatter\Collection\Separator;
 
+// TODO this could implement Formatter interface. And be called a FinalFormatter class.
 class ProcessFormatters
 {
 
