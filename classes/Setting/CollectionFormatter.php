@@ -12,9 +12,8 @@ interface CollectionFormatter
 {
 
     /**
-     * @return Value|ValueCollection
      * @throws ValueNotFoundException
      */
-    public function format(ValueCollection $collection);
+    public function format(ValueCollection $collection): Value;
 
 }
