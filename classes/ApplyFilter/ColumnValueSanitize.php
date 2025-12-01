@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace AC\ApplyFilter;
 
-use AC\ListScreen;
 use AC\Setting\Context;
+use AC\TableScreen;
+use AC\Type\ListScreenId;
 
 class ColumnValueSanitize
 {
@@ -14,13 +15,16 @@ class ColumnValueSanitize
 
     private Context $context;
 
-    private ListScreen $list_screen;
+    private TableScreen $table_screen;
 
-    public function __construct(Context $context, $id, ListScreen $list_screen)
+    private ListScreenId $list_id;
+
+    public function __construct(Context $context, $id, TableScreen $table_screen, ListScreenId $list_id)
     {
         $this->id = $id;
         $this->context = $context;
-        $this->list_screen = $list_screen;
+        $this->table_screen = $table_screen;
+        $this->list_id = $list_id;
     }
 
     public function apply_filter(bool $sanitize = true): bool
@@ -30,8 +34,8 @@ class ColumnValueSanitize
             $sanitize,
             $this->context,
             $this->id,
-            $this->list_screen->get_table_screen(),
-            $this->list_screen->get_id()
+            $this->table_screen,
+            $this->list_id
         );
     }
 

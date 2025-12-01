@@ -6,11 +6,12 @@ namespace AC\Table\ManageValue;
 
 use AC\ApplyFilter\ColumnValue;
 use AC\ApplyFilter\ColumnValueSanitize;
-use AC\ListScreen;
 use AC\Sanitize\Kses;
 use AC\Setting\Context;
 use AC\Setting\FormatterCollection;
 use AC\Table\ProcessFormatters;
+use AC\TableScreen;
+use AC\Type\ListScreenId;
 use AC\Type\Value;
 
 class ColumnFormatter
@@ -22,18 +23,22 @@ class ColumnFormatter
 
     private ?string $default;
 
-    private ListScreen $list_screen;
+    private TableScreen $table_screen;
+
+    private ListScreenId $list_id;
 
     public function __construct(
         FormatterCollection $formatters,
         Context $context,
-        ListScreen $list_screen,
+        TableScreen $table_screen,
+        ListScreenId $list_id,
         ?string $default = null
     ) {
         $this->formatters = $formatters;
         $this->context = $context;
-        $this->list_screen = $list_screen;
         $this->default = $default;
+        $this->table_screen = $table_screen;
+        $this->list_id = $list_id;
     }
 
     public function format(Value $value): Value
@@ -50,14 +55,26 @@ class ColumnFormatter
             );
         }
 
-        $filter = new ColumnValue($this->context, $value->get_id(), $this->list_screen);
+        $filter = new ColumnValue(
+            $this->context,
+            $value->get_id(),
+            $this->table_screen,
+            $this->list_id
+        );
 
         return $filter->apply_filter($value);
     }
 
     private function use_sanitize(Context $context, $id): bool
     {
-        return (new ColumnValueSanitize($context, $id, $this->list_screen))->apply_filter();
+        $filter = new ColumnValueSanitize(
+            $context,
+            $id,
+            $this->table_screen,
+            $this->list_id
+        );
+
+        return $filter->apply_filter();
     }
 
     private function sanitize_value(Value $value, Context $context, $id): Value

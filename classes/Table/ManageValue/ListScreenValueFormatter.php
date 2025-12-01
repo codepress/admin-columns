@@ -29,7 +29,8 @@ class ListScreenValueFormatter implements ValueFormatter
         return new ColumnFormatter(
             $column->get_formatters(),
             $column->get_context(),
-            $this->list_screen
+            $this->list_screen->get_table_screen(),
+            $this->list_screen->get_id()
         );
     }
 
