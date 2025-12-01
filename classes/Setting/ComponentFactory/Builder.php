@@ -15,7 +15,6 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\FormatterCollection;
 
-// TODO David Why is this not called a BaseComponentFactory?
 abstract class Builder implements ComponentFactory
 {
 
