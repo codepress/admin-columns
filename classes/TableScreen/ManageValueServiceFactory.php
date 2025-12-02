@@ -2,7 +2,7 @@
 
 namespace AC\TableScreen;
 
-use AC\Table\ManageValue\ValueFormatter;
+use AC\Table\ManageValue\RenderFactory;
 use AC\TableScreen;
 
 interface ManageValueServiceFactory
@@ -12,7 +12,7 @@ interface ManageValueServiceFactory
 
     public function create(
         TableScreen $table_screen,
-        ValueFormatter $formatter,
+        RenderFactory $factory,
         int $priority = 100
     ): ManageValueService;
 

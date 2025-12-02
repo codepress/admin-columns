@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\TableScreen\ManageValue;
 
-use AC\Table\ManageValue\ValueFormatter;
+use AC\Table\ManageValue\RenderFactory;
 use AC\TableScreen\ManageValueService;
 use AC\Type\ColumnId;
 use AC\Type\Value;
@@ -13,15 +13,13 @@ use DomainException;
 class User implements ManageValueService
 {
 
-    private ValueFormatter $formatter;
+    private RenderFactory $factory;
 
     private int $priority;
 
-    public function __construct(
-        ValueFormatter $formatter,
-        int $priority = 100
-    ) {
-        $this->formatter = $formatter;
+    public function __construct(RenderFactory $factory, int $priority = 100)
+    {
+        $this->factory = $factory;
         $this->priority = $priority;
     }
 
@@ -38,10 +36,11 @@ class User implements ManageValueService
     {
         [$value, $column_id, $row_id] = $args;
 
-        return (string)$this->formatter->format(
-            new ColumnId((string)$column_id),
-            new Value((int)$row_id, $value)
-        );
+        $formatter = $this->factory->create(new ColumnId((string)$column_id));
+
+        return $formatter
+            ? (string)$formatter->format(new Value((int)$row_id))
+            : $value;
     }
 
 }

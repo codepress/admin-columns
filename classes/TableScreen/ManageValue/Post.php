@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\TableScreen\ManageValue;
 
-use AC\Table\ManageValue\ValueFormatter;
+use AC\Table\ManageValue\RenderFactory;
 use AC\TableScreen\ManageValueService;
 use AC\Type\ColumnId;
 use AC\Type\PostTypeSlug;
@@ -18,15 +18,15 @@ class Post implements ManageValueService
 
     private int $priority;
 
-    private ValueFormatter $formatter;
+    private RenderFactory $factory;
 
     public function __construct(
         PostTypeSlug $post_type,
-        ValueFormatter $formatter,
+        RenderFactory $factory,
         int $priority = 100
     ) {
         $this->post_type = $post_type;
-        $this->formatter = $formatter;
+        $this->factory = $factory;
         $this->priority = $priority;
     }
 
@@ -45,10 +45,11 @@ class Post implements ManageValueService
     {
         [$column_id, $row_id] = $args;
 
-        echo $this->formatter->format(
-            new ColumnId((string)$column_id),
-            new Value((int)$row_id, '')
-        );
+        $formatter = $this->factory->create(new ColumnId((string)$column_id));
+
+        if ($formatter) {
+            echo $formatter->format(new Value((int)$row_id));
+        }
     }
 
 }

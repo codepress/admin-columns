@@ -12,13 +12,13 @@ use AC\Type\Value;
 class ManageValue implements ManageValueService
 {
 
-    private AC\Table\ManageValue\ValueFormatter $formatter;
+    private AC\Table\ManageValue\RenderFactory $factory;
 
     private int $priority;
 
-    public function __construct(AC\Table\ManageValue\ValueFormatter $formatter, int $priority = 100)
+    public function __construct(AC\Table\ManageValue\RenderFactory $factory, int $priority = 100)
     {
-        $this->formatter = $formatter;
+        $this->factory = $factory;
         $this->priority = $priority;
     }
 
@@ -30,12 +30,13 @@ class ManageValue implements ManageValueService
     public function render_value(...$args)
     {
         [$value, $post, $column_name] = $args;
-        
+
         if (is_null($value)) {
-            return (string)$this->formatter->format(
-                new ColumnId((string)$column_name),
-                new Value((int)$post->ID, '')
-            );
+            $formatter = $this->factory->create(new ColumnId((string)$column_name));
+
+            if ($formatter) {
+                return (string)$formatter->format(new Value((int)$post->ID));
+            }
         }
 
         return $value;

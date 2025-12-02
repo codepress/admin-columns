@@ -16,7 +16,7 @@ class Value implements ExtendedValue
 {
 
     public function render(
-        int $id,
+        $id,
         array $params,
         Column $column,
         ListScreen $list_screen
@@ -43,7 +43,7 @@ class Value implements ExtendedValue
         return $view === 'value';
     }
 
-    public function get_link(int $id, string $label): ExtendedValueLink
+    public function get_link($id, string $label): ExtendedValueLink
     {
         return new ExtendedValueLink($label, $id, 'value');
     }

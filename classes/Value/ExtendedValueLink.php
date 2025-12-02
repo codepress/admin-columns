@@ -11,13 +11,13 @@ final class ExtendedValueLink
 
     private array $attributes;
 
-    private int $id;
+    private $id;
 
     private string $label;
 
     private array $params;
 
-    public function __construct(string $label, int $id, string $view, array $attributes = [], array $params = [])
+    public function __construct(string $label, $id, string $view, array $attributes = [], array $params = [])
     {
         $this->view = $view;
         $this->attributes = $attributes;

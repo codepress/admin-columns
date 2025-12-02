@@ -27,7 +27,7 @@ class ListScreenServiceFactory implements AC\Table\ManageValueServiceFactory
 
         return $this->factory->create(
             $table_screen,
-            new ListScreenValueFormatter($list_screen)
+            new TableRenderFactory($list_screen)
         );
     }
 
