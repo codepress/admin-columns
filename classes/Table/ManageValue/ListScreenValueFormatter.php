@@ -27,18 +27,23 @@ class ListScreenValueFormatter implements ValueFormatter
         $column = $this->list_screen->get_column($id);
 
         if ( ! $column) {
-            return $value;
+            return $value->with_value('');
         }
 
-        $formatters = $column->get_formatters()
-                             ->with_formatter(new Separator())
-                             ->with_formatter(
-                                 new Column(
-                                     $column->get_context(),
-                                     $this->list_screen->get_table_screen(),
-                                     $this->list_screen->get_id()
-                                 )
-                             );
+        $formatters = $column->get_formatters();
+
+        if ($formatters->count() === 0) {
+            return $value->with_value('');
+        }
+
+        $formatters = $formatters->with_formatter(new Separator())
+                                 ->with_formatter(
+                                     new Column(
+                                         $column->get_context(),
+                                         $this->list_screen->get_table_screen(),
+                                         $this->list_screen->get_id()
+                                     )
+                                 );
 
         $value = (new Aggregate($formatters))->format($value);
 

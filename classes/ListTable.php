@@ -2,11 +2,11 @@
 
 namespace AC;
 
-// TODO rename to RowRenderable.
-// TODO can we remove the CellRenderer interface? It is currently used by ACP\Editing\RequestHandler\InlineSave.
-interface ListTable extends CellRenderer
+interface ListTable
 {
 
     public function render_row($id): string;
+
+    public function render_cell(string $column_id, $row_id): ?string;
 
 }
