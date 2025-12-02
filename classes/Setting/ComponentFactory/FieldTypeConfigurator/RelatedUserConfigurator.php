@@ -2,44 +2,44 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\ComponentFactory\FieldType;
+namespace AC\Setting\ComponentFactory\FieldTypeConfigurator;
 
 use AC;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting;
 use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
-class MediaConfigurator implements FieldTypeConfigurator
+class RelatedUserConfigurator implements FieldTypeConfigurator
 {
 
-    private const TYPE = 'library_id';
+    private const TYPE = 'user_by_id';
 
-    private Setting\ComponentFactory\ImageSize $image_size;
+    private Setting\ComponentFactory\UserProperty $user_property;
 
-    private Setting\ComponentFactory\MediaLink $media_link;
+    private Setting\ComponentFactory\UserLink $user_link;
 
     public function __construct(
-        Setting\ComponentFactory\ImageSize $image_size,
-        Setting\ComponentFactory\MediaLink $media_link
+        Setting\ComponentFactory\UserProperty $user_property,
+        Setting\ComponentFactory\UserLink $user_link
     ) {
-        $this->image_size = $image_size;
-        $this->media_link = $media_link;
+        $this->user_property = $user_property;
+        $this->user_link = $user_link;
     }
 
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder
-            ->add_option(self::TYPE, __('Media', 'codepress-admin-columns'), 'relational')
+            ->add_option(self::TYPE, __('User', 'codepress-admin-columns'), 'relational')
             ->add_formatter(
                 self::TYPE,
                 function (Setting\Config $config, Setting\FormatterCollection $formatters) {
                     $formatters->add(new AC\Value\Formatter\IdCollectionFromArrayOrString());
                 }
             )->add_child_component(
-                $this->image_size,
+                $this->user_property,
                 StringComparisonSpecification::equal(self::TYPE)
             )->add_child_component(
-                $this->media_link,
+                $this->user_link,
                 StringComparisonSpecification::equal(self::TYPE)
             );
     }

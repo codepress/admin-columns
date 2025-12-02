@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\ComponentFactory\FieldType;
+namespace AC\Setting\ComponentFactory\FieldTypeConfigurator;
 
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
