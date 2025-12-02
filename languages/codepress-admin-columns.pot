@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2025-09-22 08:09+0000\n"
+"POT-Creation-Date: 2025-12-02 15:04+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -94,10 +94,6 @@ msgstr ""
 
 #: classes/Check/AddonAvailable.php:70, templates/admin/side-banner.php:90
 msgid "Get Admin Columns Pro"
-msgstr ""
-
-#: classes/Check/Promotion.php:76
-msgid "Get %s now"
 msgstr ""
 
 #: classes/Check/Review.php:116, classes/Table/Screen.php:349, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17
@@ -300,8 +296,12 @@ msgstr ""
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Yoast SEO contents on any admin list table."
 msgstr ""
 
-#: classes/Promo/BlackFriday.php:22
-msgid "%s Off from Black Friday to Cyber Monday"
+#: classes/Promo/BlackFriday.php:32
+msgid "Save up to %s from Black Friday to Cyber Monday"
+msgstr ""
+
+#: classes/Promo/BlackFriday.php:39
+msgid "Get %s now"
 msgstr ""
 
 #: classes/Service/PluginUpdate.php:58
@@ -594,27 +594,31 @@ msgstr ""
 msgid "Prices starting from %s"
 msgstr ""
 
-#: templates/admin/side-banner.php:136, templates/admin/side-banner.php:117
+#: templates/admin/side-banner.php:138
 msgid "Get %s Off!"
 msgstr ""
 
-#: templates/admin/side-banner.php:143
+#: templates/admin/side-banner.php:145
 msgid "Submit your email and we'll send you a discount for %s off."
 msgstr ""
 
-#: templates/admin/side-banner.php:158
+#: templates/admin/side-banner.php:160
 msgid "Your Email"
 msgstr ""
 
-#: templates/admin/side-banner.php:162
+#: templates/admin/side-banner.php:164
 msgid "Your First Name"
 msgstr ""
 
-#: templates/admin/side-banner.php:166
+#: templates/admin/side-banner.php:168
 msgid "Send me the discount"
 msgstr ""
 
-#: templates/admin/side-banner.php:123
+#: templates/admin/side-banner.php:118
+msgid "Get up to %s Off!"
+msgstr ""
+
+#: templates/admin/side-banner.php:125
 msgid "Discount is valid until %s"
 msgstr ""
 

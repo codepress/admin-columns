@@ -7,9 +7,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.1\n"
+"X-Generator: GlotPress/4.0.3\n"
 "Language: bg\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
+
+#: templates/admin/edit-menu.php:35
+msgid "View %s"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:119
+msgid "See the Plugins page for details."
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:117
+msgid "Warning"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:88
+msgctxt "Anchor text to upgrade guide."
+msgid "upgrade guide"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:72
+msgctxt "%s contains the link to upgrade guide. Label is translated separately."
+msgid "Please review the %s for details."
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:58
+msgid "You are upgrading to a new a major version of Admin Columns, which can include <strong>breaking changes</strong>."
+msgstr ""
 
 #: templates/settings/setting-label-icons.php:334
 msgid "Miscellaneous"
@@ -964,7 +990,7 @@ msgstr ""
 msgid "Get %s now"
 msgstr ""
 
-#: classes/Helper/Html.php:495
+#: classes/Helper/Html.php:498
 msgid "%s more"
 msgstr ""
 
@@ -1100,7 +1126,7 @@ msgstr ""
 msgid "Do you like Admin Columns?"
 msgstr ""
 
-#: templates/admin/edit-menu.php:17
+#: templates/admin/edit-menu.php:22
 msgid "Select type"
 msgstr ""
 
@@ -1540,7 +1566,7 @@ msgstr "Този текст ще се показва след стойностт
 msgid " or "
 msgstr "или"
 
-#: classes/Helper/Html.php:496
+#: classes/Helper/Html.php:499
 msgid "Hide"
 msgstr "Скриване"
 
@@ -1627,7 +1653,7 @@ msgstr "Отменени филтри"
 msgid "Help"
 msgstr "Помощ"
 
-#: templates/admin/edit-column.php:36 templates/admin/edit-column.php:80
+#: templates/admin/edit-column.php:46 templates/admin/edit-column.php:95
 msgid "Close"
 msgstr "Затворете"
 
@@ -1851,11 +1877,11 @@ msgstr "Щастливи ли сте с Amin Columns?"
 msgid "Get Admin Columns Pro"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:40 classes/Admin/Page/Columns.php:166
+#: classes/Admin/MenuFactory.php:40 classes/Admin/Page/Columns.php:167
 msgid "Columns"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:207
+#: classes/Admin/Page/Columns.php:212
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr "Внимание! %s данни на колоните ще бъде изтрити. Това не може да бъде променено. 'OK' за да изтриете, 'Cancel' за да спрете"
 
@@ -1863,7 +1889,7 @@ msgstr "Внимание! %s данни на колоните ще бъде из
 msgid "Update"
 msgstr "Обновяване"
 
-#: classes/Admin/Page/Columns.php:186
+#: classes/Admin/Page/Columns.php:191
 msgid "Store settings"
 msgstr "Настройки на магазина"
 
@@ -2026,7 +2052,7 @@ msgstr "Ние не искаме да Ви притесняваме, но Вие
 #. Plugin Name of the plugin
 #: codepress-admin-columns.php classes/Admin/MenuPageFactory/Menu.php:16
 #: classes/Admin/MenuPageFactory/SubMenu.php:17 classes/Check/Review.php:116
-#: classes/Table/Screen.php:346
+#: classes/Table/Screen.php:349
 msgid "Admin Columns"
 msgstr "Администраторски колони"
 
@@ -2058,7 +2084,7 @@ msgstr "Това име, което ще се показва е заглавие
 msgid "Label"
 msgstr "Етикет"
 
-#: classes/Settings/Column/Type.php:48 templates/admin/edit-column.php:30
+#: classes/Settings/Column/Type.php:48 templates/admin/edit-column.php:32
 msgid "Name"
 msgstr "Име"
 
@@ -2066,7 +2092,7 @@ msgstr "Име"
 msgid "Choose a column type."
 msgstr "Изберете тип на колоната."
 
-#: templates/admin/edit-column.php:38 templates/admin/edit-column.php:82
+#: templates/admin/edit-column.php:50 templates/admin/edit-column.php:99
 msgid "Clone"
 msgstr "Клониране"
 
@@ -2074,7 +2100,7 @@ msgstr "Клониране"
 msgid "Display format"
 msgstr "Показване на формат"
 
-#: classes/Settings/Column/User.php:91 classes/Settings/Column/UserLink.php:79
+#: classes/Settings/Column/User.php:91 classes/Settings/Column/UserLink.php:88
 msgid "User Email"
 msgstr "Потребителски Email"
 
@@ -2161,7 +2187,7 @@ msgstr "Прякор"
 msgid "Comment Count"
 msgstr "Брояч на коментари"
 
-#: templates/admin/edit-column.php:40 templates/admin/edit-column.php:84
+#: templates/admin/edit-column.php:54 templates/admin/edit-column.php:103
 msgid "Remove"
 msgstr "Изтриване"
 
@@ -2215,7 +2241,7 @@ msgstr "Постоянна връзка"
 msgid "Path"
 msgstr "Път"
 
-#: classes/Column/Post/PostParent.php:14
+#: classes/Column/Post/PostParent.php:16
 msgid "Parent"
 msgstr "Родител"
 
@@ -2293,15 +2319,15 @@ msgstr "В изчакване"
 msgid "Total"
 msgstr "Общо"
 
-#: classes/Settings/Column/UserLink.php:81
+#: classes/Settings/Column/UserLink.php:90
 msgid "View Public Author Page"
 msgstr "Преглед на публичния профил на автора"
 
-#: classes/Settings/Column/UserLink.php:80
+#: classes/Settings/Column/UserLink.php:89
 msgid "View User Posts"
 msgstr "Преглед на потребителските публикации"
 
-#: classes/Settings/Column/UserLink.php:78
+#: classes/Settings/Column/UserLink.php:87
 msgid "Edit User Profile"
 msgstr "Редактиране на потребителския профил"
 
@@ -2310,7 +2336,7 @@ msgstr "Редактиране на потребителския профил"
 #: classes/Settings/Column/PostLink.php:73
 #: classes/Settings/Column/Separator.php:29
 #: classes/Settings/Column/TermLink.php:40
-#: classes/Settings/Column/UserLink.php:87
+#: classes/Settings/Column/UserLink.php:96
 msgid "None"
 msgstr "Без"
 
@@ -2318,7 +2344,7 @@ msgstr "Без"
 #: classes/Settings/Column/MediaLink.php:52
 #: classes/Settings/Column/PostLink.php:62
 #: classes/Settings/Column/TermLink.php:30
-#: classes/Settings/Column/UserLink.php:69
+#: classes/Settings/Column/UserLink.php:77
 msgid "Link To"
 msgstr "Линк към"
 
@@ -2419,7 +2445,7 @@ msgid "Available Sizes"
 msgstr "Достъпни размери"
 
 #: classes/Column/Media/Preview.php:50 classes/Settings/Column/MediaLink.php:63
-#: templates/admin/edit-menu.php:27
+#: classes/Table/Screen.php:154
 msgid "View"
 msgstr "Преглед"
 
@@ -2501,7 +2527,7 @@ msgstr "Потребител"
 #: classes/Column/Comment/Type.php:14
 #: classes/Settings/Column/CustomFieldType.php:85
 #: classes/Settings/Column/Type.php:45 classes/Settings/Column/Type.php:54
-#: templates/admin/edit-column.php:31
+#: templates/admin/edit-column.php:37
 msgid "Type"
 msgstr "Тип"
 
@@ -2570,7 +2596,7 @@ msgstr "Разрешен"
 msgid "Agent"
 msgstr "Агент"
 
-#: classes/Table/Screen.php:152 templates/admin/edit-column.php:35
+#: classes/Table/Screen.php:152 templates/admin/edit-column.php:44
 msgid "Edit"
 msgstr "Редактиране"
 
