@@ -7,7 +7,7 @@ namespace AC\Setting\ComponentFactory\FieldType;
 use AC;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting;
-use AC\Setting\ComponentFactory\FieldTypeBuilder;
+use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class RelatedUserConfigurator implements FieldTypeConfigurator
 {
@@ -26,7 +26,7 @@ class RelatedUserConfigurator implements FieldTypeConfigurator
         $this->user_link = $user_link;
     }
 
-    public function configure(FieldTypeBuilder $builder): void
+    public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder
             ->add_option(self::TYPE, __('User', 'codepress-admin-columns'), 'relational')

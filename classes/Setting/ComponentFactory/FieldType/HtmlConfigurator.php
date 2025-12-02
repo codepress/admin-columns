@@ -6,7 +6,7 @@ namespace AC\Setting\ComponentFactory\FieldType;
 
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting;
-use AC\Setting\ComponentFactory\FieldTypeBuilder;
+use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 use AC\Setting\ComponentFactory\ModalDisplay;
 use AC\Setting\Control\OptionCollectionFactory\ToggleOptionCollection;
 use AC\Value;
@@ -23,7 +23,7 @@ class HtmlConfigurator implements FieldTypeConfigurator
 
     public const TYPE = 'html';
 
-    public function configure(FieldTypeBuilder $builder): void
+    public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder
             ->add_option(self::TYPE, __('HTML', 'codepress-admin-columns'), 'basic')

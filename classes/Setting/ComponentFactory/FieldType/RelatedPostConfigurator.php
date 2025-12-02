@@ -7,7 +7,7 @@ namespace AC\Setting\ComponentFactory\FieldType;
 use AC;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting;
-use AC\Setting\ComponentFactory\FieldTypeBuilder;
+use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class RelatedPostConfigurator implements FieldTypeConfigurator
 {
@@ -21,7 +21,7 @@ class RelatedPostConfigurator implements FieldTypeConfigurator
         $this->post_property = $post_property;
     }
 
-    public function configure(FieldTypeBuilder $builder): void
+    public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder
             ->add_option(self::TYPE, __('Post', 'codepress-admin-columns'), 'relational')

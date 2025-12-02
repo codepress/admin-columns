@@ -6,7 +6,7 @@ namespace AC\Setting\ComponentFactory\FieldType;
 
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\ComponentFactory;
-use AC\Setting\ComponentFactory\FieldTypeBuilder;
+use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class NumericConfigurator implements FieldTypeConfigurator
 {
@@ -20,7 +20,7 @@ class NumericConfigurator implements FieldTypeConfigurator
         $this->number_format = $number_format;
     }
 
-    public function configure(FieldTypeBuilder $builder): void
+    public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder
             ->add_option(self::TYPE, __('Number', 'codepress-admin-columns'), 'basic')

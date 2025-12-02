@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory\FieldType;
 
 use AC\Setting;
-use AC\Setting\ComponentFactory\FieldTypeBuilder;
+use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 use AC\Value;
 
 class BooleanConfigurator implements FieldTypeConfigurator
@@ -13,7 +13,7 @@ class BooleanConfigurator implements FieldTypeConfigurator
 
     private const TYPE = 'checkmark';
 
-    public function configure(FieldTypeBuilder $builder): void
+    public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder
             ->add_option(self::TYPE, __('True / False', 'codepress-admin-columns'), 'choice')

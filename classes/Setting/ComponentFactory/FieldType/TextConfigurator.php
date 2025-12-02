@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory\FieldType;
 
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\ComponentFactory\FieldTypeBuilder;
+use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 use AC\Setting\ComponentFactory\StringLimit;
 
 class TextConfigurator implements FieldTypeConfigurator
@@ -20,7 +20,7 @@ class TextConfigurator implements FieldTypeConfigurator
 
     public const TYPE = 'string';
 
-    public function configure(FieldTypeBuilder $builder): void
+    public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder
             ->add_option(self::TYPE, __('Text', 'codepress-admin-columns'), 'basic')

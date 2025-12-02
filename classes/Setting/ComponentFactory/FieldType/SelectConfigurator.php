@@ -7,7 +7,7 @@ namespace AC\Setting\ComponentFactory\FieldType;
 use AC;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting;
-use AC\Setting\ComponentFactory\FieldTypeBuilder;
+use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class SelectConfigurator implements FieldTypeConfigurator
 {
@@ -21,7 +21,7 @@ class SelectConfigurator implements FieldTypeConfigurator
         $this->select_options = $select_options;
     }
 
-    public function configure(FieldTypeBuilder $builder): void
+    public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder
             ->add_option(self::TYPE, __('Select', 'codepress-admin-columns'), 'choice')

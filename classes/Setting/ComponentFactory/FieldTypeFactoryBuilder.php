@@ -7,7 +7,7 @@ namespace AC\Setting\ComponentFactory;
 use AC\Expression\Specification;
 use AC\Setting;
 
-class FieldTypeBuilder
+class FieldTypeFactoryBuilder
 {
 
     private array $field_types = [];
@@ -15,7 +15,7 @@ class FieldTypeBuilder
     private array $formatter_configs = [];
 
     private array $children_configs = [];
-    
+
     public function add_option(string $type, string $label, string $group): self
     {
         $this->field_types[$group][$type] = $label;

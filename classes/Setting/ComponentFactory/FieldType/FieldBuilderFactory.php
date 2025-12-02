@@ -79,7 +79,7 @@ class FieldBuilderFactory implements ComponentFactory
 
     public function create(Config $config, ?Specification $conditions = null): Component
     {
-        $builder = (new ComponentFactory\FieldTypeBuilder());
+        $builder = (new ComponentFactory\FieldTypeFactoryBuilder());
 
         $this->color_configurator->configure($builder);
         $this->date_configurator->configure($builder);
