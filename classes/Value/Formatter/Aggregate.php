@@ -23,10 +23,6 @@ final class Aggregate implements Formatter
 
     public function format(Value $value): Value
     {
-        if (0 === $this->formatters->count()) {
-            return $value;
-        }
-
         try {
             foreach ($this->formatters as $formatter) {
                 if ($formatter instanceof Formatter) {
