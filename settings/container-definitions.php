@@ -14,6 +14,7 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
 use AC\Service\PluginUpdate;
+use AC\Setting\ComponentFactory\FieldTypeConfigurator\FieldTypeConfiguratorProvider;
 use AC\Storage\EncoderFactory;
 use AC\Storage\Table;
 use AC\TableIdsFactory;
@@ -25,7 +26,7 @@ use AC\Vendor\Psr\Container\ContainerInterface;
 use function AC\Vendor\DI\autowire;
 use function AC\Vendor\DI\get;
 
-return [
+$definition = [
     'translations.global'                   => static function (AdminColumns $plugin): Translation {
         return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
     },
@@ -74,3 +75,8 @@ return [
         ->constructorParameter(0, get(AdminColumns::class))
         ->constructorParameter(1, new Site('upgrade-to-ac-version-%s')),
 ];
+
+return array_merge(
+    $definition,
+    ( new FieldTypeConfiguratorProvider() )->get_definitions()
+);
