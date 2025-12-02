@@ -8,7 +8,9 @@ use AC\ListScreen;
 use AC\Type\ColumnId;
 use AC\Type\Value;
 use AC\Value\Formatter\Aggregate;
-use AC\Value\Formatter\ColumnFormatter;
+use AC\Value\Formatter\Collection\Separator;
+use AC\Value\Formatter\Column;
+use AC\Value\Formatter\EmptyValue;
 
 class ListScreenValueFormatter implements ValueFormatter
 {
@@ -28,15 +30,19 @@ class ListScreenValueFormatter implements ValueFormatter
             return $value;
         }
 
-        $value = (new Aggregate($column->get_formatters()))->format($value);
+        $formatters = $column->get_formatters()
+                             ->with_formatter(new Separator())
+                             ->with_formatter(
+                                 new Column(
+                                     $column->get_context(),
+                                     $this->list_screen->get_table_screen(),
+                                     $this->list_screen->get_id()
+                                 )
+                             );
 
-        $formatter = new ColumnFormatter(
-            $column->get_context(),
-            $this->list_screen->get_table_screen(),
-            $this->list_screen->get_id()
-        );
+        $value = (new Aggregate($formatters))->format($value);
 
-        return $formatter->format($value);
+        return (new EmptyValue())->format($value);
     }
 
 }
