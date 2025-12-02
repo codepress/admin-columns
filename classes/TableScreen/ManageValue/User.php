@@ -38,7 +38,6 @@ class User implements ManageValueService
     {
         [$value, $column_id, $row_id] = $args;
 
-        // TODO test default_value
         return (string)$this->formatter->format(
             new ColumnId((string)$column_id),
             new Value((int)$row_id, $value)

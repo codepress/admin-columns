@@ -6,10 +6,13 @@ namespace AC\TableScreen;
 
 use AC;
 
-// TODO remove this interface and use ListTable directly instead
 interface ListTable
 {
 
+    /**
+     * Calling this method can initialize its corresponding WP list table, which can do all
+     * the necessary setup, such as SQL queries to populate itself
+     */
     public function list_table(): AC\ListTable;
 
 }
