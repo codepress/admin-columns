@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter;
 
-use AC\Sanitize\Kses;
 use AC\Setting\Context;
 use AC\Setting\Formatter;
 use AC\TableScreen;
 use AC\Type\ListScreenId;
 use AC\Type\Value;
 
-class ColumnFormatter implements Formatter
+class Column implements Formatter
 {
-
-    public const DEFAULT = '&ndash;';
 
     private Context $context;
 
@@ -27,19 +24,17 @@ class ColumnFormatter implements Formatter
     public function __construct(
         Context $context,
         TableScreen $table_screen,
-        ListScreenId $list_id,
-        ?string $default = null
+        ListScreenId $list_id
     ) {
         $this->context = $context;
         $this->table_screen = $table_screen;
         $this->list_id = $list_id;
-        $this->default = $default ?? self::DEFAULT;
     }
 
     public function format(Value $value): Value
     {
         if ($this->use_sanitize($value->get_id())) {
-            $value = $this->sanitize_value($value);
+            $value = (new Kses())->format($value);
         }
 
         $render = apply_filters(
@@ -55,10 +50,6 @@ class ColumnFormatter implements Formatter
             $value = $value->with_value($render);
         }
 
-        if ('' === (string)$value) {
-            return $value->with_value($this->default);
-        }
-
         return $value;
     }
 
@@ -71,13 +62,6 @@ class ColumnFormatter implements Formatter
             $id,
             $this->table_screen,
             $this->list_id
-        );
-    }
-
-    private function sanitize_value(Value $value): Value
-    {
-        return $value->with_value(
-            (new Kses())->sanitize((string)$value)
         );
     }
 

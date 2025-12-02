@@ -29,7 +29,12 @@ final class FormatterCollection extends Collection
         return $this;
     }
 
-    public function with_formatter(Formatter $formatter): self
+    /**
+     * @param Formatter|CollectionFormatter $formatter
+     *
+     * @return self
+     */
+    public function with_formatter($formatter): self
     {
         $formatters = $this->data;
         $formatters[] = $formatter;

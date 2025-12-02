@@ -10,7 +10,6 @@ use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 use AC\Type\Value;
 use AC\Type\ValueCollection;
-use AC\Value\Formatter\Collection\Separator;
 
 final class Aggregate implements Formatter
 {
@@ -27,8 +26,6 @@ final class Aggregate implements Formatter
         if (0 === $this->formatters->count()) {
             return $value;
         }
-
-        $id = $value->get_id();
 
         try {
             foreach ($this->formatters as $formatter) {
@@ -59,11 +56,7 @@ final class Aggregate implements Formatter
                 }
             }
         } catch (ValueNotFoundException $e) {
-            return $value->with_value('');
-        }
-
-        if ($value instanceof ValueCollection) {
-            $value = (new Separator())->format($value);
+            return new Value($value->get_id(), '');
         }
 
         return $value;
