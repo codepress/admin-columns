@@ -210,6 +210,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.7.19 =
+Release Date: December 2nd, 2025
+
+* [Added] Black friday promo
+
 = 4.7.18 =
 Release Date: September 22nd, 2025
 
