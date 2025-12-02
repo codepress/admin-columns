@@ -13,35 +13,28 @@ abstract class Promo
     /**
      * @var string
      */
-    private $slug;
-
-    /**
-     * @var string
-     */
-    private $title;
+    public $slug;
 
     /**
      * @var int
      */
-    private $discount;
+    public $discount;
 
     /**
      * @var DateRange
      */
-    private $date_range;
+    public $date_range;
 
-    public function __construct(string $slug, string $title, int $discount, DateRange $date_range)
+    public function __construct(string $slug, int $discount, DateRange $date_range)
     {
         $this->slug = $slug;
-        $this->title = $title;
         $this->discount = $discount;
         $this->date_range = $date_range;
     }
 
-    public function get_title(): string
-    {
-        return $this->title;
-    }
+    abstract public function get_message(): string;
+
+    abstract public function get_title(): string;
 
     public function get_discount(): int
     {
