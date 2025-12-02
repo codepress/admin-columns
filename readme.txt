@@ -4,7 +4,7 @@ Tags: admin, column, columns, table, tables
 Requires at least: 4.7.3
 Tested up to: 6.8.2
 Requires PHP: 7.2
-Stable tag: 4.7.18
+Stable tag: 4.7.19
 License: GPLv2
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
