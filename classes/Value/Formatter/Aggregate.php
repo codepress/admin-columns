@@ -21,7 +21,7 @@ final class Aggregate implements Formatter
         $this->formatters = $formatters;
     }
 
-    public function format(Value $value): Value
+    public function format(Value $value)
     {
         try {
             foreach ($this->formatters as $formatter) {

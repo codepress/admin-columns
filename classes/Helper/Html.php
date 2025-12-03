@@ -235,14 +235,14 @@ class Html
 		return implode($blocks);
 	}
 
-	public function more(array $array, int $number = 10, string $glue = ', '): string
+	public function more(array $array, int $limit = 10, string $glue = ', '): string
 	{
-		if ( ! $number) {
+		if ($limit <= 0) {
 			return implode($glue, $array);
 		}
 
-		$first_set = array_slice($array, 0, $number);
-		$last_set = array_slice($array, $number);
+		$first_set = array_slice($array, 0, $limit);
+		$last_set = array_slice($array, $limit);
 
 		ob_start();
 
