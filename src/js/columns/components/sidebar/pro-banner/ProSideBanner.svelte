@@ -44,7 +44,7 @@
 	</div>
 </div>
 {#if promo}
-	<AcPanel title={promo.title} rounded={false} classNames={['acu-bg-[#FDEF95] acu-rounded-b-[10px]']}>
+	<AcPanel title={promo.title} rounded={false} classNames={['!acu-bg-[#FDEF95] acu-rounded-b-[10px] acu-border-t-[0]']}>
 		<a target="_blank"
 			href="{promo.url}" class="acui-button acui-button-pink acu-block acu-text-center acu-text-[15px] ">
 			{promo.button_label}</a>

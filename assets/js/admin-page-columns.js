@@ -16046,7 +16046,7 @@ function create_if_block(ctx) {
     props: {
       title: /*promo*/ctx[4].title,
       rounded: false,
-      classNames: ['acu-bg-[#FDEF95] acu-rounded-b-[10px]'],
+      classNames: ['!acu-bg-[#FDEF95] acu-rounded-b-[10px] acu-border-t-[0]'],
       $$slots: {
         default: [create_default_slot]
       },
@@ -16259,7 +16259,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (44:1) <AcPanel title={promo.title} rounded={false} classNames={['acu-bg-[#FDEF95] acu-rounded-b-[10px]']}>
+// (44:1) <AcPanel title={promo.title} rounded={false} classNames={['!acu-bg-[#FDEF95] acu-rounded-b-[10px] acu-border-t-[0]']}>
 function create_default_slot(ctx) {
   let a;
   let t0_value = /*promo*/ctx[4].button_label + "";
