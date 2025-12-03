@@ -8,6 +8,7 @@
 
     const i18n = getColumnSettingsTranslation().pro.banner;
     const features = proBannerConfig.features;
+    const integrations = proBannerConfig.integrations ?? [];
     const promo = proBannerConfig.promo;
 
 </script>
@@ -24,11 +25,22 @@
 				<li><a href="{feature.url}">{feature.label}</a></li>
 			{/each}
 		</ul>
-		<a target="_blank"
-			href="{proBannerConfig.promo_url}"
-			class="acui-button acui-button-pink acu-block acu-text-center acu-text-[15px]">
-			{i18n.get_acp}
-		</a>
+
+		{#if integrations.length > 0}
+			<p class="acu-font-bold">{i18n.integrations}</p>
+			<ul class="acu-mb-4 -special">
+				{#each integrations as integration}
+					<li><a href="{integration.url}">{integration.label}</a></li>
+				{/each}
+			</ul>
+		{/if}
+		{#if !promo}
+			<a target="_blank"
+				href="{proBannerConfig.promo_url}"
+				class="acui-button acui-button-pink acu-block acu-text-center acu-text-[15px]">
+				{i18n.get_acp}
+			</a>
+		{/if}
 	</div>
 </div>
 {#if promo}

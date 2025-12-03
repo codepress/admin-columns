@@ -19,6 +19,7 @@ type AdminColumnsI18n = {
             list_tables: string
             addons: string
             upgrade: string
+            integrations: string
         }
         banner: {
             title: string
