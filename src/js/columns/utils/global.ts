@@ -76,6 +76,7 @@ type AdminColumnsI18n = {
     }
     settings: {
         label: {
+            column: string
             column_info: string
             table_view_label: string
             select_icon: string
