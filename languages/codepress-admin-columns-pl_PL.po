@@ -7,9 +7,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
-"X-Generator: GlotPress/4.0.1\n"
+"X-Generator: GlotPress/4.0.3\n"
 "Language: pl\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
+
+#: templates/admin/edit-menu.php:35
+msgid "View %s"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:119
+msgid "See the Plugins page for details."
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:117
+msgid "Warning"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:88
+msgctxt "Anchor text to upgrade guide."
+msgid "upgrade guide"
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:72
+msgctxt "%s contains the link to upgrade guide. Label is translated separately."
+msgid "Please review the %s for details."
+msgstr ""
+
+#: classes/Service/PluginUpdate.php:58
+msgid "You are upgrading to a new a major version of Admin Columns, which can include <strong>breaking changes</strong>."
+msgstr ""
 
 #: templates/settings/setting-label-icons.php:334
 msgid "Miscellaneous"
@@ -966,7 +992,7 @@ msgstr ""
 msgid "Get %s now"
 msgstr ""
 
-#: classes/Helper/Html.php:495
+#: classes/Helper/Html.php:498
 msgid "%s more"
 msgstr ""
 
@@ -1102,7 +1128,7 @@ msgstr ""
 msgid "Do you like Admin Columns?"
 msgstr ""
 
-#: templates/admin/edit-menu.php:17
+#: templates/admin/edit-menu.php:22
 msgid "Select type"
 msgstr ""
 
@@ -1542,7 +1568,7 @@ msgstr ""
 msgid " or "
 msgstr ""
 
-#: classes/Helper/Html.php:496
+#: classes/Helper/Html.php:499
 msgid "Hide"
 msgstr ""
 
@@ -1630,7 +1656,7 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: templates/admin/edit-column.php:36 templates/admin/edit-column.php:80
+#: templates/admin/edit-column.php:46 templates/admin/edit-column.php:95
 msgid "Close"
 msgstr ""
 
@@ -1854,11 +1880,11 @@ msgstr ""
 msgid "Get Admin Columns Pro"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:40 classes/Admin/Page/Columns.php:166
+#: classes/Admin/MenuFactory.php:40 classes/Admin/Page/Columns.php:167
 msgid "Columns"
 msgstr "Kolumny"
 
-#: classes/Admin/Page/Columns.php:207
+#: classes/Admin/Page/Columns.php:212
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -1866,7 +1892,7 @@ msgstr ""
 msgid "Update"
 msgstr "Aktualizuj"
 
-#: classes/Admin/Page/Columns.php:186
+#: classes/Admin/Page/Columns.php:191
 msgid "Store settings"
 msgstr "Zapisz ustawienia"
 
@@ -2029,7 +2055,7 @@ msgstr ""
 #. Plugin Name of the plugin
 #: codepress-admin-columns.php classes/Admin/MenuPageFactory/Menu.php:16
 #: classes/Admin/MenuPageFactory/SubMenu.php:17 classes/Check/Review.php:116
-#: classes/Table/Screen.php:346
+#: classes/Table/Screen.php:349
 msgid "Admin Columns"
 msgstr "Edytor kolumn"
 
@@ -2061,7 +2087,7 @@ msgstr "Nazwa, któa będzie wyświetlana w nagłówku kolumny."
 msgid "Label"
 msgstr "Etykieta"
 
-#: classes/Settings/Column/Type.php:48 templates/admin/edit-column.php:30
+#: classes/Settings/Column/Type.php:48 templates/admin/edit-column.php:32
 msgid "Name"
 msgstr "Nazwa"
 
@@ -2069,7 +2095,7 @@ msgstr "Nazwa"
 msgid "Choose a column type."
 msgstr "Wybierz typ kolumny."
 
-#: templates/admin/edit-column.php:38 templates/admin/edit-column.php:82
+#: templates/admin/edit-column.php:50 templates/admin/edit-column.php:99
 msgid "Clone"
 msgstr "Powiel"
 
@@ -2077,7 +2103,7 @@ msgstr "Powiel"
 msgid "Display format"
 msgstr ""
 
-#: classes/Settings/Column/User.php:91 classes/Settings/Column/UserLink.php:79
+#: classes/Settings/Column/User.php:91 classes/Settings/Column/UserLink.php:88
 msgid "User Email"
 msgstr "Adres e-mail użytkownika"
 
@@ -2164,7 +2190,7 @@ msgstr "Pseudonim"
 msgid "Comment Count"
 msgstr ""
 
-#: templates/admin/edit-column.php:40 templates/admin/edit-column.php:84
+#: templates/admin/edit-column.php:54 templates/admin/edit-column.php:103
 msgid "Remove"
 msgstr "Usuń"
 
@@ -2218,7 +2244,7 @@ msgstr ""
 msgid "Path"
 msgstr ""
 
-#: classes/Column/Post/PostParent.php:14
+#: classes/Column/Post/PostParent.php:16
 msgid "Parent"
 msgstr "Element nadrzędny"
 
@@ -2298,15 +2324,15 @@ msgstr "Oczekujący"
 msgid "Total"
 msgstr "Łącznie"
 
-#: classes/Settings/Column/UserLink.php:81
+#: classes/Settings/Column/UserLink.php:90
 msgid "View Public Author Page"
 msgstr ""
 
-#: classes/Settings/Column/UserLink.php:80
+#: classes/Settings/Column/UserLink.php:89
 msgid "View User Posts"
 msgstr ""
 
-#: classes/Settings/Column/UserLink.php:78
+#: classes/Settings/Column/UserLink.php:87
 msgid "Edit User Profile"
 msgstr ""
 
@@ -2315,7 +2341,7 @@ msgstr ""
 #: classes/Settings/Column/PostLink.php:73
 #: classes/Settings/Column/Separator.php:29
 #: classes/Settings/Column/TermLink.php:40
-#: classes/Settings/Column/UserLink.php:87
+#: classes/Settings/Column/UserLink.php:96
 msgid "None"
 msgstr "Brak"
 
@@ -2323,7 +2349,7 @@ msgstr "Brak"
 #: classes/Settings/Column/MediaLink.php:52
 #: classes/Settings/Column/PostLink.php:62
 #: classes/Settings/Column/TermLink.php:30
-#: classes/Settings/Column/UserLink.php:69
+#: classes/Settings/Column/UserLink.php:77
 msgid "Link To"
 msgstr ""
 
@@ -2424,7 +2450,7 @@ msgid "Available Sizes"
 msgstr "Dostępne rozmiary"
 
 #: classes/Column/Media/Preview.php:50 classes/Settings/Column/MediaLink.php:63
-#: templates/admin/edit-menu.php:27
+#: classes/Table/Screen.php:154
 msgid "View"
 msgstr "Zobacz"
 
@@ -2506,7 +2532,7 @@ msgstr ""
 #: classes/Column/Comment/Type.php:14
 #: classes/Settings/Column/CustomFieldType.php:85
 #: classes/Settings/Column/Type.php:45 classes/Settings/Column/Type.php:54
-#: templates/admin/edit-column.php:31
+#: templates/admin/edit-column.php:37
 msgid "Type"
 msgstr "Typ"
 
@@ -2575,7 +2601,7 @@ msgstr "Zatwierdzono"
 msgid "Agent"
 msgstr "Agent"
 
-#: classes/Table/Screen.php:152 templates/admin/edit-column.php:35
+#: classes/Table/Screen.php:152 templates/admin/edit-column.php:44
 msgid "Edit"
 msgstr "Edytuj"
 
