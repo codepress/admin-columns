@@ -11,6 +11,12 @@ class MenuGroup
 
     private string $label;
 
+    /**
+     * 1-10 is highet prio and reserved for core menu items.
+     * 10-20 is medium priority and recommended for integration addons.
+     * 20-30 is low priority and recommended for less important menu items. (e.g. taxonomy list tables)
+     * 30-40 is lowerst priority and mostly used for hidden list tables (e.g. post types that are not visible in the admin menu)
+     */
     private int $priority;
 
     private ?string $icon;
