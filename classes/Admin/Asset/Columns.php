@@ -375,6 +375,7 @@ class Columns extends Script
                 ],
                 'settings' => [
                     'label' => [
+                        'column'           => __('Column', 'codepress-admin-columns'),
                         'column_info'      => __('Column Info', 'codepress-admin-columns'),
                         'table_view_label' => __('Table View Label', 'codepress-admin-columns'),
                         'select_icon'      => __('Select Icon', 'codepress-admin-columns'),

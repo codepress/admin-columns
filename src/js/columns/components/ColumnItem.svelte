@@ -21,11 +21,13 @@
     import ColumnLabel from "./ColumnLabel.svelte";
     import JSONTree from "svelte-json-tree";
     import {MaterialIcon} from "@ac/material-icons/src";
+    import {getColumnSettingsTranslation} from "../utils/global";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
     export let locked: boolean = false;
 
+    const i18n = getColumnSettingsTranslation();
     const dispatch = createEventDispatcher();
     const originalsColumns = ColumnTypesUtils.getOriginalColumnTypes();
 
@@ -116,7 +118,7 @@
 			</strong>
 			<div class="ac-column-row-actions">
 				<a class="ac-column-row-action -edit" href={'#'} on:click|preventDefault|stopPropagation={toggle}>Edit</a>
-				{#if !isOriginalColumn && ! $listScreenIsReadOnly}
+				{#if !isOriginalColumn && !$listScreenIsReadOnly}
 					<a class="ac-column-row-action -duplicate" href={'#'} on:click|preventDefault|stopPropagation={handleDuplicate}>Duplicate</a>
 				{/if}
 				{#if !$listScreenIsReadOnly && !locked}
@@ -157,7 +159,7 @@
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
 
-			<ColumnSetting description="" label="Type" extraClass="-type">
+			<ColumnSetting description="" label={i18n.settings.label.column} extraClass="-type">
 				<TypeSetting bind:data={data} bind:columnConfig={config} disabled={locked}/>
 			</ColumnSetting>
 

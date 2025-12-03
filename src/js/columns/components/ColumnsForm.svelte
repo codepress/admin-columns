@@ -192,7 +192,7 @@
 
     const toggleColumnInfo = ( e ) => {
         persistScreenOptions( 'show_column_info', e.detail === true ? 1 : 0)
-	}
+    }
 
     onMount(() => {
         setTimeout(makeSortable, 1000);
