@@ -13,7 +13,7 @@ final class ValueCollection extends Collection
 
     public function __construct($id, array $data = [])
     {
-        $this->id = (int)$id;
+        $this->id = $id;
 
         array_map([$this, 'add'], $data);
     }
@@ -28,7 +28,7 @@ final class ValueCollection extends Collection
         $self = new self($id);
 
         $add = static function ($id) use ($self) {
-            $self->add(new Value((int)$id));
+            $self->add(new Value($id));
         };
 
         array_map($add, $data);
