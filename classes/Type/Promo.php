@@ -1,9 +1,9 @@
 <?php
 
-namespace AC;
+namespace AC\Type;
 
 use AC;
-use AC\Type\DateRange;
+use AC\Type;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 use DateTime;
@@ -11,26 +11,22 @@ use DateTime;
 abstract class Promo
 {
 
-    private string $slug;
+    protected string $slug;
 
-    private string $title;
+    protected int $discount;
 
-    private int $discount;
+    protected DateRange $date_range;
 
-    private DateRange $date_range;
-
-    public function __construct(string $slug, string $title, int $discount, DateRange $date_range)
+    public function __construct(string $slug, int $discount, DateRange $date_range)
     {
         $this->slug = $slug;
-        $this->title = $title;
         $this->discount = $discount;
         $this->date_range = $date_range;
     }
 
-    public function get_title(): string
-    {
-        return $this->title;
-    }
+    abstract public function get_title(): string;
+
+    abstract public function get_message(): string;
 
     public function get_discount(): int
     {

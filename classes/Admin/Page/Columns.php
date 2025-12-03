@@ -14,7 +14,7 @@ use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\ColumnGroups;
 use AC\Container;
-use AC\Promos;
+use AC\Promo\PromoRepository;
 use AC\Renderable;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Table\TableScreenCollection;
@@ -45,7 +45,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
 
     private ?ListScreenId $list_id;
 
-    private Promos $promos;
+    private PromoRepository $promos;
 
     public function __construct(
         AdminColumns $plugin,
@@ -56,7 +56,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
         EditorFavorites $favorite_repository,
         TableScreenRepository $table_screen_repository,
         ColumnGroups $column_groups,
-        Promos $promos,
+        PromoRepository $promos,
         ?ListScreenId $list_id = null
     ) {
         $this->location = $plugin->get_location();

@@ -2,26 +2,42 @@
 
 namespace AC\Promo;
 
-use AC\Promo;
 use AC\Type\DateRange;
+use AC\Type\Promo;
 use AC\Type\Url;
 use AC\Type\Url\CouponCode;
 
-class BlackFriday extends Promo
+final class BlackFriday extends Promo
 {
 
     private string $coupon_code;
 
     public function __construct(DateRange $date_range, ?string $coupon_code = null)
     {
-        parent::__construct(
-            'black-friday',
-            sprintf(__('%s Off from Black Friday to Cyber Monday', 'codepress-admin-columns'), '25%'),
-            25,
-            $date_range
-        );
+        parent::__construct('black-friday', 25, $date_range);
 
         $this->coupon_code = $coupon_code;
+    }
+
+    public function get_title(): string
+    {
+        return sprintf(
+            __('Save up to %s from Black Friday to Cyber Monday', 'codepress-admin-columns'),
+            $this->discount . '%'
+        );
+    }
+
+    public function get_message(): string
+    {
+        $message = sprintf(__('Get %s now', 'codepress-admin-columns'), '<strong>Admin Columns Pro</strong>');
+        $message = sprintf(
+            '%s! <a target="_blank" href="%s">%s</a>',
+            $this->get_title(),
+            $this->get_url()->get_url(),
+            $message
+        );
+
+        return $message;
     }
 
     public function get_url(): Url

@@ -36,7 +36,7 @@ class Columns extends Script
 
     private bool $is_pro;
 
-    private AC\Promos $promos;
+    private AC\Promo\PromoRepository $promos;
 
     private Location $parent_location;
 
@@ -49,7 +49,7 @@ class Columns extends Script
         AC\Table\TableScreenRepository $table_screen_repository,
         EditorFavorites $favorite_repository,
         AC\ColumnGroups $column_groups,
-        AC\Promos $promos,
+        AC\Promo\PromoRepository $promos,
         Location $parent_location,
         bool $is_pro = false,
         ?ListScreenId $list_id = null
@@ -75,8 +75,6 @@ class Columns extends Script
         $arguments = [];
         $upgrade_page_url = new UtmTags(Site::create_admin_columns_pro(), 'banner');
 
-        //if not pro, bail early
-
         $items = [
             'search'      => __('Search any content', 'codepress-admin-columns'),
             'editing'     => __('Inline Edit any content', 'codepress-admin-columns'),
@@ -95,7 +93,7 @@ class Columns extends Script
                     'title'          => $promo->get_title(),
                     'url'            => (string)$promo->get_url(),
                     'button_label'   => sprintf(
-                        __('Get %s Off!', 'codepress-admin-columns'),
+                        __('Get up to %s Off!', 'codepress-admin-columns'),
                         $promo->get_discount() . '%'
                     ),
                     'discount_until' => sprintf(
