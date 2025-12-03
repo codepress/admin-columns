@@ -110,7 +110,6 @@ class Loader
             ThirdParty\WPML::class,
             Capabilities\Manage::class,
             Service\QuickEdit::class,
-            Service\PromoChecks::class,
             Service\CurrentTable::class,
             Service\CommonAssets::class,
             Service\Colors::class,
@@ -124,6 +123,7 @@ class Loader
         ];
 
         if ( ! $container->get('is.pro')) {
+            $services_fqn[] = Service\PromoChecks::class;
             $services_fqn[] = Service\NoticeChecks::class;
             $services_fqn[] = PluginActionUpgrade::class;
         }
