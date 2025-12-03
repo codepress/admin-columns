@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Service;
 
 use AC;
+use AC\Check\Promotion;
 
 class PromoChecks implements AC\Registerable
 {
@@ -27,7 +28,7 @@ class PromoChecks implements AC\Registerable
             return;
         }
 
-        $service = new AC\Check\Promotion($promo, $this->preference_factory);
+        $service = new Promotion($promo, $this->preference_factory);
         $service->register();
     }
 

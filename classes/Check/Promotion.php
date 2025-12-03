@@ -60,16 +60,24 @@ final class Promotion implements Registerable
         $this->get_preferences()->set('dismiss-notice', true);
     }
 
+    private function is_promo_screen(Screen $screen): bool
+    {
+        return $screen->has_screen() && ($screen->is_table_screen() || $screen->is_admin_screen());
+    }
+
     public function display(Screen $screen): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)
-             || ! $screen->is_table_screen()
-             || $this->get_preferences()->find('dismiss-notice')
+        if ( ! current_user_can(Capabilities::MANAGE) ||
+             ! $this->is_promo_screen($screen) ||
+             $this->get_preferences()->find('dismiss-notice')
         ) {
             return;
         }
 
-        $notice = new Dismissible($this->promo->get_message(), $this->get_ajax_handler());
+        $notice = new Dismissible(
+            $this->promo->get_notice_message(),
+            $this->get_ajax_handler()
+        );
         $notice->register();
     }
 }
