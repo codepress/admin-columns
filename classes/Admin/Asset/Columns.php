@@ -92,10 +92,7 @@ class Columns extends Script
                 $arguments['promo'] = [
                     'title'          => $promo->get_title(),
                     'url'            => (string)$promo->get_url(),
-                    'button_label'   => sprintf(
-                        __('Get up to %s Off!', 'codepress-admin-columns'),
-                        $promo->get_discount() . '%'
-                    ),
+                    'button_label'   => $promo->get_button_label(),
                     'discount_until' => sprintf(
                         __("Discount is valid until %s", 'codepress-admin-columns'),
                         $promo->get_date_range()->get_end()->format('j F Y')

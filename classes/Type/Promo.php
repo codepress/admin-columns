@@ -26,7 +26,9 @@ abstract class Promo
 
     abstract public function get_title(): string;
 
-    abstract public function get_message(): string;
+    abstract public function get_button_label(): string;
+
+    abstract public function get_notice_message(): string;
 
     public function get_discount(): int
     {
