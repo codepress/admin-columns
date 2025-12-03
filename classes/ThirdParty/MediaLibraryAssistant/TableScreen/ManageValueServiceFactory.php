@@ -18,10 +18,10 @@ class ManageValueServiceFactory implements AC\TableScreen\ManageValueServiceFact
 
     public function create(
         AC\TableScreen $table_screen,
-        AC\Table\ManageValue\ValueFormatter $formatter,
+        AC\Table\ManageValue\RenderFactory $factory,
         int $priority = 100
     ): ManageValueService {
-        return new ManageValue($formatter, $priority);
+        return new ManageValue($factory, $priority);
     }
 
 }

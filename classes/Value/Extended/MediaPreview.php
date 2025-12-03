@@ -16,7 +16,7 @@ class MediaPreview implements ExtendedValue
 
     private const NAME = 'media-preview';
 
-    public function get_link(int $id, string $label): ExtendedValueLink
+    public function get_link($id, string $label): ExtendedValueLink
     {
         return new ExtendedValueLink($label, $id, self::NAME);
     }
@@ -45,7 +45,7 @@ class MediaPreview implements ExtendedValue
         }
     }
 
-    public function render(int $id, array $params, Column $column, ListScreen $list_screen): string
+    public function render($id, array $params, Column $column, ListScreen $list_screen): string
     {
         switch ($this->get_media_type($id)) {
             case 'audio':

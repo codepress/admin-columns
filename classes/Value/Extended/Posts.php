@@ -17,7 +17,7 @@ class Posts implements ExtendedValue
         return $view === 'posts';
     }
 
-    public function get_link(int $id, string $label): ExtendedValueLink
+    public function get_link($id, string $label): ExtendedValueLink
     {
         return new ExtendedValueLink($label, $id, 'posts', ['class' => '-w-xlarge']);
     }
@@ -31,7 +31,7 @@ class Posts implements ExtendedValue
         );
     }
 
-    public function render(int $id, array $params, Column $column, ListScreen $list_screen): string
+    public function render($id, array $params, Column $column, ListScreen $list_screen): string
     {
         $post_types = $params['post_type'] ?? get_post_types(['show_ui' => true]);
         $status = $params['post_stati'] ?? get_post_stati(['internal' => 0]);

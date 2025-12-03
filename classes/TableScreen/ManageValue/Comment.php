@@ -13,15 +13,15 @@ use DomainException;
 class Comment implements ManageValueService
 {
 
-    private AC\Table\ManageValue\ValueFormatter $formatter;
+    private AC\Table\ManageValue\RenderFactory $factory;
 
     private int $priority;
 
     public function __construct(
-        AC\Table\ManageValue\ValueFormatter $formatter,
+        AC\Table\ManageValue\RenderFactory $factory,
         int $priority = 100
     ) {
-        $this->formatter = $formatter;
+        $this->factory = $factory;
         $this->priority = $priority;
     }
 
@@ -38,10 +38,11 @@ class Comment implements ManageValueService
     {
         [$column_id, $row_id] = $args;
 
-        echo $this->formatter->format(
-            new ColumnId((string)$column_id),
-            new Value((int)$row_id, '')
-        );
+        $formatter = $this->factory->create(new ColumnId((string)$column_id));
+
+        if ($formatter) {
+            echo $formatter->format(new Value((int)$row_id));
+        }
     }
 
 }
