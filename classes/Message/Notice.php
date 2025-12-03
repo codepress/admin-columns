@@ -36,7 +36,7 @@ class Notice extends Message implements Registerable
         add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
     }
 
-    public function enqueue_scripts()
+    public function enqueue_scripts(): void
     {
         $style = new Style('ac-message', Container::get_location()->with_suffix('assets/css/notice.css'));
         $style->enqueue();
