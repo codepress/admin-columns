@@ -40,7 +40,7 @@ class Dismissible extends Notice
         return $view->render();
     }
 
-    public function enqueue_scripts()
+    public function enqueue_scripts(): void
     {
         parent::enqueue_scripts();
 
