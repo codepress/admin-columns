@@ -15918,6 +15918,8 @@ function create_if_block(ctx) {
   acpanel = new ACUi_acui_panel_AcPanel_svelte__WEBPACK_IMPORTED_MODULE_5__["default"]({
     props: {
       title: /*promo*/ctx[3].title,
+      rounded: false,
+      classNames: ['acu-bg-[#FDEF95] acu-rounded-b-[10px]'],
       $$slots: {
         default: [create_default_slot]
       },
@@ -16130,7 +16132,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (31:1) <AcPanel title={promo.title}>
+// (31:1) <AcPanel title={promo.title} rounded={false} classNames={['acu-bg-[#FDEF95] acu-rounded-b-[10px]']}>
 function create_default_slot(ctx) {
   let a;
   let t0_value = /*promo*/ctx[3].button_label + "";
@@ -16147,7 +16149,7 @@ function create_default_slot(ctx) {
       p.textContent = `${/*promo*/ctx[3].discount_until}`;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "target", "_blank");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", a_href_value = /*promo*/ctx[3].url);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "acui-button acui-button-pink acu-block acu-text-center acu-text-[15px]");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "acui-button acui-button-pink acu-block acu-text-center acu-text-[15px] ");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, a, anchor);
@@ -25532,7 +25534,7 @@ function instance($$self, $$props, $$invalidate) {
   let {
     border = false
   } = $$props;
-  let classes = ['acu-px-5 acu-pt-5'];
+  let classes = ['acu-px-5 acu-pt-5 acu-leading-normal'];
   if (border) {
     classes.push('acu-pb-[20px] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border');
   }
