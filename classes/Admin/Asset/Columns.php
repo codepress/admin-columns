@@ -40,6 +40,8 @@ class Columns extends Script
 
     private Location $parent_location;
 
+    private AC\Integration\IntegrationRepository $integration_repository;
+
     public function __construct(
         string $handle,
         Location $location,
@@ -50,6 +52,7 @@ class Columns extends Script
         EditorFavorites $favorite_repository,
         AC\ColumnGroups $column_groups,
         AC\Promo\PromoRepository $promos,
+        AC\Integration\IntegrationRepository $integration_repository,
         Location $parent_location,
         bool $is_pro = false,
         ?ListScreenId $list_id = null
@@ -68,6 +71,7 @@ class Columns extends Script
         $this->is_pro = $is_pro;
         $this->promos = $promos;
         $this->parent_location = $parent_location;
+        $this->integration_repository = $integration_repository;
     }
 
     public function get_pro_modal_arguments(): array
@@ -101,6 +105,18 @@ class Columns extends Script
             }
         }
 
+        $integrations = [];
+
+        /**
+         * @var AC\Integration $integration
+         */
+        foreach ($this->integration_repository->find_all_by_active_plugins() as $integration) {
+            $integrations[] = [
+                'url'   => $integration->get_link(),
+                'label' => $integration->get_title(),
+            ];
+        }
+
         $features = [];
 
         foreach ($items as $utm_content => $label) {
@@ -111,6 +127,7 @@ class Columns extends Script
         }
 
         $arguments['features'] = $features;
+        $arguments['integrations'] = $integrations;
         $arguments['promo_url'] = $upgrade_page_url->get_url();
         $arguments['discount'] = 10;
 
@@ -239,19 +256,23 @@ class Columns extends Script
                         'upgrade'     => __('Upgrade', 'codepress-admin-columns'),
                     ],
                     'banner'   => [
-                        'title'              => __('Upgrade to', 'codepress-admin-columns'),
-                        'title_pro'          => __('Pro', 'codepress-admin-columns'),
-                        'sub_title'          => __('Take Admin Columns to the next level:', 'codepress-admin-columns'),
-                        'integrations'       => __('Includes special integrations for:', 'codepress-admin-columns'),
-                        'get_acp'            => __('Get Admin Columns Pro', 'codepress-admin-columns'),
-                        'get_percentage_off' => __('Get %s Off!', 'codepress-admin-columns'),
-                        'submit_email'       => __(
+                        'title'                 => __('Upgrade to', 'codepress-admin-columns'),
+                        'title_pro'             => __('Pro', 'codepress-admin-columns'),
+                        'sub_title'             => __(
+                            'Take Admin Columns to the next level:',
+                            'codepress-admin-columns'
+                        ),
+                        'integrations'          => __('Includes special integrations for:', 'codepress-admin-columns'),
+                        'get_acp'               => __('Get Admin Columns Pro', 'codepress-admin-columns'),
+                        'get_percentage_off'    => __('Get %s Off!', 'codepress-admin-columns'),
+                        'submit_email'          => __(
                             "Submit your email and we'll send you a discount for %s off.",
                             'codepress-admin-columns'
                         ),
-                        'your_first_name'    => __('Your First Name', 'codepress-admin-columns'),
-                        'your_email'         => __('Your Email', 'codepress-admin-columns'),
-                        'send_discount'      => __('Send me the discount', 'codepress-admin-columns'),
+                        'your_first_name'       => __('Your First Name', 'codepress-admin-columns'),
+                        'your_email'            => __('Your Email', 'codepress-admin-columns'),
+                        'send_discount'         => __('Send me the discount', 'codepress-admin-columns'),
+                        'includes_integrations' => __('Includes special integrations for:', 'codepress-admin-columns'),
                     ],
                     'settings' => [
                         'status'       => [

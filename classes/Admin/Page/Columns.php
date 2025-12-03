@@ -14,6 +14,7 @@ use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\ColumnGroups;
 use AC\Container;
+use AC\Integration\IntegrationRepository;
 use AC\Promo\PromoRepository;
 use AC\Renderable;
 use AC\Storage\Repository\EditorFavorites;
@@ -47,6 +48,8 @@ class Columns implements Enqueueables, Renderable, RenderableHead
 
     private PromoRepository $promos;
 
+    private IntegrationRepository $integration_repository;
+
     public function __construct(
         AdminColumns $plugin,
         TableScreenCollection $uninitialized_screens,
@@ -57,6 +60,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
         TableScreenRepository $table_screen_repository,
         ColumnGroups $column_groups,
         PromoRepository $promos,
+        IntegrationRepository $integration_repository,
         ?ListScreenId $list_id = null
     ) {
         $this->location = $plugin->get_location();
@@ -69,6 +73,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
         $this->list_id = $list_id;
         $this->column_groups = $column_groups;
         $this->promos = $promos;
+        $this->integration_repository = $integration_repository;
     }
 
     public function get_table_screen(): TableScreen
@@ -95,6 +100,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
                 $this->favorite_repository,
                 $this->column_groups,
                 $this->promos,
+                $this->integration_repository,
                 $this->location,
                 Container::is_pro(),
                 $this->list_id
