@@ -143,12 +143,13 @@
         data.columns = newSortedColumns;
     }
 
-    const handleLoadDefaultColumns = () => {
+    const handleLoadDefaultColumns = async () => {
         loadingDefaultColumns = true;
+
         loadDefaultColumns($currentListKey).then(response => {
             if (response.data.success) {
-                data.columns = response.data.data.columns;
                 config = response.data.data.config;
+                data.columns = response.data.data.columns;
                 loadingDefaultColumns = false;
             }
         })
@@ -200,7 +201,7 @@
 </script>
 
 <!--<DebugToolbar bind:data={data} bind:config={config}/>-->
-{#if data && !$isLoadingColumnSettings}
+{#if data && !$isLoadingColumnSettings && !loadingDefaultColumns}
 	<AcPanel>
 		<AcPanelHeader slot="header" border>
 

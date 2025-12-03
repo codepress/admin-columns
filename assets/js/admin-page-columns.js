@@ -4205,7 +4205,7 @@ function create_else_block_1(ctx) {
   };
 }
 
-// (169:0) {#if data && !$isLoadingColumnSettings}
+// (169:0) {#if data && !$isLoadingColumnSettings && !loadingDefaultColumns}
 function create_if_block(ctx) {
   let acpanel;
   let current;
@@ -5424,7 +5424,7 @@ function create_fragment(ctx) {
   const if_block_creators = [create_if_block, create_else_block_1];
   const if_blocks = [];
   function select_block_type(ctx, dirty) {
-    if (/*data*/ctx[0] && ! /*$isLoadingColumnSettings*/ctx[8]) return 0;
+    if (/*data*/ctx[0] && ! /*$isLoadingColumnSettings*/ctx[8] && ! /*loadingDefaultColumns*/ctx[6]) return 0;
     return 1;
   }
   current_block_type_index = select_block_type(ctx, [-1, -1]);
@@ -5626,16 +5626,16 @@ function instance($$self, $$props, $$invalidate) {
     });
     $$invalidate(0, data.columns = newSortedColumns, data);
   };
-  const handleLoadDefaultColumns = () => {
+  const handleLoadDefaultColumns = () => __awaiter(void 0, void 0, void 0, function* () {
     $$invalidate(6, loadingDefaultColumns = true);
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_3__.loadDefaultColumns)($currentListKey).then(response => {
       if (response.data.success) {
-        $$invalidate(0, data.columns = response.data.data.columns, data);
         $$invalidate(1, config = response.data.data.config);
+        $$invalidate(0, data.columns = response.data.data.columns, data);
         $$invalidate(6, loadingDefaultColumns = false);
       }
     });
-  };
+  });
   const makeSortable = () => {
     const JQ = jQuery;
     JQ(sortableContainer).sortable({

@@ -246,14 +246,6 @@ body .ac-modal__dialog__content.-accent {
 body .ac-modal__dialog__content.-hide {
   display: none;
 }
-body .ac-modal__dialog__list li {
-  position: relative;
-  padding-left: 25px;
-  font-weight: 400;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-}
 body .ac-modal__dialog__list li:before {
   content: "\f147";
   font-family: Dashicons;
@@ -264,6 +256,14 @@ body .ac-modal__dialog__list li:before {
 }
 body .ac-modal__dialog__list li:nth-child(2n) {
   color: #e9426e;
+}
+body .ac-modal__dialog__list li {
+  position: relative;
+  padding-left: 25px;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
 }
 body .ac-modal__dialog__footer {
   border-radius: 0 0 6px 6px;
