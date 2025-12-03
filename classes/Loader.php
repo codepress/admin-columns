@@ -123,7 +123,7 @@ class Loader
         ];
 
         if ( ! $container->get('is.pro')) {
-            $services_fqn[] = Service\PromoChecks::class,;
+            $services_fqn[] = Service\PromoChecks::class;
             $services_fqn[] = Service\NoticeChecks::class;
             $services_fqn[] = PluginActionUpgrade::class;
         }
