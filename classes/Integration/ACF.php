@@ -2,8 +2,8 @@
 
 namespace AC\Integration;
 
-use AC\Integration;
 use AC\Screen;
+use AC\Type\Integration;
 use AC\Type\Url\External;
 use AC\Type\Url\Site;
 

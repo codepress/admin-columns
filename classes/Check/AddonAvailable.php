@@ -4,11 +4,11 @@ namespace AC\Check;
 
 use AC\Ajax;
 use AC\Capabilities;
-use AC\Integration;
 use AC\Message\Notice\Dismissible;
 use AC\Preferences;
 use AC\Registerable;
 use AC\Screen;
+use AC\Type\Integration;
 
 final class AddonAvailable
     implements Registerable

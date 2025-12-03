@@ -12,6 +12,7 @@ use AC\Storage\Repository\EditorMenuStatus;
 use AC\Table\TableScreenCollection;
 use AC\Table\TableScreenRepository\SortByLabel;
 use AC\TableScreen;
+use AC\Type\Integration;
 use AC\Type\ListScreenId;
 use AC\Type\Url\Documentation;
 use AC\Type\Url\Site;
@@ -108,7 +109,7 @@ class Columns extends Script
         $integrations = [];
 
         /**
-         * @var AC\Integration $integration
+         * @var Integration $integration
          */
         foreach ($this->integration_repository->find_all_by_active_plugins() as $integration) {
             $integrations[] = [

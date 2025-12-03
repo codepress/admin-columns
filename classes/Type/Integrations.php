@@ -3,7 +3,6 @@
 namespace AC\Type;
 
 use AC\Collection;
-use AC\Integration;
 
 class Integrations extends Collection
 {
