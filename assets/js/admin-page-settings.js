@@ -7260,7 +7260,7 @@ function instance($$self, $$props, $$invalidate) {
   let {
     border = false
   } = $$props;
-  let classes = ['acu-px-5 acu-pt-5'];
+  let classes = ['acu-px-5 acu-pt-5 acu-leading-normal'];
   if (border) {
     classes.push('acu-pb-[20px] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border');
   }

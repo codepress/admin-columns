@@ -123,7 +123,7 @@
   --multi-select-padding: 0 0 0 8px;
   --multi-item-outline: none;
   --multi-item-bg: #EAF2FA;
-  --group-title-text-transform: 'none';
+  --group-title-text-transform: "none";
   --group-item-padding-left: 30px;
   --group-title-font-size: 14px;
   --value-container-padding: 0;
@@ -491,6 +491,13 @@
   position: absolute;
   left: 0;
   top: 0;
+}
+.ac-probanner ul.-special li a {
+  color: #FDEF95;
+  font-weight: bold;
+}
+.ac-probanner ul.-special li a:before {
+  content: "+";
 }
 
 /*# sourceMappingURL=admin-page-columns.css.map */

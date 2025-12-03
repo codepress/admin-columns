@@ -1,8 +1,9 @@
 <?php
 
-namespace AC;
+namespace AC\Type;
 
-use AC\Type\Url;
+use AC\Screen;
+use AC\TableScreen;
 
 abstract class Integration
 {

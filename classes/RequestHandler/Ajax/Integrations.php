@@ -43,7 +43,7 @@ class Integrations implements RequestAjaxHandler
         $response->success();
     }
 
-    private function encode(AC\Integration $integration, bool $active): array
+    private function encode(AC\Type\Integration $integration, bool $active): array
     {
         return [
             'plugin_active' => $integration->is_plugin_active(),

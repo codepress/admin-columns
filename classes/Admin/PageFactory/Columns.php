@@ -9,7 +9,8 @@ use AC\Admin\PageFactoryInterface;
 use AC\Admin\Preference;
 use AC\AdminColumns;
 use AC\ColumnGroups;
-use AC\Promos;
+use AC\Integration\IntegrationRepository;
+use AC\Promo\PromoRepository;
 use AC\Request;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Table\TableScreenRepository;
@@ -34,7 +35,9 @@ class Columns implements PageFactoryInterface
 
     private ColumnGroups $column_groups;
 
-    private Promos $promos;
+    private PromoRepository $promos;
+
+    private IntegrationRepository $integration_repository;
 
     public function __construct(
         AdminColumns $plugin,
@@ -44,7 +47,8 @@ class Columns implements PageFactoryInterface
         TableScreenRepository $table_screen_repository,
         EditorFavorites $favorite_repository,
         ColumnGroups $column_groups,
-        Promos $promos
+        PromoRepository $promos,
+        IntegrationRepository $integration_repository
     ) {
         $this->plugin = $plugin;
         $this->menu_factory = $menu_factory;
@@ -54,6 +58,7 @@ class Columns implements PageFactoryInterface
         $this->favorite_repository = $favorite_repository;
         $this->column_groups = $column_groups;
         $this->promos = $promos;
+        $this->integration_repository = $integration_repository;
     }
 
     public function create(): Page\Columns
@@ -87,6 +92,7 @@ class Columns implements PageFactoryInterface
             $this->table_screen_repository,
             $this->column_groups,
             $this->promos,
+            $this->integration_repository,
             $list_id
         );
     }

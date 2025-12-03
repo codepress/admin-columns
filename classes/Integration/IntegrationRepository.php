@@ -2,8 +2,8 @@
 
 namespace AC\Integration;
 
-use AC\Integration;
 use AC\Storage\Repository\IntegrationStatus;
+use AC\Type\Integration;
 use AC\Type\Integrations;
 
 class IntegrationRepository
@@ -19,19 +19,19 @@ class IntegrationRepository
     public function find_all(): Integrations
     {
         return new Integrations([
-            new Integration\ACF(),
-            new Integration\BuddyPress(),
-            new Integration\EventsCalendar(),
-            new Integration\GravityForms(),
-            new Integration\JetEngine(),
-            new Integration\Pods(),
-            new Integration\Types(),
-            new Integration\MetaBox(),
-            new Integration\MediaLibraryAssistant(),
-            new Integration\RankMath(),
-            new Integration\SeoPress(),
-            new Integration\WooCommerce(),
-            new Integration\YoastSeo(),
+            new ACF(),
+            new BuddyPress(),
+            new EventsCalendar(),
+            new GravityForms(),
+            new JetEngine(),
+            new Pods(),
+            new Types(),
+            new MetaBox(),
+            new MediaLibraryAssistant(),
+            new RankMath(),
+            new SeoPress(),
+            new WooCommerce(),
+            new YoastSeo(),
         ]);
     }
 

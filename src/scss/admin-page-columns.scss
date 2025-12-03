@@ -40,15 +40,25 @@
 				padding-left: 25px;
 				font-size: 13px;
 
-
 				&:before {
 					font-weight: bold;
 					content: "✓";
 					font-size: 16px;
 					position: absolute;
-					left:0; top: 0;
+					left: 0;
+					top: 0;
 				}
 			}
+
+		}
+
+		&.-special li a {
+			color: #FDEF95;
+			font-weight: bold;
+			&:before {
+				content: '+'
+			}
+
 		}
 	}
 }

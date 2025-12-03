@@ -768,6 +768,20 @@
   background-color: rgb(61 67 80 / var(--tw-bg-opacity, 1))
 }
 
+.\!acu-bg-\[\#FDEF95\] {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(253 239 149 / var(--tw-bg-opacity, 1)) !important
+}
+
+.acu-bg-\[\#FDEF95\!important\] {
+  background-color: #FDEF95 !important
+}
+
+.acu-bg-\[\#FDEF95\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 239 149 / var(--tw-bg-opacity, 1))
+}
+
 .acu-bg-none {
   background-image: none
 }
@@ -1136,8 +1150,16 @@
   line-height: 1.25rem
 }
 
+.acu-leading-8 {
+  line-height: 2rem
+}
+
 .acu-leading-snug {
   line-height: 1.375
+}
+
+.acu-leading-normal {
+  line-height: 1.5
 }
 
 .acu-tracking-tight {

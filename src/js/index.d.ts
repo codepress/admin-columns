@@ -35,6 +35,7 @@ declare namespace AC.Vars.Admin.Columns {
 
     type ProBanner = {
         features: ProBannerFeature[],
+        integrations: ProBannerFeature[],
         promo?: {
             title: string
             url: string

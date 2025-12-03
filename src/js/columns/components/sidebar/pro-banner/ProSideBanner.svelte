@@ -8,6 +8,7 @@
 
     const i18n = getColumnSettingsTranslation().pro.banner;
     const features = proBannerConfig.features;
+    const integrations = proBannerConfig.integrations ?? [];
     const promo = proBannerConfig.promo;
 
 </script>
@@ -24,17 +25,28 @@
 				<li><a href="{feature.url}">{feature.label}</a></li>
 			{/each}
 		</ul>
-		<a target="_blank"
-			href="{proBannerConfig.promo_url}"
-			class="acui-button acui-button-pink acu-block acu-text-center acu-text-[15px]">
-			{i18n.get_acp}
-		</a>
+
+		{#if integrations.length > 0}
+			<p class="acu-font-bold">{i18n.integrations}</p>
+			<ul class="acu-mb-4 -special">
+				{#each integrations as integration}
+					<li><a href="{integration.url}">{integration.label}</a></li>
+				{/each}
+			</ul>
+		{/if}
+		{#if !promo}
+			<a target="_blank"
+				href="{proBannerConfig.promo_url}"
+				class="acui-button acui-button-pink acu-block acu-text-center acu-text-[15px]">
+				{i18n.get_acp}
+			</a>
+		{/if}
 	</div>
 </div>
 {#if promo}
-	<AcPanel title={promo.title}>
+	<AcPanel title={promo.title} rounded={false} classNames={['acu-bg-[#FDEF95] acu-rounded-b-[10px]']}>
 		<a target="_blank"
-			href="{promo.url}" class="acui-button acui-button-pink acu-block acu-text-center acu-text-[15px]">
+			href="{promo.url}" class="acui-button acui-button-pink acu-block acu-text-center acu-text-[15px] ">
 			{promo.button_label}</a>
 		<p>
 			{promo.discount_until}

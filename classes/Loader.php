@@ -110,6 +110,7 @@ class Loader
             ThirdParty\WPML::class,
             Capabilities\Manage::class,
             Service\QuickEdit::class,
+            Service\PromoChecks::class,
             Service\CurrentTable::class,
             Service\CommonAssets::class,
             Service\Colors::class,
