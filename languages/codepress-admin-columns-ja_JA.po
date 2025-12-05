@@ -11,6 +11,14 @@ msgstr ""
 "Language: ja_JP\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
+#: templates/admin/side-banner.php:118
+msgid "Get up to %s Off!"
+msgstr ""
+
+#: classes/Promo/BlackFriday.php:32
+msgid "Save up to %s from Black Friday to Cyber Monday"
+msgstr ""
+
 #: templates/admin/edit-menu.php:35
 msgid "View %s"
 msgstr ""
@@ -980,11 +988,7 @@ msgstr "タームを編集"
 msgid "Filter by Term"
 msgstr "タームで絞り込む"
 
-#: classes/Promo/BlackFriday.php:22
-msgid "%s Off from Black Friday to Cyber Monday"
-msgstr "ブラックフライデーからサイバーマンデーまで %s オフ"
-
-#: classes/Check/Promotion.php:76
+#: classes/Promo/BlackFriday.php:39
 msgid "Get %s now"
 msgstr "%s を今すぐ入手"
 
@@ -1335,7 +1339,7 @@ msgstr "抜粋がありません。"
 msgid "User Nicename"
 msgstr "ユーザーのスラッグ"
 
-#: templates/admin/side-banner.php:166
+#: templates/admin/side-banner.php:168
 msgid "Send me the discount"
 msgstr "割引を送る"
 
@@ -1593,7 +1597,7 @@ msgstr "標準"
 msgid "Full Path"
 msgstr "完全なパス"
 
-#: templates/admin/side-banner.php:123
+#: templates/admin/side-banner.php:125
 msgid "Discount is valid until %s"
 msgstr "割引は%sまで有効です"
 
@@ -1662,19 +1666,19 @@ msgstr "すべての列をクリア "
 msgid "I'm using Admin Columns for WordPress!"
 msgstr "私は、WordPress の Admin Columns を使用しています !"
 
-#: templates/admin/side-banner.php:162
+#: templates/admin/side-banner.php:164
 msgid "Your First Name"
 msgstr "名"
 
-#: templates/admin/side-banner.php:158
+#: templates/admin/side-banner.php:160
 msgid "Your Email"
 msgstr "メールアドレス"
 
-#: templates/admin/side-banner.php:143
+#: templates/admin/side-banner.php:145
 msgid "Submit your email and we'll send you a discount for %s off."
 msgstr "メールを送信されましたら %s オフのディスカウントを送ります。"
 
-#: templates/admin/side-banner.php:117 templates/admin/side-banner.php:136
+#: templates/admin/side-banner.php:138
 msgid "Get %s Off!"
 msgstr "%s オフ!"
 

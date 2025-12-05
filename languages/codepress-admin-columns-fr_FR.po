@@ -11,6 +11,14 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
+#: templates/admin/side-banner.php:118
+msgid "Get up to %s Off!"
+msgstr ""
+
+#: classes/Promo/BlackFriday.php:32
+msgid "Save up to %s from Black Friday to Cyber Monday"
+msgstr ""
+
 #: templates/admin/edit-menu.php:35
 msgid "View %s"
 msgstr ""
@@ -982,11 +990,7 @@ msgstr "Modifier le terme"
 msgid "Filter by Term"
 msgstr "Filtrer par terme"
 
-#: classes/Promo/BlackFriday.php:22
-msgid "%s Off from Black Friday to Cyber Monday"
-msgstr "%s de remise du Black Friday jusqu‘au Cyber Monday"
-
-#: classes/Check/Promotion.php:76
+#: classes/Promo/BlackFriday.php:39
 msgid "Get %s now"
 msgstr "Obtenez %s maintenant"
 
@@ -1337,7 +1341,7 @@ msgstr "L’extrait est manquant."
 msgid "User Nicename"
 msgstr "Nom utilisateur normalisé"
 
-#: templates/admin/side-banner.php:166
+#: templates/admin/side-banner.php:168
 msgid "Send me the discount"
 msgstr "Envoyez-moi la promotion"
 
@@ -1595,7 +1599,7 @@ msgstr "Standard"
 msgid "Full Path"
 msgstr "Chemin complet"
 
-#: templates/admin/side-banner.php:123
+#: templates/admin/side-banner.php:125
 msgid "Discount is valid until %s"
 msgstr "La remise est valide jusqu’à %s"
 
@@ -1665,19 +1669,19 @@ msgstr "Effacer toutes les colonnes"
 msgid "I'm using Admin Columns for WordPress!"
 msgstr "J’utilise Admin Columns pour WordPress !"
 
-#: templates/admin/side-banner.php:162
+#: templates/admin/side-banner.php:164
 msgid "Your First Name"
 msgstr "Votre prénom"
 
-#: templates/admin/side-banner.php:158
+#: templates/admin/side-banner.php:160
 msgid "Your Email"
 msgstr "Votre e-mail"
 
-#: templates/admin/side-banner.php:143
+#: templates/admin/side-banner.php:145
 msgid "Submit your email and we'll send you a discount for %s off."
 msgstr "Envoyez nous votre e-mail et nous vous enverrons une remise de %s."
 
-#: templates/admin/side-banner.php:117 templates/admin/side-banner.php:136
+#: templates/admin/side-banner.php:138
 msgid "Get %s Off!"
 msgstr "Obtenez %s de réduction !"
 
