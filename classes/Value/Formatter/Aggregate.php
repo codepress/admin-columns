@@ -21,6 +21,11 @@ final class Aggregate implements Formatter
         $this->formatters = $formatters;
     }
 
+    public static function create(array $formatters): self
+    {
+        return new self(new FormatterCollection($formatters));
+    }
+
     public function format(Value $value)
     {
         try {

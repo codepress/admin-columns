@@ -11,14 +11,15 @@ final class ValueCollection extends Collection
 
     private $id;
 
+    // TODO $id is optional
     public function __construct($id, array $data = [])
     {
-        $this->id = (int)$id;
+        $this->id = $id;
 
         array_map([$this, 'add'], $data);
     }
 
-    public function get_id(): int
+    public function get_id()
     {
         return $this->id;
     }

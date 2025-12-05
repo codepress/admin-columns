@@ -35,6 +35,7 @@ class Arrays
         return $array;
     }
 
+    // TODO turn into Formatter
     public function implode_recursive(string $glue, $pieces): string
     {
         if (is_scalar($pieces)) {

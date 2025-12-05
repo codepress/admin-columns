@@ -27,7 +27,7 @@ class TermProperty implements Formatter
             throw new ValueNotFoundException();
         }
 
-        return $value->with_value($term->{$this->property});
+        return $value->with_value($term->{$this->property} ?? '');
     }
 
 }
