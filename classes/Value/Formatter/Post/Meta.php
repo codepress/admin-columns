@@ -24,7 +24,8 @@ class Meta implements Formatter
     {
         $meta_value = get_post_meta((int)$value->get_id(), $this->meta_key, true);
 
-        if ($this->implode) {
+        // TODO move to its own formatter
+        if ($this->implode && is_array($meta_value)) {
             $meta_value = ac_helper()->array->implode_recursive(', ', $meta_value);
         }
 

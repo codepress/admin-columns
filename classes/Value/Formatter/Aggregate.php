@@ -57,6 +57,8 @@ final class Aggregate implements Formatter
                 }
             }
         } catch (ValueNotFoundException $e) {
+            // TODO maybe continue when looping over a ValueCollection...
+            // TODO for example when you need total of all image sizes, but one image URL is not local and does not have a valid image size
             return new Value($value->get_id(), '');
         }
 

@@ -13,13 +13,13 @@ class PostParentId implements Formatter
 
     public function format(Value $value): Value
     {
-        $parent = (int)ac_helper()->post->get_raw_field('post_parent', (int)$value->get_id());
+        $parent_id = get_post($value->get_id())->post_parent ?? null;
 
-        if ( ! $parent) {
+        if ( ! $parent_id) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        return new Value($parent);
+        return new Value($parent_id);
     }
 
 }
