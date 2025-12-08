@@ -25,7 +25,7 @@
 
 <div class={containerClass()}>
 	<div class={labelClass}>
-		<span class={isSubComponent ? '' : 'acu-flex-grow'}>{label}</span>
+		<span class={isSubComponent ? '' : 'acu-flex-grow'}>{@html label}</span>
 		{#if !isSubComponent && attributes && attributes['help-ref']}
 			<AcReferencedTooltip reference={attributes['help-ref']} position="right" closeDelay={300}>
 				<span class="acu-cursor-pointer"><AcIcon icon="question" size="sm" /></span>

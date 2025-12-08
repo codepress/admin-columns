@@ -3210,12 +3210,11 @@ function create_fragment(ctx) {
   let div2;
   let div0;
   let span;
-  let t0;
   let span_class_value;
+  let t0;
   let t1;
-  let t2;
   let div1;
-  let t3;
+  let t2;
   let div2_class_value;
   let current;
   let if_block0 = ! /*isSubComponent*/ctx[2] && /*attributes*/ctx[3] && /*attributes*/ctx[3]['help-ref'] && create_if_block_1(ctx);
@@ -3227,13 +3226,12 @@ function create_fragment(ctx) {
       div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
-      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*label*/ctx[1]);
-      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block0) if_block0.c();
-      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       if (default_slot) default_slot.c();
-      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block1) if_block1.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value = /*isSubComponent*/ctx[2] ? '' : 'acu-flex-grow');
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", /*labelClass*/ctx[5]);
@@ -3244,20 +3242,21 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div2, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, span);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(span, t0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, t1);
+      span.innerHTML = /*label*/ctx[1];
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, t0);
       if (if_block0) if_block0.m(div0, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div1);
       if (default_slot) {
         default_slot.m(div1, null);
       }
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t2);
       if (if_block1) if_block1.m(div1, null);
       current = true;
     },
     p(ctx, [dirty]) {
-      if (!current || dirty & /*label*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, /*label*/ctx[1]);
+      if (!current || dirty & /*label*/2) span.innerHTML = /*label*/ctx[1];
+      ;
       if (!current || dirty & /*isSubComponent*/4 && span_class_value !== (span_class_value = /*isSubComponent*/ctx[2] ? '' : 'acu-flex-grow')) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value);
       }
