@@ -28,38 +28,47 @@ final class Aggregate implements Formatter
 
     public function format(Value $value)
     {
-        try {
-            foreach ($this->formatters as $formatter) {
-                if ($formatter instanceof Formatter) {
-                    if ($value instanceof Value) {
+        foreach ($this->formatters as $formatter) {
+            if ($formatter instanceof Formatter) {
+                if ($value instanceof Value) {
+                    try {
                         $value = $formatter->format($value);
-
-                        continue;
+                    } catch (ValueNotFoundException $e) {
+                        // Return empty value
+                        return new Value($value->get_id(), '');
                     }
 
-                    if ($value instanceof ValueCollection) {
-                        $collection = new ValueCollection($value->get_id());
+                    continue;
+                }
 
-                        foreach ($value as $item) {
+                if ($value instanceof ValueCollection) {
+                    $collection = new ValueCollection($value->get_id());
+
+                    foreach ($value as $item) {
+                        try {
                             $_value = $formatter->format($item);
-
-                            if ($_value instanceof Value) {
-                                $collection->add($_value);
-                            }
+                        } catch (ValueNotFoundException $e) {
+                            // Skip non-Value instances and continue with next item in the collection
+                            continue;
                         }
 
-                        $value = $collection;
+                        if ($_value instanceof Value) {
+                            $collection->add($_value);
+                        }
                     }
-                }
 
-                if ($formatter instanceof CollectionFormatter && $value instanceof ValueCollection) {
-                    $value = $formatter->format($value);
+                    $value = $collection;
                 }
             }
-        } catch (ValueNotFoundException $e) {
-            // TODO maybe continue when looping over a ValueCollection...
-            // TODO for example when you need total of all image sizes, but one image URL is not local and does not have a valid image size
-            return new Value($value->get_id(), '');
+
+            if ($formatter instanceof CollectionFormatter && $value instanceof ValueCollection) {
+                try {
+                    $value = $formatter->format($value);
+                } catch (ValueNotFoundException $e) {
+                    // Return empty value
+                    return new Value($value->get_id(), '');
+                }
+            }
         }
 
         return $value;
