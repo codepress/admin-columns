@@ -16,9 +16,24 @@ final class DateSaveFormat extends BaseComponentFactory
     public const FORMAT_DATETIME = 'Y-m-d H:i:s';
     public const FORMAT_DATE = 'Y-m-d';
 
+    private ?string $default_save_date;
+
+    public function __construct(?string $default_save_date = self::FORMAT_DATE)
+    {
+        $this->default_save_date = $default_save_date;
+    }
+
     protected function get_label(Config $config): ?string
     {
         return __('Date Save Format', 'codepress-admin-columns');
+    }
+
+    public function with_default(string $default_save_date): self
+    {
+        $clone = clone $this;
+        $clone->default_save_date = $default_save_date;
+
+        return $clone;
     }
 
     protected function get_input(Config $config): ?Input
@@ -34,7 +49,7 @@ final class DateSaveFormat extends BaseComponentFactory
                 self::FORMAT_DATETIME       => __('Datetime (ISO)', 'codepress-admin-columns'),
                 self::FORMAT_UNIX_TIMESTAMP => __('Timestamp', 'codepress-admin-columns'),
             ]),
-            (string)$config->get('date_save_format') ?: self::FORMAT_DATE
+            $config->get('date_save_format', $this->default_save_date)
         );
     }
 
