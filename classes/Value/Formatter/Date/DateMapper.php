@@ -12,29 +12,52 @@ use DateTime;
 final class DateMapper implements Formatter
 {
 
-    private string $from_format;
+    private string $output_format;
 
-    private string $to_format;
+    /**
+     * @param string Default will try to automatically detect the format.
+     */
+    private ?string $source_format;
 
-    public function __construct(string $from_format, string $to_format)
+    public function __construct(string $output_format, ?string $source_format = null)
     {
-        $this->from_format = $from_format;
-        $this->to_format = $to_format;
+        $this->output_format = $output_format;
+        $this->source_format = $source_format;
     }
 
     public function format(Value $value): Value
     {
-        if (empty($value->get_value()) || ! is_scalar($value->get_value())) {
-            throw new ValueNotFoundException();
+        $date_string = (string)$value;
+
+        if ( ! $date_string) {
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $date = DateTime::createFromFormat($this->from_format, (string)$value->get_value());
+        $date = $this->create_date($date_string);
 
         if ( ! $date) {
-            throw new ValueNotFoundException();
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        return $value->with_value($date->format($this->to_format));
+        return $value->with_value(
+            $date->format($this->output_format)
+        );
+    }
+
+    private function create_date(string $date_string): ?DateTime
+    {
+        if ($this->source_format) {
+            return DateTime::createFromFormat($this->source_format, $date_string) ?: null;
+        }
+
+        // try to automatically detect the format and create a DateTime object
+        $timestamp = ac_helper()->date->strtotime($date_string);
+
+        if ( ! $timestamp) {
+            throw new ValueNotFoundException('Invalid timestamp.');
+        }
+
+        return DateTime::createFromFormat('U', $timestamp) ?: null;
     }
 
 }

@@ -88,7 +88,7 @@ abstract class DateFormat extends BaseComponentFactory
             case 'diff':
                 return new Value\Formatter\Date\TimeDifference($this->source_format);
             case 'wp_default':
-                return new Value\Formatter\Date\WpDateFormat($this->source_format);
+                return new Value\Formatter\Date\DateFormat((string)get_option('date_format'), $this->source_format);
             default:
                 return new Value\Formatter\Date\DateFormat($output_format, $this->source_format);
         }

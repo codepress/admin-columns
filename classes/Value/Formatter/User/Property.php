@@ -62,14 +62,14 @@ class Property implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $data = $user->{$this->property} ?? null;
+        $field = $user->{$this->property} ?? null;
 
-        if ( ! $data) {
+        if (null === $field) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
         return $value->with_value(
-            $data
+            $field
         );
     }
 

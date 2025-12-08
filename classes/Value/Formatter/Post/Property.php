@@ -26,6 +26,14 @@ class Property implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
+        if (in_array($this->property, ['post_author', 'post_parent'], true)) {
+            if ($field === 0) {
+                throw ValueNotFoundException::from_id($value->get_id());
+            }
+
+            return new Value((int)$field);
+        }
+
         return $value->with_value(
             $field
         );

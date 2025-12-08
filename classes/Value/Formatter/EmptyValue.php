@@ -22,7 +22,7 @@ class EmptyValue implements Formatter
     public function format(Value $value): Value
     {
         if ('' === (string)$value) {
-            $value = $value->with_value($this->default);
+            return $value->with_value($this->default);
         }
 
         return $value;

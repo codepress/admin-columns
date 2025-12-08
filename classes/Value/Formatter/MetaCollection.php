@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter;
 
+use AC\Exception\ValueNotFoundException;
 use AC\MetaType;
 use AC\Setting\Formatter;
 use AC\Type\Value;
@@ -24,16 +25,25 @@ class MetaCollection implements Formatter
 
     public function format(Value $value): ValueCollection
     {
-        $values = get_metadata($this->meta_type, (int)$value->get_id(), $this->meta_key);
-        $values = array_filter($values);
+        $id = $value->get_id();
 
-        $value_collection = new ValueCollection($value->get_id());
-
-        foreach ($values as $single_value) {
-            $value_collection->add(new Value($value->get_id(), $single_value));
+        if ( ! $this->meta_key) {
+            throw ValueNotFoundException::from_id($id);
         }
 
-        return $value_collection;
+        $values = get_metadata($this->meta_type, (int)$id, $this->meta_key);
+
+        if ( ! $values || ! is_array($values)) {
+            throw ValueNotFoundException::from_id($id);
+        }
+
+        $collection = new ValueCollection($id);
+
+        foreach (array_filter($values) as $item) {
+            $collection->add(new Value($item));
+        }
+
+        return $collection;
     }
 
 }
