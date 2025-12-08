@@ -5,6 +5,7 @@ namespace AC\ColumnFactory\Post;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Post\PostContent;
 use AC\Value\Formatter\Post\Shortcodes;
 
 class ShortcodesFactory extends BaseColumnFactory
@@ -24,6 +25,7 @@ class ShortcodesFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
 
+        $formatters->add(new PostContent());
         $formatters->add(new Shortcodes());
 
         return $formatters;

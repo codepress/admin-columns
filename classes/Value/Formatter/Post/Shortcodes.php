@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter\Post;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
@@ -12,10 +13,12 @@ class Shortcodes implements Formatter
 
     public function format(Value $value): Value
     {
-        $shortcodes = $this->get_used_shortcodes($value->get_id());
+        $shortcodes = ac_helper()->string->get_shortcodes(
+            (string)$value
+        );
 
         if ( ! $shortcodes) {
-            return $value->with_value(false);
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         $display = [];
@@ -31,15 +34,6 @@ class Shortcodes implements Formatter
         }
 
         return $value->with_value(implode(' ', $display));
-    }
-
-    private function get_used_shortcodes($post_id): ?array
-    {
-        global $shortcode_tags;
-
-        return $shortcode_tags
-            ? ac_helper()->string->get_shortcodes(get_post_field('post_content', $post_id))
-            : null;
     }
 
 }
