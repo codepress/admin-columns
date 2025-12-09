@@ -24,6 +24,7 @@ class CaptionFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
 
+        // TODO add WordLimit setting
         $formatters->add(new Excerpt());
 
         return $formatters;

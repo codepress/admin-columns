@@ -31,25 +31,6 @@ class Post
         return $wpdb->get_var($sql);
     }
 
-    public function excerpt(int $post_id, int $words = 400): string
-    {
-        global $post;
-
-        $save_post = $post;
-        $post = get_post($post_id);
-
-        setup_postdata($post);
-
-        $excerpt = get_the_excerpt();
-        $post = $save_post;
-
-        if ($post) {
-            setup_postdata($post);
-        }
-
-        return wp_trim_words($excerpt, $words);
-    }
-
     public function get_raw_field(string $field, int $id): ?string
     {
         global $wpdb;

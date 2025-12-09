@@ -50,7 +50,7 @@ class ExcerptFactory extends BaseColumnFactory
     {
         return parent::get_formatters($config)
                      ->prepend(new Formatter\Post\ContentExcerpt())
-                     ->add(new Formatter\Post\ExcerptIcon());
+                     ->add(new Formatter\Post\ExcerptMissingMessage());
     }
 
 }

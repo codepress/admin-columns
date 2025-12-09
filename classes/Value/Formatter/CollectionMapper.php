@@ -28,7 +28,7 @@ class CollectionMapper implements Formatter
             $collection = new ValueCollection($value->get_id());
 
             foreach ($data as $item) {
-                $collection->add_value(new Value($item));
+                $collection->add(new Value($item));
             }
 
             return $collection;
