@@ -16,10 +16,13 @@ class Meta implements Formatter
 
     private string $meta_key;
 
-    public function __construct(MetaType $meta_type, string $meta_key)
+    private bool $single;
+
+    public function __construct(MetaType $meta_type, string $meta_key, bool $single = true)
     {
         $this->meta_type = $meta_type;
         $this->meta_key = $meta_key;
+        $this->single = $single;
     }
 
     public function format(Value $value): Value
@@ -33,7 +36,7 @@ class Meta implements Formatter
                 (string)$this->meta_type,
                 (int)$value->get_id(),
                 $this->meta_key,
-                true
+                $this->single
             )
         );
     }

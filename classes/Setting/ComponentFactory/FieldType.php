@@ -228,11 +228,14 @@ class FieldType extends BaseComponentFactory
                 $formatters->add(new AC\Value\Formatter\HasValue());
                 $formatters->add(new AC\Value\Formatter\YesNoIcon());
                 break;
-            case self::TYPE_USER:
-            case self::TYPE_MEDIA:
             case self::TYPE_IMAGE:
+                $formatters->add(new AC\Value\Formatter\CollectionMapper());
+                break;
+            case self::TYPE_MEDIA:
+            case self::TYPE_USER:
             case self::TYPE_POST:
-                $formatters->add(new AC\Value\Formatter\IdCollectionFromArrayOrString());
+                $formatters->add(new AC\Value\Formatter\CollectionMapper());
+                $formatters->add(new AC\Value\Formatter\ForeignId());
                 break;
             case self::TYPE_HTML:
                 if ($config->get($this->modal_display::TOGGLE) === ToggleOptionCollection::ON) {

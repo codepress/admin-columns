@@ -8,7 +8,7 @@ use AC;
 use AC\Type\Value;
 use AC\Type\ValueCollection;
 
-class ImageUrls implements AC\Setting\Formatter
+class ImageUrlsFromContent implements AC\Setting\Formatter
 {
 
     private AC\Setting\Context $context;

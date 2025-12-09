@@ -31,7 +31,7 @@ class MetaCollection implements Formatter
             throw ValueNotFoundException::from_id($id);
         }
 
-        $values = get_metadata($this->meta_type, (int)$id, $this->meta_key);
+        $values = get_metadata((string)$this->meta_type, (int)$id, $this->meta_key);
 
         if ( ! $values || ! is_array($values)) {
             throw ValueNotFoundException::from_id($id);
