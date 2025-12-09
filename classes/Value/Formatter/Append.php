@@ -6,6 +6,7 @@ namespace AC\Value\Formatter;
 
 use AC\Setting\Formatter;
 use AC\Type\Value;
+use Exception;
 
 final class Append implements Formatter
 {
@@ -22,11 +23,14 @@ final class Append implements Formatter
 
     public function format(Value $value): Value
     {
-        $formatted = $this->formatter->format($value);
         $appended_value = $value->get_value();
+        try {
+            $formatted = $this->formatter->format($value);
+            if ($formatted) {
+                $appended_value .= $this->separator . $formatted;
+            }
+        } catch (Exception $e) {
 
-        if ($formatted) {
-            $appended_value .= $this->separator . $formatted;
         }
 
         return $value->with_value($appended_value);
