@@ -5,6 +5,7 @@ namespace AC\ColumnFactory\Media;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Media\FileLinkToUrl;
 use AC\Value\Formatter\Media\FileName;
 
 class FileNameFactory extends BaseColumnFactory
@@ -25,6 +26,7 @@ class FileNameFactory extends BaseColumnFactory
         $formatters = parent::get_formatters($config);
 
         $formatters->add(new FileName());
+        $formatters->add(new FileLinkToUrl());
 
         return $formatters;
     }
