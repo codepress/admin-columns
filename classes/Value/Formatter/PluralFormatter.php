@@ -23,16 +23,18 @@ final class PluralFormatter implements Formatter
 
     public function format(Value $value): Value
     {
-        $numeric_value = $value->get_value();
+        $count = $value->get_value();
 
-        if ( ! is_numeric($numeric_value)) {
+        if ( ! is_numeric($count)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $text = ((int)$numeric_value === 1) ? $this->singular : $this->plural;
+        $text = ((int)$count === 1)
+            ? $this->singular
+            : $this->plural;
 
         return $value->with_value(
-            sprintf($text, $numeric_value)
+            sprintf($text, $count)
         );
     }
 

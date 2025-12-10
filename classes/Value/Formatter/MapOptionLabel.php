@@ -20,15 +20,13 @@ class MapOptionLabel implements Formatter
 
     public function format(Value $value): Value
     {
-        $raw_value = $value->get_value();
+        $label = $this->mapping[$value->get_value()] ?? null;
 
-        if ( ! is_scalar($raw_value) || ! array_key_exists($raw_value, $this->mapping)) {
+        if ( ! $label) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        return $value->with_value(
-            $this->mapping[$raw_value]
-        );
+        return $value->with_value($label);
     }
 
 }

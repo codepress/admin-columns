@@ -23,13 +23,13 @@ final class BeforeAfter implements Formatter
 
     public function format(Value $value): Value
     {
-        if (is_scalar($value->get_value()) && ac_helper()->string->is_not_empty($value->get_value())) {
-            $value = $value->with_value(
-                $this->before . $value->get_value() . $this->after
-            );
+        if ('' === (string)$value) {
+            return $value;
         }
 
-        return $value;
+        return $value->with_value(
+            $this->before . (string)$value . $this->after
+        );
     }
 
     public static function create_from_config(Config $config): BeforeAfter

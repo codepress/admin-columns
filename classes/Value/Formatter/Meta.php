@@ -31,13 +31,19 @@ class Meta implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
+        $meta_value = get_metadata(
+            (string)$this->meta_type,
+            (int)$value->get_id(),
+            $this->meta_key,
+            $this->single
+        );
+
+        if ('' === $meta_value) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
+
         return $value->with_value(
-            get_metadata(
-                (string)$this->meta_type,
-                (int)$value->get_id(),
-                $this->meta_key,
-                $this->single
-            )
+            $meta_value
         );
     }
 
