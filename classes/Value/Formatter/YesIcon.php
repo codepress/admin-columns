@@ -10,18 +10,21 @@ use AC\Type\Value;
 class YesIcon implements Formatter
 {
 
-    private $class;
+    private ?string $class;
 
-    public function __construct(?string $class = null)
+    private ?string $title;
+
+    public function __construct(?string $title = null, ?string $class = null)
     {
         $this->class = $class;
+        $this->title = $title;
     }
 
     public function format(Value $value): Value
     {
         return $value->with_value(
             $value->get_value()
-                ? ac_helper()->icon->yes(null, null, $this->class)
+                ? ac_helper()->icon->yes(null, $this->title, $this->class)
                 : false
         );
     }
