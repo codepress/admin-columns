@@ -7,7 +7,6 @@ namespace AC\Value\Formatter\Post;
 use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
-use AC\Type\ValueCollection;
 
 class PostTermsOriginal implements Formatter
 {
@@ -19,7 +18,7 @@ class PostTermsOriginal implements Formatter
         $this->taxonomy = $taxonomy;
     }
 
-    public function format(Value $value): ValueCollection
+    public function format(Value $value): Value
     {
         $terms = wp_get_post_terms(
             (int)$value->get_id(),
@@ -33,15 +32,9 @@ class PostTermsOriginal implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $collection = new ValueCollection($value->get_id());
-
-        foreach ($terms as $term) {
-            $collection->add(
-                new Value($term->term_id, $term->name)
-            );
-        }
-
-        return $collection;
+        return $value->with_value(
+            implode(', ', $terms)
+        );
     }
 
 }

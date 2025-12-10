@@ -11,7 +11,6 @@ final class ValueCollection extends Collection
 
     private $id;
 
-    // TODO $id is optional
     public function __construct($id, array $data = [])
     {
         $this->id = $id;
