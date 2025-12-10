@@ -8,7 +8,7 @@ use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
-final class PluralFormatter implements Formatter
+final class CountLabelFormatter implements Formatter
 {
 
     private string $singular;

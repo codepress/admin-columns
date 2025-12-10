@@ -8,7 +8,7 @@ use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
-class StripTags implements Formatter
+class Trim implements Formatter
 {
 
     public function format(Value $value): Value
@@ -18,7 +18,7 @@ class StripTags implements Formatter
         }
 
         return $value->with_value(
-            wp_strip_all_tags((string)$value)
+            trim((string)$value)
         );
     }
 

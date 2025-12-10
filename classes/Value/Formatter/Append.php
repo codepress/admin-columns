@@ -26,7 +26,7 @@ final class Append implements Formatter
         $prepend = (string)$value;
 
         try {
-            $append = $this->formatter->format($value);
+            $append = (string)$this->formatter->format($value);
 
             if ($prepend && $append) {
                 return $value->with_value($prepend . $this->separator . $append);

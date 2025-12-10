@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
 final class Prepend implements Formatter
 {
 
-    private $formatter;
+    private Formatter $formatter;
 
-    private $separator;
+    private string $separator;
 
     public function __construct(Formatter $formatter, string $separator = '')
     {
@@ -22,10 +23,16 @@ final class Prepend implements Formatter
 
     public function format(Value $value): Value
     {
-        $formatted = $this->formatter->format($value)->get_value();
+        $append = (string)$value;
 
-        if ($formatted) {
-            return $value->with_value($formatted . $this->separator . $value->get_value());
+        try {
+            $prepend = (string)$this->formatter->format($value);
+
+            if ($prepend && $append) {
+                return $value->with_value($prepend . $this->separator . $append);
+            }
+        } catch (ValueNotFoundException $e) {
+            return $value;
         }
 
         return $value;

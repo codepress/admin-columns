@@ -48,9 +48,9 @@ class PregReplace implements Formatter
             return $value;
         }
 
-        $replaced_value = preg_replace($this->patterns, $this->replacements, $value->get_value());
+        $replaced_value = preg_replace($this->patterns, $this->replacements, (string)$value);
 
-        return $value->with_value($replaced_value);
+        return $value->with_value((string)$replaced_value);
     }
 
 }
