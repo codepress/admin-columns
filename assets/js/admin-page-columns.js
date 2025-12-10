@@ -36587,6 +36587,14 @@ function refreshListScreenData(listKey_1) {
             _store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataHasChanges.set(false);
             _store__WEBPACK_IMPORTED_MODULE_2__.listScreenIsStored.set(data.is_stored);
             _store__WEBPACK_IMPORTED_MODULE_2__.listScreenIsTemplate.set(data.is_template);
+            if (!data.is_stored && listScreenData.columns.length === 0) {
+                const defaultData = yield (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_1__.loadDefaultColumns)(listKey);
+                if (defaultData.data.success) {
+                    listScreenData.columns = defaultData.data.data.columns;
+                    let defaultConfig = defaultData.data.data.config;
+                    config.set(defaultConfig);
+                }
+            }
         }
         catch (error) {
             if ((0,axios__WEBPACK_IMPORTED_MODULE_4__.isCancel)(error)) {
@@ -36596,15 +36604,14 @@ function refreshListScreenData(listKey_1) {
             throw error;
         }
         finally {
-            if (abortController.signal.aborted) {
-                return;
+            if (!abortController.signal.aborted) {
+                _store__WEBPACK_IMPORTED_MODULE_2__.isLoadingColumnSettings.set(false);
+                setTimeout(() => {
+                    // Let the form 'correct' the data that is loaded by the settings
+                    _store__WEBPACK_IMPORTED_MODULE_2__.initialListScreenData.set((0,lodash_es_cloneDeep__WEBPACK_IMPORTED_MODULE_3__["default"])((0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.get)(_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataStore)));
+                    _store__WEBPACK_IMPORTED_MODULE_2__.isInitializingColumnSettings.set(false);
+                }, 1000);
             }
-            _store__WEBPACK_IMPORTED_MODULE_2__.isLoadingColumnSettings.set(false);
-            setTimeout(() => {
-                // Let the form 'correct' the data that is loaded by the settings
-                _store__WEBPACK_IMPORTED_MODULE_2__.initialListScreenData.set((0,lodash_es_cloneDeep__WEBPACK_IMPORTED_MODULE_3__["default"])((0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.get)(_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataStore)));
-                _store__WEBPACK_IMPORTED_MODULE_2__.isInitializingColumnSettings.set(false);
-            }, 1000);
         }
     });
 }
