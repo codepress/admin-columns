@@ -33,7 +33,15 @@ class PostTermsOriginal implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        return new ValueCollection((int)$value->get_id(), $terms);
+        $collection = new ValueCollection($value->get_id());
+
+        foreach ($terms as $term) {
+            $collection->add(
+                new Value($term->term_id, $term->name)
+            );
+        }
+
+        return $collection;
     }
 
 }
