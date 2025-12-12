@@ -15,7 +15,7 @@ use AC\TableScreen;
 use AC\TableScreenFactory\Aggregate;
 use AC\Type\TableId;
 
-class ListScreenDefaultColumns implements RequestAjaxHandler
+class ListScreenOriginalColumns implements RequestAjaxHandler
 {
 
     private Aggregate $table_screen_factory;

@@ -147,7 +147,7 @@ class Loader
             'ac-list-screen-save'             => Ajax\ListScreenSave::class,
             'ac-list-screen-add-column'       => Ajax\ListScreenAddColumn::class,
             'ac-number-format'                => Ajax\NumberFormat::class,
-            'ac-list-screen-default-columns'  => Ajax\ListScreenDefaultColumns::class,
+            'ac-list-screen-default-columns'  => Ajax\ListScreenOriginalColumns::class,
             'ac-list-screen-select-column'    => Ajax\ListScreenSelectColumn::class,
             'ac-editor-menu-status'           => Ajax\EditorMenuStatus::class,
             'ac-editor-menu-favorites'        => Ajax\EditorMenuFavorites::class,

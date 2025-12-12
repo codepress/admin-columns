@@ -65,7 +65,7 @@ class ScreenColumns implements Registerable
 
             $this->repository->update(
                 $this->table_id,
-                OriginalColumns::create_by_headings($headings)
+                OriginalColumns::create_from_headings($headings)
             );
         }
 

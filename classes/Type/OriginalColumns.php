@@ -14,7 +14,7 @@ class OriginalColumns extends Collection
         array_map([$this, 'add'], $data);
     }
 
-    public static function create_by_headings(array $headings): self
+    public static function create_from_headings(array $headings): self
     {
         $columns = [];
 
