@@ -15,12 +15,12 @@ class ColumnTypeRepository
 
     private Aggregate $aggregate;
 
-    private OriginalColumnsRepository $default_columns_repository;
+    private OriginalColumnsRepository $original_columns_repository;
 
-    public function __construct(Aggregate $aggregate, OriginalColumnsRepository $default_columns_repository)
+    public function __construct(Aggregate $aggregate, OriginalColumnsRepository $original_columns_repository)
     {
         $this->aggregate = $aggregate;
-        $this->default_columns_repository = $default_columns_repository;
+        $this->original_columns_repository = $original_columns_repository;
     }
 
     private function find_column_factory(ColumnFactories $factories, string $type): ?ColumnFactory
@@ -64,7 +64,7 @@ class ColumnTypeRepository
     {
         $column_names = [];
 
-        foreach ($this->default_columns_repository->find_all_cached($id) as $column) {
+        foreach ($this->original_columns_repository->find_all_cached($id) as $column) {
             $column_names[$column->get_name()] = $column->get_label();
         }
 

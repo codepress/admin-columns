@@ -14,14 +14,14 @@ class UninitializedScreens
 
     private TableScreenRepository $table_screen_repository;
 
-    private OriginalColumnsRepository $default_columns_repository;
+    private OriginalColumnsRepository $original_columns_repository;
 
     public function __construct(
         TableScreenRepository $table_screen_repository,
-        OriginalColumnsRepository $default_columns_repository
+        OriginalColumnsRepository $original_columns_repository
     ) {
         $this->table_screen_repository = $table_screen_repository;
-        $this->default_columns_repository = $default_columns_repository;
+        $this->original_columns_repository = $original_columns_repository;
     }
 
     private function find_all(bool $is_network): TableScreenCollection
@@ -38,7 +38,7 @@ class UninitializedScreens
 
     private function is_uninitialized(TableScreen $table_screen): bool
     {
-        return ! $this->default_columns_repository->exists($table_screen->get_id());
+        return ! $this->original_columns_repository->exists($table_screen->get_id());
     }
 
     public function find_all_network(): TableScreenCollection
