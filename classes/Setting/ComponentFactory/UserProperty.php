@@ -62,7 +62,7 @@ class UserProperty extends BaseComponentFactory
         switch ($property) {
             case self::PROPERTY_GRAVATAR:
                 $formatters->add(new Formatter\User\Property('user_email'));
-                $formatters->add(new Formatter\Gravatar((int)$config->get('gravatar_size', '60')));
+                $formatters->add(new Formatter\Avatar((int)$config->get('gravatar_size', '60')));
 
                 break;
             case self::PROPERTY_FULL_NAME:

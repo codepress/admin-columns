@@ -31,6 +31,7 @@ class TableRender implements Formatter
     {
         $formatters = $this->column->get_formatters();
 
+        // Nothing to format, return an empty string. Mostly original columns do not have any formatters.
         if ($formatters->count() === 0) {
             return $value->with_value('');
         }

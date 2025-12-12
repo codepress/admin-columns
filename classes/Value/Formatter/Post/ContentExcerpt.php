@@ -19,7 +19,7 @@ class ContentExcerpt implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $excerpt = ac_helper()->post->excerpt($post->ID);
+        $excerpt = get_the_excerpt($post);
 
         if ( ! $excerpt) {
             throw ValueNotFoundException::from_id($value->get_id());

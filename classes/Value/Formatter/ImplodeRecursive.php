@@ -9,7 +9,7 @@ use AC\Type\Value;
 class ImplodeRecursive implements Formatter
 {
 
-    public function format(Value $value)
+    public function format(Value $value): Value
     {
         $array = $value->get_value();
 

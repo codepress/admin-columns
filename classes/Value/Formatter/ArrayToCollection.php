@@ -14,15 +14,15 @@ class ArrayToCollection implements Formatter
 
     public function format(Value $value): ValueCollection
     {
-        $raw_value = $value->get_value();
+        $array = $value->get_value();
 
-        if ( ! is_array($raw_value)) {
-            throw new ValueNotFoundException('No values found');
+        if ( ! is_array($array) || ! $array) {
+            throw new ValueNotFoundException('No array found. ID . ' . $value->get_id());
         }
 
-        $collection = new ValueCollection($value->get_id(), []);
+        $collection = new ValueCollection($value->get_id());
 
-        foreach ($raw_value as $item) {
+        foreach ($array as $item) {
             $collection->add(new Value($item));
         }
 

@@ -35,24 +35,17 @@ class Arrays
         return $array;
     }
 
-    public function implode_recursive(string $glue, $pieces): string
+    // TODO turn into Formatter
+    public function implode_recursive(string $glue, array $pieces): string
     {
-        if (is_scalar($pieces)) {
-            return (string)$pieces;
-        }
-
-        if ( ! is_array($pieces)) {
-            return '';
-        }
-
         $scalars = [];
 
-        foreach ($pieces as $r_pieces) {
-            if (is_array($r_pieces)) {
-                $scalars[] = $this->implode_recursive($glue, $r_pieces);
+        foreach ($pieces as $piece) {
+            if (is_array($piece)) {
+                $scalars[] = $this->implode_recursive($glue, $piece);
             }
-            if (is_scalar($r_pieces)) {
-                $scalars[] = (string)$r_pieces;
+            if (is_scalar($piece)) {
+                $scalars[] = (string)$piece;
             }
         }
 

@@ -17,7 +17,7 @@ class Count implements CollectionFormatter
         $count = count($collection);
 
         if ($count === 0) {
-            throw new ValueNotFoundException('Collection can not be empty');
+            throw new ValueNotFoundException('Collection can not be empty. id: ' . $collection->get_id());
         }
 
         return new Value($count);

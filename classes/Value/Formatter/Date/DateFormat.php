@@ -24,7 +24,7 @@ final class DateFormat implements Formatter
 
     public function format(Value $value): Value
     {
-        $date = $this->create_date((string)$value->get_value());
+        $date = $this->create_date((string)$value);
 
         if (null === $date) {
             throw new ValueNotFoundException();

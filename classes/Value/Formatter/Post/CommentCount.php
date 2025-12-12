@@ -13,6 +13,9 @@ class CommentCount implements Formatter
 
     private string $comment_status;
 
+    /**
+     * @param string $comment_status Comment status to count (default: all)
+     */
     public function __construct(string $comment_status)
     {
         $this->comment_status = $comment_status ?: 'all';

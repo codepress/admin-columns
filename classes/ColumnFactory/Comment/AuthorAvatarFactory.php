@@ -23,11 +23,13 @@ class AuthorAvatarFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = new FormatterCollection([
-            new Formatter\Comment\Property('comment_author_email'),
-            new Formatter\Gravatar(),
+            new Formatter\Comment\CommentObject(),
+            new Formatter\Avatar(),
         ]);
 
-        return $formatters->merge(parent::get_formatters($config));
+        return $formatters->merge(
+            parent::get_formatters($config)
+        );
     }
 
 }

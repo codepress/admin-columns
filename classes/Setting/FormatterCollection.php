@@ -15,6 +15,11 @@ final class FormatterCollection extends Collection
         array_map([$this, 'add'], $formatters);
     }
 
+    public static function from_formatter(Formatter $formatter): self
+    {
+        return new self([$formatter]);
+    }
+
     /**
      * @param Formatter|CollectionFormatter $formatter
      */

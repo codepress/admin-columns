@@ -18,7 +18,7 @@ final class ValueCollection extends Collection
         array_map([$this, 'add'], $data);
     }
 
-    public function get_id(): int
+    public function get_id()
     {
         return $this->id;
     }

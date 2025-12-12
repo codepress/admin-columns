@@ -212,12 +212,12 @@ class FieldType extends BaseComponentFactory
                 $formatters->add(new AC\Value\Formatter\SelectOptionMapper($config));
                 break;
             case self::TYPE_DATE:
-                $save_format = $config->get('date_save_format', '');
-                $date_formatter = $save_format
-                    ? new AC\Value\Formatter\DateMapper($save_format, 'U')
+                $source_format = $config->get('date_save_format', '');
+                $date_formatter = $source_format
+                    ? new AC\Value\Formatter\Date\DateMapper('U', $source_format)
                     : new Formatter\Timestamp();
 
-                $formatters->prepend($date_formatter);
+                $formatters->add($date_formatter);
                 break;
             case self::TYPE_COLOR:
                 $formatters->add(new AC\Value\Formatter\Color());
@@ -227,11 +227,14 @@ class FieldType extends BaseComponentFactory
                 $formatters->add(new AC\Value\Formatter\HasValue());
                 $formatters->add(new AC\Value\Formatter\YesNoIcon());
                 break;
-            case self::TYPE_USER:
-            case self::TYPE_MEDIA:
             case self::TYPE_IMAGE:
+                $formatters->add(new AC\Value\Formatter\ArrayToCollection());
+                break;
+            case self::TYPE_MEDIA:
+            case self::TYPE_USER:
             case self::TYPE_POST:
-                $formatters->add(new AC\Value\Formatter\IdCollectionFromArrayOrString());
+                $formatters->add(new AC\Value\Formatter\ArrayToCollection());
+                $formatters->add(new AC\Value\Formatter\ForeignId());
                 break;
             case self::TYPE_HTML:
                 if ($config->get($this->modal_display::TOGGLE) === ToggleOptionCollection::ON) {
