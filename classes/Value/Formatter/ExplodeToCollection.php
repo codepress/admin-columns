@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace AC\Value\Formatter;
 
 use AC\Exception\ValueNotFoundException;
-use AC\Setting\Formatter;
 use AC\Type\Value;
 use AC\Type\ValueCollection;
 
-final class ExplodeToCollection implements Formatter
+final class ExplodeToCollection extends ArrayToCollection
 {
 
     private string $separator;
@@ -27,13 +26,7 @@ final class ExplodeToCollection implements Formatter
             throw new ValueNotFoundException('No values found');
         }
 
-        $collection = new ValueCollection($value->get_id(), []);
-
-        foreach ($result as $item) {
-            $collection->add(new Value($item));
-        }
-
-        return $collection;
+        return parent::format($value->with_value($result));
     }
 
 }

@@ -12,7 +12,7 @@ class StringSanitizer implements Formatter
 
     public function format(Value $value): Value
     {
-        $formatter = Aggregate::create([
+        $formatter = Aggregate::from_array([
             new StripTags(),
             (new PregReplace())
                 ->replace_br()

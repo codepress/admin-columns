@@ -75,7 +75,7 @@ class CustomFieldFactory extends BaseColumnFactory
 
         if ($config->get('field_type') === FieldType::TYPE_COUNT) {
             return $formatters->prepend(
-                Formatter\Aggregate::create([
+                Formatter\Aggregate::from_array([
                     new Formatter\MetaCollection(
                         $this->table_screen_context->get_meta_type(), $config->get('field', '')
                     ),
