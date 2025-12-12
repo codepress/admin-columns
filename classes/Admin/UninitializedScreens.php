@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Admin;
 
-use AC\Storage\Repository\DefaultColumnsRepository;
+use AC\Storage\Repository\OriginalColumnsRepository;
 use AC\Table\TableScreenCollection;
 use AC\Table\TableScreenRepository;
 use AC\TableScreen;
@@ -14,11 +14,11 @@ class UninitializedScreens
 
     private TableScreenRepository $table_screen_repository;
 
-    private DefaultColumnsRepository $default_columns_repository;
+    private OriginalColumnsRepository $default_columns_repository;
 
     public function __construct(
         TableScreenRepository $table_screen_repository,
-        DefaultColumnsRepository $default_columns_repository
+        OriginalColumnsRepository $default_columns_repository
     ) {
         $this->table_screen_repository = $table_screen_repository;
         $this->default_columns_repository = $default_columns_repository;
@@ -32,7 +32,7 @@ class UninitializedScreens
 
         $table_screens = iterator_to_array($collection);
         $table_screens = array_filter($table_screens, [$this, 'is_uninitialized']);
-        
+
         return new TableScreenCollection(array_filter($table_screens));
     }
 

@@ -6,7 +6,7 @@ namespace AC\ColumnFactories;
 
 use AC\ColumnFactory;
 use AC\ColumnFactoryDefinitionCollection;
-use AC\Storage\Repository\DefaultColumnsRepository;
+use AC\Storage\Repository\OriginalColumnsRepository;
 use AC\TableScreen;
 use AC\Type\ColumnFactoryDefinition;
 use AC\Vendor\DI\Container;
@@ -14,9 +14,9 @@ use AC\Vendor\DI\Container;
 final class OriginalFactory extends BaseFactory
 {
 
-    private DefaultColumnsRepository $repository;
+    private OriginalColumnsRepository $repository;
 
-    public function __construct(DefaultColumnsRepository $repository, Container $container)
+    public function __construct(OriginalColumnsRepository $repository, Container $container)
     {
         $this->repository = $repository;
 

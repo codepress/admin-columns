@@ -4,11 +4,11 @@ namespace AC\Storage\Repository;
 
 use AC\Storage\Option;
 use AC\Type\ColumnId;
-use AC\Type\DefaultColumn;
-use AC\Type\DefaultColumns;
+use AC\Type\OriginalColumn;
+use AC\Type\OriginalColumns;
 use AC\Type\TableId;
 
-final class DefaultColumnsRepository
+final class OriginalColumnsRepository
 {
 
     private function storage(TableId $id): Option
@@ -18,7 +18,7 @@ final class DefaultColumnsRepository
         );
     }
 
-    public function update(TableId $id, DefaultColumns $columns): void
+    public function update(TableId $id, OriginalColumns $columns): void
     {
         $data = [];
 
@@ -48,7 +48,7 @@ final class DefaultColumnsRepository
              ->delete();
     }
 
-    public function find(TableId $id, ColumnId $column_id): ?DefaultColumn
+    public function find(TableId $id, ColumnId $column_id): ?OriginalColumn
     {
         $data = $this->get_cached($id);
 
@@ -65,7 +65,7 @@ final class DefaultColumnsRepository
             : null;
     }
 
-    public function find_all_cached(TableId $id): DefaultColumns
+    public function find_all_cached(TableId $id): OriginalColumns
     {
         $columns = [];
 
@@ -81,7 +81,7 @@ final class DefaultColumnsRepository
             }
         }
 
-        return new DefaultColumns($columns);
+        return new OriginalColumns($columns);
     }
 
     private function get_cached(TableId $id)
@@ -95,7 +95,7 @@ final class DefaultColumnsRepository
         return $cached_storage[(string)$id];
     }
 
-    public function find_all(TableId $id): DefaultColumns
+    public function find_all(TableId $id): OriginalColumns
     {
         $columns = [];
 
@@ -107,12 +107,12 @@ final class DefaultColumnsRepository
             $columns[] = $this->create_column($column_name, $column_data);
         }
 
-        return new DefaultColumns($columns);
+        return new OriginalColumns($columns);
     }
 
-    private function create_column(string $column_name, array $data): DefaultColumn
+    private function create_column(string $column_name, array $data): OriginalColumn
     {
-        return new DefaultColumn(
+        return new OriginalColumn(
             $column_name,
             (string)($data['label'] ?? ''),
             (bool)($data['sortable'] ?? false)

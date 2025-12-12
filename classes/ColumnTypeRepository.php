@@ -7,7 +7,7 @@ namespace AC;
 use AC\Collection\ColumnFactories;
 use AC\Column\ColumnFactory;
 use AC\ColumnFactories\Aggregate;
-use AC\Storage\Repository\DefaultColumnsRepository;
+use AC\Storage\Repository\OriginalColumnsRepository;
 use AC\Type\TableId;
 
 class ColumnTypeRepository
@@ -15,9 +15,9 @@ class ColumnTypeRepository
 
     private Aggregate $aggregate;
 
-    private DefaultColumnsRepository $default_columns_repository;
+    private OriginalColumnsRepository $default_columns_repository;
 
-    public function __construct(Aggregate $aggregate, DefaultColumnsRepository $default_columns_repository)
+    public function __construct(Aggregate $aggregate, OriginalColumnsRepository $default_columns_repository)
     {
         $this->aggregate = $aggregate;
         $this->default_columns_repository = $default_columns_repository;
