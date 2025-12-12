@@ -74,7 +74,7 @@ class CustomFieldFactory extends BaseColumnFactory
         $formatters = parent::get_formatters($config);
 
         if ($config->get('field_type') === FieldType::TYPE_COUNT) {
-            $formatters->prepend(
+            return $formatters->prepend(
                 Formatter\Aggregate::create([
                     new Formatter\MetaCollection(
                         $this->table_screen_context->get_meta_type(), $config->get('field', '')
@@ -82,13 +82,11 @@ class CustomFieldFactory extends BaseColumnFactory
                     new Formatter\Count(),
                 ])
             );
-        } else {
-            $formatters->prepend(
-                new Formatter\Meta($this->table_screen_context->get_meta_type(), $config->get('field', ''))
-            );
         }
 
-        return $formatters;
+        return $formatters->prepend(
+            new Formatter\Meta($this->table_screen_context->get_meta_type(), $config->get('field', ''))
+        );
     }
 
 }
