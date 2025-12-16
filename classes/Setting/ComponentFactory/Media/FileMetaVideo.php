@@ -78,7 +78,10 @@ class FileMetaVideo extends BaseComponentFactory
                 break;
             case 'created_timestamp':
                 $formatters->add(
-                    new Formatter\Date\DateFormat(get_option('date_format') . ' ' . get_option('time_format'))
+                    new Formatter\Date\WordPressDateFormat(
+                        get_option('date_format') . ' ' . get_option('time_format'),
+                        'U'
+                    )
                 );
                 break;
         }

@@ -38,7 +38,7 @@ class RegisteredDateFactory extends BaseColumnFactory
     {
         $formatters = new FormatterCollection([
             new Formatter\User\Property('user_registered'),
-            new Formatter\Timestamp(),
+            new Formatter\Date\Timestamp(),
         ]);
 
         return $formatters->merge(parent::get_formatters($config));

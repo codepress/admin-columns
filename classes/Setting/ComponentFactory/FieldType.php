@@ -215,8 +215,8 @@ class FieldType extends BaseComponentFactory
             case self::TYPE_DATE:
                 $source_format = $config->get('date_save_format', '');
                 $date_formatter = $source_format
-                    ? new AC\Value\Formatter\Date\DateMapper('U', $source_format)
-                    : new Formatter\Timestamp();
+                    ? new AC\Value\Formatter\Date\DateFormat('U', $source_format)
+                    : new Formatter\Date\Timestamp();
 
                 $formatters->add($date_formatter);
                 break;

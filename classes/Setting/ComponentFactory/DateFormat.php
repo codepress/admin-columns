@@ -15,20 +15,32 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 use AC\Value;
+use DateTimeZone;
 
 abstract class DateFormat extends BaseComponentFactory
 {
 
     private string $source_format;
 
-    public function __construct(string $source_format = 'U')
+    private ?DateTimeZone $timezone;
+
+    public function __construct(string $source_format = 'U', ?DateTimeZone $timezone = null)
     {
         $this->source_format = $source_format;
+        $this->timezone = $timezone;
     }
 
     abstract protected function get_date_options(): OptionCollection;
 
     abstract protected function get_default_option(): string;
+
+    public function with_source_format(string $source_format): self
+    {
+        $clone = clone $this;
+        $clone->source_format = $source_format;
+
+        return $clone;
+    }
 
     protected function get_label(Config $config): ?string
     {
@@ -88,9 +100,13 @@ abstract class DateFormat extends BaseComponentFactory
             case 'diff':
                 return new Value\Formatter\Date\TimeDifference($this->source_format);
             case 'wp_default':
-                return new Value\Formatter\Date\DateFormat((string)get_option('date_format'), $this->source_format);
+                return new Value\Formatter\Date\WordPressDateFormat(
+                    (string)get_option('date_format'),
+                    $this->source_format,
+                    $this->timezone
+                );
             default:
-                return new Value\Formatter\Date\DateFormat($output_format, $this->source_format);
+                return new Value\Formatter\Date\WordPressDateFormat($output_format, $this->source_format);
         }
     }
 

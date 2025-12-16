@@ -8,7 +8,7 @@ use AC\Type\Value;
 use DateTime;
 use InvalidArgumentException;
 
-final class DateFormat extends DateObject
+final class WordPressDateFormat extends DateObject
 {
 
     private string $output_format;
