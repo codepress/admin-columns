@@ -20,7 +20,7 @@ class Content implements Formatter
         }
 
         return $value->with_value(
-            strip_tags($comment->comment_content)
+            $comment->comment_content
         );
     }
 

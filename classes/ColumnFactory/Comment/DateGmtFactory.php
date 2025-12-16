@@ -7,6 +7,7 @@ use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Comment\LinkableCommentDate;
 use AC\Value\Formatter\Comment\Property;
+use AC\Value\Formatter\Date\Timestamp;
 
 class DateGmtFactory extends BaseColumnFactory
 {
@@ -25,6 +26,7 @@ class DateGmtFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
         $formatters->add(new Property('comment_date_gmt'));
+        $formatters->add(new Timestamp());
         $formatters->add(new LinkableCommentDate());
 
         return $formatters;
