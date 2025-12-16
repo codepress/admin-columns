@@ -37,7 +37,7 @@ class DateConfigurator implements FieldTypeConfigurator
                     $save_format = $config->get('date_save_format', '');
                     $date_formatter = $save_format
                         ? new Formatter\DateMapper($save_format, 'U')
-                        : new Formatter\Timestamp();
+                        : new Formatter\Date\Timestamp();
                     $formatters->prepend($date_formatter);
                 }
             )->add_child_component(
