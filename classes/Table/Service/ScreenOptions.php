@@ -11,48 +11,48 @@ use AC\Renderable;
 class ScreenOptions implements AC\Registerable
 {
 
-	/**
-	 * @var Form\Element[]
-	 */
-	private static array $screen_options = [];
+    /**
+     * @var Form\Element[]
+     */
+    private static array $screen_options = [];
 
-	public function register(): void
-	{
-		add_filter('screen_settings', [$this, 'screen_options']);
-	}
+    public function register(): void
+    {
+        add_filter('screen_settings', [$this, 'screen_options']);
+    }
 
-	public static function add(Renderable $option): void
-	{
-		self::$screen_options[] = $option;
-	}
+    public static function add(Renderable $option): void
+    {
+        self::$screen_options[] = $option;
+    }
 
-	public function screen_options($html): string
-	{
-		if (empty($this->screen_options)) {
-			return (string)$html;
-		}
+    public function screen_options($html): string
+    {
+        if (empty($this->screen_options)) {
+            return (string)$html;
+        }
 
-		ob_start();
-		?>
+        ob_start();
+        ?>
 
 		<fieldset class='acp-screen-option-prefs'>
 			<legend><?= __('Admin Columns', 'codepress-admin-columns'); ?></legend>
 			<div class="acp-so-container">
-				<?php
+                <?php
 
-				foreach (self::$screen_options as $option) {
-					echo $option->render();
-				}
+                foreach (self::$screen_options as $option) {
+                    echo $option->render();
+                }
 
-				?>
+                ?>
 			</div>
 		</fieldset>
 
-		<?php
+        <?php
 
-		$html .= ob_get_clean();
+        $html .= ob_get_clean();
 
-		return $html;
-	}
+        return $html;
+    }
 
 }
