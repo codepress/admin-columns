@@ -51,7 +51,7 @@ class FileMetaVideoFactory extends BaseColumnFactory
         $formatters = parent::get_formatters($config);
         $meta_keys = array_filter(array_map('trim', explode('.', $config->get('media_meta_key', ''))));
 
-        $formatters->add(new NestedAttachmentMetaData($meta_keys));
+        $formatters->prepend(new NestedAttachmentMetaData($meta_keys));
 
         return $formatters;
     }
