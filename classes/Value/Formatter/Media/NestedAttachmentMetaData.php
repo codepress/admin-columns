@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter\Media;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
@@ -22,10 +23,12 @@ class NestedAttachmentMetaData implements Formatter
         $meta = get_post_meta($value->get_id(), '_wp_attachment_metadata', true);
 
         $attachment_meta = ac_helper()->array->get_nested_value($meta, $this->keys);
-        
-        return is_scalar($attachment_meta)
-            ? $value->with_value($attachment_meta)
-            : new Value(null);
+
+        if ( ! is_scalar($attachment_meta)) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
+
+        return $value->with_value($attachment_meta);
     }
 
 }

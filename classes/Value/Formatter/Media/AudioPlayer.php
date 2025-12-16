@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Value\Formatter\Media;
 
 use AC\ApplyFilter\ValidAudioMimetypes;
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
@@ -18,7 +19,7 @@ class AudioPlayer implements Formatter
             : null;
 
         if ( ! $src) {
-            return $value->with_value(false);
+            throw new ValueNotFoundException();
         }
 
         return $value->with_value(

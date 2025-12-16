@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter\Media;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
@@ -15,7 +16,7 @@ class Dimensions implements Formatter
         $meta = get_post_meta($value->get_id(), '_wp_attachment_metadata', true);
 
         if (empty($meta['width']) || empty($meta['height'])) {
-            return $value->with_value(false);
+            throw new ValueNotFoundException();
         }
 
         $label = $meta['width'] . '&nbsp;&times;&nbsp;' . $meta['height'];

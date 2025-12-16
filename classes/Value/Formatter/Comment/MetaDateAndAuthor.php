@@ -8,6 +8,7 @@ use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 use WP_Comment;
+use WP_User;
 
 class MetaDateAndAuthor implements Formatter
 {
@@ -20,7 +21,7 @@ class MetaDateAndAuthor implements Formatter
 
         $comment = get_comment($value->get_id());
 
-        if ( ! $comment) {
+        if ( ! $comment instanceof WP_Comment) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
@@ -50,7 +51,7 @@ class MetaDateAndAuthor implements Formatter
     {
         $user = get_userdata($comment->user_id);
 
-        if ($user) {
+        if ($user instanceof WP_User) {
             return sprintf(
                 '<a href="%s">%s</a>',
                 add_query_arg('user_id', $comment->user_id, admin_url('edit-comments.php')),

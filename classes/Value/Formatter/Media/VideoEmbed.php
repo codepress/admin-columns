@@ -17,7 +17,7 @@ class VideoEmbed implements Formatter
             return $value;
         }
 
-        $view = new Video([]);
+        $view = new Video();
         $view->set_src($value->get_value());
 
         return $value->with_value($view->render());

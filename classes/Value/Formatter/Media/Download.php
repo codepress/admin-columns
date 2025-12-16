@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter\Media;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
@@ -15,7 +16,7 @@ class Download implements Formatter
         $url = wp_get_attachment_url($value->get_id());
 
         if ( ! $url) {
-            return new Value(null);
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         return $value->with_value(
