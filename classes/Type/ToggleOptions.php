@@ -3,6 +3,7 @@
 namespace AC\Type;
 
 use AC\Helper\Select\Option;
+use InvalidArgumentException;
 
 final class ToggleOptions
 {
@@ -15,6 +16,16 @@ final class ToggleOptions
     {
         $this->disabled = $disabled;
         $this->enabled = $enabled;
+
+        $this->validate();
+    }
+
+    private function validate(): void
+    {
+        // TODO Stefan if these are NOT strings, we need to cast them here
+        if ($this->disabled->get_value() === $this->enabled->get_value()) {
+            throw new InvalidArgumentException('Values for enabled and disabled cannot be the same.');
+        }
     }
 
     public function get_enabled(): Option
@@ -25,6 +36,15 @@ final class ToggleOptions
     public function get_disabled(): Option
     {
         return $this->disabled;
+    }
+
+    // TODO Stefan, check this
+    public static function create_from_values(string $disabled_value = '0', string $enabled_value = '1'): self
+    {
+        return new self(
+            new Option($disabled_value),
+            new Option($enabled_value),
+        );
     }
 
     public static function create_from_array(array $options): self
