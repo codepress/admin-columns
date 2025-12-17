@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter\Comment;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
@@ -15,7 +16,7 @@ class StatusLabel implements Formatter
         $comment = get_comment($value->get_id());
 
         if ( ! $comment) {
-            return new Value(null);
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         $status = $comment->comment_approved;

@@ -22,7 +22,7 @@ final class CharacterLimit implements Formatter
         if ($this->character_limit) {
             return $value->with_value(
                 ac_helper()->string->trim_characters(
-                    (string)$value->get_value(),
+                    (string)$value,
                     $this->character_limit
                 )
             );

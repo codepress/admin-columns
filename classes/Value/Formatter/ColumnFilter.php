@@ -10,7 +10,7 @@ use AC\TableScreen;
 use AC\Type\ListScreenId;
 use AC\Type\Value;
 
-class Column implements Formatter
+class ColumnFilter implements Formatter
 {
 
     private Context $context;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter\Media;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
@@ -23,7 +24,7 @@ class AvailableSizes implements Formatter
         $sizes = $meta['sizes'] ?? null;
 
         if ( ! $sizes) {
-            return $value->with_value(false);
+            throw new ValueNotFoundException();
         }
 
         $paths = [];
@@ -38,7 +39,7 @@ class AvailableSizes implements Formatter
             );
 
             foreach ($available_sizes as $size) {
-                $src = wp_get_attachment_image_src($value->get_id(), $size);
+                $src = (array)wp_get_attachment_image_src($value->get_id(), $size);
 
                 if ( ! empty($src[0])) {
                     $paths[] = ac_helper()->html->tooltip(ac_helper()->html->link($src[0], $size), basename($src[0]));

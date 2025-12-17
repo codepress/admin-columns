@@ -21,7 +21,7 @@ class UserId implements Formatter
         }
 
         return new Value(
-            $comment->user_id
+            $user_id
         );
     }
 

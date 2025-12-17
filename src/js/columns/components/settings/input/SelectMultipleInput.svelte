@@ -29,7 +29,7 @@
                     newValue.push(mapped);
                 }
             })
-		}
+        }
 
         return newValue;
     }

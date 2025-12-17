@@ -95,6 +95,7 @@ final class CommentDisplay extends BaseComponentFactory
                 break;
             default:
                 $formatters->add(new Formatter\Comment\Content());
+                $formatters->add(new Formatter\StringSanitizer());
         }
     }
 

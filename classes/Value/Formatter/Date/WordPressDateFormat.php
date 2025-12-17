@@ -36,9 +36,14 @@ final class WordPressDateFormat extends DateObject
             throw new InvalidArgumentException('Invalid date object');
         }
 
-        // Assumes the date is stored in the UTC timezone
+        $date = wp_date($this->output_format, $date->getTimestamp(), $this->timezone);
+
+        if (false === $date) {
+            throw new InvalidArgumentException('Failed to format date');
+        }
+
         return $value->with_value(
-            wp_date($this->output_format, $date->getTimestamp(), $this->timezone)
+            $date
         );
     }
 
