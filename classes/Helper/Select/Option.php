@@ -11,7 +11,10 @@ final class Option
 
     private string $label;
 
-    // TODO Stefan check if value if always string!
+    /**
+     * @param mixed       $value
+     * @param string|null $label
+     */
     public function __construct($value, ?string $label = null)
     {
         $this->value = $value;
