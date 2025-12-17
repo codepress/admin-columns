@@ -22,12 +22,14 @@
     const mapArrayToValue = (array: Array<string>): SvelteSelectItem[] => {
         let newValue: SvelteSelectItem[] = [];
 
-        array.forEach(v => {
-            let mapped = getValue(v);
-            if (mapped) {
-                newValue.push(mapped);
-            }
-        })
+        if( Array.isArray(array) && array.length > 0 ) {
+            array.forEach(v => {
+                let mapped = getValue(v);
+                if (mapped) {
+                    newValue.push(mapped);
+                }
+            })
+        }
 
         return newValue;
     }
