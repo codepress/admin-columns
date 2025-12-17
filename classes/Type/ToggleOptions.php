@@ -22,8 +22,7 @@ final class ToggleOptions
 
     private function validate(): void
     {
-        // TODO Stefan if these are NOT strings, we need to cast them here
-        if ($this->disabled->get_value() === $this->enabled->get_value()) {
+        if ( (string)$this->disabled->get_value() === (string)$this->enabled->get_value()) {
             throw new InvalidArgumentException('Values for enabled and disabled cannot be the same.');
         }
     }
@@ -38,7 +37,6 @@ final class ToggleOptions
         return $this->disabled;
     }
 
-    // TODO Stefan, check this
     public static function create_from_values(string $disabled_value = '0', string $enabled_value = '1'): self
     {
         return new self(
