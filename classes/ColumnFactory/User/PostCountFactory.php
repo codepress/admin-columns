@@ -52,7 +52,7 @@ class PostCountFactory extends BaseColumnFactory
     protected function get_settings(Config $config): ComponentCollection
     {
         return new ComponentCollection([
-            $this->post_type_factory->create(true)->create($config),
+            $this->post_type_factory->create(true, false)->create($config),
             $this->post_status->create($config),
         ]);
     }

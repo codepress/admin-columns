@@ -14093,12 +14093,14 @@ function instance($$self, $$props, $$invalidate) {
   };
   const mapArrayToValue = array => {
     let newValue = [];
-    array.forEach(v => {
-      let mapped = getValue(v);
-      if (mapped) {
-        newValue.push(mapped);
-      }
-    });
+    if (Array.isArray(array) && array.length > 0) {
+      array.forEach(v => {
+        let mapped = getValue(v);
+        if (mapped) {
+          newValue.push(mapped);
+        }
+      });
+    }
     return newValue;
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
@@ -36611,6 +36613,12 @@ function refreshListScreenData(listKey_1) {
                     _store__WEBPACK_IMPORTED_MODULE_2__.isInitializingColumnSettings.set(false);
                 }, 1000);
             }
+            _store__WEBPACK_IMPORTED_MODULE_2__.isLoadingColumnSettings.set(false);
+            setTimeout(() => {
+                // Let the form 'correct' the data that is loaded by the settings
+                _store__WEBPACK_IMPORTED_MODULE_2__.initialListScreenData.set((0,lodash_es_cloneDeep__WEBPACK_IMPORTED_MODULE_3__["default"])((0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.get)(_store__WEBPACK_IMPORTED_MODULE_2__.listScreenDataStore)));
+                _store__WEBPACK_IMPORTED_MODULE_2__.isInitializingColumnSettings.set(false);
+            }, 1000);
         }
     });
 }
