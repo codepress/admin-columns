@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Type;
 
-class Group
+final class Group
 {
 
     private string $slug;
@@ -43,6 +43,9 @@ class Group
         return null !== $this->icon;
     }
 
+    /**
+     * Should return an absolute location to a square shaped image
+     */
     public function get_icon(): ?string
     {
         return $this->icon;
