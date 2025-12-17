@@ -7,7 +7,7 @@ namespace AC\Helper\Select;
 final class Option
 {
 
-    private string $value;
+    private $value;
 
     private string $label;
 
@@ -15,10 +15,10 @@ final class Option
     public function __construct($value, ?string $label = null)
     {
         $this->value = $value;
-        $this->label = $label ?: $value;
+        $this->label = $label ?: (string)$value;
     }
 
-    public function get_value(): string
+    public function get_value()
     {
         return $this->value;
     }
