@@ -31,8 +31,15 @@ class TableRenderFactory implements RenderFactory
             return null;
         }
 
+        $formatters = $column->get_formatters();
+
+        if (0 === $formatters->count()) {
+            return null;
+        }
+
         return new TableRender(
-            $column,
+            $formatters,
+            $column->get_context(),
             $this->table_screen,
             $this->list_screen->get_id()
         );

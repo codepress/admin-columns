@@ -35,8 +35,8 @@ final class BeforeAfter implements Formatter
     public static function create_from_config(Config $config): BeforeAfter
     {
         return new self(
-            $config->has('before') ? $config->get('before', '') : null,
-            $config->has('after') ? $config->get('after', '') : null,
+            $config->has('before') ? (string)$config->get('before', '') : null,
+            $config->has('after') ? (string)$config->get('after', '') : null,
         );
     }
 
