@@ -12,37 +12,35 @@ class ToArray implements Formatter
 
     public function format(Value $value): Value
     {
-        $rawValue = $value->get_value();
+        $current_value = $value->get_value();
 
-        if (is_array($rawValue)) {
+        if (is_array($current_value)) {
             return $value;
         }
 
-        if (is_object($rawValue)) {
-            return $value->with_value((array)$rawValue);
-        }
-
-        if ( ! is_string($rawValue)) {
-            return $value->with_value((array)$rawValue);
+        // Anything not serialized, try to create an array from it
+        if ( ! is_string($current_value)) {
+            return $value->with_value((array)$current_value);
         }
 
         // JSON
-        $result = json_decode($rawValue, true);
+        $result = json_decode($current_value, true);
 
         if (is_array($result)) {
             return $value->with_value($result);
         }
 
         // Serialized
-        if (is_serialized($rawValue)) {
-            $result = unserialize($rawValue, ['allowed_classes' => false]);
+        if (is_serialized($current_value)) {
+            $result = unserialize($current_value, ['allowed_classes' => false]);
 
             if (is_array($result)) {
                 return $value->with_value($result);
             }
         }
 
-        return $value->with_value($rawValue);
+        // TODO Stefan in theory this can still be a string? That is ok?
+        return $value->with_value($current_value);
     }
 
 }
