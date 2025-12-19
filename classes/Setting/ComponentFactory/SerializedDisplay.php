@@ -49,11 +49,14 @@ class SerializedDisplay extends BaseComponentFactory
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
+        $formatters->add(new AC\Value\Formatter\ToArray());
         switch ($config->get('serialized_display')) {
             case 'formatted':
                 $keys = array_filter(array_map('trim', explode('.', $config->get('array_keys', ''))));
+                $formatters->add( new AC\Value\Formatter\FallBackFormatter(
+                    new AC\Value\Formatter\FormattedJson($keys),
 
-                $formatters->add(new AC\Value\Formatter\FormattedJson($keys));
+                ));
                 break;
             default:
                 $formatters->add(new AC\Value\Formatter\ImplodeRecursive());

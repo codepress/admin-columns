@@ -3,23 +3,35 @@
 namespace AC\Value\Formatter;
 
 use AC;
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
 class FallBackFormatter implements AC\Setting\Formatter
 {
 
-    private Formatter $fallback_formatter;
+    private Formatter $formatter;
 
-    public function __construct(Formatter $formatter)
+    private ?Formatter $fallback_formatter;
+
+    public function __construct(Formatter $formatter, ?Formatter $fallback_formatter = null)
     {
-        $this->fallback_formatter = $formatter;
+        $this->formatter = $formatter;
+        $this->fallback_formatter = $fallback_formatter;
     }
 
     public function format(Value $value): Value
     {
-        return $value->get_value()
-            ? $value
+        try {
+            $formatted_value = $this->formatter->format($value);
+        } catch (ValueNotFoundException $e) {
+            return $this->fallback_formatter
+                ? $this->fallback_formatter->format($value)
+                : $value;
+        }
+
+        return $formatted_value->get_value()
+            ? $formatted_value
             : $this->fallback_formatter->format($value);
     }
 

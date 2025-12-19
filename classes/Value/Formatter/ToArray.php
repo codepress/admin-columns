@@ -42,7 +42,7 @@ class ToArray implements Formatter
             }
         }
 
-        return $value->with_value((array)$rawValue);
+        return $value->with_value($rawValue);
     }
 
 }
