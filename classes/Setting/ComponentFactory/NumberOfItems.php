@@ -1,13 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Setting\ComponentFactory;
 
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\Number;
 
-class NumberOfItems extends BaseComponentFactory
+class NumberOfItems extends BaseComponentFactory implements InputNameAware
 {
+
+    public function get_name(): string
+    {
+        return 'number_of_items';
+    }
 
     protected function get_label(Config $config): ?string
     {
@@ -25,8 +32,11 @@ class NumberOfItems extends BaseComponentFactory
 
     protected function get_input(Config $config): ?Input
     {
-        $number_of_items = $config->has('number_of_items') ? (int)$config->get('number_of_items') : 10;
+        $value = $config->has($this->get_name())
+            ? $config->get($this->get_name())
+            : 10;
 
-        return Number::create_single_step('number_of_items', 0, null, $number_of_items);
+        return Number::create_single_step($this->get_name(), 0, null, (int)$value);
     }
+
 }

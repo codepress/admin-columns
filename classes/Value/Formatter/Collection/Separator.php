@@ -23,6 +23,9 @@ class Separator implements CollectionFormatter
         $this->limit = $limit;
     }
 
+    // TODO David this is a leaky abstraction that repeats defaults. Better have an aggregate setting that does this?
+    // TODO David e.g. this could use some love and it should lean on the aggregate setting and have options to just get
+    // TODO David the string
     public static function create_from_config(Config $config): self
     {
         return new self(

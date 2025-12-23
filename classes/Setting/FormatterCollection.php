@@ -50,7 +50,14 @@ final class FormatterCollection extends Collection
     public function prepend($formatter): self
     {
         if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Expected Formatter or CollectionFormatter. Got %s.',
+                    is_object($formatter)
+                        ? get_class($formatter)
+                        : gettype($formatter)
+                )
+            );
         }
 
         array_unshift($this->data, $formatter);
