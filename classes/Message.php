@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
-use Exception;
 use LogicException;
 
 abstract class Message
@@ -34,7 +35,7 @@ abstract class Message
     protected function validate(): void
     {
         if (empty($this->message)) {
-            throw new LogicException('Message cannot be empty');
+            throw new LogicException('Message cannot be empty.');
         }
     }
 
@@ -42,7 +43,6 @@ abstract class Message
 
     /**
      * Display self::render to the screen
-     * @throws Exception
      */
     public function display(): void
     {
@@ -77,4 +77,5 @@ abstract class Message
 
         return $this;
     }
+
 }
