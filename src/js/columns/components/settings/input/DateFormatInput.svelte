@@ -22,6 +22,17 @@
     const debounceInput = () => {
         clearTimeout(timer);
         value = customDateFormat;
+        updateExample();
+    }
+
+    const validExampleDates = [
+        'j F Y',
+        'Y-m-d',
+        'm/d/Y',
+        'd/m/Y',
+    ];
+
+    const updateExample = () => {
         timer = setTimeout(() => {
             retrieveDateExample()
         }, 750);
@@ -38,6 +49,11 @@
 
     const handleSelection = () => {
         value = selectedOption;
+        if (validExampleDates.includes(selectedOption)) {
+            customDateFormat = selectedOption;
+            updateExample();
+        }
+
     }
 
     onMount(() => {

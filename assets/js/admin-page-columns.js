@@ -12634,11 +12634,11 @@ function add_css(target) {
 }
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[16] = list[i];
+  child_ctx[18] = list[i];
   return child_ctx;
 }
 
-// (60:3) {#if option.value === 'wp_default' && config.input?.data[ 'wp_date_format' ] }
+// (73:3) {#if option.value === 'wp_default' && config.input?.data[ 'wp_date_format' ] }
 function create_if_block_1(ctx) {
   let code;
   let t_value = /*config*/ctx[0].input?.data['wp_date_format'] + "";
@@ -12664,13 +12664,13 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (55:2) <AcRadio bind:group={selectedOption}    value={option.value}    {disabled}    on:change={handleSelection}    --AcuiRadioMarginBottom="5px">
+// (68:2) <AcRadio bind:group={selectedOption}    value={option.value}    {disabled}    on:change={handleSelection}    --AcuiRadioMarginBottom="5px">
 function create_default_slot_1(ctx) {
-  let t0_value = /*option*/ctx[16].label + "";
+  let t0_value = /*option*/ctx[18].label + "";
   let t0;
   let t1;
   let if_block_anchor;
-  let if_block = /*option*/ctx[16].value === 'wp_default' && /*config*/ctx[0].input?.data['wp_date_format'] && create_if_block_1(ctx);
+  let if_block = /*option*/ctx[18].value === 'wp_default' && /*config*/ctx[0].input?.data['wp_date_format'] && create_if_block_1(ctx);
   return {
     c() {
       t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
@@ -12685,8 +12685,8 @@ function create_default_slot_1(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
     },
     p(ctx, dirty) {
-      if (dirty & /*options*/8 && t0_value !== (t0_value = /*option*/ctx[16].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, t0_value);
-      if (/*option*/ctx[16].value === 'wp_default' && /*config*/ctx[0].input?.data['wp_date_format']) {
+      if (dirty & /*options*/8 && t0_value !== (t0_value = /*option*/ctx[18].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, t0_value);
+      if (/*option*/ctx[18].value === 'wp_default' && /*config*/ctx[0].input?.data['wp_date_format']) {
         if (if_block) {
           if_block.p(ctx, dirty);
         } else {
@@ -12710,7 +12710,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (54:1) {#each options as option}
+// (67:1) {#each options as option}
 function create_each_block(ctx) {
   let acradio;
   let div;
@@ -12720,7 +12720,7 @@ function create_each_block(ctx) {
     /*acradio_group_binding*/ctx[10](value);
   }
   let acradio_props = {
-    value: /*option*/ctx[16].value,
+    value: /*option*/ctx[18].value,
     disabled: /*disabled*/ctx[1],
     $$slots: {
       default: [create_default_slot_1]
@@ -12751,9 +12751,9 @@ function create_each_block(ctx) {
     },
     p(ctx, dirty) {
       const acradio_changes = {};
-      if (dirty & /*options*/8) acradio_changes.value = /*option*/ctx[16].value;
+      if (dirty & /*options*/8) acradio_changes.value = /*option*/ctx[18].value;
       if (dirty & /*disabled*/2) acradio_changes.disabled = /*disabled*/ctx[1];
-      if (dirty & /*$$scope, config, options*/524297) {
+      if (dirty & /*$$scope, config, options*/2097161) {
         acradio_changes.$$scope = {
           dirty,
           ctx
@@ -12782,7 +12782,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (66:2) <AcRadio bind:group={selectedOption} value="custom" {disabled}>
+// (79:2) <AcRadio bind:group={selectedOption} value="custom" {disabled}>
 function create_default_slot(ctx) {
   let t;
   return {
@@ -12800,7 +12800,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (74:1) {#if config.input.data[ 'wp_date_info' ] && selectedOption === 'wp_default' }
+// (87:1) {#if config.input.data[ 'wp_date_info' ] && selectedOption === 'wp_default' }
 function create_if_block(ctx) {
   let div;
   let raw_value = /*config*/ctx[0].input.data['wp_date_info'] + "";
@@ -12942,7 +12942,7 @@ function create_fragment(ctx) {
       }
       const acradio_changes = {};
       if (dirty & /*disabled*/2) acradio_changes.disabled = /*disabled*/ctx[1];
-      if (dirty & /*$$scope*/524288) {
+      if (dirty & /*$$scope*/2097152) {
         acradio_changes.$$scope = {
           dirty,
           ctx
@@ -13022,6 +13022,10 @@ function instance($$self, $$props, $$invalidate) {
   const debounceInput = () => {
     clearTimeout(timer);
     $$invalidate(9, value = customDateFormat);
+    updateExample();
+  };
+  const validExampleDates = ['j F Y', 'Y-m-d', 'm/d/Y', 'd/m/Y'];
+  const updateExample = () => {
     timer = setTimeout(() => {
       retrieveDateExample();
     }, 750);
@@ -13036,6 +13040,10 @@ function instance($$self, $$props, $$invalidate) {
   };
   const handleSelection = () => {
     $$invalidate(9, value = selectedOption);
+    if (validExampleDates.includes(selectedOption)) {
+      $$invalidate(5, customDateFormat = selectedOption);
+      updateExample();
+    }
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
     var _a, _b;
@@ -14094,12 +14102,14 @@ function instance($$self, $$props, $$invalidate) {
   };
   const mapArrayToValue = array => {
     let newValue = [];
-    array.forEach(v => {
-      let mapped = getValue(v);
-      if (mapped) {
-        newValue.push(mapped);
-      }
-    });
+    if (Array.isArray(array) && array.length > 0) {
+      array.forEach(v => {
+        let mapped = getValue(v);
+        if (mapped) {
+          newValue.push(mapped);
+        }
+      });
+    }
     return newValue;
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
