@@ -66,7 +66,7 @@ final class Aggregate implements Formatter
                     $value = $formatter->format($value);
                 } catch (ValueNotFoundException $e) {
                     // Return empty value
-                    return $value->with_value('');
+                    return new Value('');
                 }
             }
         }
