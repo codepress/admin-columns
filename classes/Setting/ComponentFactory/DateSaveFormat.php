@@ -46,7 +46,11 @@ final class DateSaveFormat extends BaseComponentFactory
                     __('Date', 'codepress-admin-columns'),
                     'Y-m-d'
                 ),
-                self::FORMAT_DATETIME       => __('Datetime (ISO)', 'codepress-admin-columns'),
+                self::FORMAT_DATETIME       => sprintf(
+                    '%s (%s)',
+                    __('Datetime', 'codepress-admin-columns'),
+                    'Y-m-d H:i:s'
+                ),
                 self::FORMAT_UNIX_TIMESTAMP => __('Timestamp', 'codepress-admin-columns'),
             ]),
             $config->get('date_save_format', $this->default_save_date)
