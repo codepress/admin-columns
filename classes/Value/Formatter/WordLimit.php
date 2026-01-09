@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Value\Formatter;
 
-use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 
@@ -20,11 +19,7 @@ final class WordLimit implements Formatter
 
     public function format(Value $value): Value
     {
-        $string = $value->get_value();
-
-        if ( ! is_scalar($string)) {
-            throw ValueNotFoundException::from_id($value->get_id());
-        }
+        $string = (string)$value;
 
         if ($this->word_limit > 0 && '' !== $string) {
             $value = $value->with_value(

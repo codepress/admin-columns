@@ -20,7 +20,7 @@ final class ExplodeToCollection extends ArrayToCollection
 
     public function format(Value $value): ValueCollection
     {
-        $result = explode($this->separator, (string)$value->get_value());
+        $result = explode($this->separator, (string)$value);
 
         if (empty($result)) {
             throw new ValueNotFoundException('No values found');

@@ -26,7 +26,7 @@ class Image implements Formatter
 
     public function format(Value $value): Value
     {
-        $image = ac_helper()->image->get_image((string)$value->get_value(), $this->size, $this->skip_image_check);
+        $image = ac_helper()->image->get_image((string)$value, $this->size, $this->skip_image_check);
 
         if ($image === null) {
             throw ValueNotFoundException::from_id($value->get_id());

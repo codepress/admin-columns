@@ -19,7 +19,7 @@ final class CharacterLimit implements Formatter
 
     public function format(Value $value): Value
     {
-        if ($this->character_limit) {
+        if ($this->character_limit > 0) {
             return $value->with_value(
                 ac_helper()->string->trim_characters(
                     (string)$value,

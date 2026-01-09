@@ -30,7 +30,7 @@ class DatePublishFormatted implements Formatter
             default :
                 return $value->with_value(
                     ac_helper()->html->tooltip(
-                        (string)$value->get_value(),
+                        (string)$value,
                         ac_helper()->date->date($post->post_date, 'wp_date_time')
                     )
                 );
