@@ -22,12 +22,12 @@ abstract class DateFormat extends BaseComponentFactory
 
     private string $source_format;
 
-    private ?DateTimeZone $timezone;
+    private ?DateTimeZone $output_timezone;
 
-    public function __construct(string $source_format = 'U', ?DateTimeZone $timezone = null)
+    public function __construct(string $source_format = 'U', ?DateTimeZone $output_timezone = null)
     {
         $this->source_format = $source_format;
-        $this->timezone = $timezone;
+        $this->output_timezone = $output_timezone;
     }
 
     abstract protected function get_date_options(): OptionCollection;
@@ -103,10 +103,14 @@ abstract class DateFormat extends BaseComponentFactory
                 return new Value\Formatter\Date\WordPressDateFormat(
                     (string)get_option('date_format'),
                     $this->source_format,
-                    $this->timezone
+                    $this->output_timezone
                 );
             default:
-                return new Value\Formatter\Date\WordPressDateFormat($output_format, $this->source_format);
+                return new Value\Formatter\Date\DateFormat(
+                    $output_format,
+                    $this->source_format,
+                    $this->output_timezone
+                );
         }
     }
 

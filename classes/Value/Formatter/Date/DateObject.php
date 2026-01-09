@@ -8,15 +8,19 @@ use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Type\Value;
 use DateTime;
+use DateTimeZone;
 
 class DateObject implements Formatter
 {
 
     private string $source_format;
 
-    public function __construct(string $source_format)
+    private ?DateTimeZone $source_timezone;
+
+    public function __construct(string $source_format, ?DateTimeZone $source_timezone = null)
     {
         $this->source_format = $source_format;
+        $this->source_timezone = $source_timezone;
     }
 
     public function format(Value $value): Value
@@ -27,7 +31,7 @@ class DateObject implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $date = DateTime::createFromFormat($this->source_format, $date_string) ?: null;
+        $date = DateTime::createFromFormat($this->source_format, $date_string, $this->source_timezone) ?: null;
 
         if (null === $date || $this->is_invalid_parsed_date()) {
             throw ValueNotFoundException::from_id($value->get_id());

@@ -11,13 +11,6 @@ use InvalidArgumentException;
 final class TimeDifference extends DateObject
 {
 
-    private string $source_format;
-
-    public function __construct(string $source_format = 'U')
-    {
-        $this->source_format = $source_format;
-    }
-
     public function format(Value $value): Value
     {
         $date = parent::format($value)->get_value();
