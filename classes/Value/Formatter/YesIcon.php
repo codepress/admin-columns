@@ -26,7 +26,6 @@ class YesIcon implements Formatter
             ? ac_helper()->icon->yes(null, $this->title, $this->class)
             : false;
 
-        
         return $value->with_value(
             $icon
         );

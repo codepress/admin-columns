@@ -7,6 +7,7 @@ namespace AC\Setting;
 use AC\Collection;
 use InvalidArgumentException;
 
+// TODO move into AC\Value\FormatterCollection
 final class FormatterCollection extends Collection
 {
 
