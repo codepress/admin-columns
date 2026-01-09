@@ -27,7 +27,7 @@ final class WordPressDateFormat extends DateObject
     public function format(Value $value): Value
     {
         $date = parent::format($value)->get_value();
-
+   
         if ( ! $date instanceof DateTime) {
             throw new InvalidArgumentException('Invalid date object');
         }
