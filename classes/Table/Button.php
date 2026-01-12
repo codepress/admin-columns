@@ -143,14 +143,4 @@ class Button
         );
     }
 
-    /**
-     * @deprecated 7.0
-     */
-    public function set_text(string $text): self
-    {
-        _deprecated_function(__METHOD__, '7.0', 'AC\Table\Button::set_label()');
-
-        return $this->set_label($text);
-    }
-
 }
