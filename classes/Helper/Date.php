@@ -99,7 +99,7 @@ class Date
 
     public function format_date(string $format, ?int $timestamp = null, ?DateTimeZone $timezone = null)
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'wp_date()');
+        _deprecated_function(__METHOD__, '7.0', 'wp_date()');
 
         return wp_date($format, $timestamp, $timezone);
     }

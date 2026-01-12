@@ -103,7 +103,7 @@ class Arrays
 
     public function is_associative($array): bool
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
 
         if ( ! is_array($array)) {
             return false;
@@ -120,7 +120,7 @@ class Arrays
 
     public function get_duplicates(array $array): array
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
 
         return [];
     }
@@ -130,7 +130,7 @@ class Arrays
      */
     public function get_integers_from_mixed($mixed): array
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
 
         return [];
     }
@@ -144,7 +144,7 @@ class Arrays
 
     public function key_replace($input, $old_key, $new_key): array
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '7.0');
 
         return [];
     }
