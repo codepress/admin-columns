@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-10-13 22:56:15+0000\n"
+"PO-Revision-Date: 2026-01-02 21:02:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,14 @@ msgstr ""
 "X-Generator: GlotPress/4.0.3\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
+
+#: templates/admin/side-banner.php:118
+msgid "Get up to %s Off!"
+msgstr ""
+
+#: classes/Promo/BlackFriday.php:32
+msgid "Save up to %s from Black Friday to Cyber Monday"
+msgstr ""
 
 #: templates/admin/edit-menu.php:35
 msgid "View %s"
@@ -511,7 +519,7 @@ msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:144
 msgid "Pre-applied Filters"
-msgstr ""
+msgstr "Vorgefertigte Filter"
 
 #: templates/admin/list-screen-settings-mockup.php:108
 #: templates/admin/page/settings-section-pro-cta.php:92
@@ -536,7 +544,7 @@ msgstr "Suchen"
 
 #: templates/admin/list-screen-settings-mockup.php:78
 msgid "Status (Quick Links)"
-msgstr ""
+msgstr "Status (Quick Links)"
 
 #: templates/admin/list-screen-settings-mockup.php:74
 msgid "Filters"
@@ -623,7 +631,7 @@ msgstr ""
 
 #: classes/Admin/Asset/Addons.php:22
 msgid "The Add-on %s is activated."
-msgstr ""
+msgstr "Das Add-on %s ist aktiviert."
 
 #: classes/Column/Media/Album.php:13
 msgid "Album"
@@ -982,11 +990,7 @@ msgstr "Begriff bearbeiten"
 msgid "Filter by Term"
 msgstr "Nach Begriff filtern"
 
-#: classes/Promo/BlackFriday.php:22
-msgid "%s Off from Black Friday to Cyber Monday"
-msgstr ""
-
-#: classes/Check/Promotion.php:76
+#: classes/Promo/BlackFriday.php:39
 msgid "Get %s now"
 msgstr "Jetzt %s holen"
 
@@ -1337,7 +1341,7 @@ msgstr ""
 msgid "User Nicename"
 msgstr "Ausgeschriebener Name"
 
-#: templates/admin/side-banner.php:166
+#: templates/admin/side-banner.php:168
 msgid "Send me the discount"
 msgstr "Sende mir einen Rabatt"
 
@@ -1595,7 +1599,7 @@ msgstr "Standard"
 msgid "Full Path"
 msgstr "Gesamter Pfad"
 
-#: templates/admin/side-banner.php:123
+#: templates/admin/side-banner.php:125
 msgid "Discount is valid until %s"
 msgstr ""
 
@@ -1665,19 +1669,19 @@ msgstr ""
 msgid "I'm using Admin Columns for WordPress!"
 msgstr ""
 
-#: templates/admin/side-banner.php:162
+#: templates/admin/side-banner.php:164
 msgid "Your First Name"
 msgstr "Dein Vorname"
 
-#: templates/admin/side-banner.php:158
+#: templates/admin/side-banner.php:160
 msgid "Your Email"
 msgstr ""
 
-#: templates/admin/side-banner.php:143
+#: templates/admin/side-banner.php:145
 msgid "Submit your email and we'll send you a discount for %s off."
 msgstr ""
 
-#: templates/admin/side-banner.php:117 templates/admin/side-banner.php:136
+#: templates/admin/side-banner.php:138
 msgid "Get %s Off!"
 msgstr ""
 
@@ -2102,7 +2106,7 @@ msgstr ""
 
 #: classes/Settings/Column/User.php:91 classes/Settings/Column/UserLink.php:88
 msgid "User Email"
-msgstr "user_email geändert."
+msgstr "Benutzer-E-Mail-Adresse"
 
 #: classes/Settings/Column/User.php:90
 msgid "User Login"

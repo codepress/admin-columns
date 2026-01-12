@@ -11,6 +11,14 @@ msgstr ""
 "Language: bg\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
+#: templates/admin/side-banner.php:118
+msgid "Get up to %s Off!"
+msgstr ""
+
+#: classes/Promo/BlackFriday.php:32
+msgid "Save up to %s from Black Friday to Cyber Monday"
+msgstr ""
+
 #: templates/admin/edit-menu.php:35
 msgid "View %s"
 msgstr ""
@@ -982,11 +990,7 @@ msgstr ""
 msgid "Filter by Term"
 msgstr ""
 
-#: classes/Promo/BlackFriday.php:22
-msgid "%s Off from Black Friday to Cyber Monday"
-msgstr ""
-
-#: classes/Check/Promotion.php:76
+#: classes/Promo/BlackFriday.php:39
 msgid "Get %s now"
 msgstr ""
 
@@ -1337,7 +1341,7 @@ msgstr "Откъса липсва."
 msgid "User Nicename"
 msgstr "Потребителски пряков"
 
-#: templates/admin/side-banner.php:166
+#: templates/admin/side-banner.php:168
 msgid "Send me the discount"
 msgstr "Изпратете ми отстъпка"
 
@@ -1595,7 +1599,7 @@ msgstr "Стандартно"
 msgid "Full Path"
 msgstr "Пълен път"
 
-#: templates/admin/side-banner.php:123
+#: templates/admin/side-banner.php:125
 msgid "Discount is valid until %s"
 msgstr "Отстъпката е валидна до %s"
 
@@ -1665,19 +1669,19 @@ msgstr "Изчистване на всички колони"
 msgid "I'm using Admin Columns for WordPress!"
 msgstr "Аз използвам Admin Columns за WordPress!"
 
-#: templates/admin/side-banner.php:162
+#: templates/admin/side-banner.php:164
 msgid "Your First Name"
 msgstr "Вашето първо име"
 
-#: templates/admin/side-banner.php:158
+#: templates/admin/side-banner.php:160
 msgid "Your Email"
 msgstr "Вашият Email"
 
-#: templates/admin/side-banner.php:143
+#: templates/admin/side-banner.php:145
 msgid "Submit your email and we'll send you a discount for %s off."
 msgstr "Подайте Вашият email и ние ще Ви изпратим отстъпка от %s."
 
-#: templates/admin/side-banner.php:117 templates/admin/side-banner.php:136
+#: templates/admin/side-banner.php:138
 msgid "Get %s Off!"
 msgstr "Вземете %s отстъпка!"
 
