@@ -210,6 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 7.0.0 =
+Release Date: January 12th, 2025
 
 * [Important] Version numbering jumped ahead to 7.0 to align with the Pro version.
 * [Breaking] Custom columns created for versions below 7.0 are no longer compatible and must be rewritten. (See upgrade path.)
