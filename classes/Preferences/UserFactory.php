@@ -7,6 +7,9 @@ use AC\Storage\UserMeta;
 class UserFactory
 {
 
+    public const TOUR = 'onboarding_tour';
+    public const SCREEN_OPTIONS = 'admin_screen_options';
+
     public function create(string $key, ?int $user_id = null): Preference
     {
         return new Preference(

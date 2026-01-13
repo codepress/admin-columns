@@ -65,6 +65,7 @@
 				type="primary"
 				loading={isSaving}
 				softDisabled={isSaving}
+				customClass="ac-button--save-settings"
 				disabled={!$listScreenDataHasChanges && $listScreenIsStored}
 				on:click={() => form.saveSettings()}
 				label={i18n.editor.label.save}

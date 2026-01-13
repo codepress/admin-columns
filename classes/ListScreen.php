@@ -262,7 +262,17 @@ final class ListScreen
     /**
      * @deprecated 7.0
      */
-    public function get_layout_id(): ?string
+    public function get_singular_label(): string
+    {
+        _deprecated_function(__METHOD__, '7.0', 'AC\ListScreen::get_table()->get_labels->get_singular()');
+
+        return $this->table_screen->get_labels()->get_singular();
+    }
+
+    /**
+     * @deprecated 7.0
+     */
+    public function get_layout_id(): string
     {
         _deprecated_function(__METHOD__, '7.0', 'AC\ListScreen::get_id()');
 

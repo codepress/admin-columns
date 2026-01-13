@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 7.0.0
+Version: 7.0.1
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -13,7 +13,7 @@ Domain Path: /languages
 License: GPL v3
 
 Admin Columns Plugin
-Copyright (C) 2011-2023, Admin Columns - info@admincolumns.com
+Copyright (C) 2011-2026, Admin Columns - info@admincolumns.com
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,7 +40,7 @@ if ( ! is_admin()) {
 }
 
 define('AC_FILE', __FILE__);
-define('AC_VERSION', '7.0.0');
+define('AC_VERSION', '7.0.1');
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 

@@ -10,7 +10,7 @@ class ScreenOptions
 
     public function storage(): Preference
     {
-        return (new UserFactory())->create('admin_screen_options');
+        return (new UserFactory())->create(UserFactory::SCREEN_OPTIONS);
     }
 
     public function is_active(string $option): bool
