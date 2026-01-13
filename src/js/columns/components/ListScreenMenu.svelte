@@ -105,7 +105,7 @@
 			</select>
 		{/if}
 	</div>
-	<div class="ac-table-screen-nav__list acu-hidden 2xl:acu-block acu-flex-grow">
+	<div class="ac-table-screen-nav__list acu-hidden 2xl:acu-block acu-flex-grow" id="admin-columns-nav-list">
 
 		{#if Object.keys( favoriteItems ).length > 0}
 			<div class="acu-mb-[30px] acu-p-0">

@@ -247,7 +247,7 @@
 							position="bottom-right"
 							customClass="-selectv2">
 
-							<AcButton slot="trigger">+ {i18n.editor.label.add_column}</AcButton>
+							<AcButton slot="trigger" >+ {i18n.editor.label.add_column}</AcButton>
 							<ColumnTypeDropdownV2
 								on:selectItem={handleSelectColumnType}
 								on:close={() => handleCloseColumnTypeDropdown(columnTypeComponent)}
@@ -313,7 +313,7 @@
 
 				<AcDropdown
 					--acui-dropdown-width="300px"
-					customClass="-selectv2"
+					customClass="-selectv2 ac-button--add_column"
 					maxHeight="400px"
 					value
 					position="bottom-left" bind:this={columnTypeComponent}>
