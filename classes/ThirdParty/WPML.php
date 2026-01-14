@@ -2,6 +2,7 @@
 
 namespace AC\ThirdParty;
 
+use AC;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 
@@ -30,7 +31,7 @@ class WPML implements Registerable
         add_filter('ac/column/heading/label', [$this, 'register_translated_label'], 100);
     }
 
-    public function replace_flags()
+    public function replace_flags(): void
     {
         if ( ! class_exists('SitePress', false)) {
             return;
@@ -70,8 +71,17 @@ class WPML implements Registerable
         }
 
         foreach ($this->storage->find_all() as $list_screen) {
+            /**
+             * @var AC\Column $column
+             */
             foreach ($list_screen->get_columns() as $column) {
-                $label = $column->get_setting('label')->get_input()->set_value($column->get_label());
+                $setting = $column->get_setting('label');
+
+                if ( ! $setting) {
+                    continue;
+                }
+
+                $label = $setting->get_input()->get_value();
 
                 do_action(
                     'wpml_register_single_string',
