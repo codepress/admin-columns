@@ -81,8 +81,7 @@ class WPML implements Registerable
                     continue;
                 }
 
-                // TODO Stefan fix
-                // $label = $setting->get_input()->set_value($column->get_label());
+                $label = $setting->get_input()->get_value();
 
                 do_action(
                     'wpml_register_single_string',

@@ -210,7 +210,9 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 7.0.2 =
-Release Date: TBD
+Release Date: January 14th, 2026
+
+* [Fixed] Fatal error in WPML string translations
 
 = 7.0.1 =
 Release Date: January 13th, 2026
