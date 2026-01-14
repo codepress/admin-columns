@@ -15,12 +15,10 @@ class MediaFactory implements TableScreenFactory
 
     public function can_create_from_wp_screen(WP_Screen $screen): bool
     {
-        $mode = $_GET['mode'] ?? get_user_option('media_library_mode');
-
         return 'upload' === $screen->base &&
                'upload' === $screen->id &&
                'attachment' === $screen->post_type &&
-               'list' === $mode;
+               'list' === ($_GET['mode'] ?? get_user_option('media_library_mode'));
     }
 
     public function create_from_wp_screen(WP_Screen $screen): TableScreen
