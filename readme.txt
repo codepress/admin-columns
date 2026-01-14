@@ -212,7 +212,8 @@ You can find a list of the available actions and filters (and examples on how to
 = 7.0.2 =
 Release Date: January 14th, 2026
 
-* [Fixed] Fatal error in WPML string translations
+* [Fixed] Error on the Media table when Grid view is active
+* [Fixed] Error in WPML string translations
 
 = 7.0.1 =
 Release Date: January 13th, 2026
