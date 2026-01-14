@@ -16,7 +16,6 @@ class MediaFactory implements TableScreenFactory
     public function can_create_from_wp_screen(WP_Screen $screen): bool
     {
         $mode = $_GET['mode'] ?? get_user_option('media_library_mode');
-        $mode = $mode === 'list' ? 'list' : 'grid';
 
         return 'upload' === $screen->base &&
                'upload' === $screen->id &&
