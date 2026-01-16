@@ -2,14 +2,14 @@
 
 namespace AC\ColumnFactory\Post;
 
+use AC;
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\IsLink;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter;
 
 class PermalinkFactory extends BaseColumnFactory
 {
@@ -52,13 +52,13 @@ class PermalinkFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
 
-        $formatters->add(new Formatter\Post\Permalink());
+        $formatters->add(new AC\Formatter\Post\Permalink());
 
         if ($config->get('is_link') === 'on') {
-            $formatters->add(new Formatter\Linkable());
+            $formatters->add(new AC\Formatter\Linkable());
         }
 
-        $formatters->add(Formatter\BeforeAfter::create_from_config($config));
+        $formatters->add(\AC\Formatter\BeforeAfter::create_from_config($config));
 
         return $formatters;
     }

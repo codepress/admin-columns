@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Media\AttachmentMetaData;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Media\AttachmentMetaData;
 
 class ArtistFactory extends BaseColumnFactory
 {

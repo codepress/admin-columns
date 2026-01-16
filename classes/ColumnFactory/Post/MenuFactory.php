@@ -3,16 +3,16 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Collection\LocalizeSeparator;
+use AC\Formatter\MenuLink;
+use AC\Formatter\Term\TermProperty;
+use AC\Formatter\UsedByMenu;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\LinkToMenu;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
-use AC\Value\Formatter\Collection\LocalizeSeparator;
-use AC\Value\Formatter\MenuLink;
-use AC\Value\Formatter\Term\TermProperty;
-use AC\Value\Formatter\UsedByMenu;
 
 class MenuFactory extends BaseColumnFactory
 {

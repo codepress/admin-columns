@@ -6,11 +6,11 @@ namespace AC\ColumnFactory\Post;
 
 use AC;
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Post\BeforeMoreContent;
+use AC\FormatterCollection;
 use AC\Setting\ComponentFactory\WordLimit;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Post\BeforeMoreContent;
 
 final class BeforeMoreFactory extends BaseColumnFactory
 {

@@ -3,12 +3,12 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Media\AvailableSizes;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\IncludeMissingSizes;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Media\AvailableSizes;
 
 class AvailableSizesFactory extends BaseColumnFactory
 {

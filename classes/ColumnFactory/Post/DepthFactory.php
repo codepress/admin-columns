@@ -2,10 +2,10 @@
 
 namespace AC\ColumnFactory\Post;
 
+use AC;
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter;
 
 class DepthFactory extends BaseColumnFactory
 {
@@ -24,7 +24,7 @@ class DepthFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
 
-        $formatters->add(new Formatter\Post\Depth());
+        $formatters->add(new AC\Formatter\Post\Depth());
 
         return $formatters;
     }

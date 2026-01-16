@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC;
 use AC\Expression\Specification;
 use AC\Setting\Component;
 use AC\Setting\ComponentBuilder;
@@ -11,7 +12,6 @@ use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Value\Formatter;
 
 final class CommentLink implements ComponentFactory
 {
@@ -36,7 +36,7 @@ final class CommentLink implements ComponentFactory
                 )
             )
             ->set_formatter(
-                new Formatter\Comment\CommentLink($comment_link_to)
+                new AC\Formatter\Comment\CommentLink($comment_link_to)
             );
 
         if ($conditions) {

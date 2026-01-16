@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC\Formatter;
+use AC\FormatterCollection;
 use AC\Setting\Children;
 use AC\Setting\Component;
 use AC\Setting\ComponentCollection;
@@ -12,9 +14,6 @@ use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\Custom;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\Formatter;
-use AC\Setting\FormatterCollection;
-use AC\Value;
 use DateTimeZone;
 
 abstract class DateFormat extends BaseComponentFactory
@@ -98,15 +97,15 @@ abstract class DateFormat extends BaseComponentFactory
     {
         switch ($output_format) {
             case 'diff':
-                return new Value\Formatter\Date\TimeDifference($this->source_format);
+                return new Formatter\Date\TimeDifference($this->source_format);
             case 'wp_default':
-                return new Value\Formatter\Date\WordPressDateFormat(
+                return new Formatter\Date\WordPressDateFormat(
                     (string)get_option('date_format'),
                     $this->source_format,
                     $this->output_timezone
                 );
             default:
-                return new Value\Formatter\Date\DateFormat(
+                return new Formatter\Date\DateFormat(
                     $output_format,
                     $this->source_format,
                     $this->output_timezone

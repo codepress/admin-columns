@@ -18,7 +18,7 @@ class MediaFactory implements TableScreenFactory
         return 'upload' === $screen->base &&
                'upload' === $screen->id &&
                'attachment' === $screen->post_type &&
-               'grid' !== ($_GET['mode'] ?? null); // grid mode is not supported
+               'list' === ($_GET['mode'] ?? get_user_option('media_library_mode'));
     }
 
     public function create_from_wp_screen(WP_Screen $screen): TableScreen

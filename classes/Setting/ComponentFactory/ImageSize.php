@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\StringComparisonSpecification;
+use AC\Formatter\Image;
+use AC\FormatterCollection;
 use AC\Setting\Children;
 use AC\Setting\Component;
 use AC\Setting\ComponentCollection;
@@ -14,8 +16,6 @@ use AC\Setting\Control\Input\Number;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Control\Type\Option;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Image;
 
 final class ImageSize extends BaseComponentFactory
 {

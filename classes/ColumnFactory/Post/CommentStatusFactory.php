@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Post\HasCommentStatus;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Post\HasCommentStatus;
 
 class CommentStatusFactory extends BaseColumnFactory
 {

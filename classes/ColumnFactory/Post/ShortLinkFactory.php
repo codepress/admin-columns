@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Linkable;
+use AC\Formatter\Post\ShortLink;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Linkable;
-use AC\Value\Formatter\Post\ShortLink;
 
 class ShortLinkFactory extends BaseColumnFactory
 {

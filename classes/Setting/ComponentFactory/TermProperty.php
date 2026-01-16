@@ -2,12 +2,12 @@
 
 namespace AC\Setting\ComponentFactory;
 
+use AC;
+use AC\FormatterCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter;
 
 class TermProperty extends BaseComponentFactory
 {
@@ -36,7 +36,7 @@ class TermProperty extends BaseComponentFactory
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        $formatters->add(new Formatter\Term\TermProperty($this->get_term_property($config->get(self::NAME, ''))));
+        $formatters->add(new AC\Formatter\Term\TermProperty($this->get_term_property($config->get(self::NAME, ''))));
     }
 
     private function get_term_property(string $value): string

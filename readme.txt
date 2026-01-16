@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7.1
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 7.0.2
+Stable tag: 7.0.3
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -208,6 +208,13 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 7.0.3 =
+Release Date: January 16th, 2026
+
+* [Fixed] Media Library in grid view would not load properly
+* [Updated] Changed namespace for formatter from `AC\Setting\Formatter` to `AC\Formatter`
+* [Updated] Changed namespace for context from `AC\Setting\Context` to `AC\Column\Context`
 
 = 7.0.2 =
 Release Date: January 14th, 2026

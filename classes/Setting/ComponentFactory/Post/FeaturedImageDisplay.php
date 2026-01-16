@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory\Post;
 
 use AC\Expression\StringComparisonSpecification;
+use AC\Formatter\Media\Dimensions;
+use AC\Formatter\Media\FileSize;
+use AC\Formatter\ReadableFileSize;
+use AC\FormatterCollection;
 use AC\Setting\Children;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BaseComponentFactory;
@@ -13,10 +17,6 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Media\Dimensions;
-use AC\Value\Formatter\Media\FileSize;
-use AC\Value\Formatter\ReadableFileSize;
 
 class FeaturedImageDisplay extends BaseComponentFactory
 {

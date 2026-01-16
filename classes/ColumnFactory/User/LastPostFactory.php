@@ -4,11 +4,11 @@ namespace AC\ColumnFactory\User;
 
 use AC;
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 
 class LastPostFactory extends BaseColumnFactory
 {
@@ -52,7 +52,7 @@ class LastPostFactory extends BaseColumnFactory
         $post_status = $config->has('post_status') ? (array)$config->get('post_status') : null;
 
         return parent::get_formatters($config)
-                     ->prepend(new AC\Value\Formatter\User\LastPost($post_type, $post_status));
+                     ->prepend(new AC\Formatter\User\LastPost($post_type, $post_status));
     }
 
     protected function get_settings(Config $config): ComponentCollection

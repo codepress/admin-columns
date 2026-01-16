@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Media\FileLinkToUrl;
+use AC\Formatter\Media\FileName;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Media\FileLinkToUrl;
-use AC\Value\Formatter\Media\FileName;
 
 class FileNameFactory extends BaseColumnFactory
 {
