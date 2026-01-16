@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 7.0.3 =
-Release Date: January 146h, 2026
+Release Date: January 16th, 2026
 
 * [Fixed] Media Library in grid view would not load properly
 * [Updated] Changed namespace for formatter from `AC\Setting\Formatter` to `AC\Formatter`
