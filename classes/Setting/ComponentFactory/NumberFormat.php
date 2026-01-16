@@ -3,6 +3,7 @@
 namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\StringComparisonSpecification;
+use AC\FormatterCollection;
 use AC\Setting\Children;
 use AC\Setting\Component;
 use AC\Setting\ComponentCollection;
@@ -13,7 +14,6 @@ use AC\Setting\Control\Input\Number;
 use AC\Setting\Control\Input\OpenFactory;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class NumberFormat extends BaseComponentFactory
@@ -84,7 +84,7 @@ class NumberFormat extends BaseComponentFactory
     {
         if ($config->get(self::NAME, '') === 'formatted') {
             $formatters->add(
-                new Formatter\NumberFormat(
+                new \AC\Formatter\NumberFormat(
                     (int)$config->get('number_decimals', 0),
                     $config->get('number_decimal_point', '.'),
                     $config->get('number_thousands_separator', ',')

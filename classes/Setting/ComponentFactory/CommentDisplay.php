@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\StringComparisonSpecification;
+use AC\FormatterCollection;
 use AC\Setting\Children;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 final class CommentDisplay extends BaseComponentFactory
@@ -83,19 +83,19 @@ final class CommentDisplay extends BaseComponentFactory
     {
         switch ($config->get('comment')) {
             case self::PROPERTY_DATE:
-                $formatters->add(new Formatter\Comment\Property('comment_date'));
+                $formatters->add(new \AC\Formatter\Comment\Property('comment_date'));
                 break;
             case self::PROPERTY_AUTHOR:
-                $formatters->add(new Formatter\Comment\Property('comment_author'));
+                $formatters->add(new \AC\Formatter\Comment\Property('comment_author'));
                 break;
             case self::PROPERTY_AUTHOR_EMAIL:
-                $formatters->add(new Formatter\Comment\Property('comment_author_email'));
+                $formatters->add(new \AC\Formatter\Comment\Property('comment_author_email'));
                 break;
             case self::PROPERTY_ID:
                 break;
             default:
-                $formatters->add(new Formatter\Comment\Content());
-                $formatters->add(new Formatter\StringSanitizer());
+                $formatters->add(new \AC\Formatter\Comment\Content());
+                $formatters->add(new \AC\Formatter\StringSanitizer());
         }
     }
 

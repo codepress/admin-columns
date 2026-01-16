@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Comment\Property;
+use AC\Formatter\WordCount;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Comment\Property;
-use AC\Value\Formatter\WordCount;
 
 class WordCountFactory extends BaseColumnFactory
 {

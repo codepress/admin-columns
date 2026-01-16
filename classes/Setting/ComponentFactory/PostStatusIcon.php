@@ -2,11 +2,11 @@
 
 namespace AC\Setting\ComponentFactory;
 
+use AC\FormatterCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollectionFactory\ToggleOptionCollection;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class PostStatusIcon extends BaseComponentFactory
@@ -39,8 +39,8 @@ class PostStatusIcon extends BaseComponentFactory
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $this->use_icon($config)
-            ? $formatters->add(new Formatter\Post\PostStatusIcon())
-            : $formatters->add(new Formatter\Post\DescriptivePostStatus());
+            ? $formatters->add(new \AC\Formatter\Post\PostStatusIcon())
+            : $formatters->add(new \AC\Formatter\Post\DescriptivePostStatus());
     }
 
 }

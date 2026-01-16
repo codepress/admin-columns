@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC\FormatterCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
 use AC\Value\Formatter;
 
@@ -44,7 +44,7 @@ final class UserLink extends BaseComponentFactory
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         if ($config->get('user_link_to') !== '') {
-            $formatters->add(new Formatter\User\UserLink(self::PROPERTY_EDIT_USER, $this->post_type));
+            $formatters->add(new \AC\Formatter\User\UserLink(self::PROPERTY_EDIT_USER, $this->post_type));
         }
     }
 

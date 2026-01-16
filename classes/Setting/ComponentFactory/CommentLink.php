@@ -36,7 +36,7 @@ final class CommentLink implements ComponentFactory
                 )
             )
             ->set_formatter(
-                new Formatter\Comment\CommentLink($comment_link_to)
+                new \AC\Formatter\Comment\CommentLink($comment_link_to)
             );
 
         if ($conditions) {

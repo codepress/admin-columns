@@ -3,11 +3,11 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class PostCountFactory extends BaseColumnFactory
@@ -42,7 +42,7 @@ class PostCountFactory extends BaseColumnFactory
     {
         return parent::get_formatters($config)
                      ->add(
-                         new Formatter\User\PostCount(
+                         new \AC\Formatter\User\PostCount(
                              $this->get_post_types($config) ?: [],
                              $config->get('post_status') ?: []
                          )

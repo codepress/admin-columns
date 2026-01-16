@@ -3,11 +3,11 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UserLink;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class NicknameFactory extends BaseColumnFactory
@@ -34,7 +34,7 @@ class NicknameFactory extends BaseColumnFactory
 
     protected function get_formatters(Config $config): FormatterCollection
     {
-        return parent::get_formatters($config)->prepend(new Formatter\User\Meta('nickname'));
+        return parent::get_formatters($config)->prepend(new \AC\Formatter\User\Meta('nickname'));
     }
 
     protected function get_settings(Config $config): ComponentCollection

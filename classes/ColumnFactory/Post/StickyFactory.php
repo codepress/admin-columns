@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Post\IsSticky;
+use AC\Formatter\YesNoIcon;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Post\IsSticky;
-use AC\Value\Formatter\YesNoIcon;
 
 class StickyFactory extends BaseColumnFactory
 {

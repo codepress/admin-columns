@@ -1,0 +1,79 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AC;
+
+use AC\Setting\CollectionFormatter;
+use InvalidArgumentException;
+
+class FormatterCollection extends Collection
+{
+
+    public function __construct(array $formatters = [])
+    {
+        array_map([$this, 'add'], $formatters);
+    }
+
+    public static function from_formatter(Formatter $formatter): self
+    {
+        return new self([$formatter]);
+    }
+
+    /**
+     * @param Formatter|CollectionFormatter $formatter
+     */
+    public function add($formatter): self
+    {
+        if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
+            throw new InvalidArgumentException();
+        }
+
+        $this->data[] = $formatter;
+
+        return $this;
+    }
+
+    /**
+     * @param Formatter|CollectionFormatter $formatter
+     *
+     * @return self
+     */
+    public function with_formatter($formatter): self
+    {
+        $formatters = $this->data;
+        $formatters[] = $formatter;
+
+        return new self($formatters);
+    }
+
+    public function prepend($formatter): self
+    {
+        if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
+            throw new InvalidArgumentException();
+        }
+
+        array_unshift($this->data, $formatter);
+
+        return $this;
+    }
+
+    public function merge(FormatterCollection $formatters): self
+    {
+        foreach ($formatters as $formatter) {
+            $this->add($formatter);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Formatter|CollectionFormatter
+     */
+    #[\ReturnTypeWillChange]
+    public function current()
+    {
+        return current($this->data);
+    }
+
+}

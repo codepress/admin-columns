@@ -2,12 +2,12 @@
 
 namespace AC\Setting\ComponentFactory\Media;
 
+use AC\FormatterCollection;
 use AC\Setting\ComponentFactory\BaseComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class FileMetaVideo extends BaseComponentFactory
@@ -65,20 +65,20 @@ class FileMetaVideo extends BaseComponentFactory
         switch ($config->get('media_meta_key', '')) {
             case 'height':
             case 'width':
-                $formatters->add(new Formatter\Suffix('px'));
+                $formatters->add(new \AC\Formatter\Suffix('px'));
                 break;
             case 'length':
-                $formatters->add(new Formatter\Suffix('sec'));
+                $formatters->add(new \AC\Formatter\Suffix('sec'));
                 break;
             case 'audio.channels':
-                $formatters->add(new Formatter\Suffix('channels'));
+                $formatters->add(new \AC\Formatter\Suffix('channels'));
                 break;
             case 'audio.sample_rate':
-                $formatters->add(new Formatter\Suffix('Hz'));
+                $formatters->add(new \AC\Formatter\Suffix('Hz'));
                 break;
             case 'created_timestamp':
                 $formatters->add(
-                    new Formatter\Date\WordPressDateFormat(
+                    new \AC\Formatter\Date\WordPressDateFormat(
                         get_option('date_format') . ' ' . get_option('time_format'),
                         'U'
                     )

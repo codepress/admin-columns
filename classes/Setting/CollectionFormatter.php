@@ -8,6 +8,7 @@ use AC\Exception\ValueNotFoundException;
 use AC\Type\Value;
 use AC\Type\ValueCollection;
 
+// TODO move to root
 interface CollectionFormatter
 {
 

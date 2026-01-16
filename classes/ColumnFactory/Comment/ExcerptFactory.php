@@ -4,11 +4,11 @@ namespace AC\ColumnFactory\Comment;
 
 use AC;
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 
 class ExcerptFactory extends BaseColumnFactory
 {
@@ -44,7 +44,7 @@ class ExcerptFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);
-        $formatters->prepend(new AC\Value\Formatter\Comment\Property('comment_content'));
+        $formatters->prepend(new AC\Formatter\Comment\Property('comment_content'));
 
         return $formatters;
     }

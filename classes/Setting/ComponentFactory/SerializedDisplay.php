@@ -6,12 +6,12 @@ namespace AC\Setting\ComponentFactory;
 
 use AC;
 use AC\Expression\StringComparisonSpecification;
+use AC\FormatterCollection;
 use AC\Setting\Children;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\FormatterCollection;
 
 class SerializedDisplay extends BaseComponentFactory
 {
@@ -49,17 +49,19 @@ class SerializedDisplay extends BaseComponentFactory
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        $formatters->add(new AC\Value\Formatter\ToArray());
+        $formatters->add(new AC\Formatter\ToArray());
         switch ($config->get('serialized_display')) {
             case 'formatted':
                 $keys = array_filter(array_map('trim', explode('.', $config->get('array_keys', ''))));
-                $formatters->add( new AC\Value\Formatter\FallBackFormatter(
-                    new AC\Value\Formatter\FormattedJson($keys),
+                $formatters->add(
+                    new AC\Formatter\FallBackFormatter(
+                        new AC\Formatter\FormattedJson($keys),
 
-                ));
+                    )
+                );
                 break;
             default:
-                $formatters->add(new AC\Value\Formatter\ImplodeRecursive());
+                $formatters->add(new AC\Formatter\ImplodeRecursive());
                 break;
         }
 

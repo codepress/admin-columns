@@ -6,10 +6,10 @@ namespace AC\ColumnFactory\Post;
 
 use AC;
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentFactory\CommentStatus;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class CommentCountFactory extends BaseColumnFactory
@@ -38,8 +38,8 @@ class CommentCountFactory extends BaseColumnFactory
         $status = (string)$config->get('comment_status', 'all');
 
         return parent::get_formatters($config)
-                     ->add(new Formatter\Post\CommentCount($status))
-                     ->add(new Formatter\Post\CommentsForPostLink($status));
+                     ->add(new AC\Formatter\Post\CommentCount($status))
+                     ->add(new AC\Formatter\Post\CommentsForPostLink($status));
     }
 
     public function get_column_type(): string

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Column\Context;
 use AC\Setting\Component;
 use AC\Setting\ComponentCollection;
-use AC\Setting\Context;
-use AC\Setting\FormatterCollection;
 use AC\Type\ColumnId;
 
 interface Column

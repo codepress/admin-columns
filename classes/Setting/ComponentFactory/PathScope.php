@@ -37,7 +37,7 @@ final class PathScope implements ComponentFactory
                     $value
                 )
             )
-            ->set_formatter(new Formatter\PathScope($value));
+            ->set_formatter(new \AC\Formatter\PathScope($value));
 
         if ($conditions) {
             $builder->set_conditions($conditions);

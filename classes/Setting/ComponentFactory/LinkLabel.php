@@ -26,7 +26,7 @@ final class LinkLabel implements ComponentFactory
             ->set_description(__('Leave blank to display the URL', 'codepress-admin-columns'))
             ->set_input(OpenFactory::create_text(self::NAME, $value))
             ->set_formatter(
-                new Formatter\Linkable($value)
+                new \AC\Formatter\Linkable($value)
             );
 
         if ($conditions) {

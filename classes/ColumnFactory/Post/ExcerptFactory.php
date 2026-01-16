@@ -3,11 +3,11 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class ExcerptFactory extends BaseColumnFactory
@@ -49,8 +49,8 @@ class ExcerptFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->prepend(new Formatter\Post\ContentExcerpt())
-                     ->add(new Formatter\Post\ExcerptMissingMessage());
+                     ->prepend(new \AC\Formatter\Post\ContentExcerpt())
+                     ->add(new \AC\Formatter\Post\ExcerptMissingMessage());
     }
 
 }

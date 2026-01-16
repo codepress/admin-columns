@@ -6,6 +6,7 @@ namespace AC\Setting\ComponentFactory;
 
 use AC;
 use AC\Expression\StringComparisonSpecification;
+use AC\FormatterCollection;
 use AC\Setting\AttributeCollection;
 use AC\Setting\AttributeFactory;
 use AC\Setting\Children;
@@ -15,7 +16,6 @@ use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Control\OptionCollectionFactory\ToggleOptionCollection;
 use AC\Setting\Control\Type\Option;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class FieldType extends BaseComponentFactory
@@ -203,44 +203,44 @@ class FieldType extends BaseComponentFactory
     {
         switch ($config->get('field_type', self::TYPE_DEFAULT)) {
             case self::TYPE_BOOLEAN:
-                $formatters->add(new AC\Value\Formatter\YesNoIcon());
+                $formatters->add(new AC\Formatter\YesNoIcon());
                 break;
             case self::TYPE_SELECT:
                 if ($config->get('is_multiple', 'off') === 'on') {
-                    $formatters->add(new AC\Value\Formatter\ArrayToCollection());
+                    $formatters->add(new AC\Formatter\ArrayToCollection());
                 }
 
-                $formatters->add(new AC\Value\Formatter\SelectOptionMapper($config));
+                $formatters->add(new AC\Formatter\SelectOptionMapper($config));
                 break;
             case self::TYPE_DATE:
                 $source_format = $config->get('date_save_format', '');
                 $date_formatter = $source_format
-                    ? new AC\Value\Formatter\Date\DateFormat('U', $source_format)
-                    : new Formatter\Date\Timestamp();
+                    ? new AC\Formatter\Date\DateFormat('U', $source_format)
+                    : new AC\Formatter\Date\Timestamp();
 
                 $formatters->add($date_formatter);
                 break;
             case self::TYPE_COLOR:
-                $formatters->add(new AC\Value\Formatter\Color());
+                $formatters->add(new AC\Formatter\Color());
                 break;
 
             case self::TYPE_NON_EMPTY:
-                $formatters->add(new AC\Value\Formatter\HasValue());
-                $formatters->add(new AC\Value\Formatter\YesNoIcon());
+                $formatters->add(new AC\Formatter\HasValue());
+                $formatters->add(new AC\Formatter\YesNoIcon());
                 break;
             case self::TYPE_IMAGE:
-                $formatters->add(new AC\Value\Formatter\ArrayToCollection());
+                $formatters->add(new AC\Formatter\ArrayToCollection());
                 break;
             case self::TYPE_MEDIA:
             case self::TYPE_USER:
             case self::TYPE_POST:
-                $formatters->add(new AC\Value\Formatter\ArrayToCollection());
-                $formatters->add(new AC\Value\Formatter\ForeignId());
+                $formatters->add(new AC\Formatter\ArrayToCollection());
+                $formatters->add(new AC\Formatter\ForeignId());
                 break;
             case self::TYPE_HTML:
                 if ($config->get($this->modal_display::TOGGLE) === ToggleOptionCollection::ON) {
                     $formatters->add(
-                        new Formatter\ExtendedValueLink(
+                        new AC\Formatter\ExtendedValueLink(
                             new AC\Value\ExtendedValueLinkFactory(),
                             $config->get($this->modal_display::LABEL)
                         )

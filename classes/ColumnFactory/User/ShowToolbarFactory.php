@@ -3,8 +3,8 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class ShowToolbarFactory extends BaseColumnFactory
@@ -23,8 +23,8 @@ class ShowToolbarFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->add(new Formatter\User\ShowToolbar())
-                     ->add(new Formatter\YesNoIcon());
+                     ->add(new \AC\Formatter\User\ShowToolbar())
+                     ->add(new \AC\Formatter\YesNoIcon());
     }
 
 }

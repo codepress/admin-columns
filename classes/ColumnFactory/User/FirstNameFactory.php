@@ -3,8 +3,8 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class FirstNameFactory extends BaseColumnFactory
@@ -23,7 +23,7 @@ class FirstNameFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->add(new Formatter\User\Property('first_name'));
+                     ->add(new \AC\Formatter\User\Property('first_name'));
     }
 
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\StringComparisonSpecification;
+use AC\FormatterCollection;
 use AC\Setting\Children;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
@@ -12,7 +13,6 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class PostProperty extends BaseComponentFactory
@@ -96,20 +96,20 @@ class PostProperty extends BaseComponentFactory
     {
         switch ($this->get_input($config)->get_value()) {
             case self::PROPERTY_TITLE:
-                $formatters->add(new Formatter\Post\PostTitle());
+                $formatters->add(new \AC\Formatter\Post\PostTitle());
                 break;
             case self::PROPERTY_FEATURED_IMAGE:
-                $formatters->add(new Formatter\Post\FeaturedImage());
+                $formatters->add(new \AC\Formatter\Post\FeaturedImage());
                 break;
             case self::PROPERTY_AUTHOR:
-                $formatters->add(new Formatter\Post\Author());
+                $formatters->add(new \AC\Formatter\Post\Author());
                 break;
             case self::PROPERTY_STATUS:
-                $formatters->add(new Formatter\Post\PostStatus());
+                $formatters->add(new \AC\Formatter\Post\PostStatus());
                 break;
             case self::PROPERTY_DATE:
-                $formatters->add(new Formatter\Post\GmtDate());
-                $formatters->add(new Formatter\Date\WordPressDateFormat('U', 'Y-m-d H:i:s'));
+                $formatters->add(new \AC\Formatter\Post\GmtDate());
+                $formatters->add(new \AC\Formatter\Date\WordPressDateFormat('U', 'Y-m-d H:i:s'));
                 break;
         }
     }

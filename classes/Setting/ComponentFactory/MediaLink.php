@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC\FormatterCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 final class MediaLink extends BaseComponentFactory
@@ -37,7 +37,7 @@ final class MediaLink extends BaseComponentFactory
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $formatters->add(
-            new Formatter\Media\Link((string)$config->get(self::NAME))
+            new \AC\Formatter\Media\Link((string)$config->get(self::NAME))
         );
     }
 

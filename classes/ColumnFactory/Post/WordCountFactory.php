@@ -3,8 +3,8 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class WordCountFactory extends BaseColumnFactory
@@ -24,8 +24,8 @@ class WordCountFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
 
-        $formatters->add(new Formatter\Post\PostContent());
-        $formatters->add(new Formatter\WordCount());
+        $formatters->add(new \AC\Formatter\Post\PostContent());
+        $formatters->add(new \AC\Formatter\WordCount());
 
         return $formatters;
     }

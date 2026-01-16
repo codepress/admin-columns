@@ -3,12 +3,12 @@
 namespace AC\ColumnFactory;
 
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactory\FieldType;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 use AC\Type\TableScreenContext;
 use AC\Value\Formatter;
 
@@ -75,17 +75,17 @@ class CustomFieldFactory extends BaseColumnFactory
 
         if ($config->get('field_type') === FieldType::TYPE_COUNT) {
             return $formatters->prepend(
-                Formatter\Aggregate::from_array([
-                    new Formatter\MetaCollection(
+                \AC\Formatter\Aggregate::from_array([
+                    new \AC\Formatter\MetaCollection(
                         $this->table_screen_context->get_meta_type(), $config->get('field', '')
                     ),
-                    new Formatter\Count(),
+                    new \AC\Formatter\Count(),
                 ])
             );
         }
 
         return $formatters->prepend(
-            new Formatter\Meta($this->table_screen_context->get_meta_type(), $config->get('field', ''))
+            new \AC\Formatter\Meta($this->table_screen_context->get_meta_type(), $config->get('field', ''))
         );
     }
 

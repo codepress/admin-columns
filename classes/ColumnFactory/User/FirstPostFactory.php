@@ -3,11 +3,11 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class FirstPostFactory extends BaseColumnFactory
@@ -52,7 +52,7 @@ class FirstPostFactory extends BaseColumnFactory
         $post_status = $config->has('post_status') ? (array)$config->get('post_status', []) : null;
 
         return parent::get_formatters($config)
-                     ->prepend(new Formatter\User\FirstPost($post_type, $post_status));
+                     ->prepend(new \AC\Formatter\User\FirstPost($post_type, $post_status));
     }
 
     protected function get_settings(Config $config): ComponentCollection

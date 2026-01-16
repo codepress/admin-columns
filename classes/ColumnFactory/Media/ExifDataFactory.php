@@ -3,11 +3,11 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ExifData;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class ExifDataFactory extends BaseColumnFactory
@@ -49,8 +49,8 @@ class ExifDataFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = new FormatterCollection([
-            new Formatter\Media\AttachmentMetaData('image_meta'),
-            new Formatter\Media\ExifData((string)$config->get('exif_data')),
+            new \AC\Formatter\Media\AttachmentMetaData('image_meta'),
+            new \AC\Formatter\Media\ExifData((string)$config->get('exif_data')),
         ]);
 
         return $formatters->merge(parent::get_formatters($config));

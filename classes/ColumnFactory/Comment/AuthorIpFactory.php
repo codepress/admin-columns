@@ -3,8 +3,8 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class AuthorIpFactory extends BaseColumnFactory
@@ -23,7 +23,7 @@ class AuthorIpFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);
-        $formatters->prepend(new Formatter\Comment\Property('comment_author_IP'));
+        $formatters->prepend(new \AC\Formatter\Comment\Property('comment_author_IP'));
 
         return $formatters;
     }

@@ -3,11 +3,11 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 use AC\Value\Formatter;
 
 class DescriptionFactory extends BaseColumnFactory
@@ -41,7 +41,7 @@ class DescriptionFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->prepend(new Formatter\User\Meta('description'));
+                     ->prepend(new \AC\Formatter\User\Meta('description'));
     }
 
     protected function get_settings(Config $config): ComponentCollection
