@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Comment\StatusLabel;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Comment\StatusLabel;
 
 class StatusFactory extends BaseColumnFactory
 {

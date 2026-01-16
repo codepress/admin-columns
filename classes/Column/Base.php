@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace AC\Column;
 
 use AC\Column;
+use AC\FormatterCollection;
 use AC\Setting\Component;
 use AC\Setting\ComponentCollection;
-use AC\Setting\Context;
-use AC\Setting\FormatterCollection;
 use AC\Type\ColumnId;
 
 class Base implements Column

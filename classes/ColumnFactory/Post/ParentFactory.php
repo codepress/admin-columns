@@ -3,13 +3,13 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Post\PostParentId;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PostExtendedProperty;
 use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Post\PostParentId;
 
 class ParentFactory extends BaseColumnFactory
 {

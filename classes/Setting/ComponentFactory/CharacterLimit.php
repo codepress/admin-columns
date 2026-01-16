@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory;
 
 use AC;
+use AC\FormatterCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\Number;
-use AC\Setting\FormatterCollection;
 
 final class CharacterLimit extends BaseComponentFactory
 {
@@ -42,7 +42,7 @@ final class CharacterLimit extends BaseComponentFactory
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        $formatters->add(new AC\Value\Formatter\CharacterLimit((int)$config->get('excerpt_length')));
+        $formatters->add(new AC\Formatter\CharacterLimit((int)$config->get('excerpt_length')));
     }
 
 }

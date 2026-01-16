@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Post\Meta;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Post\Meta;
 
 class AlternateTextFactory extends BaseColumnFactory
 {

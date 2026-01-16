@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC\Formatter\Actions;
+use AC\FormatterCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Actions;
 
 final class ActionIcons extends BaseComponentFactory
 {

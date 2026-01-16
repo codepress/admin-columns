@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\Specification;
+use AC\Formatter\DottedPassword;
 use AC\Setting\Component;
 use AC\Setting\ComponentBuilder;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Value\Formatter\DottedPassword;
 
 final class Password implements ComponentFactory
 {

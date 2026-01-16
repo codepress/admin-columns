@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory\Media;
 
+use AC;
+use AC\FormatterCollection;
 use AC\Setting\ComponentFactory\BaseComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter;
 
 final class FileMetaAudio extends BaseComponentFactory
 {
@@ -61,32 +61,32 @@ final class FileMetaAudio extends BaseComponentFactory
     {
         switch ($config->get('media_meta_key', '')) {
             case 'bitrate':
-                $formatters->add(new Formatter\Media\Audio\Bitrate());
+                $formatters->add(new AC\Formatter\Media\Audio\Bitrate());
                 break;
             case 'channels':
-                $formatters->add(new Formatter\Media\Audio\Channels());
+                $formatters->add(new AC\Formatter\Media\Audio\Channels());
                 break;
 
             case 'compression_ratio':
-                $formatters->add(new Formatter\Media\NumberFormat(4));
+                $formatters->add(new AC\Formatter\Media\NumberFormat(4));
                 break;
             case 'created_timestamp':
                 $formatters->add(
-                    new Formatter\Date\WordPressDateFormat(
+                    new AC\Formatter\Date\WordPressDateFormat(
                         get_option('date_format') . ' ' . get_option('time_format'),
                         'U'
                     )
                 );
                 break;
             case 'filesize':
-                $formatters->add(new Formatter\Media\ReadableFileSize());
+                $formatters->add(new AC\Formatter\Media\ReadableFileSize());
                 break;
 
             case 'length':
-                $formatters->add(new Formatter\Media\NumberFormat(0, '', ' sec'));
+                $formatters->add(new AC\Formatter\Media\NumberFormat(0, '', ' sec'));
                 break;
             case'sample_rate':
-                $formatters->add(new Formatter\Media\NumberFormat(0, '', ' Hz'));
+                $formatters->add(new AC\Formatter\Media\NumberFormat(0, '', ' Hz'));
                 break;
         }
     }

@@ -3,12 +3,12 @@
 namespace AC\ColumnFactory\User;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Id;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Id;
 
 class UserIdFactory extends BaseColumnFactory
 {

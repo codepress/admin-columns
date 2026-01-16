@@ -4,8 +4,8 @@ namespace AC\ColumnFactory\User;
 
 use AC;
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
 
 class CommentCountFactory extends BaseColumnFactory
 {
@@ -24,7 +24,7 @@ class CommentCountFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
 
-        $formatters->add(new AC\Value\Formatter\User\CommentCount());
+        $formatters->add(new AC\Formatter\User\CommentCount());
 
         return $formatters;
     }

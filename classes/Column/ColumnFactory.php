@@ -3,10 +3,9 @@
 namespace AC\Column;
 
 use AC\Column;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Context;
-use AC\Setting\FormatterCollection;
 
 abstract class ColumnFactory
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
-use AC\Setting\Formatter;
+use AC\Formatter;
 use AC\Type\ColumnId;
 
 interface RenderFactory

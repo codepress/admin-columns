@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
+use AC;
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\UserLinkFactory;
 use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
-use AC\Value\Formatter;
 
 class AuthorFactory extends BaseColumnFactory
 {
@@ -52,7 +52,7 @@ class AuthorFactory extends BaseColumnFactory
 
     protected function get_formatters(Config $config): FormatterCollection
     {
-        return parent::get_formatters($config)->prepend(new Formatter\Post\Author());
+        return parent::get_formatters($config)->prepend(new AC\Formatter\Post\Author());
     }
 
     public function get_column_type(): string

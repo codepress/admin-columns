@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Post;
 
+use AC;
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\Post\FeaturedImageDisplay;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter;
 
 class FeaturedImageFactory extends BaseColumnFactory
 {
@@ -45,7 +45,7 @@ class FeaturedImageFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
 
-        $formatters->prepend(new Formatter\Post\FeaturedImage());
+        $formatters->prepend(new AC\Formatter\Post\FeaturedImage());
 
         return $formatters;
     }
