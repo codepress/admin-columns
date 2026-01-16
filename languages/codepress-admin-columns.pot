@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-01-13 14:47+0000\n"
+"POT-Creation-Date: 2026-01-16 12:40+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/ColumnGroups.php:18, classes/Response/JsonListScreenSettingsFactory.php:69, classes/RequestHandler/Ajax/CustomFieldKeys.php:73, classes/Setting/ComponentFactory/FieldType.php:145, classes/Setting/ComponentFactory/ImageSize.php:86, classes/Setting/ComponentFactory/Separator.php:32, classes/Setting/ComponentFactory/UserProperty.php:133, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:17
+#: classes/ColumnGroups.php:18, classes/Response/JsonListScreenSettingsFactory.php:69, classes/RequestHandler/Ajax/CustomFieldKeys.php:73, classes/Setting/ComponentFactory/FieldType.php:144, classes/Setting/ComponentFactory/ImageSize.php:86, classes/Setting/ComponentFactory/Separator.php:32, classes/Setting/ComponentFactory/UserProperty.php:133, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:17
 msgid "Default"
 msgstr ""
 
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Custom Fields"
 msgstr ""
 
-#: classes/ColumnGroups.php:21, classes/Setting/ComponentFactory/FieldType.php:181
+#: classes/ColumnGroups.php:21, classes/Setting/ComponentFactory/FieldType.php:180
 msgid "Media"
 msgstr ""
 
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Meta"
 msgstr ""
 
-#: classes/ColumnGroups.php:24, classes/ColumnFactory/Media/ImageFactory.php:39, classes/Setting/ComponentFactory/FieldType.php:171
+#: classes/ColumnGroups.php:24, classes/ColumnFactory/Media/ImageFactory.php:39, classes/Setting/ComponentFactory/FieldType.php:170
 msgid "Image"
 msgstr ""
 
@@ -52,7 +52,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: classes/ColumnGroups.php:29, classes/Setting/ComponentFactory/FieldType.php:140, classes/Setting/ComponentFactory/ImageSize.php:115
+#: classes/ColumnGroups.php:29, classes/Setting/ComponentFactory/FieldType.php:139, classes/Setting/ComponentFactory/ImageSize.php:115
 msgid "Custom"
 msgstr ""
 
@@ -140,23 +140,23 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: classes/ColumnFactory/CustomFieldFactory.php:53
+#: classes/ColumnFactory/CustomFieldFactory.php:54
 msgid "Enable Editing"
 msgstr ""
 
-#: classes/ColumnFactory/CustomFieldFactory.php:54
+#: classes/ColumnFactory/CustomFieldFactory.php:55
 msgid "Enable Bulk Editing"
 msgstr ""
 
-#: classes/ColumnFactory/CustomFieldFactory.php:55
+#: classes/ColumnFactory/CustomFieldFactory.php:56
 msgid "Enable Smart Filtering"
 msgstr ""
 
-#: classes/ColumnFactory/CustomFieldFactory.php:58
+#: classes/ColumnFactory/CustomFieldFactory.php:59
 msgid "Enable Filtering"
 msgstr ""
 
-#: classes/ColumnFactory/CustomFieldFactory.php:69, templates/tooltip/custom-field.php:8, classes/Setting/ComponentFactory/PostExtendedProperty.php:47
+#: classes/ColumnFactory/CustomFieldFactory.php:70, templates/tooltip/custom-field.php:8, classes/Setting/ComponentFactory/PostExtendedProperty.php:46
 msgid "Custom Field"
 msgstr ""
 
@@ -187,6 +187,18 @@ msgstr ""
 #: classes/Deprecated/Hook.php:102
 msgid "Anonymous Function"
 msgstr ""
+
+#: classes/Formatter/HumanReadableTime.php:44
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/Formatter/HumanReadableTime.php:42
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] ""
+msgstr[1] ""
 
 #: classes/Helper/Html.php:273
 msgid "%s more"
@@ -330,7 +342,7 @@ msgstr ""
 msgid "See the Plugins page for details."
 msgstr ""
 
-#: classes/Table/PrimaryColumn.php:65, classes/Table/PrimaryColumn.php:69, classes/Table/Screen.php:149, classes/ColumnFactory/Media/DownloadFactory.php:20, classes/Setting/ComponentFactory/MediaLink.php:31, classes/Value/Formatter/Media/Download.php:26
+#: classes/Table/PrimaryColumn.php:65, classes/Table/PrimaryColumn.php:69, classes/Table/Screen.php:149, classes/ColumnFactory/Media/DownloadFactory.php:20, classes/Formatter/Media/Download.php:26, classes/Setting/ComponentFactory/MediaLink.php:31
 msgid "Download"
 msgstr ""
 
@@ -346,7 +358,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: classes/Table/Screen.php:148, classes/Setting/ComponentFactory/MediaLink.php:30, classes/Value/Formatter/Media/PreviewViewLink.php:49
+#: classes/Table/Screen.php:148, classes/Formatter/Media/PreviewViewLink.php:49, classes/Setting/ComponentFactory/MediaLink.php:30
 msgid "View"
 msgstr ""
 
@@ -912,7 +924,7 @@ msgstr ""
 msgid "Buy Pro"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:388, classes/Setting/ComponentFactory/CustomField.php:63, classes/Setting/ComponentFactory/FieldType.php:178
+#: classes/Admin/Asset/Columns.php:388, classes/Setting/ComponentFactory/CustomField.php:63, classes/Setting/ComponentFactory/FieldType.php:177
 msgid "Select"
 msgstr ""
 
@@ -988,7 +1000,7 @@ msgstr ""
 msgid "getting started guide"
 msgstr ""
 
-#: classes/Admin/MenuGroupFactory/Aggregate.php:34, classes/RequestHandler/Ajax/NetworkPostStati.php:85, classes/Setting/ComponentFactory/PostExtendedProperty.php:49, classes/Setting/ComponentFactory/UserProperty.php:137
+#: classes/Admin/MenuGroupFactory/Aggregate.php:34, classes/RequestHandler/Ajax/NetworkPostStati.php:85, classes/Setting/ComponentFactory/PostExtendedProperty.php:48, classes/Setting/ComponentFactory/UserProperty.php:137
 msgid "Other"
 msgstr ""
 
@@ -1068,7 +1080,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: classes/ColumnFactory/Comment/PostFactory.php:35, classes/Setting/ComponentFactory/FieldType.php:182
+#: classes/ColumnFactory/Comment/PostFactory.php:35, classes/Setting/ComponentFactory/FieldType.php:181
 msgid "Post"
 msgstr ""
 
@@ -1080,7 +1092,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: classes/ColumnFactory/Comment/UserFactory.php:42, classes/Setting/ComponentFactory/FieldType.php:183
+#: classes/ColumnFactory/Comment/UserFactory.php:42, classes/Setting/ComponentFactory/FieldType.php:182
 msgid "User"
 msgstr ""
 
@@ -1172,7 +1184,7 @@ msgstr ""
 msgid "More Tag"
 msgstr ""
 
-#: classes/ColumnFactory/Post/CommentCountFactory.php:52
+#: classes/ColumnFactory/Post/CommentCountFactory.php:51
 msgid "Comment Count"
 msgstr ""
 
@@ -1336,6 +1348,58 @@ msgstr ""
 msgid "Visual Editor"
 msgstr ""
 
+#: classes/Formatter/Comment/LinkableCommentDate.php:19
+msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
+msgstr ""
+
+#: classes/Formatter/Comment/MetaDateAndAuthor.php:29
+msgid "%s at %s"
+msgstr ""
+
+#: classes/Formatter/Date/TimeDifference.php:28
+msgid "in %s"
+msgstr ""
+
+#: classes/Formatter/Media/AudioPlayer.php:29, classes/Value/Extended/MediaPreview.php:55
+msgid "No support for audio player"
+msgstr ""
+
+#: classes/Formatter/Media/AvailableSizes.php:37
+msgid "original"
+msgstr ""
+
+#: classes/Formatter/Media/AvailableSizes.php:58
+msgid "Missing image file for size %s."
+msgstr ""
+
+#: classes/Formatter/Media/Dimensions.php:23
+msgid "Width : %s px"
+msgstr ""
+
+#: classes/Formatter/Media/Dimensions.php:24
+msgid "Height : %s px"
+msgstr ""
+
+#: classes/Formatter/Post/ExcerptMissingMessage.php:39
+msgid "Excerpt is missing."
+msgstr ""
+
+#: classes/Formatter/Post/ExcerptMissingMessage.php:40
+msgid "Current excerpt is generated from the content."
+msgstr ""
+
+#: classes/Formatter/Post/ExcerptMissingMessage.php:49
+msgid "auto-generated"
+msgstr ""
+
+#: classes/Formatter/Post/IsPasswordProtected.php:23
+msgid "Password"
+msgstr ""
+
+#: classes/Formatter/User/PostCount.php:72
+msgid "Recent items by %s"
+msgstr ""
+
 #: classes/Plugin/Update/V4000.php:578
 msgid "Original"
 msgstr ""
@@ -1496,23 +1560,23 @@ msgstr ""
 msgid "Custom field key"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateFormat.php:47
+#: classes/Setting/ComponentFactory/DateFormat.php:46
 msgid "Date Format"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateFormat.php:53
+#: classes/Setting/ComponentFactory/DateFormat.php:52
 msgid "Learn more about %s."
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateFormat.php:57
+#: classes/Setting/ComponentFactory/DateFormat.php:56
 msgid "date and time formatting"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateFormat.php:72
+#: classes/Setting/ComponentFactory/DateFormat.php:71
 msgid "The %s can be changed in %s."
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateFormat.php:73, classes/Setting/ComponentFactory/DateFormat/Date.php:22
+#: classes/Setting/ComponentFactory/DateFormat.php:72, classes/Setting/ComponentFactory/DateFormat/Date.php:22
 msgid "WordPress Date Format"
 msgstr ""
 
@@ -1520,7 +1584,7 @@ msgstr ""
 msgid "Date Save Format"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:31, classes/Setting/ComponentFactory/FieldType.php:168
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:31, classes/Setting/ComponentFactory/FieldType.php:167
 msgid "Date"
 msgstr ""
 
@@ -1572,71 +1636,71 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:100
+#: classes/Setting/ComponentFactory/FieldType.php:99
 msgid "Field Type"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:105
+#: classes/Setting/ComponentFactory/FieldType.php:104
 msgid "This will determine how the value will be displayed."
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:114
+#: classes/Setting/ComponentFactory/FieldType.php:113
 msgid "Select the field type"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:136
+#: classes/Setting/ComponentFactory/FieldType.php:135
 msgid "Basic"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:137
+#: classes/Setting/ComponentFactory/FieldType.php:136
 msgid "Relational"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:138
+#: classes/Setting/ComponentFactory/FieldType.php:137
 msgid "Choice"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:139, classes/Setting/ComponentFactory/IsMultiple.php:23
+#: classes/Setting/ComponentFactory/FieldType.php:138, classes/Setting/ComponentFactory/IsMultiple.php:23
 msgid "Multiple"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:167
+#: classes/Setting/ComponentFactory/FieldType.php:166
 msgid "Color"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:169
+#: classes/Setting/ComponentFactory/FieldType.php:168
 msgid "Text"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:170
+#: classes/Setting/ComponentFactory/FieldType.php:169
 msgid "HTML"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:172
+#: classes/Setting/ComponentFactory/FieldType.php:171
 msgid "URL"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:173
+#: classes/Setting/ComponentFactory/FieldType.php:172
 msgid "Number"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:176
+#: classes/Setting/ComponentFactory/FieldType.php:175
 msgid "Has Content"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:177
+#: classes/Setting/ComponentFactory/FieldType.php:176
 msgid "True / False"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:186
+#: classes/Setting/ComponentFactory/FieldType.php:185
 msgid "Number of Fields"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:189
+#: classes/Setting/ComponentFactory/FieldType.php:188
 msgid "Multiple Values"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:190
+#: classes/Setting/ComponentFactory/FieldType.php:189
 msgid "Serialized"
 msgstr ""
 
@@ -1958,10 +2022,6 @@ msgstr ""
 msgid "Assistant"
 msgstr ""
 
-#: classes/Value/Extended/MediaPreview.php:55, classes/Value/Formatter/Media/AudioPlayer.php:29
-msgid "No support for audio player"
-msgstr ""
-
 #: classes/Value/Extended/MediaPreview.php:66
 msgid "Preview not available"
 msgstr ""
@@ -1973,18 +2033,6 @@ msgstr ""
 #: classes/Value/Extended/Posts.php:77
 msgid "Recent items"
 msgstr ""
-
-#: classes/Value/Formatter/HumanReadableTime.php:44
-msgid "minute"
-msgid_plural "minutes"
-msgstr[0] ""
-msgstr[1] ""
-
-#: classes/Value/Formatter/HumanReadableTime.php:42
-msgid "second"
-msgid_plural "seconds"
-msgstr[0] ""
-msgstr[1] ""
 
 #: templates/admin/page/help-v2.php:17
 msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
@@ -2034,6 +2082,20 @@ msgstr ""
 
 #: classes/Admin/Asset/Script/SettingsFactory.php:39
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
+msgstr ""
+
+#: classes/Formatter/Media/Audio/Bitrate.php:17
+msgid "Kbps"
+msgstr ""
+
+#: classes/Formatter/Media/Audio/Channels.php:20
+msgid "channel"
+msgid_plural "channels"
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/Formatter/Media/Video/ModalEmbedLink.php:27
+msgid "Play"
 msgstr ""
 
 #: classes/Setting/ComponentFactory/DateFormat/Date.php:21, classes/Setting/ComponentFactory/DateFormat/Time.php:21
@@ -2116,54 +2178,6 @@ msgstr ""
 msgid "audio"
 msgstr ""
 
-#: classes/Value/Formatter/Comment/LinkableCommentDate.php:19
-msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
-msgstr ""
-
-#: classes/Value/Formatter/Comment/MetaDateAndAuthor.php:29
-msgid "%s at %s"
-msgstr ""
-
-#: classes/Value/Formatter/Date/TimeDifference.php:28
-msgid "in %s"
-msgstr ""
-
-#: classes/Value/Formatter/Media/AvailableSizes.php:37
-msgid "original"
-msgstr ""
-
-#: classes/Value/Formatter/Media/AvailableSizes.php:58
-msgid "Missing image file for size %s."
-msgstr ""
-
-#: classes/Value/Formatter/Media/Dimensions.php:23
-msgid "Width : %s px"
-msgstr ""
-
-#: classes/Value/Formatter/Media/Dimensions.php:24
-msgid "Height : %s px"
-msgstr ""
-
-#: classes/Value/Formatter/Post/ExcerptMissingMessage.php:39
-msgid "Excerpt is missing."
-msgstr ""
-
-#: classes/Value/Formatter/Post/ExcerptMissingMessage.php:40
-msgid "Current excerpt is generated from the content."
-msgstr ""
-
-#: classes/Value/Formatter/Post/ExcerptMissingMessage.php:49
-msgid "auto-generated"
-msgstr ""
-
-#: classes/Value/Formatter/Post/IsPasswordProtected.php:23
-msgid "Password"
-msgstr ""
-
-#: classes/Value/Formatter/User/PostCount.php:72
-msgid "Recent items by %s"
-msgstr ""
-
 #: templates/admin/page/component/deprecated-hook-row.php:44
 msgid "The action %s has been removed since %s."
 msgstr ""
@@ -2206,18 +2220,4 @@ msgstr ""
 
 #: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:40
 msgid "current"
-msgstr ""
-
-#: classes/Value/Formatter/Media/Audio/Bitrate.php:17
-msgid "Kbps"
-msgstr ""
-
-#: classes/Value/Formatter/Media/Audio/Channels.php:20
-msgid "channel"
-msgid_plural "channels"
-msgstr[0] ""
-msgstr[1] ""
-
-#: classes/Value/Formatter/Media/Video/ModalEmbedLink.php:27
-msgid "Play"
 msgstr ""

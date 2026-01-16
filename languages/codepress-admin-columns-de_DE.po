@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-01-02 21:02:13+0000\n"
+"PO-Revision-Date: 2026-01-14 22:52:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1568,7 +1568,7 @@ msgstr "Dieser Text wird hinter dem Spaltenwert angezeigt."
 
 #: classes/Helper/Strings.php:381
 msgid " or "
-msgstr "oder"
+msgstr " oder "
 
 #: classes/Helper/Html.php:499
 msgid "Hide"
@@ -2239,7 +2239,7 @@ msgstr "Ping-Status"
 
 #: classes/Column/Post/Permalink.php:15
 msgid "Permalink"
-msgstr "Direktlink"
+msgstr "Permalink"
 
 #: classes/Column/Media/FullPath.php:15 classes/Column/Post/Path.php:15
 msgid "Path"
