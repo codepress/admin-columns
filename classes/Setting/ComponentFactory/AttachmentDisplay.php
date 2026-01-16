@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC;
 use AC\Expression\StringComparisonSpecification;
 use AC\FormatterCollection;
 use AC\Setting\Children;
@@ -12,7 +13,6 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Value\Formatter;
 
 final class AttachmentDisplay extends BaseComponentFactory
 {
@@ -69,16 +69,16 @@ final class AttachmentDisplay extends BaseComponentFactory
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        $formatters->add(new \AC\Formatter\Post\Attachments());
+        $formatters->add(new AC\Formatter\Post\Attachments());
 
         if ($config->get(self::NAME) === self::OPTION_COUNT) {
-            $formatters->add(new \AC\Formatter\Count());
+            $formatters->add(new AC\Formatter\Count());
         }
     }
 
     protected function add_final_formatters(Config $config, FormatterCollection $formatters): void
     {
-        $formatters->add(new \AC\Formatter\Collection\Separator(''));
+        $formatters->add(new AC\Formatter\Collection\Separator(''));
     }
 
 }

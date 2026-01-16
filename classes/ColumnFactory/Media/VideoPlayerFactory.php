@@ -2,6 +2,7 @@
 
 namespace AC\ColumnFactory\Media;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
@@ -9,7 +10,6 @@ use AC\Setting\ComponentFactory\VideoDisplay;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
 use AC\Value\Extended\MediaPreview;
-use AC\Value\Formatter;
 
 class VideoPlayerFactory extends BaseColumnFactory
 {
@@ -50,15 +50,15 @@ class VideoPlayerFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = new FormatterCollection([
-            new \AC\Formatter\Media\Video\ValidMimeType(),
-            new \AC\Formatter\Media\AttachmentUrl(),
+            new AC\Formatter\Media\Video\ValidMimeType(),
+            new AC\Formatter\Media\AttachmentUrl(),
         ]);
 
         if ($config->get('video_display', '') === 'embed') {
-            $formatters->add(new \AC\Formatter\Media\VideoEmbed());
+            $formatters->add(new AC\Formatter\Media\VideoEmbed());
         } else {
             $formatters->add(
-                new \AC\Formatter\Media\Video\ModalEmbedLink(
+                new AC\Formatter\Media\Video\ModalEmbedLink(
                     new MediaPreview()
                 )
             );

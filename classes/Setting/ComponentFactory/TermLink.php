@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC;
 use AC\FormatterCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Type\PostTypeSlug;
-use AC\Value\Formatter;
 
 final class TermLink extends BaseComponentFactory
 {
@@ -38,7 +38,7 @@ final class TermLink extends BaseComponentFactory
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        $formatters->add(new \AC\Formatter\Term\TermLink((string)$config->get('term_link_to'), $this->post_type));
+        $formatters->add(new AC\Formatter\Term\TermLink((string)$config->get('term_link_to'), $this->post_type));
     }
 
     protected function get_input_options(): array

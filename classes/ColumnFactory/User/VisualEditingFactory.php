@@ -2,10 +2,10 @@
 
 namespace AC\ColumnFactory\User;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Value\Formatter;
 
 class VisualEditingFactory extends BaseColumnFactory
 {
@@ -23,8 +23,8 @@ class VisualEditingFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->add(new \AC\Formatter\User\HasRichEditing())
-                     ->add(new \AC\Formatter\YesNoIcon());
+                     ->add(new AC\Formatter\User\HasRichEditing())
+                     ->add(new AC\Formatter\YesNoIcon());
     }
 
 }

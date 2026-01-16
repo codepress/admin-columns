@@ -10,7 +10,6 @@ use AC\FormatterCollection;
 use AC\Setting\ComponentFactory\CommentStatus;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Value\Formatter;
 
 class CommentCountFactory extends BaseColumnFactory
 {

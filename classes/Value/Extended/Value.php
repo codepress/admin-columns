@@ -10,7 +10,6 @@ use AC\FormatterCollection;
 use AC\ListScreen;
 use AC\Type;
 use AC\Value\ExtendedValueLink;
-use AC\Value\Formatter;
 
 class Value implements ExtendedValue
 {

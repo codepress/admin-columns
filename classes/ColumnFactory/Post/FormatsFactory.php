@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Post;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UseIcon;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Value\Formatter;
 
 class FormatsFactory extends BaseColumnFactory
 {
@@ -44,12 +44,12 @@ class FormatsFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config)
-                            ->prepend(new \AC\Formatter\Post\PostFormat());
+                            ->prepend(new AC\Formatter\Post\PostFormat());
 
         if ('on' === $config->get('use_icon')) {
-            $formatters->add(new \AC\Formatter\Post\PostFormatIcon());
+            $formatters->add(new AC\Formatter\Post\PostFormatIcon());
         } else {
-            $formatters->add(new \AC\Formatter\Post\PostFormatLabel());
+            $formatters->add(new AC\Formatter\Post\PostFormatLabel());
         }
 
         return $formatters;

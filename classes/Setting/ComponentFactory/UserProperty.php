@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC;
 use AC\Expression\StringComparisonSpecification;
 use AC\FormatterCollection;
 use AC\Setting\AttributeCollection;
@@ -17,7 +18,6 @@ use AC\Setting\Control\Input\Number;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Control\Type\Option;
-use AC\Value\Formatter;
 
 class UserProperty extends BaseComponentFactory
 {
@@ -61,12 +61,12 @@ class UserProperty extends BaseComponentFactory
 
         switch ($property) {
             case self::PROPERTY_GRAVATAR:
-                $formatters->add(new \AC\Formatter\User\Property('user_email'));
-                $formatters->add(new \AC\Formatter\Avatar((int)$config->get('gravatar_size', '60')));
+                $formatters->add(new AC\Formatter\User\Property('user_email'));
+                $formatters->add(new AC\Formatter\Avatar((int)$config->get('gravatar_size', '60')));
 
                 break;
             case self::PROPERTY_FULL_NAME:
-                $formatters->add(new \AC\Formatter\User\FullName());
+                $formatters->add(new AC\Formatter\User\FullName());
                 break;
             case self::PROPERTY_DISPLAY_NAME:
             case self::PROPERTY_EMAIL:
@@ -77,10 +77,10 @@ class UserProperty extends BaseComponentFactory
             case self::PROPERTY_NICENAME:
             case self::PROPERTY_URL:
             case self::PROPERTY_NICKNAME:
-                $formatters->add(new \AC\Formatter\User\Property((string)$property));
+                $formatters->add(new AC\Formatter\User\Property((string)$property));
                 break;
             case self::PROPERTY_ROLES:
-                $formatters->add(new \AC\Formatter\User\TranslatedRoles());
+                $formatters->add(new AC\Formatter\User\TranslatedRoles());
         }
     }
 

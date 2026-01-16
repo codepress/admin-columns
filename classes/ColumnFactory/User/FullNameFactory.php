@@ -2,10 +2,10 @@
 
 namespace AC\ColumnFactory\User;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Value\Formatter;
 
 class FullNameFactory extends BaseColumnFactory
 {
@@ -23,7 +23,7 @@ class FullNameFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->add(new \AC\Formatter\User\FullName());
+                     ->add(new AC\Formatter\User\FullName());
     }
 
 }

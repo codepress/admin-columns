@@ -2,10 +2,10 @@
 
 namespace AC\ColumnFactory\Comment;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Value\Formatter;
 
 class AuthorEmailFactory extends BaseColumnFactory
 {
@@ -23,8 +23,8 @@ class AuthorEmailFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return new FormatterCollection([
-            new \AC\Formatter\Comment\Property('comment_author_email'),
-            new \AC\Formatter\Linkable(),
+            new AC\Formatter\Comment\Property('comment_author_email'),
+            new AC\Formatter\Linkable(),
         ]);
     }
 

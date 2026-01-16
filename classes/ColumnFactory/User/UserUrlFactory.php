@@ -2,10 +2,10 @@
 
 namespace AC\ColumnFactory\User;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Value\Formatter;
 
 class UserUrlFactory extends BaseColumnFactory
 {
@@ -23,8 +23,8 @@ class UserUrlFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->add(new \AC\Formatter\User\Property('user_url'))
-                     ->add(new \AC\Formatter\Linkable(null, '_blank'));
+                     ->add(new AC\Formatter\User\Property('user_url'))
+                     ->add(new AC\Formatter\Linkable(null, '_blank'));
     }
 
 }

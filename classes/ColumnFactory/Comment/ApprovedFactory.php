@@ -2,10 +2,10 @@
 
 namespace AC\ColumnFactory\Comment;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Value\Formatter;
 
 class ApprovedFactory extends BaseColumnFactory
 {
@@ -23,8 +23,8 @@ class ApprovedFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = new FormatterCollection([
-            new \AC\Formatter\Comment\Property('comment_approved'),
-            new \AC\Formatter\YesNoIcon(),
+            new AC\Formatter\Comment\Property('comment_approved'),
+            new AC\Formatter\YesNoIcon(),
         ]);
 
         return $formatters->merge(parent::get_formatters($config));

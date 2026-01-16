@@ -16,7 +16,6 @@ use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Control\OptionCollectionFactory\ToggleOptionCollection;
 use AC\Setting\Control\Type\Option;
-use AC\Value\Formatter;
 
 class FieldType extends BaseComponentFactory
 {

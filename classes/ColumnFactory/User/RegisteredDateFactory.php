@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\User;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Value\Formatter;
 
 class RegisteredDateFactory extends BaseColumnFactory
 {
@@ -37,8 +37,8 @@ class RegisteredDateFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = new FormatterCollection([
-            new \AC\Formatter\User\Property('user_registered'),
-            new \AC\Formatter\Date\Timestamp(),
+            new AC\Formatter\User\Property('user_registered'),
+            new AC\Formatter\Date\Timestamp(),
         ]);
 
         return $formatters->merge(parent::get_formatters($config));

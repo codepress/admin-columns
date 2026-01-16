@@ -2,10 +2,10 @@
 
 namespace AC\ColumnFactory\Comment;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Value\Formatter;
 
 class AuthorAvatarFactory extends BaseColumnFactory
 {
@@ -23,8 +23,8 @@ class AuthorAvatarFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = new FormatterCollection([
-            new \AC\Formatter\Comment\CommentObject(),
-            new \AC\Formatter\Avatar(),
+            new AC\Formatter\Comment\CommentObject(),
+            new AC\Formatter\Avatar(),
         ]);
 
         return $formatters->merge(
