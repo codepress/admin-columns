@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Formatter;
 
+use AC\CollectionFormatter;
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
 use AC\FormatterCollection;
-use AC\Setting\CollectionFormatter;
 use AC\Type\Value;
 use AC\Type\ValueCollection;
 

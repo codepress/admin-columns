@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Formatter\Collection;
 
-use AC\Setting\CollectionFormatter;
+use AC\CollectionFormatter;
 use AC\Setting\ComponentFactory\Separator as Setting;
 use AC\Setting\Config;
 use AC\Type\Value;

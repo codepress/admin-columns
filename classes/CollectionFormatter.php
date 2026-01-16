@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting;
+namespace AC;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Type\Value;
 use AC\Type\ValueCollection;
 
-// TODO move to root
 interface CollectionFormatter
 {
 

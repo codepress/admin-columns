@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC;
 
-use AC\Setting\CollectionFormatter;
 use InvalidArgumentException;
 
 class FormatterCollection extends Collection

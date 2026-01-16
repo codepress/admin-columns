@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Formatter\Collection;
 
-use AC\Setting\CollectionFormatter;
+use AC\CollectionFormatter;
 use AC\Type\Value;
 use AC\Type\ValueCollection;
 
