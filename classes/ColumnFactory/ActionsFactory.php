@@ -4,10 +4,10 @@ namespace AC\ColumnFactory;
 
 use AC;
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Message;
+use AC\FormatterCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Message;
 
 class ActionsFactory extends BaseColumnFactory
 {

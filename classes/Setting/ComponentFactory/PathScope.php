@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC;
 use AC\Expression\Specification;
 use AC\Setting\Component;
 use AC\Setting\ComponentBuilder;
@@ -11,7 +12,6 @@ use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Value\Formatter;
 
 final class PathScope implements ComponentFactory
 {
@@ -37,7 +37,7 @@ final class PathScope implements ComponentFactory
                     $value
                 )
             )
-            ->set_formatter(new Formatter\PathScope($value));
+            ->set_formatter(new AC\Formatter\PathScope($value));
 
         if ($conditions) {
             $builder->set_conditions($conditions);

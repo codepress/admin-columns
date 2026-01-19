@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Comment\ParentId;
+use AC\Formatter\Comment\ReplyToLink;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Comment\ParentId;
-use AC\Value\Formatter\Comment\ReplyToLink;
 
 class ReplyToFactory extends BaseColumnFactory
 {

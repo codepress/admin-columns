@@ -27,7 +27,7 @@ class Notice extends Message implements Registerable
 
     public function register(): void
     {
-        if (apply_filters('ac/suppress_site_wide_notices', false)) {
+        if (apply_filters('ac/suppress_site_wide_notices', false, $this->id)) {
             return;
         }
 

@@ -4,8 +4,8 @@ namespace AC\ColumnFactory\User;
 
 use AC;
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
 
 class LastNameFactory extends BaseColumnFactory
 {
@@ -23,7 +23,7 @@ class LastNameFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->add(new AC\Value\Formatter\User\Meta('last_name'));
+                     ->add(new AC\Formatter\User\Meta('last_name'));
     }
 
 }

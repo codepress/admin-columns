@@ -3,9 +3,9 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.7.1
-Tested up to: 6.3.1
-Requires PHP: 7.2
-Stable tag: 4.7
+Tested up to: 6.9
+Requires PHP: 7.4
+Stable tag: 7.0.3
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -209,7 +209,32 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 7.0.4 =
+Release Date: TDB
+
+* [Fixed] User link setting did not work correctly and linked to the wrong page
+
+= 7.0.3 =
+Release Date: January 16th, 2026
+
+* [Fixed] Media Library in grid view would not load properly
+* [Updated] Changed namespace for formatter from `AC\Setting\Formatter` to `AC\Formatter`
+* [Updated] Changed namespace for context from `AC\Setting\Context` to `AC\Column\Context`
+
+= 7.0.2 =
+Release Date: January 14th, 2026
+
+* [Fixed] Error on the Media table when Grid view is active
+* [Fixed] Error in WPML string translations
+
+= 7.0.1 =
+Release Date: January 13th, 2026
+
+[Deprecated] Added a deprecated function `get_singular_label()` to the AC\ListScreen class
+[Deprecated] Added a deprecated function `set_text()` to the AC\Table\Button class
+
 = 7.0.0 =
+Release Date: January 12th, 2026
 
 * [Important] Version numbering jumped ahead to 7.0 to align with the Pro version.
 * [Breaking] Custom columns created for versions below 7.0 are no longer compatible and must be rewritten. (See upgrade path.)

@@ -2,10 +2,10 @@
 
 namespace AC\ColumnFactory\User;
 
+use AC;
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter;
 
 class DisplayNameFactory extends BaseColumnFactory
 {
@@ -24,7 +24,7 @@ class DisplayNameFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
 
-        $formatters->add(new Formatter\User\Property('display_name'));
+        $formatters->add(new AC\Formatter\User\Property('display_name'));
 
         return $formatters;
     }

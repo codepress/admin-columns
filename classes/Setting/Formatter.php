@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use AC\Exception\ValueNotFoundException;
-use AC\Type\Value;
-use AC\Type\ValueCollection;
+use AC;
 
-interface Formatter
+/**
+ * @depecated 7.0.2 For backwards compatibilty
+ */
+interface Formatter extends AC\Formatter
 {
-
-    /**
-     * @return Value|ValueCollection
-     * @throws ValueNotFoundException
-     */
-    public function format(Value $value);
 
 }

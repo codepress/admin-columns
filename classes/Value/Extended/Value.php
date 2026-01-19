@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace AC\Value\Extended;
 
 use AC\Column;
+use AC\Formatter\Aggregate;
+use AC\FormatterCollection;
 use AC\ListScreen;
-use AC\Setting\FormatterCollection;
 use AC\Type;
 use AC\Value\ExtendedValueLink;
-use AC\Value\Formatter;
-use AC\Value\Formatter\Aggregate;
 
 class Value implements ExtendedValue
 {
@@ -24,7 +23,7 @@ class Value implements ExtendedValue
         $formatters = [];
 
         foreach ($column->get_formatters() as $formatter) {
-            if ($formatter instanceof Formatter\ExtendedValueLink) {
+            if ($formatter instanceof \AC\Formatter\ExtendedValueLink) {
                 continue;
             }
 

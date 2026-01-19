@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-01-03 13:27:05+0000\n"
+"PO-Revision-Date: 2025-12-05 13:21:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,31 +11,39 @@ msgstr ""
 "Language: ja_JP\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
+#: templates/admin/side-banner.php:118
+msgid "Get up to %s Off!"
+msgstr "最大 %s オフ !"
+
+#: classes/Promo/BlackFriday.php:32
+msgid "Save up to %s from Black Friday to Cyber Monday"
+msgstr "ブラックフライデーからサイバー マンデーまで最大 %s 割引"
+
 #: templates/admin/edit-menu.php:35
 msgid "View %s"
-msgstr ""
+msgstr "%s を表示"
 
 #: classes/Service/PluginUpdate.php:119
 msgid "See the Plugins page for details."
-msgstr ""
+msgstr "詳細は、プラグインのページを参照してください。"
 
 #: classes/Service/PluginUpdate.php:117
 msgid "Warning"
-msgstr ""
+msgstr "警告"
 
 #: classes/Service/PluginUpdate.php:88
 msgctxt "Anchor text to upgrade guide."
 msgid "upgrade guide"
-msgstr ""
+msgstr "アップグレードガイド"
 
 #: classes/Service/PluginUpdate.php:72
 msgctxt "%s contains the link to upgrade guide. Label is translated separately."
 msgid "Please review the %s for details."
-msgstr ""
+msgstr "詳細は %s を確認してください。"
 
 #: classes/Service/PluginUpdate.php:58
 msgid "You are upgrading to a new a major version of Admin Columns, which can include <strong>breaking changes</strong>."
-msgstr ""
+msgstr "Admin Columns の新しいメジャー バージョンにアップグレードします。<strong>互換性</strong> を損なう変更が含まれる場合があります。"
 
 #: templates/settings/setting-label-icons.php:334
 msgid "Miscellaneous"
@@ -980,11 +988,7 @@ msgstr "タームを編集"
 msgid "Filter by Term"
 msgstr "タームで絞り込む"
 
-#: classes/Promo/BlackFriday.php:22
-msgid "%s Off from Black Friday to Cyber Monday"
-msgstr "ブラックフライデーからサイバーマンデーまで %s オフ"
-
-#: classes/Check/Promotion.php:76
+#: classes/Promo/BlackFriday.php:39
 msgid "Get %s now"
 msgstr "%s を今すぐ入手"
 
@@ -1335,7 +1339,7 @@ msgstr "抜粋がありません。"
 msgid "User Nicename"
 msgstr "ユーザーのスラッグ"
 
-#: templates/admin/side-banner.php:166
+#: templates/admin/side-banner.php:168
 msgid "Send me the discount"
 msgstr "割引を送る"
 
@@ -1593,7 +1597,7 @@ msgstr "標準"
 msgid "Full Path"
 msgstr "完全なパス"
 
-#: templates/admin/side-banner.php:123
+#: templates/admin/side-banner.php:125
 msgid "Discount is valid until %s"
 msgstr "割引は%sまで有効です"
 
@@ -1662,19 +1666,19 @@ msgstr "すべての列をクリア "
 msgid "I'm using Admin Columns for WordPress!"
 msgstr "私は、WordPress の Admin Columns を使用しています !"
 
-#: templates/admin/side-banner.php:162
+#: templates/admin/side-banner.php:164
 msgid "Your First Name"
 msgstr "名"
 
-#: templates/admin/side-banner.php:158
+#: templates/admin/side-banner.php:160
 msgid "Your Email"
 msgstr "メールアドレス"
 
-#: templates/admin/side-banner.php:143
+#: templates/admin/side-banner.php:145
 msgid "Submit your email and we'll send you a discount for %s off."
 msgstr "メールを送信されましたら %s オフのディスカウントを送ります。"
 
-#: templates/admin/side-banner.php:117 templates/admin/side-banner.php:136
+#: templates/admin/side-banner.php:138
 msgid "Get %s Off!"
 msgstr "%s オフ!"
 

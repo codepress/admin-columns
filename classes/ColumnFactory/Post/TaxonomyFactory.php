@@ -3,14 +3,14 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Collection\Separator;
+use AC\Formatter\Post\PostTerms;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
-use AC\Value\Formatter\Collection\Separator;
-use AC\Value\Formatter\Post\PostTerms;
 
 class TaxonomyFactory extends BaseColumnFactory
 {

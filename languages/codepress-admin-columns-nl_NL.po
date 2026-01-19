@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-09-23 12:06:04+0000\n"
+"PO-Revision-Date: 2025-12-02 21:24:24+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,14 @@ msgstr ""
 "X-Generator: GlotPress/4.0.3\n"
 "Language: nl\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
+
+#: templates/admin/side-banner.php:118
+msgid "Get up to %s Off!"
+msgstr "Verkrijg tot %s korting!"
+
+#: classes/Promo/BlackFriday.php:32
+msgid "Save up to %s from Black Friday to Cyber Monday"
+msgstr "Bespaar tot %s van Black Friday tot Cyber Monday"
 
 #: templates/admin/edit-menu.php:35
 msgid "View %s"
@@ -982,11 +990,7 @@ msgstr "Term bewerken"
 msgid "Filter by Term"
 msgstr "Filteren op term"
 
-#: classes/Promo/BlackFriday.php:22
-msgid "%s Off from Black Friday to Cyber Monday"
-msgstr "%s korting van Black Friday tot Cyber ​​Monday"
-
-#: classes/Check/Promotion.php:76
+#: classes/Promo/BlackFriday.php:39
 msgid "Get %s now"
 msgstr "Download %s nu"
 
@@ -1337,7 +1341,7 @@ msgstr "Samenvatting niet aanwezig."
 msgid "User Nicename"
 msgstr "Gebruiker schermnaam"
 
-#: templates/admin/side-banner.php:166
+#: templates/admin/side-banner.php:168
 msgid "Send me the discount"
 msgstr "Stuur mij de korting"
 
@@ -1595,7 +1599,7 @@ msgstr "Standaard"
 msgid "Full Path"
 msgstr "Volledig pad"
 
-#: templates/admin/side-banner.php:123
+#: templates/admin/side-banner.php:125
 msgid "Discount is valid until %s"
 msgstr "Korting is geldig tot %s"
 
@@ -1665,19 +1669,19 @@ msgstr "Alle kolommen legen "
 msgid "I'm using Admin Columns for WordPress!"
 msgstr "Ik gebruik Admin Columns voor WordPress!"
 
-#: templates/admin/side-banner.php:162
+#: templates/admin/side-banner.php:164
 msgid "Your First Name"
 msgstr "Je voornaam"
 
-#: templates/admin/side-banner.php:158
+#: templates/admin/side-banner.php:160
 msgid "Your Email"
 msgstr "Je e-mailadres"
 
-#: templates/admin/side-banner.php:143
+#: templates/admin/side-banner.php:145
 msgid "Submit your email and we'll send you a discount for %s off."
 msgstr "Stuur je e-mail en wij sturen je een code voor %s korting."
 
-#: templates/admin/side-banner.php:117 templates/admin/side-banner.php:136
+#: templates/admin/side-banner.php:138
 msgid "Get %s Off!"
 msgstr "Krijg %s korting!"
 

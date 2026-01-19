@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\Specification;
+use AC\Formatter\HumanReadableTime;
+use AC\Formatter\ReadingTime;
+use AC\FormatterCollection;
 use AC\Setting\Component;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input\Number;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\HumanReadableTime;
-use AC\Value\Formatter\ReadingTime;
 
 final class WordsPerMinute implements ComponentFactory
 {

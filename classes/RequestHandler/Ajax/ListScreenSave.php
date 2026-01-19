@@ -109,6 +109,8 @@ class ListScreenSave implements RequestAjaxHandler
             );
         }
 
+        do_action('ac/list_screen/before_save', $list_screen);
+
         try {
             $this->storage->save($list_screen);
         } catch (RuntimeException $e) {
@@ -125,7 +127,7 @@ class ListScreenSave implements RequestAjaxHandler
             $list_screen->get_id()
         );
 
-        do_action('ac/columns/stored', $list_screen);
+        do_action('ac/list_screen/saved', $list_screen);
 
         $response
             ->set_message(

@@ -3,10 +3,10 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Media\PreviewViewLink;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
 use AC\Value\Extended\MediaPreview;
-use AC\Value\Formatter\Media\PreviewViewLink;
 
 class PreviewFactory extends BaseColumnFactory
 {

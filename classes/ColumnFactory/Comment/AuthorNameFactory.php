@@ -4,8 +4,8 @@ namespace AC\ColumnFactory\Comment;
 
 use AC;
 use AC\Column\BaseColumnFactory;
+use AC\FormatterCollection;
 use AC\Setting\Config;
-use AC\Setting\FormatterCollection;
 
 class AuthorNameFactory extends BaseColumnFactory
 {
@@ -23,7 +23,7 @@ class AuthorNameFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);
-        $formatters->prepend(new AC\Value\Formatter\Comment\Property('comment_author'));
+        $formatters->prepend(new AC\Formatter\Comment\Property('comment_author'));
 
         return $formatters;
     }

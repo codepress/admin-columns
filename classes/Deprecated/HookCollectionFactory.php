@@ -91,7 +91,7 @@ class HookCollectionFactory
         $hooks = [];
         $free_actions = [
             'ac/column_types'   => 'ac/column/types',
-            'ac/columns_stored' => 'ac/columns/stored',
+            'ac/columns_stored' => 'ac/list_screen/saved',
         ];
 
         foreach ($free_actions as $old => $replacement) {

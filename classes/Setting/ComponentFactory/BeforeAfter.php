@@ -30,7 +30,7 @@ final class BeforeAfter implements ComponentFactory
                 __('Display Options', 'codepress-admin-columns')
             )
             ->set_formatter(
-                new AC\Value\Formatter\BeforeAfter($before, $after)
+                new AC\Formatter\BeforeAfter($before, $after)
             )
             ->set_children(
                 new Children(

@@ -3,14 +3,14 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Post\PostTitle;
+use AC\Formatter\Wrapper;
+use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\CharacterLimit;
 use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
-use AC\Setting\FormatterCollection;
-use AC\Value\Formatter\Post\PostTitle;
-use AC\Value\Formatter\Wrapper;
 
 class TitleRawFactory extends BaseColumnFactory
 {

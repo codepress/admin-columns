@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
+use AC\Formatter;
+use AC\Formatter\TableRender;
 use AC\ListScreen;
-use AC\Setting\Formatter;
 use AC\TableScreen;
 use AC\Type\ColumnId;
-use AC\Value\Formatter\TableRender;
 
 class TableRenderFactory implements RenderFactory
 {

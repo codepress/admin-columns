@@ -6,14 +6,13 @@ namespace AC\Setting\ComponentFactory;
 
 use AC;
 use AC\Expression\StringComparisonSpecification;
+use AC\FormatterCollection;
 use AC\Setting\Children;
 use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\ComponentFactory\FieldTypeConfigurator\FieldComponentDirectorFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\FormatterCollection;
 use AC\Type\TableScreenContext;
-use AC\Value;
 
 class PostExtendedProperty extends PostProperty
 {
@@ -57,7 +56,7 @@ class PostExtendedProperty extends PostProperty
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         if ($this->get_input($config)->get_value() === self::PROPERTY_CUSTOM_FIELD) {
-            $formatters->add(new Value\Formatter\Post\Meta($config->get('field', '')));
+            $formatters->add(new AC\Formatter\Post\Meta($config->get('field', '')));
 
             return;
         }
