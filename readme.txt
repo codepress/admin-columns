@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 7.0.4 =
+Release Date: TDB
+
+* [Fixed] User link setting did not work correctly and linked to the wrong page
+
 = 7.0.3 =
 Release Date: January 16th, 2026
 
