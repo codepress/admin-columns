@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AC\Value\Formatter;
+namespace AC\Formatter;
 
 use AC\Exception\ValueNotFoundException;
-use AC\Setting\Formatter;
+use AC\Formatter;
 use AC\Type\ToggleOptions;
 use AC\Type\Value;
 
