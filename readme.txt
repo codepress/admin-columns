@@ -215,6 +215,7 @@ Release Date: January 20h, 2026
 * [Fixed] Fixed PHP 8.4 deprecation messages
 * [Fixed] User link setting did not work correctly and linked to the wrong page
 * [Updated] Context class for Hooks extended with method to retrieve all settings
+* [Updated] Database update: fix for possible incorrect column 'name' properties
 
 = 7.0.3 =
 Release Date: January 16th, 2026
