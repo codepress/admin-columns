@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 7.0.4 =
-Release Date: January 20h, 2026
+Release Date: January 21st, 2026
 
 * [Fixed] Fixed PHP 8.4 deprecation messages
 * [Fixed] User link setting did not work correctly and linked to the wrong page
