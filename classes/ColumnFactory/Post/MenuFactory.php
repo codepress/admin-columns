@@ -59,7 +59,7 @@ class MenuFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = new FormatterCollection([
-            new UsedByMenu($this->post_type),
+            new UsedByMenu((string)$this->post_type),
             new TermProperty('name'),
             new MenuLink(),
         ]);

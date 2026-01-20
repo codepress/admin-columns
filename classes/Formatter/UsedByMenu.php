@@ -12,7 +12,7 @@ use AC\Type\ValueCollection;
 class UsedByMenu implements Formatter
 {
 
-    private $item_type;
+    private string $item_type;
 
     public function __construct(string $item_type)
     {

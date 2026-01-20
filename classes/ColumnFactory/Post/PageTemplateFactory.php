@@ -39,7 +39,7 @@ class PageTemplateFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
 
-        $formatters->add(new PageTemplate($this->post_type));
+        $formatters->add(new PageTemplate((string)$this->post_type));
 
         return $formatters;
     }
