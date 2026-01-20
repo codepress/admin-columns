@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7.1
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 7.0.3
+Stable tag: 7.0.4
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 7.0.4 =
-Release Date: January 16th, 2026
+Release Date: January 20h, 2026
 
 * [Fixed] Fixed PHP 8.4 deprecation messages
 * [Fixed] User link setting did not work correctly and linked to the wrong page
