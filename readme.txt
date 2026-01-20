@@ -210,9 +210,11 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 7.0.4 =
-Release Date: TDB
+Release Date: January 16th, 2026
 
+* [Fixed] Fixed PHP 8.4 deprecation messages
 * [Fixed] User link setting did not work correctly and linked to the wrong page
+* [Updated] Context class for Hooks extended with method to retrieve all settings
 
 = 7.0.3 =
 Release Date: January 16th, 2026
