@@ -229,7 +229,7 @@ class Database implements ListScreenRepositoryWritable
         );
     }
 
-    private function create_configs(TableId $tableId, object $data): ConfigCollection
+    private function create_configs(TableId $table_id, object $data): ConfigCollection
     {
         $configs = [];
 
@@ -239,7 +239,7 @@ class Database implements ListScreenRepositoryWritable
 
         foreach ($columns as $config) {
             // In some rare cases the stored 'name' can have a mismatch with it's 'type' for original columns.
-            if ($this->original_columns_repository->find($tableId, $config['type'])) {
+            if ($this->original_columns_repository->find($table_id, $config['type'])) {
                 $config['name'] = $config['type'];
             }
 
