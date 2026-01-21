@@ -24,7 +24,7 @@ class V7004 extends Update
         if (ini_get('max_execution_time') < 120) {
             @set_time_limit(120);
         }
-        
+
         $this->update_database_column_name();
     }
 
@@ -55,18 +55,22 @@ class V7004 extends Update
             $update = false;
 
             foreach ($columns as $key => $settings) {
-                // Fix 1: missing 'name' argument for an original column should always be its 'type'
-                if ( ! isset($settings['name']) && in_array($settings['type'], $original_column_names, true)) {
-                    $columns[$key]['name'] = $settings['type'];
+                $type = $settings['type'] ?? null;
 
+                if (null === $type) {
+                    continue;
+                }
+
+                // Fix 1. original columns must have the same 'name' as their 'type' argument
+                if (in_array($type, $original_column_names, true)) {
+                    $columns[$key]['name'] = $type;
                     $update = true;
                     continue;
                 }
 
                 // Fix 2: 'name' argument must be present. use 'key' as 'name'.
                 if ( ! isset($settings['name'])) {
-                    $columns[$key]['name'] = is_numeric($key) && ((int)$key) < 10000
-                        // make sure its not a valid generated ID which should be larger than 10000
+                    $columns[$key]['name'] = is_numeric($key) && ((int)$key) < 1000
                         ? (string)$this->generator->generate()
                         : $key;
 
@@ -74,7 +78,7 @@ class V7004 extends Update
                 }
             }
 
-            // Fix 3: the stored array should not be associative
+            // Fix 3: the stored array should not be associative.
             if ($this->is_associative_array($columns)) {
                 // reset keys
                 $columns = array_values($columns);

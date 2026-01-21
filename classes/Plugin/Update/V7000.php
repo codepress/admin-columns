@@ -170,9 +170,6 @@ class V7000 extends Update
 
             $has_changed_columns = false;
 
-            // reset keys
-            $columns = array_values($columns);
-
             foreach ($columns as $i => $column) {
                 // invalid data
                 if ( ! is_array($column) || ! $column) {
