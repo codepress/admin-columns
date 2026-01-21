@@ -23,7 +23,7 @@ abstract class ColumnFactory
 
     protected function get_context(Config $config): Context
     {
-        return new Context($config);
+        return new Context($config, $this->get_label());
     }
 
     protected function get_formatters(Config $config): FormatterCollection

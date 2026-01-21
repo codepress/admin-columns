@@ -13,9 +13,9 @@ class CustomFieldContext extends Context
 
     private string $meta_key;
 
-    public function __construct(Config $config, string $field_type, string $meta_key)
+    public function __construct(Config $config, string $label, string $field_type, string $meta_key)
     {
-        parent::__construct($config);
+        parent::__construct($config, $label);
 
         $this->field_type = $field_type;
         $this->meta_key = $meta_key;
