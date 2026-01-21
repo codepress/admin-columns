@@ -19,8 +19,6 @@ class ColumnFilter implements Formatter
 
     private ListScreenId $list_id;
 
-    private ?string $default;
-
     public function __construct(
         Context $context,
         TableScreen $table_screen,
