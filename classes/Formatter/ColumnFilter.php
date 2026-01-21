@@ -6,8 +6,8 @@ namespace AC\Formatter;
 
 use AC\Column\Context;
 use AC\Formatter;
+use AC\ListScreen;
 use AC\TableScreen;
-use AC\Type\ListScreenId;
 use AC\Type\Value;
 
 class ColumnFilter implements Formatter
@@ -17,16 +17,16 @@ class ColumnFilter implements Formatter
 
     private TableScreen $table_screen;
 
-    private ListScreenId $list_id;
+    private ListScreen $list_screen;
 
     public function __construct(
         Context $context,
         TableScreen $table_screen,
-        ListScreenId $list_id
+        ListScreen $list_screen
     ) {
         $this->context = $context;
         $this->table_screen = $table_screen;
-        $this->list_id = $list_id;
+        $this->list_screen = $list_screen;
     }
 
     public function format(Value $value): Value
@@ -41,7 +41,7 @@ class ColumnFilter implements Formatter
             $this->context,
             $value->get_id(),
             $this->table_screen,
-            $this->list_id
+            $this->list_screen
         );
 
         if (is_scalar($render)) {
@@ -59,7 +59,7 @@ class ColumnFilter implements Formatter
             $this->context,
             $id,
             $this->table_screen,
-            $this->list_id
+            $this->list_screen
         );
     }
 
