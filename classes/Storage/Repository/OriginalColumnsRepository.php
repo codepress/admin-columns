@@ -3,7 +3,6 @@
 namespace AC\Storage\Repository;
 
 use AC\Storage\Option;
-use AC\Type\ColumnId;
 use AC\Type\OriginalColumn;
 use AC\Type\OriginalColumns;
 use AC\Type\TableId;
@@ -48,7 +47,7 @@ final class OriginalColumnsRepository
              ->delete();
     }
 
-    public function find(TableId $id, ColumnId $column_id): ?OriginalColumn
+    public function find(TableId $id, string $type): ?OriginalColumn
     {
         $data = $this->get_cached($id);
 
@@ -56,12 +55,10 @@ final class OriginalColumnsRepository
             return null;
         }
 
-        $column_name = (string)$column_id;
-
-        $column_data = $data[$column_name] ?? null;
+        $column_data = $data[$type] ?? null;
 
         return $column_data && is_array($column_data)
-            ? $this->create_column($column_name, $column_data)
+            ? $this->create_column($type, $column_data)
             : null;
     }
 
@@ -72,12 +69,12 @@ final class OriginalColumnsRepository
         $data = $this->get_cached($id);
 
         if ($data) {
-            foreach ($data as $column_name => $column_data) {
-                if ('cb' === $column_name) {
+            foreach ($data as $type => $column_data) {
+                if ('cb' === $type) {
                     continue;
                 }
 
-                $columns[] = $this->create_column($column_name, $column_data);
+                $columns[] = $this->create_column($type, $column_data);
             }
         }
 
@@ -99,21 +96,21 @@ final class OriginalColumnsRepository
     {
         $columns = [];
 
-        foreach ($this->get($id) as $column_name => $column_data) {
-            if ('cb' === $column_name) {
+        foreach ($this->get($id) as $type => $data) {
+            if ('cb' === $type) {
                 continue;
             }
 
-            $columns[] = $this->create_column($column_name, $column_data);
+            $columns[] = $this->create_column($type, $data);
         }
 
         return new OriginalColumns($columns);
     }
 
-    private function create_column(string $column_name, array $data): OriginalColumn
+    private function create_column(string $type, array $data): OriginalColumn
     {
         return new OriginalColumn(
-            $column_name,
+            $type,
             (string)($data['label'] ?? ''),
             (bool)($data['sortable'] ?? false)
         );

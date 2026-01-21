@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;

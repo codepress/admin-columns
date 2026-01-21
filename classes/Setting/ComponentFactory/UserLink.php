@@ -44,7 +44,7 @@ final class UserLink extends BaseComponentFactory
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         if ($config->get('user_link_to') !== '') {
-            $formatters->add(new AC\Formatter\User\UserLink(self::PROPERTY_EDIT_USER, $this->post_type));
+            $formatters->add(new AC\Formatter\User\UserLink($config->get('user_link_to', '') , $this->post_type));
         }
     }
 

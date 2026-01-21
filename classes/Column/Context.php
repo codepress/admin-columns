@@ -37,4 +37,9 @@ class Context implements AC\Setting\Context
         return $this->config->get($key, $default);
     }
 
+    public function all(): array
+    {
+        return $this->config->all();
+    }
+
 }
