@@ -53,14 +53,14 @@ if ( ! function_exists('ac_get_list_screen')) {
  * For usage @see https://docs.admincolumns.com/article/57-code-snippets
  */
 if ( ! function_exists('ac_get_list_screens')) {
-    function ac_get_list_screens(string $key): ListScreenCollection
+    function ac_get_list_screens(string $table_id): ListScreenCollection
     {
         if ( ! did_action('wp_loaded')) {
             throw new RuntimeException("Call after the `wp_loaded` hook.");
         }
 
         return Container::get_storage()->find_all_by_table_id(
-            new TableId($key)
+            new TableId($table_id)
         );
     }
 }
