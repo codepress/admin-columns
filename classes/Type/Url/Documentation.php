@@ -7,8 +7,6 @@ use AC\Type;
 class Documentation extends Type\Uri
 {
 
-    use Path;
-
     private const URL = 'https://docs.admincolumns.com';
 
     public const ARTICLE_ACF_UPGRADE_V2_TO_V3 = '/article/103-how-to-upgrade-the-acf-integration-from-v2-to-v3';
@@ -35,17 +33,15 @@ class Documentation extends Type\Uri
 
     public function __construct(?string $path = null, ?string $fragment = null)
     {
-        $url = self::URL;
+        parent::__construct(self::URL);
 
         if ($path) {
-            $url .= $this->normalize_path($path);
+            $this->add_path($path);
         }
 
         if ($fragment) {
-            $url .= '#' . $fragment;
+            $this->add_fragment($fragment);
         }
-
-        parent::__construct($url);
     }
 
     public static function create_with_path(string $path): self
@@ -57,5 +53,5 @@ class Documentation extends Type\Uri
     {
         return new self(self::ARTICLE_LOCAL_STORAGE, $fragment);
     }
-    
+
 }

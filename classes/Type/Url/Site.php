@@ -7,8 +7,6 @@ use AC\Type;
 class Site extends Type\Uri
 {
 
-    use Path;
-
     public const URL = 'https://www.admincolumns.com';
 
     public const PAGE_CHANGELOG = '/changelog';
@@ -32,13 +30,11 @@ class Site extends Type\Uri
 
     public function __construct(?string $path = null)
     {
-        $url = self::URL;
+        parent::__construct(self::URL);
 
         if ($path) {
-            $url .= $this->normalize_path($path);
+            $this->add_path($path);
         }
-
-        parent::__construct($url);
     }
 
     public static function create_pricing(): self

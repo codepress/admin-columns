@@ -26,6 +26,16 @@ class Uri implements Url
         $this->url = add_query_arg($key, $value, $this->url);
     }
 
+    protected function add_path(string $path): void
+    {
+        $this->url = sprintf('%s/%s/', rtrim($this->url, '/'), trim($path, '/'));
+    }
+
+    protected function add_fragment(string $fragment): void
+    {
+        $this->url = sprintf('%s#%s', $this->url, $fragment);
+    }
+
     public function get_url(): string
     {
         return $this->url;
