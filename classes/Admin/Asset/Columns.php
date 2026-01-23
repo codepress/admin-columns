@@ -122,7 +122,7 @@ class Columns extends Script
 
         foreach ($items as $utm_content => $label) {
             $features[] = [
-                'url'   => $upgrade_page_url->add_content('usp-' . $utm_content)->get_url(),
+                'url'   => $upgrade_page_url->with_content('usp-' . $utm_content)->get_url(),
                 'label' => $label,
             ];
         }

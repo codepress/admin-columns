@@ -4,11 +4,10 @@ namespace AC\Type\Url;
 
 use AC\Type;
 
-class Documentation implements Type\Url
+class Documentation extends Type\Uri
 {
 
     use Path;
-    use Fragment;
 
     private const URL = 'https://docs.admincolumns.com';
 
@@ -36,24 +35,17 @@ class Documentation implements Type\Url
 
     public function __construct(?string $path = null, ?string $fragment = null)
     {
+        $url = self::URL;
+
         if ($path) {
-            $this->set_path($path);
+            $url .= $this->normalize_path($path);
         }
 
         if ($fragment) {
-            $this->set_fragment($fragment);
-        }
-    }
-
-    public function get_url(): string
-    {
-        $url = self::URL . $this->get_path();
-
-        if ($this->has_fragment()) {
-            $url .= $this->get_fragment();
+            $url .= '#' . $fragment;
         }
 
-        return $url;
+        parent::__construct($url);
     }
 
     public static function create_with_path(string $path): self
@@ -65,10 +57,5 @@ class Documentation implements Type\Url
     {
         return new self(self::ARTICLE_LOCAL_STORAGE, $fragment);
     }
-
-    public function __toString(): string
-    {
-        return $this->get_url();
-    }
-
+    
 }

@@ -4,7 +4,7 @@ namespace AC\Type\Url;
 
 use AC\Type;
 
-class Site implements Type\Url
+class Site extends Type\Uri
 {
 
     use Path;
@@ -35,9 +35,13 @@ class Site implements Type\Url
 
     public function __construct(?string $path = null)
     {
+        $url = self::URL;
+
         if ($path) {
-            $this->set_path($path);
+            $url .= $this->normalize_path($path);
         }
+
+        parent::__construct($url);
     }
 
     public static function create_pricing(): self
@@ -60,14 +64,9 @@ class Site implements Type\Url
         return new self(self::PAGE_CHANGELOG);
     }
 
-    public function get_url(): string
+    public static function create_account(): self
     {
-        return self::URL . $this->get_path();
-    }
-
-    public function __toString(): string
-    {
-        return $this->get_url();
+        return new self(self::PAGE_ACCOUNT_SUBSCRIPTIONS);
     }
 
 }

@@ -6,7 +6,7 @@ namespace AC\Type\Url;
 
 use AC\Type\Uri;
 
-class ListTable extends Uri
+final class AdminUrl extends Uri
 {
 
     public function __construct(string $path)
