@@ -5,7 +5,7 @@ namespace AC\Type;
 trait QueryAwareTrait
 {
 
-    protected string $url;
+    protected string $url = '';
 
     public function set_url(string $url): void
     {

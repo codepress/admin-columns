@@ -34,7 +34,7 @@ class AdminBar implements Registerable
         $wp_admin_bar->add_node([
             'id'    => $this->id,
             'title' => $this->title,
-            'href'  => $this->url,
+            'href'  => $this->url->get_url(),
         ]);
     }
 

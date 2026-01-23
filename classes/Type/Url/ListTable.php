@@ -11,6 +11,6 @@ class ListTable extends Uri
 
     public function __construct(string $path)
     {
-        parent::__construct(admin_url($path));
+        parent::__construct((string)admin_url($path));
     }
 }
