@@ -39,7 +39,7 @@ abstract class BaseFactory implements ColumnFactoryCollectionFactory
             ];
 
             if ($table_screen instanceof TableScreen\MetaType) {
-                $defaults['table_screen_context'] = TableScreenContext::from_table_screen($table_screen);
+                $defaults['table_context'] = TableScreenContext::from_table_screen($table_screen);
             }
 
             foreach ($factories as $factory) {

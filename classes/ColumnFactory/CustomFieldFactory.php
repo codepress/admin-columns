@@ -22,7 +22,7 @@ class CustomFieldFactory extends BaseColumnFactory
 
     private FieldType $field_type;
 
-    private TableScreenContext $table_screen_context;
+    private TableScreenContext $table_context;
 
     private ComponentFactory\BeforeAfter $before_after;
 
@@ -31,7 +31,7 @@ class CustomFieldFactory extends BaseColumnFactory
     public function __construct(
         DefaultSettingsBuilder $default_settings_builder,
         ComponentFactory\CustomFieldFactory $custom_field_factory,
-        TableScreenContext $table_screen_context,
+        TableScreenContext $table_context,
         FieldType $field_type,
         ComponentFactory\BeforeAfter $before_after,
         ComponentFactory\Pro\TogglePromotionFactory $pro_promotion_factory
@@ -42,7 +42,7 @@ class CustomFieldFactory extends BaseColumnFactory
 
         $this->custom_field_factory = $custom_field_factory;
         $this->field_type = $field_type;
-        $this->table_screen_context = $table_screen_context;
+        $this->table_context = $table_context;
         $this->before_after = $before_after;
         $this->pro_promotion_factory = $pro_promotion_factory;
     }
@@ -50,7 +50,7 @@ class CustomFieldFactory extends BaseColumnFactory
     protected function get_settings(Config $config): ComponentCollection
     {
         return new ComponentCollection([
-            $this->custom_field_factory->create($this->table_screen_context)->create($config),
+            $this->custom_field_factory->create($this->table_context)->create($config),
             $this->field_type->create($config),
             $this->before_after->create($config),
             $this->pro_promotion_factory->create(__('Enable Editing', 'codepress-admin-columns'))->create($config),
@@ -80,7 +80,7 @@ class CustomFieldFactory extends BaseColumnFactory
             return $formatters->prepend(
                 Aggregate::from_array([
                     new AC\Formatter\MetaCollection(
-                        $this->table_screen_context->get_meta_type(), $config->get('field', '')
+                        $this->table_context->get_meta_type(), $config->get('field', '')
                     ),
                     new AC\Formatter\Count(),
                 ])
@@ -88,7 +88,7 @@ class CustomFieldFactory extends BaseColumnFactory
         }
 
         return $formatters->prepend(
-            new AC\Formatter\Meta($this->table_screen_context->get_meta_type(), $config->get('field', ''))
+            new AC\Formatter\Meta($this->table_context->get_meta_type(), $config->get('field', ''))
         );
     }
 
