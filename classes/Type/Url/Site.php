@@ -14,10 +14,7 @@ class Site extends Type\Uri
     public const PAGE_CHANGELOG = '/changelog';
     public const PAGE_PRICING = '/pricing-purchase';
     public const PAGE_ABOUT_PRO = '/admin-columns-pro';
-    public const PAGE_FEATURES = '/features';
     public const PAGE_ACCOUNT_SUBSCRIPTIONS = '/my-account/subscriptions';
-    public const PAGE_FORUM = '/topics';
-    public const PAGE_FORUM_BETA = '/forums/forum/beta-feedback/';
     public const PAGE_ADDONS = '/add-ons';
     public const PAGE_ADDON_ACF = '/advanced-custom-fields';
     public const PAGE_ADDON_BUDDYPRESS = '/buddypress';
