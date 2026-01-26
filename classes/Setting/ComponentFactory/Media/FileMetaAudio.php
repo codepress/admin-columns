@@ -79,7 +79,6 @@ final class FileMetaAudio extends BaseComponentFactory
                 );
                 break;
             case 'filesize':
-                // TODO test
                 $formatters->add(new AC\Formatter\FileSizeReadable());
                 break;
 
