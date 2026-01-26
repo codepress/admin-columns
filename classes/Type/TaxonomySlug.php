@@ -25,9 +25,9 @@ class TaxonomySlug
         }
     }
 
-    public function equals(TaxonomySlug $taxonomy): bool
+    public function equals(string $taxonomy): bool
     {
-        return $this->taxonomy === (string)$taxonomy;
+        return $this->taxonomy === $taxonomy;
     }
 
     public function __toString(): string

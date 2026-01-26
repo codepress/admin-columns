@@ -8,8 +8,8 @@ use AC\Column\Context;
 use AC\Formatter;
 use AC\Formatter\Collection\Separator;
 use AC\FormatterCollection;
+use AC\ListScreen;
 use AC\TableScreen;
-use AC\Type\ListScreenId;
 use AC\Type\Value;
 
 class TableRender implements Formatter
@@ -17,7 +17,7 @@ class TableRender implements Formatter
 
     private TableScreen $table_screen;
 
-    private ListScreenId $list_id;
+    private ListScreen $list_screen;
 
     private FormatterCollection $formatters;
 
@@ -27,10 +27,10 @@ class TableRender implements Formatter
         FormatterCollection $formatters,
         Context $context,
         TableScreen $table_screen,
-        ListScreenId $list_id
+        ListScreen $list_screen
     ) {
         $this->table_screen = $table_screen;
-        $this->list_id = $list_id;
+        $this->list_screen = $list_screen;
         $this->formatters = $formatters;
         $this->context = $context;
     }
@@ -42,7 +42,7 @@ class TableRender implements Formatter
                                            new ColumnFilter(
                                                $this->context,
                                                $this->table_screen,
-                                               $this->list_id
+                                               $this->list_screen
                                            )
                                        );
 

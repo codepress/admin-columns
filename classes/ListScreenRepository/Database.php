@@ -12,9 +12,9 @@ use AC\Exception\FailedToSaveListScreen;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepositoryWritable;
-use AC\Setting\Config;
 use AC\Setting\ConfigCollection;
 use AC\Storage\EncoderFactory;
+use AC\Storage\Repository\OriginalColumnsRepository;
 use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListScreenId;
@@ -35,14 +35,18 @@ class Database implements ListScreenRepositoryWritable
 
     private Aggregate $column_factory;
 
+    private OriginalColumnsRepository $original_columns_repository;
+
     public function __construct(
         TableScreenFactory $table_screen_factory,
         EncoderFactory $encoder_factory,
-        Aggregate $column_factory
+        Aggregate $column_factory,
+        OriginalColumnsRepository $original_columns_repository
     ) {
         $this->table_screen_factory = $table_screen_factory;
         $this->encoder_factory = $encoder_factory;
         $this->column_factory = $column_factory;
+        $this->original_columns_repository = $original_columns_repository;
     }
 
     protected function find_from_source(ListScreenId $id): ?ListScreen
@@ -219,28 +223,20 @@ class Database implements ListScreenRepositoryWritable
         return new ProxyColumnIterator(
             new EncodedData(
                 $this->column_factory->create($table_screen),
-                $this->create_configs($data)
+                $this->create_configs($data),
+                $this->original_columns_repository,
+                $table_screen
             )
         );
     }
 
     private function create_configs(object $data): ConfigCollection
     {
-        $configs = [];
-
         $columns = $data->columns
             ? unserialize($data->columns, ['allowed_classes' => false])
             : [];
 
-        foreach ($columns as $name => $config) {
-            if ( ! isset($config['name'])) {
-                $config['name'] = $name;
-            }
-
-            $configs[] = new Config($config);
-        }
-
-        return new ConfigCollection($configs);
+        return ConfigCollection::create_from_array($columns);
     }
 
     private function create_list_screens(array $rows): ListScreenCollection

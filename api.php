@@ -53,14 +53,14 @@ if ( ! function_exists('ac_get_list_screen')) {
  * For usage @see https://docs.admincolumns.com/article/57-code-snippets
  */
 if ( ! function_exists('ac_get_list_screens')) {
-    function ac_get_list_screens(string $key): ListScreenCollection
+    function ac_get_list_screens(string $table_id): ListScreenCollection
     {
         if ( ! did_action('wp_loaded')) {
             throw new RuntimeException("Call after the `wp_loaded` hook.");
         }
 
         return Container::get_storage()->find_all_by_table_id(
-            new TableId($key)
+            new TableId($table_id)
         );
     }
 }
@@ -121,7 +121,7 @@ if ( ! function_exists('ac_get_columns')) {
 }
 
 if ( ! function_exists('ac_format_date')) {
-    function ac_format_date(string $format, int $timestamp = null, DateTimeZone $timezone = null): ?string
+    function ac_format_date(string $format, ?int $timestamp = null, ?DateTimeZone $timezone = null): ?string
     {
         return wp_date($format, $timestamp, $timezone) ?: null;
     }
@@ -134,14 +134,14 @@ if ( ! function_exists('ac_is_pro_active')) {
     }
 }
 
-function ac_get_admin_url(string $slug = null): string
+function ac_get_admin_url(?string $slug = null): string
 {
     _deprecated_function(__METHOD__, '4.5', 'Url\Editor');
 
     return (new Url\Editor($slug))->get_url();
 }
 
-function ac_get_admin_network_url(string $slug = null): string
+function ac_get_admin_network_url(?string $slug = null): string
 {
     _deprecated_function(__METHOD__, '4.5', 'Url\EditorNetwork');
 
@@ -156,22 +156,22 @@ function ac_register_columns(): void
 function ac_get_site_utm_url(
     string $path,
     string $utm_medium,
-    string $utm_content = null,
-    string $utm_campaign = null
+    ?string $utm_content = null,
+    ?string $utm_campaign = null
 ): string {
     _deprecated_function(__METHOD__, '6.0', 'AC\Type\UrlUtmTags()');
 
     return (new Url\UtmTags(new Url\Site($path), $utm_medium, $utm_content, $utm_campaign))->get_url();
 }
 
-function ac_get_site_documentation_url(string $path = null): string
+function ac_get_site_documentation_url(?string $path = null): string
 {
     _deprecated_function(__METHOD__, '6.0', 'AC\Type\Url\Documentation()');
 
     return (new Url\Documentation($path))->get_url();
 }
 
-function ac_get_site_url(string $path = null): string
+function ac_get_site_url(?string $path = null): string
 {
     _deprecated_function(__METHOD__, '6.0', 'AC\Type\Url\Site()');
 

@@ -170,8 +170,6 @@ class V7000 extends Update
 
             $has_changed_columns = false;
 
-            $columns = array_values($columns);
-
             foreach ($columns as $i => $column) {
                 // invalid data
                 if ( ! is_array($column) || ! $column) {
@@ -193,7 +191,7 @@ class V7000 extends Update
 
         foreach ($updates as $id => $columns) {
             $wpdb->query(
-                $wpdb->prepare("UPDATE {$wpdb->prefix}admin_columns SET columns = %s WHERE ID = %d", $columns, $id)
+                $wpdb->prepare("UPDATE {$wpdb->prefix}admin_columns SET columns = %s WHERE id = %d", $columns, $id)
             );
         }
     }

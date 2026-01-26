@@ -8,36 +8,26 @@ use AC\Type\Url;
 class UtmTags extends Uri
 {
 
-    public const ARG_SOURCE = 'utm_source';
-    public const ARG_MEDIUM = 'utm_medium';
-    public const ARG_CONTENT = 'utm_content';
-    public const ARG_CAMPAIGN = 'utm_campaign';
-
     public function __construct(Url $url, ?string $medium = null, ?string $content = null, ?string $campaign = null)
     {
         parent::__construct($url->get_url());
 
-        $this->add(self::ARG_SOURCE, 'plugin-installation');
+        $this->add('utm_source', 'plugin-installation');
 
         if ($medium) {
-            $this->add(self::ARG_MEDIUM, $medium);
+            $this->add('utm_medium', $medium);
         }
 
         if ($content) {
-            $this->add(self::ARG_CONTENT, $content);
+            $this->add('utm_content', $content);
         }
 
         if ($campaign) {
-            $this->add(self::ARG_CAMPAIGN, $campaign);
+            $this->add('utm_campaign', $campaign);
         }
     }
 
-    public function add_medium(string $medium): self
-    {
-        return new self($this, $medium);
-    }
-
-    public function add_content(string $content): self
+    public function with_content(string $content): self
     {
         return new self($this, null, $content);
     }

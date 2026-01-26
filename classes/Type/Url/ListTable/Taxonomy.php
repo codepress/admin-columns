@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace AC\Type\Url\ListTable;
 
-use AC\Type\Url\ListTable;
+use AC\Type\Uri;
 
-class Taxonomy extends ListTable
+class Taxonomy extends Uri
 {
 
     public function __construct(string $taxonomy, ?string $post_type = null)
     {
-        parent::__construct('edit-tags.php');
+        parent::__construct((string)admin_url('edit-tags.php'));
 
         $this->add('taxonomy', $taxonomy);
 

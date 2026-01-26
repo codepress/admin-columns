@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
@@ -57,7 +59,7 @@ class MenuFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = new FormatterCollection([
-            new UsedByMenu($this->post_type),
+            new UsedByMenu((string)$this->post_type),
             new TermProperty('name'),
             new MenuLink(),
         ]);

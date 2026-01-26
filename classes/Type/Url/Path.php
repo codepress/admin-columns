@@ -5,16 +5,9 @@ namespace AC\Type\Url;
 trait Path
 {
 
-    protected $path = '';
-
-    protected function set_path(string $path): void
+    protected function normalize_path(string $path): string
     {
-        $this->path = '/' . trim($path, '/') . '/';
-    }
-
-    protected function get_path(): string
-    {
-        return $this->path;
+        return '/' . trim($path, '/') . '/';
     }
 
 }

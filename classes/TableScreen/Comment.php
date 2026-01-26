@@ -25,7 +25,7 @@ class Comment extends TableScreen implements ListTable, MetaType, TotalItems
                 __('Comment'),
                 __('Comments')
             ),
-            new Url\ListTable('edit-comments.php'),
+            new Url\AdminUrl('edit-comments.php'),
             '#the-comment-list'
         );
     }

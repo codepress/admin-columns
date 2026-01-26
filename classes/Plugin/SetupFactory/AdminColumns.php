@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Plugin\SetupFactory;
 
+use AC\Column\ColumnIdGenerator;
 use AC\Plugin\Install;
 use AC\Plugin\InstallCollection;
 use AC\Plugin\Setup;
@@ -48,6 +49,7 @@ final class AdminColumns extends SetupFactory
                 $this->updates = new UpdateCollection([
                     new Update\V4000(),
                     new Update\V7000(new Install\Database($this->table)),
+                    new Update\V7004(new ColumnIdGenerator()),
                 ]);
 
                 break;

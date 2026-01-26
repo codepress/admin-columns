@@ -9,7 +9,7 @@ use AC\Type\Uri;
 class EditorNetwork extends Uri
 {
 
-    public function __construct($slug = null)
+    public function __construct(?string $slug = null)
     {
         parent::__construct(network_admin_url('settings.php'));
 

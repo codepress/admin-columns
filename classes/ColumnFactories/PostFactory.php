@@ -33,7 +33,7 @@ final class PostFactory extends BaseFactory
             new ColumnFactoryDefinition(
                 AC\ColumnFactory\CustomFieldFactory::class,
                 [
-                    'table_screen_context' => $table_screen_context,
+                    'table_context' => $table_screen_context,
                 ]
             )
         );

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
@@ -37,7 +39,7 @@ class PageTemplateFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
 
-        $formatters->add(new PageTemplate($this->post_type));
+        $formatters->add(new PageTemplate((string)$this->post_type));
 
         return $formatters;
     }

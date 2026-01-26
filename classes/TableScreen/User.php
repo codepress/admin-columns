@@ -25,7 +25,7 @@ class User extends TableScreen implements ListTable, MetaType, TotalItems
                 __('User'),
                 __('Users')
             ),
-            new Url\ListTable('users.php')
+            new Url\AdminUrl('users.php')
         );
     }
 
