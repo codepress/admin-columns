@@ -43,7 +43,7 @@ class Uri implements Url
 
     public function __toString(): string
     {
-        return $this->url;
+        return $this->get_url();
     }
 
 }
