@@ -85,7 +85,7 @@ class FieldTypeFactory extends BaseComponentFactory
         return $collection;
     }
 
-    protected function add_formatters(Setting\Config $config, Setting\FormatterCollection $formatters): void
+    protected function add_formatters(Setting\Config $config, AC\FormatterCollection $formatters): void
     {
         $field_type = $config->get('field_type', '');
         $configs = $this->formatter_configs[$field_type] ?? [];
