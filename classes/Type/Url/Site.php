@@ -7,8 +7,6 @@ use AC\Type;
 class Site extends Type\Uri
 {
 
-    public const URL = 'https://www.admincolumns.com';
-
     public const PAGE_CHANGELOG = '/changelog';
     public const PAGE_PRICING = '/pricing-purchase';
     public const PAGE_ABOUT_PRO = '/admin-columns-pro';
@@ -30,7 +28,7 @@ class Site extends Type\Uri
 
     public function __construct(?string $path = null)
     {
-        parent::__construct(self::URL);
+        parent::__construct('https://www.admincolumns.com');
 
         if ($path) {
             $this->add_path($path);
