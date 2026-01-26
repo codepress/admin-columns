@@ -41,7 +41,12 @@ abstract class Promo
 
     public function get_url(): Url
     {
-        return (new UtmTags(new Site(Site::PAGE_PRICING), 'promo', null, $this->slug));
+        return new UtmTags(
+            Site::create_pricing(),
+            'promo',
+            null,
+            $this->slug
+        );
     }
 
     public function get_date_range(): Type\DateRange
