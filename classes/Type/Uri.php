@@ -21,7 +21,7 @@ class Uri implements Url
         );
     }
 
-    public function add(string $key, string $value): void
+    protected function add(string $key, string $value): void
     {
         $this->url = add_query_arg($key, $value, $this->url);
     }
