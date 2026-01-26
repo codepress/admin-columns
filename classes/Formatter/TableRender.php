@@ -11,6 +11,7 @@ use AC\FormatterCollection;
 use AC\ListScreen;
 use AC\TableScreen;
 use AC\Type\Value;
+use LogicException;
 
 class TableRender implements Formatter
 {
@@ -47,6 +48,10 @@ class TableRender implements Formatter
                                        );
 
         $value = (new Aggregate($formatters))->format($value);
+
+        if ( ! $value instanceof Value) {
+            throw new LogicException('Invalid value.');
+        }
 
         return (new EmptyValue())->format($value);
     }
