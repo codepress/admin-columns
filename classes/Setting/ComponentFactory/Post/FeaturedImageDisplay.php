@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory\Post;
 
 use AC\Expression\StringComparisonSpecification;
+use AC\Formatter\FileSizeReadable;
 use AC\Formatter\Media\Dimensions;
 use AC\Formatter\Media\FileSize;
-use AC\Formatter\ReadableFileSize;
 use AC\FormatterCollection;
 use AC\Setting\Children;
 use AC\Setting\ComponentCollection;
@@ -64,7 +64,7 @@ class FeaturedImageDisplay extends BaseComponentFactory
     {
         if ('filesize' === $this->get_input($config)->get_value()) {
             $formatters->add(new FileSize());
-            $formatters->add(new ReadableFileSize());
+            $formatters->add(new FileSizeReadable());
         }
 
         if ('dimensions' === $this->get_input($config)->get_value()) {

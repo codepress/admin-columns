@@ -13,9 +13,12 @@ class FileSize implements Formatter
 
     private ?string $format;
 
-    public function __construct(string $format = null)
+    private ?int $decimals;
+
+    public function __construct(string $format = null, ?int $decimals = 2)
     {
-        $this->format = $format;
+        $this->format = $format ?? 'bytes';
+        $this->decimals = $decimals;
     }
 
     public function format(Value $value): Value
@@ -26,29 +29,35 @@ class FileSize implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $file_size = filesize($file);
+        $bytes = filesize($file);
 
-        if ($file_size <= 0) {
+        if ($bytes === false || $bytes <= 0) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
         switch ($this->format) {
             case 'kb' :
-                $file_size = $file_size / 1024;
-                $file_size = sprintf('%s KB', number_format($file_size, 2));
+                $size = $bytes / 1024;
                 break;
             case 'mb' :
-                $file_size = $file_size / (1024 * 1024);
-                $file_size = sprintf('%s MB', number_format($file_size, 2));
+                $size = $bytes / (1024 * 1024);
                 break;
             case 'gb' :
-                $file_size = $file_size / (1024 * 1024 * 1024);
-                $file_size = sprintf('%s GB', number_format($file_size, 2));
+                $size = $bytes / (1024 * 1024 * 1024);
                 break;
+            case 'tb' :
+                $size = $bytes / (1024 * 1024 * 1024 * 1024);
+                break;
+            default :
+                $size = $bytes;
+        }
+
+        if (null !== $this->decimals) {
+            $size = round($size, $this->decimals);
         }
 
         return $value->with_value(
-            $file_size
+            (float)$size
         );
     }
 
