@@ -10,6 +10,8 @@ use AC\ColumnCollection;
 use AC\ColumnRepository;
 use AC\Setting\Config;
 use AC\Setting\ConfigCollection;
+use AC\Storage\Repository\OriginalColumnsRepository;
+use AC\TableScreen;
 
 class EncodedData implements ColumnRepository
 {
@@ -18,10 +20,20 @@ class EncodedData implements ColumnRepository
 
     private ConfigCollection $configs;
 
-    public function __construct(ColumnFactories $factories, ConfigCollection $configs)
-    {
+    private OriginalColumnsRepository $original_columns_repository;
+
+    private TableScreen $table_screen;
+
+    public function __construct(
+        ColumnFactories $factories,
+        ConfigCollection $configs,
+        OriginalColumnsRepository $original_columns_repository,
+        TableScreen $table_screen
+    ) {
         $this->configs = $configs;
         $this->factories = $factories;
+        $this->original_columns_repository = $original_columns_repository;
+        $this->table_screen = $table_screen;
     }
 
     public function find_all(): ColumnCollection
@@ -29,6 +41,8 @@ class EncodedData implements ColumnRepository
         $columns = new ColumnCollection();
 
         foreach ($this->configs as $config) {
+            $config = $this->modify_config($config);
+
             $column = $this->find((string)$config->get('type'), $config);
 
             if ($column) {
@@ -37,6 +51,19 @@ class EncodedData implements ColumnRepository
         }
 
         return $columns;
+    }
+
+    private function modify_config(Config $config): Config
+    {
+        // In some rare cases the stored 'name' can have a mismatch with it's 'type' for original columns
+        if ($this->original_columns_repository->find($this->table_screen->get_id(), (string)$config->get('type'))) {
+            $data = $config->all();
+            $data['name'] = $data['type'];
+
+            return new Config($data);
+        }
+
+        return $config;
     }
 
     private function find(string $type, Config $config): ?Column

@@ -4,20 +4,13 @@ namespace AC\Type\Url;
 
 use AC\Type;
 
-class Site implements Type\Url
+class Site extends Type\Uri
 {
-
-    use Path;
-
-    public const URL = 'https://www.admincolumns.com';
 
     public const PAGE_CHANGELOG = '/changelog';
     public const PAGE_PRICING = '/pricing-purchase';
     public const PAGE_ABOUT_PRO = '/admin-columns-pro';
-    public const PAGE_FEATURES = '/features';
     public const PAGE_ACCOUNT_SUBSCRIPTIONS = '/my-account/subscriptions';
-    public const PAGE_FORUM = '/topics';
-    public const PAGE_FORUM_BETA = '/forums/forum/beta-feedback/';
     public const PAGE_ADDONS = '/add-ons';
     public const PAGE_ADDON_ACF = '/advanced-custom-fields';
     public const PAGE_ADDON_BUDDYPRESS = '/buddypress';
@@ -35,8 +28,10 @@ class Site implements Type\Url
 
     public function __construct(?string $path = null)
     {
+        parent::__construct('https://www.admincolumns.com');
+
         if ($path) {
-            $this->set_path($path);
+            $this->add_path($path);
         }
     }
 
@@ -60,14 +55,9 @@ class Site implements Type\Url
         return new self(self::PAGE_CHANGELOG);
     }
 
-    public function get_url(): string
+    public static function create_account(): self
     {
-        return self::URL . $this->get_path();
-    }
-
-    public function __toString(): string
-    {
-        return $this->get_url();
+        return new self(self::PAGE_ACCOUNT_SUBSCRIPTIONS);
     }
 
 }

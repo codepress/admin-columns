@@ -15,7 +15,7 @@ class Video extends View
         $this->set_template('embed/video');
     }
 
-    public function set_src(string $src)
+    public function set_src(string $src): self
     {
         return $this->set('src', $src);
     }

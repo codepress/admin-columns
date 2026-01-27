@@ -41,7 +41,7 @@ class TableRenderFactory implements RenderFactory
             $formatters,
             $column->get_context(),
             $this->table_screen,
-            $this->list_screen->get_id()
+            $this->list_screen
         );
     }
 

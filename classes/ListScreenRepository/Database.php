@@ -12,7 +12,6 @@ use AC\Exception\FailedToSaveListScreen;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepositoryWritable;
-use AC\Setting\Config;
 use AC\Setting\ConfigCollection;
 use AC\Storage\EncoderFactory;
 use AC\Storage\Repository\OriginalColumnsRepository;
@@ -224,29 +223,20 @@ class Database implements ListScreenRepositoryWritable
         return new ProxyColumnIterator(
             new EncodedData(
                 $this->column_factory->create($table_screen),
-                $this->create_configs($table_screen->get_id(), $data)
+                $this->create_configs($data),
+                $this->original_columns_repository,
+                $table_screen
             )
         );
     }
 
-    private function create_configs(TableId $table_id, object $data): ConfigCollection
+    private function create_configs(object $data): ConfigCollection
     {
-        $configs = [];
-
         $columns = $data->columns
             ? unserialize($data->columns, ['allowed_classes' => false])
             : [];
 
-        foreach ($columns as $config) {
-            // In some rare cases the stored 'name' can have a mismatch with it's 'type' for original columns.
-            if ($this->original_columns_repository->find($table_id, $config['type'])) {
-                $config['name'] = $config['type'];
-            }
-
-            $configs[] = new Config($config);
-        }
-
-        return new ConfigCollection($configs);
+        return ConfigCollection::create_from_array($columns);
     }
 
     private function create_list_screens(array $rows): ListScreenCollection

@@ -11,7 +11,8 @@ class PluginSearch extends Uri
 
     public function __construct(string $search)
     {
-        parent::__construct(admin_url('plugin-install.php'));
+        parent::__construct((string)admin_url('plugin-install.php'));
+
         $this->add('tab', 'search');
         $this->add('type', 'term');
         $this->add('s', $search);

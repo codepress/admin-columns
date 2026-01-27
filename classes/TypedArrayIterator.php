@@ -9,9 +9,6 @@ use LogicException;
 abstract class TypedArrayIterator extends ArrayIterator
 {
 
-    /**
-     * @var string
-     */
     protected string $type;
 
     /**

@@ -11,7 +11,7 @@ class Editor extends Uri
 
     public function __construct(?string $slug = null)
     {
-        parent::__construct(admin_url('options-general.php'));
+        parent::__construct((string)admin_url('options-general.php'));
 
         $this->add(RequestHandlerInterface::PARAM_PAGE, Admin\Admin::NAME);
 

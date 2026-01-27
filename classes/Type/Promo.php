@@ -2,7 +2,6 @@
 
 namespace AC\Type;
 
-use AC;
 use AC\Type;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
@@ -40,9 +39,14 @@ abstract class Promo
         return $this->slug;
     }
 
-    public function get_url(): AC\Type\Url
+    public function get_url(): Url
     {
-        return (new UtmTags(new Site(Site::PAGE_PRICING), 'promo', null, $this->slug));
+        return new UtmTags(
+            Site::create_pricing(),
+            'promo',
+            null,
+            $this->slug
+        );
     }
 
     public function get_date_range(): Type\DateRange
