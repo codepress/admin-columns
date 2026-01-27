@@ -25,7 +25,6 @@
     import ProSettingsExample from "./ProSettingsExample.svelte";
     import {AcNotice, AcPanel} from "ACUi/index";
     import JSONTree from "svelte-json-tree";
-    import ListKeys from "../utils/list-keys";
     import {checkChangesWarning} from "../utils/unsaved-changes";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
@@ -86,7 +85,8 @@
 	</aside>
 	<div class="acu-flex acu-flex-col acu-flex-grow acu-max-w-[1640px]">
 
-		<div class="acu-px-4 2xl:acu-px-[50px] acu-pt-[10px] acp-columns-notices" data-ac-notices>
+
+		<div class="acu-px-4 2xl:acu-px-[50px] acp-columns-notices" data-ac-notices>
 
 			<hr class="wp-header-end">
 			{#if !$listScreenIsTemplate && $listScreenDataStore && 'inactive' === $listScreenDataStore.status}

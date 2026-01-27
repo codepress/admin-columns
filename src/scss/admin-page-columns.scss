@@ -25,6 +25,14 @@
 }
 
 
+@media (min-width: 1450px) {
+	.acp-columns-notices {
+		&:has(> :not(.wp-header-end)) {
+			padding-top: 30px;
+		}
+	}
+}
+
 .ac-admin-page {
 	-webkit-font-smoothing: antialiased;
 
