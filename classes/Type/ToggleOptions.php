@@ -33,8 +33,8 @@ final class ToggleOptions
         $last_key = array_key_last($options);
 
         return new self(
-            new Option($first_key, $options[$first_key]),
-            new Option($last_key, $options[$last_key])
+            new Option((string)$first_key, (string)$options[$first_key]),
+            new Option((string)$last_key, (string)$options[$last_key])
         );
     }
 

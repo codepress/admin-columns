@@ -2,6 +2,7 @@
 
 namespace AC\Service;
 
+use AC;
 use AC\AdminColumns;
 use AC\Asset\Script;
 use AC\Asset\Style;
@@ -10,9 +11,9 @@ use AC\Registerable;
 class CommonAssets implements Registerable
 {
 
-    private $location;
+    private AC\Asset\Location $location;
 
-    private $translation_factory;
+    private Script\GlobalTranslationFactory $translation_factory;
 
     public function __construct(AdminColumns $plugin, Script\GlobalTranslationFactory $translation_factory)
     {

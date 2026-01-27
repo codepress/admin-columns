@@ -11,9 +11,9 @@ use AC\Registerable;
 final class Colors implements Registerable
 {
 
-    private $shipped_colors_updater;
+    private ColorUpdater $shipped_colors_updater;
 
-    private $style_injector;
+    private StyleInjector $style_injector;
 
     public function __construct(ColorUpdater $shipped_colors_updater, StyleInjector $style_injector)
     {
