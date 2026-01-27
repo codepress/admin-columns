@@ -3,6 +3,7 @@
 namespace AC\Admin;
 
 use AC\AdminColumns;
+use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Registerable;
@@ -10,7 +11,7 @@ use AC\Registerable;
 class Scripts implements Registerable
 {
 
-    private $location;
+    private Location $location;
 
     public function __construct(AdminColumns $plugin)
     {

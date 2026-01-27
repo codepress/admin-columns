@@ -10,11 +10,11 @@ use AC\Admin\Colors\Storage\OptionFactory;
 final class ColorUpdater
 {
 
-    private $shipped_color_parser;
+    private ColorParser $shipped_color_parser;
 
-    private $color_repository;
+    private ColorRepository $color_repository;
 
-    private $option_factory;
+    private OptionFactory $option_factory;
 
     public function __construct(
         ColorParser $shipped_color_parser,

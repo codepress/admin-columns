@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace AC\Admin\Colors;
 
+use AC;
 use AC\Admin\Colors\Storage\OptionFactory;
 use AC\Admin\Colors\Type\Color;
 
 final class ColorRepository implements ColorReader
 {
 
-    private $storage;
+    private AC\Storage\Option $storage;
 
-    private $colors;
+    private ?ColorCollection $colors = null;
 
     public function __construct(OptionFactory $optionFactory)
     {

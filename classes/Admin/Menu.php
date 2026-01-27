@@ -10,7 +10,7 @@ class Menu
     /**
      * @var MenuItem[]
      */
-    private $items;
+    private array $items;
 
     public function __construct(array $items = [])
     {
