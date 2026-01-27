@@ -13,10 +13,8 @@ use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use LogicException;
 
-final class Storage implements ListScreenRepositoryWritable
+final class Storage extends Base implements ListScreenRepositoryWritable
 {
-
-    use ListScreenRepositoryTrait;
 
     /**
      * @var Storage\ListScreenRepository[]
@@ -67,7 +65,7 @@ final class Storage implements ListScreenRepositoryWritable
         return $this->repositories[$key];
     }
 
-    protected function find_from_source(ListScreenId $id): ?ListScreen
+    public function find(ListScreenId $id): ?ListScreen
     {
         foreach ($this->repositories as $repository) {
             $list_screen = $repository->get_list_screen_repository()->find($id);
@@ -82,7 +80,7 @@ final class Storage implements ListScreenRepositoryWritable
         return null;
     }
 
-    protected function find_all_from_source(): ListScreenCollection
+    public function find_all(?Sort $sort = null): ListScreenCollection
     {
         $collection = new ListScreenCollection();
 
@@ -96,18 +94,19 @@ final class Storage implements ListScreenRepositoryWritable
             }
         }
 
-        return $collection;
+        return $this->sort($collection, $sort);
     }
 
-    protected function find_all_by_table_id_from_source(
+    public function find_all_by_table_id(
         TableId $table_id,
-        ?ListScreenStatus $status = null
+        ?Sort $sort = null,
+        ?ListScreenStatus $type = null
     ): ListScreenCollection {
         $collection = new ListScreenCollection();
 
         foreach ($this->repositories as $repository) {
             $list_screens = $repository->get_list_screen_repository()
-                                       ->find_all_by_table_id($table_id, null, $status);
+                                       ->find_all_by_table_id($table_id, null, $type);
 
             foreach ($list_screens as $list_screen) {
                 if ( ! $collection->contains($list_screen)) {
@@ -118,7 +117,7 @@ final class Storage implements ListScreenRepositoryWritable
             }
         }
 
-        return $collection;
+        return $this->sort($collection, $sort);
     }
 
     public function save(ListScreen $list_screen): void

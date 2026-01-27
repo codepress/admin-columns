@@ -22,11 +22,9 @@ use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use DateTime;
 
-class Database implements ListScreenRepositoryWritable
+class Database extends Base implements ListScreenRepositoryWritable
 {
-
-    use ListScreenRepositoryTrait;
-
+    
     private const TABLE = 'admin_columns';
 
     private TableScreenFactory $table_screen_factory;
@@ -49,7 +47,7 @@ class Database implements ListScreenRepositoryWritable
         $this->original_columns_repository = $original_columns_repository;
     }
 
-    protected function find_from_source(ListScreenId $id): ?ListScreen
+    public function find(ListScreenId $id): ?ListScreen
     {
         global $wpdb;
 
@@ -71,7 +69,7 @@ class Database implements ListScreenRepositoryWritable
         return $this->create_list_screen($row);
     }
 
-    protected function find_all_from_source(): ListScreenCollection
+    public function find_all(?Sort $sort = null): ListScreenCollection
     {
         global $wpdb;
 
@@ -80,14 +78,16 @@ class Database implements ListScreenRepositoryWritable
 			FROM ' . $wpdb->prefix . self::TABLE . '
 		';
 
-        return $this->create_list_screens(
-            $wpdb->get_results($sql)
+        return $this->sort(
+            $this->create_list_screens($wpdb->get_results($sql)),
+            $sort
         );
     }
 
-    protected function find_all_by_table_id_from_source(
+    public function find_all_by_table_id(
         TableId $table_id,
-        ?ListScreenStatus $status = null
+        ?Sort $sort = null,
+        ?ListScreenStatus $type = null
     ): ListScreenCollection {
         global $wpdb;
 
@@ -100,16 +100,17 @@ class Database implements ListScreenRepositoryWritable
             (string)$table_id,
         );
 
-        if ($status) {
-            $is_empty = '' === (string)$status;
+        if ($type) {
+            $is_empty = '' === (string)$type;
 
             $sql .= $is_empty
                 ? " AND ( status = '' OR STATUS IS NULL )"
-                : $wpdb->prepare(' AND status = %s', (string)$status);
+                : $wpdb->prepare(' AND status = %s', (string)$type);
         }
 
-        return $this->create_list_screens(
-            $wpdb->get_results($sql)
+        return $this->sort(
+            $this->create_list_screens($wpdb->get_results($sql)),
+            $sort
         );
     }
 
