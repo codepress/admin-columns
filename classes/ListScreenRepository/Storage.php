@@ -100,13 +100,13 @@ final class Storage extends Base implements ListScreenRepositoryWritable
     public function find_all_by_table_id(
         TableId $table_id,
         ?Sort $sort = null,
-        ?ListScreenStatus $type = null
+        ?ListScreenStatus $status = null
     ): ListScreenCollection {
         $collection = new ListScreenCollection();
 
         foreach ($this->repositories as $repository) {
             $list_screens = $repository->get_list_screen_repository()
-                                       ->find_all_by_table_id($table_id, null, $type);
+                                       ->find_all_by_table_id($table_id, null, $status);
 
             foreach ($list_screens as $list_screen) {
                 if ( ! $collection->contains($list_screen)) {

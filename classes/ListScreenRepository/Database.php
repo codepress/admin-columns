@@ -24,7 +24,7 @@ use DateTime;
 
 class Database extends Base implements ListScreenRepositoryWritable
 {
-    
+
     private const TABLE = 'admin_columns';
 
     private TableScreenFactory $table_screen_factory;
@@ -87,7 +87,7 @@ class Database extends Base implements ListScreenRepositoryWritable
     public function find_all_by_table_id(
         TableId $table_id,
         ?Sort $sort = null,
-        ?ListScreenStatus $type = null
+        ?ListScreenStatus $status = null
     ): ListScreenCollection {
         global $wpdb;
 
@@ -100,12 +100,12 @@ class Database extends Base implements ListScreenRepositoryWritable
             (string)$table_id,
         );
 
-        if ($type) {
-            $is_empty = '' === (string)$type;
+        if ($status) {
+            $is_empty = '' === (string)$status;
 
             $sql .= $is_empty
                 ? " AND ( status = '' OR STATUS IS NULL )"
-                : $wpdb->prepare(' AND status = %s', (string)$type);
+                : $wpdb->prepare(' AND status = %s', (string)$status);
         }
 
         return $this->sort(
