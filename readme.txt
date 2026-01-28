@@ -212,8 +212,10 @@ You can find a list of the available actions and filters (and examples on how to
 = 7.0.6 =
 Release Date: January 28th, 2026
 
-* [Improved] WordPress VIP icon font issue
-* [Improved] Value render hook now also triggers when value is empty
+* [Fixed] Prevented a fatal error when retrieving the total items count if $wp_list_table is not a WP_List_Table instance.
+* [Fixed] Fixed a WordPress VIP icon font issue.
+* [Improved] Optimized performance and memory usage when retrieving table views.
+* [Improved] The value rendering hook now also triggers when the value is empty.
 
 = 7.0.5 =
 Release Date: January 27th, 2026
