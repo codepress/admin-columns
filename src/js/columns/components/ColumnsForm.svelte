@@ -12,8 +12,10 @@
         listScreenDataHasChanges,
         listScreenDataStore,
         listScreenIsReadOnly,
-        listScreenIsStored, listScreenLabels,
-        openedColumnsStore, showColumnInfo
+        listScreenIsStored,
+        listScreenLabels,
+        openedColumnsStore,
+        showColumnInfo
     } from "../store";
     import {createEventDispatcher, onMount, tick} from "svelte";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
@@ -190,8 +192,8 @@
         component.close();
     }
 
-    const toggleColumnInfo = ( e ) => {
-        persistScreenOptions( 'show_column_info', e.detail === true ? 1 : 0)
+    const toggleColumnInfo = (e) => {
+        persistScreenOptions('show_column_info', e.detail === true ? 1 : 0)
     }
 
     onMount(() => {
@@ -222,6 +224,12 @@
 							placeholder={i18n.settings.label.table_view_label}/>
 					</AcInputGroup>
 				</div>
+				{#if $showColumnInfo}
+					<div class="acu-flex-shrink">
+						<div><small><strong>Table:</strong> {data.type}</small></div>
+						<div><small><strong>ID:</strong> {data.id}</small></div>
+					</div>
+				{/if}
 				<AcDropdown closeOnClick={false}>
 					<MaterialIcon icon="more_vert" slot="trigger" className="acu-cursor-pointer"/>
 					<div on:click|stopPropagation role="none" class="acu-p-4">
@@ -247,7 +255,7 @@
 							position="bottom-right"
 							customClass="-selectv2">
 
-							<AcButton slot="trigger" >+ {i18n.editor.label.add_column}</AcButton>
+							<AcButton slot="trigger">+ {i18n.editor.label.add_column}</AcButton>
 							<ColumnTypeDropdownV2
 								on:selectItem={handleSelectColumnType}
 								on:close={() => handleCloseColumnTypeDropdown(columnTypeComponent)}
@@ -283,7 +291,7 @@
 			</div>
 		</div>
 
-		<AcPanelFooter slot="footer" border={data.columns.length === 0}  classNames={['acu-flex acu-justify-end acu-gap-2']}>
+		<AcPanelFooter slot="footer" border={data.columns.length === 0} classNames={['acu-flex acu-justify-end acu-gap-2']}>
 			{#if !$listScreenIsReadOnly && !locked}
 
 				{#if data.columns.length > 0}
