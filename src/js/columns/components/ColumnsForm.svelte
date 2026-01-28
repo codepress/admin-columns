@@ -225,7 +225,7 @@
 					</AcInputGroup>
 				</div>
 				{#if $showColumnInfo}
-					<div class="acu-flex-shrink">
+					<div class="acu-flex-shrink acu-flex acu-flex-col acu-leading-snug acu-text-[#888]">
 						<div><small><strong>Table:</strong> {data.type}</small></div>
 						<div><small><strong>ID:</strong> {data.id}</small></div>
 					</div>

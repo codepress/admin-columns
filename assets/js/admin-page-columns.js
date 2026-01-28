@@ -4353,7 +4353,7 @@ function create_if_block_5(ctx) {
       strong1.textContent = "ID:";
       t5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       t6 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t6_value);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "acu-flex-shrink");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "acu-flex-shrink acu-flex acu-flex-col acu-leading-snug acu-text-[#888]");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div2, anchor);
