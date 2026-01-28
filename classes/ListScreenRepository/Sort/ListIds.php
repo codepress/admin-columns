@@ -8,7 +8,7 @@ use AC\ListScreenRepository\Sort;
 class ListIds implements Sort
 {
 
-    private $list_ids;
+    private array $list_ids;
 
     public function __construct(array $list_ids = [])
     {

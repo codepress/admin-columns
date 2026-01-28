@@ -12,17 +12,13 @@ use AC\View;
 class Dismissible extends Notice
 {
 
-    protected $handler;
+    protected Handler $handler;
 
     public function __construct(string $message, ?Handler $handler = null, ?string $type = null)
     {
-        if (null === $handler) {
-            $handler = new NullHandler();
-        }
-
-        $this->handler = $handler;
-
         parent::__construct($message, $type);
+
+        $this->handler = $handler ?? new NullHandler();
     }
 
     public function render(): string

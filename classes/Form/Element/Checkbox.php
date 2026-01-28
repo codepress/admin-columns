@@ -7,19 +7,16 @@ use AC\Form\Element;
 class Checkbox extends Element
 {
 
-    /**
-     * @var bool
-     */
-    protected $vertical;
+    protected ?bool $vertical = null;
 
-    protected $multiple;
+    protected ?bool $multiple = null;
 
-    protected function get_type()
+    protected function get_type(): string
     {
         return 'checkbox';
     }
 
-    protected function get_classes()
+    protected function get_classes(): array
     {
         $classes = [
             $this->get_type() . '-labels',
@@ -45,7 +42,7 @@ class Checkbox extends Element
         return sprintf($template, implode(' ', $this->get_classes()), implode("\n", $elements));
     }
 
-    private function get_elements()
+    private function get_elements(): ?array
     {
         if ($this->is_multiple()) {
             $this->set_name($this->get_name() . '[]');
@@ -89,14 +86,14 @@ class Checkbox extends Element
         return $elements;
     }
 
-    public function set_multiple($multiple)
+    public function set_multiple(bool $multiple): self
     {
-        $this->multiple = (bool)$multiple;
+        $this->multiple = $multiple;
 
         return $this;
     }
 
-    public function is_multiple()
+    public function is_multiple(): bool
     {
         if (empty($this->multiple)) {
             return false;
@@ -105,14 +102,14 @@ class Checkbox extends Element
         return $this->multiple;
     }
 
-    public function set_vertical($vertical)
+    public function set_vertical(bool $vertical)
     {
-        $this->vertical = (bool)$vertical;
+        $this->vertical = $vertical;
 
         return $this;
     }
 
-    public function is_vertical()
+    public function is_vertical(): bool
     {
         if (empty($this->vertical)) {
             return false;
