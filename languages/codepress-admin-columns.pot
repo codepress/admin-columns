@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-01-27 08:42+0000\n"
+"POT-Creation-Date: 2026-01-28 15:27+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -88,15 +88,15 @@ msgstr ""
 msgid "Instructions"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:64
+#: classes/Check/AddonAvailable.php:63
 msgid "Did you know Admin Columns Pro has full support for %s?"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:71, classes/Admin/Asset/Columns.php:267
+#: classes/Check/AddonAvailable.php:70, classes/Admin/Asset/Columns.php:267
 msgid "Get Admin Columns Pro"
 msgstr ""
 
-#: classes/Check/Review.php:115, classes/Table/Screen.php:90, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17, classes/Table/Service/ScreenOptions.php:39
+#: classes/Check/Review.php:115, classes/Table/Screen.php:90, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17
 msgid "Admin Columns"
 msgstr ""
 
@@ -936,7 +936,7 @@ msgstr ""
 msgid "Column"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:396, classes/Admin/ScreenOption/ColumnInfo.php:31
+#: classes/Admin/Asset/Columns.php:396
 msgid "Column Info"
 msgstr ""
 
@@ -1026,14 +1026,6 @@ msgstr ""
 
 #: classes/Admin/Notice/DatabaseMissing.php:49
 msgid "Create database table."
-msgstr ""
-
-#: classes/Admin/ScreenOption/ListScreenType.php:33
-msgid "List Screen Key"
-msgstr ""
-
-#: classes/Admin/Section/General.php:40, classes/Admin/Asset/Script/SettingsFactory.php:27
-msgid "General Settings"
 msgstr ""
 
 #: classes/ColumnFactory/Comment/AgentFactory.php:17
@@ -2066,6 +2058,10 @@ msgstr ""
 
 #: templates/admin/script/storage-file-directory.php:36
 msgid "How to setup File Storage"
+msgstr ""
+
+#: classes/Admin/Asset/Script/SettingsFactory.php:27
+msgid "General Settings"
 msgstr ""
 
 #: classes/Admin/Asset/Script/SettingsFactory.php:28

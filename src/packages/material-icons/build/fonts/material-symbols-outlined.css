@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url('./material-symbols-outlined.woff2') format('woff2');
+  src: url('../material/material-symbols-outlined.woff2?v=1769590933') format('woff2');
 }
 
 .ac-material-symbols {

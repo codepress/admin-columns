@@ -9,10 +9,7 @@ use InvalidArgumentException;
 final class Translation
 {
 
-    /**
-     * @var array
-     */
-    private $translations;
+    private array $translations;
 
     public function __construct(array $translations)
     {

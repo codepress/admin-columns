@@ -32,7 +32,7 @@ class Options extends ArrayIterator
         $options = [];
 
         foreach ($array as $key => $value) {
-            $options[] = new Option($key, $value);
+            $options[] = new Option((string)$key, (string)$value);
         }
 
         return new self($options);

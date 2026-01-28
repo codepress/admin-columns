@@ -10,11 +10,10 @@ use AC\Registerable;
 use AC\Screen;
 use AC\Type\Integration;
 
-final class AddonAvailable
-    implements Registerable
+final class AddonAvailable implements Registerable
 {
 
-    private $integration;
+    private Integration $integration;
 
     public function __construct(Integration $integration)
     {

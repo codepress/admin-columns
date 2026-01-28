@@ -39,6 +39,8 @@ async function downloadFont( icons ) {
 	const outputPath = path.join( outputDir, 'material-symbols-outlined.woff2' );
 	await fs.writeFile( outputPath, Buffer.from( fontBuffer ) );
 
+	const time = Math.floor(Date.now() / 1000);
+
 	console.log( 'Font saved to:', outputPath );
 
 	// Generate and save CSS
@@ -47,7 +49,7 @@ async function downloadFont( icons ) {
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url('./material-symbols-outlined.woff2') format('woff2');
+  src: url('../material/material-symbols-outlined.woff2?v=${time}') format('woff2');
 }
 
 .ac-material-symbols {

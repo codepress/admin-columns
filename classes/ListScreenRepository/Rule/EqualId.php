@@ -8,17 +8,14 @@ use AC\Type\ListScreenId;
 class EqualId implements Rule
 {
 
-    /**
-     * @var ListScreenId
-     */
-    private $id;
+    private ListScreenId $id;
 
     public function __construct(ListScreenId $id)
     {
         $this->id = $id;
     }
 
-    public function match(array $args)
+    public function match(array $args): bool
     {
         if ( ! isset($args[self::ID])) {
             return false;

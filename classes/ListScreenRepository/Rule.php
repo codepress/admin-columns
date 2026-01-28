@@ -9,11 +9,6 @@ interface Rule
     public const ID = 'id';
     public const GROUP = 'group';
 
-    /**
-     * @param array $args
-     *
-     * @return bool
-     */
-    public function match(array $args);
+    public function match(array $args): bool;
 
 }

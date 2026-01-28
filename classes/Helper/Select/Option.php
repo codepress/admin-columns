@@ -5,38 +5,22 @@ namespace AC\Helper\Select;
 class Option
 {
 
-    /**
-     * @var string
-     */
-    private $value;
+    private string $value;
 
-    /**
-     * @var string
-     */
-    private $label;
+    private string $label;
 
-    /**
-     * @param string $value
-     * @param string $label
-     */
-    public function __construct($value, $label = null)
+    public function __construct(string $value, ?string $label = null)
     {
         $this->value = $value;
-        $this->label = $label ?: $value;
+        $this->label = $label ?? $value;
     }
 
-    /**
-     * @return string
-     */
-    public function get_value()
+    public function get_value(): string
     {
         return $this->value;
     }
 
-    /**
-     * @return string
-     */
-    public function get_label()
+    public function get_label(): string
     {
         return $this->label;
     }

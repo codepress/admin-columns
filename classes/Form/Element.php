@@ -34,13 +34,10 @@ abstract class Element implements Renderable
         $this->set_options($options);
     }
 
-    /**
-     * @return string|false
-     */
-    protected function render_description()
+    protected function render_description(): ?string
     {
         if ( ! $this->get_description()) {
-            return false;
+            return null;
         }
 
         $template = '<p class="help-msg">%s</p>';
@@ -48,33 +45,18 @@ abstract class Element implements Renderable
         return sprintf($template, $this->get_description());
     }
 
-    /**
-     * Render this element
-     * @return string
-     */
     abstract public function render(): string;
 
-    /**
-     * @param $key
-     *
-     * @return string|false
-     */
-    public function get_attribute($key)
+    public function get_attribute(string $key): ?string
     {
         if ( ! isset($this->attributes[$key])) {
-            return false;
+            return null;
         }
 
-        return trim($this->attributes[$key]);
+        return trim((string)$this->attributes[$key]);
     }
 
-    /**
-     * @param string $key
-     * @param string $value
-     *
-     * @return $this
-     */
-    public function set_attribute($key, $value)
+    public function set_attribute(string $key, string $value): self
     {
         if ('value' === $key) {
             $this->set_value($value);
@@ -87,23 +69,15 @@ abstract class Element implements Renderable
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function get_attributes()
+    public function get_attributes(): array
     {
         return $this->attributes;
     }
 
-    /**
-     * @param array $attributes
-     *
-     * @return $this
-     */
-    public function set_attributes(array $attributes)
+    public function set_attributes(array $attributes): self
     {
         foreach ($attributes as $key => $value) {
-            $this->set_attribute($key, $value);
+            $this->set_attribute((string)$key, (string)$value);
         }
 
         return $this;
@@ -111,17 +85,13 @@ abstract class Element implements Renderable
 
     /**
      * Get attributes as string
-     *
-     * @param array $attributes
-     *
-     * @return string
      */
-    protected function get_attributes_as_string(array $attributes)
+    protected function get_attributes_as_string(array $attributes): string
     {
         $output = [];
 
         foreach ($attributes as $key => $value) {
-            $output[] = $this->get_attribute_as_string($key, $value);
+            $output[] = $this->get_attribute_as_string((string)$key, $value);
         }
 
         return implode(' ', $output);
@@ -129,13 +99,8 @@ abstract class Element implements Renderable
 
     /**
      * Render an attribute
-     *
-     * @param string $key
-     * @param string $value
-     *
-     * @return string
      */
-    protected function get_attribute_as_string($key, $value = null)
+    protected function get_attribute_as_string(string $key, ?string $value = null): string
     {
         if (null === $value) {
             $value = $this->get_attribute($key);
@@ -144,35 +109,22 @@ abstract class Element implements Renderable
         return ac_helper()->html->get_attribute_as_string($key, $value);
     }
 
-    public function get_name()
+    public function get_name(): ?string
     {
         return $this->get_attribute('name');
     }
 
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function set_name($name)
+    public function set_name(string $name): self
     {
         return $this->set_attribute('name', $name);
     }
 
-    /**
-     * @return false|string
-     */
-    public function get_id()
+    public function get_id(): ?string
     {
         return $this->get_attribute('id');
     }
 
-    /**
-     * @param string $id
-     *
-     * @return $this
-     */
-    public function set_id($id)
+    public function set_id(string $id): self
     {
         return $this->set_attribute('id', $id);
     }
@@ -190,31 +142,21 @@ abstract class Element implements Renderable
      *
      * @return $this
      */
-    public function set_value($value)
+    public function set_value($value): self
     {
         $this->value = $value;
 
         return $this;
     }
 
-    /**
-     * @param string $class
-     *
-     * @return $this
-     */
-    public function set_class($class)
+    public function set_class(string $class): self
     {
         $this->set_attribute('class', $class);
 
         return $this;
     }
 
-    /**
-     * @param string $class
-     *
-     * @return $this
-     */
-    public function add_class($class)
+    public function add_class(string $class): self
     {
         $parts = explode(' ', (string)$this->get_attribute('class'));
         $parts[] = $class;
@@ -224,32 +166,19 @@ abstract class Element implements Renderable
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function get_label()
+    public function get_label(): string
     {
         return $this->label;
     }
 
-    /**
-     * @param string $label
-     *
-     * @return $this
-     */
-    public function set_label($label)
+    public function set_label(string $label): self
     {
         $this->label = $label;
 
         return $this;
     }
 
-    /**
-     * @param array $options
-     *
-     * @return $this
-     */
-    public function set_options(array $options)
+    public function set_options(array $options): self
     {
         $this->options = $options;
 
@@ -266,22 +195,14 @@ abstract class Element implements Renderable
         return $this->description;
     }
 
-    /**
-     * @param $description
-     *
-     * @return $this
-     */
-    public function set_description($description)
+    public function set_description(string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->render();
     }
