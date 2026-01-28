@@ -8,7 +8,7 @@ use AC\Type\Url\UtmTags;
 class PluginActionUpgrade implements Registerable
 {
 
-    private $plugin;
+    private AdminColumns $plugin;
 
     public function __construct(AdminColumns $plugin)
     {

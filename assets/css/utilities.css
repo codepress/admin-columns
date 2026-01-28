@@ -891,6 +891,11 @@
   padding-bottom: 15px
 }
 
+.acu-py-4 {
+  padding-top: 20px;
+  padding-bottom: 20px
+}
+
 .acu-py-6 {
   padding-top: 30px;
   padding-bottom: 30px
@@ -1439,6 +1444,11 @@
   .xl\:acu-gap-6 {
     gap: 30px
   }
+
+  .xl\:acu-py-8 {
+    padding-top: 40px;
+    padding-bottom: 40px
+  }
 }
 
 @media (min-width: 1450px) {
@@ -1471,8 +1481,33 @@
     padding-right: 50px
   }
 
+  .\32xl\:acu-py-8 {
+    padding-top: 40px;
+    padding-bottom: 40px
+  }
+
   .\32xl\:acu-pt-\[30px\] {
     padding-top: 30px
+  }
+
+  .\32xl\:acu-pl-\[250px\] {
+    padding-left: 250px
+  }
+
+  .\32xl\:acu-pl-\[280px\] {
+    padding-left: 280px
+  }
+
+  .\32xl\:acu-pl-\[340px\] {
+    padding-left: 340px
+  }
+
+  .\32xl\:acu-pl-\[360px\] {
+    padding-left: 360px
+  }
+
+  .\32xl\:acu-pl-\[350px\] {
+    padding-left: 350px
   }
 }
 

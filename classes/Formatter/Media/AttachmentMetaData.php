@@ -11,7 +11,7 @@ use AC\Type\Value;
 class AttachmentMetaData implements Formatter
 {
 
-    private $key;
+    private string $key;
 
     public function __construct(string $key)
     {

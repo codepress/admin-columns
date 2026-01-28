@@ -9,7 +9,7 @@ use InvalidArgumentException;
 class TaxonomySlug
 {
 
-    private $taxonomy;
+    private string $taxonomy;
 
     public function __construct(string $taxonomy)
     {

@@ -2,18 +2,14 @@
 
 namespace AC;
 
-class Transient implements Expirable
+use AC\Storage\KeyValue;
+
+final class Transient implements Expirable
 {
 
-    /**
-     * @var Storage\Option
-     */
-    protected $option;
+    protected KeyValue $option;
 
-    /**
-     * @var Storage\Timestamp
-     */
-    protected $timestamp;
+    protected Storage\Timestamp $timestamp;
 
     public function __construct(string $key, bool $network_only = false)
     {

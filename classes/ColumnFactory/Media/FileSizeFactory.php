@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\FileSizeReadable;
 use AC\Formatter\Media\FileSize;
-use AC\Formatter\ReadableFileSize;
 use AC\FormatterCollection;
 use AC\Setting\Config;
 
@@ -28,7 +28,7 @@ class FileSizeFactory extends BaseColumnFactory
         $formatters = parent::get_formatters($config);
 
         $formatters->add(new FileSize());
-        $formatters->add(new ReadableFileSize());
+        $formatters->add(new FileSizeReadable());
 
         return $formatters;
     }

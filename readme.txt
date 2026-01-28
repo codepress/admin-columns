@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 7.0.5 =
-Release Date: TBD
+Release Date: January 27th, 2026
 
 * [Improved] We added 'get_post_type' and 'get_meta_type' to the CustomFieldContext class
 * [Fixed] The `EditorColumns` URI was incorrectly added to the WP_Admin_Bar object which could cause an error
