@@ -54,7 +54,7 @@ class Button
         $output = [];
 
         foreach ($attributes as $key => $value) {
-            $output[] = $this->get_attribute_as_string($key, $value);
+            $output[] = $this->get_attribute_as_string((string)$key, $value);
         }
 
         return implode(' ', $output);

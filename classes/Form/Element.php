@@ -53,7 +53,7 @@ abstract class Element implements Renderable
             return null;
         }
 
-        return trim($this->attributes[$key]);
+        return trim((string)$this->attributes[$key]);
     }
 
     public function set_attribute(string $key, string $value): self
@@ -91,7 +91,7 @@ abstract class Element implements Renderable
         $output = [];
 
         foreach ($attributes as $key => $value) {
-            $output[] = $this->get_attribute_as_string((string)$key, (string)$value);
+            $output[] = $this->get_attribute_as_string((string)$key, $value);
         }
 
         return implode(' ', $output);
@@ -109,7 +109,7 @@ abstract class Element implements Renderable
         return ac_helper()->html->get_attribute_as_string($key, $value);
     }
 
-    public function get_name()
+    public function get_name(): ?string
     {
         return $this->get_attribute('name');
     }
