@@ -27,6 +27,14 @@ final class TermLink extends BaseComponentFactory
         return __('Link To', 'codepress-admin-columns');
     }
 
+    public function with_post_type(PostTypeSlug $post_type): self
+    {
+        $clone = clone $this;
+        $clone->post_type = $post_type;
+
+        return $clone;
+    }
+
     protected function get_input(Config $config): ?Input
     {
         return OptionFactory::create_select(

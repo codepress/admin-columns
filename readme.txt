@@ -210,7 +210,9 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 7.0.7 =
-Release Date: TBD
+Release Date: January 30th, 2026
+
+* [Fixed] Fixed an error with the "Image Sizes" setting.
 
 = 7.0.6 =
 Release Date: January 28th, 2026

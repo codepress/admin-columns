@@ -108,7 +108,6 @@ abstract class DateFormat extends BaseComponentFactory
                 return new Formatter\Date\DateFormat(
                     $output_format,
                     $this->source_format,
-                    $this->output_timezone
                 );
         }
     }

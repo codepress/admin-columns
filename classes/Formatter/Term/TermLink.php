@@ -12,9 +12,9 @@ use WP_Term;
 class TermLink implements Formatter
 {
 
-    private $link_to;
+    private string $link_to;
 
-    private $post_type;
+    private ?PostTypeSlug $post_type;
 
     public function __construct(string $link_to, ?PostTypeSlug $post_type = null)
     {
@@ -32,6 +32,13 @@ class TermLink implements Formatter
 
                 if ($term instanceof WP_Term) {
                     $link = ac_helper()->taxonomy->get_filter_by_term_url(
+                        $term,
+                        (string)$this->post_type
+                    );
+
+                    $link = apply_filters(
+                        'ac/formatter/term/link',
+                        $link,
                         $term,
                         (string)$this->post_type
                     );

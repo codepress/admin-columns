@@ -58,7 +58,7 @@ class TaxonomyFactory extends BaseColumnFactory
     {
         return new ComponentCollection([
             $this->taxonomy_factory->create($this->post_type)->create($config),
-            $this->term_link_factory->create($config),
+            $this->term_link_factory->with_post_type($this->post_type)->create($config),
             $this->number_of_items_factory->create($config),
             $this->separator_factory->create($config),
         ]);
