@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-01-28 15:27+0000\n"
+"POT-Creation-Date: 2026-01-30 13:50+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -52,7 +52,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: classes/ColumnGroups.php:29, classes/Setting/ComponentFactory/FieldType.php:139, classes/Setting/ComponentFactory/ImageSize.php:115
+#: classes/ColumnGroups.php:29, classes/Setting/ComponentFactory/FieldType.php:139, classes/Setting/ComponentFactory/ImageSize.php:119
 msgid "Custom"
 msgstr ""
 
@@ -1720,7 +1720,7 @@ msgstr ""
 msgid "Others"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:113
+#: classes/Setting/ComponentFactory/ImageSize.php:117
 msgid "Custom Size"
 msgstr ""
 
@@ -1926,11 +1926,11 @@ msgstr ""
 msgid "Word Limit"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/TermLink.php:48
+#: classes/Setting/ComponentFactory/TermLink.php:56
 msgid "Filter by Term"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/TermLink.php:49
+#: classes/Setting/ComponentFactory/TermLink.php:57
 msgid "Edit Term"
 msgstr ""
 
