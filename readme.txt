@@ -212,7 +212,6 @@ You can find a list of the available actions and filters (and examples on how to
 = 7.0.8 =
 Release Date: February 2nd, 2026
 
-
 * [Fixed] Resolved an issue where original WordPress default columns were stored incorrectly.
 * [Fixed] Fixed an issue where images in custom field columns did not always display correctly, depending on how they were stored.
 * [Added] Added a setting for image, media, post, and user custom fields to control the number of items displayed.
