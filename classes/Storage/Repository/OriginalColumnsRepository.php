@@ -6,6 +6,7 @@ use AC\Storage\Option;
 use AC\Type\OriginalColumn;
 use AC\Type\OriginalColumns;
 use AC\Type\TableId;
+use Exception;
 
 final class OriginalColumnsRepository
 {
@@ -101,19 +102,29 @@ final class OriginalColumnsRepository
                 continue;
             }
 
-            $columns[] = $this->create_column($type, $data);
+            $column = $this->create_column($type, $data);
+
+            if ( ! $column) {
+                continue;
+            }
+
+            $columns[] = $column;
         }
 
         return new OriginalColumns($columns);
     }
 
-    private function create_column(string $type, array $data): OriginalColumn
+    private function create_column(string $type, array $data): ?OriginalColumn
     {
-        return new OriginalColumn(
-            $type,
-            (string)($data['label'] ?? ''),
-            (bool)($data['sortable'] ?? false)
-        );
+        try {
+            return new OriginalColumn(
+                $type,
+                (string)($data['label'] ?? ''),
+                (bool)($data['sortable'] ?? false)
+            );
+        } catch (Exception $e) {
+            return null;
+        }
     }
 
     private function get(TableId $id): array
