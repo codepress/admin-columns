@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-01-30 13:50+0000\n"
+"POT-Creation-Date: 2026-02-02 14:04+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/ColumnGroups.php:18, classes/Response/JsonListScreenSettingsFactory.php:69, classes/RequestHandler/Ajax/CustomFieldKeys.php:73, classes/Setting/ComponentFactory/FieldType.php:144, classes/Setting/ComponentFactory/ImageSize.php:86, classes/Setting/ComponentFactory/Separator.php:32, classes/Setting/ComponentFactory/UserProperty.php:133, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:17
+#: classes/ColumnGroups.php:18, classes/Response/JsonListScreenSettingsFactory.php:69, classes/RequestHandler/Ajax/CustomFieldKeys.php:73, classes/Setting/ComponentFactory/FieldType.php:148, classes/Setting/ComponentFactory/ImageSize.php:86, classes/Setting/ComponentFactory/Separator.php:32, classes/Setting/ComponentFactory/UserProperty.php:133, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:17
 msgid "Default"
 msgstr ""
 
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Custom Fields"
 msgstr ""
 
-#: classes/ColumnGroups.php:21, classes/Setting/ComponentFactory/FieldType.php:180
+#: classes/ColumnGroups.php:21, classes/Setting/ComponentFactory/FieldType.php:184
 msgid "Media"
 msgstr ""
 
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Meta"
 msgstr ""
 
-#: classes/ColumnGroups.php:24, classes/ColumnFactory/Media/ImageFactory.php:41, classes/Setting/ComponentFactory/FieldType.php:170
+#: classes/ColumnGroups.php:24, classes/ColumnFactory/Media/ImageFactory.php:41, classes/Setting/ComponentFactory/FieldType.php:174
 msgid "Image"
 msgstr ""
 
@@ -52,7 +52,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: classes/ColumnGroups.php:29, classes/Setting/ComponentFactory/FieldType.php:139, classes/Setting/ComponentFactory/ImageSize.php:119
+#: classes/ColumnGroups.php:29, classes/Setting/ComponentFactory/FieldType.php:143, classes/Setting/ComponentFactory/ImageSize.php:119
 msgid "Custom"
 msgstr ""
 
@@ -924,7 +924,7 @@ msgstr ""
 msgid "Buy Pro"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:388, classes/Setting/ComponentFactory/CustomField.php:63, classes/Setting/ComponentFactory/FieldType.php:177
+#: classes/Admin/Asset/Columns.php:388, classes/Setting/ComponentFactory/CustomField.php:63, classes/Setting/ComponentFactory/FieldType.php:181
 msgid "Select"
 msgstr ""
 
@@ -1072,7 +1072,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: classes/ColumnFactory/Comment/PostFactory.php:37, classes/Setting/ComponentFactory/FieldType.php:181
+#: classes/ColumnFactory/Comment/PostFactory.php:37, classes/Setting/ComponentFactory/FieldType.php:185
 msgid "Post"
 msgstr ""
 
@@ -1084,7 +1084,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: classes/ColumnFactory/Comment/UserFactory.php:44, classes/Setting/ComponentFactory/FieldType.php:182
+#: classes/ColumnFactory/Comment/UserFactory.php:44, classes/Setting/ComponentFactory/FieldType.php:186
 msgid "User"
 msgstr ""
 
@@ -1553,7 +1553,7 @@ msgid "Custom field key"
 msgstr ""
 
 #: classes/Setting/ComponentFactory/DateFormat.php:46
-msgid "Date Format"
+msgid "Display Date Format"
 msgstr ""
 
 #: classes/Setting/ComponentFactory/DateFormat.php:52
@@ -1573,19 +1573,27 @@ msgid "WordPress Date Format"
 msgstr ""
 
 #: classes/Setting/ComponentFactory/DateSaveFormat.php:21
-msgid "Date Save Format"
+msgid "Stored Date Format"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:31, classes/Setting/ComponentFactory/FieldType.php:167
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:26
+msgid "This is the format in which dates are stored and saved (also used for sorting, filtering, and editing)."
+msgstr ""
+
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:34, classes/Setting/ComponentFactory/FieldType.php:171
 msgid "Date"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:34
-msgid "Datetime (ISO)"
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:39
+msgid "Datetime"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:35, classes/Setting/ComponentFactory/ExifData.php:62
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:44, classes/Setting/ComponentFactory/ExifData.php:62
 msgid "Timestamp"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:45
+msgid "seconds"
 msgstr ""
 
 #: classes/Setting/ComponentFactory/ExifData.php:58
@@ -1628,71 +1636,71 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:99
+#: classes/Setting/ComponentFactory/FieldType.php:103
 msgid "Field Type"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:104
+#: classes/Setting/ComponentFactory/FieldType.php:108
 msgid "This will determine how the value will be displayed."
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:113
+#: classes/Setting/ComponentFactory/FieldType.php:117
 msgid "Select the field type"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:135
+#: classes/Setting/ComponentFactory/FieldType.php:139
 msgid "Basic"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:136
+#: classes/Setting/ComponentFactory/FieldType.php:140
 msgid "Relational"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:137
+#: classes/Setting/ComponentFactory/FieldType.php:141
 msgid "Choice"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:138, classes/Setting/ComponentFactory/IsMultiple.php:23
+#: classes/Setting/ComponentFactory/FieldType.php:142, classes/Setting/ComponentFactory/IsMultiple.php:23
 msgid "Multiple"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:166
+#: classes/Setting/ComponentFactory/FieldType.php:170
 msgid "Color"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:168
+#: classes/Setting/ComponentFactory/FieldType.php:172
 msgid "Text"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:169
+#: classes/Setting/ComponentFactory/FieldType.php:173
 msgid "HTML"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:171
+#: classes/Setting/ComponentFactory/FieldType.php:175
 msgid "URL"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:172
+#: classes/Setting/ComponentFactory/FieldType.php:176
 msgid "Number"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:175
+#: classes/Setting/ComponentFactory/FieldType.php:179
 msgid "Has Content"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:176
+#: classes/Setting/ComponentFactory/FieldType.php:180
 msgid "True / False"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:185
+#: classes/Setting/ComponentFactory/FieldType.php:189
 msgid "Number of Fields"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:188
+#: classes/Setting/ComponentFactory/FieldType.php:192
 msgid "Multiple Values"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:189
+#: classes/Setting/ComponentFactory/FieldType.php:193
 msgid "Serialized"
 msgstr ""
 
