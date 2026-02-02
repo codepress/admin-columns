@@ -13,7 +13,6 @@ final class ExplodeToCollection extends ArrayToCollection
 
     private string $separator;
 
-    // TODO
     public function __construct(string $separator)
     {
         $this->separator = $separator;
