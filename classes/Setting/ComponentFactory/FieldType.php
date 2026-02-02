@@ -295,6 +295,10 @@ class FieldType extends BaseComponentFactory
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_USER)
                 ),
+                $this->date_format->create(
+                    $config,
+                    StringComparisonSpecification::equal(self::TYPE_DATE)
+                ),
                 $this->date->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_DATE)
@@ -302,10 +306,6 @@ class FieldType extends BaseComponentFactory
                 $this->select_options->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_SELECT)
-                ),
-                $this->date_format->create(
-                    $config,
-                    StringComparisonSpecification::equal(self::TYPE_DATE)
                 ),
                 $this->link_label->create(
                     $config,
