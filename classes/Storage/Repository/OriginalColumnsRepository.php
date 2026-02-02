@@ -75,7 +75,13 @@ final class OriginalColumnsRepository
                     continue;
                 }
 
-                $columns[] = $this->create_column($type, $column_data);
+                $column = $this->create_column($type, $column_data);
+
+                if ( ! $column) {
+                    continue;
+                }
+
+                $columns[] = $column;
             }
         }
 
