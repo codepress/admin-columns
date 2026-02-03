@@ -9,7 +9,7 @@ use AC\Vendor;
 /**
  * Container wrapper that abstracts the underlying dependency injection container
  */
-final class Container implements Vendor\Psr\Container\ContainerInterface
+final class Container implements Vendor\Psr\Container\ContainerInterface, Factory
 {
 
     private Vendor\DI\Container $container;
@@ -29,14 +29,6 @@ final class Container implements Vendor\Psr\Container\ContainerInterface
         return $this->container->has($id);
     }
 
-    /**
-     * @template T
-     * @param class-string<T> $id
-     *
-     * @return T
-     * @throws Vendor\Psr\Container\ContainerExceptionInterface
-     * @throws Vendor\Psr\Container\NotFoundExceptionInterface
-     */
     public function make(string $id, array $parameters = [])
     {
         return $this->container->make($id, $parameters);
