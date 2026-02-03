@@ -27,8 +27,6 @@ class Roles implements AC\Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $allowed_roles = $this->get_allowed_roles();
-
         $labels = [];
 
         foreach ($user->roles as $role_name) {

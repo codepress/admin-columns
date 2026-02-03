@@ -160,8 +160,6 @@ final class Screen implements Registerable
             ['jquery', Asset\Script\GlobalTranslationFactory::HANDLE],
         );
 
-        $table_screen = $this->table_screen;
-
         $args = [
             'layout'            => '',
             'column_types'      => '',
