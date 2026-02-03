@@ -34,9 +34,6 @@ class PromoRepository
 
     public function find_active(): ?Promo
     {
-        /**
-         * @var Promo $promo
-         */
         foreach ($this->find_all() as $promo) {
             if ($promo->is_active()) {
                 return $promo;
