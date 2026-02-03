@@ -28,10 +28,11 @@ class DatePublishFormatted implements Formatter
 
             // Tooltip
             default :
+                $format = get_option('date_format') . ' ' . get_option('time_format');
                 return $value->with_value(
                     ac_helper()->html->tooltip(
                         (string)$value,
-                        ac_helper()->date->date($post->post_date, 'wp_date_time')
+                        date( $format, strtotime($post->post_date) )
                     )
                 );
         }
