@@ -80,7 +80,7 @@ class FieldType extends BaseComponentFactory
         SelectOptions $select_options,
         SerializedDisplay $serialized_display,
         ModalDisplay $modal_display,
-        NumberOfItems $number_of_items,
+        NumberOfItems $number_of_items
     ) {
         $this->string_limit = $string_limit;
         $this->number_format = $number_format;
