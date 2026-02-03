@@ -21,6 +21,7 @@ class Post
         $where = [
             sprintf('post_author = %d', $user_id),
         ];
+
         if ($post_stati) {
             $where[] = sprintf('post_status IN (%s)', $this->esc_sql_array($post_stati));
         }
@@ -30,7 +31,7 @@ class Post
 
         $sql = sprintf("SELECT COUNT(*) FROM $wpdb->posts WHERE %s", implode(' AND ', $where));
 
-        return $wpdb->get_var($sql);
+        return (int)$wpdb->get_var($sql);
     }
 
     public function get_raw_field(string $field, int $id): ?string

@@ -7,7 +7,7 @@ use WP_Theme;
 class Network
 {
 
-    public function get_site_option(int $blog_id, string $option): ?string
+    public function get_site_option(int $blog_id, string $option): string
     {
         global $wpdb;
 
