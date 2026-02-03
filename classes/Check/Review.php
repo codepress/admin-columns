@@ -105,9 +105,9 @@ final class Review implements Registerable
         $this->get_preferences()->save('dismiss-review', true);
     }
 
-    private function get_documentation_url(string $utm_medium): string
+    private function get_documentation_url(): string
     {
-        return (new UtmTags(new Documentation(), $utm_medium))->get_url();
+        return (new UtmTags(new Documentation(), 'review-notice'))->get_url();
     }
 
     protected function get_message(): string
@@ -153,7 +153,7 @@ final class Review implements Registerable
                     ),
                     $product,
                     '<a href="' . esc_url(
-                        $this->get_documentation_url('review-notice')
+                        $this->get_documentation_url()
                     ) . '" target="_blank">' . __(
                         'documentation page',
                         'codepress-admin-columns'
