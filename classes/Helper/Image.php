@@ -133,10 +133,10 @@ class Image
     {
         $dimensions = $this->get_dimensions_by_sizename($size);
 
-        $width = (int)($dimensions[0] ?? 0);
-        $height = (int)($dimensions[1] ?? 0);
+        $width = $dimensions[0] ?? 0;
+        $height = $dimensions[1] ?? 0;
 
-        $image_path = str_replace(WP_CONTENT_URL, WP_CONTENT_DIR, $url);
+        $image_path = (string)str_replace(WP_CONTENT_URL, WP_CONTENT_DIR, $url);
 
         if (is_file($image_path)) {
             // try to resize image if it is not already resized
@@ -162,7 +162,7 @@ class Image
         return $this->markup_cover($image_path, $width, $height);
     }
 
-    public function get_image(string $image_id_or_url, $size = 'thumbnail', bool $skip_image_check = false): ?string
+    public function get_image(string $image_id_or_url, $size = 'thumbnail'): ?string
     {
         if ( ! $image_id_or_url) {
             return null;
@@ -172,7 +172,7 @@ class Image
             return $this->get_image_by_id((int)$image_id_or_url, $size);
         }
 
-        if ($skip_image_check || ac_helper()->string->is_image($image_id_or_url)) {
+        if (ac_helper()->string->is_image($image_id_or_url)) {
             return $this->get_image_by_url($image_id_or_url, $size);
         }
 
@@ -218,7 +218,7 @@ class Image
     {
         ob_start(); ?>
 
-		<span class="ac-image -cover" data-media-id="<?= esc_attr($media_id); ?>">
+		<span class="ac-image -cover" data-media-id="<?= esc_attr((string)$media_id); ?>">
 			<img style="width:<?= esc_attr($width); ?>px;height:<?= esc_attr($height); ?>px;" src="<?= esc_attr(
                 $src
             ); ?>" alt="">
@@ -237,8 +237,8 @@ class Image
         }
 
         $image_attributes = [
-            'max-width'  => esc_attr($width) . 'px',
-            'max_height' => esc_attr($height) . 'px',
+            'max-width'  => esc_attr((string)$width) . 'px',
+            'max_height' => esc_attr((string)$height) . 'px',
         ];
 
         if (pathinfo($src, PATHINFO_EXTENSION) === 'svg') {
