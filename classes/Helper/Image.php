@@ -153,7 +153,7 @@ class Image
         }
 
         if (is_numeric($image_id_or_url)) {
-            return $this->get_image_by_id($image_id_or_url, $size);
+            return $this->get_image_by_id((int)$image_id_or_url, $size);
         }
 
         if ($skip_image_check || ac_helper()->string->is_image($image_id_or_url)) {
