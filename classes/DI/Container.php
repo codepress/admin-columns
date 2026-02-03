@@ -9,7 +9,7 @@ use AC\Vendor;
 /**
  * Container wrapper that abstracts the underlying dependency injection container
  */
-final class Container implements Vendor\Psr\Container\ContainerInterface, Factory
+final class Container implements Vendor\Psr\Container\ContainerInterface, FactoryContainer
 {
 
     private Vendor\DI\Container $container;

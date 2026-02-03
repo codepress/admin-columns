@@ -49,10 +49,10 @@ class Loader
             ColumnFactories\CommentFactory::class,
             ColumnFactories\MediaFactory::class,
             ColumnFactories\UserFactory::class,
-            ColumnFactories\ThirdPartyFactory::class,
         ];
 
         if ( ! $container->get('is.pro')) {
+            $factories[] = ColumnFactories\ThirdPartyFactory::class;
             $factories[] = ColumnFactories\IntegrationFactory::class;
         }
 

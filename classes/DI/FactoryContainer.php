@@ -6,7 +6,7 @@ namespace AC\DI;
 
 use AC\Vendor;
 
-interface Factory
+interface FactoryContainer
 {
 
     /**
