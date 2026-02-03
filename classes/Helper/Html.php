@@ -294,14 +294,14 @@ class Html
     /**
      * @depecated 7.0.9
      */
-    public function get_internal_external_links(string $string, array $internal_domains = []): ?array
+    public function get_internal_external_links(): ?array
     {
         _deprecated_function(__METHOD__, '7.0.9');
 
         return [];
     }
 
-    public function strip_attributes(string $html, array $attributes): string
+    public function strip_attributes(string $html): string
     {
         _deprecated_function(__METHOD__, '7.0.9');
 

@@ -7,7 +7,7 @@ namespace AC\Setting;
 use AC;
 
 /**
- * @depecated 7.0.2 For backwards compatibilty
+ * @depecated 7.0.2 For backwards compatibility
  */
 interface Formatter extends AC\Formatter
 {

@@ -60,7 +60,7 @@ class Post
     /*
      * @deprecated since 7.0.9
      */
-    public function get_title(int $post_id): string
+    public function get_title(): string
     {
         _deprecated_function(__METHOD__, '7.0.9');
 
