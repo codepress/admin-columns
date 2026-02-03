@@ -14,7 +14,7 @@ use AC\Value\Extended\ExtendedValue;
 class PreviewViewLink implements Formatter
 {
 
-    private $extended_view;
+    private ExtendedValue $extended_view;
 
     public function __construct(ExtendedValue $extended_view)
     {

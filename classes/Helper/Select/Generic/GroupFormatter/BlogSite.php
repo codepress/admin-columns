@@ -33,10 +33,10 @@ class BlogSite implements GroupFormatter
                 $label = sprintf(
                     '%s %s',
                     __('Network Site:', 'codepress-admin-columns'),
-                    ac_helper()->network->get_site_option($site->blog_id, 'blogname')
+                    ac_helper()->network->get_site_option((int)$site->blog_id, 'blogname')
                 );
 
-                if (get_current_blog_id() === $site->blog_id) {
+                if (get_current_blog_id() === (int)$site->blog_id) {
                     $label = sprintf('%s (%s)', $label, __('current', 'codepress-admin-columns'));
                 }
 

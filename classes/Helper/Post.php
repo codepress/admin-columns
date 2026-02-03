@@ -7,7 +7,7 @@ use WP_Post;
 class Post
 {
 
-    private function esc_sql_array($array): string
+    private function esc_sql_array(array $array): string
     {
         return sprintf("'%s'", implode("','", array_map('esc_sql', $array)));
     }
@@ -43,30 +43,6 @@ class Post
 		";
 
         return $wpdb->get_var($wpdb->prepare($sql, $id));
-    }
-
-    /**
-     * Get Post Title or Media Filename
-     *
-     * @param int|WP_Post $post_id
-     *
-     * @return bool|string
-     */
-    public function get_title($post_id)
-    {
-        $post = get_post($post_id);
-
-        if ( ! $post instanceof WP_Post) {
-            return false;
-        }
-
-        $title = $post->post_title;
-
-        if ('attachment' === $post->post_type) {
-            $title = ac_helper()->image->get_file_name($post->ID);
-        }
-
-        return $title;
     }
 
     public function get_status_icon(WP_Post $post): ?string
@@ -114,6 +90,13 @@ class Post
             default:
                 return null;
         }
+    }
+
+    public function get_title(int $post_id): string
+    {
+        _deprecated_function(__METHOD__, '7.0.9');
+
+        return '';
     }
 
 }

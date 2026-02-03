@@ -36,7 +36,10 @@ final class UserRoles
 
         foreach ($roles_data as $role_name => $role) {
             $roles->add(
-                new Type\UserRole($role_name, $role['name'])
+                new Type\UserRole(
+                    (string)$role_name,
+                    (string)($role['name'] ?? $role_name)
+                )
             );
         }
 

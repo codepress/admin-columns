@@ -7,8 +7,14 @@ namespace AC\Type;
 final class Value
 {
 
+    /**
+     * @var mixed The unique identifier of the value.
+     */
     private $id;
 
+    /**
+     * @var mixed The actual value.
+     */
     private $value;
 
     public function __construct($id, $value = null)

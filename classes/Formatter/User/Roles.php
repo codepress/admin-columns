@@ -12,7 +12,7 @@ use AC\Type\Value;
 class Roles implements AC\Formatter
 {
 
-    private $allow_non_editable_roles;
+    private bool $allow_non_editable_roles;
 
     public function __construct(bool $allow_non_editable_roles)
     {

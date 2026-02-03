@@ -11,7 +11,7 @@ use AC\Type\Value;
 final class Avatar implements Formatter
 {
 
-    private $size;
+    private int $size;
 
     public function __construct(int $size = 60)
     {
