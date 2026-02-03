@@ -159,45 +159,6 @@ class Html
         return $hrefs;
     }
 
-    /**
-     * Returns an array with internal / external links
-     */
-    public function get_internal_external_links(string $string, array $internal_domains = []): ?array
-    {
-        $hrefs = $this->get_hrefs($string);
-
-        if ( ! $hrefs) {
-            return null;
-        }
-
-        $internal_links = $external_links = [];
-
-        foreach ($hrefs as $href) {
-            $internal = false;
-
-            foreach ($internal_domains as $domain) {
-                if (false !== strpos($href, $domain)) {
-                    $internal = true;
-                }
-            }
-
-            if ($internal) {
-                $internal_links[] = $href;
-            } else {
-                $external_links[] = $href;
-            }
-        }
-
-        if (empty($internal_links) && empty($external_links)) {
-            return null;
-        }
-
-        return [
-            $internal_links,
-            $external_links,
-        ];
-    }
-
     private function contains_html(string $string): bool
     {
         return $string && $string !== strip_tags($string);
@@ -218,20 +179,6 @@ class Html
     public function remove_empty(array $array): array
     {
         return array_filter($array, [ac_helper()->string, 'is_not_empty']);
-    }
-
-    /**
-     * Remove attribute from an html tag
-     */
-    public function strip_attributes(string $html, array $attributes): string
-    {
-        if ($this->contains_html($html)) {
-            foreach ($attributes as $attribute) {
-                $html = (string)preg_replace('/(<[^>]+) ' . $attribute . '=".*?"/i', '$1', $html);
-            }
-        }
-
-        return $html;
     }
 
     /**
@@ -342,6 +289,23 @@ class Html
         }
 
         return '<div class="ac-image-container">' . $html . '</div>';
+    }
+
+    /**
+     * @depecated 7.0.9
+     */
+    public function get_internal_external_links(string $string, array $internal_domains = []): ?array
+    {
+        _deprecated_function(__METHOD__, '7.0.9');
+
+        return [];
+    }
+
+    public function strip_attributes(string $html, array $attributes): string
+    {
+        _deprecated_function(__METHOD__, '7.0.9');
+
+        return $html;
     }
 
 }

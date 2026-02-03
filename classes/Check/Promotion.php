@@ -57,7 +57,7 @@ final class Promotion implements Registerable
     public function ajax_dismiss_notice(): void
     {
         $this->get_ajax_handler()->verify_request();
-        $this->get_preferences()->set('dismiss-notice', true);
+        $this->get_preferences()->save('dismiss-notice', true);
     }
 
     private function is_promo_screen(Screen $screen): bool
