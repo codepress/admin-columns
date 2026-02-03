@@ -8,18 +8,14 @@ use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
 use AC\Deprecated\HookCollectionFactory;
 use AC\Deprecated\Hooks;
-use AC\Entity\Plugin;
 
 class Help implements PageFactoryInterface
 {
 
-    protected Plugin $plugin;
-
     protected MenuFactoryInterface $menu_factory;
 
-    public function __construct(Plugin $plugin, MenuFactoryInterface $menu_factory)
+    public function __construct(MenuFactoryInterface $menu_factory)
     {
-        $this->plugin = $plugin;
         $this->menu_factory = $menu_factory;
     }
 
@@ -27,7 +23,6 @@ class Help implements PageFactoryInterface
     {
         return new Page\Help(
             new Hooks(new HookCollectionFactory()),
-            $this->plugin,
             new Admin\View\Menu($this->menu_factory->create('help'))
         );
     }

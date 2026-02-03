@@ -63,8 +63,6 @@ return [
         ->constructorParameter(0, admin_url('options-general.php')),
     Admin\PageFactory\Settings::class       => autowire()
         ->constructorParameter(2, get('is.pro')),
-    Admin\PageFactory\Help::class           => autowire()
-        ->constructorParameter(0, get(AdminColumns::class)),
     EncoderFactory::class                   => static function (AdminColumns $plugin) {
         return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
     },
