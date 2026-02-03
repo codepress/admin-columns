@@ -2,6 +2,8 @@
 
 namespace AC\Helper;
 
+use AC\Formatter\Post\PostStatusIcon;
+use AC\Type\Value;
 use WP_Post;
 
 class Post
@@ -45,75 +47,20 @@ class Post
         return $wpdb->get_var($wpdb->prepare($sql, $id));
     }
 
-    /**
-     * Get Post Title or Media Filename
-     *
-     * @param int|WP_Post $post_id
-     *
-     * @return bool|string
+    /*
+     * @deprecated since 7.0.9
      */
     public function get_title($post_id)
     {
-        $post = get_post($post_id);
-
-        if ( ! $post instanceof WP_Post) {
-            return false;
-        }
-
-        $title = $post->post_title;
-
-        if ('attachment' === $post->post_type) {
-            $title = ac_helper()->image->get_file_name($post->ID);
-        }
-
-        return $title;
+        return '';
     }
 
+    /*
+     * @deprecated since 7.0.9
+     */
     public function get_status_icon(WP_Post $post): ?string
     {
-        switch ($post->post_status) {
-            case 'private' :
-                return ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'hidden', 'class' => 'gray']),
-                    __('Private')
-                );
-
-            case 'publish' :
-                return ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'yes', 'class' => 'blue large']),
-                    __('Published')
-                );
-
-            case 'draft' :
-                return ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'edit', 'class' => 'green']),
-                    __('Draft')
-                );
-
-            case 'pending' :
-                return ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'backup', 'class' => 'orange']),
-                    __('Pending for review')
-                );
-
-            case 'future' :
-                $icon = ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'clock']),
-                    __('Scheduled') . ': <em>' . ac_helper()->date->date($post->post_date, 'wp_date_time') . '</em>'
-                );
-
-                // Missed schedule
-                if ((time() - mysql2date('G', $post->post_date_gmt)) > 0) {
-                    $icon .= ac_helper()->html->tooltip(
-                        ac_helper()->icon->dashicon(['icon' => 'flag', 'class' => 'gray']),
-                        __('Missed schedule')
-                    );
-                }
-
-                return $icon;
-            default:
-                return null;
-        }
+        return (string)(new PostStatusIcon())->format(new Value($post->ID, $post));
     }
 
 }
