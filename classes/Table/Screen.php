@@ -108,7 +108,7 @@ final class Screen implements Registerable
 
     private function get_edit_columns_url(): string
     {
-        return EditorUrlFactory::create(
+        return (string)EditorUrlFactory::create(
             $this->table_screen->get_id(),
             $this->table_screen->is_network(),
             $this->list_screen ? $this->list_screen->get_id() : null
