@@ -28,6 +28,7 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+use AC\DI\Container;
 use AC\Loader;
 use AC\Vendor\DI\ContainerBuilder;
 
@@ -49,9 +50,11 @@ add_action('after_setup_theme', static function () {
     require __DIR__ . '/api.php';
 
     if ( ! defined('ACP_VERSION')) {
-        $container = (new ContainerBuilder())
-            ->addDefinitions(require __DIR__ . '/settings/container-definitions.php')
-            ->build();
+        $container = new Container(
+            (new ContainerBuilder())
+                ->addDefinitions(require __DIR__ . '/settings/container-definitions.php')
+                ->build()
+        );
 
         new Loader($container);
     }
