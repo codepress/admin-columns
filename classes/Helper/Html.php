@@ -8,7 +8,7 @@ use DOMElement;
 class Html
 {
 
-    public function get_attribute_as_string(string $key, $value = null): string
+    public function get_attribute_as_string(string $key, ?string $value = null): string
     {
         return ac_helper()->string->is_not_empty($value)
             ? sprintf('%s="%s"', $key, esc_attr(trim($value)))
@@ -110,9 +110,10 @@ class Html
         $_attributes = [];
 
         foreach ($attributes as $attribute => $value) {
-            if (in_array($attribute, ['title', 'id', 'class', 'style', 'target', 'rel', 'download']
-                ) || 'data-' === substr($attribute, 0, 5)) {
-                $_attributes[] = $this->get_attribute_as_string($attribute, $value);
+            if (
+                in_array($attribute, ['title', 'id', 'class', 'style', 'target', 'rel', 'download']) ||
+                'data-' === substr($attribute, 0, 5)) {
+                $_attributes[] = $this->get_attribute_as_string($attribute, (string)$value);
             }
         }
 
