@@ -11,7 +11,7 @@ use AC\Type\Value;
 class NestedAttachmentMetaData implements Formatter
 {
 
-    private $keys;
+    private array $keys;
 
     public function __construct(array $keys)
     {

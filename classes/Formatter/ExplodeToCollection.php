@@ -15,6 +15,8 @@ final class ExplodeToCollection extends ArrayToCollection
 
     public function __construct(string $separator)
     {
+        parent::__construct();
+
         $this->separator = $separator;
     }
 
@@ -22,11 +24,13 @@ final class ExplodeToCollection extends ArrayToCollection
     {
         $result = explode($this->separator, (string)$value);
 
-        if (empty($result)) {
+        if (empty($result) || ! is_array($result)) {
             throw new ValueNotFoundException('No values found');
         }
 
-        return parent::format($value->with_value($result));
+        return parent::format(
+            $value->with_value($result)
+        );
     }
 
 }

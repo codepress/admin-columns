@@ -11,7 +11,7 @@ use AC\Type\Value;
 class Implode implements Formatter
 {
 
-    private $separator;
+    private string $separator;
 
     public function __construct(string $separator = ', ')
     {

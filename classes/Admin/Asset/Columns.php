@@ -12,7 +12,6 @@ use AC\Storage\Repository\EditorMenuStatus;
 use AC\Table\TableScreenCollection;
 use AC\Table\TableScreenRepository\SortByLabel;
 use AC\TableScreen;
-use AC\Type\Integration;
 use AC\Type\ListScreenId;
 use AC\Type\Url\Documentation;
 use AC\Type\Url\Site;
@@ -108,9 +107,6 @@ class Columns extends Script
 
         $integrations = [];
 
-        /**
-         * @var Integration $integration
-         */
         foreach ($this->integration_repository->find_all_by_active_plugins() as $integration) {
             $integrations[] = [
                 'url'   => $integration->get_link(),
@@ -139,9 +135,6 @@ class Columns extends Script
     {
         $encode = [];
 
-        /**
-         * @var AC\Type\Group $group
-         */
         foreach ($groups as $group) {
             $encode[] = [
                 'slug'     => $group->get_slug(),

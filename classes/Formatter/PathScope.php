@@ -8,7 +8,7 @@ use AC\Type\Value;
 class PathScope implements Formatter
 {
 
-    private $path_scope;
+    private string $path_scope;
 
     public function __construct(string $path_scope)
     {

@@ -19,7 +19,7 @@ final class ExifData implements ComponentFactory
 
     private const NAME = 'exif_data';
 
-    private $before_after;
+    private BeforeAfter $before_after;
 
     public function __construct(BeforeAfter $before_after)
     {

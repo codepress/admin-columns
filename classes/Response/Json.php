@@ -22,6 +22,9 @@ class Json
         $this->set_header('Content-Type', 'application/json');
     }
 
+    /**
+     * @return never
+     */
     public function send(): void
     {
         if (empty($this->parameters)) {
@@ -32,7 +35,6 @@ class Json
         wp_send_json($this->parameters, $this->status_code);
     }
 
-    #Pure
     private function send_response($data): void
     {
         status_header($this->status_code);

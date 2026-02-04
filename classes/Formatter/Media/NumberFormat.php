@@ -8,11 +8,11 @@ use AC\Type\Value;
 class NumberFormat implements Formatter
 {
 
-    private $decimals;
+    private int $decimals;
 
-    private $prefix;
+    private string $prefix;
 
-    private $suffix;
+    private string $suffix;
 
     public function __construct(int $decimals = 0, string $prefix = '', string $suffix = '')
     {

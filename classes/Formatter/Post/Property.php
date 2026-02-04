@@ -20,14 +20,20 @@ class Property implements Formatter
 
     public function format(Value $value): Value
     {
-        $field = get_post($value->get_id())->{$this->property} ?? null;
+        $post = get_post($value->get_id());
 
-        if ( ! $field) {
+        if ( ! $post) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
+
+        $field = $post->{$this->property} ?? null;
+
+        if (null === $field) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
         if (in_array($this->property, ['post_author', 'post_parent'], true)) {
-            if ($field === 0) {
+            if ($field === 0 || ! is_numeric($field)) {
                 throw ValueNotFoundException::from_id($value->get_id());
             }
 
