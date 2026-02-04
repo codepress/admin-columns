@@ -12,7 +12,7 @@ use AC\PostType;
 use AC\TableScreen;
 use AC\Taxonomy;
 use AC\Type\TableScreenContext;
-use AC\Vendor\DI\Container;
+use AC\DI\Container;
 
 abstract class BaseFactory implements ColumnFactoryCollectionFactory
 {

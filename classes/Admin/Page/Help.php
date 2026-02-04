@@ -5,9 +5,7 @@ namespace AC\Admin\Page;
 use AC\Admin\RenderableHead;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
-use AC\Asset\Location;
 use AC\Deprecated\Hooks;
-use AC\Entity\Plugin;
 use AC\Renderable;
 use AC\Type\Url;
 use AC\View;
@@ -19,11 +17,9 @@ class Help implements Enqueueables, Renderable, RenderableHead
 
     private Hooks $hooks;
 
-    private Location\Absolute $location;
-
     private Renderable $head;
 
-    public function __construct(Hooks $hooks, Plugin $plugin, Renderable $head)
+    public function __construct(Hooks $hooks, Renderable $head)
     {
         $this->hooks = $hooks;
         $this->head = $head;

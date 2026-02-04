@@ -7,6 +7,7 @@ use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
 use AC\Admin\Preference;
+use AC\Admin\View;
 use AC\AdminColumns;
 use AC\ColumnGroups;
 use AC\Integration\IntegrationRepository;
@@ -39,6 +40,8 @@ class Columns implements PageFactoryInterface
 
     private IntegrationRepository $integration_repository;
 
+    private View\MenuFactory $view_menu_factory;
+
     public function __construct(
         AdminColumns $plugin,
         MenuFactoryInterface $menu_factory,
@@ -48,7 +51,8 @@ class Columns implements PageFactoryInterface
         EditorFavorites $favorite_repository,
         ColumnGroups $column_groups,
         PromoRepository $promos,
-        IntegrationRepository $integration_repository
+        IntegrationRepository $integration_repository,
+        View\MenuFactory $view_menu_factory
     ) {
         $this->plugin = $plugin;
         $this->menu_factory = $menu_factory;
@@ -59,6 +63,7 @@ class Columns implements PageFactoryInterface
         $this->column_groups = $column_groups;
         $this->promos = $promos;
         $this->integration_repository = $integration_repository;
+        $this->view_menu_factory = $view_menu_factory;
     }
 
     public function create(): Page\Columns
@@ -85,7 +90,7 @@ class Columns implements PageFactoryInterface
         return new Page\Columns(
             $this->plugin,
             $this->uninitialized_screens->find_all_site(),
-            new Admin\View\Menu($this->menu_factory->create('columns')),
+            $this->view_menu_factory->create($this->menu_factory, 'columns'),
             $table_screen,
             $this->menu_list_factory->create($this->table_screen_repository->find_all_site()),
             $this->favorite_repository,

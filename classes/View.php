@@ -63,9 +63,7 @@ class View implements Renderable
          */
         $paths = apply_filters(
             'ac/view/templates',
-            [
-                Container::get_location()->with_suffix('templates')->get_path(),
-            ],
+            [],
             $this->template
         );
 

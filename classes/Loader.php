@@ -9,8 +9,10 @@ use AC\Admin\MenuGroupFactory\DefaultGroups;
 use AC\Admin\PageFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
+use AC\ListScreenRepository\Storage;
 use AC\Plugin\SetupFactory;
 use AC\RequestHandler\Ajax;
+use AC\Service\View;
 use AC\Table\ManageHeading;
 use AC\Table\ManageValue\ListScreenServiceFactory;
 use AC\Table\SaveHeading;
@@ -55,7 +57,7 @@ class Loader
             ColumnFactories\UserFactory::class,
         ];
 
-        if ( ! $this->is_pro_active ) {
+        if ( ! $this->is_pro_active) {
             $factories[] = ColumnFactories\ThirdPartyFactory::class;
             $factories[] = ColumnFactories\IntegrationFactory::class;
         }
@@ -137,6 +139,9 @@ class Loader
             $service->register();
         }
 
+        $view = new View($container->get(AdminColumns::class)->get_location());
+        $view->register();
+
         $setup_factory = $container->get(SetupFactory\AdminColumns::class);
         $setup = new Service\Setup($setup_factory->create(SetupFactory::SITE));
         $setup->register();
@@ -174,6 +179,11 @@ class Loader
 
         $request_ajax_parser = new RequestAjaxParser($request_ajax_handlers);
         $request_ajax_parser->register();
+
+        // Setup Registry for API
+        Registry::set(Storage::class, static function () use ($container) {
+            return $container->get(Storage::class);
+        });
     }
 
 }
