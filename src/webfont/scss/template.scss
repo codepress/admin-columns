@@ -1,17 +1,17 @@
-$cpacicon-add-template: "\ea01";
-$cpacicon-download: "\ea02";
-$cpacicon-draft: "\ea03";
-$cpacicon-duplicate: "\ea04";
-$cpacicon-filter: "\ea05";
-$cpacicon-full-screen: "\ea06";
-$cpacicon-gf-media: "\ea07";
-$cpacicon-more: "\ea08";
-$cpacicon-move: "\ea09";
-$cpacicon-question: "\ea0a";
-$cpacicon-rename: "\ea0b";
-$cpacicon-reset-password: "\ea0c";
-$cpacicon-segment: "\ea0d";
-$cpacicon-smart-filter: "\ea0e";
+$cpacicon-download: "\ea01";
+$cpacicon-draft: "\ea02";
+$cpacicon-duplicate: "\ea03";
+$cpacicon-filter: "\ea04";
+$cpacicon-full-screen: "\ea05";
+$cpacicon-gf-media: "\ea06";
+$cpacicon-more: "\ea07";
+$cpacicon-move: "\ea08";
+$cpacicon-question: "\ea09";
+$cpacicon-rename: "\ea0a";
+$cpacicon-reset-password: "\ea0b";
+$cpacicon-segment: "\ea0c";
+$cpacicon-smart-filter: "\ea0d";
+$cpacicon-text-auto: "\ea0e";
 $cpacicon-text-clip: "\ea0f";
 $cpacicon-text-wrap: "\ea10";
 $cpacicon-user-switch: "\ea11";
@@ -20,8 +20,8 @@ $cpacicon-woo: "\ea12";
 @font-face {
     font-family: "cpac_icons";
     src:
-        url("../fonts/cpac_icons.woff2?v=414167") format("woff2"),
-        url("../fonts/cpac_icons.woff?v=10502") format("woff");
+        url("../fonts/cpac_icons.woff2?v=522887") format("woff2"),
+        url("../fonts/cpac_icons.woff?v=724341") format("woff");
     font-style: normal;
     font-weight: 400;
 }
@@ -41,10 +41,6 @@ $cpacicon-woo: "\ea12";
 }
 
 
-
-.cpacicon-add-template::before {
-    content: $cpacicon-add-template;
-}
 
 .cpacicon-download::before {
     content: $cpacicon-download;
@@ -96,6 +92,10 @@ $cpacicon-woo: "\ea12";
 
 .cpacicon-smart-filter::before {
     content: $cpacicon-smart-filter;
+}
+
+.cpacicon-text-auto::before {
+    content: $cpacicon-text-auto;
 }
 
 .cpacicon-text-clip::before {

@@ -59,6 +59,11 @@ class ColumnSize
 
     public function render(ListScreen $list_screen): string
     {
+        // auto-width is not supported with wrapping
+        if ('auto' === $list_screen->get_preference('wrapping')) {
+            return '';
+        }
+
         $html = '';
 
         foreach ($list_screen->get_columns() as $column) {

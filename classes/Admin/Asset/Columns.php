@@ -315,6 +315,7 @@ class Columns extends Script
                                     __('default', 'codepress-admin-columns')
                                 ),
                                 'clip' => _x('Clip', 'wrapping_option', 'codepress-admin-columns'),
+                                'auto' => _x('Auto Width', 'wrapping_option', 'codepress-admin-columns'),
                             ],
                             'unlock'               => __(
                                 'Unlock with Admin Columns Pro',
