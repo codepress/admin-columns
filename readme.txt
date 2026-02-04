@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 7.0.9 =
-Release Date: TBD
+Release Date: February 4th, 2026
 
 [Fixed] Various code optimizations and minor improvements, including stricter type handling.
 
