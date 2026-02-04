@@ -1,8 +1,13 @@
-
-<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="text-clip" fill="#000000" fill-rule="nonzero">
-            <path d="M0,16 L0,0 L2,0 L2,16 L0,16 Z M14,16 L14,9 L4,9 L4,7 L14,7 L14,0 L16,0 L16,16 L14,16 Z" id="Shape"></path>
+<svg width="47px" height="47px" viewBox="0 0 47 47" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Concept-/-UI-2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Column-Editor-with-Templates" transform="translate(-963, -1906)" xlink:href="#path-k1vufdh-pf-1">
+            <use fill="#F1F5F9" fill-rule="evenodd" xlink:href="#path-k1vufdh-pf-1"></use>
+            <g id="fit_width_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24" transform="translate(963, 1906)" fill="#1F1F1F"
+               fill-rule="nonzero">
+                <path d="M-1,46 L-1,-1 L4.22222222,-1 L4.22222222,46 L-1,46 Z M40.7777778,46 L40.7777778,-1 L46,-1 L46,46 L40.7777778,46 Z M9.44444444,25.1111111 L9.44444444,19.8888889 L14.6666667,19.8888889 L14.6666667,25.1111111 L9.44444444,25.1111111 Z M19.8888889,25.1111111 L19.8888889,19.8888889 L25.1111111,19.8888889 L25.1111111,25.1111111 L19.8888889,25.1111111 Z M30.3333333,25.1111111 L30.3333333,19.8888889 L35.5555556,19.8888889 L35.5555556,25.1111111 L30.3333333,25.1111111 Z"
+                      id="Shape"></path>
+            </g>
         </g>
     </g>
 </svg>
