@@ -130,7 +130,7 @@ if ( ! function_exists('ac_format_date')) {
 if ( ! function_exists('ac_is_pro_active')) {
     function ac_is_pro_active(): bool
     {
-        return Container::is_pro();
+        return defined('ACP_VERSION');
     }
 }
 

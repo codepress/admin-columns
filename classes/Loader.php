@@ -22,8 +22,12 @@ use AC\Vendor\Psr\Container\ContainerInterface;
 class Loader
 {
 
-    public function __construct(ContainerInterface $container)
+    private bool $is_pro_active;
+
+    public function __construct(ContainerInterface $container, bool $is_pro_active = false)
     {
+        $this->is_pro_active = $is_pro_active;
+
         Container::set_container($container);
 
         $this->load($container);
@@ -51,7 +55,7 @@ class Loader
             ColumnFactories\UserFactory::class,
         ];
 
-        if ( ! $container->get('is.pro')) {
+        if ( ! $this->is_pro_active ) {
             $factories[] = ColumnFactories\ThirdPartyFactory::class;
             $factories[] = ColumnFactories\IntegrationFactory::class;
         }
@@ -122,7 +126,7 @@ class Loader
             Service\Tooltips::class,
         ];
 
-        if ( ! $container->get('is.pro')) {
+        if ( ! $this->is_pro_active) {
             $services_fqn[] = Service\PromoChecks::class;
             $services_fqn[] = Service\NoticeChecks::class;
             $services_fqn[] = PluginActionUpgrade::class;

@@ -102,7 +102,6 @@ class Columns implements Enqueueables, Renderable, RenderableHead
                 $this->promos,
                 $this->integration_repository,
                 $this->location,
-                Container::is_pro(),
                 $this->list_id
             ),
             new Style(
