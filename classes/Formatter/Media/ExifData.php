@@ -33,11 +33,14 @@ class ExifData implements Formatter
                     )
                 );
             case 'keywords' :
-                if (is_array($exif_value)) {
-                    return $value->with_value(
-                        ac_helper()->array->implode_recursive(', ', $exif_value)
-                    );
+                if ( ! is_array($exif_value)) {
+                    throw ValueNotFoundException::from_id($value->get_id());
                 }
+
+                return $value->with_value(
+                    ac_helper()->array->implode_recursive(', ', $exif_value)
+                );
+
             default:
                 return $value->with_value($exif_value);
         }

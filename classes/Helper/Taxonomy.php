@@ -74,7 +74,7 @@ class Taxonomy
         return (string)$term->{$field};
     }
 
-    public function get_taxonomy_selection_options($post_type): array
+    public function get_taxonomy_selection_options(string $post_type): array
     {
         $taxonomies = get_object_taxonomies($post_type, 'objects');
 

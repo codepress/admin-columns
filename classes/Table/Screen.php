@@ -108,7 +108,7 @@ final class Screen implements Registerable
 
     private function get_edit_columns_url(): string
     {
-        return EditorUrlFactory::create(
+        return (string)EditorUrlFactory::create(
             $this->table_screen->get_id(),
             $this->table_screen->is_network(),
             $this->list_screen ? $this->list_screen->get_id() : null
@@ -159,8 +159,6 @@ final class Screen implements Registerable
             $this->location->with_suffix('assets/js/table.js'),
             ['jquery', Asset\Script\GlobalTranslationFactory::HANDLE],
         );
-
-        $table_screen = $this->table_screen;
 
         $args = [
             'layout'            => '',

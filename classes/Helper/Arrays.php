@@ -118,7 +118,7 @@ class Arrays
         return false;
     }
 
-    public function get_duplicates(array $array): array
+    public function get_duplicates(): array
     {
         _deprecated_function(__METHOD__, '7.0');
 
@@ -128,21 +128,21 @@ class Arrays
     /**
      * Returns all integers from an array or comma separated string
      */
-    public function get_integers_from_mixed($mixed): array
+    public function get_integers_from_mixed(): array
     {
         _deprecated_function(__METHOD__, '7.0');
 
         return [];
     }
 
-    public function implode_associative(array $array, $glue): string
+    public function implode_associative(): string
     {
         _deprecated_function(__METHOD__, '5.7.1');
 
         return '';
     }
 
-    public function key_replace($input, $old_key, $new_key): array
+    public function key_replace(): array
     {
         _deprecated_function(__METHOD__, '7.0');
 

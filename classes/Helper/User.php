@@ -27,7 +27,7 @@ class User
     /**
      * @deprecated 7.0
      */
-    public function get_display_name($user, ?string $format = null): ?string
+    public function get_display_name($user): ?string
     {
         _deprecated_function(__METHOD__, '7.0', 'get_fullname');
 
@@ -69,7 +69,7 @@ class User
     /**
      * @deprecated 7.0
      */
-    public function get_roles_names(array $names): array
+    public function get_roles_names(): array
     {
         _deprecated_function(__METHOD__, '7.0');
 
@@ -94,6 +94,7 @@ class User
         _deprecated_function(__METHOD__, '7.0', 'AC\Helper\UserRoles::find_all_roles');
 
         $roles = [];
+
         foreach (wp_roles()->roles as $k => $role) {
             $roles[$k] = translate_user_role($role['name']);
         }
@@ -104,7 +105,7 @@ class User
     /**
      * @deprecated 7.0
      */
-    public function translate_roles(array $role_names): array
+    public function translate_roles(): array
     {
         _deprecated_function(__METHOD__, '7.0', 'AC\Helper\UserRoles::find_all_roles');
 

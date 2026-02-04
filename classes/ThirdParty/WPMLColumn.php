@@ -10,7 +10,7 @@ class WPMLColumn
 
     public const COLUMN_NAME = 'icl_translations';
 
-    private $column;
+    private ?string $column = null;
 
     public function __construct(string $post_type)
     {
@@ -29,7 +29,7 @@ class WPMLColumn
     public function store_wpml_column($columns)
     {
         if (empty($this->column) && isset($columns[self::COLUMN_NAME])) {
-            $this->column = $columns[self::COLUMN_NAME];
+            $this->column = (string)$columns[self::COLUMN_NAME];
         }
 
         return $columns;

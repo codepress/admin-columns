@@ -2,7 +2,6 @@
 
 namespace AC\ListTable;
 
-use LogicException;
 use WP_List_Table;
 
 trait TotalItemsTrait

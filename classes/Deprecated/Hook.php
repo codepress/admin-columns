@@ -102,8 +102,6 @@ class Hook
                         __('Anonymous Function', 'codepress-admin-columns'),
                         $reflection->getFileName(),
                     );
-
-                    continue;
                 }
             }
         }

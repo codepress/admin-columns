@@ -24,14 +24,16 @@ class DatePublishFormatted implements Formatter
             case 'draft' :
             case 'pending' :
             case 'future' :
-                return $value->with_value(ac_helper()->post->get_status_icon($post));
+                return (new PostStatusIcon())->format(new Value($post->ID, $post));
 
             // Tooltip
             default :
+                $format = get_option('date_format') . ' ' . get_option('time_format');
+
                 return $value->with_value(
                     ac_helper()->html->tooltip(
                         (string)$value,
-                        ac_helper()->date->date($post->post_date, 'wp_date_time')
+                        date($format, strtotime($post->post_date))
                     )
                 );
         }

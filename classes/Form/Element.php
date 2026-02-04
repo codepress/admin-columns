@@ -91,7 +91,7 @@ abstract class Element implements Renderable
         $output = [];
 
         foreach ($attributes as $key => $value) {
-            $output[] = $this->get_attribute_as_string((string)$key, $value);
+            $output[] = $this->get_attribute_as_string((string)$key, (string)$value);
         }
 
         return implode(' ', $output);

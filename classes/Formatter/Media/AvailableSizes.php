@@ -11,7 +11,7 @@ use AC\Type\Value;
 class AvailableSizes implements Formatter
 {
 
-    private $include_missing_file_sizes;
+    private bool $include_missing_file_sizes;
 
     public function __construct(bool $include_missing_file_sizes)
     {

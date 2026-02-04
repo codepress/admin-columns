@@ -12,21 +12,21 @@ use AC\Setting\Control\Input;
 final class ComponentBuilder
 {
 
-    private $label;
+    private ?string $label = null;
 
-    private $description;
+    private ?string $description = null;
 
-    private $input;
+    private ?Input $input = null;
 
-    private $conditions;
+    private ?Specification $conditions = null;
 
-    private $formatters;
+    private ?FormatterCollection $formatters = null;
 
-    private $children;
+    private ?Children $children = null;
 
-    private $attributes;
+    private ?AttributeCollection $attributes = null;
 
-    private $type;
+    private ?string $type = null;
 
     public function set_label(string $label): self
     {

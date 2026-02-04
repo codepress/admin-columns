@@ -9,6 +9,9 @@ use AC\Collection;
 final class ValueCollection extends Collection
 {
 
+    /**
+     * @var mixed The unique identifier of the value collection.
+     */
     private $id;
 
     public function __construct($id, array $data = [])
