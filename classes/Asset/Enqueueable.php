@@ -1,19 +1,19 @@
 <?php
 
-namespace AC\Asset;
+declare(strict_types=1);
 
-use AC\Asset\Location\Absolute;
+namespace AC\Asset;
 
 abstract class Enqueueable
 {
 
     protected string $handle;
 
-    protected ?Absolute $location;
+    protected ?Location $location;
 
     protected array $dependencies;
 
-    public function __construct(string $handle, ?Absolute $location = null, array $dependencies = [])
+    public function __construct(string $handle, ?Location $location = null, array $dependencies = [])
     {
         $this->handle = $handle;
         $this->location = $location;
