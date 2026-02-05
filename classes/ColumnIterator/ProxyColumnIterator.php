@@ -21,7 +21,7 @@ class ProxyColumnIterator implements ColumnIterator
         $this->repository = $repository;
     }
 
-    protected function forward(): ColumnIterator
+    protected function forward(): ColumnCollection
     {
         if (null === $this->column_collection) {
             $this->column_collection = $this->repository->find_all();
@@ -30,8 +30,7 @@ class ProxyColumnIterator implements ColumnIterator
         return $this->column_collection;
     }
 
-    #[\ReturnTypeWillChange]
-    public function current()
+    public function current(): Column
     {
         return $this->forward()->current();
     }
@@ -41,8 +40,7 @@ class ProxyColumnIterator implements ColumnIterator
         $this->forward()->next();
     }
 
-    #[\ReturnTypeWillChange]
-    public function key()
+    public function key(): int
     {
         return $this->forward()->key();
     }
@@ -52,10 +50,9 @@ class ProxyColumnIterator implements ColumnIterator
         return $this->forward()->valid();
     }
 
-    #[\ReturnTypeWillChange]
-    public function rewind()
+    public function rewind(): void
     {
-        return $this->forward()->rewind();
+        $this->forward()->rewind();
     }
 
     public function count(): int
