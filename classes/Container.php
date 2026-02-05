@@ -9,7 +9,9 @@ use AC\ListScreenRepository\Storage;
 use AC\Vendor\Psr\Container\ContainerInterface;
 use LogicException;
 
-// TODO David remove?
+/**
+ * @deprecated 7.0.11 Will be removed in 7.1.
+ */
 final class Container
 {
 

@@ -7,10 +7,14 @@ namespace AC\Helper;
 abstract class Creatable
 {
 
+    final public function __construct()
+    {
+    }
+
     /**
      * @return static
      */
-    public static function create()
+    final public static function create()
     {
         return new static();
     }

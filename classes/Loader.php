@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC;
 use AC\Admin\MenuGroupFactory;
 use AC\Admin\MenuGroupFactory\DefaultGroups;
 use AC\Admin\PageFactory;
@@ -19,14 +20,13 @@ use AC\Table\SaveHeading;
 use AC\Value\Extended\MediaPreview;
 use AC\Value\Extended\Posts;
 use AC\Value\ExtendedValueRegistry;
-use AC\Vendor\Psr\Container\ContainerInterface;
 
 class Loader
 {
 
     private bool $is_pro_active;
 
-    public function __construct(ContainerInterface $container, bool $is_pro_active = false)
+    public function __construct(AC\DI\Container $container, bool $is_pro_active = false)
     {
         $this->is_pro_active = $is_pro_active;
 
@@ -35,7 +35,7 @@ class Loader
         $this->load($container);
     }
 
-    protected function load(ContainerInterface $container): void
+    protected function load(AC\DI\Container $container): void
     {
         // Factories
         $factories = [
