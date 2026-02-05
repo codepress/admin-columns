@@ -9,7 +9,7 @@ use AC\Admin\RenderableHead;
 use AC\AdminColumns;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
-use AC\Asset\Location\Absolute;
+use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\ColumnGroups;
@@ -27,7 +27,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
 
     public const NAME = 'columns';
 
-    private Absolute $location;
+    private Location $location;
 
     private Renderable $head;
 

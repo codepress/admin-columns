@@ -4,7 +4,7 @@ namespace AC\Table;
 
 use AC;
 use AC\Asset;
-use AC\Asset\Location\Absolute;
+use AC\Asset\Location;
 use AC\Capabilities;
 use AC\ListScreen;
 use AC\Registerable;
@@ -15,7 +15,7 @@ use AC\Type\EditorUrlFactory;
 final class Screen implements Registerable
 {
 
-    private Absolute $location;
+    private Location $location;
 
     private AC\TableScreen $table_screen;
 

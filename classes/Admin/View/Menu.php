@@ -3,13 +3,13 @@
 namespace AC\Admin\View;
 
 use AC\Admin;
-use AC\Asset\Location\Absolute;
+use AC\Asset\Location;
 use AC\View;
 
 class Menu extends View
 {
 
-    public function __construct(Absolute $location, Admin\Menu $menu)
+    public function __construct(Location $location, Admin\Menu $menu)
     {
         $items = $menu->get_items();
         $this->sort_by_position($items);

@@ -2,15 +2,15 @@
 
 namespace AC\Service;
 
-use AC\Asset\Location\Absolute;
+use AC\Asset\Location;
 use AC\Registerable;
 
 class View implements Registerable
 {
 
-    private Absolute $location;
+    private Location $location;
 
-    public function __construct(Absolute $location)
+    public function __construct(Location $location)
     {
         $this->location = $location;
     }
