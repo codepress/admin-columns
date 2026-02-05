@@ -6,6 +6,7 @@ namespace AC\Formatter\User;
 
 use AC;
 use AC\Exception\ValueNotFoundException;
+use AC\Helper;
 use AC\Type\Value;
 
 class TranslatedRoles implements AC\Formatter
@@ -26,7 +27,7 @@ class TranslatedRoles implements AC\Formatter
                 continue;
             }
 
-            $roles[] = ac_helper()->html->tooltip($role->get_translate_label(), $role->get_name());
+            $roles[] = Helper\Html::create()->tooltip($role->get_translate_label(), $role->get_name());
         }
 
         natcasesort($roles);

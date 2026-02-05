@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class Meta implements Formatter
@@ -26,7 +27,7 @@ class Meta implements Formatter
 
         // TODO move to its own formatter
         if ($this->implode && is_array($meta_value)) {
-            $meta_value = ac_helper()->array->implode_recursive(', ', $meta_value);
+            $meta_value = Helper\Arrays::create()->implode_recursive(', ', $meta_value);
         }
 
         return $value->with_value(

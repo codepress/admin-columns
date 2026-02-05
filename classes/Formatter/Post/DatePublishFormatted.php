@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class DatePublishFormatted implements Formatter
@@ -31,7 +32,7 @@ class DatePublishFormatted implements Formatter
                 $format = get_option('date_format') . ' ' . get_option('time_format');
 
                 return $value->with_value(
-                    ac_helper()->html->tooltip(
+                    Helper\Html::create()->tooltip(
                         (string)$value,
                         date($format, strtotime($post->post_date))
                     )

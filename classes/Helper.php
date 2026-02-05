@@ -25,9 +25,15 @@ use InvalidArgumentException;
 final class Helper
 {
 
+    public static function create(): self
+    {
+        return new self();
+    }
+
     public function __get(string $helper)
     {
         switch ($helper) {
+            // TODO David Hotfix sounds bad. Is this added compatibility?
             // Hotfix
             case 'string' :
                 return new AC\Helper\Strings();

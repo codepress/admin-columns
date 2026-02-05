@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 use WP_Post;
 
@@ -37,39 +38,39 @@ class PostStatusIcon implements Formatter
     {
         switch ($post->post_status) {
             case 'private' :
-                return ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'hidden', 'class' => 'gray']),
+                return Helper\Html::create()->tooltip(
+                    Helper\Icon::create()->dashicon(['icon' => 'hidden', 'class' => 'gray']),
                     __('Private')
                 );
 
             case 'publish' :
-                return ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'yes', 'class' => 'blue large']),
+                return Helper\Html::create()->tooltip(
+                    Helper\Icon::create()->dashicon(['icon' => 'yes', 'class' => 'blue large']),
                     __('Published')
                 );
 
             case 'draft' :
-                return ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'edit', 'class' => 'green']),
+                return Helper\Html::create()->tooltip(
+                    Helper\Icon::create()->dashicon(['icon' => 'edit', 'class' => 'green']),
                     __('Draft')
                 );
 
             case 'pending' :
-                return ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'backup', 'class' => 'orange']),
+                return Helper\Html::create()->tooltip(
+                    Helper\Icon::create()->dashicon(['icon' => 'backup', 'class' => 'orange']),
                     __('Pending for review')
                 );
 
             case 'future' :
-                $icon = ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'clock']),
-                    __('Scheduled') . ': <em>' . ac_helper()->date->date($post->post_date, 'wp_date_time') . '</em>'
+                $icon = Helper\Html::create()->tooltip(
+                    Helper\Icon::create()->dashicon(['icon' => 'clock']),
+                    __('Scheduled') . ': <em>' . Helper\Date::create()->date($post->post_date, 'wp_date_time') . '</em>'
                 );
 
                 // Missed schedule
                 if ((time() - mysql2date('G', $post->post_date_gmt)) > 0) {
-                    $icon .= ac_helper()->html->tooltip(
-                        ac_helper()->icon->dashicon(['icon' => 'flag', 'class' => 'gray']),
+                    $icon .= Helper\Html::create()->tooltip(
+                        Helper\Icon::create()->dashicon(['icon' => 'flag', 'class' => 'gray']),
                         __('Missed schedule')
                     );
                 }

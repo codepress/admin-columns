@@ -5,7 +5,7 @@ namespace AC\Helper;
 use WP_Taxonomy;
 use WP_Term;
 
-class Taxonomy
+class Taxonomy extends Creatable
 {
 
     private Html $html;

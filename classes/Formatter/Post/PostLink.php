@@ -4,6 +4,7 @@ namespace AC\Formatter\Post;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 use WP_Post;
 
@@ -49,7 +50,7 @@ class PostLink implements Formatter
         }
 
         return $link
-            ? $value->with_value(ac_helper()->html->link($link, (string)$value))
+            ? $value->with_value(Helper\Html::create()->link($link, (string)$value))
             : $value;
     }
 

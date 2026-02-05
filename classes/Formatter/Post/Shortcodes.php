@@ -6,6 +6,7 @@ namespace AC\Formatter\Post;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class Shortcodes implements Formatter
@@ -13,7 +14,7 @@ class Shortcodes implements Formatter
 
     public function format(Value $value): Value
     {
-        $shortcodes = ac_helper()->string->get_shortcodes(
+        $shortcodes = Helper\Strings::create()->get_shortcodes(
             (string)$value
         );
 
@@ -27,7 +28,7 @@ class Shortcodes implements Formatter
             $string = '[' . $sc . ']';
 
             if ($count > 1) {
-                $string .= ac_helper()->html->rounded((string)$count);
+                $string .= Helper\Html::create()->rounded((string)$count);
             }
 
             $display[$sc] = '<span class="ac-spacing">' . $string . '</span>';

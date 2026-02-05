@@ -5,7 +5,7 @@ namespace AC\Helper;
 use DOMDocument;
 use DOMElement;
 
-class Image
+class Image extends Creatable
 {
 
     public function resize(string $file, int $max_w, int $max_h, bool $crop = false): ?string
@@ -172,7 +172,7 @@ class Image
             return $this->get_image_by_id((int)$image_id_or_url, $size);
         }
 
-        if (ac_helper()->string->is_image($image_id_or_url)) {
+        if (Strings::create()->is_image($image_id_or_url)) {
             return $this->get_image_by_url($image_id_or_url, $size);
         }
 
@@ -211,7 +211,7 @@ class Image
 
     private function get_file_tooltip_attr(int $media_id): string
     {
-        return ac_helper()->html->get_tooltip_attr($this->get_file_name($media_id));
+        return Html::create()->get_tooltip_attr($this->get_file_name($media_id));
     }
 
     private function markup_cover(string $src, int $width, int $height, ?int $media_id = null)
@@ -252,7 +252,7 @@ class Image
 
         ob_start(); ?>
 		<span class="ac-image<?= $class ?>" data-media-id="<?= esc_attr((string)$media_id); ?>" <?= $tooltip_attr ?>>
-			<img style="<?= ac_helper()->html->get_style_attributes_as_string($image_attributes) ?>"
+			<img style="<?= Html::create()->get_style_attributes_as_string($image_attributes) ?>"
 					src="<?= esc_attr($src) ?>" alt="">
 
 			<?php

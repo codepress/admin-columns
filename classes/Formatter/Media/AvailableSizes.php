@@ -6,6 +6,7 @@ namespace AC\Formatter\Media;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class AvailableSizes implements Formatter
@@ -33,8 +34,8 @@ class AvailableSizes implements Formatter
 
         if ($available_sizes) {
             $url = wp_get_attachment_url($value->get_id());
-            $paths[] = ac_helper()->html->tooltip(
-                ac_helper()->html->link($url, __('original', 'codepress-admin-columns')),
+            $paths[] = Helper\Html::create()->tooltip(
+                Helper\Html::create()->link($url, __('original', 'codepress-admin-columns')),
                 basename($url)
             );
 
@@ -42,7 +43,7 @@ class AvailableSizes implements Formatter
                 $src = (array)wp_get_attachment_image_src($value->get_id(), $size);
 
                 if ( ! empty($src[0])) {
-                    $paths[] = ac_helper()->html->tooltip(ac_helper()->html->link($src[0], $size), basename($src[0]));
+                    $paths[] = Helper\Html::create()->tooltip(Helper\Html::create()->link($src[0], $size), basename($src[0]));
                 }
             }
         }
@@ -52,7 +53,7 @@ class AvailableSizes implements Formatter
 
             if ($missing) {
                 foreach ($missing as $size) {
-                    $paths[] = ac_helper()->html->tooltip(
+                    $paths[] = Helper\Html::create()->tooltip(
                         $size,
                         sprintf(
                             __('Missing image file for size %s.', 'codepress-admin-columns'),
@@ -65,7 +66,7 @@ class AvailableSizes implements Formatter
         }
 
         return $value->with_value(
-            "<div class='ac-image-sizes'>" . implode(ac_helper()->html->divider(), $paths) . "</div>"
+            "<div class='ac-image-sizes'>" . implode(Helper\Html::create()->divider(), $paths) . "</div>"
         );
     }
 

@@ -6,6 +6,7 @@ namespace AC\Formatter\Comment;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 use WP_Comment;
 use WP_User;
@@ -27,8 +28,8 @@ class MetaDateAndAuthor implements Formatter
 
         $date = sprintf(
             __('%s at %s', 'codepress-admin-columns'),
-            ac_helper()->date->date($comment->comment_date_gmt),
-            ac_helper()->date->time($comment->comment_date_gmt)
+            Helper\Date::create()->date($comment->comment_date_gmt),
+            Helper\Date::create()->time($comment->comment_date_gmt)
         );
 
         $edit_link = get_edit_comment_link($comment);
@@ -55,7 +56,7 @@ class MetaDateAndAuthor implements Formatter
             return sprintf(
                 '<a href="%s">%s</a>',
                 add_query_arg('user_id', $comment->user_id, admin_url('edit-comments.php')),
-                ac_helper()->user->get_formatted_name($user)
+                Helper\User::create()->get_formatted_name($user)
             );
         }
 

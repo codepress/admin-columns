@@ -2,7 +2,7 @@
 
 namespace AC\Helper;
 
-class Strings
+class Strings extends Creatable
 {
 
     public function starts_with(string $haystack, string $needle): bool

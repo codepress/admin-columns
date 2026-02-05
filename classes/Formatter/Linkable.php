@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class Linkable implements Formatter
@@ -30,14 +31,14 @@ class Linkable implements Formatter
         if (filter_var($url, FILTER_VALIDATE_URL) && preg_match('/[^\w.-]/', $url)) {
             $link_label = $this->get_formatted_label($url);
 
-            return $value->with_value(ac_helper()->html->link($url, $link_label, ['target' => $this->target]));
+            return $value->with_value(Helper\Html::create()->link($url, $link_label, ['target' => $this->target]));
         }
 
         if (filter_var($url, FILTER_VALIDATE_EMAIL)) {
             $link_label = $this->get_formatted_label($url);
             $mailto_link = 'mailto:' . $url;
 
-            return $value->with_value(ac_helper()->html->link($mailto_link, $link_label, ['target' => $this->target]));
+            return $value->with_value(Helper\Html::create()->link($mailto_link, $link_label, ['target' => $this->target]));
         }
 
         return $value;

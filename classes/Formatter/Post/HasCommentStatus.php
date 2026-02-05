@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class HasCommentStatus implements Formatter
@@ -22,7 +23,7 @@ class HasCommentStatus implements Formatter
         $raw_status = get_post_field('comment_status', $value->get_id(), 'raw');
 
         return $value->with_value(
-            ac_helper()->icon->yes_or_no(
+            Helper\Icon::create()->yes_or_no(
                 $this->status === $raw_status,
                 $raw_status
             )

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 final class ReadingTime implements Formatter
@@ -33,7 +34,7 @@ final class ReadingTime implements Formatter
             return 0;
         }
 
-        $word_count = ac_helper()->string->word_count($string);
+        $word_count = Helper\Strings::create()->word_count($string);
 
         if ( ! $word_count) {
             return 0;

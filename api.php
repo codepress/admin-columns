@@ -34,6 +34,8 @@ if ( ! function_exists('AC')) {
 if ( ! function_exists('ac_helper')) {
     function ac_helper(): AC\Helper
     {
+        _deprecated_function(__FUNCTION__, '7.1', 'Helper\X::create()');
+
         return new AC\Helper();
     }
 }

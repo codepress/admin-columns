@@ -5,12 +5,12 @@ namespace AC\Helper;
 use DOMDocument;
 use DOMElement;
 
-class Html
+class Html extends Creatable
 {
 
     public function get_attribute_as_string(string $key, ?string $value = null): string
     {
-        return ac_helper()->string->is_not_empty($value)
+        return Strings::create()->is_not_empty($value)
             ? sprintf('%s="%s"', $key, esc_attr(trim($value)))
             : $key;
     }
@@ -78,7 +78,7 @@ class Html
 
     public function tooltip(string $label, string $tooltip, array $attributes = []): string
     {
-        if (ac_helper()->string->is_not_empty($label) && $tooltip) {
+        if (Strings::create()->is_not_empty($label) && $tooltip) {
             $label = sprintf(
                 '<span %s %s>%s</span>',
                 $this->get_tooltip_attr($tooltip),
@@ -178,7 +178,7 @@ class Html
 
     public function remove_empty(array $array): array
     {
-        return array_filter($array, [ac_helper()->string, 'is_not_empty']);
+        return array_filter($array, [Strings::create(), 'is_not_empty']);
     }
 
     /**
@@ -264,7 +264,7 @@ class Html
 
         foreach ($stars as $type => $_count) {
             for ($i = 1; $i <= $_count; $i++) {
-                $icons[] = ac_helper()->icon->dashicon(['icon' => 'star-' . $type, 'class' => 'ac-value-star']);
+                $icons[] = Icon::create()->dashicon(['icon' => 'star-' . $type, 'class' => 'ac-value-star']);
             }
         }
 
@@ -285,7 +285,7 @@ class Html
         }
 
         if ($removed) {
-            $html .= ac_helper()->html->rounded('+' . $removed);
+            $html .= $this->rounded('+' . $removed);
         }
 
         return '<div class="ac-image-container">' . $html . '</div>';
