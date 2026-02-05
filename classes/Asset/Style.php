@@ -11,11 +11,15 @@ class Style extends Enqueueable
             return;
         }
 
+        $version = $this->get_version();
+
         wp_register_style(
             $this->get_handle(),
             $this->location->get_url(),
             $this->dependencies,
-            $this->get_version()
+            $version !== null
+                ? (string)$version
+                : null
         );
     }
 

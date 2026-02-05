@@ -50,7 +50,7 @@ class MetaDateAndAuthor implements Formatter
 
     private function get_author(WP_Comment $comment): string
     {
-        $user = get_userdata($comment->user_id);
+        $user = get_userdata((int)$comment->user_id);
 
         if ($user instanceof WP_User) {
             return sprintf(

@@ -24,9 +24,9 @@ class View implements Renderable
         return $this->get($key);
     }
 
-    public function __set($key, $value)
+    public function __set($key, $value): void
     {
-        return $this->set($key, $value);
+        $this->set($key, $value);
     }
 
     public function set(string $key, $value): self

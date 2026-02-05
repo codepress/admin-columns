@@ -38,11 +38,11 @@ class PostLink implements Formatter
 
                 break;
             case 'edit_author':
-                $link = get_edit_user_link($post->post_author);
+                $link = get_edit_user_link((int)$post->post_author);
 
                 break;
             case 'view_author':
-                $link = get_author_posts_url($post->post_author);
+                $link = get_author_posts_url((int)$post->post_author);
 
                 break;
             default:

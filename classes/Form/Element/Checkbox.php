@@ -34,7 +34,7 @@ class Checkbox extends Element
         $elements = $this->get_elements();
 
         if ( ! $elements) {
-            return false;
+            return '';
         }
 
         $template = '<div class="%s">%s</div>';

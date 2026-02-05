@@ -24,7 +24,7 @@ class ReplyToLink implements Formatter
         return $value->with_value(
             Helper\Html::create()->link(
                 esc_url(get_comment_link($comment)),
-                get_comment_author($comment->comment_ID)
+                get_comment_author((int)$comment->comment_ID)
             )
         );
     }

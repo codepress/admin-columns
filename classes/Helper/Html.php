@@ -93,7 +93,7 @@ class Html extends Creatable
     public function codearea(string $string, int $max_chars = 1000): string
     {
         if ( ! $string) {
-            return false;
+            return '';
         }
 
         $contents = substr(

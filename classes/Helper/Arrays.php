@@ -49,7 +49,7 @@ class Arrays extends Creatable
             }
         }
 
-        return implode($glue, array_filter($scalars, 'strlen'));
+        return implode($glue, array_filter($scalars, static fn(string $v): bool => strlen($v) > 0));
     }
 
     /**

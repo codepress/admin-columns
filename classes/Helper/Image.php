@@ -219,7 +219,7 @@ class Image extends Creatable
         ob_start(); ?>
 
 		<span class="ac-image -cover" data-media-id="<?= esc_attr((string)$media_id); ?>">
-			<img style="width:<?= esc_attr($width); ?>px;height:<?= esc_attr($height); ?>px;" src="<?= esc_attr(
+			<img style="width:<?= esc_attr((string)$width); ?>px;height:<?= esc_attr((string)$height); ?>px;" src="<?= esc_attr(
                 $src
             ); ?>" alt="">
 		</span>
