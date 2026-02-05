@@ -1,12 +1,11 @@
 <svg width="47px" height="47px" viewBox="0 0 47 47" version="1.1" xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Concept-/-UI-2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Column-Editor-with-Templates" transform="translate(-963, -1906)" xlink:href="#path-k1vufdh-pf-1">
-            <use fill="#F1F5F9" fill-rule="evenodd" xlink:href="#path-k1vufdh-pf-1"></use>
-            <g id="fit_width_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24" transform="translate(963, 1906)" fill="#1F1F1F"
-               fill-rule="nonzero">
-                <path d="M-1,46 L-1,-1 L4.22222222,-1 L4.22222222,46 L-1,46 Z M40.7777778,46 L40.7777778,-1 L46,-1 L46,46 L40.7777778,46 Z M9.44444444,25.1111111 L9.44444444,19.8888889 L14.6666667,19.8888889 L14.6666667,25.1111111 L9.44444444,25.1111111 Z M19.8888889,25.1111111 L19.8888889,19.8888889 L25.1111111,19.8888889 L25.1111111,25.1111111 L19.8888889,25.1111111 Z M30.3333333,25.1111111 L30.3333333,19.8888889 L35.5555556,19.8888889 L35.5555556,25.1111111 L30.3333333,25.1111111 Z"
-                      id="Shape"></path>
+        <g id="Column-Editor-with-Templates" transform="translate(-819, -1904)" xlink:href="#path-ce-63jgg8c-1">
+            <use fill="#F1F5F9" xlink:href="#path-ce-63jgg8c-1"></use>
+            <g id="arrow_range_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24" transform="translate(819, 1904)" fill="#1F1F1F">
+                <polygon id="Combined-Shape"
+                         points="11.75 38 0 23.5 11.75 9 15.9359375 14.075 11.2359375 19.875 35.7640625 19.875 31.1375 14.075 35.25 9 47 23.5 35.25 38 31.0640625 32.925 35.7640625 27.125 11.2359375 27.125 15.8625 32.925"></polygon>
             </g>
         </g>
     </g>
