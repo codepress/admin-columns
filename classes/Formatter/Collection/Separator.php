@@ -23,11 +23,11 @@ class Separator implements CollectionFormatter
         $this->limit = $limit;
     }
 
-    public static function create_from_config(Config $config): self
+    public static function create_from_config(Config $config, int $limit = 20): self
     {
         return new self(
             self::get_separator($config->get('separator', ', ')),
-            (int)$config->get('number_of_items', 20)
+            (int)$config->get('number_of_items', $limit)
         );
     }
 
@@ -62,9 +62,13 @@ class Separator implements CollectionFormatter
             $values[] = $value;
         }
 
+        $string = $this->limit > 0
+            ? ac_helper()->html->more($values, $this->limit, $this->separator)
+            : implode($this->separator, $values);
+
         return new Value(
             $collection->get_id(),
-            ac_helper()->html->more($values, $this->limit, $this->separator)
+            $string
         );
     }
 
