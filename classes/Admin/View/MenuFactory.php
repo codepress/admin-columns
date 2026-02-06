@@ -7,7 +7,6 @@ namespace AC\Admin\View;
 use AC\Admin\MenuFactoryInterface;
 use AC\AdminColumns;
 
-// TODO David test instances: does this new approach work? Renders well?
 final class MenuFactory
 {
 
