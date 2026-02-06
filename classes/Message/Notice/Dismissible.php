@@ -35,7 +35,6 @@ class Dismissible extends Notice
         return $view->render();
     }
 
-    // TODO Stefan test
     public function enqueue_scripts(): void
     {
         parent::enqueue_scripts();

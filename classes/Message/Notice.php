@@ -35,7 +35,6 @@ class Notice extends Message implements Registerable
         add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
     }
 
-    // TODO Stefan test
     public function enqueue_scripts(): void
     {
         $style = new Style('ac-message');
