@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC;
 
-use LogicException;
+use AC\Exception\HookTimingException;
 
 class PostTypeRepository
 {
@@ -23,7 +23,7 @@ class PostTypeRepository
     public function find_all(): array
     {
         if ( ! did_action('init')) {
-            throw new LogicException("Call after the `init` hook.");
+            throw HookTimingException::called_too_early('init');
         }
 
         $post_types = get_post_types([

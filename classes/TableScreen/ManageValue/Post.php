@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AC\TableScreen\ManageValue;
 
+use AC\Exception\HookTimingException;
 use AC\Table\ManageValue\RenderFactory;
 use AC\TableScreen\ManageValueService;
 use AC\Type\ColumnId;
 use AC\Type\PostTypeSlug;
 use AC\Type\Value;
-use DomainException;
 
 class Post implements ManageValueService
 {
@@ -35,7 +35,7 @@ class Post implements ManageValueService
         $action = sprintf("manage_%s_posts_custom_column", $this->post_type);
 
         if (did_action($action)) {
-            throw new DomainException(sprintf("Method should be called before the %s action.", $action));
+            throw HookTimingException::called_too_late($action);
         }
 
         add_action($action, [$this, 'render_value'], $this->priority, 2);

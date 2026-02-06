@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AC\TableScreen\ManageValue;
 
+use AC\Exception\HookTimingException;
 use AC\Table\ManageValue\RenderFactory;
 use AC\TableScreen\ManageValueService;
 use AC\Type\ColumnId;
 use AC\Type\Value;
-use DomainException;
 
 class User implements ManageValueService
 {
@@ -26,7 +26,7 @@ class User implements ManageValueService
     public function register(): void
     {
         if (function_exists('did_filter') && did_filter('manage_users_custom_column')) {
-            throw new DomainException("Method should be called before the filter triggers.");
+            throw HookTimingException::called_too_late('manage_users_custom_column');
         }
 
         add_filter('manage_users_custom_column', [$this, 'render_value'], $this->priority, 3);
