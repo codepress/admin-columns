@@ -22,7 +22,7 @@ class TranslatedRoles implements AC\Formatter
 
         $roles = [];
 
-        foreach ((new AC\Helper\UserRoles())->find_all() as $role) {
+        foreach (AC\Helper\UserRoles::create()->find_all() as $role) {
             if ( ! in_array($role->get_name(), $user->roles, true)) {
                 continue;
             }
