@@ -14,7 +14,8 @@ use AC\Type\Url;
 
 function ac_get_url(string $relative_file_path): string
 {
-    // TODO David show deprecation notice or remove
+    _deprecated_function(__FUNCTION__, '7.0.10');
+
     return '';
 }
 
