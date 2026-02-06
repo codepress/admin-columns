@@ -40,8 +40,6 @@ if ( ! function_exists('ac_helper')) {
     }
 }
 
-// TODO David test the ac_get_X functions
-
 /**
  * For usage @see https://docs.admincolumns.com/article/57-code-snippets
  */
