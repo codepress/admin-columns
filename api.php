@@ -47,7 +47,7 @@ if ( ! function_exists('ac_get_list_screen')) {
     function ac_get_list_screen(string $id): ?ListScreen
     {
         if ( ! did_action('wp_loaded')) {
-            throw HookTimingException::called_to_early('wp_loaded');
+            throw HookTimingException::called_too_early('wp_loaded');
         }
 
         $storage = Registry::get(Storage::class);
@@ -67,7 +67,7 @@ if ( ! function_exists('ac_get_list_screens')) {
     function ac_get_list_screens(string $table_id): ListScreenCollection
     {
         if ( ! did_action('wp_loaded')) {
-            throw HookTimingException::called_to_early('wp_loaded');
+            throw HookTimingException::called_too_early('wp_loaded');
         }
 
         $storage = Registry::get(Storage::class);
@@ -91,7 +91,7 @@ if ( ! function_exists('ac_get_column')) {
     function ac_get_column(string $column_name, string $list_screen_id): ?Column
     {
         if ( ! did_action('wp_loaded')) {
-            throw HookTimingException::called_to_early('wp_loaded');
+            throw HookTimingException::called_too_early('wp_loaded');
         }
 
         $storage = Registry::get(Storage::class);
@@ -124,7 +124,7 @@ if ( ! function_exists('ac_get_columns')) {
     function ac_get_columns(string $list_screen_id): array
     {
         if ( ! did_action('wp_loaded')) {
-            throw HookTimingException::called_to_early('wp_loaded');
+            throw HookTimingException::called_too_early('wp_loaded');
         }
 
         $storage = Registry::get(Storage::class);
