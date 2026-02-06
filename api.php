@@ -40,7 +40,7 @@ if ( ! function_exists('ac_helper')) {
     }
 }
 
-// TODO David test the ac_get_X functions
+// TODO Stefan can you verify this still works as intended? The global ac_get_x functions
 
 /**
  * For usage @see https://docs.admincolumns.com/article/57-code-snippets
