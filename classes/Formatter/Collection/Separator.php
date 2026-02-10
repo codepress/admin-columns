@@ -63,7 +63,6 @@ class Separator implements CollectionFormatter
             $values[] = $value;
         }
 
-        // TODO Stefan test (There is was a fallback in the previous implementation)
         return new Value(
             $collection->get_id(),
             Helper\Html::create()->more($values, $this->limit, $this->separator)
