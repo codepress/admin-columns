@@ -61,8 +61,8 @@ return [
         ->constructorParameter(0, get(PageRequestHandlers::class)),
     Admin\MenuFactoryInterface::class       => autowire(Admin\MenuFactory::class)
         ->constructorParameter(0, admin_url('options-general.php')),
-    Admin\PageFactory\Help::class           => autowire()
-        ->constructorParameter(0, get(AdminColumns::class)),
+    Admin\PageFactory\Columns::class        => autowire()
+        ->constructorParameter(0, true),
     EncoderFactory::class                   => static function (AdminColumns $plugin) {
         return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
     },

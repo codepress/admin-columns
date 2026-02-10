@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\PageFactory;
 
 use AC\Admin;
@@ -19,14 +21,16 @@ use AC\TableScreen;
 use AC\Type\ListScreenId;
 use InvalidArgumentException;
 
-class Columns implements PageFactoryInterface
+final class Columns implements PageFactoryInterface
 {
 
-    protected AdminColumns $plugin;
+    private bool $is_pro_active;
 
-    protected MenuFactoryInterface $menu_factory;
+    private AdminColumns $plugin;
 
-    protected Admin\UninitializedScreens $uninitialized_screens;
+    private MenuFactoryInterface $menu_factory;
+
+    private Admin\UninitializedScreens $uninitialized_screens;
 
     private Admin\MenuListFactory $menu_list_factory;
 
@@ -43,6 +47,7 @@ class Columns implements PageFactoryInterface
     private View\MenuFactory $view_menu_factory;
 
     public function __construct(
+        bool $is_pro_active,
         AdminColumns $plugin,
         MenuFactoryInterface $menu_factory,
         Admin\UninitializedScreens $uninitialized_screens,
@@ -52,8 +57,9 @@ class Columns implements PageFactoryInterface
         ColumnGroups $column_groups,
         PromoRepository $promos,
         IntegrationRepository $integration_repository,
-        View\MenuFactory $view_menu_factory
+        View\MenuFactory $view_menu_factory,
     ) {
+        $this->is_pro_active = $is_pro_active;
         $this->plugin = $plugin;
         $this->menu_factory = $menu_factory;
         $this->uninitialized_screens = $uninitialized_screens;
@@ -98,7 +104,7 @@ class Columns implements PageFactoryInterface
             $this->column_groups,
             $this->promos,
             $this->integration_repository,
-            false,
+            $this->is_pro_active,
             $list_id
         );
     }
