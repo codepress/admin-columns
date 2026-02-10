@@ -98,6 +98,7 @@ class Columns implements PageFactoryInterface
             $this->column_groups,
             $this->promos,
             $this->integration_repository,
+            false,
             $list_id
         );
     }

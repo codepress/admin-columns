@@ -43,11 +43,13 @@ class Columns implements Enqueueables, Renderable, RenderableHead
 
     private ColumnGroups $column_groups;
 
-    private ?ListScreenId $list_id;
-
     private PromoRepository $promos;
 
     private IntegrationRepository $integration_repository;
+
+    private bool $is_pro_active;
+
+    private ?ListScreenId $list_id;
 
     public function __construct(
         AdminColumns $plugin,
@@ -60,6 +62,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
         ColumnGroups $column_groups,
         PromoRepository $promos,
         IntegrationRepository $integration_repository,
+        bool $is_pro_active,
         ?ListScreenId $list_id = null
     ) {
         $this->location = $plugin->get_location();
@@ -69,10 +72,11 @@ class Columns implements Enqueueables, Renderable, RenderableHead
         $this->favorite_repository = $favorite_repository;
         $this->table_screen_repository = $table_screen_repository;
         $this->uninitialized_screens = $uninitialized_screens;
-        $this->list_id = $list_id;
         $this->column_groups = $column_groups;
         $this->promos = $promos;
         $this->integration_repository = $integration_repository;
+        $this->is_pro_active = $is_pro_active;
+        $this->list_id = $list_id;
     }
 
     public function get_table_screen(): TableScreen
@@ -101,6 +105,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
                 $this->promos,
                 $this->integration_repository,
                 $this->location,
+                $this->is_pro_active,
                 $this->list_id
             ),
             new Style(

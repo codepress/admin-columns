@@ -32,13 +32,15 @@ class Columns extends Script
 
     private AC\ColumnGroups $column_groups;
 
-    private ?ListScreenId $list_id;
-
     private AC\Promo\PromoRepository $promos;
 
     private Location $parent_location;
 
     private AC\Integration\IntegrationRepository $integration_repository;
+
+    private bool $is_pro_active;
+
+    private ?ListScreenId $list_id;
 
     public function __construct(
         string $handle,
@@ -52,6 +54,7 @@ class Columns extends Script
         AC\Promo\PromoRepository $promos,
         AC\Integration\IntegrationRepository $integration_repository,
         Location $parent_location,
+        bool $is_pro_active,
         ?ListScreenId $list_id = null
     ) {
         parent::__construct($handle, $location, [
@@ -63,11 +66,12 @@ class Columns extends Script
         $this->menu_items = $menu_items;
         $this->favorite_repository = $favorite_repository;
         $this->table_screen_repository = $table_screen_repository;
-        $this->list_id = $list_id;
         $this->column_groups = $column_groups;
         $this->promos = $promos;
         $this->parent_location = $parent_location;
         $this->integration_repository = $integration_repository;
+        $this->is_pro_active = $is_pro_active;
+        $this->list_id = $list_id;
     }
 
     public function get_pro_modal_arguments(): array
@@ -160,8 +164,7 @@ class Columns extends Script
             'assets'                     => $this->parent_location->with_suffix('assets')->get_url(),
             'nonce'                      => NonceFactory::create_ajax()->create(),
             'show_column_info'           => (new AC\Admin\Preference\ScreenOptions())->is_active('show_column_info'),
-            // TODO Stefan let's move this check to a global JS variable for all frontend?
-            'is_pro'                     => ac_is_pro_active(),
+            'is_pro'                     => $this->is_pro_active,
             'list_key'                   => (string)$this->table_screen->get_id(),
             'list_id'                    => (string)$this->list_id,
             'uninitialized_list_screens' => ! empty($uninitialized_table_screens) ? $uninitialized_table_screens : null,
@@ -174,7 +177,7 @@ class Columns extends Script
             'urls'                       => [
                 'upgrade' => (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url(),
             ],
-            'pro_banner'                 => ac_is_pro_active() ? null : $this->get_pro_modal_arguments(),
+            'pro_banner'                 => $this->is_pro_active ? null : $this->get_pro_modal_arguments(),
             'review'                     => [
                 'doc_url'     => (new UtmTags(new Documentation(), 'review-notice'))->get_url(),
                 'upgrade_url' => (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url(),
