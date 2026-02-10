@@ -57,7 +57,7 @@ final class Columns implements PageFactoryInterface
         ColumnGroups $column_groups,
         PromoRepository $promos,
         IntegrationRepository $integration_repository,
-        View\MenuFactory $view_menu_factory,
+        View\MenuFactory $view_menu_factory
     ) {
         $this->is_pro_active = $is_pro_active;
         $this->plugin = $plugin;
