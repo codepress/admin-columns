@@ -34,6 +34,7 @@ class HookCollectionFactory
         }
 
         $pro_filters = [
+            'ac/column/types/pro'                          => 'ac/column/types',
             'acp/custom_field/stored_date_format'          => 'ac/custom_field/stored_date_format',
             'acp/display_licence'                          => 'ac/display_licence',
             'ac/export/value'                              => 'ac/export/render',
