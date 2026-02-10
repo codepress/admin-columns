@@ -10,6 +10,12 @@ use AC\Type\Value;
 class ImplodeRecursive implements Formatter
 {
 
+    private ?string $glue;
+
+    public function __construct( ?string $glue = ', '  ) {
+        $this->glue = $glue;
+    }
+
     public function format(Value $value): Value
     {
         $current_value = $value->get_value();
@@ -22,7 +28,7 @@ class ImplodeRecursive implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        return $value->with_value($this->implode_recursive( ', ', $current_value));
+        return $value->with_value($this->implode_recursive( $this->glue, $current_value));
     }
 
     private function implode_recursive(string $glue, array $pieces): string

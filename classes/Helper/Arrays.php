@@ -2,6 +2,9 @@
 
 namespace AC\Helper;
 
+use AC\Formatter\ImplodeRecursive;
+use AC\Type\Value;
+
 class Arrays extends Creatable
 {
 
@@ -35,21 +38,14 @@ class Arrays extends Creatable
         return $array;
     }
 
-    // TODO turn into Formatter
+    /**
+     * @deprecated 7.0
+     */
     public function implode_recursive(string $glue, array $pieces): string
     {
-        $scalars = [];
+        _deprecated_function(__METHOD__, '7.0', ImplodeRecursive::class);
 
-        foreach ($pieces as $piece) {
-            if (is_array($piece)) {
-                $scalars[] = $this->implode_recursive($glue, $piece);
-            }
-            if (is_scalar($piece)) {
-                $scalars[] = (string)$piece;
-            }
-        }
-
-        return implode($glue, array_filter($scalars, static fn(string $v): bool => strlen($v) > 0));
+        return (new ImplodeRecursive($glue))->format(new Value($pieces));
     }
 
     /**
@@ -133,13 +129,6 @@ class Arrays extends Creatable
         _deprecated_function(__METHOD__, '7.0');
 
         return [];
-    }
-
-    public function implode_associative(): string
-    {
-        _deprecated_function(__METHOD__, '5.7.1');
-
-        return '';
     }
 
     public function key_replace(): array
