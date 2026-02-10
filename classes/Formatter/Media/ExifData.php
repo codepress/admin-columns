@@ -4,7 +4,6 @@ namespace AC\Formatter\Media;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
-use AC\Helper;
 use AC\Type\Value;
 
 class ExifData implements Formatter
@@ -38,9 +37,7 @@ class ExifData implements Formatter
                     throw ValueNotFoundException::from_id($value->get_id());
                 }
 
-                return $value->with_value(
-                    Helper\Arrays::create()->implode_recursive(', ', $exif_value)
-                );
+                return (new Formatter\ImplodeRecursive())->format($value->with_value($exif_value));
 
             default:
                 return $value->with_value($exif_value);
