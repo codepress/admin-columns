@@ -2,7 +2,7 @@
 
 namespace AC\Helper;
 
-class File
+class File extends Creatable
 {
 
     public function get_readable_filesize(int $bytes, int $decimals = 2, string $fallback = ''): string

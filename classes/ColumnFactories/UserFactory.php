@@ -22,44 +22,38 @@ final class UserFactory extends BaseFactory
         }
 
         $factories = [
-            AC\ColumnFactory\CustomFieldFactory::class,
-            ColumnFactory\ActionsFactory::class,
-            ColumnFactory\ActionsFactory::class,
-            User\AuthorSlugFactory::class,
-            User\CommentCountFactory::class,
-            User\DescriptionFactory::class,
-            User\DisplayNameFactory::class,
-            User\FirstNameFactory::class,
-            User\FullNameFactory::class,
-            User\FirstPostFactory::class => [
+            AC\ColumnFactory\CustomFieldFactory::class => [],
+            ColumnFactory\ActionsFactory::class        => [],
+            User\AuthorSlugFactory::class              => [],
+            User\CommentCountFactory::class            => [],
+            User\DescriptionFactory::class             => [],
+            User\DisplayNameFactory::class             => [],
+            User\FirstNameFactory::class               => [],
+            User\FullNameFactory::class                => [],
+            User\FirstPostFactory::class               => [
                 'post_type' => new AC\Setting\ComponentFactory\PostType(true),
             ],
-            User\LastNameFactory::class,
-            User\LastPostFactory::class  => [
+            User\LastNameFactory::class                => [],
+            User\LastPostFactory::class                => [
                 'post_type' => new AC\Setting\ComponentFactory\PostType(true),
             ],
-            User\NicknameFactory::class,
-            User\PostCountFactory::class => [
+            User\NicknameFactory::class                => [],
+            User\PostCountFactory::class               => [
                 'post_type' => new AC\Setting\ComponentFactory\PostType(true),
             ],
-            User\RegisteredDateFactory::class,
-            User\VisualEditingFactory::class,
-            User\ShowToolbarFactory::class,
-            User\UserNameFactory::class,
-            User\UserIdFactory::class,
-            User\UserUrlFactory::class,
+            User\RegisteredDateFactory::class          => [],
+            User\VisualEditingFactory::class           => [],
+            User\ShowToolbarFactory::class             => [],
+            User\UserNameFactory::class                => [],
+            User\UserIdFactory::class                  => [],
+            User\UserUrlFactory::class                 => [],
         ];
 
         foreach ($factories as $factory => $parameters) {
-            if (is_numeric($factory)) {
-                $factory = $parameters;
-                $parameters = [];
-            }
-
             $collection->add(
                 new AC\Type\ColumnFactoryDefinition(
                     $factory,
-                    $parameters ?? []
+                    $parameters
                 )
             );
         }

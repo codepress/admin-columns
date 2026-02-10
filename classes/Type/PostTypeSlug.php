@@ -9,7 +9,7 @@ use InvalidArgumentException;
 final class PostTypeSlug
 {
 
-    private $post_type;
+    private string $post_type;
 
     public function __construct(string $post_type)
     {

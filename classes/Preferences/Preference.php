@@ -9,7 +9,7 @@ use AC\Storage\UserData;
 final class Preference
 {
 
-    private $storage;
+    private UserData $storage;
 
     public function __construct(UserData $storage)
     {

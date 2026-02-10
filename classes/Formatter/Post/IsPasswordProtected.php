@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class IsPasswordProtected implements Formatter
@@ -25,7 +26,7 @@ class IsPasswordProtected implements Formatter
         );
 
         return $value->with_value(
-            ac_helper()->icon->yes($tooltip)
+            Helper\Icon::create()->yes($tooltip)
         );
     }
 

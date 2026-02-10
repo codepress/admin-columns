@@ -8,7 +8,7 @@ use AC\Collection\ColumnFactories;
 use AC\ColumnFactoryCollectionFactory;
 use AC\TableScreen;
 
-class Aggregate implements ColumnFactoryCollectionFactory
+class Aggregate
 {
 
     /**
@@ -23,14 +23,27 @@ class Aggregate implements ColumnFactoryCollectionFactory
 
     public function create(TableScreen $table_screen): ColumnFactories
     {
-        $factories = new ColumnFactories();
+        static $factories;
+
+        $id = (string)$table_screen->get_id();
+
+        if ( ! isset($factories[$id])) {
+            $factories[$id] = $this->get($table_screen);
+        }
+
+        return $factories[$id];
+    }
+
+    private function get(TableScreen $table_screen): ColumnFactories
+    {
+        $collection = new ColumnFactories();
 
         foreach (self::$factories as $collection_factory) {
             foreach ($collection_factory->create($table_screen) as $factory) {
-                $factories->add($factory);
+                $collection->add($factory);
             }
         }
 
-        return $factories;
+        return $collection;
     }
 }

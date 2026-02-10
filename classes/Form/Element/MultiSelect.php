@@ -5,14 +5,14 @@ namespace AC\Form\Element;
 class MultiSelect extends Select
 {
 
-    public function __construct($name, array $options = [])
+    public function __construct(string $name, array $options = [])
     {
         parent::__construct($name, $options);
 
         $this->set_attribute('multiple', 'multiple');
     }
 
-    protected function selected($value): string
+    protected function selected($value): bool
     {
         return in_array($value, (array)$this->get_value(), true);
     }

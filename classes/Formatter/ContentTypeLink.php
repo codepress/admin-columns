@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 abstract class ContentTypeLink implements Formatter
@@ -47,7 +48,7 @@ abstract class ContentTypeLink implements Formatter
 
     protected function create_link(string $url, string $value): string
     {
-        return ac_helper()->html->link($url, $value);
+        return Helper\Html::create()->link($url, $value);
     }
 
     abstract protected function get_edit_link(Value $value): ?string;

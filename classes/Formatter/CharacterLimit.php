@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 final class CharacterLimit implements Formatter
@@ -21,7 +22,7 @@ final class CharacterLimit implements Formatter
     {
         if ($this->character_limit > 0) {
             return $value->with_value(
-                ac_helper()->string->trim_characters(
+                Helper\Strings::create()->trim_characters(
                     (string)$value,
                     $this->character_limit
                 )

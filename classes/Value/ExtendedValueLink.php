@@ -11,6 +11,9 @@ final class ExtendedValueLink
 
     private array $attributes;
 
+    /**
+     * @var mixed
+     */
     private $id;
 
     private string $label;

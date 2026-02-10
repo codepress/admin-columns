@@ -11,7 +11,7 @@ use AC\Type;
 final class ListScreenId implements Filter
 {
 
-    private $id;
+    private Type\ListScreenId $id;
 
     public function __construct(Type\ListScreenId $id)
     {

@@ -7,15 +7,15 @@ use AC\View;
 class Tooltip
 {
 
-    private $id;
+    private string $id;
 
-    private $content;
+    private string $content = '';
 
-    private $link_label;
+    private string $link_label;
 
-    private $title;
+    private string $title;
 
-    private $position = 'right';
+    private string $position = 'right';
 
     public function __construct(string $id, array $args = [])
     {

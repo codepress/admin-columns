@@ -50,7 +50,7 @@
 		class:active={$currentListKey === key}
 		class="ac-menu-group-list__link"
 		href={'#'}
-		on:click|preventDefault={ selectValue }>{label}
+		on:click|preventDefault={ selectValue }>{@html label}
 
 		{#if $favoriteListKeysStore.includes( key ) }
 			{#if showActiveFavorite}

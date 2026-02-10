@@ -12,7 +12,7 @@ class MenuListItems
     /**
      * @var MenuListItem[]
      */
-    private $items = [];
+    private array $items = [];
 
     public function __construct(array $items = [])
     {

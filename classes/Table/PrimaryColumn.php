@@ -2,6 +2,7 @@
 
 namespace AC\Table;
 
+use AC\Helper;
 use AC\ListScreen;
 use AC\ListTable\Comment;
 use AC\PostType;
@@ -64,7 +65,7 @@ class PrimaryColumn
             'download' => '',
             'title'    => __('Download', 'codepress-admin-columns'),
         ];
-        $actions['download'] = ac_helper()->html->link(
+        $actions['download'] = Helper\Html::create()->link(
             wp_get_attachment_url($post->ID),
             __('Download', 'codepress-admin-columns'),
             $link_attributes

@@ -9,11 +9,11 @@ use AC\Type\Value;
 class NumberFormat implements Formatter
 {
 
-    private $number_decimals;
+    private int $number_decimals;
 
-    private $decimal_separator;
+    private string $decimal_separator;
 
-    private $thousands_separator;
+    private string $thousands_separator;
 
     public function __construct(int $number_decimals, string $decimal_separator, string $thousands_separator)
     {

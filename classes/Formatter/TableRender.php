@@ -38,20 +38,23 @@ class TableRender implements Formatter
 
     public function format(Value $value): Value
     {
-        $formatters = $this->formatters->with_formatter(new Separator())
-                                       ->with_formatter(
-                                           new ColumnFilter(
-                                               $this->context,
-                                               $this->table_screen,
-                                               $this->list_screen
-                                           )
-                                       );
+        $aggregate = new Aggregate(
+            $this->formatters->with_formatter(new Separator())
+        );
 
-        $value = (new Aggregate($formatters))->format($value);
+        $value = $aggregate->format($value);
 
         if ( ! $value instanceof Value) {
             throw new LogicException('Invalid value.');
         }
+
+        $formatter = new ColumnFilter(
+            $this->context,
+            $this->table_screen,
+            $this->list_screen
+        );
+
+        $value = $formatter->format($value);
 
         return (new EmptyValue())->format($value);
     }

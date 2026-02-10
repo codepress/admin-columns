@@ -37,7 +37,7 @@ class ColumnFilter implements Formatter
 
         $render = apply_filters(
             'ac/column/render',
-            $value->get_value(),
+            (string)$value,
             $this->context,
             $value->get_id(),
             $this->table_screen,
@@ -45,7 +45,7 @@ class ColumnFilter implements Formatter
         );
 
         if (is_scalar($render)) {
-            $value = $value->with_value($render);
+            return $value->with_value((string)$render);
         }
 
         return $value;

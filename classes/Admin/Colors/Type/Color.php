@@ -9,9 +9,9 @@ use InvalidArgumentException;
 final class Color
 {
 
-    private $color;
+    private string $color;
 
-    private $name;
+    private string $name;
 
     public function __construct(string $color, string $name)
     {

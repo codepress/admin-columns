@@ -7,11 +7,11 @@ namespace AC\Admin\Type;
 class MenuListItem
 {
 
-    private $key;
+    private string $key;
 
-    private $label;
+    private string $label;
 
-    private $group;
+    private MenuGroup $group;
 
     public function __construct(string $key, string $label, MenuGroup $group)
     {

@@ -3,7 +3,7 @@
 namespace AC\Check;
 
 use AC\Ajax;
-use AC\Asset\Location\Absolute;
+use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Capabilities;
 use AC\Message;
@@ -13,12 +13,12 @@ use AC\Screen;
 use AC\Type\Url\Documentation;
 use AC\Type\Url\UtmTags;
 
-class Review implements Registerable
+final class Review implements Registerable
 {
 
-    private Absolute $location;
+    private Location $location;
 
-    public function __construct(Absolute $location)
+    public function __construct(Location $location)
     {
         $this->location = $location;
     }
@@ -105,9 +105,9 @@ class Review implements Registerable
         $this->get_preferences()->save('dismiss-review', true);
     }
 
-    private function get_documentation_url(string $utm_medium): string
+    private function get_documentation_url(): string
     {
-        return (new UtmTags(new Documentation(), $utm_medium))->get_url();
+        return (new UtmTags(new Documentation(), 'review-notice'))->get_url();
     }
 
     protected function get_message(): string
@@ -153,7 +153,7 @@ class Review implements Registerable
                     ),
                     $product,
                     '<a href="' . esc_url(
-                        $this->get_documentation_url('review-notice')
+                        $this->get_documentation_url()
                     ) . '" target="_blank">' . __(
                         'documentation page',
                         'codepress-admin-columns'

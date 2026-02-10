@@ -8,7 +8,7 @@ use MLA_List_Table;
 
 /**
  * Load the list table specifically for export. This will
- * initiate the needed hooks (e.g. mla_list_table_query_final_terms) a bit earlier and it
+ * initiate the needed hooks (e.g. mla_list_table_query_final_terms) a bit earlier, and it
  * will prevent the "headers already set" message.
  */
 class WpListTableFactory

@@ -12,11 +12,7 @@ class Plugin extends Message
 
     public function __construct(string $message, string $plugin_basename, ?string $type = null)
     {
-        if (null === $type) {
-            $type = self::WARNING;
-        }
-
-        parent::__construct($message, $type);
+        parent::__construct($message, $type ?? self::WARNING);
 
         $this->plugin_basename = $plugin_basename;
     }

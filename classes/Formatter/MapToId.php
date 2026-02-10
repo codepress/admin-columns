@@ -11,7 +11,7 @@ use AC\Type\Value;
 class MapToId implements Formatter
 {
 
-    private $formatter;
+    private Formatter $formatter;
 
     public function __construct(Formatter $formatter)
     {

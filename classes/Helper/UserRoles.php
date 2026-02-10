@@ -6,7 +6,7 @@ namespace AC\Helper;
 
 use AC\Type;
 
-final class UserRoles
+final class UserRoles extends Creatable
 {
 
     public function find_all(bool $allow_non_editable_roles = false): Type\UserRoles
@@ -36,7 +36,10 @@ final class UserRoles
 
         foreach ($roles_data as $role_name => $role) {
             $roles->add(
-                new Type\UserRole($role_name, $role['name'])
+                new Type\UserRole(
+                    (string)$role_name,
+                    (string)($role['name'] ?? $role_name)
+                )
             );
         }
 

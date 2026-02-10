@@ -1,10 +1,12 @@
 <?php
 
 use AC\Column;
-use AC\Container;
+use AC\Exception\HookTimingException;
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\ListScreenRepository\Storage;
 use AC\Plugin\Version;
+use AC\Registry;
 use AC\Type\ColumnId;
 use AC\Type\ListScreenId;
 use AC\Type\TableId;
@@ -12,7 +14,9 @@ use AC\Type\Url;
 
 function ac_get_url(string $relative_file_path): string
 {
-    return Container::get_location()->with_suffix($relative_file_path)->get_url();
+    _deprecated_function(__FUNCTION__, '7.0.10');
+
+    return '';
 }
 
 if ( ! function_exists('AC')) {
@@ -31,6 +35,8 @@ if ( ! function_exists('AC')) {
 if ( ! function_exists('ac_helper')) {
     function ac_helper(): AC\Helper
     {
+        _deprecated_function(__FUNCTION__, '7.0.11', 'Helper\X::create()');
+
         return new AC\Helper();
     }
 }
@@ -42,10 +48,16 @@ if ( ! function_exists('ac_get_list_screen')) {
     function ac_get_list_screen(string $id): ?ListScreen
     {
         if ( ! did_action('wp_loaded')) {
-            throw new RuntimeException("Call after the `wp_loaded` hook.");
+            throw HookTimingException::called_too_early('wp_loaded');
         }
 
-        return Container::get_storage()->find(new ListScreenId($id));
+        $storage = Registry::get(Storage::class);
+
+        if ( ! $storage instanceof Storage) {
+            return null;
+        }
+
+        return $storage->find(new ListScreenId($id));
     }
 }
 
@@ -56,12 +68,20 @@ if ( ! function_exists('ac_get_list_screens')) {
     function ac_get_list_screens(string $table_id): ListScreenCollection
     {
         if ( ! did_action('wp_loaded')) {
-            throw new RuntimeException("Call after the `wp_loaded` hook.");
+            throw HookTimingException::called_too_early('wp_loaded');
         }
 
-        return Container::get_storage()->find_all_by_table_id(
-            new TableId($table_id)
-        );
+        $storage = Registry::get(Storage::class);
+
+        if ( ! $storage instanceof Storage) {
+            return new ListScreenCollection();
+        }
+
+        try {
+            return $storage->find_all_by_table_id(new TableId($table_id));
+        } catch (Throwable $e) {
+            return new ListScreenCollection();
+        }
     }
 }
 
@@ -72,16 +92,20 @@ if ( ! function_exists('ac_get_column')) {
     function ac_get_column(string $column_name, string $list_screen_id): ?Column
     {
         if ( ! did_action('wp_loaded')) {
-            throw new RuntimeException("Call after the `wp_loaded` hook.");
+            throw HookTimingException::called_too_early('wp_loaded');
         }
 
-        try {
-            $list_id = new ListScreenId($list_screen_id);
-        } catch (Exception $e) {
+        $storage = Registry::get(Storage::class);
+
+        if ( ! $storage instanceof Storage) {
             return null;
         }
 
-        $list_screen = Container::get_storage()->find($list_id);
+        try {
+            $list_screen = $storage->find(new ListScreenId($list_screen_id));
+        } catch (Throwable $e) {
+            return null;
+        }
 
         if ( ! $list_screen) {
             return null;
@@ -101,16 +125,20 @@ if ( ! function_exists('ac_get_columns')) {
     function ac_get_columns(string $list_screen_id): array
     {
         if ( ! did_action('wp_loaded')) {
-            throw new RuntimeException("Call after the `wp_loaded` hook.");
+            throw HookTimingException::called_too_early('wp_loaded');
         }
 
-        try {
-            $list_id = new ListScreenId($list_screen_id);
-        } catch (Exception $e) {
+        $storage = Registry::get(Storage::class);
+
+        if ( ! $storage instanceof Storage) {
             return [];
         }
 
-        $list_screen = Container::get_storage()->find($list_id);
+        try {
+            $list_screen = $storage->find(new ListScreenId($list_screen_id));
+        } catch (Throwable $e) {
+            return [];
+        }
 
         if ( ! $list_screen) {
             return [];
@@ -130,7 +158,7 @@ if ( ! function_exists('ac_format_date')) {
 if ( ! function_exists('ac_is_pro_active')) {
     function ac_is_pro_active(): bool
     {
-        return Container::is_pro();
+        return defined('ACP_VERSION');
     }
 }
 

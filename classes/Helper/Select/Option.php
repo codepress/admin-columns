@@ -1,27 +1,21 @@
 <?php
 
-declare(strict_types=1);
-
 namespace AC\Helper\Select;
 
-final class Option
+class Option
 {
 
-    private $value;
+    private string $value;
 
     private string $label;
 
-    /**
-     * @param mixed       $value
-     * @param string|null $label
-     */
-    public function __construct($value, ?string $label = null)
+    public function __construct(string $value, ?string $label = null)
     {
         $this->value = $value;
-        $this->label = $label ?: (string)$value;
+        $this->label = $label ?? $value;
     }
 
-    public function get_value()
+    public function get_value(): string
     {
         return $this->value;
     }

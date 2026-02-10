@@ -31,7 +31,6 @@ $definition = [
         return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
     },
     ContainerInterface::class               => autowire(Container::class),
-    'is.pro'                                => defined('ACP_FILE'),
     Storage::class                          => static function (Database $database): Storage {
         $storage = new Storage();
         $storage->set_repositories([
@@ -64,10 +63,8 @@ $definition = [
         ->constructorParameter(0, get(PageRequestHandlers::class)),
     Admin\MenuFactoryInterface::class       => autowire(Admin\MenuFactory::class)
         ->constructorParameter(0, admin_url('options-general.php')),
-    Admin\PageFactory\Settings::class       => autowire()
-        ->constructorParameter(2, get('is.pro')),
-    Admin\PageFactory\Help::class           => autowire()
-        ->constructorParameter(0, get(AdminColumns::class)),
+    Admin\PageFactory\Columns::class        => autowire()
+        ->constructorParameter(0, false),
     EncoderFactory::class                   => static function (AdminColumns $plugin) {
         return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
     },
@@ -78,5 +75,5 @@ $definition = [
 
 return array_merge(
     $definition,
-    ( new FieldTypeConfiguratorProvider() )->get_definitions()
+    (new FieldTypeConfiguratorProvider())->get_definitions()
 );

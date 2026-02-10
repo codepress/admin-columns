@@ -3,10 +3,10 @@
 namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
+use AC\DI\Container;
 use AC\Registerable;
 use AC\Table\ManageValue\ListScreenServiceFactory;
 use AC\ThirdParty\MediaLibraryAssistant\TableScreen\ManageValueServiceFactory;
-use AC\Vendor\DI\Container;
 
 class MediaLibraryAssistant implements Registerable
 {

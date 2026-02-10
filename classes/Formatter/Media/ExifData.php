@@ -4,6 +4,7 @@ namespace AC\Formatter\Media;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class ExifData implements Formatter
@@ -33,11 +34,14 @@ class ExifData implements Formatter
                     )
                 );
             case 'keywords' :
-                if (is_array($exif_value)) {
-                    return $value->with_value(
-                        ac_helper()->array->implode_recursive(', ', $exif_value)
-                    );
+                if ( ! is_array($exif_value)) {
+                    throw ValueNotFoundException::from_id($value->get_id());
                 }
+
+                return $value->with_value(
+                    Helper\Arrays::create()->implode_recursive(', ', $exif_value)
+                );
+
             default:
                 return $value->with_value($exif_value);
         }

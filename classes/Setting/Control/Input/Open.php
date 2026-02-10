@@ -10,7 +10,7 @@ use AC\Setting\Control\Input;
 class Open extends Input
 {
 
-    protected $append;
+    protected ?string $append;
 
     public function __construct(
         string $name,

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Collection;
 
 use AC\CollectionFormatter;
+use AC\Helper;
 use AC\Setting\ComponentFactory\Separator as Setting;
 use AC\Setting\Config;
 use AC\Type\Value;
@@ -79,7 +80,7 @@ class Separator implements CollectionFormatter
 
         return new Value(
             $collection->get_id(),
-            ac_helper()->html->more($values, $this->limit, $this->separator)
+            Helper\Html::create()->more($values, $this->limit, $this->separator)
         );
     }
 

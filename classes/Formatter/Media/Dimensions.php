@@ -6,6 +6,7 @@ namespace AC\Formatter\Media;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class Dimensions implements Formatter
@@ -26,7 +27,7 @@ class Dimensions implements Formatter
             );
 
         return $value->with_value(
-            ac_helper()->html->tooltip($label, $tooltip)
+            Helper\Html::create()->tooltip($label, $tooltip)
         );
     }
 

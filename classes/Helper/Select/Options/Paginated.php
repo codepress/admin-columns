@@ -9,7 +9,7 @@ class Paginated extends Select\Options
     implements Select\Paginated
 {
 
-    protected $paginated;
+    protected Select\Paginated $paginated;
 
     public function __construct(Select\Paginated $paginated, ArrayIterator $options)
     {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class SmallBlocks implements Formatter
@@ -15,7 +16,7 @@ class SmallBlocks implements Formatter
         $values = (array)$value->get_value();
 
         return $value->with_value(
-            ac_helper()->html->small_block($values)
+            Helper\Html::create()->small_block($values)
         );
     }
 

@@ -33,9 +33,7 @@ class EditorFavorites
 
         $data[] = (string)$id;
 
-        $data
-            ? $this->storage->save($data)
-            : $this->storage->delete();
+        $this->storage->save($data);
     }
 
     public function remove(TableId $id): void

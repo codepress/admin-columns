@@ -11,7 +11,7 @@ use AC\Type\Value;
 class Property implements Formatter
 {
 
-    private $property;
+    private string $property;
 
     public function __construct(string $property)
     {

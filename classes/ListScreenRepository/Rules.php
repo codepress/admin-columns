@@ -10,23 +10,16 @@ final class Rules
     public const MATCH_ALL = 'all';
     public const MATCH_ANY = 'any';
 
-    /**
-     * @var string
-     */
-    private $match_decision;
+    private string $match_decision;
 
     /**
      * @var Rule[]
      */
-    private $rules = [];
+    private array $rules = [];
 
-    public function __construct($match_decision = null)
+    public function __construct(?string $match_decision = null)
     {
-        if (null === $match_decision) {
-            $match_decision = self::MATCH_ANY;
-        }
-
-        $this->match_decision = $match_decision;
+        $this->match_decision = $match_decision ?? self::MATCH_ANY;
 
         $this->validate();
     }

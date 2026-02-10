@@ -7,9 +7,9 @@ namespace AC\Setting\Type;
 final class Attribute
 {
 
-    private $name;
+    private string $name;
 
-    private $value;
+    private string $value;
 
     public function __construct(string $name, string $value)
     {

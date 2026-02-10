@@ -46,9 +46,9 @@ class Select extends Element
         return $attributes;
     }
 
-    protected function selected(string $value): string
+    protected function selected(string $value): bool
     {
-        return selected($this->get_value(), $value, false);
+        return (bool)selected($this->get_value(), $value, false);
     }
 
     protected function render_optgroup(array $group): string

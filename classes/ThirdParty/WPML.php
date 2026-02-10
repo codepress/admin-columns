@@ -96,7 +96,13 @@ class WPML implements Registerable
     public function register_translated_label($label)
     {
         if (defined('ICL_LANGUAGE_CODE')) {
-            $label = apply_filters('wpml_translate_single_string', $label, 'Admin Columns', $label, ICL_LANGUAGE_CODE);
+            $label = apply_filters(
+                'wpml_translate_single_string',
+                $label,
+                'Admin Columns',
+                $label,
+                constant('ICL_LANGUAGE_CODE')
+            );
         }
 
         return $label;

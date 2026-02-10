@@ -6,6 +6,7 @@ namespace AC\Formatter\User;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 use AC\Value\Extended\Posts;
 use WP_Post_Type;
@@ -64,7 +65,7 @@ class PostCount implements Formatter
             );
         }
 
-        $username = ac_helper()->user->get_formatted_name($user);
+        $username = Helper\User::create()->get_formatted_name($user);
 
         $link = (new Posts())->get_link($user_id, $label)
                              ->with_title(
@@ -98,7 +99,7 @@ class PostCount implements Formatter
 
     private function get_post_count(int $user_id): ?int
     {
-        return ac_helper()->post->count_user_posts(
+        return Helper\Post::create()->count_user_posts(
             $user_id,
             $this->post_types,
             $this->post_stati

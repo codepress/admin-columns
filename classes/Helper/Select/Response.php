@@ -5,15 +5,9 @@ namespace AC\Helper\Select;
 final class Response
 {
 
-    /**
-     * @var Options
-     */
-    private $options;
+    private Options $options;
 
-    /**
-     * @var bool
-     */
-    private $more;
+    private bool $more;
 
     public function __construct(Options $options, bool $more = false)
     {
@@ -21,7 +15,7 @@ final class Response
         $this->more = $more;
     }
 
-    public function __invoke()
+    public function __invoke(): array
     {
         return [
             'results'    => ArrayMapper::map($this->options),
