@@ -4,6 +4,7 @@ namespace AC\Formatter;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class FormattedJson implements Formatter
@@ -24,7 +25,7 @@ class FormattedJson implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $formatted_value = ac_helper()->array->get_nested_value(
+        $formatted_value = Helper\Arrays::create()->get_nested_value(
             $array,
             $this->keys
         );

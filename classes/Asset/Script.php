@@ -38,11 +38,15 @@ class Script extends Enqueueable
             return;
         }
 
+        $version = $this->get_version();
+
         wp_register_script(
             $this->get_handle(),
             $this->location->get_url(),
             $this->dependencies,
-            $this->get_version(),
+            $version !== null
+                ? (string)$version
+                : null,
             $this->is_in_footer()
         );
     }

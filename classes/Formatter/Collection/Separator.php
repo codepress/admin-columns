@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Collection;
 
 use AC\CollectionFormatter;
+use AC\Helper;
 use AC\Setting\ComponentFactory\Separator as Setting;
 use AC\Setting\Config;
 use AC\Type\Value;
@@ -62,13 +63,10 @@ class Separator implements CollectionFormatter
             $values[] = $value;
         }
 
-        $string = $this->limit > 0
-            ? ac_helper()->html->more($values, $this->limit, $this->separator)
-            : implode($this->separator, $values);
-
+        // TODO Stefan test (There is was a fallback in the previous implementation)
         return new Value(
             $collection->get_id(),
-            $string
+            Helper\Html::create()->more($values, $this->limit, $this->separator)
         );
     }
 

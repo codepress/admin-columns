@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 use WP_Post;
 
@@ -29,7 +30,7 @@ class DescriptivePostStatus implements Formatter
                 $html = sprintf(
                     "%s <p class='description'>%s</p>",
                     $html,
-                    ac_helper()->date->date($post->post_date, 'wp_date_time')
+                    Helper\Date::create()->date($post->post_date, 'wp_date_time')
                 );
             }
 

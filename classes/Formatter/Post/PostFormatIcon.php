@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class PostFormatIcon implements Formatter
@@ -14,7 +15,7 @@ class PostFormatIcon implements Formatter
     {
         return $value->get_value()
             ? $value->with_value(
-                ac_helper()->html->tooltip(
+                Helper\Html::create()->tooltip(
                     '<span class="ac-post-state-format post-state-format post-format-icon post-format-' . esc_attr(
                         $value->get_value()
                     ) . '"></span>',

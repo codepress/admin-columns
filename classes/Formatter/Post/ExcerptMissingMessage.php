@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class ExcerptMissingMessage implements Formatter
@@ -32,8 +33,8 @@ class ExcerptMissingMessage implements Formatter
 
         if ($this->tooltip) {
             return $value->with_value(
-                ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'media-text', 'class' => 'gray']),
+                Helper\Html::create()->tooltip(
+                    Helper\Icon::create()->dashicon(['icon' => 'media-text', 'class' => 'gray']),
                     sprintf(
                         '%s %s',
                         __('Excerpt is missing.', 'codepress-admin-columns'),

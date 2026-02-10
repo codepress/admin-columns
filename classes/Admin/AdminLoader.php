@@ -78,7 +78,7 @@ class AdminLoader implements Registerable
     public function head(): void
     {
         if ($this->page instanceof RenderableHead) {
-            echo $this->page->render_head();
+            echo $this->page->render_head()->render();
         }
     }
 

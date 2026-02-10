@@ -6,8 +6,8 @@ namespace AC\ColumnFactories;
 
 use AC;
 use AC\ColumnFactoryDefinitionCollection;
+use AC\DI\Container;
 use AC\TableScreen;
-use AC\Vendor\DI\Container;
 
 final class IntegrationFactory extends BaseFactory
 {

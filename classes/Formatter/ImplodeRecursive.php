@@ -4,6 +4,7 @@ namespace AC\Formatter;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class ImplodeRecursive implements Formatter
@@ -17,7 +18,7 @@ class ImplodeRecursive implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        return $value->with_value(ac_helper()->array->implode_recursive(__(', '), $array));
+        return $value->with_value(Helper\Arrays::create()->implode_recursive(__(', '), $array));
     }
 
 }

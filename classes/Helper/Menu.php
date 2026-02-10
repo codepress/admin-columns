@@ -2,7 +2,7 @@
 
 namespace AC\Helper;
 
-class Menu
+class Menu extends Creatable
 {
 
     public function get_menu_label(int $menu_item_id): string

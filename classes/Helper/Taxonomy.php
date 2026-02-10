@@ -5,15 +5,8 @@ namespace AC\Helper;
 use WP_Taxonomy;
 use WP_Term;
 
-class Taxonomy
+class Taxonomy extends Creatable
 {
-
-    private Html $html;
-
-    public function __construct()
-    {
-        $this->html = new Html();
-    }
 
     public function get_term_links(array $terms, ?string $post_type = null): array
     {
@@ -24,7 +17,7 @@ class Taxonomy
                 continue;
             }
 
-            $values[] = $this->html->link(
+            $values[] = Html::create()->link(
                 $this->get_filter_by_term_url($term, $post_type),
                 sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'display')
             );

@@ -39,9 +39,9 @@ final class HumanReadableTime implements Formatter
         }
 
         if ($minutes < 1) {
-            $time = $seconds . ' ' . _n('second', 'seconds', $seconds, 'codepress-admin-columns');
+            $time = $seconds . ' ' . _n('second', 'seconds', (int)$seconds, 'codepress-admin-columns');
         } else {
-            $time .= ' ' . _n('minute', 'minutes', $minutes, 'codepress-admin-columns');
+            $time .= ' ' . _n('minute', 'minutes', (int)$minutes, 'codepress-admin-columns');
         }
 
         return $time;

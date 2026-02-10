@@ -24,7 +24,7 @@ final class ExplodeToCollection extends ArrayToCollection
     {
         $result = explode($this->separator, (string)$value);
 
-        if (empty($result) || ! is_array($result)) {
+        if (false === $result || $result === ['']) {
             throw new ValueNotFoundException('No values found');
         }
 

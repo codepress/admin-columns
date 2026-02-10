@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Term;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\PostTypeSlug;
 use AC\Type\Value;
 use WP_Term;
@@ -31,7 +32,7 @@ class TermLink implements Formatter
                 $term = get_term($value->get_id());
 
                 if ($term instanceof WP_Term) {
-                    $link = ac_helper()->taxonomy->get_filter_by_term_url(
+                    $link = Helper\Taxonomy::create()->get_filter_by_term_url(
                         $term,
                         (string)$this->post_type
                     );
@@ -52,7 +53,7 @@ class TermLink implements Formatter
         }
 
         return $link
-            ? $value->with_value(ac_helper()->html->link($link, (string)$value))
+            ? $value->with_value(Helper\Html::create()->link($link, (string)$value))
             : $value;
     }
 

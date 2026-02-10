@@ -2,6 +2,7 @@
 
 namespace AC\Plugin\Update;
 
+use AC\Helper;
 use AC\Plugin\Install\Database;
 use AC\Plugin\Update;
 use AC\Plugin\Version;
@@ -93,8 +94,8 @@ class V7000 extends Update
                 continue;
             }
 
-            $list_key = ac_helper()->string->remove_prefix($item->option_name, 'cpac_options_');
-            $list_key = ac_helper()->string->remove_suffix($list_key, '__default');
+            $list_key = Helper\Strings::create()->remove_prefix($item->option_name, 'cpac_options_');
+            $list_key = Helper\Strings::create()->remove_suffix($list_key, '__default');
 
             if ( ! $list_key) {
                 continue;

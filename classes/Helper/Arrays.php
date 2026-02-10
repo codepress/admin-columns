@@ -2,7 +2,7 @@
 
 namespace AC\Helper;
 
-class Arrays
+class Arrays extends Creatable
 {
 
     public function add_nested_value(array $keys, $value, array $result = []): array
@@ -49,7 +49,7 @@ class Arrays
             }
         }
 
-        return implode($glue, array_filter($scalars, 'strlen'));
+        return implode($glue, array_filter($scalars, static fn(string $v): bool => strlen($v) > 0));
     }
 
     /**
@@ -82,7 +82,7 @@ class Arrays
      */
     public function filter(array $array): array
     {
-        return array_filter($array, [ac_helper()->string, 'is_not_empty']);
+        return array_filter($array, [Strings::create(), 'is_not_empty']);
     }
 
     /**

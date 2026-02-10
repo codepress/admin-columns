@@ -34,6 +34,10 @@ class Scripts implements Registerable
             ),
             new Style('ac-select2', $this->location->with_suffix('assets/css/select2.css')),
             new Style('ac-jquery-ui', $this->location->with_suffix('assets/css/ac-jquery-ui.css')),
+
+            // Notices
+            new Style('ac-message', $this->location->with_suffix('assets/css/notice.css')),
+            new Script('ac-message', $this->location->with_suffix('assets/js/notice-dismissible.js')),
         ];
 
         foreach ($assets as $asset) {

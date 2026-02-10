@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Value\Extended;
 
 use AC\Column;
+use AC\Helper;
 use AC\ListScreen;
 use AC\Value\ExtendedValueLink;
 use AC\View;
@@ -24,7 +25,7 @@ class Posts implements ExtendedValue
 
     private function get_post_count(int $user_id, array $post_types, array $status): int
     {
-        return ac_helper()->post->count_user_posts(
+        return Helper\Post::create()->count_user_posts(
             $user_id,
             $post_types,
             $status
@@ -69,7 +70,7 @@ class Posts implements ExtendedValue
                 'post_type'   => $post_type,
                 'post_title'  => $post_title,
                 'post_status' => get_post_status_object($post->post_status)->label ?? '-',
-                'post_date'   => ac_helper()->date->date($post->post_date),
+                'post_date'   => Helper\Date::create()->date($post->post_date),
             ];
         }
 
@@ -88,7 +89,7 @@ class Posts implements ExtendedValue
         $items = [];
 
         foreach ($post_types as $post_type) {
-            $count = ac_helper()->post->count_user_posts($user_id, [$post_type], $status);
+            $count = Helper\Post::create()->count_user_posts($user_id, [$post_type], $status);
 
             if ($count > 0) {
                 $items[] = [

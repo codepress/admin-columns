@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AC\TableScreen\ManageValue;
 
+use AC\Exception\HookTimingException;
 use AC\Table\ManageValue\RenderFactory;
 use AC\TableScreen\ManageValueService;
 use AC\Type\ColumnId;
 use AC\Type\Value;
-use DomainException;
 
 class Media implements ManageValueService
 {
@@ -26,7 +26,7 @@ class Media implements ManageValueService
     public function register(): void
     {
         if (did_action('manage_media_custom_column')) {
-            throw new DomainException("Method should be called before the action triggers.");
+            throw HookTimingException::called_too_late('manage_media_custom_column');
         }
 
         add_action('manage_media_custom_column', [$this, 'render_value'], $this->priority, 2);

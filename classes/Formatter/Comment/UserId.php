@@ -21,7 +21,7 @@ class UserId implements Formatter
         }
 
         return new Value(
-            $user_id
+            (int)$user_id
         );
     }
 

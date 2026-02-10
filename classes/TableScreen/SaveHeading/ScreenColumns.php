@@ -72,10 +72,10 @@ class ScreenColumns implements Registerable
         return $headings;
     }
 
-    public function save_sortable_columns($sortable_columns): void
+    public function save_sortable_columns($sortable_columns)
     {
         if ( ! is_array($sortable_columns)) {
-            return;
+            return $sortable_columns;
         }
 
         remove_filter(
@@ -103,6 +103,8 @@ class ScreenColumns implements Registerable
             ob_clean();
             exit('ac_success');
         }
+
+        return $sortable_columns;
     }
 
 }
