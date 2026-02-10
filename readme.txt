@@ -209,10 +209,15 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 7.0.10 =
+Release Date: TBD
+
+* [Improved] String limit setting added to Media Caption column
+
 = 7.0.9 =
 Release Date: February 4th, 2026
 
-[Fixed] Various code optimizations and minor improvements, including stricter type handling.
+* [Fixed] Various code optimizations and minor improvements, including stricter type handling.
 
 = 7.0.8 =
 Release Date: February 2nd, 2026
