@@ -114,6 +114,9 @@ class Arrays extends Creatable
         return false;
     }
 
+    /**
+     * @deprecated 7.0
+     */
     public function get_duplicates(): array
     {
         _deprecated_function(__METHOD__, '7.0');
@@ -122,7 +125,7 @@ class Arrays extends Creatable
     }
 
     /**
-     * Returns all integers from an array or comma separated string
+     * @deprecated 7.0
      */
     public function get_integers_from_mixed(): array
     {
@@ -131,6 +134,9 @@ class Arrays extends Creatable
         return [];
     }
 
+    /**
+     * @deprecated 7.0
+     */
     public function key_replace(): array
     {
         _deprecated_function(__METHOD__, '7.0');
