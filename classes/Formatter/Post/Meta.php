@@ -6,33 +6,15 @@ namespace AC\Formatter\Post;
 
 use AC\Formatter;
 use AC\Helper;
+use AC\MetaType;
 use AC\Type\Value;
 
-class Meta implements Formatter
+class Meta extends Formatter\Meta
 {
 
-    private string $meta_key;
-
-    private bool $implode;
-
-    public function __construct(string $meta_key, bool $implode = true)
+    public function __construct(string $meta_key)
     {
-        $this->meta_key = $meta_key;
-        $this->implode = $implode;
-    }
-
-    public function format(Value $value): Value
-    {
-        $meta_value = get_post_meta((int)$value->get_id(), $this->meta_key, true);
-
-        // TODO move to its own formatter
-        if ($this->implode && is_array($meta_value)) {
-            $meta_value = Helper\Arrays::create()->implode_recursive(', ', $meta_value);
-        }
-
-        return $value->with_value(
-            $meta_value
-        );
+        parent::__construct(MetaType::create_post_meta(), $meta_key );
     }
 
 }
