@@ -12,42 +12,21 @@ use AC\Type\ListScreenId;
 use AC\Type\TableId;
 use AC\Type\Url;
 
-function ac_get_url(string $relative_file_path): string
-{
-    _deprecated_function(__FUNCTION__, '7.0.10');
-
-    return '';
-}
-
-if ( ! function_exists('AC')) {
-    function AC(): AC\AdminColumns
-    {
-        static $ac = null;
-
-        if ($ac === null) {
-            $ac = new AC\AdminColumns(AC_FILE, new Version(AC_VERSION));
-        }
-
-        return $ac;
-    }
-}
-
-if ( ! function_exists('ac_helper')) {
-    /**
-     * @deprecated 7.0.10 Use Helper\X::create() instead.
-     */
-    function ac_helper(): AC\Helper
-    {
-        _deprecated_function(__FUNCTION__, '7.0.11', 'Helper\X::create()');
-
-        return new AC\Helper();
-    }
-}
-
 /**
  * For usage @see https://docs.admincolumns.com/article/57-code-snippets
+ * List of available template functions:
+ * @method ac_get_list_screens()
+ * @method ac_get_list_screen()
+ * @method ac_get_column()
+ * @method ac_get_columns()
+ * @method AC()
  */
+
 if ( ! function_exists('ac_get_list_screen')) {
+    /**
+     * Return the list table configuration, such as its ID, columns, and settings.
+     * For usage @see https://docs.admincolumns.com/article/57-code-snippets
+     */
     function ac_get_list_screen(string $id): ?ListScreen
     {
         if ( ! did_action('wp_loaded')) {
@@ -64,10 +43,11 @@ if ( ! function_exists('ac_get_list_screen')) {
     }
 }
 
-/**
- * For usage @see https://docs.admincolumns.com/article/57-code-snippets
- */
 if ( ! function_exists('ac_get_list_screens')) {
+    /**
+     * Returns a collection of all list table configurations for a specific table.
+     * For usage @see https://docs.admincolumns.com/article/57-code-snippets
+     */
     function ac_get_list_screens(string $table_id): ListScreenCollection
     {
         if ( ! did_action('wp_loaded')) {
@@ -88,10 +68,11 @@ if ( ! function_exists('ac_get_list_screens')) {
     }
 }
 
-/**
- * For usage @see https://docs.admincolumns.com/article/57-code-snippets
- */
 if ( ! function_exists('ac_get_column')) {
+    /**
+     * Returns a single column by its name and list screen ID.
+     * For usage @see https://docs.admincolumns.com/article/57-code-snippets
+     */
     function ac_get_column(string $column_name, string $list_screen_id): ?Column
     {
         if ( ! did_action('wp_loaded')) {
@@ -118,11 +99,10 @@ if ( ! function_exists('ac_get_column')) {
     }
 }
 
-/**
- * For usage @see https://docs.admincolumns.com/article/57-code-snippets
- */
 if ( ! function_exists('ac_get_columns')) {
     /**
+     * Returns all columns for a specific list table.
+     * For usage @see https://docs.admincolumns.com/article/57-code-snippets
      * @return Column[]
      */
     function ac_get_columns(string $list_screen_id): array
@@ -151,10 +131,19 @@ if ( ! function_exists('ac_get_columns')) {
     }
 }
 
-if ( ! function_exists('ac_format_date')) {
-    function ac_format_date(string $format, ?int $timestamp = null, ?DateTimeZone $timezone = null): ?string
+if ( ! function_exists('AC')) {
+    /**
+     * returns thw AC\AdminColumn object. Contains the plugin version and directory path.
+     */
+    function AC(): AC\AdminColumns
     {
-        return wp_date($format, $timestamp, $timezone) ?: null;
+        static $ac = null;
+
+        if ($ac === null) {
+            $ac = new AC\AdminColumns(AC_FILE, new Version(AC_VERSION));
+        }
+
+        return $ac;
     }
 }
 
@@ -209,6 +198,13 @@ function ac_get_site_url(?string $path = null): string
     return (new Url\Site($path))->get_url();
 }
 
+function ac_get_url(string $relative_file_path): string
+{
+    _deprecated_function(__FUNCTION__, '7.0.10');
+
+    return '';
+}
+
 if ( ! function_exists('ac_load_columns')) {
     function ac_load_columns(): void
     {
@@ -216,6 +212,26 @@ if ( ! function_exists('ac_load_columns')) {
     }
 }
 
+if ( ! function_exists('ac_helper')) {
+    /**
+     * @deprecated 7.0.10 Use Helper\X::create() instead.
+     */
+    function ac_helper(): AC\Helper
+    {
+        _deprecated_function(__FUNCTION__, '7.0.10', 'Helper\X::create()');
+
+        return new AC\Helper();
+    }
+}
+
+if ( ! function_exists('ac_format_date')) {
+    function ac_format_date(string $format, ?int $timestamp = null, ?DateTimeZone $timezone = null): ?string
+    {
+        _deprecated_function(__METHOD__, '7.0.10', 'wp_date()');
+
+        return wp_date($format, $timestamp, $timezone) ?: null;
+    }
+}
 
 
 
