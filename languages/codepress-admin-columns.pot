@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-02-10 21:21+0000\n"
+"POT-Creation-Date: 2026-02-13 10:40+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -534,7 +534,7 @@ msgctxt "smart filtering help"
 msgid "When you return to your list table you can easily select them again from the menu."
 msgstr ""
 
-#: templates/tooltip/sorting-include-empty.php:10, templates/tooltip/sorting.php:8, classes/Admin/Asset/Columns.php:306
+#: templates/tooltip/sorting-include-empty.php:10, templates/tooltip/sorting.php:8
 msgid "Sorting"
 msgstr ""
 
@@ -812,6 +812,10 @@ msgstr ""
 
 #: classes/Admin/Asset/Columns.php:305
 msgid "Horizontal Scrolling"
+msgstr ""
+
+#: classes/Admin/Asset/Columns.php:306
+msgid "Initial Sorting"
 msgstr ""
 
 #: classes/Admin/Asset/Columns.php:307
