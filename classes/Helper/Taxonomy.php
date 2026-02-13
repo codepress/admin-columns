@@ -19,7 +19,7 @@ class Taxonomy extends Creatable
 
             $values[] = Html::create()->link(
                 $this->get_filter_by_term_url($term, $post_type),
-                sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'display')
+                $this->get_term_display_name($term)
             );
         }
 
