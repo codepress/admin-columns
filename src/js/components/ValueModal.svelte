@@ -49,10 +49,14 @@
         return item.title ?? `${columnTitle}`;
     }
 
-    const updateData = (item: ValueModalItem) => {
-        objectId = item.objectId;
+    const setLoadingContent = () => {
         title = translation.value_loading;
         content = `<span class="loading">${translation.value_loading}</span>`;
+	}
+
+    const updateData = (item: ValueModalItem) => {
+        objectId = item.objectId;
+        setLoadingContent();
         editLink = item.editLink;
         downloadLink = item.downloadLink;
         viewLink = item.viewLink;
@@ -80,9 +84,13 @@
         }).then((response: AxiosResponse<string>) => {
             content = response.data
             title = getTitle(item);
-        }).catch(r => {
-            content = 'Content could not be loaded.';
-            title = 'Error loading content.';
+        }).catch(error => {
+            if (error.code === 'ERR_CANCELED') {
+                setLoadingContent()
+            } else {
+                content = 'Content could not be loaded.';
+                title = 'Error loading content.';
+            }
         });
     }
 
