@@ -27,7 +27,7 @@ class ExifData implements Formatter
         switch ($this->exif_key) {
             case 'created_timestamp' :
                 return $value->with_value(
-                    ac_format_date(
+                    wp_date(
                         get_option('date_format') . '' . get_option('time_format'),
                         $exif_value
                     )
