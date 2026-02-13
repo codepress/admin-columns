@@ -213,6 +213,8 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: February 13th, 2026
 
 * [Improved] String limit setting added to Media Caption column
+* [Improved] Deprecated the Admin Columns helper function 'ac_helper'.
+* [Removed] Removed the hook ac/column/types/pro in favor of ac/column/types.
 
 = 7.0.9 =
 Release Date: February 4th, 2026
