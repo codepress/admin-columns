@@ -6,6 +6,7 @@ namespace AC\Formatter\Post;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 use WP_Post;
 
@@ -28,7 +29,7 @@ class PostTitle implements Formatter
     private function get_title(WP_Post $post): string
     {
         if ('attachment' === $post->post_type) {
-            return ac_helper()->image->get_file_name($post->ID) ?: '';
+            return Helper\Image::create()->get_file_name($post->ID) ?: '';
         }
 
         return get_the_title($post);

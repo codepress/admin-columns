@@ -4,7 +4,7 @@ namespace AC\Helper;
 
 use DateTimeZone;
 
-class Date
+class Date extends Creatable
 {
 
     /**
@@ -84,7 +84,7 @@ class Date
 
     public function time(string $date, string $format = ''): ?string
     {
-        $timestamp = ac_helper()->date->strtotime($date);
+        $timestamp = $this->strtotime($date);
 
         if ( ! $format) {
             $format = (string)get_option('time_format');

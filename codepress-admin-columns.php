@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 7.0.9
+Version: 7.0.10
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -28,6 +28,7 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+use AC\DI\Container;
 use AC\Loader;
 use AC\Vendor\DI\ContainerBuilder;
 
@@ -40,7 +41,7 @@ if ( ! is_admin()) {
 }
 
 define('AC_FILE', __FILE__);
-define('AC_VERSION', '7.0.9');
+define('AC_VERSION', '7.0.10');
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
@@ -49,9 +50,11 @@ add_action('after_setup_theme', static function () {
     require __DIR__ . '/api.php';
 
     if ( ! defined('ACP_VERSION')) {
-        $container = (new ContainerBuilder())
-            ->addDefinitions(require __DIR__ . '/settings/container-definitions.php')
-            ->build();
+        $container = new Container(
+            (new ContainerBuilder())
+                ->addDefinitions(require __DIR__ . '/settings/container-definitions.php')
+                ->build()
+        );
 
         new Loader($container);
     }

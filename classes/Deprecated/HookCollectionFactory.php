@@ -34,6 +34,7 @@ class HookCollectionFactory
         }
 
         $pro_filters = [
+            'ac/column/types/pro'                          => 'ac/column/types',
             'acp/custom_field/stored_date_format'          => 'ac/custom_field/stored_date_format',
             'acp/display_licence'                          => 'ac/display_licence',
             'ac/export/value'                              => 'ac/export/render',
@@ -99,7 +100,7 @@ class HookCollectionFactory
         }
 
         $pro_actions = [
-            'acp/column_types'                  => 'ac/column/types/pro',
+            'acp/column_types'                  => 'ac/column/types',
             'acp/acf/after_get_field_options'   => 'ac/acf/after_get_field_options',
             'acp/acf/before_get_field_options'  => 'ac/acf/before_get_field_options',
             'acp/admin/settings/hide_on_screen' => null,
@@ -108,6 +109,7 @@ class HookCollectionFactory
             'acp/editing/saved'                 => 'ac/editing/saved',
             'acp/editing/before_save'           => 'ac/editing/before_save',
             'acp/admin/settings/table_elements' => 'ac/admin/settings/table_elements',
+            'ac/column_groups'                  => 'ac/column/groups',
         ];
 
         foreach ($pro_actions as $old => $replacement) {

@@ -2,7 +2,7 @@
 
 namespace AC\Helper;
 
-class Icon
+class Icon extends Creatable
 {
 
     public function dashicon(array $args = []): string
@@ -29,7 +29,7 @@ class Icon
         }
 
         if ($data->tooltip && is_string($data->tooltip)) {
-            $attributes[] = ac_helper()->html->get_tooltip_attr($data->tooltip);
+            $attributes[] = Html::create()->get_tooltip_attr($data->tooltip);
         }
 
         return sprintf(

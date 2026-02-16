@@ -20,7 +20,7 @@ class Slug implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        return (string)apply_filters('editable_slug', $term->slug, $term);
+        return $value->with_value((string)apply_filters('editable_slug', $term->slug, $term));
     }
 
 }

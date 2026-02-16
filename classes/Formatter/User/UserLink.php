@@ -6,6 +6,7 @@ namespace AC\Formatter\User;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\PostTypeSlug;
 use AC\Type\Value;
 
@@ -69,7 +70,7 @@ class UserLink implements Formatter
         }
 
         return $link
-            ? $value->with_value(ac_helper()->html->link($link, (string)$value))
+            ? $value->with_value(Helper\Html::create()->link($link, (string)$value))
             : $value;
     }
 

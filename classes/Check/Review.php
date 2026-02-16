@@ -3,7 +3,7 @@
 namespace AC\Check;
 
 use AC\Ajax;
-use AC\Asset\Location\Absolute;
+use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Capabilities;
 use AC\Message;
@@ -16,9 +16,9 @@ use AC\Type\Url\UtmTags;
 final class Review implements Registerable
 {
 
-    private Absolute $location;
+    private Location $location;
 
-    public function __construct(Absolute $location)
+    public function __construct(Location $location)
     {
         $this->location = $location;
     }

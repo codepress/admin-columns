@@ -4,7 +4,7 @@ namespace AC\Helper;
 
 use WP_User;
 
-class User
+class User extends Creatable
 {
 
     public function get_formatted_name(WP_User $user): ?string

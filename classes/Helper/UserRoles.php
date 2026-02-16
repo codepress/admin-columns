@@ -6,7 +6,7 @@ namespace AC\Helper;
 
 use AC\Type;
 
-final class UserRoles
+final class UserRoles extends Creatable
 {
 
     public function find_all(bool $allow_non_editable_roles = false): Type\UserRoles

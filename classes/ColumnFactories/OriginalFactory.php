@@ -9,7 +9,7 @@ use AC\ColumnFactoryDefinitionCollection;
 use AC\Storage\Repository\OriginalColumnsRepository;
 use AC\TableScreen;
 use AC\Type\ColumnFactoryDefinition;
-use AC\Vendor\DI\Container;
+use AC\DI\Container;
 
 final class OriginalFactory extends BaseFactory
 {

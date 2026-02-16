@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Value\Extended;
 
+use AC;
 use AC\Column;
 use AC\Formatter\Aggregate;
 use AC\FormatterCollection;
@@ -23,7 +24,7 @@ class Value implements ExtendedValue
         $formatters = [];
 
         foreach ($column->get_formatters() as $formatter) {
-            if ($formatter instanceof \AC\Formatter\ExtendedValueLink) {
+            if ($formatter instanceof AC\Formatter\ExtendedValueLink) {
                 continue;
             }
 

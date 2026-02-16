@@ -14,6 +14,7 @@ use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\Custom;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
+use AC\Helper;
 use DateTimeZone;
 
 abstract class DateFormat extends BaseComponentFactory
@@ -70,7 +71,7 @@ abstract class DateFormat extends BaseComponentFactory
             'wp_date_info'   => sprintf(
                 __('The %s can be changed in %s.', 'codepress-admin-columns'),
                 __('WordPress Date Format', 'codepress-admin-columns'),
-                ac_helper()->html->link(
+                Helper\Html::create()->link(
                     admin_url('options-general.php') . '#date_format_custom_radio',
                     strtolower(__('General Settings'))
                 )

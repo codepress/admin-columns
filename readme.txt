@@ -2,10 +2,10 @@
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
-Requires at least: 4.7.1
-Tested up to: 6.9
+Requires at least: 5.9
+Tested up to: 6.9.1
 Requires PHP: 7.4
-Stable tag: 7.0.9
+Stable tag: 7.0.10
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -209,10 +209,17 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 7.0.10 =
+Release Date: February 16th, 2026
+
+* [Improved] String limit setting added to Media Caption column
+* [Improved] Deprecated the Admin Columns helper function 'ac_helper'.
+* [Removed] Removed the hook ac/column/types/pro in favor of ac/column/types.
+
 = 7.0.9 =
 Release Date: February 4th, 2026
 
-[Fixed] Various code optimizations and minor improvements, including stricter type handling.
+* [Fixed] Various code optimizations and minor improvements, including stricter type handling.
 
 = 7.0.8 =
 Release Date: February 2nd, 2026
