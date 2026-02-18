@@ -62,9 +62,10 @@ class PostStatusIcon implements Formatter
                 );
 
             case 'future' :
+                $format = get_option('date_format') . ' ' . get_option('time_format');
                 $icon = Helper\Html::create()->tooltip(
                     Helper\Icon::create()->dashicon(['icon' => 'clock']),
-                    __('Scheduled') . ': <em>' . Helper\Date::create()->date($post->post_date, 'wp_date_time') . '</em>'
+                    __('Scheduled') . ': <em>' . date($format, strtotime($post->post_date)) . '</em>'
                 );
 
                 // Missed schedule
