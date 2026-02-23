@@ -1,11 +1,12 @@
 <script lang="ts">
     import {fade} from 'svelte/transition';
     import {onMount} from "svelte";
+    import {AcDropdownMenuPosition} from "./index";
 
     export let trigger: HTMLElement;
     export let appendToBody: boolean = false;
     export let maxHeight: string | null = null;
-    export let position: string | null = 'bottom-right';
+    export let position: AcDropdownMenuPosition | null = 'bottom-right';
     export let zIndex: number | null = null;
     export let style: string | undefined = '';
 
@@ -20,13 +21,22 @@
 
         pos = {
             position: 'absolute',
-            top: (Math.round(triggerBox.top + window.scrollY + triggerBox.height)).toString() + 'px',
-            left:Math.round(triggerBox.left) + 'px'
+        }
+
+        if (position === 'bottom-right') {
+            pos.top = (Math.round(triggerBox.top + window.scrollY + triggerBox.height)).toString() + 'px';
+            pos.left = Math.round(triggerBox.left) + 'px'
+        }
+
+        if (position === 'top-right') {
+            pos.top = (Math.round(triggerBox.top + window.scrollY)).toString() + 'px';
+            pos.left = Math.round(triggerBox.left) + 'px'
         }
 
         if (position === 'bottom-left') {
+            pos.top = (Math.round(triggerBox.top + window.scrollY + triggerBox.height)).toString() + 'px';
             pos.left = Math.round((triggerBox.left - menuElement.getBoundingClientRect().width + triggerBox.width)) +
-				'px';
+                'px';
         }
     }
 
@@ -35,6 +45,10 @@
             positionBodyElement();
             window.addEventListener('resize', () => {
                 positionBodyElement();
+            });
+            window.addEventListener('scroll', () => {
+                positionBodyElement();
+                console.log('ss');
             });
         }
 
@@ -59,6 +73,7 @@
 	style={rootElementStyle}
 	style:max-height={maxHeight}
 	style:z-index={zIndex}
+	data-position={position}
 	in:fade={{ duration: 100}} out:fade={{ duration: 100}}
 	bind:this={menuElement}
 >

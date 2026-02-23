@@ -23848,6 +23848,7 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "role", "list");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acui-dropdown-menu");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "style", /*rootElementStyle*/ctx[6]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "data-position", /*position*/ctx[2]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div1, "-append-to-body", /*appendToBody*/ctx[0]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div1, "-bottom-left", ! /*appendToBody*/ctx[0] && /*position*/ctx[2] === 'bottom-left');
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div1, "max-height", /*maxHeight*/ctx[1]);
@@ -23886,6 +23887,9 @@ function create_fragment(ctx) {
       }
       if (!current || dirty & /*rootElementStyle*/64) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "style", /*rootElementStyle*/ctx[6]);
+      }
+      if (!current || dirty & /*position*/4) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "data-position", /*position*/ctx[2]);
       }
       if (!current || dirty & /*appendToBody*/1) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div1, "-append-to-body", /*appendToBody*/ctx[0]);
@@ -23971,11 +23975,18 @@ function instance($$self, $$props, $$invalidate) {
     document.body.append(rootElement);
     let triggerBox = trigger.getBoundingClientRect();
     $$invalidate(9, pos = {
-      position: 'absolute',
-      top: Math.round(triggerBox.top + window.scrollY + triggerBox.height).toString() + 'px',
-      left: Math.round(triggerBox.left) + 'px'
+      position: 'absolute'
     });
+    if (position === 'bottom-right') {
+      $$invalidate(9, pos.top = Math.round(triggerBox.top + window.scrollY + triggerBox.height).toString() + 'px', pos);
+      $$invalidate(9, pos.left = Math.round(triggerBox.left) + 'px', pos);
+    }
+    if (position === 'top-right') {
+      $$invalidate(9, pos.top = Math.round(triggerBox.top + window.scrollY).toString() + 'px', pos);
+      $$invalidate(9, pos.left = Math.round(triggerBox.left) + 'px', pos);
+    }
     if (position === 'bottom-left') {
+      $$invalidate(9, pos.top = Math.round(triggerBox.top + window.scrollY + triggerBox.height).toString() + 'px', pos);
       $$invalidate(9, pos.left = Math.round(triggerBox.left - menuElement.getBoundingClientRect().width + triggerBox.width) + 'px', pos);
     }
   };
@@ -23984,6 +23995,10 @@ function instance($$self, $$props, $$invalidate) {
       positionBodyElement();
       window.addEventListener('resize', () => {
         positionBodyElement();
+      });
+      window.addEventListener('scroll', () => {
+        positionBodyElement();
+        console.log('ss');
       });
     }
   });
