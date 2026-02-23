@@ -2,11 +2,12 @@
 
     import {createEventDispatcher, onMount} from "svelte";
     import AcDropdownMenu from "./AcDropdownMenu.svelte";
+    import {AcDropdownMenuPosition} from "./index";
 
     export let customClass: string = null;
     export let appendToBody: boolean = false;
     export let closeOnClick: boolean = true;
-    export let position: string | null = null;
+    export let position: AcDropdownMenuPosition | null = null;
     export let maxHeight: string | null = null;
     export let value: any | null | undefined = null;
     export let zIndex: number | null | undefined = null;
