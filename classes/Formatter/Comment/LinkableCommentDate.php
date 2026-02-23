@@ -12,8 +12,8 @@ class LinkableCommentDate implements Formatter
 
     public function format(Value $value): Value
     {
-        $date = wp_date((string)get_option('date_format'), (int)$value);
-        $time = wp_date((string)get_option('time_format'), (int)$value);
+        $date = wp_date((string)get_option('date_format'), (int)$value->get_value());
+        $time = wp_date((string)get_option('time_format'), (int)$value->get_value());
 
         $label = sprintf(
             __('Submitted on <a href="%1$s">%2$s at %3$s</a>', 'codepress-admin-columns'),
