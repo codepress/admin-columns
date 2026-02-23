@@ -39,7 +39,7 @@ class Composite implements Formatter
                 continue;
             }
 
-            $values[] = (string)$result;
+            $values[] = $result;
         }
 
         if ( ! $values) {

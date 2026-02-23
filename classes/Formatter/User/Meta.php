@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Formatter\User;
 
 use AC\Formatter;
-use AC\Helper;
 use AC\Type\Value;
 
 class Meta implements Formatter
@@ -20,15 +19,8 @@ class Meta implements Formatter
 
     public function format(Value $value): Value
     {
-        $meta_value = get_user_meta((int)$value->get_id(), $this->meta_key, true);
-
-        // TODO remove and use the ImplodeRecursiveFormatter
-        if (is_array($meta_value)) {
-            $meta_value = Helper\Arrays::create()->implode_recursive(', ', $meta_value);
-        }
-
         return $value->with_value(
-            $meta_value
+            get_user_meta((int)$value->get_id(), $this->meta_key, true)
         );
     }
 

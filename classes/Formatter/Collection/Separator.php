@@ -25,11 +25,11 @@ class Separator implements CollectionFormatter
     }
 
     // TODO David use create_from_settings, which solves some leaking and dry issues
-    public static function create_from_config(Config $config): self
+    public static function create_from_config(Config $config, int $limit = 20): self
     {
         return new self(
             self::get_separator($config->get('separator', ', ')),
-            (int)$config->get('number_of_items', 20)
+            (int)$config->get('number_of_items', $limit)
         );
     }
 
