@@ -20,7 +20,7 @@ class MapOptionLabel implements Formatter
 
     public function format(Value $value): Value
     {
-        $label = $this->mapping[$value->get_value()] ?? null;
+        $label = $this->mapping[(string)$value] ?? null;
 
         if ( ! $label) {
             throw ValueNotFoundException::from_id($value->get_id());
