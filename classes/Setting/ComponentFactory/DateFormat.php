@@ -55,24 +55,23 @@ abstract class DateFormat extends BaseComponentFactory
         );
     }
 
-    protected function get_wp_date_format(): string
-    {
-        return get_option('date_format') ?: 'F j, Y';
-    }
-
     protected function get_input(Config $config): ?Input
     {
-        return new Custom('date_format', null, [
-            'wp_date_format' => $this->get_wp_date_format(),
-            'wp_date_info'   => sprintf(
-                __('The %s can be changed in %s.', 'codepress-admin-columns'),
-                __('WordPress Date Format', 'codepress-admin-columns'),
-                Helper\Html::create()->link(
-                    admin_url('options-general.php') . '#date_format_custom_radio',
-                    strtolower(__('General Settings'))
-                )
-            ),
-        ]);
+        return new Custom(
+            'date_format',
+            null,
+            [
+                'wp_date_format' => Helper\Date::create()->get_date_format(),
+                'wp_date_info'   => sprintf(
+                    __('The %s can be changed in %s.', 'codepress-admin-columns'),
+                    __('WordPress Date Format', 'codepress-admin-columns'),
+                    Helper\Html::create()->link(
+                        admin_url('options-general.php') . '#date_format_custom_radio',
+                        strtolower(__('General Settings'))
+                    )
+                ),
+            ]
+        );
     }
 
     protected function get_children(Config $config): ?Children
@@ -99,7 +98,7 @@ abstract class DateFormat extends BaseComponentFactory
                 return new Formatter\Date\TimeDifference($this->source_format);
             case 'wp_default':
                 return new Formatter\Date\LocalizedDateFormat(
-                    (string)get_option('date_format') ?: 'F j, Y',
+                    Helper\Date::create()->get_date_format(),
                     $this->source_format
                 );
             default:

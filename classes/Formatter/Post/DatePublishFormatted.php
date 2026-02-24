@@ -36,7 +36,11 @@ class DatePublishFormatted implements Formatter
                         '%s %s: <em>%s</em>',
                         (new PostStatusIcon())->format(new Value($post->ID, $post)),
                         __('Scheduled'),
-                        $this->format_date($post->post_date)
+                        (string)wp_date(
+                            Date::create()->get_date_format(),
+                            strtotime($post->post_date),
+                            new DateTimeZone('UTC')
+                        )
                     )
                 );
 
@@ -45,19 +49,14 @@ class DatePublishFormatted implements Formatter
                 return $value->with_value(
                     Helper\Html::create()->tooltip(
                         (string)$value,
-                        $this->format_date($post->post_date)
+                        (string)wp_date(
+                            Date::create()->get_date_time_format(),
+                            strtotime($post->post_date),
+                            new DateTimeZone('UTC')
+                        )
                     )
                 );
         }
-    }
-
-    private function format_date(string $date): string
-    {
-        return wp_date(
-            Date::create()->get_date_time_format(),
-            strtotime($date),
-            new DateTimeZone('UTC')
-        ) ?: '';
     }
 
 }
