@@ -6,6 +6,7 @@ namespace AC\Formatter\Post;
 
 use AC\Formatter;
 use AC\Helper\Date;
+use AC\Helper\Html;
 use AC\Type\Value;
 use DateTimeZone;
 use WP_Post;
@@ -25,21 +26,37 @@ class DescriptivePostStatus implements Formatter
         $status = $post->post_status;
 
         if (isset($wp_post_statuses[$status])) {
-            $html = $wp_post_statuses[$status]->label;
+            $label = $wp_post_statuses[$status]->label;
 
-            if ('future' === $status) {
-                $html = sprintf(
-                    "%s <p class='description'>%s</p>",
-                    $html,
-                    wp_date(
-                        Date::create()->get_date_time_format(),
-                        strtotime($post->post_date),
-                        new DateTimeZone('UTC')
-                    )
-                );
+            switch ($status) {
+                case 'future':
+                    $label = sprintf(
+                        "%s: <em>%s</em>",
+                        $label,
+                        wp_date(
+                            Date::create()->get_date_time_format(),
+                            strtotime($post->post_date),
+                            new DateTimeZone('UTC')
+                        )
+                    );
+
+                    return $value->with_value(
+                        $label
+                    );
+                case 'publish':
+                    return $value->with_value(
+                        Html::create()->tooltip(
+                            $label,
+                            wp_date(
+                                Date::create()->get_date_time_format(),
+                                strtotime($post->post_date),
+                                new DateTimeZone('UTC')
+                            )
+                        )
+                    );
+                default:
+                    return $value->with_value($label);
             }
-
-            return $value->with_value($html);
         }
 
         return $value->with_value($status);

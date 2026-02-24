@@ -22,6 +22,8 @@ class DatePublishFormatted implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
+        $date = (string)$value;
+
         switch ($post->post_status) {
             // Icons
             case 'private' :
@@ -36,11 +38,7 @@ class DatePublishFormatted implements Formatter
                         '%s %s: <em>%s</em>',
                         (new PostStatusIcon())->format(new Value($post->ID, $post)),
                         __('Scheduled'),
-                        (string)wp_date(
-                            Date::create()->get_date_format(),
-                            strtotime($post->post_date),
-                            new DateTimeZone('UTC')
-                        )
+                        $date
                     )
                 );
 
@@ -48,11 +46,15 @@ class DatePublishFormatted implements Formatter
             default :
                 return $value->with_value(
                     Helper\Html::create()->tooltip(
-                        (string)$value,
-                        (string)wp_date(
-                            Date::create()->get_date_time_format(),
-                            strtotime($post->post_date),
-                            new DateTimeZone('UTC')
+                        $date,
+                        sprintf(
+                            '%s <br><em>%s</em>',
+                            __('Published'),
+                            wp_date(
+                                Date::create()->get_date_time_format(),
+                                strtotime($post->post_date),
+                                new DateTimeZone('UTC')
+                            )
                         )
                     )
                 );
