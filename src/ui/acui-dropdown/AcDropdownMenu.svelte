@@ -3,6 +3,7 @@
     import {onMount} from "svelte";
     import {AcDropdownMenuPosition} from "./index";
 
+    export let menuClass: string = ''
     export let trigger: HTMLElement;
     export let appendToBody: boolean = false;
     export let maxHeight: string | null = null;
@@ -48,7 +49,6 @@
             });
             window.addEventListener('scroll', () => {
                 positionBodyElement();
-                console.log('ss');
             });
         }
 
@@ -67,14 +67,15 @@
 	</div>
 {/if}
 
-<div class="acui-dropdown-menu"
+<div class={menuClass || 'acui-dropdown-menu' }
 	class:-append-to-body={appendToBody}
-	class:-bottom-left={!appendToBody && position ==='bottom-left'}
+	class:-bottom-left={!appendToBody && position === 'bottom-left'}
 	style={rootElementStyle}
 	style:max-height={maxHeight}
 	style:z-index={zIndex}
 	data-position={position}
-	in:fade={{ duration: 100}} out:fade={{ duration: 100}}
+	in:fade={{ duration: 100}}
+	out:fade={{ duration: 100}}
 	bind:this={menuElement}
 >
 	<div class="acui-dropdown-content" role="list">
