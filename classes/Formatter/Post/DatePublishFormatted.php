@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace AC\Formatter\Post;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
 use AC\Helper;
+use AC\Helper\Date;
 use AC\Type\Value;
+use DateTimeZone;
 
 class DatePublishFormatted implements Formatter
 {
@@ -16,7 +19,7 @@ class DatePublishFormatted implements Formatter
         $post = get_post((int)$value->get_id());
 
         if ( ! $post) {
-            return new Value(null);
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         switch ($post->post_status) {
@@ -24,20 +27,37 @@ class DatePublishFormatted implements Formatter
             case 'private' :
             case 'draft' :
             case 'pending' :
+                return (new PostStatusIcon())->format(
+                    new Value($post->ID, $post)
+                );
             case 'future' :
-                return (new PostStatusIcon())->format(new Value($post->ID, $post));
+                return $value->with_value(
+                    sprintf(
+                        '%s %s: <em>%s</em>',
+                        (new PostStatusIcon())->format(new Value($post->ID, $post)),
+                        __('Scheduled'),
+                        $this->format_date($post->post_date)
+                    )
+                );
 
             // Tooltip
             default :
-                $format = get_option('date_format') . ' ' . get_option('time_format');
-
                 return $value->with_value(
                     Helper\Html::create()->tooltip(
                         (string)$value,
-                        date($format, strtotime($post->post_date))
+                        $this->format_date($post->post_date)
                     )
                 );
         }
+    }
+
+    private function format_date(string $date): string
+    {
+        return wp_date(
+            Date::create()->get_date_time_format(),
+            strtotime($date),
+            new DateTimeZone('UTC')
+        ) ?: '';
     }
 
 }

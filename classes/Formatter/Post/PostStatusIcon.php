@@ -6,7 +6,9 @@ namespace AC\Formatter\Post;
 
 use AC\Formatter;
 use AC\Helper;
+use AC\Helper\Date;
 use AC\Type\Value;
+use DateTimeZone;
 use WP_Post;
 
 class PostStatusIcon implements Formatter
@@ -62,10 +64,17 @@ class PostStatusIcon implements Formatter
                 );
 
             case 'future' :
-                $format = get_option('date_format') . ' ' . get_option('time_format');
                 $icon = Helper\Html::create()->tooltip(
                     Helper\Icon::create()->dashicon(['icon' => 'clock']),
-                    __('Scheduled') . ': <em>' . date($format, strtotime($post->post_date)) . '</em>'
+                    sprintf(
+                        '%s: <em>%s</em>',
+                        __('Scheduled'),
+                        wp_date(
+                            Date::create()->get_date_time_format(),
+                            strtotime($post->post_date),
+                            new DateTimeZone('UTC')
+                        )
+                    )
                 );
 
                 // Missed schedule

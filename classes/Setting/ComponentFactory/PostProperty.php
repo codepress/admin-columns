@@ -109,7 +109,7 @@ class PostProperty extends BaseComponentFactory
                 break;
             case self::PROPERTY_DATE:
                 $formatters->add(new AC\Formatter\Post\GmtDate());
-                $formatters->add(new AC\Formatter\Date\WordPressDateFormat('U', 'Y-m-d H:i:s'));
+                $formatters->add(new AC\Formatter\Date\LocalizedDateFormat('U', 'Y-m-d H:i:s'));
                 break;
         }
     }

@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 7.0.11 =
+Release Date: TBD
+
+* [Fixed] Correctly assign an UTC timezone for `wp_date()` usages.
+
 = 7.0.10 =
 Release Date: February 16th, 2026
 

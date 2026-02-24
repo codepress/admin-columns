@@ -9,6 +9,7 @@ use AC\Helper;
 use AC\ListScreen;
 use AC\Value\ExtendedValueLink;
 use AC\View;
+use DateTimeZone;
 
 class Posts implements ExtendedValue
 {
@@ -70,7 +71,11 @@ class Posts implements ExtendedValue
                 'post_type'   => $post_type,
                 'post_title'  => $post_title,
                 'post_status' => get_post_status_object($post->post_status)->label ?? '-',
-                'post_date'   => Helper\Date::create()->date($post->post_date),
+                'post_date'   => wp_date(
+                    Helper\Date::create()->get_date_format(),
+                    strtotime($post->post_date),
+                    new DateTimeZone('UTC')
+                ) ?: '',
             ];
         }
 

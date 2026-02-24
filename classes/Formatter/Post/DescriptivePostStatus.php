@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
-use AC\Helper;
+use AC\Helper\Date;
 use AC\Type\Value;
+use DateTimeZone;
 use WP_Post;
 
 class DescriptivePostStatus implements Formatter
@@ -30,7 +31,11 @@ class DescriptivePostStatus implements Formatter
                 $html = sprintf(
                     "%s <p class='description'>%s</p>",
                     $html,
-                    Helper\Date::create()->date($post->post_date, 'wp_date_time')
+                    wp_date(
+                        Date::create()->get_date_time_format(),
+                        strtotime($post->post_date),
+                        new DateTimeZone('UTC')
+                    )
                 );
             }
 

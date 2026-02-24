@@ -71,11 +71,14 @@ final class FileMetaAudio extends BaseComponentFactory
                 $formatters->add(new AC\Formatter\Media\NumberFormat(4));
                 break;
             case 'created_timestamp':
+                $format = sprintf(
+                    '%s %s',
+                    get_option('date_format') ?: 'F j, Y',
+                    get_option('time_format') ?: 'H:i'
+                );
+
                 $formatters->add(
-                    new AC\Formatter\Date\WordPressDateFormat(
-                        get_option('date_format') . ' ' . get_option('time_format'),
-                        'U'
-                    )
+                    new AC\Formatter\Date\LocalizedDateFormat($format, 'U')
                 );
                 break;
             case 'filesize':
