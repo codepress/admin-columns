@@ -15,7 +15,7 @@ class LinkableCommentDate implements Formatter
 
     public function format(Value $value): Value
     {
-        $timestamp = (int)$value;
+        $timestamp = (int)$value->get_value();
 
         if ( ! $timestamp) {
             throw ValueNotFoundException::from_id($value->get_id());
