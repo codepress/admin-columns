@@ -37,8 +37,8 @@ class CommentCountFactory extends BaseColumnFactory
         $status = (string)$config->get('comment_status', 'all');
 
         return parent::get_formatters($config)
-                     ->add(new AC\Formatter\Post\CommentCount($status))
-                     ->add(new AC\Formatter\Post\CommentsForPostLink($status));
+            ->add(new AC\Formatter\Post\CommentCount($status))
+            ->add(new AC\Formatter\Post\CommentsForPostLink($status));
     }
 
     public function get_column_type(): string

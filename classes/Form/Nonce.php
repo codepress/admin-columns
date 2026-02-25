@@ -33,7 +33,7 @@ class Nonce
     {
         $nonce = wp_create_nonce($this->action);
 
-        if ( ! $nonce ) {
+        if ( ! $nonce) {
             return null;
         }
 

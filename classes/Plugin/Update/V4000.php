@@ -43,16 +43,18 @@ class V4000 extends Update
             case 1 :
                 $this->create_database();
 
-                $this->update_next_step(2)
-                     ->apply_update();
+                $this
+                    ->update_next_step(2)
+                    ->apply_update();
                 break;
             case 2 :
                 // 1. migrate segments to site specific user preference. Previously this was stored globally.
                 $this->migrate_segments_preferences();
 
                 // go to next step
-                $this->update_next_step(3)
-                     ->apply_update();
+                $this
+                    ->update_next_step(3)
+                    ->apply_update();
 
                 break;
             case 3 :
@@ -64,8 +66,9 @@ class V4000 extends Update
                 $this->update_replacement_ids($replaced_list_ids);
 
                 // go to next step
-                $this->update_next_step(4)
-                     ->apply_update();
+                $this
+                    ->update_next_step(4)
+                    ->apply_update();
 
                 break;
             case 4 :
@@ -74,8 +77,9 @@ class V4000 extends Update
                 $this->update_user_preferences_segments($this->get_replacement_ids());
 
                 // go to next step
-                $this->update_next_step(5)
-                     ->apply_update();
+                $this
+                    ->update_next_step(5)
+                    ->apply_update();
 
                 break;
             case 5 :
@@ -94,16 +98,18 @@ class V4000 extends Update
                 );
 
                 // go to next step
-                $this->update_next_step(6)
-                     ->apply_update();
+                $this
+                    ->update_next_step(6)
+                    ->apply_update();
 
                 break;
             case 6 :
                 $this->migrate_invalid_network_settings();
 
                 // go to next step
-                $this->update_next_step(7)
-                     ->apply_update();
+                $this
+                    ->update_next_step(7)
+                    ->apply_update();
 
                 break;
             case 7 :

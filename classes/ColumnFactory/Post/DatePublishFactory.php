@@ -35,8 +35,8 @@ class DatePublishFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->prepend(new PostDateTimestamp())
-                     ->add(new DatePublishFormatted());
+            ->prepend(new PostDateTimestamp())
+            ->add(new DatePublishFormatted());
     }
 
     public function get_column_type(): string

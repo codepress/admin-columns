@@ -8,11 +8,11 @@ use AC\Collection;
 use AC\Collection\ColumnFactories;
 use AC\ColumnFactoryCollectionFactory;
 use AC\ColumnFactoryDefinitionCollection;
+use AC\DI\Container;
 use AC\PostType;
 use AC\TableScreen;
 use AC\Taxonomy;
 use AC\Type\TableScreenContext;
-use AC\DI\Container;
 
 abstract class BaseFactory implements ColumnFactoryCollectionFactory
 {

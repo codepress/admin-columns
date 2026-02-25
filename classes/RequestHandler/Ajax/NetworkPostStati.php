@@ -27,9 +27,10 @@ class NetworkPostStati implements RequestAjaxHandler
             $response->error();
         }
 
-        $response->set_header('Cache-Control', 'max-age=120')
-                 ->set_parameter('options', $this->get_options())
-                 ->success();
+        $response
+            ->set_header('Cache-Control', 'max-age=120')
+            ->set_parameter('options', $this->get_options())
+            ->success();
     }
 
     private function get_distinct_db_values(): array

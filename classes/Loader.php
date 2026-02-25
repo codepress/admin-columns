@@ -75,10 +75,11 @@ class Loader
 
         // Page handlers
         $page_handler = new PageRequestHandler();
-        $page_handler->add('columns', $container->get(PageFactory\Columns::class))
-                     ->add('settings', $container->get(PageFactory\Settings::class))
-                     ->add('addons', $container->get(PageFactory\Addons::class))
-                     ->add('help', $container->get(PageFactory\Help::class));
+        $page_handler
+            ->add('columns', $container->get(PageFactory\Columns::class))
+            ->add('settings', $container->get(PageFactory\Settings::class))
+            ->add('addons', $container->get(PageFactory\Addons::class))
+            ->add('help', $container->get(PageFactory\Help::class));
 
         PageRequestHandlers::add_handler($page_handler);
 

@@ -51,10 +51,11 @@ final class SettingsFactory
                 Script\GlobalTranslationFactory::HANDLE,
             ]
         );
-        $script->localize('ac_settings_i18n', Translation::create($translations))
-               ->add_inline_variable('ac_settings', [
-                   $nonce->get_name() => $nonce->create(),
-               ]);
+        $script
+            ->localize('ac_settings_i18n', Translation::create($translations))
+            ->add_inline_variable('ac_settings', [
+                $nonce->get_name() => $nonce->create(),
+            ]);
 
         return $script;
     }

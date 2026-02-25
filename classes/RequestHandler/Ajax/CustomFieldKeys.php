@@ -32,9 +32,10 @@ class CustomFieldKeys implements RequestAjaxHandler
 
         $query = new Query((string)$meta_type);
 
-        $query->select('meta_key')
-              ->distinct()
-              ->order_by('meta_key');
+        $query
+            ->select('meta_key')
+            ->distinct()
+            ->order_by('meta_key');
 
         if ($post_type) {
             $query->where_post_type((string)$post_type);

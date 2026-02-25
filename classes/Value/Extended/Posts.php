@@ -85,8 +85,9 @@ class Posts implements ExtendedValue
             'post_types' => $this->get_post_count_per_post_type($id, $post_types, $status),
         ]);
 
-        return $view->set_template('modal-value/posts')
-                    ->render();
+        return $view
+            ->set_template('modal-value/posts')
+            ->render();
     }
 
     private function get_post_count_per_post_type(int $user_id, array $post_types, array $status): array

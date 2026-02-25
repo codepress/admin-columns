@@ -39,15 +39,17 @@ class V7000 extends Update
                 // Add 'type' column to the 'admin_columns' DB table
                 $this->update_database();
 
-                $this->update_next_step(2)
-                     ->apply_update();
+                $this
+                    ->update_next_step(2)
+                    ->apply_update();
                 break;
             case 2:
                 // Update renamed column types and specific settings
                 $this->update_columns();
 
-                $this->update_next_step(3)
-                     ->apply_update();
+                $this
+                    ->update_next_step(3)
+                    ->apply_update();
                 break;
             case 3:
                 // Move the stored default columns to a new location
