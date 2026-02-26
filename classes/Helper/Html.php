@@ -199,7 +199,7 @@ class Html extends Creatable
 
     public function more(array $array, int $limit = 10, string $glue = ', '): string
     {
-        if ($limit <= 0) {
+        if ($limit <= 0 || count($array) <= $limit) {
             return implode($glue, $array);
         }
 
