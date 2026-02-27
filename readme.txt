@@ -1,36 +1,34 @@
 === Admin Columns ===
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
-Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
+Tags: admin columns, custom fields, column manager, list table, admin
 Requires at least: 5.9
 Tested up to: 6.9.1
 Requires PHP: 7.4
 Stable tag: 7.0.10
 
-Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
+Customize the columns in your WordPress admin lists. Drag-and-drop column management for posts, custom post types, users, media, and comments.
 
 == Description ==
 
-Manage and organize columns in the posts, users, comments and media lists in the WordPress admin panel. Transform the WordPress admin screens into beautiful, clear overviews.
+Stop scrolling through unhelpful default columns. Admin Columns lets you build custom admin list views — showing the fields that matter, arranged exactly how you want them. Drag, drop, and configure in minutes, no coding required.
 
 > #### Admin Columns Pro
 > The Pro version of Admin Columns will allow columns to be sorted, filtered, directly edited and its content to be exported to CSV. [Admin Columns Pro](https://www.admincolumns.com/admin-columns-pro/?utm_source=wordpressorg&utm_medium=readme&utm_content=blockquote&utm_campaign=cpac-pluginpage) offers integration with many third party plugins:
 >
 > *	**Advanced Custom Fields**: add columns for all your custom fields
 > *	**WooCommerce**: display detailed product and order information
-> *	Toolset Types, Yoast SEO, and many more
+> *	**JetEngine**, **Gravity Forms**, **MetaBox**, and many more
 >
 > Find out about additional features of Admin Columns Pro [on our website](https://www.admincolumns.com/features/?utm_source=wordpressorg&utm_medium=readme&utm_content=blockquote&utm_campaign=cpac-pluginpage).
 
-[vimeo http://vimeo.com/96885841]
-
 = Enhanced list tables =
-By default, WordPress provides list tables, giving you an overview of your content in the admin panel. These list tables are quite limited, however. For posts and custom post types, for example, not much more than the date and title of the post is displayed. Admin Columns allows you to take control over these list tables, managing the columns dislpayed in these overviews. Supporting custom fields, featured images, custom taxonomies, EXIF data for media and much, much more (Admin Columns features over 200 columns), you can create overviews that are perfectly suited for your content.
+By default, WordPress provides list tables, giving you an overview of your content in the admin panel. These list tables are quite limited, however. For posts and custom post types, for example, not much more than the date and title of the post is displayed. Admin Columns allows you to take control over these list tables, managing the columns displayed in these overviews. Supporting custom fields, featured images, custom taxonomies, EXIF data for media and much, much more (Admin Columns features over 200 columns), you can create overviews that are perfectly suited for your content.
 
 = Features =
 Admin Columns greatly enhances your WordPress installation. Whether you're running a simple blog or a full-blown enterprise website, it will prove its worth within minutes. Thanks to our dedicated development and support team, you can rest assured that Admin Columns will persist to be an essential part of any WordPress installation.
 
-To give you some insight into the great amount of possibilities Admin Columns offers to enhance your (or your client's) WordPress admin panel, be sure to check out the screenshots or the demo video!
+To give you some insight into the great amount of possibilities Admin Columns offers to enhance your (or your client's) WordPress admin panel, be sure to check out the screenshots!
 
 = Sortable, filterable and editable columns & import/export =
 All of the new columns support sorting on all screens, and many of them support filtering. Another great feature is direct editing: it allows you to directly edit all types of data (including titles, featured images, custom fields and taxonomies) directly from the posts overview. These features are only available with [Admin Columns Pro](https://www.admincolumns.com)! Admin Columns Pro also allows you to import and export your column setup, and it allows you to save your columns to PHP, so you (and your clients) don't have to worry about the admin interface!
@@ -157,7 +155,7 @@ Admin Columns can change your post (posts, pages and custom post types), user, c
 * Word Count
 
 = Docs & Support =
-Is this the first time you're using Admin Columns? Check out our Getting Started guide.
+Is this the first time you're using Admin Columns? Check out our [Getting Started guide](https://www.admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=getting-started).
 
 We offer an extensive and up-to-date [documentation](https://www.admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support), [FAQ](https://www.admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support#faq), [how-tos](https://www.admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage#how-to) and an advanced [Developer Documentation](https://www.admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support#developer). For one-on-one support, please check out the Admin Columns Forums.
 
@@ -196,23 +194,34 @@ You can select a custom size for your custom field option from the Column option
 
 You can find a list of the available actions and filters (and examples on how to use them!) in the [Admin Columns documentation](https://www.admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq#filter-reference).
 
+= What is the difference between Admin Columns (free) and Admin Columns Pro? =
+
+The free version lets you add, remove, reorder, and configure columns on any admin list screen. [Admin Columns Pro](https://www.admincolumns.com/admin-columns-pro/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq) adds sorting, filtering, inline editing, CSV export, and deep integrations with plugins like Advanced Custom Fields and WooCommerce.
+
+= Is Admin Columns compatible with PHP 8.x? =
+
+Yes. Admin Columns is tested and compatible with PHP 8.0, 8.1, 8.2, 8.3, and 8.4. The minimum required version is PHP 7.4.
+
+= Will Admin Columns slow down my WordPress admin? =
+
+No. Admin Columns only loads on admin list screens where it's active. It has no impact on the front end of your site, and its backend footprint is minimal.
+
+= Can I use Admin Columns without any coding? =
+
+Absolutely. The entire column configuration is done through a visual drag-and-drop interface — no PHP, no CSS, no coding required.
+
 == Screenshots ==
 
-1. Settings page for Post(type) columns.
-2. Posts Screen with the customized sortable columns.
-3. Settings page for the Media Library columns.
-4. Media Screen with the customized sortable columns.
-5. Settings page for Users columns.
-6. Users Screen with the customized sortable columns.
-7. Settings page showing the different displaying types for custom field.
-8. Posts Screen with custom fields.
+1. Column settings page for post types — drag and drop to reorder, configure each column's display options.
+2. Posts list screen with customized columns showing exactly the data you need.
+3. Column settings page for the Media Library.
+4. Media Library with custom columns for dimensions, file size, EXIF data, and more.
+5. Column settings page for the Users screen.
+6. Users list with custom columns for roles, post counts, and custom fields.
+7. Custom field column configuration — choose from color, date, image, number, URL, and more display types.
+8. Posts list showing multiple custom field columns with formatted values.
 
 == Changelog ==
-
-= 7.0.11 =
-Release Date: TBD
-
-* [Fixed] Correctly assign an UTC timezone for `wp_date()` usages.
 
 = 7.0.10 =
 Release Date: February 16th, 2026
