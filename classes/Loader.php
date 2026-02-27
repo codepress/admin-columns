@@ -37,33 +37,24 @@ class Loader
 
     protected function load(AC\DI\Container $container): void
     {
-        // Factories
-        $factories = [
-            TableScreenFactory\CommentFactory::class,
-            TableScreenFactory\MediaFactory::class,
-            TableScreenFactory\PostFactory::class,
-            TableScreenFactory\UserFactory::class,
-        ];
+        $this->register_factories($container);
+        $this->register_page_handlers($container);
+        $this->register_services($container);
 
-        foreach ($factories as $factory) {
-            TableScreenFactory\Aggregate::add($container->get($factory));
+        // Setup Registry for API
+        Registry::set(Storage::class, static function () use ($container) {
+            return $container->get(Storage::class);
+        });
+    }
+
+    private function register_factories(AC\DI\Container $container): void
+    {
+        foreach ($this->get_table_screen_factory_classes() as $class) {
+            TableScreenFactory\Aggregate::add($container->get($class));
         }
 
-        $factories = [
-            ColumnFactories\OriginalFactory::class,
-            ColumnFactories\PostFactory::class,
-            ColumnFactories\CommentFactory::class,
-            ColumnFactories\MediaFactory::class,
-            ColumnFactories\UserFactory::class,
-        ];
-
-        if ( ! $this->is_pro_active) {
-            $factories[] = ColumnFactories\ThirdPartyFactory::class;
-            $factories[] = ColumnFactories\IntegrationFactory::class;
-        }
-
-        foreach ($factories as $factory) {
-            ColumnFactories\Aggregate::add($container->get($factory));
+        foreach ($this->get_column_factory_classes() as $class) {
+            ColumnFactories\Aggregate::add($container->get($class));
         }
 
         ExtendedValueRegistry::add($container->get(MediaPreview::class));
@@ -73,7 +64,56 @@ class Loader
         TableIdsFactory\Aggregate::add($container->get(TableIdsFactory\BaseFactory::class));
         TableScreen\TableRowsFactory\Aggregate::add(new TableScreen\TableRowsFactory\BaseFactory());
 
-        // Page handlers
+        foreach ($this->get_manage_value_factory_classes() as $class) {
+            Service\ManageValue::add(
+                $container->make(ListScreenServiceFactory::class, ['factory' => $container->get($class)])
+            );
+        }
+
+        Service\ManageHeadings::add($container->get(ManageHeading\WpListTableFactory::class));
+        Service\SaveHeadings::add($container->get(SaveHeading\WpListTableFactory::class));
+    }
+
+    private function get_table_screen_factory_classes(): array
+    {
+        return [
+            TableScreenFactory\CommentFactory::class,
+            TableScreenFactory\MediaFactory::class,
+            TableScreenFactory\PostFactory::class,
+            TableScreenFactory\UserFactory::class,
+        ];
+    }
+
+    private function get_column_factory_classes(): array
+    {
+        $classes = [
+            ColumnFactories\OriginalFactory::class,
+            ColumnFactories\PostFactory::class,
+            ColumnFactories\CommentFactory::class,
+            ColumnFactories\MediaFactory::class,
+            ColumnFactories\UserFactory::class,
+        ];
+
+        if ( ! $this->is_pro_active) {
+            $classes[] = ColumnFactories\ThirdPartyFactory::class;
+            $classes[] = ColumnFactories\IntegrationFactory::class;
+        }
+
+        return $classes;
+    }
+
+    private function get_manage_value_factory_classes(): array
+    {
+        return [
+            TableScreen\ManageValue\PostServiceFactory::class,
+            TableScreen\ManageValue\UserServiceFactory::class,
+            TableScreen\ManageValue\MediaServiceFactory::class,
+            TableScreen\ManageValue\CommentServiceFactory::class,
+        ];
+    }
+
+    private function register_page_handlers(AC\DI\Container $container): void
+    {
         $page_handler = new PageRequestHandler();
         $page_handler
             ->add('columns', $container->get(PageFactory\Columns::class))
@@ -82,29 +122,34 @@ class Loader
             ->add('help', $container->get(PageFactory\Help::class));
 
         PageRequestHandlers::add_handler($page_handler);
+    }
 
-        // Value handlers
-        foreach (
-            [
-                $container->get(TableScreen\ManageValue\PostServiceFactory::class),
-                $container->get(TableScreen\ManageValue\UserServiceFactory::class),
-                $container->get(TableScreen\ManageValue\MediaServiceFactory::class),
-                $container->get(TableScreen\ManageValue\CommentServiceFactory::class),
-            ] as $factory
-        ) {
-            Service\ManageValue::add(
-                $container->make(
-                    ListScreenServiceFactory::class,
-                    ['factory' => $factory]
-                )
-            );
-        }
+    private function get_ajax_handler_classes(): array
+    {
+        return [
+            'ac-list-screen-settings'         => Ajax\ListScreenSettings::class,
+            'ac-list-screen-save'             => Ajax\ListScreenSave::class,
+            'ac-list-screen-add-column'       => Ajax\ListScreenAddColumn::class,
+            'ac-number-format'                => Ajax\NumberFormat::class,
+            'ac-list-screen-default-columns'  => Ajax\ListScreenOriginalColumns::class,
+            'ac-list-screen-select-column'    => Ajax\ListScreenSelectColumn::class,
+            'ac-editor-menu-status'           => Ajax\EditorMenuStatus::class,
+            'ac-editor-menu-favorites'        => Ajax\EditorMenuFavorites::class,
+            'ac-custom-field-keys'            => Ajax\CustomFieldKeys::class,
+            'ac-get-network-post-statuses'    => Ajax\NetworkPostStati::class,
+            'ac-admin-screen-options'         => Ajax\ScreenOptions::class,
+            'ac-extended-value'               => Ajax\ExtendedValue::class,
+            'ac-persist-admin-general-option' => Ajax\AdminGeneralOptionsPersist::class,
+            'ac-get-admin-general-option'     => Ajax\AdminGeneralOptionsGet::class,
+            'ac-restore-settings'             => Ajax\RestoreSettingsRequest::class,
+            'ac-integration-toggle'           => Ajax\IntegrationToggle::class,
+            'ac-integrations'                 => Ajax\Integrations::class,
+        ];
+    }
 
-        Service\ManageHeadings::add($container->get(ManageHeading\WpListTableFactory::class));
-        Service\SaveHeadings::add($container->get(SaveHeading\WpListTableFactory::class));
-
-        // Services
-        $services_fqn = [
+    private function get_service_classes(): array
+    {
+        $classes = [
             PluginActionLinks::class,
             Screen::class,
             Admin\Admin::class,
@@ -130,61 +175,43 @@ class Loader
         ];
 
         if ( ! $this->is_pro_active) {
-            $services_fqn[] = Service\PromoChecks::class;
-            $services_fqn[] = Service\NoticeChecks::class;
-            $services_fqn[] = PluginActionUpgrade::class;
+            $classes[] = Service\PromoChecks::class;
+            $classes[] = Service\NoticeChecks::class;
+            $classes[] = PluginActionUpgrade::class;
         }
 
-        foreach ($services_fqn as $service_fqn) {
-            $service = $container->get($service_fqn);
-            $service->register();
+        return $classes;
+    }
+
+    private function register_services(AC\DI\Container $container): void
+    {
+        $services = [];
+
+        foreach ($this->get_service_classes() as $class) {
+            $services[] = $container->get($class);
         }
 
-        $view = new View($container->get(AdminColumns::class)->get_location());
-        $view->register();
-
+        $plugin = $container->get(AdminColumns::class);
         $setup_factory = $container->get(SetupFactory\AdminColumns::class);
-        $setup = new Service\Setup($setup_factory->create(SetupFactory::SITE));
-        $setup->register();
 
-        if ($container->get(AdminColumns::class)->is_network_active()) {
-            $setup = new Service\Setup($setup_factory->create(SetupFactory::NETWORK));
-            $setup->register();
+        $services[] = new View($plugin->get_location());
+        $services[] = new Service\Setup($setup_factory->create(SetupFactory::SITE));
+
+        if ($plugin->is_network_active()) {
+            $services[] = new Service\Setup($setup_factory->create(SetupFactory::NETWORK));
         }
-
-        $handlers = [
-            'ac-list-screen-settings'         => Ajax\ListScreenSettings::class,
-            'ac-list-screen-save'             => Ajax\ListScreenSave::class,
-            'ac-list-screen-add-column'       => Ajax\ListScreenAddColumn::class,
-            'ac-number-format'                => Ajax\NumberFormat::class,
-            'ac-list-screen-default-columns'  => Ajax\ListScreenOriginalColumns::class,
-            'ac-list-screen-select-column'    => Ajax\ListScreenSelectColumn::class,
-            'ac-editor-menu-status'           => Ajax\EditorMenuStatus::class,
-            'ac-editor-menu-favorites'        => Ajax\EditorMenuFavorites::class,
-            'ac-custom-field-keys'            => Ajax\CustomFieldKeys::class,
-            'ac-get-network-post-statuses'    => Ajax\NetworkPostStati::class,
-            'ac-admin-screen-options'         => Ajax\ScreenOptions::class,
-            'ac-extended-value'               => Ajax\ExtendedValue::class,
-            'ac-persist-admin-general-option' => Ajax\AdminGeneralOptionsPersist::class,
-            'ac-get-admin-general-option'     => Ajax\AdminGeneralOptionsGet::class,
-            'ac-restore-settings'             => Ajax\RestoreSettingsRequest::class,
-            'ac-integration-toggle'           => Ajax\IntegrationToggle::class,
-            'ac-integrations'                 => Ajax\Integrations::class,
-        ];
 
         $request_ajax_handlers = new RequestAjaxHandlers();
 
-        foreach ($handlers as $key => $handler) {
-            $request_ajax_handlers->add($key, $container->get($handler));
+        foreach ($this->get_ajax_handler_classes() as $key => $class) {
+            $request_ajax_handlers->add($key, $container->get($class));
         }
 
-        $request_ajax_parser = new RequestAjaxParser($request_ajax_handlers);
-        $request_ajax_parser->register();
+        $services[] = new RequestAjaxParser($request_ajax_handlers);
 
-        // Setup Registry for API
-        Registry::set(Storage::class, static function () use ($container) {
-            return $container->get(Storage::class);
-        });
+        foreach ($services as $service) {
+            $service->register();
+        }
     }
 
 }
