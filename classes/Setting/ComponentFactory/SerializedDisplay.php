@@ -56,7 +56,6 @@ class SerializedDisplay extends BaseComponentFactory
                 $formatters->add(
                     new AC\Formatter\FallBackFormatter(
                         new AC\Formatter\FormattedJson($keys),
-
                     )
                 );
                 break;

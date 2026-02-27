@@ -121,9 +121,10 @@ class Database extends Base implements ListScreenRepositoryWritable
     {
         global $wpdb;
 
-        $list_screen_dto = $this->encoder_factory->create()
-                                                 ->set_list_screen($list_screen)
-                                                 ->encode()['list_screen'];
+        $list_screen_dto = $this->encoder_factory
+            ->create()
+            ->set_list_screen($list_screen)
+            ->encode()['list_screen'];
 
         $settings = $this->save_preferences($list_screen_dto);
         $date = DateTime::createFromFormat('U', (string)$list_screen_dto['updated']);

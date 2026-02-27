@@ -250,7 +250,7 @@ function create_if_block_4(ctx) {
   };
 }
 
-// (138:5) {#if editLink }
+// (146:5) {#if editLink }
 function create_if_block_3(ctx) {
   let a;
   let t_value = /*translation*/ctx[10].edit + "";
@@ -279,7 +279,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (141:5) {#if viewLink }
+// (149:5) {#if viewLink }
 function create_if_block_2(ctx) {
   let a;
   let t_value = /*translation*/ctx[10].view + "";
@@ -308,7 +308,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (144:5) {#if downloadLink }
+// (152:5) {#if downloadLink }
 function create_if_block_1(ctx) {
   let a;
   let t_value = /*translation*/ctx[10].download + "";
@@ -338,7 +338,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (148:4) {#if items.length > 1 }
+// (156:4) {#if items.length > 1 }
 function create_if_block(ctx) {
   let div;
   let button0;
@@ -637,10 +637,13 @@ function instance($$self, $$props, $$invalidate) {
     var _a;
     return (_a = item.title) !== null && _a !== void 0 ? _a : `${columnTitle}`;
   };
-  const updateData = item => {
-    $$invalidate(0, objectId = item.objectId);
+  const setLoadingContent = () => {
     $$invalidate(3, title = translation.value_loading);
     $$invalidate(4, content = `<span class="loading">${translation.value_loading}</span>`);
+  };
+  const updateData = item => {
+    $$invalidate(0, objectId = item.objectId);
+    setLoadingContent();
     $$invalidate(5, editLink = item.editLink);
     $$invalidate(6, downloadLink = item.downloadLink);
     $$invalidate(7, viewLink = item.viewLink);
@@ -665,9 +668,13 @@ function instance($$self, $$props, $$invalidate) {
     }).then(response => {
       $$invalidate(4, content = response.data);
       $$invalidate(3, title = getTitle(item));
-    }).catch(r => {
-      $$invalidate(4, content = 'Content could not be loaded.');
-      $$invalidate(3, title = 'Error loading content.');
+    }).catch(error => {
+      if (error.code === 'ERR_CANCELED') {
+        setLoadingContent();
+      } else {
+        $$invalidate(4, content = 'Content could not be loaded.');
+        $$invalidate(3, title = 'Error loading content.');
+      }
     });
   };
   const determineSiblings = () => {

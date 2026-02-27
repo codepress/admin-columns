@@ -24,11 +24,12 @@ class ModalEmbedLink implements Formatter
             return $value;
         }
 
-        $link = $this->extended_value->get_link($value->get_id(), __('Play', 'codepress-admin-columns'))
-                                     ->with_title(get_the_title($value->get_id()))
-                                     ->with_edit_link(get_edit_post_link($value->get_id()))
-                                     ->with_download_link(str_replace(site_url(), '', $value->get_value()))
-                                     ->with_class("-nopadding");
+        $link = $this->extended_value
+            ->get_link($value->get_id(), __('Play', 'codepress-admin-columns'))
+            ->with_title(get_the_title($value->get_id()))
+            ->with_edit_link(get_edit_post_link($value->get_id()))
+            ->with_download_link(str_replace(site_url(), '', $value->get_value()))
+            ->with_class("-nopadding");
 
         return $value->with_value(
             $link->render()

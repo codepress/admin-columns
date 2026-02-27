@@ -59,6 +59,9 @@ abstract class Message
         return $this->type;
     }
 
+    /**
+     * @return static
+     */
     public function set_type(string $type): self
     {
         $this->type = $type;
@@ -71,6 +74,9 @@ abstract class Message
         return $this->id;
     }
 
+    /**
+     * @return static
+     */
     public function set_id(string $id): self
     {
         $this->id = $id;

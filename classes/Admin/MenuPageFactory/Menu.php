@@ -16,7 +16,7 @@ class Menu implements MenuPageFactory
             __('Admin Columns', 'codepress-admin-columns'),
             Capabilities::MANAGE,
             Admin::NAME,
-            null,
+            '',
             $args['icon'] ?? null,
             $args['position'] ?? null
         );

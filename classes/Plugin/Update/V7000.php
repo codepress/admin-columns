@@ -2,6 +2,7 @@
 
 namespace AC\Plugin\Update;
 
+use AC\Helper;
 use AC\Plugin\Install\Database;
 use AC\Plugin\Update;
 use AC\Plugin\Version;
@@ -38,15 +39,17 @@ class V7000 extends Update
                 // Add 'type' column to the 'admin_columns' DB table
                 $this->update_database();
 
-                $this->update_next_step(2)
-                     ->apply_update();
+                $this
+                    ->update_next_step(2)
+                    ->apply_update();
                 break;
             case 2:
                 // Update renamed column types and specific settings
                 $this->update_columns();
 
-                $this->update_next_step(3)
-                     ->apply_update();
+                $this
+                    ->update_next_step(3)
+                    ->apply_update();
                 break;
             case 3:
                 // Move the stored default columns to a new location
@@ -93,8 +96,8 @@ class V7000 extends Update
                 continue;
             }
 
-            $list_key = ac_helper()->string->remove_prefix($item->option_name, 'cpac_options_');
-            $list_key = ac_helper()->string->remove_suffix($list_key, '__default');
+            $list_key = Helper\Strings::create()->remove_prefix($item->option_name, 'cpac_options_');
+            $list_key = Helper\Strings::create()->remove_suffix($list_key, '__default');
 
             if ( ! $list_key) {
                 continue;

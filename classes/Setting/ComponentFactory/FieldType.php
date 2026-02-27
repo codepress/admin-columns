@@ -64,6 +64,8 @@ class FieldType extends BaseComponentFactory
 
     private ModalDisplay $modal_display;
 
+    private NumberOfItems $number_of_items;
+
     public function __construct(
         StringLimit $string_limit,
         NumberFormat $number_format,
@@ -77,7 +79,8 @@ class FieldType extends BaseComponentFactory
         MediaLink $media_link,
         SelectOptions $select_options,
         SerializedDisplay $serialized_display,
-        ModalDisplay $modal_display
+        ModalDisplay $modal_display,
+        NumberOfItems $number_of_items
     ) {
         $this->string_limit = $string_limit;
         $this->number_format = $number_format;
@@ -92,6 +95,7 @@ class FieldType extends BaseComponentFactory
         $this->serialized_display = $serialized_display;
         $this->user_link = $user_link;
         $this->modal_display = $modal_display;
+        $this->number_of_items = $number_of_items;
     }
 
     protected function get_label(Config $config): ?string
@@ -198,6 +202,20 @@ class FieldType extends BaseComponentFactory
         return $options;
     }
 
+    protected function add_final_formatters(Config $config, FormatterCollection $formatters): void
+    {
+        switch ($config->get('field_type', self::TYPE_DEFAULT)) {
+            case self::TYPE_IMAGE:
+            case self::TYPE_MEDIA:
+                $formatters->add(new AC\Formatter\Collection\Separator('', (int)$config->get('number_of_items', 0)));
+                break;
+            case self::TYPE_POST:
+            case self::TYPE_USER:
+                $formatters->add(new AC\Formatter\Collection\Separator(', ', (int)$config->get('number_of_items', 0)));
+                break;
+        }
+    }
+
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         switch ($config->get('field_type', self::TYPE_DEFAULT)) {
@@ -228,13 +246,12 @@ class FieldType extends BaseComponentFactory
                 $formatters->add(new AC\Formatter\YesNoIcon());
                 break;
             case self::TYPE_IMAGE:
-                $formatters->add(new AC\Formatter\ArrayToCollection());
-                break;
             case self::TYPE_MEDIA:
+                $formatters->add(new AC\Formatter\ImageToCollection());
+                break;
             case self::TYPE_USER:
             case self::TYPE_POST:
-                $formatters->add(new AC\Formatter\ArrayToCollection());
-                $formatters->add(new AC\Formatter\ForeignId());
+                $formatters->add(new AC\Formatter\IdsToCollection());
                 break;
             case self::TYPE_HTML:
                 if ($config->get($this->modal_display::TOGGLE) === ToggleOptionCollection::ON) {
@@ -278,6 +295,10 @@ class FieldType extends BaseComponentFactory
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_USER)
                 ),
+                $this->date_format->create(
+                    $config,
+                    StringComparisonSpecification::equal(self::TYPE_DATE)
+                ),
                 $this->date->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_DATE)
@@ -285,10 +306,6 @@ class FieldType extends BaseComponentFactory
                 $this->select_options->create(
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_SELECT)
-                ),
-                $this->date_format->create(
-                    $config,
-                    StringComparisonSpecification::equal(self::TYPE_DATE)
                 ),
                 $this->link_label->create(
                     $config,
@@ -299,6 +316,15 @@ class FieldType extends BaseComponentFactory
                     new AC\Expression\OrSpecification([
                         StringComparisonSpecification::equal(self::TYPE_IMAGE),
                         StringComparisonSpecification::equal(self::TYPE_MEDIA),
+                    ])
+                ),
+                $this->number_of_items->create(
+                    $config,
+                    new AC\Expression\OrSpecification([
+                        StringComparisonSpecification::equal(self::TYPE_IMAGE),
+                        StringComparisonSpecification::equal(self::TYPE_MEDIA),
+                        StringComparisonSpecification::equal(self::TYPE_POST),
+                        StringComparisonSpecification::equal(self::TYPE_USER),
                     ])
                 ),
                 $this->serialized_display->create($config, StringComparisonSpecification::equal(self::TYPE_ARRAY)),

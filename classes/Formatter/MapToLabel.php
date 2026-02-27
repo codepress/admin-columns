@@ -11,9 +11,9 @@ use AC\Type\Value;
 class MapToLabel implements Formatter
 {
 
-    private $formatter;
+    private Formatter $formatter;
 
-    private $mapping;
+    private array $mapping;
 
     public function __construct(Formatter $formatter, array $mapping)
     {

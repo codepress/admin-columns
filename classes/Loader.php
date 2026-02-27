@@ -4,32 +4,38 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC;
 use AC\Admin\MenuGroupFactory;
 use AC\Admin\MenuGroupFactory\DefaultGroups;
 use AC\Admin\PageFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
+use AC\ListScreenRepository\Storage;
 use AC\Plugin\SetupFactory;
 use AC\RequestHandler\Ajax;
+use AC\Service\View;
 use AC\Table\ManageHeading;
 use AC\Table\ManageValue\ListScreenServiceFactory;
 use AC\Table\SaveHeading;
 use AC\Value\Extended\MediaPreview;
 use AC\Value\Extended\Posts;
 use AC\Value\ExtendedValueRegistry;
-use AC\Vendor\Psr\Container\ContainerInterface;
 
 class Loader
 {
 
-    public function __construct(ContainerInterface $container)
+    private bool $is_pro_active;
+
+    public function __construct(AC\DI\Container $container, bool $is_pro_active = false)
     {
+        $this->is_pro_active = $is_pro_active;
+
         Container::set_container($container);
 
         $this->load($container);
     }
 
-    protected function load(ContainerInterface $container): void
+    protected function load(AC\DI\Container $container): void
     {
         // Factories
         $factories = [
@@ -49,10 +55,10 @@ class Loader
             ColumnFactories\CommentFactory::class,
             ColumnFactories\MediaFactory::class,
             ColumnFactories\UserFactory::class,
-            ColumnFactories\ThirdPartyFactory::class,
         ];
 
-        if ( ! $container->get('is.pro')) {
+        if ( ! $this->is_pro_active) {
+            $factories[] = ColumnFactories\ThirdPartyFactory::class;
             $factories[] = ColumnFactories\IntegrationFactory::class;
         }
 
@@ -69,10 +75,11 @@ class Loader
 
         // Page handlers
         $page_handler = new PageRequestHandler();
-        $page_handler->add('columns', $container->get(PageFactory\Columns::class))
-                     ->add('settings', $container->get(PageFactory\Settings::class))
-                     ->add('addons', $container->get(PageFactory\Addons::class))
-                     ->add('help', $container->get(PageFactory\Help::class));
+        $page_handler
+            ->add('columns', $container->get(PageFactory\Columns::class))
+            ->add('settings', $container->get(PageFactory\Settings::class))
+            ->add('addons', $container->get(PageFactory\Addons::class))
+            ->add('help', $container->get(PageFactory\Help::class));
 
         PageRequestHandlers::add_handler($page_handler);
 
@@ -122,7 +129,7 @@ class Loader
             Service\Tooltips::class,
         ];
 
-        if ( ! $container->get('is.pro')) {
+        if ( ! $this->is_pro_active) {
             $services_fqn[] = Service\PromoChecks::class;
             $services_fqn[] = Service\NoticeChecks::class;
             $services_fqn[] = PluginActionUpgrade::class;
@@ -132,6 +139,9 @@ class Loader
             $service = $container->get($service_fqn);
             $service->register();
         }
+
+        $view = new View($container->get(AdminColumns::class)->get_location());
+        $view->register();
 
         $setup_factory = $container->get(SetupFactory\AdminColumns::class);
         $setup = new Service\Setup($setup_factory->create(SetupFactory::SITE));
@@ -170,6 +180,11 @@ class Loader
 
         $request_ajax_parser = new RequestAjaxParser($request_ajax_handlers);
         $request_ajax_parser->register();
+
+        // Setup Registry for API
+        Registry::set(Storage::class, static function () use ($container) {
+            return $container->get(Storage::class);
+        });
     }
 
 }

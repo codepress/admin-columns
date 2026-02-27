@@ -25,7 +25,7 @@ class DiscussionFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->add(new DiscussionStatus());
+            ->add(new DiscussionStatus());
     }
 
 }

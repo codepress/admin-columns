@@ -10,7 +10,7 @@ use AC\Type\Value;
 final class Message implements Formatter
 {
 
-    private $message;
+    private string $message;
 
     public function __construct(string $message)
     {

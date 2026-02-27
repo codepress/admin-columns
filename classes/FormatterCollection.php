@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC;
 
 use InvalidArgumentException;
+use ReturnTypeWillChange;
 
 class FormatterCollection extends Collection
 {
@@ -20,12 +21,12 @@ class FormatterCollection extends Collection
     }
 
     /**
-     * @param Formatter|CollectionFormatter $formatter
+     * Add a Formatter or CollectionFormatter. Once we are on PHP 8.x we can use the union operator.
      */
     public function add($formatter): self
     {
         if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('Expected a Formatter or CollectionFormatter.');
         }
 
         $this->data[] = $formatter;
@@ -33,11 +34,6 @@ class FormatterCollection extends Collection
         return $this;
     }
 
-    /**
-     * @param Formatter|CollectionFormatter $formatter
-     *
-     * @return self
-     */
     public function with_formatter($formatter): self
     {
         $formatters = $this->data;
@@ -49,7 +45,7 @@ class FormatterCollection extends Collection
     public function prepend($formatter): self
     {
         if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('Expected a Formatter or CollectionFormatter.');
         }
 
         array_unshift($this->data, $formatter);
@@ -57,7 +53,7 @@ class FormatterCollection extends Collection
         return $this;
     }
 
-    public function merge(FormatterCollection $formatters): self
+    public function merge(self $formatters): self
     {
         foreach ($formatters as $formatter) {
             $this->add($formatter);
@@ -69,7 +65,7 @@ class FormatterCollection extends Collection
     /**
      * @return Formatter|CollectionFormatter
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function current()
     {
         return current($this->data);

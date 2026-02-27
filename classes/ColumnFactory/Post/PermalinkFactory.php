@@ -60,7 +60,7 @@ class PermalinkFactory extends BaseColumnFactory
             $formatters->add(new AC\Formatter\Linkable());
         }
 
-        $formatters->add(\AC\Formatter\BeforeAfter::create_from_config($config));
+        $formatters->add(AC\Formatter\BeforeAfter::create_from_config($config));
 
         return $formatters;
     }

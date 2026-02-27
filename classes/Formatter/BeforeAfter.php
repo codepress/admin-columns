@@ -28,7 +28,7 @@ final class BeforeAfter implements Formatter
         }
 
         return $value->with_value(
-            $this->before . (string)$value . $this->after
+            $this->before . $value . $this->after
         );
     }
 

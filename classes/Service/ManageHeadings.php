@@ -74,8 +74,9 @@ class ManageHeadings implements Registerable
             return;
         }
 
-        $factory->create($table_screen, $headings)
-                ->register();
+        $factory
+            ->create($table_screen, $headings)
+            ->register();
     }
 
 }

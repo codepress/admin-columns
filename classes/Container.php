@@ -9,6 +9,9 @@ use AC\ListScreenRepository\Storage;
 use AC\Vendor\Psr\Container\ContainerInterface;
 use LogicException;
 
+/**
+ * @deprecated 7.0.11 Will be removed in 7.1.
+ */
 final class Container
 {
 
@@ -31,11 +34,6 @@ final class Container
     public static function get_storage(): Storage
     {
         return self::$instance->get(Storage::class);
-    }
-
-    public static function is_pro(): bool
-    {
-        return self::$instance->get('is.pro');
     }
 
 }

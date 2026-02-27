@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Collection;
 
 use AC\CollectionFormatter;
+use AC\Helper;
 use AC\Setting\ComponentFactory\Separator as Setting;
 use AC\Setting\Config;
 use AC\Type\Value;
@@ -23,11 +24,11 @@ class Separator implements CollectionFormatter
         $this->limit = $limit;
     }
 
-    public static function create_from_config(Config $config): self
+    public static function create_from_config(Config $config, int $limit = 20): self
     {
         return new self(
             self::get_separator($config->get('separator', ', ')),
-            (int)$config->get('number_of_items', 20)
+            (int)$config->get('number_of_items', $limit)
         );
     }
 
@@ -64,7 +65,7 @@ class Separator implements CollectionFormatter
 
         return new Value(
             $collection->get_id(),
-            ac_helper()->html->more($values, $this->limit, $this->separator)
+            Helper\Html::create()->more($values, $this->limit, $this->separator)
         );
     }
 

@@ -17,7 +17,7 @@ class SubMenu implements MenuPageFactory
             __('Admin Columns', 'codepress-admin-columns'),
             Capabilities::MANAGE,
             Admin::NAME,
-            null,
+            '',
             $args['position'] ?? null
         );
     }

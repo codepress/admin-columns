@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\PageFactory;
 
 use AC\Admin;
@@ -7,6 +9,7 @@ use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
 use AC\Admin\Preference;
+use AC\Admin\View;
 use AC\AdminColumns;
 use AC\ColumnGroups;
 use AC\Integration\IntegrationRepository;
@@ -18,14 +21,16 @@ use AC\TableScreen;
 use AC\Type\ListScreenId;
 use InvalidArgumentException;
 
-class Columns implements PageFactoryInterface
+final class Columns implements PageFactoryInterface
 {
 
-    protected AdminColumns $plugin;
+    private bool $is_pro_active;
 
-    protected MenuFactoryInterface $menu_factory;
+    private AdminColumns $plugin;
 
-    protected Admin\UninitializedScreens $uninitialized_screens;
+    private MenuFactoryInterface $menu_factory;
+
+    private Admin\UninitializedScreens $uninitialized_screens;
 
     private Admin\MenuListFactory $menu_list_factory;
 
@@ -39,7 +44,10 @@ class Columns implements PageFactoryInterface
 
     private IntegrationRepository $integration_repository;
 
+    private View\MenuFactory $view_menu_factory;
+
     public function __construct(
+        bool $is_pro_active,
         AdminColumns $plugin,
         MenuFactoryInterface $menu_factory,
         Admin\UninitializedScreens $uninitialized_screens,
@@ -48,8 +56,10 @@ class Columns implements PageFactoryInterface
         EditorFavorites $favorite_repository,
         ColumnGroups $column_groups,
         PromoRepository $promos,
-        IntegrationRepository $integration_repository
+        IntegrationRepository $integration_repository,
+        View\MenuFactory $view_menu_factory
     ) {
+        $this->is_pro_active = $is_pro_active;
         $this->plugin = $plugin;
         $this->menu_factory = $menu_factory;
         $this->uninitialized_screens = $uninitialized_screens;
@@ -59,6 +69,7 @@ class Columns implements PageFactoryInterface
         $this->column_groups = $column_groups;
         $this->promos = $promos;
         $this->integration_repository = $integration_repository;
+        $this->view_menu_factory = $view_menu_factory;
     }
 
     public function create(): Page\Columns
@@ -85,7 +96,7 @@ class Columns implements PageFactoryInterface
         return new Page\Columns(
             $this->plugin,
             $this->uninitialized_screens->find_all_site(),
-            new Admin\View\Menu($this->menu_factory->create('columns')),
+            $this->view_menu_factory->create($this->menu_factory, 'columns'),
             $table_screen,
             $this->menu_list_factory->create($this->table_screen_repository->find_all_site()),
             $this->favorite_repository,
@@ -93,6 +104,7 @@ class Columns implements PageFactoryInterface
             $this->column_groups,
             $this->promos,
             $this->integration_repository,
+            $this->is_pro_active,
             $list_id
         );
     }

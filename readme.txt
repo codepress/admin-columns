@@ -2,10 +2,10 @@
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
-Requires at least: 4.7.1
-Tested up to: 6.9
+Requires at least: 5.9
+Tested up to: 6.9.1
 Requires PHP: 7.4
-Stable tag: 7.0.5
+Stable tag: 7.0.10
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -202,12 +202,50 @@ You can find a list of the available actions and filters (and examples on how to
 2. Posts Screen with the customized sortable columns.
 3. Settings page for the Media Library columns.
 4. Media Screen with the customized sortable columns.
-5. Settings page for Users columns../ch
+5. Settings page for Users columns.
 6. Users Screen with the customized sortable columns.
 7. Settings page showing the different displaying types for custom field.
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 7.0.11 =
+Release Date: TBD
+
+* [Fixed] Correctly assign an UTC timezone for `wp_date()` usages.
+
+= 7.0.10 =
+Release Date: February 16th, 2026
+
+* [Improved] String limit setting added to Media Caption column
+* [Improved] Deprecated the Admin Columns helper function 'ac_helper'.
+* [Removed] Removed the hook ac/column/types/pro in favor of ac/column/types.
+
+= 7.0.9 =
+Release Date: February 4th, 2026
+
+* [Fixed] Various code optimizations and minor improvements, including stricter type handling.
+
+= 7.0.8 =
+Release Date: February 2nd, 2026
+
+* [Fixed] Resolved an issue where original WordPress default columns were stored incorrectly.
+* [Fixed] Fixed an issue where images in custom field columns did not always display correctly, depending on how they were stored.
+* [Added] Added a setting for image, media, post, and user custom fields to control the number of items displayed.
+* [Improved] Renamed and reordered the date format settings for custom field column to make the stored date format clearer (with an improved tooltip).
+
+= 7.0.7 =
+Release Date: January 30th, 2026
+
+* [Fixed] Fixed an error with the "Image Sizes" setting.
+
+= 7.0.6 =
+Release Date: January 28th, 2026
+
+* [Fixed] Prevented a fatal error when retrieving the total items count if $wp_list_table is not a WP_List_Table instance.
+* [Fixed] Fixed a WordPress VIP icon font issue.
+* [Improved] Optimized performance and memory usage when retrieving table views.
+* [Improved] The value rendering hook now also triggers when the value is empty.
 
 = 7.0.5 =
 Release Date: January 27th, 2026

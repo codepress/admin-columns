@@ -6,12 +6,13 @@ namespace AC\Formatter\Media;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class NestedAttachmentMetaData implements Formatter
 {
 
-    private $keys;
+    private array $keys;
 
     public function __construct(array $keys)
     {
@@ -22,7 +23,7 @@ class NestedAttachmentMetaData implements Formatter
     {
         $meta = get_post_meta($value->get_id(), '_wp_attachment_metadata', true);
 
-        $attachment_meta = ac_helper()->array->get_nested_value($meta, $this->keys);
+        $attachment_meta = Helper\Arrays::create()->get_nested_value($meta, $this->keys);
 
         if ( ! is_scalar($attachment_meta)) {
             throw ValueNotFoundException::from_id($value->get_id());

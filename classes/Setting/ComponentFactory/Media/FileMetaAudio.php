@@ -72,8 +72,8 @@ final class FileMetaAudio extends BaseComponentFactory
                 break;
             case 'created_timestamp':
                 $formatters->add(
-                    new AC\Formatter\Date\WordPressDateFormat(
-                        get_option('date_format') . ' ' . get_option('time_format'),
+                    new AC\Formatter\Date\LocalizedDateFormat(
+                        AC\Helper\Date::create()->get_date_time_format(),
                         'U'
                     )
                 );

@@ -40,7 +40,7 @@ class IdFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->with_formatter(new Id());
+            ->with_formatter(new Id());
     }
 
     protected function get_settings(Config $config): ComponentCollection

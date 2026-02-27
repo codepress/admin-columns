@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Media;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class FileLinkToUrl implements Formatter
@@ -19,7 +20,7 @@ class FileLinkToUrl implements Formatter
         }
 
         return $value->with_value(
-            ac_helper()->html->link(
+            Helper\Html::create()->link(
                 $url,
                 (string)$value
             )

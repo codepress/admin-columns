@@ -17,9 +17,9 @@ use AC\Setting\DefaultSettingsBuilder;
 class TitleRawFactory extends BaseColumnFactory
 {
 
-    private $character_limit_factory;
+    private CharacterLimit $character_limit_factory;
 
-    private $post_link_factory;
+    private PostLink $post_link_factory;
 
     public function __construct(
         DefaultSettingsBuilder $default_settings_builder,
@@ -53,8 +53,8 @@ class TitleRawFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->prepend(new PostTitle())
-                     ->add(new Wrapper('<span class="row-title">', '</span>'));
+            ->prepend(new PostTitle())
+            ->add(new Wrapper('<span class="row-title">', '</span>'));
     }
 
 }

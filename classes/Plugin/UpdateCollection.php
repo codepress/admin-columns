@@ -22,7 +22,7 @@ final class UpdateCollection extends Collection
     private function sort_by_version(): void
     {
         usort($this->data, static function (Update $a, Update $b) {
-            return version_compare($a->get_version(), $b->get_version());
+            return version_compare((string)$a->get_version(), (string)$b->get_version());
         });
     }
 

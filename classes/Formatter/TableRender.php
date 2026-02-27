@@ -6,12 +6,11 @@ namespace AC\Formatter;
 
 use AC\Column\Context;
 use AC\Formatter;
-use AC\Formatter\Collection\Separator;
 use AC\FormatterCollection;
 use AC\ListScreen;
 use AC\TableScreen;
 use AC\Type\Value;
-use LogicException;
+use AC\Type\ValueCollection;
 
 class TableRender implements Formatter
 {
@@ -38,14 +37,10 @@ class TableRender implements Formatter
 
     public function format(Value $value): Value
     {
-        $aggregate = new Aggregate(
-            $this->formatters->with_formatter(new Separator())
-        );
+        $value = (new Aggregate($this->formatters))->format($value);
 
-        $value = $aggregate->format($value);
-
-        if ( ! $value instanceof Value) {
-            throw new LogicException('Invalid value.');
+        if ($value instanceof ValueCollection) {
+            $value = (new Formatter\Collection\Implode())->format($value);
         }
 
         $formatter = new ColumnFilter(

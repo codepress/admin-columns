@@ -5,7 +5,6 @@ namespace AC\Message\Notice;
 use AC\Ajax\Handler;
 use AC\Ajax\NullHandler;
 use AC\Asset\Script;
-use AC\Container;
 use AC\Message\Notice;
 use AC\View;
 
@@ -40,7 +39,7 @@ class Dismissible extends Notice
     {
         parent::enqueue_scripts();
 
-        $script = new Script('ac-message', Container::get_location()->with_suffix('assets/js/notice-dismissible.js'));
+        $script = new Script('ac-message');
         $script->enqueue();
     }
 

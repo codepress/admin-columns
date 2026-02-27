@@ -3,7 +3,6 @@
 namespace AC\Message;
 
 use AC\Asset\Style;
-use AC\Container;
 use AC\Message;
 use AC\Registerable;
 use AC\View;
@@ -38,7 +37,7 @@ class Notice extends Message implements Registerable
 
     public function enqueue_scripts(): void
     {
-        $style = new Style('ac-message', Container::get_location()->with_suffix('assets/css/notice.css'));
+        $style = new Style('ac-message');
         $style->enqueue();
     }
 

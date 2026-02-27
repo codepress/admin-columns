@@ -99,10 +99,14 @@ final class ImageSize extends BaseComponentFactory
                 continue;
             }
 
+            if ( ! is_string($size)) {
+                continue;
+            }
+
             $options->add(
                 new Option(
                     ucwords(str_replace(['-', '_'], ' ', $size)),
-                    (string)$size,
+                    $size,
                     $custom_group
                 )
             );

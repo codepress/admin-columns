@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Formatter\Date;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Type\Value;
 use DateTime;
-use InvalidArgumentException;
 
 final class DateFormat extends DateObject
 {
@@ -25,7 +25,7 @@ final class DateFormat extends DateObject
         $date = parent::format($value)->get_value();
 
         if ( ! $date instanceof DateTime) {
-            throw new InvalidArgumentException('Invalid date object');
+            throw new ValueNotFoundException('Invalid date object');
         }
 
         return $value->with_value(

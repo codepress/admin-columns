@@ -12,7 +12,7 @@ final class Transaction
     public const COMMIT = 2;
     public const ROLLBACK = 3;
 
-    private $started = false;
+    private bool $started = false;
 
     /**
      * @param bool $start Will start a transaction on creation if true

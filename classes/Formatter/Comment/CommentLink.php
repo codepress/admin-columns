@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace AC\Formatter\Comment;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class CommentLink implements Formatter
 {
 
-    private $link_to;
+    private string $link_to;
 
     public function __construct(string $link_to)
     {
@@ -37,7 +38,7 @@ class CommentLink implements Formatter
         }
 
         return $link
-            ? $value->with_value(ac_helper()->html->link($link, $value->get_value()))
+            ? $value->with_value(Helper\Html::create()->link($link, $value->get_value()))
             : $value;
     }
 

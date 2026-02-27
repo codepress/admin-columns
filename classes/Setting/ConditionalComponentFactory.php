@@ -9,9 +9,9 @@ use AC\Expression\Specification;
 final class ConditionalComponentFactory
 {
 
-    private $factory;
+    private ComponentFactory $factory;
 
-    private $conditions;
+    private ?Specification $conditions;
 
     public function __construct(ComponentFactory $factory, ?Specification $conditions = null)
     {

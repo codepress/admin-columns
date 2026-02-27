@@ -2,6 +2,7 @@
 
 namespace AC\Form;
 
+use AC\Helper;
 use AC\Renderable;
 
 abstract class Element implements Renderable
@@ -53,7 +54,7 @@ abstract class Element implements Renderable
             return null;
         }
 
-        return trim($this->attributes[$key]);
+        return trim((string)$this->attributes[$key]);
     }
 
     public function set_attribute(string $key, string $value): self
@@ -106,10 +107,10 @@ abstract class Element implements Renderable
             $value = $this->get_attribute($key);
         }
 
-        return ac_helper()->html->get_attribute_as_string($key, $value);
+        return Helper\Html::create()->get_attribute_as_string($key, $value);
     }
 
-    public function get_name()
+    public function get_name(): ?string
     {
         return $this->get_attribute('name');
     }

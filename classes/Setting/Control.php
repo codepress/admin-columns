@@ -11,9 +11,9 @@ use AC\Setting\Control\Input;
 class Control
 {
 
-    private $input;
+    private Input $input;
 
-    private $conditions;
+    private ?Specification $conditions;
 
     public function __construct(
         Input $input,

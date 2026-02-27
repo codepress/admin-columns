@@ -17,11 +17,16 @@ class Json
 
     protected int $status_code = 200;
 
-    public function __construct()
+    public function __construct(array $parameters = [])
     {
         $this->set_header('Content-Type', 'application/json');
+
+        $this->parameters = $parameters;
     }
 
+    /**
+     * @return never
+     */
     public function send(): void
     {
         if (empty($this->parameters)) {
@@ -29,10 +34,8 @@ class Json
         }
 
         $this->send_response($this->parameters);
-        wp_send_json($this->parameters, $this->status_code);
     }
 
-    #Pure
     private function send_response($data): void
     {
         status_header($this->status_code);

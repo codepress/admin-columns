@@ -190,8 +190,9 @@ final class ListScreen
 
     public function get_table_url(): Uri
     {
-        return $this->table_screen->get_url()
-                                  ->with_arg('layout', (string)$this->id);
+        return $this->table_screen
+            ->get_url()
+            ->with_arg('layout', (string)$this->id);
     }
 
     public function get_editor_url(): Uri
@@ -312,17 +313,15 @@ final class ListScreen
     /**
      * @deprecated 7.0
      */
-    protected function set_meta_type(string $meta_type): void
+    protected function set_meta_type(): void
     {
         _deprecated_function(__METHOD__, '7.0');
-
-        $this->meta_type = $meta_type;
     }
 
     /**
      * @deprecated 7.0
      */
-    public function deregister_column(string $column_name): void
+    public function deregister_column(): void
     {
         _deprecated_function(__METHOD__, '7.0');
     }
@@ -350,7 +349,7 @@ final class ListScreen
     /**
      * @deprecated 7.0
      */
-    protected function register_column_types_from_list(array $list): void
+    protected function register_column_types_from_list(): void
     {
         _deprecated_function(__METHOD__, '7.0', 'AC\TableScreen::set_column_type()');
     }
@@ -366,7 +365,7 @@ final class ListScreen
     /**
      * @deprecated 7.0
      */
-    public function register_column_type(Column $column): void
+    public function register_column_type(): void
     {
         _deprecated_function(__METHOD__, '7.0', 'AC\TableScreen::set_column_type()');
     }

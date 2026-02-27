@@ -2,6 +2,7 @@
 
 use AC\Admin;
 use AC\Admin\PageRequestHandlers;
+use AC\Admin\View;
 use AC\AdminColumns;
 use AC\Asset\Script\GlobalTranslationFactory;
 use AC\Asset\Script\Localize\Translation;
@@ -29,7 +30,6 @@ return [
         return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
     },
     ContainerInterface::class               => autowire(Container::class),
-    'is.pro'                                => defined('ACP_FILE'),
     Storage::class                          => static function (Database $database): Storage {
         $storage = new Storage();
         $storage->set_repositories([
@@ -61,14 +61,13 @@ return [
         ->constructorParameter(0, get(PageRequestHandlers::class)),
     Admin\MenuFactoryInterface::class       => autowire(Admin\MenuFactory::class)
         ->constructorParameter(0, admin_url('options-general.php')),
-    Admin\PageFactory\Settings::class       => autowire()
-        ->constructorParameter(2, get('is.pro')),
-    Admin\PageFactory\Help::class           => autowire()
-        ->constructorParameter(0, get(AdminColumns::class)),
+    Admin\PageFactory\Columns::class        => autowire()
+        ->constructorParameter(0, false),
     EncoderFactory::class                   => static function (AdminColumns $plugin) {
         return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
     },
     PluginUpdate::class                     => autowire()
         ->constructorParameter(0, get(AdminColumns::class))
         ->constructorParameter(1, new Site('upgrade-to-ac-version-%s')),
+    View\MenuFactory::class                 => autowire(),
 ];

@@ -2,7 +2,7 @@
 
 namespace AC\Helper;
 
-class Media
+class Media extends Creatable
 {
 
     public function get_attachment_id_by_url(string $image_url, bool $check_cropped_versions = false): ?int

@@ -17,7 +17,7 @@ use AC\Type\Url\Documentation;
         ); ?>
 	</p>
 	<img src="<?= esc_url(
-        ac_get_url('assets/images/tooltip/bulk-edit.png')
+        $this->url . 'assets/images/tooltip/bulk-edit.png'
     ) ?>" alt="Bulk Edit" style="border:1px solid #ddd;">
 	<p>
 		2. <?= sprintf(
@@ -29,7 +29,7 @@ use AC\Type\Url\Documentation;
         ); ?>
 	</p>
 	<img src="<?= esc_url(
-        ac_get_url('assets/images/tooltip/bulk-edit-author.png')
+        $this->url . 'assets/images/tooltip/bulk-edit-author.png'
     ) ?>" alt="Bulk Edit" style="border:1px solid #ddd;">
 	<p>
 		<a href="<?= esc_url(
