@@ -13,7 +13,7 @@ $url = (new Documentation(Documentation::ARTICLE_SHOW_ALL_SORTING_RESULTS))->get
         <?= __("By enabling this setting the sorting results will include empty values.", 'codepress-admin-columns') ?>
 	</p>
 	<img style="border:1px solid #ddd;" width="260" src="<?= esc_url(
-        $this->url . 'assets/images/tooltip/sorting-include-empty.png'
+        $this->url . '/assets/images/tooltip/sorting-include-empty.png'
     ) ?>" alt="Include empty values">
 	<p>
 		<a href="<?= esc_url($url) ?>" target="_blank">
