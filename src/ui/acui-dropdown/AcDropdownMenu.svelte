@@ -1,6 +1,6 @@
 <script lang="ts">
     import {fade} from 'svelte/transition';
-    import {onMount} from "svelte";
+    import {onDestroy, onMount} from "svelte";
     import {AcDropdownMenuPosition} from "./index";
 
     export let menuClass: string = ''
@@ -41,19 +41,27 @@
         }
     }
 
+    const handleResize = () => {
+        positionBodyElement();
+    };
+
+    const handleScroll = () => {
+        positionBodyElement();
+    };
+
     onMount(() => {
         if (appendToBody && rootElement) {
             positionBodyElement();
-            window.addEventListener('resize', () => {
-                positionBodyElement();
-            });
-            window.addEventListener('scroll', () => {
-                positionBodyElement();
-            });
+
+            window.addEventListener('resize', handleResize);
+            window.addEventListener('scroll', handleScroll);
         }
-
-
     });
+
+    onDestroy(() => {
+        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('scroll', handleScroll);
+    })
 
     $:rootElementStyle = Object.entries(pos)
         .map(([key, value]) => `${key}:${value}`)
