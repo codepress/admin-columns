@@ -6,9 +6,9 @@ return [
     'prefix'                  => 'AC\Vendor',
     'finders'                 => [
         Finder::create()
-              ->files()
-              ->ignoreVCS(true)
-              ->in('vendor'),
+            ->files()
+            ->ignoreVCS(true)
+            ->in('vendor'),
         Finder::create()->append([
             'composer.json',
         ]),
@@ -17,7 +17,7 @@ return [
         'vendor/php-di/php-di/src/Compiler/Template.php',
     ],
     'patchers'                => [],
-    'exclude-namespaces'      => [],
+    'exclude-namespaces'      => ['PhpCsFixer'],
     'exclude-classes'         => [],
     'exclude-functions'       => [],
     'exclude-constants'       => [],
