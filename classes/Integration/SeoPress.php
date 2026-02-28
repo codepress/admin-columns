@@ -41,8 +41,10 @@ final class SeoPress extends Integration
 
     public function show_notice(Screen $screen): bool
     {
-        // RankMath prevents messages/logs from loading on their settings page
-        return false;
+        return in_array($screen->get_id(), [
+            'toplevel_page_seopress-option',
+            'seo_page_seopress-titles',
+        ]);
     }
 
 }
