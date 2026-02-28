@@ -231,7 +231,7 @@ class Query
     {
         switch ($field) {
             case 'id':
-                $field = $this->join ? 'pt.' . $this->query->primary_id_column : 'mt' . $this->query->meta_id_column;
+                $field = $this->join ? 'pt.' . $this->query->primary_id_column : 'mt.' . $this->query->meta_id_column;
 
                 break;
             case 'meta_key':

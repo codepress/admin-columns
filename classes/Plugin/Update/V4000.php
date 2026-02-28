@@ -32,7 +32,8 @@ class V4000 extends Update
     public function apply_update(): void
     {
         // just in case we need a bit of extra time to execute our upgrade script
-        if (ini_get('max_execution_time') < 120) {
+        $max_exec = (int) ini_get('max_execution_time');
+        if ($max_exec > 0 && $max_exec < 120) {
             @set_time_limit(120);
         }
 
@@ -260,7 +261,7 @@ class V4000 extends Update
                 if (isset($data[$old_key])) {
                     $data[$new_key] = $data[$old_key];
 
-                    unset($data[$new_key]);
+                    unset($data[$old_key]);
                 }
             }
 
