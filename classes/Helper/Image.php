@@ -238,7 +238,7 @@ class Image extends Creatable
 
         $image_attributes = [
             'max-width'  => esc_attr((string)$width) . 'px',
-            'max_height' => esc_attr((string)$height) . 'px',
+            'max-height' => esc_attr((string)$height) . 'px',
         ];
 
         if (pathinfo($src, PATHINFO_EXTENSION) === 'svg') {

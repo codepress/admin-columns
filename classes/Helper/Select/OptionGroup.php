@@ -10,7 +10,7 @@ final class OptionGroup
     /**
      * @var Option[]
      */
-    private array $options;
+    private array $options = [];
 
     /**
      * @param string   $label

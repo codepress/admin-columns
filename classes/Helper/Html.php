@@ -102,7 +102,7 @@ class Html extends Creatable
             $max_chars
         );
 
-        return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . $contents . '</textarea>';
+        return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . esc_textarea($contents) . '</textarea>';
     }
 
     private function get_attributes(array $attributes): string
