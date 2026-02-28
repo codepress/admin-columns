@@ -11,6 +11,7 @@ Thumbs.d*
 # Project specific
 *.scssc
 *.map
+/.php-cs-fixer.cache
 
 # Development
 node_modules
