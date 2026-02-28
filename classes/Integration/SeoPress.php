@@ -19,7 +19,7 @@ final class SeoPress extends Integration
                 '%s %s',
                 sprintf(
                     __('Integrates %s with Admin Columns.', 'codepress-admin-columns'),
-                    'RankMath'
+                    'SeoPress'
                 ),
                 sprintf(
                     __(
