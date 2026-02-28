@@ -20,7 +20,6 @@ class ColumnGroups
             $groups->add(new Group('custom_field', __('Custom Fields', 'codepress-admin-columns'), 30));
             $groups->add(new Group('media', __('Media', 'codepress-admin-columns'), 32));
             $groups->add(new Group('media-meta', __('Meta', 'codepress-admin-columns'), 32));
-            $groups->add(new Group('media-meta', __('Meta', 'codepress-admin-columns'), 32));
             $groups->add(new Group('media-image', __('Image', 'codepress-admin-columns'), 33));
             $groups->add(new Group('media-video', __('Video', 'codepress-admin-columns'), 34));
             $groups->add(new Group('media-audio', __('Audio', 'codepress-admin-columns'), 35));
