@@ -48,7 +48,7 @@ class NetworkPostStati implements RequestAjaxHandler
              */
             $table = $wpdb->get_blog_prefix($site->id) . 'posts';
 
-            $sql = "SELECT DISTINCT 'post_status' FROM $table";
+            $sql = "SELECT DISTINCT `post_status` FROM $table";
 
             $queries[] = $sql;
         }
