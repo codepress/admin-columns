@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 5.9
 Tested up to: 6.9.1
 Requires PHP: 7.4
-Stable tag: 7.0.10
+Stable tag: 7.0.11
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -210,9 +210,10 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 7.0.11 =
-Release Date: TBD
+Release Date: March 2nd, 2026
 
-* [Fixed] Correctly assign an UTC timezone for `wp_date()` usages.
+* [Fixed] Ensure wp_date() is called with the correct UTC timezone.
+* [Improved] Columns no longer open during column reordering.
 
 = 7.0.10 =
 Release Date: February 16th, 2026
