@@ -7,17 +7,10 @@ $finder = PhpCsFixer\Finder::create()
     ->files()
     ->name('*.php')
     ->in($root . '/classes')
-    ->exclude(['vendor', 'node_modules']);
-
-// Root-level PHP files only (non-recursive)
-$rootFinder = PhpCsFixer\Finder::create()
-    ->files()
-    ->name('*.php')
-    ->in($root)
-    ->depth('== 0')
-    ->notName('scoper.inc.php');
-
-$finder->append($rootFinder);
+    ->append([
+        $root . '/api.php',
+        $root . '/codepress-admin-columns.php',
+    ]);
 
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
