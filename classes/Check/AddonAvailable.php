@@ -9,6 +9,7 @@ use AC\Preferences;
 use AC\Registerable;
 use AC\Screen;
 use AC\Type\Integration;
+use AC\Type\Url\CouponCode;
 
 final class AddonAvailable implements Registerable
 {
@@ -59,17 +60,20 @@ final class AddonAvailable implements Registerable
             return;
         }
 
-        $support_text = sprintf(
-            __('Did you know Admin Columns Pro has full support for %s?', 'codepress-admin-columns'),
-            sprintf('<strong>%s</strong>', $this->integration->get_title())
-        );
+        $url = new CouponCode($this->integration->get_url(), 'special10');
 
-        $link = sprintf(
-            '<a href="%s">%s</a>',
-            'https://www.admincolumns.com',
-            __('Get Admin Columns Pro', 'codepress-admin-columns')
+        $message = sprintf(
+            '%s %s',
+            sprintf(
+                __('Did you know Admin Columns Pro has full support for %s?', 'codepress-admin-columns'),
+                sprintf('<strong>%s</strong>', $this->integration->get_title())
+            ),
+            sprintf(
+                '<a href="%s">%s</a>',
+                esc_url((string)$url),
+                __('Get Admin Columns Pro with 10% discount', 'codepress-admin-columns')
+            )
         );
-        $message = sprintf('%s %s', $support_text, $link);
 
         $notice = new Dismissible($message, $this->get_ajax_handler());
         $notice->register();

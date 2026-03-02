@@ -41,7 +41,7 @@ final class Types extends Integration
 
     public function show_notice(Screen $screen): bool
     {
-        return false;
+        return $screen->is_screen('edit-custom-toolset-type');
     }
 
 }
