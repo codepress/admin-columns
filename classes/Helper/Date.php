@@ -39,11 +39,11 @@ class Date extends Creatable
     /**
      * @depecated 7.0.11
      */
-    public function time(string $date, string $format = ''): ?string
+    public function time(string $date, ?string $format = null): ?string
     {
         _deprecated_function(__METHOD__, '7.0.11', 'wp_date()');
 
-        return wp_date($this->get_time_format(), strtotime($date), new DateTimeZone('UTC')) ?: null;
+        return wp_date($format ?? $this->get_time_format(), strtotime($date), new DateTimeZone('UTC')) ?: null;
     }
 
     /**
@@ -53,7 +53,7 @@ class Date extends Creatable
     {
         _deprecated_function(__METHOD__, '7.0.11', 'wp_date()');
 
-        return wp_date($this->get_date_format(), strtotime($date), new DateTimeZone('UTC')) ?: null;
+        return wp_date($date_format ?? $this->get_date_format(), strtotime($date), new DateTimeZone('UTC')) ?: null;
     }
 
     /**
@@ -63,13 +63,13 @@ class Date extends Creatable
     {
         _deprecated_function(__METHOD__, '7.0.11', 'wp_date()');
 
-        return wp_date($this->get_date_format(), $timestamp, new DateTimeZone('UTC')) ?: null;
+        return wp_date($date_format ?? $this->get_date_format(), $timestamp, new DateTimeZone('UTC')) ?: null;
     }
 
     /**
      * @depecated 7.0.11
      */
-    public function timezone(): ?DateTimeZone
+    public function timezone(): DateTimeZone
     {
         _deprecated_function(__METHOD__, '7.0.11', 'wp_timezone()');
 
@@ -83,7 +83,7 @@ class Date extends Creatable
     {
         _deprecated_function(__METHOD__, '7.0', 'wp_date()');
 
-        return wp_date($format, $timestamp, $timezone ?? new DateTimeZone('UTC')) ?: null;
+        return wp_date($format, $timestamp ?? time(), $timezone ?? new DateTimeZone('UTC')) ?: null;
     }
 
 }
