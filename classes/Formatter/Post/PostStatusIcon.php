@@ -109,7 +109,7 @@ class PostStatusIcon implements Formatter
             Date::create()->get_date_time_format(),
             strtotime($date),
             new DateTimeZone('UTC')
-        );
+        ) ?: '';
     }
 
 }
