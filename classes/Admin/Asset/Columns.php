@@ -109,7 +109,7 @@ class Columns extends Script
 
         foreach ($this->integration_repository->find_all_by_active_plugins() as $integration) {
             $integrations[] = [
-                'url'   => $integration->get_link(),
+                'url'   => (string)$integration->get_url(),
                 'label' => $integration->get_title(),
             ];
         }

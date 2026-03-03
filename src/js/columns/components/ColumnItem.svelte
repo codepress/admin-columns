@@ -109,7 +109,7 @@
 
 <div class="ac-column" class:-opened={opened} data-name={data.name}>
 	<header class="ac-column-header acu-flex acu-py-2 acu-pr-6 rtl:acu-pl-6 acu-items-center acu-bg-[#fff]" on:click={toggle} on:keydown role="none">
-		<div class="ac-column-header__move acu-cursor-move">
+		<div class="ac-column-header__move acu-cursor-move" on:click|stopPropagation role="none">
 			<AcIcon icon="move" size="sm"/>
 		</div>
 		<div class="ac-column-header__label">

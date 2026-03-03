@@ -67,14 +67,15 @@ class PostCount implements Formatter
 
         $username = Helper\User::create()->get_formatted_name($user);
 
-        $link = (new Posts())->get_link($user_id, $label)
-                             ->with_title(
-                                 sprintf(
-                                     __('Recent items by %s', 'codepress-admin-columns'),
-                                     sprintf('”%s”', $username),
-                                 )
-                             )
-                             ->with_params($params);
+        $link = (new Posts())
+            ->get_link($user_id, $label)
+            ->with_title(
+                sprintf(
+                    __('Recent items by %s', 'codepress-admin-columns'),
+                    sprintf('”%s”', $username),
+                )
+            )
+            ->with_params($params);
 
         if ($single_posttype) {
             $link = $link->with_view_link(

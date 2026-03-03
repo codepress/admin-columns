@@ -119,8 +119,9 @@ class ListScreenSettings implements RequestAjaxHandler
             );
         }
 
-        $this->response_factory->create($list_screen, $is_stored, $is_template)
-                               ->success();
+        $this->response_factory
+            ->create($list_screen, $is_stored, $is_template)
+            ->success();
     }
 
 }

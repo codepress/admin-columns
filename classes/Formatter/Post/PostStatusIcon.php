@@ -6,7 +6,9 @@ namespace AC\Formatter\Post;
 
 use AC\Formatter;
 use AC\Helper;
+use AC\Helper\Date;
 use AC\Type\Value;
+use DateTimeZone;
 use WP_Post;
 
 class PostStatusIcon implements Formatter
@@ -40,31 +42,51 @@ class PostStatusIcon implements Formatter
             case 'private' :
                 return Helper\Html::create()->tooltip(
                     Helper\Icon::create()->dashicon(['icon' => 'hidden', 'class' => 'gray']),
-                    __('Private')
+                    sprintf(
+                        '%s <br><em>%s</em>',
+                        __('Private'),
+                        $this->format_date($post->post_date)
+                    )
                 );
 
             case 'publish' :
                 return Helper\Html::create()->tooltip(
                     Helper\Icon::create()->dashicon(['icon' => 'yes', 'class' => 'blue large']),
-                    __('Published')
+                    sprintf(
+                        '%s <br><em>%s</em>',
+                        __('Published'),
+                        $this->format_date($post->post_date)
+                    )
                 );
 
             case 'draft' :
                 return Helper\Html::create()->tooltip(
                     Helper\Icon::create()->dashicon(['icon' => 'edit', 'class' => 'green']),
-                    __('Draft')
+                    sprintf(
+                        '%s <br><em>%s</em>',
+                        __('Draft'),
+                        $this->format_date($post->post_date)
+                    )
                 );
 
             case 'pending' :
                 return Helper\Html::create()->tooltip(
                     Helper\Icon::create()->dashicon(['icon' => 'backup', 'class' => 'orange']),
-                    __('Pending for review')
+                    sprintf(
+                        '%s <br><em>%s</em>',
+                        __('Pending for review'),
+                        $this->format_date($post->post_date)
+                    )
                 );
 
             case 'future' :
                 $icon = Helper\Html::create()->tooltip(
                     Helper\Icon::create()->dashicon(['icon' => 'clock']),
-                    __('Scheduled') . ': <em>' . Helper\Date::create()->date($post->post_date, 'wp_date_time') . '</em>'
+                    sprintf(
+                        '%s <br><em>%s</em>',
+                        __('Scheduled'),
+                        $this->format_date($post->post_date)
+                    )
                 );
 
                 // Missed schedule
@@ -79,6 +101,15 @@ class PostStatusIcon implements Formatter
             default:
                 return null;
         }
+    }
+
+    private function format_date(string $date): string
+    {
+        return wp_date(
+            Date::create()->get_date_time_format(),
+            strtotime($date),
+            new DateTimeZone('UTC')
+        ) ?: '';
     }
 
 }

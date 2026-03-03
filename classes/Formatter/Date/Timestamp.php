@@ -14,7 +14,7 @@ final class Timestamp implements Formatter
     public function format(Value $value): Value
     {
         if ($this->is_invalid_date((string)$value)) {
-            throw new ValueNotFoundException('Invalid date string. ID ' . $value->get_id());
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         $date = (string)$value;
@@ -26,7 +26,7 @@ final class Timestamp implements Formatter
         $time = strtotime($date);
 
         if (false === $time) {
-            throw new ValueNotFoundException('Invalid date string. ID ' . $value->get_id());
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         return $value->with_value($time);

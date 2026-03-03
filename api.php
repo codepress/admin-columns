@@ -229,7 +229,7 @@ if ( ! function_exists('ac_format_date')) {
     {
         _deprecated_function(__METHOD__, '7.0.10', 'wp_date()');
 
-        return wp_date($format, $timestamp, $timezone) ?: null;
+        return wp_date($format, $timestamp, $timezone ?? new DateTimeZone('UTC')) ?: null;
     }
 }
 

@@ -9,7 +9,7 @@ class Menu extends Creatable
     {
         global $wpdb;
 
-        return (string)$wpdb->prepare(
+        return (string)$wpdb->get_var($wpdb->prepare(
             "
 			SELECT t.name
 				FROM $wpdb->terms AS t
@@ -20,7 +20,7 @@ class Menu extends Creatable
     			WHERE menu.ID = %d
 			",
             $menu_item_id
-        );
+        ));
     }
 
     public function get_ids(int $object_id, string $object_type): array

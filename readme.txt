@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 5.9
 Tested up to: 6.9.1
 Requires PHP: 7.4
-Stable tag: 7.0.10
+Stable tag: 7.0.11
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -208,6 +208,19 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 7.0.11 =
+Release Date: March 2nd, 2026
+
+* [Added] Long value lists (e.g. taxonomies, relations) now show a "X more" toggle to keep columns concise.
+* [Added] The Date Publish column now shows post status icons and displays scheduled/published timestamps in a tooltip.
+* [Fixed] Ensure wp_date() is called with the correct UTC timezone.
+* [Fixed] Fixed null dereference errors when post status or post type objects are unavailable.
+* [Fixed] Fixed the Comment Date column showing an incorrect value.
+* [Fixed] Fixed a SQL table alias conflict.
+* [Improved] Columns no longer open during column reordering.
+* [Improved] Improved performance of the list screen settings file decoder.
+* [Deprecated] Deprecated the HTML::more() helper method.
 
 = 7.0.10 =
 Release Date: February 16th, 2026

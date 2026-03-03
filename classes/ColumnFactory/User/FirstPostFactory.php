@@ -54,7 +54,7 @@ class FirstPostFactory extends BaseColumnFactory
         $post_status = $config->has('post_status') ? (array)$config->get('post_status', []) : null;
 
         return parent::get_formatters($config)
-                     ->prepend(new AC\Formatter\User\FirstPost($post_type, $post_status));
+            ->prepend(new AC\Formatter\User\FirstPost($post_type, $post_status));
     }
 
     protected function get_settings(Config $config): ComponentCollection

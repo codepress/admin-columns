@@ -53,8 +53,8 @@ class TitleRawFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->prepend(new PostTitle())
-                     ->add(new Wrapper('<span class="row-title">', '</span>'));
+            ->prepend(new PostTitle())
+            ->add(new Wrapper('<span class="row-title">', '</span>'));
     }
 
 }

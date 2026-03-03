@@ -43,7 +43,7 @@ class CaptionFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->prepend(new Excerpt());
+            ->prepend(new Excerpt());
     }
 
 }

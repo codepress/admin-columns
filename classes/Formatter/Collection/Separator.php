@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Formatter\Collection;
 
 use AC\CollectionFormatter;
-use AC\Helper;
 use AC\Setting\ComponentFactory\Separator as Setting;
 use AC\Setting\Config;
 use AC\Type\Value;
@@ -65,8 +64,46 @@ class Separator implements CollectionFormatter
 
         return new Value(
             $collection->get_id(),
-            Helper\Html::create()->more($values, $this->limit, $this->separator)
+            $this->implode($values, $this->limit, $this->separator)
         );
+    }
+
+    public function implode(array $array, int $limit = 10, string $glue = ', '): string
+    {
+        if ($limit <= 0 || count($array) <= $limit) {
+            return implode($glue, $array);
+        }
+
+        $first_set = array_slice($array, 0, $limit);
+        $last_set = array_slice($array, $limit);
+
+        ob_start();
+
+        if ($first_set) {
+            $first = sprintf('<span class="ac-show-more__part -first">%s</span>', implode($glue, $first_set));
+
+            $more = $last_set
+                ? sprintf(
+                    '<span class="ac-show-more__part -more">%s%s</span>',
+                    $glue,
+                    implode($glue, $last_set)
+                )
+                : '';
+
+            $content = sprintf('<span class="ac-show-more__content">%s%s</span>', $first, $more);
+
+            $toggler = $last_set
+                ? sprintf(
+                    '<span class="ac-show-more__divider">|</span><a class="ac-show-more__toggle" data-show-more-toggle data-more="%1$s" data-less="%2$s">%1$s</a>',
+                    sprintf(__('%s more', 'codepress-admin-columns'), count($last_set)),
+                    strtolower(__('Hide', 'codepress-admin-columns'))
+                )
+                : '';
+
+            echo sprintf('<span class="ac-show-more">%s</span>', $content . $toggler);
+        }
+
+        return ob_get_clean();
     }
 
 }

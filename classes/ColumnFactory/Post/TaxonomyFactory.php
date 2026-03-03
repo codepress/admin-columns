@@ -67,8 +67,8 @@ class TaxonomyFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->prepend(new PostTerms((string)$config->get('taxonomy', '')))
-                     ->add(Separator::create_from_config($config));
+            ->prepend(new PostTerms((string)$config->get('taxonomy', '')))
+            ->add(Separator::create_from_config($config));
     }
 
 }

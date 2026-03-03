@@ -8,7 +8,7 @@ $attributes = $this->attributes ?? [];
 $attribute_markup = [];
 
 foreach ( $attributes as $key => $value ) {
-	$attribute_markup[] = sprintf( '%s="%s"', $key, esc_attr__( $value ) );
+	$attribute_markup[] = sprintf( '%s="%s"', $key, esc_attr( $value ) );
 }
 ?>
 

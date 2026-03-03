@@ -71,8 +71,9 @@ class ListScreenSelectColumn implements RequestAjaxHandler
 
         $column = $factory->create(new AC\Setting\Config($column_data));
 
-        $this->json_response_factory->create_by_column($column)
-                                    ->success();
+        $this->json_response_factory
+            ->create_by_column($column)
+            ->success();
     }
 
 }

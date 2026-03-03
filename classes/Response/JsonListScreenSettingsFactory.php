@@ -31,8 +31,9 @@ class JsonListScreenSettingsFactory
 
     public function create(ListScreen $list_screen, bool $is_stored = true, bool $is_template = false): Json
     {
-        $encoder = $this->encoder_factory->create()
-                                         ->set_list_screen($list_screen);
+        $encoder = $this->encoder_factory
+            ->create()
+            ->set_list_screen($list_screen);
 
         $table_screen = $list_screen->get_table_screen();
 

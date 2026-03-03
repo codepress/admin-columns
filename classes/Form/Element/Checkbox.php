@@ -61,11 +61,12 @@ class Checkbox extends Element
         foreach ($options as $key => $label) {
             $input = new Input($this->get_name());
 
-            $input->set_value($key)
-                  ->set_type($this->get_type())
-                  ->set_id($this->get_id() . '-' . $key);
+            $input
+                ->set_value($key)
+                ->set_type($this->get_type())
+                ->set_id($this->get_id() . '-' . $key);
 
-            if (in_array($key, $value)) {
+            if (in_array($key, $value, true)) {
                 $input->set_attribute('checked', 'checked');
             }
 
@@ -75,7 +76,7 @@ class Checkbox extends Element
                 '<label %s>%s%s</label>',
                 $this->get_attributes_as_string($attributes),
                 $input->render(),
-                $label
+                esc_html($label)
             );
         }
 

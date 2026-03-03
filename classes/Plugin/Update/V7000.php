@@ -29,7 +29,8 @@ class V7000 extends Update
     public function apply_update(): void
     {
         // just in case we need a bit of extra time to execute our upgrade script
-        if (ini_get('max_execution_time') < 120) {
+        $max_exec = (int) ini_get('max_execution_time');
+        if ($max_exec > 0 && $max_exec < 120) {
             @set_time_limit(120);
         }
 
@@ -39,15 +40,17 @@ class V7000 extends Update
                 // Add 'type' column to the 'admin_columns' DB table
                 $this->update_database();
 
-                $this->update_next_step(2)
-                     ->apply_update();
+                $this
+                    ->update_next_step(2)
+                    ->apply_update();
                 break;
             case 2:
                 // Update renamed column types and specific settings
                 $this->update_columns();
 
-                $this->update_next_step(3)
-                     ->apply_update();
+                $this
+                    ->update_next_step(3)
+                    ->apply_update();
                 break;
             case 3:
                 // Move the stored default columns to a new location

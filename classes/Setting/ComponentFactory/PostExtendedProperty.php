@@ -55,8 +55,9 @@ class PostExtendedProperty extends PostProperty
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         if ($this->get_input($config)->get_value() === self::PROPERTY_CUSTOM_FIELD) {
-            $formatters->add(new AC\Formatter\Post\Meta((string)$config->get('field', '')))
-                       ->add(new AC\Formatter\ImplodeRecursive());
+            $formatters
+                ->add(new AC\Formatter\Post\Meta((string)$config->get('field', '')))
+                ->add(new AC\Formatter\ImplodeRecursive());
 
             return;
         }
