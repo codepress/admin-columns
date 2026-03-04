@@ -34,6 +34,7 @@ class UserLink implements Formatter
         }
 
         $link = '';
+        $args = [];
 
         switch ($this->link_to) {
             case 'edit_user':

@@ -13,7 +13,8 @@ class PostParentId implements Formatter
 
     public function format(Value $value): Value
     {
-        $parent_id = get_post($value->get_id())->post_parent ?? null;
+        $post = get_post($value->get_id());
+        $parent_id = $post ? $post->post_parent : null;
 
         if ( ! $parent_id) {
             throw ValueNotFoundException::from_id($value->get_id());
