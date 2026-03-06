@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 7.0.12 =
+Release Date: March 4th, 2026
+
+* [Improved] The Title Only column on the Media list table now displays both the post title and the filename.
+
 = 7.0.11 =
 Release Date: March 2nd, 2026
 
