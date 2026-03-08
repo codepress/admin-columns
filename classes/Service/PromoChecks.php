@@ -6,6 +6,7 @@ namespace AC\Service;
 
 use AC;
 use AC\Check\Promotion;
+use AC\Notice\DismissRegistry;
 
 class PromoChecks implements AC\Registerable
 {
@@ -14,10 +15,13 @@ class PromoChecks implements AC\Registerable
 
     private AC\Preferences\UserFactory $preference_factory;
 
-    public function __construct(AC\Promo\PromoRepository $repository, AC\Preferences\UserFactory $preference_factory)
+    private DismissRegistry $dismiss_registry;
+
+    public function __construct(AC\Promo\PromoRepository $repository, AC\Preferences\UserFactory $preference_factory, DismissRegistry $dismiss_registry)
     {
         $this->repository = $repository;
         $this->preference_factory = $preference_factory;
+        $this->dismiss_registry = $dismiss_registry;
     }
 
     public function register(): void
@@ -28,7 +32,7 @@ class PromoChecks implements AC\Registerable
             return;
         }
 
-        $service = new Promotion($promo, $this->preference_factory);
+        $service = new Promotion($promo, $this->preference_factory, $this->dismiss_registry);
         $service->register();
     }
 

@@ -2,9 +2,10 @@
 
 namespace AC\Check;
 
-use AC\Ajax;
 use AC\Capabilities;
 use AC\Message\Notice\Dismissible;
+use AC\Notice\DismissHandler\PreferenceDismiss;
+use AC\Notice\DismissRegistry;
 use AC\Preferences;
 use AC\Preferences\UserFactory;
 use AC\Registerable;
@@ -18,28 +19,28 @@ final class Promotion implements Registerable
 
     private UserFactory $preferences_factory;
 
-    public function __construct(Promo $promo, UserFactory $preferences_factory)
+    private DismissRegistry $dismiss_registry;
+
+    public function __construct(Promo $promo, UserFactory $preferences_factory, DismissRegistry $dismiss_registry)
     {
         $this->promo = $promo;
         $this->preferences_factory = $preferences_factory;
+        $this->dismiss_registry = $dismiss_registry;
     }
 
     public function register(): void
     {
         add_action('ac/screen', [$this, 'display']);
 
-        $this->get_ajax_handler()->register();
+        $this->dismiss_registry->add(
+            $this->get_notice_id(),
+            new PreferenceDismiss($this->get_preferences(), 'dismiss-notice')
+        );
     }
 
-    private function get_ajax_handler(): Ajax\Handler
+    private function get_notice_id(): string
     {
-        $handler = new Ajax\Handler();
-
-        $handler
-            ->set_action('ac_dismiss_notice_promo_' . $this->get_individual_slug())
-            ->set_callback([$this, 'ajax_dismiss_notice']);
-
-        return $handler;
+        return 'promo_' . $this->get_individual_slug();
     }
 
     private function get_individual_slug(): string
@@ -52,12 +53,6 @@ final class Promotion implements Registerable
         return $this->preferences_factory->create(
             'check-promo-' . $this->get_individual_slug()
         );
-    }
-
-    public function ajax_dismiss_notice(): void
-    {
-        $this->get_ajax_handler()->verify_request();
-        $this->get_preferences()->save('dismiss-notice', true);
     }
 
     private function is_promo_screen(Screen $screen): bool
@@ -76,7 +71,7 @@ final class Promotion implements Registerable
 
         $notice = new Dismissible(
             $this->promo->get_notice_message(),
-            $this->get_ajax_handler()
+            $this->dismiss_registry->create_handler($this->get_notice_id())
         );
         $notice->register();
     }

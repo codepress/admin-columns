@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Check;
 
-use AC\Ajax;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Capabilities;
 use AC\Message;
+use AC\Notice\DismissHandler\PreferenceDismiss;
+use AC\Notice\DismissRegistry;
 use AC\Preferences;
+use AC\Preferences\UserFactory;
 use AC\Registerable;
 use AC\Screen;
 use AC\Type\Url\Documentation;
@@ -18,16 +22,25 @@ final class Review implements Registerable
 
     private Location $location;
 
-    public function __construct(Location $location)
+    private UserFactory $preferences_factory;
+
+    private DismissRegistry $dismiss_registry;
+
+    public function __construct(Location $location, UserFactory $preferences_factory, DismissRegistry $dismiss_registry)
     {
         $this->location = $location;
+        $this->preferences_factory = $preferences_factory;
+        $this->dismiss_registry = $dismiss_registry;
     }
 
     public function register(): void
     {
         add_action('ac/screen', [$this, 'display']);
 
-        $this->get_ajax_handler()->register();
+        $this->dismiss_registry->add(
+            'review',
+            new PreferenceDismiss($this->get_preferences(), 'dismiss-review')
+        );
     }
 
     public function display(Screen $screen): void
@@ -56,28 +69,18 @@ final class Review implements Registerable
         );
         $script->enqueue();
 
-        $notice = new Message\Notice\Dismissible($this->get_message(), $this->get_ajax_handler());
+        $notice = new Message\Notice\Dismissible($this->get_message(), $this->dismiss_registry->create_handler('review'));
         $notice
             ->set_id('review')
             ->register();
     }
 
-    protected function get_ajax_handler(): Ajax\Handler
+    private function get_preferences(): Preferences\Preference
     {
-        $handler = new Ajax\Handler();
-        $handler
-            ->set_action('ac_check_review_dismiss_notice')
-            ->set_callback([$this, 'ajax_dismiss_notice']);
-
-        return $handler;
+        return $this->preferences_factory->create('check-review');
     }
 
-    protected function get_preferences(): Preferences\Preference
-    {
-        return (new Preferences\UserFactory())->create('check-review');
-    }
-
-    protected function first_login_compare(): bool
+    private function first_login_compare(): bool
     {
         // Show after 30 days
         return time() - (30 * DAY_IN_SECONDS) > $this->get_first_login();
@@ -86,7 +89,7 @@ final class Review implements Registerable
     /**
      * Return the Unix timestamp of first login
      */
-    protected function get_first_login(): int
+    private function get_first_login(): int
     {
         $timestamp = $this->get_preferences()->find('first-login-review');
 
@@ -99,18 +102,12 @@ final class Review implements Registerable
         return $timestamp;
     }
 
-    public function ajax_dismiss_notice(): void
-    {
-        $this->get_ajax_handler()->verify_request();
-        $this->get_preferences()->save('dismiss-review', true);
-    }
-
     private function get_documentation_url(): string
     {
         return (new UtmTags(new Documentation(), 'review-notice'))->get_url();
     }
 
-    protected function get_message(): string
+    private function get_message(): string
     {
         $product = __('Admin Columns', 'codepress-admin-columns');
 

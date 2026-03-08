@@ -17,6 +17,7 @@ use AC\Service\View;
 use AC\Table\ManageHeading;
 use AC\Table\ManageValue\ListScreenServiceFactory;
 use AC\Table\SaveHeading;
+use AC\Notice\DismissRegistry;
 use AC\Value\Extended\MediaPreview;
 use AC\Value\Extended\Posts;
 use AC\Value\ExtendedValueRegistry;
@@ -150,6 +151,7 @@ class Loader
     private function get_service_classes(): array
     {
         $classes = [
+            DismissRegistry::class,
             PluginActionLinks::class,
             Screen::class,
             Admin\Admin::class,
