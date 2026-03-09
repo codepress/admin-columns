@@ -39,7 +39,11 @@ if ( ! function_exists('ac_get_list_screen')) {
             return null;
         }
 
-        return $storage->find(new ListScreenId($id));
+        try {
+            return $storage->find(new ListScreenId($id));
+        } catch (Throwable $e) {
+            return null;
+        }
     }
 }
 
@@ -95,7 +99,11 @@ if ( ! function_exists('ac_get_column')) {
             return null;
         }
 
-        return $list_screen->get_column(new ColumnId($column_name));
+        try {
+            return $list_screen->get_column(new ColumnId($column_name));
+        } catch (Throwable $e) {
+            return null;
+        }
     }
 }
 
