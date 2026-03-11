@@ -24,7 +24,10 @@ final class DateSaveFormat extends BaseComponentFactory
 
     protected function get_description(Config $config): ?string
     {
-        return __('This is the format in which dates are stored and saved (also used for sorting, filtering, and editing).', 'codepress-admin-columns');
+        return __(
+            'This is the format in which dates are stored and saved (also used for sorting, filtering, and editing).',
+            'codepress-admin-columns'
+        );
     }
 
     protected function get_input(Config $config): ?Input
