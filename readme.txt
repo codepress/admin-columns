@@ -63,7 +63,7 @@ Upgrade to **Admin Columns Pro** for sorting, filtering, inline editing and more
 * **Filter content** with stackable smart filters
 * **Inline editing** – edit titles, custom fields, taxonomies and more directly from the list table
 * **Bulk editing** – update multiple items at once
-* **Conditional formatting** – colour-code rows and cells based on rules
+* **Conditional formatting** – color-code rows and cells based on rules
 * **Export to CSV**
 * **Import/export column sets** between sites or team members
 * **Save to PHP** for version-controlled column configurations
