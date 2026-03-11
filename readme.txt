@@ -185,3 +185,5 @@ Release Date: TBD
 * [Fixed] The before and after fields are now correctly applied to the Post ID column.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
+
+== Upgrade Notice ==
