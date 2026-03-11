@@ -14,19 +14,17 @@ let config = {
 		path : path.resolve( __dirname, '../assets/js' ),
 		filename : '[name].js',
 	},
+	target : [ 'web', 'es2020' ],
 	module : {
 		rules : [
 			{
 				test : /\.(html|svelte)$/,
-				use : [
-					{ loader : "babel-loader" },
-					{
-						loader : "svelte-loader",
-						options : {
-							preprocess : sveltePreprocess( {} ),
-						},
+				use : {
+					loader : "svelte-loader",
+					options : {
+						preprocess : sveltePreprocess( {} ),
 					},
-				],
+				},
 			},
 			{
 				test : /\.ts$/,
