@@ -8,7 +8,7 @@ Stable tag: 7.0.12
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Take control of your WordPress admin list tables. Add, remove, and reorder columns for posts, users, media, and more - no coding needed.
+Take control of your WordPress admin list tables. Add, remove, and reorder columns for posts, users, media, and more - no coding needed. 
 
 == Description ==
 
@@ -20,15 +20,15 @@ Trusted by 100,000+ WordPress sites worldwide.
 
 With a simple drag-and-drop interface you can:
 
-* Add custom columns to any admin list
-* Reorder and resize columns
-* Choose from 200+ available column types
-* Display metadata such as custom fields, images or taxonomy terms
-* Create clean overviews for complex websites
-
-https://vimeo.com/96885841
+* **Add any column** to posts, pages, users, media and comments
+* **Reorder and resize** columns to match your workflow
+* **Choose from 200+ column types** including custom fields, taxonomies and file data
+* **Display rich metadata** such as images, dates, colors and relational fields
+* **Create clean overviews** for even the most complex websites
 
 It works for any site from simple blogs to large WooCommerce stores.
+
+https://vimeo.com/96885841
 
 = Why Admin Columns? =
 
@@ -54,6 +54,16 @@ Common setups:
 * Organizing **large media libraries**
 * Reviewing **SEO metadata from Yoast**
 * Organizing **custom post types** with the right columns
+
+= Built for developers =
+
+Admin Columns is open source and built to be extended. Use actions and filters to register custom column types, modify output or integrate with your own plugins.
+
+* Full [hooks and filters reference](https://docs.admincolumns.com/article/15-hooks-and-filters/) for custom integrations
+* Register column configurations in PHP for version-controlled setups
+* Designed to work alongside page builders, custom post type plugins and third-party extensions
+
+Explore the [developer documentation](https://docs.admincolumns.com/category/75-developer/).
 
 = Admin Columns Pro =
 
@@ -115,15 +125,13 @@ Is this your first time using Admin Columns? Check out our documentation and gui
 
 Need help? Please visit the Admin Columns [support forums](https://admincolumns.com/support/?utm_source=wordpressorg&utm_medium=readme).
 
-= Translations =
+= Contribute =
 
-Admin Columns is translated into many languages thanks to our community.
+Admin Columns is open source and community-driven. There are several ways to contribute:
 
-You can contribute translations on [WordPress.org](https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns) and Pro translations on [Transifex](https://www.transifex.com/projects/p/admin-columns/)
-
-= Feedback & Feature Requests =
-
-Have ideas or suggestions? Submit them to our [public roadmap](https://www.admincolumns.com/public-roadmap/)
+* **Translate**: Help translate Admin Columns on [WordPress.org](https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns) or Pro translations on [Transifex](https://www.transifex.com/projects/p/admin-columns/)
+* **Report issues**: Found a bug? Report it on [GitHub](https://github.com/codepress/admin-columns)
+* **Suggest features**: Submit ideas to our [public roadmap](https://www.admincolumns.com/public-roadmap/)
 
 == Frequently Asked Questions ==
 
@@ -151,6 +159,10 @@ Sorting and filtering are available in **Admin Columns Pro**, so you can quickly
 
 Yes. **Admin Columns Pro** supports inline editing and bulk editing, so you can update titles, taxonomies, custom fields and more without leaving the list table.
 
+= How do I reset my column settings? =
+
+You can reset column settings from the column settings page by clicking "Restore columns" in the sidebar. This restores the default WordPress columns for that screen. See our [getting started guide](https://docs.admincolumns.com/category/16-getting-started/) for more details.
+
 = What filters and hooks can I use? =
 
 Developers can extend Admin Columns using many actions and filters. You can find the full reference here: [Hooks & Filters](https://docs.admincolumns.com/article/15-hooks-and-filters/)
@@ -168,13 +180,23 @@ Developers can extend Admin Columns using many actions and filters. You can find
 
 == Installation ==
 
-From your WordPress dashboard
+= Automatic installation =
 
-1. **Visit** Plugins > Add New
+1. **Visit** Plugins > Add New in your WordPress dashboard
 2. **Search** for "Admin Columns"
 3. **Install and Activate** Admin Columns from your Plugins page
-4. **Visit** Settings > Admin Columns and add your first column by clicking "Add Column".
-5. **Read** the documentation to [get started](https://docs.admincolumns.com/category/16-getting-started/)
+4. **Visit** Settings > Admin Columns to create your first column set
+
+= Manual installation =
+
+1. **Download** the plugin from [WordPress.org](https://wordpress.org/plugins/codepress-admin-columns/)
+2. **Upload** the `codepress-admin-columns` folder to `/wp-content/plugins/`
+3. **Activate** the plugin through the Plugins screen
+4. **Visit** Settings > Admin Columns to get started
+
+= After activation =
+
+Head to Settings > Admin Columns and start customizing your columns. Check out the [getting started guide](https://docs.admincolumns.com/category/16-getting-started/) for a walkthrough.
 
 == Changelog ==
 
