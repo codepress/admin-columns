@@ -24,10 +24,8 @@ class AuthorNameFactory extends BaseColumnFactory
 
     protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters = parent::get_formatters($config);
-        $formatters->prepend(new AC\Formatter\Comment\Property('comment_author'));
-
-        return $formatters;
+        return parent::get_formatters($config)
+            ->prepend(new AC\Formatter\Comment\Property('comment_author'));
     }
 
 }
