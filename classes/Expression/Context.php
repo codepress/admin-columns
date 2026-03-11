@@ -9,7 +9,7 @@ final class Context
 
     private array $data;
 
-    private function __construct(array $data)
+    public function __construct(array $data)
     {
         $this->data = $data;
     }

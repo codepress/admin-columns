@@ -12,6 +12,7 @@ use AC\Setting\Control\OptionCollection;
 final class DateSaveFormat extends BaseComponentFactory
 {
 
+    public const FORMAT_AUTO = 'auto';
     public const FORMAT_UNIX_TIMESTAMP = 'U';
     public const FORMAT_DATETIME = 'Y-m-d H:i:s';
     public const FORMAT_DATE = 'Y-m-d';
@@ -23,12 +24,16 @@ final class DateSaveFormat extends BaseComponentFactory
 
     protected function get_description(Config $config): ?string
     {
-        return __('This is the format in which dates are stored and saved (also used for sorting, filtering, and editing).', 'codepress-admin-columns');
+        return __(
+            'This is the format in which dates are stored and saved (also used for sorting, filtering, and editing).',
+            'codepress-admin-columns'
+        );
     }
 
     protected function get_input(Config $config): ?Input
     {
         $options = [
+            self::FORMAT_AUTO           => __('Auto Detect', 'codepress-admin-columns'),
             self::FORMAT_DATE           => sprintf(
                 '%s (%s)',
                 __('Date', 'codepress-admin-columns'),

@@ -32,10 +32,26 @@ export default class AcServices {
         return this.services.hasOwnProperty(name)
     }
 
+    addListener<
+        TEventMap extends Record<string, any>,
+        K extends keyof TEventMap & string = keyof TEventMap & string
+    >(
+        name: K,
+        callback: (payload: TEventMap[K]) => void
+    ): void;
+    addListener(name: string, callback: any): void;
     addListener(name: string, callback: any) {
         this.events.addListener(name, callback);
     }
 
+    emitEvent<
+        TEventMap extends Record<string, any>,
+        K extends keyof TEventMap & string = keyof TEventMap & string
+    >(
+        name: K,
+        args: TEventMap[K]
+    ): void;
+    emitEvent(name: string, args: any): void;
     emitEvent(name: string, args: any) {
         this.events.emit(name, args)
     }

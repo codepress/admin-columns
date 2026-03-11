@@ -169,11 +169,10 @@ Developers can extend Admin Columns using many actions and filters. You can find
 
 == Changelog ==
 
-= 7.0.10 =
-Release Date: February 16th, 2026
+= 7.0.12 =
+Release Date: TBD
 
-* [Improved] String limit setting added to Media Caption column
-* [Improved] Deprecated the Admin Columns helper function 'ac_helper'.
-* [Removed] Removed the hook ac/column/types/pro in favor of ac/column/types.
+* [Improved] The Title Only column on the Media list table now displays both the post title and the filename.
+* [Fixed] The before and after fields are now correctly applied to the Post ID column.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).

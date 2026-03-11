@@ -29,7 +29,8 @@ class V7000 extends Update
     public function apply_update(): void
     {
         // just in case we need a bit of extra time to execute our upgrade script
-        if (ini_get('max_execution_time') < 120) {
+        $max_exec = (int) ini_get('max_execution_time');
+        if ($max_exec > 0 && $max_exec < 120) {
             @set_time_limit(120);
         }
 

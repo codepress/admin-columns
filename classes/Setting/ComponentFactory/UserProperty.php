@@ -81,6 +81,7 @@ class UserProperty extends BaseComponentFactory
                 break;
             case self::PROPERTY_ROLES:
                 $formatters->add(new AC\Formatter\User\TranslatedRoles());
+                break;
         }
     }
 

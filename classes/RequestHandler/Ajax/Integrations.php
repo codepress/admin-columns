@@ -48,7 +48,7 @@ class Integrations implements RequestAjaxHandler
         return [
             'plugin_active' => $integration->is_plugin_active(),
             'title'         => $integration->get_title(),
-            'external_link' => $integration->get_link(),
+            'external_link' => (string)$integration->get_url(),
             'slug'          => $integration->get_slug(),
             'description'   => $integration->get_description(),
             'plugin_logo'   => $integration->get_logo(),

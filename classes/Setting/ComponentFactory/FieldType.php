@@ -231,6 +231,12 @@ class FieldType extends BaseComponentFactory
                 break;
             case self::TYPE_DATE:
                 $source_format = $config->get('date_save_format', '');
+
+                if ($source_format === DateSaveFormat::FORMAT_AUTO) {
+                    $formatters->add(new AC\Formatter\Date\Timestamp());
+                    break;
+                }
+
                 $date_formatter = $source_format
                     ? new AC\Formatter\Date\DateFormat('U', $source_format)
                     : new AC\Formatter\Date\Timestamp();

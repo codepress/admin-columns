@@ -51,7 +51,7 @@ class DescriptivePostStatus implements Formatter
                                 Date::create()->get_date_time_format(),
                                 strtotime($post->post_date),
                                 new DateTimeZone('UTC')
-                            )
+                            ) ?: ''
                         )
                     );
                 default:
