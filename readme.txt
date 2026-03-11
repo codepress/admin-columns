@@ -1,6 +1,6 @@
 === Admin Columns ===
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
-Tags: columns, admin columns, custom fields, column manager, sorting
+Tags: columns, admin columns, custom fields, list table, woocommerce
 Requires at least: 5.9
 Tested up to: 6.9.1
 Requires PHP: 7.4
@@ -8,13 +8,13 @@ Stable tag: 7.0.12
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Take control of your WordPress admin list tables. Add, remove, and reorder columns for posts, users, media, and more — no coding needed.
+Take control of your WordPress admin list tables. Add, remove, and reorder columns for posts, users, media, and more - no coding needed.
 
 == Description ==
 
 Admin Columns lets you customize and organize the columns displayed in the WordPress admin list tables for posts, pages, users, comments and media.
 
-Instead of the limited default list table, you can create powerful dashboards that display the information you actually need - like custom fields, featured images, taxonomies, file data and more.
+Instead of the limited default list table, you get to display the information you actually need - like custom fields, featured images, taxonomies, file data and more.
 
 Trusted by 100,000+ WordPress sites worldwide.
 
@@ -26,58 +26,59 @@ With a simple drag-and-drop interface you can:
 * Display metadata such as custom fields, images or taxonomy terms
 * Create clean overviews for complex websites
 
-http://vimeo.com/96885841
+https://vimeo.com/96885841
 
-Whether you're managing a blog, WooCommerce store or large content site, Admin Columns makes the WordPress admin faster and easier to use.
+It works for any site from simple blogs to large WooCommerce stores.
 
 = Why Admin Columns? =
 
 Default WordPress list tables are limited. They often show only the title, author and date.
 
-Admin Columns turns them into powerful management screens where you can instantly see important information about your content.
+Admin Columns turns them into useful management screens that show you what matters.
 
 Examples:
 
-* See **featured images, custom fields and taxonomies** directly in the post overview
+* See **featured images, custom fields and taxonomies** directly in the post list table
 * Display **media file size, dimensions or EXIF data**
 * View **user metadata and roles** in the users screen
-* Organize large content libraries quickly
+* Keep track of **large content libraries**
 
 = Popular use cases =
 
 Admin Columns is used by developers, agencies and site owners to manage content more efficiently.
 
+Common setups:
+
 * Managing **WooCommerce products** with price, SKU or stock columns
 * Displaying **ACF custom fields** in post list tables
 * Organizing **large media libraries**
 * Reviewing **SEO metadata from Yoast**
-* Managing **complex custom post types**
+* Organizing **custom post types** with the right columns
 
 = Admin Columns Pro =
 
-Upgrade to **Admin Columns Pro** to unlock powerful workflow features. Pro allows you to:
+Upgrade to **Admin Columns Pro** for sorting, filtering, inline editing and more. With Pro you can:
 
-* **Sort columns** – quickly find the content you need
-* **Filter content** – narrow down large content lists with our stackable smart filters
-* **Inline edit data** – edit titles, custom fields, taxonomies and more directly from the list table
-* **Bulk edit data** – update multiple items at once directly from the list table
-* **Conditional formatting** – highlight rows and cells based on rules to spot important content at a glance
-* **Export data to CSV**
-* **Import/export column configurations**
-* Save column configurations to **PHP** for developers
+* **Sort** any column
+* **Filter content** with stackable smart filters
+* **Inline editing** – edit titles, custom fields, taxonomies and more directly from the list table
+* **Bulk editing** – update multiple items at once
+* **Conditional formatting** – colour-code rows and cells based on rules
+* **Export to CSV**
+* **Import/export column sets** between sites or team members
+* **Save to PHP** for version-controlled column configurations
 
 Admin Columns Pro also provides deep integrations with popular plugins:
 
 * **Advanced Custom Fields** – display and edit all field types
 * **WooCommerce** – product and order columns
-* **Yoast SEO**
-* **Toolset Types**
-* **Pods**
-* and many more
+* **Yoast SEO** – SEO score and metadata columns
+* **Toolset Types** – custom fields and relationships
+* **Pods** – Pods fields and content types
 
 Learn more about the additional features of Admin Columns Pro on our website:
 
-[Upgrade to Admin Columns Pro](https://www.admincolumns.com/admin-columns-pro/)
+[Upgrade to Admin Columns Pro](https://www.admincolumns.com/admin-columns-pro/?utm_source=wordpressorg&utm_medium=readme)
 
 = Supported content types =
 
@@ -104,17 +105,15 @@ Supported field formats include:
 * True/False
 * Relational: Posts, Users and Media
 
-These field types ensure that your metadata is displayed in a clear and readable format.
-
 = Docs & Support =
 
 Is this your first time using Admin Columns? Check out our documentation and guides:
 
-[Documentation](https://docs.admincolumns.com/)
-[Getting Started](https://docs.admincolumns.com/category/16-getting-started)
-[Developer documentation](https://docs.admincolumns.com/category/75-developer)
+[Documentation](https://docs.admincolumns.com)
+[Getting Started](https://docs.admincolumns.com/category/16-getting-started/)
+[Developer documentation](https://docs.admincolumns.com/category/75-developer/)
 
-Need help? Please visit the Admin Columns [support forums](http://admincolumns.com/support).
+Need help? Please visit the Admin Columns [support forums](https://admincolumns.com/support/?utm_source=wordpressorg&utm_medium=readme).
 
 = Translations =
 
@@ -124,7 +123,7 @@ You can contribute translations on [WordPress.org](https://translate.wordpress.o
 
 = Feedback & Feature Requests =
 
-Have ideas or suggestions? Submit it to our [public roadmap](https://www.admincolumns.com/public-roadmap/)
+Have ideas or suggestions? Submit them to our [public roadmap](https://www.admincolumns.com/public-roadmap/)
 
 == Frequently Asked Questions ==
 
@@ -132,7 +131,7 @@ Have ideas or suggestions? Submit it to our [public roadmap](https://www.adminco
 
 Yes. The core plugin is free and includes column management for posts, pages, users, comments and media.
 
-Admin Columns Pro adds advanced features such as sorting, filtering, inline editing, bulk editing, conditional formatting and CSV export. [Learn more](https://www.admincolumns.com/admin-columns-pro/).
+Admin Columns Pro adds advanced features such as sorting, filtering, inline editing, bulk editing, conditional formatting and CSV export. [Learn more](https://www.admincolumns.com/admin-columns-pro/?utm_source=wordpressorg&utm_medium=readme).
 
 = Can I display custom fields? =
 
@@ -146,7 +145,7 @@ Yes. Admin Columns works with most WordPress plugins out of the box. Admin Colum
 
 = Can I sort or filter columns? =
 
-Sorting and filtering are available in **Admin Columns Pro**, allowing you to quickly find the content you need across large datasets.
+Sorting and filtering are available in **Admin Columns Pro**, so you can quickly find what you're looking for.
 
 = Can I edit content directly from the list table? =
 
@@ -154,7 +153,7 @@ Yes. **Admin Columns Pro** supports inline editing and bulk editing, so you can 
 
 = What filters and hooks can I use? =
 
-Developers can extend Admin Columns using many actions and filters. You can find the full reference here: [Hooks & Filters](https://docs.admincolumns.com/article/15-hooks-and-filters)
+Developers can extend Admin Columns using many actions and filters. You can find the full reference here: [Hooks & Filters](https://docs.admincolumns.com/article/15-hooks-and-filters/)
 
 == Screenshots ==
 
@@ -166,6 +165,16 @@ Developers can extend Admin Columns using many actions and filters. You can find
 6. Users list with custom columns for roles, post counts, and custom fields.
 7. Custom field column configuration — choose from color, date, image, number, URL, and more display types.
 8. Posts list showing multiple custom field columns with formatted values.
+
+== Installation ==
+
+From your WordPress dashboard
+
+1. **Visit** Plugins > Add New
+2. **Search** for "Admin Columns"
+3. **Install and Activate** Admin Columns from your Plugins page
+4. **Visit** Settings > Admin Columns and add your first column by clicking "Add Column".
+5. **Read** the documentation to [get started](https://docs.admincolumns.com/category/16-getting-started/)
 
 == Changelog ==
 
