@@ -1,14 +1,12 @@
 === Admin Columns ===
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
-Plugin URI: https://www.admincolumns.com/
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
-Tags: columns, custom fields, column manager, inline editing, sorting
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Tags: columns, admin columns, custom fields, column manager, sorting
 Requires at least: 5.9
 Tested up to: 6.7
 Requires PHP: 7.4
 Stable tag: 7.0.10
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Take control of your WordPress admin list tables. Add, remove, and reorder columns for posts, users, media, and more — no coding needed.
 
@@ -34,7 +32,7 @@ Admin Columns greatly enhances your WordPress installation. Whether you're runni
 To give you some insight into the great amount of possibilities Admin Columns offers to enhance your (or your client's) WordPress admin panel, be sure to check out the screenshots!
 
 = Sortable, filterable and editable columns & import/export =
-All of the new columns support sorting on all screens, and many of them support filtering. Another great feature is direct editing: it allows you to directly edit all types of data (including titles, featured images, custom fields and taxonomies) directly from the posts overview. These features are only available with [Admin Columns Pro](https://www.admincolumns.com)! Admin Columns Pro also allows you to import and export your column setup, and it allows you to save your columns to PHP, so you (and your clients) don't have to worry about the admin interface!
+All the new columns support sorting on all screens, and many of them support filtering. Another great feature is direct editing: it allows you to directly edit all types of data (including titles, featured images, custom fields and taxonomies) directly from the posts overview. These features are only available with [Admin Columns Pro](https://www.admincolumns.com)! Admin Columns Pro also allows you to import and export your column setup, and it allows you to save your columns to PHP, so you (and your clients) don't have to worry about the admin interface!
 
 = Third party plugin integration =
 Admin Columns works perfectly with just about all external plugins with custom columns. Examples include Yoast SEO (SEO columns), WooCommerce, Advanced Custom Fields, Types and Pods. Not only can you reorganize the custom columns added by these plugins, you can also add custom columns provided by Admin Columns in the overview!
@@ -248,229 +246,4 @@ Release Date: February 16th, 2026
 * [Improved] Deprecated the Admin Columns helper function 'ac_helper'.
 * [Removed] Removed the hook ac/column/types/pro in favor of ac/column/types.
 
-= 7.0.9 =
-Release Date: February 4th, 2026
-
-* [Fixed] Various code optimizations and minor improvements, including stricter type handling.
-
-= 7.0.8 =
-Release Date: February 2nd, 2026
-
-* [Fixed] Resolved an issue where original WordPress default columns were stored incorrectly.
-* [Fixed] Fixed an issue where images in custom field columns did not always display correctly, depending on how they were stored.
-* [Added] Added a setting for image, media, post, and user custom fields to control the number of items displayed.
-* [Improved] Renamed and reordered the date format settings for custom field column to make the stored date format clearer (with an improved tooltip).
-
-= 7.0.7 =
-Release Date: January 30th, 2026
-
-* [Fixed] Fixed an error with the "Image Sizes" setting.
-
-= 7.0.6 =
-Release Date: January 28th, 2026
-
-* [Fixed] Prevented a fatal error when retrieving the total items count if $wp_list_table is not a WP_List_Table instance.
-* [Fixed] Fixed a WordPress VIP icon font issue.
-* [Improved] Optimized performance and memory usage when retrieving table views.
-* [Improved] The value rendering hook now also triggers when the value is empty.
-
-= 7.0.5 =
-Release Date: January 27th, 2026
-
-* [Improved] We added 'get_post_type' and 'get_meta_type' to the CustomFieldContext class
-* [Fixed] The `EditorColumns` URI was incorrectly added to the WP_Admin_Bar object which could cause an error
-
-= 7.0.4 =
-Release Date: January 21st, 2026
-
-* [Fixed] Fixed PHP 8.4 deprecation messages
-* [Fixed] User link setting did not work correctly and linked to the wrong page
-* [Updated] Context class for Hooks extended with method to retrieve all settings
-* [Updated] Database update: fix for possible incorrect column 'name' properties
-
-= 7.0.3 =
-Release Date: January 16th, 2026
-
-* [Fixed] Media Library in grid view would not load properly
-* [Updated] Changed namespace for formatter from `AC\Setting\Formatter` to `AC\Formatter`
-* [Updated] Changed namespace for context from `AC\Setting\Context` to `AC\Column\Context`
-
-= 7.0.2 =
-Release Date: January 14th, 2026
-
-* [Fixed] Error on the Media table when Grid view is active
-* [Fixed] Error in WPML string translations
-
-= 7.0.1 =
-Release Date: January 13th, 2026
-
-[Deprecated] Added a deprecated function `get_singular_label()` to the AC\ListScreen class
-[Deprecated] Added a deprecated function `set_text()` to the AC\Table\Button class
-
-= 7.0.0 =
-Release Date: January 12th, 2026
-
-* [Important] Version numbering jumped ahead to 7.0 to align with the Pro version.
-* [Breaking] Custom columns created for versions below 7.0 are no longer compatible and must be rewritten. (See upgrade path.)
-* [Breaking] Many hooks have been renamed or modified to fit the new architecture and to prevent fatal errors.
-* [Improved] Completely new design and interface for the settings pages.
-
-= 4.7.18 =
-Release Date: September 22nd, 2025
-
-* [Improved] Prepared backward compatibility for upcoming 7.0 release
-
-= 4.7.17 =
-Release Date: August 27th, 2025
-
-* [Fixed] Security fixes (Axios update)
-
-= 4.7.16 =
-Release Date: June 17th, 2025
-
-* [Fixed] Cache optimization
-
-= 4.7.15 =
-Release Date: June 16th, 2025
-
-* [Fixed] Better null check for options to prevent PHP 8.3 issues
-* [Improved] Small UI changes in the admin view
-
-= 4.7.14 =
-Release Date: April 30th, 2025
-
-* [Improved] Column values with modals can now contain extra links
-
-= 4.7.13 =
-Release Date: March 19th, 2025
-
-* [Improved] Compacter display of the Value modal of the Images column
-
-= 4.7.12 =
-Release Date: March 12th, 2025
-
-* [Fixed] Corruption issues affecting certain languages in the core.
-
-= 4.7.11 =
-Release Date: March 3rd, 2025
-
-* [Updated] Axios library updates because of know security issues with older version
-
-= 4.7.10 =
-Release Date: January 7th, 2025
-
-* [Fixed] Prevent conflicting classnames for generated column names
-
-= 4.7.9 =
-Release Date: November 5th, 2024
-
-* [Improved] Better edit term link with taxonomy as parameter
-
-= 4.7.8 =
-Release Date: October 1st, 2024
-
-* [Improved] WordPress tested up to 6.6.2
-
-= 4.7.7 =
-Release Date: June 10th, 2024
-
-* [Fixed] Gravity Forms column no longer relies on namespace check
-
-= 4.7.6 =
-Release Date: June 4th, 2024
-
-* [Fixed] Custom Field column with Post as Display value could give an error
-
-= 4.7.5 =
-Release Date: April 14th, 2024
-
-* [Fixed] SVG Support in image columns
-
-= 4.7.4 =
-Release Date: March 4th, 2024
-
-* [Fixed] The Custom Field column setting gave an error when using the text field hook
-
-= 4.7.3 =
-Release Date: February 6th, 2024
-
-* [Improved] Better loading of available integrations
-
-= 4.7.2 =
-Release Date: January 16th, 2024
-
-* [Fixed] Fatal error when Restoring the settings in the Settings tab
-
-= 4.7.1 =
-Release Date: January 9th, 2024
-
-* [Fixed] When the edit columns button was disabled, a styled container was displayed
-
-= 4.7 =
-Release Date: December 6th, 2023
-
-* [Improved] It is now possible to choose how dates are stored in the Custom Field column
-* [Improved] Webp images are not recognized for the custom field column
-* [Fixed] Fixed an issue where non-existing terms could cause an error on the column settings page
-
-
-= 4.6.9 =
-Release Date: October 2nd, 2023
-
-* [Fixed] URLs for Terms in Taxonomy columns were incorrect
-
-= 4.6.8 =
-Release Date: September 19th, 2023
-
-* [Improved] Taxonomy Helper fixes and improvements
-
-= 4.6.7 =
-Release Date: August 25th, 2023
-
-* [Fixed] Error when adding the 'Last Modified Author' column
-
-= 4.6.6 =
-Release Date: August 21st, 2023
-
-* [Improved] Give better feedback when the settings could not be saved because of missing database tables
-* [Fixed] Error on the WPML string translation page
-* [Fixed] Some custom columns could give a fatal error on the settings page
-
-= 4.6.5 =
-Release Date: August 15th, 2023
-
-* [Added] New hook to disable Admin Columns for certain list tables `ac/list_screen/is_active`
-* [Added] New hook to disable Admin Columns for certain list tables based on keys `ac/list_screen/key/is_active`
-* [Improved] The Preview Column now also show a preview for video and audio files
-* [Fixed] The hook `ac/post_types` works again to disable Admin Columns for specific post types
-
-= 4.6.4 =
-Release Date: May 25th, 2023
-
-* [MLA] Media Library Assistant columns were not loaded correctly
-
-= 4.6.3 =
-Release Date: April 26th, 2023
-
-* [Fixed] Fixed the array helper that could throw an error when an array contained an object
-* [Fixed] Re-added deprecated register_group function to prevent fatal errors for third-party plugins
-
-= 4.6.2 =
-Release Date: April 25th, 2023
-
-* [Improved] Minor changes
-
-= 4.6.1 =
-Release Date: February 22nd, 2023
-
-* [Added] Integration for Media Library Assistant
-
-= 4.6 =
-Release Date: November 30th, 2022
-
-* [Improved] Styling for dynamic select boxes is improved
-* [Improved] The date column setting has some minor UI improvements
-
-= Older releases =
-
-For the full changelog, visit [admincolumns.com/changelog](https://www.admincolumns.com/changelog/).
+[See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).

@@ -2,9 +2,11 @@
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Tags: columns, admin columns, custom fields, column manager, sorting
 Requires at least: 5.9
-Tested up to: 6.9.1
+Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 7.0.11
+Stable tag: 7.0.10
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Take control of your WordPress admin list tables. Add, remove, and reorder columns for posts, users, media, and more — no coding needed.
 
@@ -36,7 +38,7 @@ Admin Columns turns them into powerful management screens where you can instantl
 
 Examples:
 
-* See **featured images, custom fields and taxonomies** directly in the post list table
+* See **featured images, custom fields and taxonomies** directly in the post overview
 * Display **media file size, dimensions or EXIF data**
 * View **user metadata and roles** in the users screen
 * Organize large content libraries quickly
@@ -58,7 +60,7 @@ Common workflows include:
 Upgrade to **Admin Columns Pro** to unlock powerful workflow features. Pro allows you to:
 
 * **Sort columns** – quickly find the content you need
-* **Filter content** – narrow down large content lists
+* **Filter content** – narrow down large content lists with our stackable smart filters
 * **Inline edit data** – edit titles, custom fields, taxonomies and more directly from the list table
 * **Bulk edit data** – update multiple items at once directly from the list table
 * **Conditional formatting** – highlight rows and cells based on rules to spot important content at a glance
@@ -108,15 +110,13 @@ These field types ensure that your metadata is displayed in a clear and readable
 
 = Docs & Support =
 
-Is this your first time using Admin Columns?
-
-Check out our documentation and guides:
+Is this your first time using Admin Columns? Check out our documentation and guides:
 
 [Documentation](https://docs.admincolumns.com/)
 [Getting Started](https://docs.admincolumns.com/category/16-getting-started)
 [Developer documentation](https://docs.admincolumns.com/category/75-developer)
 
-Need help? Please visit the Admin Columns support forums.
+Need help? Please visit the Admin Columns [support forums](http://admincolumns.com/support).
 
 = Translations =
 
@@ -126,10 +126,7 @@ You can contribute translations on [WordPress.org](https://translate.wordpress.o
 
 = Feedback & Feature Requests =
 
-Have ideas or suggestions?
-
-Let us know on our website:
-https://www.admincolumns.com/support/
+Have ideas or suggestions? Submit it to our [public roadmap](https://www.admincolumns.com/public-roadmap/)
 
 == Frequently Asked Questions ==
 
@@ -163,11 +160,24 @@ Developers can extend Admin Columns using many actions and filters. You can find
 
 https://www.admincolumns.com/documentation/#filter-reference
 
+== Screenshots ==
+
+1. Column settings page for post types — drag and drop to reorder, configure each column's display options.
+2. Posts list screen with customized columns showing exactly the data you need.
+3. Column settings page for the Media Library.
+4. Media Library with custom columns for dimensions, file size, EXIF data, and more.
+5. Column settings page for the Users screen.
+6. Users list with custom columns for roles, post counts, and custom fields.
+7. Custom field column configuration — choose from color, date, image, number, URL, and more display types.
+8. Posts list showing multiple custom field columns with formatted values.
+
 == Changelog ==
 
-= 7.0.12 =
-Release Date: March 4th, 2026
+= 7.0.10 =
+Release Date: February 16th, 2026
 
-* [Improved] The Title Only column on the Media list table now displays both the post title and the filename.
+* [Improved] String limit setting added to Media Caption column
+* [Improved] Deprecated the Admin Columns helper function 'ac_helper'.
+* [Removed] Removed the hook ac/column/types/pro in favor of ac/column/types.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
