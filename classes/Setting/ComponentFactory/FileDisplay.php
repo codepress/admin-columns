@@ -1,0 +1,75 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AC\Setting\ComponentFactory;
+
+use AC\Expression\StringComparisonSpecification;
+use AC\FormatterCollection;
+use AC\Setting\Children;
+use AC\Setting\Component;
+use AC\Setting\ComponentCollection;
+use AC\Setting\Config;
+use AC\Setting\Control\Input;
+use AC\Setting\Control\Input\Number;
+use AC\Setting\Control\OptionCollection;
+
+abstract class FileDisplay extends BaseComponentFactory
+{
+
+    protected function get_label(Config $config): ?string
+    {
+        return __('Show as', 'codepress-admin-columns');
+    }
+
+    protected function get_input(Config $config): ?Input
+    {
+        return Input\OptionFactory::create_select(
+            'file_display',
+            OptionCollection::from_array([
+                ''        => __('Filename', 'codepress-admin-columns'),
+                'preview' => __('Preview', 'codepress-admin-columns'),
+            ]),
+            (string)$config->get('file_display', '')
+        );
+    }
+
+    protected function get_children(Config $config): ?Children
+    {
+        $width = $config->has('file_preview_w') ? (int)$config->get('file_preview_w') : 80;
+        $height = $config->has('file_preview_h') ? (int)$config->get('file_preview_h') : 80;
+
+        return new Children(
+            new ComponentCollection([
+                new Component(
+                    __('Link to', 'codepress-admin-columns'),
+                    null,
+                    Input\OptionFactory::create_select(
+                        'file_link_to',
+                        OptionCollection::from_array([
+                            ''         => __('View file', 'codepress-admin-columns'),
+                            'download' => __('Download file', 'codepress-admin-columns'),
+                            'edit'     => __('Edit file', 'codepress-admin-columns'),
+                        ]),
+                        (string)$config->get('file_link_to', '')
+                    ),
+                    StringComparisonSpecification::equal('')
+                ),
+                new Component(
+                    __('Width', 'codepress-admin-columns'),
+                    null,
+                    Number::create_single_step('file_preview_w', 0, null, $width),
+                    StringComparisonSpecification::equal('preview')
+                ),
+                new Component(
+                    __('Height', 'codepress-admin-columns'),
+                    null,
+                    Number::create_single_step('file_preview_h', 0, null, $height),
+                    StringComparisonSpecification::equal('preview')
+                ),
+            ]),
+            true
+        );
+    }
+
+}
