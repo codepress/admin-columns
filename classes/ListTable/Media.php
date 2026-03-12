@@ -59,7 +59,7 @@ class Media implements ListTable
             $GLOBALS['post'] = $post;
         }
 
-        $authordata = get_userdata($post->post_author) ?: null;
+        $authordata = get_userdata((int)$post->post_author) ?: null;
 
         ob_start();
 

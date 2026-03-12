@@ -24,9 +24,6 @@ class Json
         $this->parameters = $parameters;
     }
 
-    /**
-     * @return never
-     */
     public function send(): void
     {
         if (empty($this->parameters)) {
