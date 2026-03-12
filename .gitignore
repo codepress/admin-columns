@@ -7,6 +7,8 @@ Icon
 ehthumbs.d*
 Thumbs.d*
 /.idea*
+/.vscode
+/.claude
 
 # Project specific
 *.scssc
