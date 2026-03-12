@@ -397,8 +397,8 @@ class Query
      */
     public function get_sql(): string
     {
-        $sql = preg_replace('/ +/', ' ', $this->sql);
-        $sql = preg_replace(
+        $sql = (string) preg_replace('/ +/', ' ', $this->sql);
+        $sql = (string) preg_replace(
             '/(SELECT|FROM|LEFT|INNER|WHERE|(AND|OR) \(|(AND|OR) (?!\()|ORDER BY|GROUP BY|LIMIT)/',
             "\n$1",
             $sql

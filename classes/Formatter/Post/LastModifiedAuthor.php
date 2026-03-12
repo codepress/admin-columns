@@ -13,7 +13,7 @@ class LastModifiedAuthor implements Formatter
 
     public function format(Value $value): Value
     {
-        $user_id = get_post_meta($value->get_id(), '_edit_last', true);
+        $user_id = (int) get_post_meta($value->get_id(), '_edit_last', true);
 
         if ( ! get_userdata($user_id)) {
             throw new ValueNotFoundException();

@@ -69,7 +69,7 @@ class Media extends Creatable
                 } else {
                     // Make sure the found image is in the same folder as the original
                     foreach ($image_ids as $_image_id) {
-                        if (0 === strpos(get_post_meta($_image_id, '_wp_attached_file', true), $relative_upload_dir)) {
+                        if (0 === strpos((string) get_post_meta($_image_id, '_wp_attached_file', true), $relative_upload_dir)) {
                             $image_id = $_image_id;
                         }
                     }
