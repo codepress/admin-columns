@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Setting\ComponentFactory;
 
 use AC\Setting\Config;

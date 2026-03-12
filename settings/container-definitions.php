@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use AC\Admin;
 use AC\Admin\PageRequestHandlers;
 use AC\Admin\View;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Storage\Repository;
 
 use AC\Preferences\Preference;

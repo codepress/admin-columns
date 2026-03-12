@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use AC\Column;
 use AC\Exception\HookTimingException;
 use AC\ListScreen;

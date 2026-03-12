@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use AC\Type\Url\Documentation;
 
 $url = (new Documentation(Documentation::ARTICLE_SHOW_ALL_SORTING_RESULTS))->get_url();

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @var string $background_color
  * @var string $color

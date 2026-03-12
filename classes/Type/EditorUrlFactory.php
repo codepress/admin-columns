@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Type;
 
 use AC\Type\Url\EditorColumns;

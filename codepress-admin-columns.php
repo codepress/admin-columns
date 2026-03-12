@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
 Plugin Name: Admin Columns
 Version: 7.0.11

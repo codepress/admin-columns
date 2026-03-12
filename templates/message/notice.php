@@ -1,12 +1,14 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+declare(strict_types=1);
+
+if ( ! defined('ABSPATH')) {
+    exit;
 }
 
 ?>
-<div class="ac-notice notice <?php echo esc_attr( $this->type . ' ' . $this->id ); ?>">
+<div class="ac-notice notice <?= esc_attr($this->type . ' ' . $this->id); ?>">
 	<div class="ac-notice__body">
-		<?php echo $this->message; ?>
+        <?= $this->message ?>
 	</div>
 </div>

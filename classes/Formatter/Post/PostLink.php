@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Formatter\Post;
 
 use AC\Exception\ValueNotFoundException;
