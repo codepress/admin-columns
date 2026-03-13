@@ -1,9 +1,15 @@
 == Changelog ==
 
 = 7.0.12 =
-Release Date: March 4th, 2026
+Release Date: TBD
 
+* [Added] New "Auto Detect" option for the date save format setting.
+* [Added] New "File Display" setting for file columns with filename and preview options.
+* [Added] New `ac/init` action hook for accessing the DI container after plugin initialization.
 * [Improved] The Title Only column on the Media list table now displays both the post title and the filename.
+* [Improved] Before/After text settings now correctly apply to ID columns.
+* [Fixed] Fixed dropdown menus closing unexpectedly when clicked.
+* [Fixed] Fixed potential errors when displaying columns for deleted posts, users, or terms.
 
 = 7.0.11 =
 Release Date: March 2nd, 2026

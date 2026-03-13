@@ -203,8 +203,13 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 = 7.0.12 =
 Release Date: TBD
 
+* [Added] New "Auto Detect" option for the date save format setting.
+* [Added] New "File Display" setting for file columns with filename and preview options.
+* [Added] New `ac/init` action hook for accessing the DI container after plugin initialization.
 * [Improved] The Title Only column on the Media list table now displays both the post title and the filename.
-* [Fixed] The before and after fields are now correctly applied to the Post ID column.
+* [Improved] Before/After text settings now correctly apply to ID columns.
+* [Fixed] Fixed dropdown menus closing unexpectedly when clicked.
+* [Fixed] Fixed potential errors when displaying columns for deleted posts, users, or terms.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 
