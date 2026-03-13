@@ -13,7 +13,7 @@ use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\Number;
 use AC\Setting\Control\OptionCollection;
 
-abstract class FileDisplay extends BaseComponentFactory
+final class FileDisplay extends BaseComponentFactory
 {
 
     private FileLink $file_link_factory;
@@ -25,7 +25,7 @@ abstract class FileDisplay extends BaseComponentFactory
 
     protected function get_label(Config $config): ?string
     {
-        return __('Show as', 'codepress-admin-columns');
+        return __('File Display', 'codepress-admin-columns');
     }
 
     protected function get_input(Config $config): ?Input
