@@ -210,6 +210,7 @@ Release Date: TBD
 * [Improved] Before/After text settings now correctly apply to ID columns.
 * [Fixed] Fixed dropdown menus closing unexpectedly when clicked.
 * [Fixed] Fixed potential errors when displaying columns for deleted posts, users, or terms.
+* [Fixed] Resolved errors and deprecation warnings when running on PHP 8.4.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 
