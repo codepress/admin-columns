@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\StringComparisonSpecification;
-use AC\FormatterCollection;
 use AC\Setting\Children;
 use AC\Setting\Component;
 use AC\Setting\ComponentCollection;
@@ -16,6 +15,13 @@ use AC\Setting\Control\OptionCollection;
 
 abstract class FileDisplay extends BaseComponentFactory
 {
+
+    private FileLink $file_link_factory;
+
+    public function __construct(FileLink $file_link_factory)
+    {
+        $this->file_link_factory = $file_link_factory;
+    }
 
     protected function get_label(Config $config): ?string
     {
@@ -41,18 +47,8 @@ abstract class FileDisplay extends BaseComponentFactory
 
         return new Children(
             new ComponentCollection([
-                new Component(
-                    __('Link to', 'codepress-admin-columns'),
-                    null,
-                    Input\OptionFactory::create_select(
-                        'file_link_to',
-                        OptionCollection::from_array([
-                            ''         => __('View file', 'codepress-admin-columns'),
-                            'download' => __('Download file', 'codepress-admin-columns'),
-                            'edit'     => __('Edit file', 'codepress-admin-columns'),
-                        ]),
-                        (string)$config->get('file_link_to', '')
-                    ),
+                $this->file_link_factory->create(
+                    $config,
                     StringComparisonSpecification::equal('')
                 ),
                 new Component(
