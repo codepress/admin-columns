@@ -1,21 +1,21 @@
 {
-  "autoload": {
-    "psr-4": {
-      "AC\\": "classes/"
+    "autoload": {
+        "psr-4": {
+            "AC\\": "classes/"
+        }
+    },
+    "config": {
+        "autoloader-suffix": "AdminColumns",
+        "platform": {
+            "php": "7.4.33"
+        }
+    },
+    "require": {
+        "php-di/php-di": "^6.4"
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "@php ../build/app.php prefix"
+        ]
     }
-  },
-  "config": {
-    "autoloader-suffix": "AdminColumns",
-    "platform": {
-      "php": "7.4.33"
-    }
-  },
-  "require": {
-    "php-di/php-di": "^6.3.5"
-  },
-  "scripts": {
-    "post-update-cmd": [
-      "@php ../build/app.php prefix"
-    ]
-  }
 }

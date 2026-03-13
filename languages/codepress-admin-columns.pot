@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-03-02 09:26+0000\n"
+"POT-Creation-Date: 2026-03-13 19:14+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/ColumnGroups.php:18, classes/Response/JsonListScreenSettingsFactory.php:70, classes/RequestHandler/Ajax/CustomFieldKeys.php:74, classes/Setting/ComponentFactory/FieldType.php:148, classes/Setting/ComponentFactory/ImageSize.php:86, classes/Setting/ComponentFactory/Separator.php:32, classes/Setting/ComponentFactory/UserProperty.php:134, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:21, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:17
+#: classes/ColumnGroups.php:18, classes/Response/JsonListScreenSettingsFactory.php:70, classes/RequestHandler/Ajax/CustomFieldKeys.php:74, classes/Setting/ComponentFactory/FieldType.php:148, classes/Setting/ComponentFactory/ImageSizeBase.php:115, classes/Setting/ComponentFactory/Separator.php:32, classes/Setting/ComponentFactory/UserProperty.php:134, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:21, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:17
 msgid "Default"
 msgstr ""
 
@@ -52,7 +52,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: classes/ColumnGroups.php:28, classes/Setting/ComponentFactory/FieldType.php:143, classes/Setting/ComponentFactory/ImageSize.php:119
+#: classes/ColumnGroups.php:28, classes/Setting/ComponentFactory/FieldType.php:143, classes/Setting/ComponentFactory/ImageSizeBase.php:128
 msgid "Custom"
 msgstr ""
 
@@ -88,12 +88,12 @@ msgstr ""
 msgid "Instructions"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:63
+#: classes/Check/AddonAvailable.php:68
 msgid "Did you know Admin Columns Pro has full support for %s?"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:70, classes/Admin/Asset/Columns.php:260
-msgid "Get Admin Columns Pro"
+#: classes/Check/AddonAvailable.php:74
+msgid "Get Admin Columns Pro with 10% discount"
 msgstr ""
 
 #: classes/Check/Review.php:115, classes/Table/Screen.php:90, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17
@@ -172,7 +172,7 @@ msgstr ""
 msgid "Admin Columns Pro offers full support for %s, allowing you to easily manage %s fields for your overviews."
 msgstr ""
 
-#: classes/ColumnFactory/IntegrationPlaceholder.php:62
+#: classes/ColumnFactory/IntegrationPlaceholder.php:61
 msgid "Find out more"
 msgstr ""
 
@@ -730,6 +730,10 @@ msgstr ""
 msgid "Includes special integrations for:"
 msgstr ""
 
+#: classes/Admin/Asset/Columns.php:260
+msgid "Get Admin Columns Pro"
+msgstr ""
+
 #: classes/Admin/Asset/Columns.php:261
 msgid "Get %s Off!"
 msgstr ""
@@ -1128,7 +1132,7 @@ msgstr ""
 msgid "Video Meta"
 msgstr ""
 
-#: classes/ColumnFactory/Media/FileNameFactory.php:23
+#: classes/ColumnFactory/Media/FileNameFactory.php:23, classes/Setting/ComponentFactory/FileDisplay.php:37
 msgid "Filename"
 msgstr ""
 
@@ -1140,7 +1144,7 @@ msgstr ""
 msgid "File Path"
 msgstr ""
 
-#: classes/ColumnFactory/Media/HeightFactory.php:23, classes/Setting/ComponentFactory/ImageSize.php:70, classes/Setting/ComponentFactory/Media/FileMetaVideo.php:36
+#: classes/ColumnFactory/Media/HeightFactory.php:23, classes/Setting/ComponentFactory/ImageSizeBase.php:70, classes/Setting/ComponentFactory/Media/FileMetaVideo.php:36
 msgid "Height"
 msgstr ""
 
@@ -1148,7 +1152,7 @@ msgstr ""
 msgid "Mime Type"
 msgstr ""
 
-#: classes/ColumnFactory/Media/PreviewFactory.php:23, classes/Setting/ComponentFactory/NumberFormat.php:72
+#: classes/ColumnFactory/Media/PreviewFactory.php:23, classes/Setting/ComponentFactory/FileDisplay.php:38, classes/Setting/ComponentFactory/NumberFormat.php:72
 msgid "Preview"
 msgstr ""
 
@@ -1156,7 +1160,7 @@ msgstr ""
 msgid "Video Player"
 msgstr ""
 
-#: classes/ColumnFactory/Media/WidthFactory.php:23, classes/Setting/ComponentFactory/ImageSize.php:59, classes/Setting/ComponentFactory/Width.php:27, classes/Setting/ComponentFactory/Media/FileMetaVideo.php:39
+#: classes/ColumnFactory/Media/WidthFactory.php:23, classes/Setting/ComponentFactory/ImageSizeBase.php:64, classes/Setting/ComponentFactory/Width.php:27, classes/Setting/ComponentFactory/Media/FileMetaVideo.php:39
 msgid "Width"
 msgstr ""
 
@@ -1264,7 +1268,7 @@ msgstr ""
 msgid "Taxonomy"
 msgstr ""
 
-#: classes/ColumnFactory/Post/TitleRawFactory.php:42
+#: classes/ColumnFactory/Post/TitleRawFactory.php:44
 msgid "Title Only"
 msgstr ""
 
@@ -1376,15 +1380,15 @@ msgstr ""
 msgid "Height : %s px"
 msgstr ""
 
-#: classes/Formatter/Post/ExcerptMissingMessage.php:40
+#: classes/Formatter/Post/ExcerptMissingMessage.php:41
 msgid "Excerpt is missing."
 msgstr ""
 
-#: classes/Formatter/Post/ExcerptMissingMessage.php:41
+#: classes/Formatter/Post/ExcerptMissingMessage.php:42
 msgid "Current excerpt is generated from the content."
 msgstr ""
 
-#: classes/Formatter/Post/ExcerptMissingMessage.php:50
+#: classes/Formatter/Post/ExcerptMissingMessage.php:51
 msgid "auto-generated"
 msgstr ""
 
@@ -1576,27 +1580,31 @@ msgstr ""
 msgid "WordPress Date Format"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:21
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:22
 msgid "Stored Date Format"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:26
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:27
 msgid "This is the format in which dates are stored and saved (also used for sorting, filtering, and editing)."
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:34, classes/Setting/ComponentFactory/FieldType.php:171
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:36
+msgid "Auto Detect"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:39, classes/Setting/ComponentFactory/FieldType.php:171
 msgid "Date"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:39
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:44
 msgid "Datetime"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:44, classes/Setting/ComponentFactory/ExifData.php:62
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:49, classes/Setting/ComponentFactory/ExifData.php:62
 msgid "Timestamp"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:45
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:50
 msgid "seconds"
 msgstr ""
 
@@ -1708,32 +1716,56 @@ msgstr ""
 msgid "Serialized"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:25
+#: classes/Setting/ComponentFactory/FileDisplay.php:29
+msgid "File Display"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/FileLink.php:19, classes/Setting/ComponentFactory/MediaLink.php:21, classes/Setting/ComponentFactory/PostLink.php:28
+msgid "Link to"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/FileLink.php:27
+msgid "View file"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/FileLink.php:28
+msgid "Download file"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/FileLink.php:29
+msgid "Edit file"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/FilePreviewSize.php:34
+msgid "Preview size"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/ImageSize.php:31
 msgid "Image size"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:89
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:118
 msgid "Thumbnail"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:90
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:119
 msgid "Medium"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:91
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:120
 msgid "Large"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:92
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:121
 msgid "Full Size"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:95
-msgid "Others"
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:126
+msgid "Custom Size"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:117
-msgid "Custom Size"
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:132
+msgid "Others"
 msgstr ""
 
 #: classes/Setting/ComponentFactory/IncludeMissingSizes.php:16
@@ -1774,10 +1806,6 @@ msgstr ""
 
 #: classes/Setting/ComponentFactory/LinkToMenu.php:21
 msgid "This will make the title link to the menu."
-msgstr ""
-
-#: classes/Setting/ComponentFactory/MediaLink.php:21, classes/Setting/ComponentFactory/PostLink.php:28
-msgid "Link to"
 msgstr ""
 
 #: classes/Setting/ComponentFactory/ModalDisplay.php:38
