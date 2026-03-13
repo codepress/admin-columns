@@ -121,6 +121,14 @@ abstract class ImageSizeBase extends BaseComponentFactory
             new Option(__('Full Size', 'codepress-admin-columns'), 'full', $default_group),
         ]);
 
+        $options->add(
+            new Option(
+                __('Custom Size', 'codepress-admin-columns'),
+                'cpac-custom',
+                __('Custom', 'codepress-admin-columns')
+            )
+        );
+
         $custom_group = __('Others', 'codepress-admin-columns');
 
         foreach (get_intermediate_image_sizes() as $size) {
@@ -140,14 +148,6 @@ abstract class ImageSizeBase extends BaseComponentFactory
                 )
             );
         }
-
-        $options->add(
-            new Option(
-                __('Custom Size', 'codepress-admin-columns'),
-                'cpac-custom',
-                __('Custom', 'codepress-admin-columns')
-            )
-        );
 
         return $this->append_dimensions($options);
     }
