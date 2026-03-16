@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-03-02 09:26+0000\n"
+"POT-Creation-Date: 2026-03-16 06:25+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -88,12 +88,12 @@ msgstr ""
 msgid "Instructions"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:63
+#: classes/Check/AddonAvailable.php:68
 msgid "Did you know Admin Columns Pro has full support for %s?"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:70, classes/Admin/Asset/Columns.php:260
-msgid "Get Admin Columns Pro"
+#: classes/Check/AddonAvailable.php:74
+msgid "Get Admin Columns Pro with 10% discount"
 msgstr ""
 
 #: classes/Check/Review.php:115, classes/Table/Screen.php:90, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17
@@ -172,7 +172,7 @@ msgstr ""
 msgid "Admin Columns Pro offers full support for %s, allowing you to easily manage %s fields for your overviews."
 msgstr ""
 
-#: classes/ColumnFactory/IntegrationPlaceholder.php:62
+#: classes/ColumnFactory/IntegrationPlaceholder.php:61
 msgid "Find out more"
 msgstr ""
 
@@ -728,6 +728,10 @@ msgstr ""
 
 #: classes/Admin/Asset/Columns.php:259, classes/Admin/Asset/Columns.php:269
 msgid "Includes special integrations for:"
+msgstr ""
+
+#: classes/Admin/Asset/Columns.php:260
+msgid "Get Admin Columns Pro"
 msgstr ""
 
 #: classes/Admin/Asset/Columns.php:261
