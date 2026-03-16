@@ -6,6 +6,7 @@ namespace AC\Formatter\Post;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class CommentsForPostLink implements Formatter
@@ -26,7 +27,7 @@ class CommentsForPostLink implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $link = ac_helper()->html->link(
+        $link = Helper\Html::create()->link(
             add_query_arg(
                 [
                     'p'              => $value->get_id(),

@@ -10,6 +10,7 @@ use AC\Collection\ColumnFactories;
 use AC\Column\LabelEncoder;
 use AC\ColumnCollection;
 use AC\ColumnFactories\Aggregate;
+use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Nonce;
@@ -137,7 +138,7 @@ class ListScreenSave implements RequestAjaxHandler
                         __('Settings for %s updated successfully.', 'codepress-admin-columns'),
                         sprintf('<strong>%s</strong>', esc_html($list_screen->get_title() ?: $list_screen->get_label()))
                     ),
-                    ac_helper()->html->link(
+                    Helper\Html::create()->link(
                         (string)$list_screen->get_table_url(),
                         sprintf(__('View %s screen', 'codepress-admin-columns'), $list_screen->get_label())
                     )

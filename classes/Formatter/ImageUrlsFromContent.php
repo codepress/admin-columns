@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter;
 
 use AC;
+use AC\Helper;
 use AC\Type\Value;
 use AC\Type\ValueCollection;
 
@@ -27,7 +28,7 @@ class ImageUrlsFromContent implements AC\Formatter
             $this->context
         );
 
-        $urls = array_unique(ac_helper()->image->get_image_urls_from_string($string));
+        $urls = array_unique(Helper\Image::create()->get_image_urls_from_string($string));
 
         if (empty($urls)) {
             throw AC\Exception\ValueNotFoundException::from_id($value->get_id());

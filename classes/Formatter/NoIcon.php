@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter;
 
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class NoIcon implements Formatter
@@ -19,7 +20,7 @@ class NoIcon implements Formatter
 
     public function format(Value $value): Value
     {
-        return $value->with_value(ac_helper()->icon->no(null, null, $this->class));
+        return $value->with_value(Helper\Icon::create()->no(null, null, $this->class));
     }
 
 }

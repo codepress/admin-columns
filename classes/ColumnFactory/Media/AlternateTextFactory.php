@@ -29,11 +29,7 @@ class AlternateTextFactory extends BaseColumnFactory
 
     protected function get_formatters(Config $config): FormatterCollection
     {
-        $formatters = parent::get_formatters($config);
-
-        $formatters->add(new Meta('_wp_attachment_image_alt'));
-
-        return $formatters;
+        return parent::get_formatters($config)->add(new Meta('_wp_attachment_image_alt'));
     }
 
 }

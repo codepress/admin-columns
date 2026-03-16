@@ -20,6 +20,11 @@ class Media implements ListTable
         // populate globals
         $global_post = get_post();
         $post = get_post((int)$row_id);
+
+        if ( ! $post) {
+            return '';
+        }
+
         setup_postdata($post);
         $GLOBALS['post'] = $post;
 
@@ -41,16 +46,22 @@ class Media implements ListTable
         // Author column depends on this global to be set.
         global $authordata;
 
-        // Title for some columns can only be retrieved when post is set globally
-        if ( ! isset($GLOBALS['post'])) {
-            $GLOBALS['post'] = get_post($id);
+        $post = get_post($id);
+
+        if ( ! $post) {
+            return '';
         }
 
-        $authordata = get_userdata(get_post_field('post_author', $id));
+        // Title for some columns can only be retrieved when post is set globally
+        if ( ! isset($GLOBALS['post'])) {
+            $GLOBALS['post'] = $post;
+        }
+
+        $authordata = get_userdata($post->post_author) ?: null;
 
         ob_start();
 
-        $this->table->single_row(get_post($id));
+        $this->table->single_row($post);
 
         return ob_get_clean();
     }

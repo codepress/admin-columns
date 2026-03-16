@@ -6,6 +6,7 @@ namespace AC\Formatter;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 use AC\Type\ValueCollection;
 
@@ -59,7 +60,7 @@ class ImageToCollection implements Formatter
 
     private function filter_urls(array $urls): array
     {
-        return array_filter($urls, [ac_helper()->string, 'is_image']);
+        return array_filter($urls, [Helper\Strings::create(), 'is_image']);
     }
 
     private function parse_string(string $value): array

@@ -5,12 +5,12 @@ namespace AC\Helper;
 use DOMDocument;
 use DOMElement;
 
-class Html
+class Html extends Creatable
 {
 
     public function get_attribute_as_string(string $key, ?string $value = null): string
     {
-        return ac_helper()->string->is_not_empty($value)
+        return Strings::create()->is_not_empty($value)
             ? sprintf('%s="%s"', $key, esc_attr(trim($value)))
             : $key;
     }
@@ -78,7 +78,7 @@ class Html
 
     public function tooltip(string $label, string $tooltip, array $attributes = []): string
     {
-        if (ac_helper()->string->is_not_empty($label) && $tooltip) {
+        if (Strings::create()->is_not_empty($label) && $tooltip) {
             $label = sprintf(
                 '<span %s %s>%s</span>',
                 $this->get_tooltip_attr($tooltip),
@@ -93,7 +93,7 @@ class Html
     public function codearea(string $string, int $max_chars = 1000): string
     {
         if ( ! $string) {
-            return false;
+            return '';
         }
 
         $contents = substr(
@@ -102,7 +102,7 @@ class Html
             $max_chars
         );
 
-        return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . $contents . '</textarea>';
+        return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . esc_textarea($contents) . '</textarea>';
     }
 
     private function get_attributes(array $attributes): string
@@ -178,7 +178,7 @@ class Html
 
     public function remove_empty(array $array): array
     {
-        return array_filter($array, [ac_helper()->string, 'is_not_empty']);
+        return array_filter($array, [Strings::create(), 'is_not_empty']);
     }
 
     /**
@@ -195,37 +195,6 @@ class Html
         }
 
         return implode($blocks);
-    }
-
-    public function more(array $array, int $limit = 10, string $glue = ', '): string
-    {
-        if ($limit <= 0) {
-            return implode($glue, $array);
-        }
-
-        $first_set = array_slice($array, 0, $limit);
-        $last_set = array_slice($array, $limit);
-
-        ob_start();
-
-        if ($first_set) {
-            $first = sprintf('<span class="ac-show-more__part -first">%s</span>', implode($glue, $first_set));
-            $more = $last_set ? sprintf(
-                '<span class="ac-show-more__part -more">%s%s</span>',
-                $glue,
-                implode($glue, $last_set)
-            ) : '';
-            $content = sprintf('<span class="ac-show-more__content">%s%s</span>', $first, $more);
-            $toggler = $last_set ? sprintf(
-                '<span class="ac-show-more__divider">|</span><a class="ac-show-more__toggle" data-show-more-toggle data-more="%1$s" data-less="%2$s">%1$s</a>',
-                sprintf(__('%s more', 'codepress-admin-columns'), count($last_set)),
-                strtolower(__('Hide', 'codepress-admin-columns'))
-            ) : '';
-
-            echo sprintf('<span class="ac-show-more">%s</span>', $content . $toggler);
-        }
-
-        return ob_get_clean();
     }
 
     /**
@@ -264,7 +233,7 @@ class Html
 
         foreach ($stars as $type => $_count) {
             for ($i = 1; $i <= $_count; $i++) {
-                $icons[] = ac_helper()->icon->dashicon(['icon' => 'star-' . $type, 'class' => 'ac-value-star']);
+                $icons[] = Icon::create()->dashicon(['icon' => 'star-' . $type, 'class' => 'ac-value-star']);
             }
         }
 
@@ -285,7 +254,7 @@ class Html
         }
 
         if ($removed) {
-            $html .= ac_helper()->html->rounded('+' . $removed);
+            $html .= $this->rounded('+' . $removed);
         }
 
         return '<div class="ac-image-container">' . $html . '</div>';
@@ -306,6 +275,13 @@ class Html
         _deprecated_function(__METHOD__, '7.0.9');
 
         return $html;
+    }
+
+    public function more(array $array, int $limit = 10, string $glue = ', '): string
+    {
+        _deprecated_function(__METHOD__, '7.0.11');
+
+        return implode($glue, $array);
     }
 
 }

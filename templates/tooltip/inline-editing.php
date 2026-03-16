@@ -23,13 +23,13 @@ use AC\Type\Url\Documentation;
         ); ?>
 	</p>
 	<img width="107" src="<?= esc_url(
-        ac_get_url('assets/images/tooltip/inline-edit-toggle.png')
+        $this->url . '/assets/images/tooltip/inline-edit-toggle.png'
     ) ?>" alt="Toggle Inline Edit" style="border:1px solid #ddd;">
 	<p>
 		2. <?= __('Click on the pencil icon to start editing the value of a field.', 'codepress-admin-columns'); ?>
 	</p>
 	<img src="<?= esc_url(
-        ac_get_url('assets/images/tooltip/inline-edit.png')
+        $this->url . '/assets/images/tooltip/inline-edit.png'
     ) ?>" alt="Usage of Inline Edit" width="213" style="border:1px solid #ddd;">
 	<p>
 		3. <?= __(

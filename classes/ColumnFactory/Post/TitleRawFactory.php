@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\BaseColumnFactory;
+use AC\Formatter\Append;
+use AC\Formatter\Media\FileName;
 use AC\Formatter\Post\PostTitle;
 use AC\Formatter\Wrapper;
 use AC\FormatterCollection;
@@ -53,8 +55,9 @@ class TitleRawFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->prepend(new PostTitle())
-                     ->add(new Wrapper('<span class="row-title">', '</span>'));
+            ->prepend(new PostTitle(false))
+            ->add(new Wrapper('<span class="row-title">', '</span>'))
+            ->add(new Append(new FileName(), '<br>'));
     }
 
 }

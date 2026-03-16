@@ -4,6 +4,7 @@ namespace AC\Formatter;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 
 class ImageUrl implements Formatter
@@ -32,7 +33,7 @@ class ImageUrl implements Formatter
             return wp_get_attachment_url($id_or_url) ?: null;
         }
 
-        if (is_string($id_or_url) && ac_helper()->string->is_image($id_or_url)) {
+        if (is_string($id_or_url) && Helper\Strings::create()->is_image($id_or_url)) {
             return $id_or_url;
         }
 

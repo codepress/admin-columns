@@ -2,7 +2,10 @@
 
 namespace AC\Helper;
 
-class Arrays
+use AC\Formatter\ImplodeRecursive;
+use AC\Type\Value;
+
+class Arrays extends Creatable
 {
 
     public function add_nested_value(array $keys, $value, array $result = []): array
@@ -35,21 +38,14 @@ class Arrays
         return $array;
     }
 
-    // TODO turn into Formatter
+    /**
+     * @deprecated 7.0
+     */
     public function implode_recursive(string $glue, array $pieces): string
     {
-        $scalars = [];
+        _deprecated_function(__METHOD__, '7.0', ImplodeRecursive::class);
 
-        foreach ($pieces as $piece) {
-            if (is_array($piece)) {
-                $scalars[] = $this->implode_recursive($glue, $piece);
-            }
-            if (is_scalar($piece)) {
-                $scalars[] = (string)$piece;
-            }
-        }
-
-        return implode($glue, array_filter($scalars, 'strlen'));
+        return (new ImplodeRecursive($glue))->format(new Value($pieces));
     }
 
     /**
@@ -82,7 +78,7 @@ class Arrays
      */
     public function filter(array $array): array
     {
-        return array_filter($array, [ac_helper()->string, 'is_not_empty']);
+        return array_filter($array, [Strings::create(), 'is_not_empty']);
     }
 
     /**
@@ -118,6 +114,9 @@ class Arrays
         return false;
     }
 
+    /**
+     * @deprecated 7.0
+     */
     public function get_duplicates(): array
     {
         _deprecated_function(__METHOD__, '7.0');
@@ -126,7 +125,7 @@ class Arrays
     }
 
     /**
-     * Returns all integers from an array or comma separated string
+     * @deprecated 7.0
      */
     public function get_integers_from_mixed(): array
     {
@@ -135,13 +134,9 @@ class Arrays
         return [];
     }
 
-    public function implode_associative(): string
-    {
-        _deprecated_function(__METHOD__, '5.7.1');
-
-        return '';
-    }
-
+    /**
+     * @deprecated 7.0
+     */
     public function key_replace(): array
     {
         _deprecated_function(__METHOD__, '7.0');

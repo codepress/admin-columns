@@ -44,8 +44,9 @@ final class OriginalColumnsRepository
 
     public function delete(TableId $id): void
     {
-        $this->storage($id)
-             ->delete();
+        $this
+            ->storage($id)
+            ->delete();
     }
 
     public function find(TableId $id, string $type): ?OriginalColumn

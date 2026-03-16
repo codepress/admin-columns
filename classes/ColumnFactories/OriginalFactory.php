@@ -6,10 +6,10 @@ namespace AC\ColumnFactories;
 
 use AC\ColumnFactory;
 use AC\ColumnFactoryDefinitionCollection;
+use AC\DI\Container;
 use AC\Storage\Repository\OriginalColumnsRepository;
 use AC\TableScreen;
 use AC\Type\ColumnFactoryDefinition;
-use AC\Vendor\DI\Container;
 
 final class OriginalFactory extends BaseFactory
 {

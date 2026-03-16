@@ -2,11 +2,13 @@
 
     import {createEventDispatcher, onMount} from "svelte";
     import AcDropdownMenu from "./AcDropdownMenu.svelte";
+    import {AcDropdownMenuPosition} from "./index";
 
+    export let menuClass: string = null;
     export let customClass: string = null;
     export let appendToBody: boolean = false;
     export let closeOnClick: boolean = true;
-    export let position: string | null = null;
+    export let position: AcDropdownMenuPosition | null = null;
     export let maxHeight: string | null = null;
     export let value: any | null | undefined = null;
     export let zIndex: number | null | undefined = null;
@@ -85,6 +87,12 @@
     }
 
     const handleOutsideClick = (e) => {
+        // Check if click is inside any dropdown menu element (including appendToBody menus)
+        const target = e.target as HTMLElement;
+        if (target.closest('[data-dropdown-menu="true"]')) {
+            return;
+        }
+
         if (container && !container.contains(e.target)) {
             close();
         }
@@ -135,9 +143,17 @@
 		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}
-		<AcDropdownMenu {maxHeight} style={menuStyle} {appendToBody} trigger={trigger} position={position} on:click={handleSelect}
+		<AcDropdownMenu
+			{maxHeight}
+			{appendToBody}
+			position={position}
+			style={menuStyle}
+			trigger={trigger}
 			zIndex={zIndex}
-			on:itemSelect={( e ) => { e.stopPropagation(); handleSelect(e)}}>
+			menuClass={menuClass}
+			on:click={handleSelect}
+			on:itemSelect={( e ) => { e.stopPropagation(); handleSelect(e)}}
+		>
 			<slot></slot>
 		</AcDropdownMenu>
 	{/if}

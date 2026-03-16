@@ -25,7 +25,7 @@ class LastNameFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->add(new AC\Formatter\User\Meta('last_name'));
+            ->add(new AC\Formatter\User\Meta('last_name'));
     }
 
 }

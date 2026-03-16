@@ -6,6 +6,7 @@ namespace AC\Formatter;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
+use AC\Helper;
 use AC\Type\Value;
 use AC\Type\ValueCollection;
 
@@ -24,7 +25,7 @@ class Links implements Formatter
 
     public function format(Value $value): ValueCollection
     {
-        $urls = ac_helper()->html->get_links(
+        $urls = Helper\Html::create()->get_links(
             (string)$value
         );
 

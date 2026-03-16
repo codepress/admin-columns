@@ -6,7 +6,7 @@ use AC\Formatter\Post\PostStatusIcon;
 use AC\Type\Value;
 use WP_Post;
 
-class Post
+class Post extends Creatable
 {
 
     private function esc_sql_array(array $array): string

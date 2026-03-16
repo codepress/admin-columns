@@ -2,14 +2,14 @@
 
 namespace AC\Helper;
 
-class Menu
+class Menu extends Creatable
 {
 
     public function get_menu_label(int $menu_item_id): string
     {
         global $wpdb;
 
-        return (string)$wpdb->prepare(
+        return (string)$wpdb->get_var($wpdb->prepare(
             "
 			SELECT t.name
 				FROM $wpdb->terms AS t
@@ -20,7 +20,7 @@ class Menu
     			WHERE menu.ID = %d
 			",
             $menu_item_id
-        );
+        ));
     }
 
     public function get_ids(int $object_id, string $object_type): array

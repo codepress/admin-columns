@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace AC\Value\Extended;
 
 use AC\Column;
+use AC\Helper;
 use AC\ListScreen;
 use AC\Value\ExtendedValueLink;
 use AC\View;
+use DateTimeZone;
 
 class Posts implements ExtendedValue
 {
@@ -24,7 +26,7 @@ class Posts implements ExtendedValue
 
     private function get_post_count(int $user_id, array $post_types, array $status): int
     {
-        return ac_helper()->post->count_user_posts(
+        return Helper\Post::create()->count_user_posts(
             $user_id,
             $post_types,
             $status
@@ -64,12 +66,18 @@ class Posts implements ExtendedValue
                 $post_type = $post_type->labels->singular_name;
             }
 
+            $post_status_obj = get_post_status_object($post->post_status);
+
             $posts[] = [
                 'id'          => $post->ID,
                 'post_type'   => $post_type,
                 'post_title'  => $post_title,
-                'post_status' => get_post_status_object($post->post_status)->label ?? '-',
-                'post_date'   => ac_helper()->date->date($post->post_date),
+                'post_status' => $post_status_obj ? $post_status_obj->label : '-',
+                'post_date'   => wp_date(
+                    Helper\Date::create()->get_date_format(),
+                    strtotime($post->post_date),
+                    new DateTimeZone('UTC')
+                ) ?: '',
             ];
         }
 
@@ -79,8 +87,9 @@ class Posts implements ExtendedValue
             'post_types' => $this->get_post_count_per_post_type($id, $post_types, $status),
         ]);
 
-        return $view->set_template('modal-value/posts')
-                    ->render();
+        return $view
+            ->set_template('modal-value/posts')
+            ->render();
     }
 
     private function get_post_count_per_post_type(int $user_id, array $post_types, array $status): array
@@ -88,12 +97,12 @@ class Posts implements ExtendedValue
         $items = [];
 
         foreach ($post_types as $post_type) {
-            $count = ac_helper()->post->count_user_posts($user_id, [$post_type], $status);
+            $count = Helper\Post::create()->count_user_posts($user_id, [$post_type], $status);
 
             if ($count > 0) {
                 $items[] = [
                     'link'      => $this->get_post_table_link($user_id, $post_type),
-                    'post_type' => get_post_type_object($post_type)->labels->singular_name ?? $post_type,
+                    'post_type' => ($type_obj = get_post_type_object($post_type)) ? $type_obj->labels->singular_name : $post_type,
                     'count'     => number_format_i18n($count),
                 ];
             }

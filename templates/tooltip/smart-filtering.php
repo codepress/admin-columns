@@ -23,7 +23,7 @@ use AC\Type\Url\Documentation;
         ); ?>
 	</p>
 	<img src="<?= esc_url(
-        ac_get_url('assets/images/tooltip/smart-filters.png')
+        $this->url . '/assets/images/tooltip/smart-filters.png'
     ) ?>" alt="Smart Filtering" style="border:1px solid #ddd;">
 	<p>
 		2. <?= _x('You can save your filters for later use.', 'smart filtering help', 'codepress-admin-columns') ?>
@@ -34,7 +34,7 @@ use AC\Type\Url\Documentation;
         ); ?>
 	</p>
 	<img width="180" src="<?= esc_url(
-        ac_get_url('assets/images/tooltip/save-filters.png')
+        $this->url . '/assets/images/tooltip/save-filters.png'
     ) ?>" alt="Saved Filters" style="border:1px solid #ddd;">
 	<p>
 		<a href="<?= esc_url(

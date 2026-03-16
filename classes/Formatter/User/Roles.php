@@ -49,7 +49,7 @@ class Roles implements AC\Formatter
         static $editable_roles;
 
         if (null === $editable_roles) {
-            $editable_roles = (new UserRoles())->find_all($this->allow_non_editable_roles);
+            $editable_roles = UserRoles::create()->find_all($this->allow_non_editable_roles);
         }
 
         return $editable_roles;

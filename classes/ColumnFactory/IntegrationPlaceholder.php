@@ -56,8 +56,7 @@ class IntegrationPlaceholder extends BaseColumnFactory
             ); ?>
 		</p>
 
-		<a target="_blank" href="<?php
-        echo $this->integration->get_link(); ?>" class="button button-primary">
+		<a target="_blank" href="<?= $this->integration->get_url(); ?>" class="button button-primary">
             <?php
             _e('Find out more', 'codepress-admin-columns'); ?>
 		</a>

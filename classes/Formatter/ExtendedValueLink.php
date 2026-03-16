@@ -22,17 +22,14 @@ final class ExtendedValueLink implements Formatter
         $this->label = $label;
     }
 
-    public function format(Value $value)
+    public function format(Value $value): Value
     {
         if ( ! $value->get_value()) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
         return $value->with_value(
-            $this->factory->create(
-                $this->label,
-                $value->get_id(),
-            )->render()
+            $this->factory->create($this->label, $value->get_id())->render()
         );
     }
 

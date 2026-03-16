@@ -46,8 +46,9 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
 
     public function get_total_items(): int
     {
-        return (new WpListTableFactory())->create()
-                                         ->get_pagination_arg('total_items');
+        return (new WpListTableFactory())
+            ->create()
+            ->get_pagination_arg('total_items');
     }
 
 }

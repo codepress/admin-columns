@@ -17,11 +17,11 @@ class UserId implements Formatter
         $user_id = $comment->user_id ?? null;
 
         if ( ! $user_id) {
-            throw ValueNotFoundException::from_id($value->get_value());
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         return new Value(
-            $user_id
+            (int)$user_id
         );
     }
 

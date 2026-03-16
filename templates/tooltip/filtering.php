@@ -10,7 +10,7 @@
         ); ?>
 	</p>
 	<img src="<?= esc_url(
-        ac_get_url('assets/images/tooltip/filter.png')
+        $this->url . '/assets/images/tooltip/filter.png'
     ) ?>" alt="Export" style="border:1px solid #ddd;">
 	<p><strong><?= __('Filters vs Smart Filters', 'codepress-admin-columns'); ?></strong></p>
 	<p class="notice notice-warning">

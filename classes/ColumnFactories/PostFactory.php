@@ -8,6 +8,7 @@ use AC;
 use AC\ColumnFactory\ActionsFactory;
 use AC\ColumnFactory\Post;
 use AC\ColumnFactoryDefinitionCollection;
+use AC\Helper;
 use AC\TableScreen;
 use AC\Type\ColumnFactoryDefinition;
 use AC\Type\TableScreenContext;
@@ -81,7 +82,7 @@ final class PostFactory extends BaseFactory
             $factories[] = Post\FormatsFactory::class;
         }
 
-        if (count(ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)) > 0) {
+        if (count(Helper\Taxonomy::create()->get_taxonomy_selection_options($post_type)) > 0) {
             $factories[] = Post\TaxonomyFactory::class;
         }
 

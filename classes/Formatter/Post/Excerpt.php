@@ -13,7 +13,8 @@ class Excerpt implements Formatter
 
     public function format(Value $value): Value
     {
-        $excerpt = get_post((int)$value->get_id())->post_excerpt ?? null;
+        $post = get_post($value->get_id());
+        $excerpt = $post ? $post->post_excerpt : null;
 
         if ( ! $excerpt) {
             throw ValueNotFoundException::from_id($value->get_id());

@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-02-04 08:07+0000\n"
+"POT-Creation-Date: 2026-03-13 19:14+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/ColumnGroups.php:18, classes/Response/JsonListScreenSettingsFactory.php:69, classes/RequestHandler/Ajax/CustomFieldKeys.php:73, classes/Setting/ComponentFactory/FieldType.php:148, classes/Setting/ComponentFactory/ImageSize.php:86, classes/Setting/ComponentFactory/Separator.php:32, classes/Setting/ComponentFactory/UserProperty.php:133, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:17
+#: classes/ColumnGroups.php:18, classes/Response/JsonListScreenSettingsFactory.php:70, classes/RequestHandler/Ajax/CustomFieldKeys.php:74, classes/Setting/ComponentFactory/FieldType.php:148, classes/Setting/ComponentFactory/ImageSizeBase.php:115, classes/Setting/ComponentFactory/Separator.php:32, classes/Setting/ComponentFactory/UserProperty.php:134, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:21, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:17
 msgid "Default"
 msgstr ""
 
@@ -28,31 +28,31 @@ msgstr ""
 msgid "Media"
 msgstr ""
 
-#: classes/ColumnGroups.php:22, classes/ColumnGroups.php:23
+#: classes/ColumnGroups.php:22
 msgid "Meta"
 msgstr ""
 
-#: classes/ColumnGroups.php:24, classes/ColumnFactory/Media/ImageFactory.php:41, classes/Setting/ComponentFactory/FieldType.php:174
+#: classes/ColumnGroups.php:23, classes/ColumnFactory/Media/ImageFactory.php:41, classes/Setting/ComponentFactory/FieldType.php:174
 msgid "Image"
 msgstr ""
 
-#: classes/ColumnGroups.php:25
+#: classes/ColumnGroups.php:24
 msgid "Video"
 msgstr ""
 
-#: classes/ColumnGroups.php:26
+#: classes/ColumnGroups.php:25
 msgid "Audio"
 msgstr ""
 
-#: classes/ColumnGroups.php:27
+#: classes/ColumnGroups.php:26
 msgid "Document"
 msgstr ""
 
-#: classes/ColumnGroups.php:28
+#: classes/ColumnGroups.php:27
 msgid "File"
 msgstr ""
 
-#: classes/ColumnGroups.php:29, classes/Setting/ComponentFactory/FieldType.php:143, classes/Setting/ComponentFactory/ImageSize.php:119
+#: classes/ColumnGroups.php:28, classes/Setting/ComponentFactory/FieldType.php:143, classes/Setting/ComponentFactory/ImageSizeBase.php:128
 msgid "Custom"
 msgstr ""
 
@@ -88,12 +88,12 @@ msgstr ""
 msgid "Instructions"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:63
+#: classes/Check/AddonAvailable.php:68
 msgid "Did you know Admin Columns Pro has full support for %s?"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:70, classes/Admin/Asset/Columns.php:260
-msgid "Get Admin Columns Pro"
+#: classes/Check/AddonAvailable.php:74
+msgid "Get Admin Columns Pro with 10% discount"
 msgstr ""
 
 #: classes/Check/Review.php:115, classes/Table/Screen.php:90, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17
@@ -172,7 +172,7 @@ msgstr ""
 msgid "Admin Columns Pro offers full support for %s, allowing you to easily manage %s fields for your overviews."
 msgstr ""
 
-#: classes/ColumnFactory/IntegrationPlaceholder.php:62
+#: classes/ColumnFactory/IntegrationPlaceholder.php:61
 msgid "Find out more"
 msgstr ""
 
@@ -199,14 +199,6 @@ msgid "second"
 msgid_plural "seconds"
 msgstr[0] ""
 msgstr[1] ""
-
-#: classes/Helper/Html.php:221
-msgid "%s more"
-msgstr ""
-
-#: classes/Helper/Html.php:222
-msgid "Hide"
-msgstr ""
 
 #: classes/Helper/Strings.php:151
 msgid " or "
@@ -342,7 +334,7 @@ msgstr ""
 msgid "See the Plugins page for details."
 msgstr ""
 
-#: classes/Table/PrimaryColumn.php:65, classes/Table/PrimaryColumn.php:69, classes/Table/Screen.php:149, classes/ColumnFactory/Media/DownloadFactory.php:22, classes/Formatter/Media/Download.php:26, classes/Setting/ComponentFactory/MediaLink.php:31
+#: classes/Table/PrimaryColumn.php:66, classes/Table/PrimaryColumn.php:70, classes/Table/Screen.php:149, classes/ColumnFactory/Media/DownloadFactory.php:22, classes/Formatter/Media/Download.php:26, classes/Setting/ComponentFactory/MediaLink.php:31
 msgid "Download"
 msgstr ""
 
@@ -358,7 +350,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: classes/Table/Screen.php:148, classes/Formatter/Media/PreviewViewLink.php:49, classes/Setting/ComponentFactory/MediaLink.php:30
+#: classes/Table/Screen.php:148, classes/Formatter/Media/PreviewViewLink.php:50, classes/Setting/ComponentFactory/MediaLink.php:30
 msgid "View"
 msgstr ""
 
@@ -534,7 +526,7 @@ msgctxt "smart filtering help"
 msgid "When you return to your list table you can easily select them again from the menu."
 msgstr ""
 
-#: templates/tooltip/sorting-include-empty.php:10, templates/tooltip/sorting.php:8, classes/Admin/Asset/Columns.php:306
+#: templates/tooltip/sorting-include-empty.php:10, templates/tooltip/sorting.php:8
 msgid "Sorting"
 msgstr ""
 
@@ -738,6 +730,10 @@ msgstr ""
 msgid "Includes special integrations for:"
 msgstr ""
 
+#: classes/Admin/Asset/Columns.php:260
+msgid "Get Admin Columns Pro"
+msgstr ""
+
 #: classes/Admin/Asset/Columns.php:261
 msgid "Get %s Off!"
 msgstr ""
@@ -812,6 +808,10 @@ msgstr ""
 
 #: classes/Admin/Asset/Columns.php:305
 msgid "Horizontal Scrolling"
+msgstr ""
+
+#: classes/Admin/Asset/Columns.php:306
+msgid "Initial Sorting"
 msgstr ""
 
 #: classes/Admin/Asset/Columns.php:307
@@ -1000,7 +1000,7 @@ msgstr ""
 msgid "getting started guide"
 msgstr ""
 
-#: classes/Admin/MenuGroupFactory/Aggregate.php:34, classes/RequestHandler/Ajax/NetworkPostStati.php:85, classes/Setting/ComponentFactory/PostExtendedProperty.php:48, classes/Setting/ComponentFactory/UserProperty.php:137
+#: classes/Admin/MenuGroupFactory/Aggregate.php:34, classes/RequestHandler/Ajax/NetworkPostStati.php:86, classes/Setting/ComponentFactory/PostExtendedProperty.php:48, classes/Setting/ComponentFactory/UserProperty.php:138
 msgid "Other"
 msgstr ""
 
@@ -1080,7 +1080,7 @@ msgstr ""
 msgid "In Reply To"
 msgstr ""
 
-#: classes/ColumnFactory/Comment/StatusFactory.php:17, classes/ColumnFactory/Post/StatusFactory.php:31, classes/RequestHandler/Ajax/NetworkPostStati.php:84
+#: classes/ColumnFactory/Comment/StatusFactory.php:17, classes/ColumnFactory/Post/StatusFactory.php:31, classes/RequestHandler/Ajax/NetworkPostStati.php:85
 msgid "Status"
 msgstr ""
 
@@ -1112,7 +1112,7 @@ msgstr ""
 msgid "Available Sizes"
 msgstr ""
 
-#: classes/ColumnFactory/Media/CaptionFactory.php:22, classes/Setting/ComponentFactory/ExifData.php:61
+#: classes/ColumnFactory/Media/CaptionFactory.php:35, classes/Setting/ComponentFactory/ExifData.php:61
 msgid "Caption"
 msgstr ""
 
@@ -1132,7 +1132,7 @@ msgstr ""
 msgid "Video Meta"
 msgstr ""
 
-#: classes/ColumnFactory/Media/FileNameFactory.php:23
+#: classes/ColumnFactory/Media/FileNameFactory.php:23, classes/Setting/ComponentFactory/FileDisplay.php:37
 msgid "Filename"
 msgstr ""
 
@@ -1144,7 +1144,7 @@ msgstr ""
 msgid "File Path"
 msgstr ""
 
-#: classes/ColumnFactory/Media/HeightFactory.php:23, classes/Setting/ComponentFactory/ImageSize.php:70, classes/Setting/ComponentFactory/Media/FileMetaVideo.php:36
+#: classes/ColumnFactory/Media/HeightFactory.php:23, classes/Setting/ComponentFactory/ImageSizeBase.php:70, classes/Setting/ComponentFactory/Media/FileMetaVideo.php:36
 msgid "Height"
 msgstr ""
 
@@ -1152,7 +1152,7 @@ msgstr ""
 msgid "Mime Type"
 msgstr ""
 
-#: classes/ColumnFactory/Media/PreviewFactory.php:23, classes/Setting/ComponentFactory/NumberFormat.php:72
+#: classes/ColumnFactory/Media/PreviewFactory.php:23, classes/Setting/ComponentFactory/FileDisplay.php:38, classes/Setting/ComponentFactory/NumberFormat.php:72
 msgid "Preview"
 msgstr ""
 
@@ -1160,7 +1160,7 @@ msgstr ""
 msgid "Video Player"
 msgstr ""
 
-#: classes/ColumnFactory/Media/WidthFactory.php:23, classes/Setting/ComponentFactory/ImageSize.php:59, classes/Setting/ComponentFactory/Width.php:27, classes/Setting/ComponentFactory/Media/FileMetaVideo.php:39
+#: classes/ColumnFactory/Media/WidthFactory.php:23, classes/Setting/ComponentFactory/ImageSizeBase.php:64, classes/Setting/ComponentFactory/Width.php:27, classes/Setting/ComponentFactory/Media/FileMetaVideo.php:39
 msgid "Width"
 msgstr ""
 
@@ -1268,7 +1268,7 @@ msgstr ""
 msgid "Taxonomy"
 msgstr ""
 
-#: classes/ColumnFactory/Post/TitleRawFactory.php:42
+#: classes/ColumnFactory/Post/TitleRawFactory.php:44
 msgid "Title Only"
 msgstr ""
 
@@ -1284,11 +1284,11 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: classes/ColumnFactory/User/DisplayNameFactory.php:17, classes/Setting/ComponentFactory/UserProperty.php:119
+#: classes/ColumnFactory/User/DisplayNameFactory.php:17, classes/Setting/ComponentFactory/UserProperty.php:120
 msgid "Display Name"
 msgstr ""
 
-#: classes/ColumnFactory/User/FirstNameFactory.php:17, classes/Setting/ComponentFactory/UserProperty.php:120
+#: classes/ColumnFactory/User/FirstNameFactory.php:17, classes/Setting/ComponentFactory/UserProperty.php:121
 msgid "First Name"
 msgstr ""
 
@@ -1296,11 +1296,11 @@ msgstr ""
 msgid "First Post"
 msgstr ""
 
-#: classes/ColumnFactory/User/FullNameFactory.php:17, classes/Setting/ComponentFactory/UserProperty.php:121
+#: classes/ColumnFactory/User/FullNameFactory.php:17, classes/Setting/ComponentFactory/UserProperty.php:122
 msgid "Full Name"
 msgstr ""
 
-#: classes/ColumnFactory/User/LastNameFactory.php:17, classes/Setting/ComponentFactory/UserProperty.php:122
+#: classes/ColumnFactory/User/LastNameFactory.php:17, classes/Setting/ComponentFactory/UserProperty.php:123
 msgid "Last Name"
 msgstr ""
 
@@ -1308,7 +1308,7 @@ msgstr ""
 msgid "Last Post"
 msgstr ""
 
-#: classes/ColumnFactory/User/NicknameFactory.php:29, classes/Setting/ComponentFactory/UserProperty.php:123
+#: classes/ColumnFactory/User/NicknameFactory.php:29, classes/Setting/ComponentFactory/UserProperty.php:124
 msgid "Nickname"
 msgstr ""
 
@@ -1324,7 +1324,7 @@ msgstr ""
 msgid "Show Toolbar"
 msgstr ""
 
-#: classes/ColumnFactory/User/UserIdFactory.php:32, classes/Setting/ComponentFactory/UserProperty.php:126
+#: classes/ColumnFactory/User/UserIdFactory.php:32, classes/Setting/ComponentFactory/UserProperty.php:127
 msgid "User ID"
 msgstr ""
 
@@ -1340,11 +1340,19 @@ msgstr ""
 msgid "Visual Editor"
 msgstr ""
 
-#: classes/Formatter/Comment/LinkableCommentDate.php:19
+#: classes/Formatter/Collection/Separator.php:98
+msgid "%s more"
+msgstr ""
+
+#: classes/Formatter/Collection/Separator.php:99
+msgid "Hide"
+msgstr ""
+
+#: classes/Formatter/Comment/LinkableCommentDate.php:32
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
 msgstr ""
 
-#: classes/Formatter/Comment/MetaDateAndAuthor.php:29
+#: classes/Formatter/Comment/MetaDateAndAuthor.php:31
 msgid "%s at %s"
 msgstr ""
 
@@ -1356,47 +1364,47 @@ msgstr ""
 msgid "No support for audio player"
 msgstr ""
 
-#: classes/Formatter/Media/AvailableSizes.php:37
+#: classes/Formatter/Media/AvailableSizes.php:38
 msgid "original"
 msgstr ""
 
-#: classes/Formatter/Media/AvailableSizes.php:58
+#: classes/Formatter/Media/AvailableSizes.php:59
 msgid "Missing image file for size %s."
 msgstr ""
 
-#: classes/Formatter/Media/Dimensions.php:23
+#: classes/Formatter/Media/Dimensions.php:24
 msgid "Width : %s px"
 msgstr ""
 
-#: classes/Formatter/Media/Dimensions.php:24
+#: classes/Formatter/Media/Dimensions.php:25
 msgid "Height : %s px"
 msgstr ""
 
-#: classes/Formatter/Post/ExcerptMissingMessage.php:39
+#: classes/Formatter/Post/ExcerptMissingMessage.php:41
 msgid "Excerpt is missing."
 msgstr ""
 
-#: classes/Formatter/Post/ExcerptMissingMessage.php:40
+#: classes/Formatter/Post/ExcerptMissingMessage.php:42
 msgid "Current excerpt is generated from the content."
 msgstr ""
 
-#: classes/Formatter/Post/ExcerptMissingMessage.php:49
+#: classes/Formatter/Post/ExcerptMissingMessage.php:51
 msgid "auto-generated"
 msgstr ""
 
-#: classes/Formatter/Post/IsPasswordProtected.php:23
+#: classes/Formatter/Post/IsPasswordProtected.php:24
 msgid "Password"
 msgstr ""
 
-#: classes/Formatter/User/PostCount.php:72
+#: classes/Formatter/User/PostCount.php:74
 msgid "Recent items by %s"
 msgstr ""
 
-#: classes/Plugin/Update/V4000.php:578
+#: classes/Plugin/Update/V4000.php:585
 msgid "Original"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/CustomFieldKeys.php:70, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:26
+#: classes/RequestHandler/Ajax/CustomFieldKeys.php:71, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:26
 msgid "Hidden"
 msgstr ""
 
@@ -1428,27 +1436,27 @@ msgstr ""
 msgid "Table view %s successfully deleted."
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:74
+#: classes/RequestHandler/Ajax/ListScreenSave.php:75
 msgid "List screen not found"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:121
+#: classes/RequestHandler/Ajax/ListScreenSave.php:122
 msgid "Column settings could not be saved."
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:137
+#: classes/RequestHandler/Ajax/ListScreenSave.php:138
 msgid "Settings for %s updated successfully."
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:142
+#: classes/RequestHandler/Ajax/ListScreenSave.php:143
 msgid "View %s screen"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/NetworkPostStati.php:92
+#: classes/RequestHandler/Ajax/NetworkPostStati.php:93
 msgid "Any post status"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/NetworkPostStati.php:97
+#: classes/RequestHandler/Ajax/NetworkPostStati.php:98
 msgid "Any post status without Trash"
 msgstr ""
 
@@ -1552,47 +1560,51 @@ msgstr ""
 msgid "Custom field key"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateFormat.php:46
+#: classes/Setting/ComponentFactory/DateFormat.php:43
 msgid "Display Date Format"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateFormat.php:52
+#: classes/Setting/ComponentFactory/DateFormat.php:49
 msgid "Learn more about %s."
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateFormat.php:56
+#: classes/Setting/ComponentFactory/DateFormat.php:53
 msgid "date and time formatting"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateFormat.php:71
+#: classes/Setting/ComponentFactory/DateFormat.php:66
 msgid "The %s can be changed in %s."
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateFormat.php:72, classes/Setting/ComponentFactory/DateFormat/Date.php:22
+#: classes/Setting/ComponentFactory/DateFormat.php:67, classes/Setting/ComponentFactory/DateFormat/Date.php:22
 msgid "WordPress Date Format"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:21
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:22
 msgid "Stored Date Format"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:26
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:27
 msgid "This is the format in which dates are stored and saved (also used for sorting, filtering, and editing)."
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:34, classes/Setting/ComponentFactory/FieldType.php:171
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:36
+msgid "Auto Detect"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:39, classes/Setting/ComponentFactory/FieldType.php:171
 msgid "Date"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:39
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:44
 msgid "Datetime"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:44, classes/Setting/ComponentFactory/ExifData.php:62
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:49, classes/Setting/ComponentFactory/ExifData.php:62
 msgid "Timestamp"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:45
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:50
 msgid "seconds"
 msgstr ""
 
@@ -1704,32 +1716,56 @@ msgstr ""
 msgid "Serialized"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:25
+#: classes/Setting/ComponentFactory/FileDisplay.php:29
+msgid "File Display"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/FileLink.php:19, classes/Setting/ComponentFactory/MediaLink.php:21, classes/Setting/ComponentFactory/PostLink.php:28
+msgid "Link to"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/FileLink.php:27
+msgid "View file"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/FileLink.php:28
+msgid "Download file"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/FileLink.php:29
+msgid "Edit file"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/FilePreviewSize.php:34
+msgid "Preview size"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/ImageSize.php:31
 msgid "Image size"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:89
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:118
 msgid "Thumbnail"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:90
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:119
 msgid "Medium"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:91
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:120
 msgid "Large"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:92
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:121
 msgid "Full Size"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:95
-msgid "Others"
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:126
+msgid "Custom Size"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/ImageSize.php:117
-msgid "Custom Size"
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:132
+msgid "Others"
 msgstr ""
 
 #: classes/Setting/ComponentFactory/IncludeMissingSizes.php:16
@@ -1770,10 +1806,6 @@ msgstr ""
 
 #: classes/Setting/ComponentFactory/LinkToMenu.php:21
 msgid "This will make the title link to the menu."
-msgstr ""
-
-#: classes/Setting/ComponentFactory/MediaLink.php:21, classes/Setting/ComponentFactory/PostLink.php:28
-msgid "Link to"
 msgstr ""
 
 #: classes/Setting/ComponentFactory/ModalDisplay.php:38
@@ -1954,7 +1986,7 @@ msgstr ""
 msgid "Edit User Profile"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserLink.php:56, classes/Setting/ComponentFactory/UserProperty.php:125
+#: classes/Setting/ComponentFactory/UserLink.php:56, classes/Setting/ComponentFactory/UserProperty.php:126
 msgid "User Email"
 msgstr ""
 
@@ -1970,27 +2002,27 @@ msgstr ""
 msgid "User Display"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserProperty.php:98
+#: classes/Setting/ComponentFactory/UserProperty.php:99
 msgid "Image Size"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserProperty.php:124
+#: classes/Setting/ComponentFactory/UserProperty.php:125
 msgid "User Login"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserProperty.php:127
+#: classes/Setting/ComponentFactory/UserProperty.php:128
 msgid "User Nicename"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserProperty.php:128
+#: classes/Setting/ComponentFactory/UserProperty.php:129
 msgid "User Website"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserProperty.php:139
+#: classes/Setting/ComponentFactory/UserProperty.php:140
 msgid "Roles"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/UserProperty.php:140
+#: classes/Setting/ComponentFactory/UserProperty.php:141
 msgid "Gravatar"
 msgstr ""
 
@@ -2026,11 +2058,11 @@ msgstr ""
 msgid "Preview not available"
 msgstr ""
 
-#: classes/Value/Extended/Posts.php:42
+#: classes/Value/Extended/Posts.php:44
 msgid "No items"
 msgstr ""
 
-#: classes/Value/Extended/Posts.php:77
+#: classes/Value/Extended/Posts.php:85
 msgid "Recent items"
 msgstr ""
 
@@ -2098,7 +2130,7 @@ msgid_plural "channels"
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/Formatter/Media/Video/ModalEmbedLink.php:27
+#: classes/Formatter/Media/Video/ModalEmbedLink.php:28
 msgid "Play"
 msgstr ""
 
@@ -2218,10 +2250,10 @@ msgstr ""
 msgid "View documentation"
 msgstr ""
 
-#: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:35
+#: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:36
 msgid "Network Site:"
 msgstr ""
 
-#: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:40
+#: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:41
 msgid "current"
 msgstr ""

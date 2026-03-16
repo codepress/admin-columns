@@ -35,7 +35,7 @@ class RequestHandlerFactory
     {
         $action = $this->request->get('action') ?: $this->request->get('ac_action');
 
-        return $this->request_handlers[$action] ?? null;
+        return $this->request_handlers[(string)$action] ?? null;
     }
 
     public function create(): RequestHandler

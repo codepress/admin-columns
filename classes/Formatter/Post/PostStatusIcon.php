@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
+use AC\Helper;
+use AC\Helper\Date;
 use AC\Type\Value;
+use DateTimeZone;
 use WP_Post;
 
 class PostStatusIcon implements Formatter
@@ -37,39 +40,59 @@ class PostStatusIcon implements Formatter
     {
         switch ($post->post_status) {
             case 'private' :
-                return ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'hidden', 'class' => 'gray']),
-                    __('Private')
+                return Helper\Html::create()->tooltip(
+                    Helper\Icon::create()->dashicon(['icon' => 'hidden', 'class' => 'gray']),
+                    sprintf(
+                        '%s <br><em>%s</em>',
+                        __('Private'),
+                        $this->format_date($post->post_date)
+                    )
                 );
 
             case 'publish' :
-                return ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'yes', 'class' => 'blue large']),
-                    __('Published')
+                return Helper\Html::create()->tooltip(
+                    Helper\Icon::create()->dashicon(['icon' => 'yes', 'class' => 'blue large']),
+                    sprintf(
+                        '%s <br><em>%s</em>',
+                        __('Published'),
+                        $this->format_date($post->post_date)
+                    )
                 );
 
             case 'draft' :
-                return ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'edit', 'class' => 'green']),
-                    __('Draft')
+                return Helper\Html::create()->tooltip(
+                    Helper\Icon::create()->dashicon(['icon' => 'edit', 'class' => 'green']),
+                    sprintf(
+                        '%s <br><em>%s</em>',
+                        __('Draft'),
+                        $this->format_date($post->post_date)
+                    )
                 );
 
             case 'pending' :
-                return ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'backup', 'class' => 'orange']),
-                    __('Pending for review')
+                return Helper\Html::create()->tooltip(
+                    Helper\Icon::create()->dashicon(['icon' => 'backup', 'class' => 'orange']),
+                    sprintf(
+                        '%s <br><em>%s</em>',
+                        __('Pending for review'),
+                        $this->format_date($post->post_date)
+                    )
                 );
 
             case 'future' :
-                $icon = ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'clock']),
-                    __('Scheduled') . ': <em>' . ac_helper()->date->date($post->post_date, 'wp_date_time') . '</em>'
+                $icon = Helper\Html::create()->tooltip(
+                    Helper\Icon::create()->dashicon(['icon' => 'clock']),
+                    sprintf(
+                        '%s <br><em>%s</em>',
+                        __('Scheduled'),
+                        $this->format_date($post->post_date)
+                    )
                 );
 
                 // Missed schedule
                 if ((time() - mysql2date('G', $post->post_date_gmt)) > 0) {
-                    $icon .= ac_helper()->html->tooltip(
-                        ac_helper()->icon->dashicon(['icon' => 'flag', 'class' => 'gray']),
+                    $icon .= Helper\Html::create()->tooltip(
+                        Helper\Icon::create()->dashicon(['icon' => 'flag', 'class' => 'gray']),
                         __('Missed schedule')
                     );
                 }
@@ -78,6 +101,15 @@ class PostStatusIcon implements Formatter
             default:
                 return null;
         }
+    }
+
+    private function format_date(string $date): string
+    {
+        return wp_date(
+            Date::create()->get_date_time_format(),
+            strtotime($date),
+            new DateTimeZone('UTC')
+        ) ?: '';
     }
 
 }

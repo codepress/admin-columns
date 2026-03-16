@@ -13,7 +13,8 @@ class PostDateTimestamp implements Formatter
 
     public function format(Value $value): Value
     {
-        $date = get_post($value->get_id())->post_date ?? null;
+        $post = get_post($value->get_id());
+        $date = $post ? $post->post_date : null;
 
         if ( ! $date) {
             throw new ValueNotFoundException();
