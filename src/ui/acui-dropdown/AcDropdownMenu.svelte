@@ -82,6 +82,7 @@
 	style:max-height={maxHeight}
 	style:z-index={zIndex}
 	data-position={position}
+	data-dropdown-menu="true"
 	in:fade={{ duration: 100}}
 	out:fade={{ duration: 100}}
 	bind:this={menuElement}

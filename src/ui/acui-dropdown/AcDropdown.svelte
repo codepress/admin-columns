@@ -87,6 +87,12 @@
     }
 
     const handleOutsideClick = (e) => {
+        // Check if click is inside any dropdown menu element (including appendToBody menus)
+        const target = e.target as HTMLElement;
+        if (target.closest('[data-dropdown-menu="true"]')) {
+            return;
+        }
+
         if (container && !container.contains(e.target)) {
             close();
         }

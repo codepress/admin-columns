@@ -1,0 +1,259 @@
+diff -ruN a/vendor/php-di/php-di/src/Compiler/ObjectCreationCompiler.php b/vendor/php-di/php-di/src/Compiler/ObjectCreationCompiler.php
+--- a/vendor/php-di/php-di/src/Compiler/ObjectCreationCompiler.php
++++ b/vendor/php-di/php-di/src/Compiler/ObjectCreationCompiler.php
+@@ -99,7 +99,7 @@
+         return implode("\n        ", $code);
+     }
+
+-    public function resolveParameters(MethodInjection $definition = null, ReflectionMethod $method = null) : array
++    public function resolveParameters(?MethodInjection $definition = null, ?ReflectionMethod $method = null) : array
+     {
+         $args = [];
+
+diff -ruN a/vendor/php-di/php-di/src/Container.php b/vendor/php-di/php-di/src/Container.php
+--- a/vendor/php-di/php-di/src/Container.php
++++ b/vendor/php-di/php-di/src/Container.php
+@@ -95,9 +95,9 @@
+      * @param ContainerInterface $wrapperContainer If the container is wrapped by another container.
+      */
+     public function __construct(
+-        MutableDefinitionSource $definitionSource = null,
+-        ProxyFactory $proxyFactory = null,
+-        ContainerInterface $wrapperContainer = null
++        ?MutableDefinitionSource $definitionSource = null,
++        ?ProxyFactory $proxyFactory = null,
++        ?ContainerInterface $wrapperContainer = null
+     ) {
+         $this->delegateContainer = $wrapperContainer ?: $this;
+
+diff -ruN a/vendor/php-di/php-di/src/ContainerBuilder.php b/vendor/php-di/php-di/src/ContainerBuilder.php
+--- a/vendor/php-di/php-di/src/ContainerBuilder.php
++++ b/vendor/php-di/php-di/src/ContainerBuilder.php
+@@ -280,7 +280,7 @@
+      * @throws InvalidArgumentException when writeToFile is set to true and the proxy directory is null
+      * @return $this
+      */
+-    public function writeProxiesToFile(bool $writeToFile, string $proxyDirectory = null) : self
++    public function writeProxiesToFile(bool $writeToFile, ?string $proxyDirectory = null) : self
+     {
+         $this->ensureNotLocked();
+
+diff -ruN a/vendor/php-di/php-di/src/Definition/Exception/InvalidDefinition.php b/vendor/php-di/php-di/src/Definition/Exception/InvalidDefinition.php
+--- a/vendor/php-di/php-di/src/Definition/Exception/InvalidDefinition.php
++++ b/vendor/php-di/php-di/src/Definition/Exception/InvalidDefinition.php
+@@ -14,7 +14,7 @@
+  */
+ class InvalidDefinition extends \Exception implements ContainerExceptionInterface
+ {
+-    public static function create(Definition $definition, string $message, \Exception $previous = null) : self
++    public static function create(Definition $definition, string $message, ?\Exception $previous = null) : self
+     {
+         return new self(sprintf(
+             '%s' . \PHP_EOL . 'Full definition:' . \PHP_EOL . '%s',
+diff -ruN a/vendor/php-di/php-di/src/Definition/Helper/CreateDefinitionHelper.php b/vendor/php-di/php-di/src/Definition/Helper/CreateDefinitionHelper.php
+--- a/vendor/php-di/php-di/src/Definition/Helper/CreateDefinitionHelper.php
++++ b/vendor/php-di/php-di/src/Definition/Helper/CreateDefinitionHelper.php
+@@ -53,7 +53,7 @@
+      * @param string|null $className Class name of the object.
+      *                               If null, the name of the entry (in the container) will be used as class name.
+      */
+-    public function __construct(string $className = null)
++    public function __construct(?string $className = null)
+     {
+         $this->className = $className;
+     }
+diff -ruN a/vendor/php-di/php-di/src/Definition/ObjectDefinition/PropertyInjection.php b/vendor/php-di/php-di/src/Definition/ObjectDefinition/PropertyInjection.php
+--- a/vendor/php-di/php-di/src/Definition/ObjectDefinition/PropertyInjection.php
++++ b/vendor/php-di/php-di/src/Definition/ObjectDefinition/PropertyInjection.php
+@@ -35,7 +35,7 @@
+      * @param string $propertyName Property name
+      * @param mixed $value Value that should be injected in the property
+      */
+-    public function __construct(string $propertyName, $value, string $className = null)
++    public function __construct(string $propertyName, $value, ?string $className = null)
+     {
+         $this->propertyName = $propertyName;
+         $this->value = $value;
+diff -ruN a/vendor/php-di/php-di/src/Definition/ObjectDefinition.php b/vendor/php-di/php-di/src/Definition/ObjectDefinition.php
+--- a/vendor/php-di/php-di/src/Definition/ObjectDefinition.php
++++ b/vendor/php-di/php-di/src/Definition/ObjectDefinition.php
+@@ -69,7 +69,7 @@
+     /**
+      * @param string $name Entry name
+      */
+-    public function __construct(string $name, string $className = null)
++    public function __construct(string $name, ?string $className = null)
+     {
+         $this->name = $name;
+         $this->setClassName($className);
+@@ -85,7 +85,7 @@
+         $this->name = $name;
+     }
+
+-    public function setClassName(string $className = null)
++    public function setClassName(?string $className = null)
+     {
+         $this->className = $className;
+
+@@ -183,7 +183,7 @@
+         }
+     }
+
+-    public function setLazy(bool $lazy = null)
++    public function setLazy(?bool $lazy = null)
+     {
+         $this->lazy = $lazy;
+     }
+diff -ruN a/vendor/php-di/php-di/src/Definition/Resolver/ObjectCreator.php b/vendor/php-di/php-di/src/Definition/Resolver/ObjectCreator.php
+--- a/vendor/php-di/php-di/src/Definition/Resolver/ObjectCreator.php
++++ b/vendor/php-di/php-di/src/Definition/Resolver/ObjectCreator.php
+@@ -209,7 +209,7 @@
+         self::setPrivatePropertyValue($propertyInjection->getClassName(), $object, $propertyName, $value);
+     }
+
+-    public static function setPrivatePropertyValue(string $className = null, $object, string $propertyName, $propertyValue)
++    public static function setPrivatePropertyValue(?string $className, $object, string $propertyName, $propertyValue)
+     {
+         $className = $className ?: get_class($object);
+
+diff -ruN a/vendor/php-di/php-di/src/Definition/Resolver/ParameterResolver.php b/vendor/php-di/php-di/src/Definition/Resolver/ParameterResolver.php
+--- a/vendor/php-di/php-di/src/Definition/Resolver/ParameterResolver.php
++++ b/vendor/php-di/php-di/src/Definition/Resolver/ParameterResolver.php
+@@ -36,8 +36,8 @@
+      * @return array Parameters to use to call the function.
+      */
+     public function resolveParameters(
+-        MethodInjection $definition = null,
+-        ReflectionMethod $method = null,
++        ?MethodInjection $definition = null,
++        ?ReflectionMethod $method = null,
+         array $parameters = []
+     ) {
+         $args = [];
+diff -ruN a/vendor/php-di/php-di/src/Definition/Source/AnnotationBasedAutowiring.php b/vendor/php-di/php-di/src/Definition/Source/AnnotationBasedAutowiring.php
+--- a/vendor/php-di/php-di/src/Definition/Source/AnnotationBasedAutowiring.php
++++ b/vendor/php-di/php-di/src/Definition/Source/AnnotationBasedAutowiring.php
+@@ -53,7 +53,7 @@
+         $this->ignorePhpDocErrors = (bool) $ignorePhpDocErrors;
+     }
+
+-    public function autowire(string $name, ObjectDefinition $definition = null)
++    public function autowire(string $name, ?ObjectDefinition $definition = null)
+     {
+         $className = $definition ? $definition->getClassName() : $name;
+
+diff -ruN a/vendor/php-di/php-di/src/Definition/Source/Autowiring.php b/vendor/php-di/php-di/src/Definition/Source/Autowiring.php
+--- a/vendor/php-di/php-di/src/Definition/Source/Autowiring.php
++++ b/vendor/php-di/php-di/src/Definition/Source/Autowiring.php
+@@ -20,5 +20,5 @@
+      * @throws InvalidDefinition An invalid definition was found.
+      * @return ObjectDefinition|null
+      */
+-    public function autowire(string $name, ObjectDefinition $definition = null);
++    public function autowire(string $name, ?ObjectDefinition $definition = null);
+ }
+diff -ruN a/vendor/php-di/php-di/src/Definition/Source/DefinitionArray.php b/vendor/php-di/php-di/src/Definition/Source/DefinitionArray.php
+--- a/vendor/php-di/php-di/src/Definition/Source/DefinitionArray.php
++++ b/vendor/php-di/php-di/src/Definition/Source/DefinitionArray.php
+@@ -36,7 +36,7 @@
+      */
+     private $normalizer;
+
+-    public function __construct(array $definitions = [], Autowiring $autowiring = null)
++    public function __construct(array $definitions = [], ?Autowiring $autowiring = null)
+     {
+         if (isset($definitions[0])) {
+             throw new \Exception('The PHP-DI definition is not indexed by an entry name in the definition array');
+diff -ruN a/vendor/php-di/php-di/src/Definition/Source/DefinitionFile.php b/vendor/php-di/php-di/src/Definition/Source/DefinitionFile.php
+--- a/vendor/php-di/php-di/src/Definition/Source/DefinitionFile.php
++++ b/vendor/php-di/php-di/src/Definition/Source/DefinitionFile.php
+@@ -25,7 +25,7 @@
+     /**
+      * @param string $file File in which the definitions are returned as an array.
+      */
+-    public function __construct($file, Autowiring $autowiring = null)
++    public function __construct($file, ?Autowiring $autowiring = null)
+     {
+         // Lazy-loading to improve performances
+         $this->file = $file;
+diff -ruN a/vendor/php-di/php-di/src/Definition/Source/DefinitionNormalizer.php b/vendor/php-di/php-di/src/Definition/Source/DefinitionNormalizer.php
+--- a/vendor/php-di/php-di/src/Definition/Source/DefinitionNormalizer.php
++++ b/vendor/php-di/php-di/src/Definition/Source/DefinitionNormalizer.php
+@@ -43,7 +43,7 @@
+      *
+      * @throws InvalidDefinition
+      */
+-    public function normalizeRootDefinition($definition, string $name, array $wildcardsReplacements = null) : Definition
++    public function normalizeRootDefinition($definition, string $name, ?array $wildcardsReplacements = null) : Definition
+     {
+         if ($definition instanceof DefinitionHelper) {
+             $definition = $definition->getDefinition($name);
+diff -ruN a/vendor/php-di/php-di/src/Definition/Source/NoAutowiring.php b/vendor/php-di/php-di/src/Definition/Source/NoAutowiring.php
+--- a/vendor/php-di/php-di/src/Definition/Source/NoAutowiring.php
++++ b/vendor/php-di/php-di/src/Definition/Source/NoAutowiring.php
+@@ -14,7 +14,7 @@
+  */
+ class NoAutowiring implements Autowiring
+ {
+-    public function autowire(string $name, ObjectDefinition $definition = null)
++    public function autowire(string $name, ?ObjectDefinition $definition = null)
+     {
+         throw new InvalidDefinition(sprintf(
+             'Cannot autowire entry "%s" because autowiring is disabled',
+diff -ruN a/vendor/php-di/php-di/src/Definition/Source/ReflectionBasedAutowiring.php b/vendor/php-di/php-di/src/Definition/Source/ReflectionBasedAutowiring.php
+--- a/vendor/php-di/php-di/src/Definition/Source/ReflectionBasedAutowiring.php
++++ b/vendor/php-di/php-di/src/Definition/Source/ReflectionBasedAutowiring.php
+@@ -16,7 +16,7 @@
+  */
+ class ReflectionBasedAutowiring implements DefinitionSource, Autowiring
+ {
+-    public function autowire(string $name, ObjectDefinition $definition = null)
++    public function autowire(string $name, ?ObjectDefinition $definition = null)
+     {
+         $className = $definition ? $definition->getClassName() : $name;
+
+diff -ruN a/vendor/php-di/php-di/src/Definition/Source/SourceCache.php b/vendor/php-di/php-di/src/Definition/Source/SourceCache.php
+--- a/vendor/php-di/php-di/src/Definition/Source/SourceCache.php
++++ b/vendor/php-di/php-di/src/Definition/Source/SourceCache.php
+@@ -75,7 +75,7 @@
+         throw new \LogicException('You cannot set a definition at runtime on a container that has caching enabled. Doing so would risk caching the definition for the next execution, where it might be different. You can either put your definitions in a file, remove the cache or ->set() a raw value directly (PHP object, string, int, ...) instead of a PHP-DI definition.');
+     }
+
+-    private function shouldBeCached(Definition $definition = null) : bool
++    private function shouldBeCached(?Definition $definition = null) : bool
+     {
+         return
+             // Cache missing definitions
+diff -ruN a/vendor/php-di/php-di/src/Proxy/ProxyFactory.php b/vendor/php-di/php-di/src/Proxy/ProxyFactory.php
+--- a/vendor/php-di/php-di/src/Proxy/ProxyFactory.php
++++ b/vendor/php-di/php-di/src/Proxy/ProxyFactory.php
+@@ -40,7 +40,7 @@
+      */
+     private $proxyManager;
+
+-    public function __construct(bool $writeProxiesToFile = false, string $proxyDirectory = null)
++    public function __construct(bool $writeProxiesToFile = false, ?string $proxyDirectory = null)
+     {
+         $this->writeProxiesToFile = $writeProxiesToFile;
+         $this->proxyDirectory = $proxyDirectory;
+diff -ruN a/vendor/php-di/php-di/src/functions.php b/vendor/php-di/php-di/src/functions.php
+--- a/vendor/php-di/php-di/src/functions.php
++++ b/vendor/php-di/php-di/src/functions.php
+@@ -32,7 +32,7 @@
+      * @param string|null $className Class name of the object.
+      *                               If null, the name of the entry (in the container) will be used as class name.
+      */
+-    function create(string $className = null) : CreateDefinitionHelper
++    function create(?string $className = null) : CreateDefinitionHelper
+     {
+         return new CreateDefinitionHelper($className);
+     }
+@@ -45,7 +45,7 @@
+      * @param string|null $className Class name of the object.
+      *                               If null, the name of the entry (in the container) will be used as class name.
+      */
+-    function autowire(string $className = null) : AutowireDefinitionHelper
++    function autowire(?string $className = null) : AutowireDefinitionHelper
+     {
+         return new AutowireDefinitionHelper($className);
+     }

@@ -40,7 +40,7 @@ class Separator implements CollectionFormatter
                 return '<br>';
             case Setting::HORIZONTAL_RULE :
                 return '<hr>';
-            case Setting::NONE;
+            case Setting::NONE:
                 return '';
             case Setting::COMMA :
             default :
