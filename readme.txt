@@ -201,7 +201,7 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 == Changelog ==
 
 = 7.0.12 =
-Release Date: TBD
+Release Date: March 16th, 2026
 
 * [Added] New "Auto Detect" option for the date save format setting.
 * [Added] New "File Display" setting for file columns with filename and preview options.
