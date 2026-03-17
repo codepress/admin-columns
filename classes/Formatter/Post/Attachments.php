@@ -28,7 +28,27 @@ class Attachments implements Formatter
             'fields'         => 'ids',
         ]);
 
-        return ValueCollection::from_ids($parent_id, $attachment_ids);
+        return ValueCollection::from_ids($parent_id, $this->group_by_extension($attachment_ids));
+    }
+
+    /**
+     * Group attachment IDs by file extension, preserving the order of first appearance.
+     *
+     * @param int[] $ids
+     * @return int[]
+     */
+    private function group_by_extension(array $ids): array
+    {
+        $groups = [];
+
+        foreach ($ids as $id) {
+            $file = get_attached_file($id);
+            $ext  = $file ? strtolower((string)pathinfo($file, PATHINFO_EXTENSION)) : '';
+
+            $groups[$ext][] = $id;
+        }
+
+        return array_merge(...array_values($groups));
     }
 
 }

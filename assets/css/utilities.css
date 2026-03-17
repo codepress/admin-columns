@@ -653,8 +653,8 @@
   row-gap: 6px
 }
 
-.acu-self-start {
-  align-self: flex-start
+.acu-self-end {
+  align-self: flex-end
 }
 
 .acu-overflow-hidden {

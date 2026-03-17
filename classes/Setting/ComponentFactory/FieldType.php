@@ -263,7 +263,12 @@ class FieldType extends BaseComponentFactory
                 break;
             case self::TYPE_MEDIA:
                 if ($config->get('is_multiple', 'off') === 'on') {
-                    $formatters->add(new AC\Formatter\IdsToCollection());
+                    $is_preview = $config->get('file_display') !== '';
+                    $formatters->add(
+                        $is_preview
+                            ? new AC\Formatter\GroupedIdsToCollection()
+                            : new AC\Formatter\IdsToCollection()
+                    );
                 }
 
                 if ($config->get('file_display') === '') {

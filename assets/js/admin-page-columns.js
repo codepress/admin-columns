@@ -11612,7 +11612,7 @@ function create_if_block(ctx) {
       t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block1) if_block1.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span0, "class", "acu-italic acu-text-[#2271b1]");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span1, "class", "acu-inline-flex acu-self-start acu-items-center acu-gap-0.5 acu-text-sm acu-text-[#888] acu-bg-[#f0f0f0] acu-rounded acu-px-2 acu-py-1");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span1, "class", "acu-inline-flex acu-self-end acu-items-center acu-gap-0.5 acu-text-sm acu-text-[#888] acu-bg-[#f0f0f0] acu-rounded acu-px-2 acu-py-1");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span1, anchor);

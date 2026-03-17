@@ -58,7 +58,7 @@
         </div>
 
         {#if hasPreview}
-            <span class="acu-inline-flex acu-self-start acu-items-center acu-gap-0.5 acu-text-sm acu-text-[#888] acu-bg-[#f0f0f0] acu-rounded acu-px-2 acu-py-1">
+            <span class="acu-inline-flex acu-self-end acu-items-center acu-gap-0.5 acu-text-sm acu-text-[#888] acu-bg-[#f0f0f0] acu-rounded acu-px-2 acu-py-1">
                 {#if previewBefore}<span class="acu-text-[#444]">{previewBefore}</span>{/if}
                 <span class="acu-italic acu-text-[#2271b1]">value</span>
                 {#if previewAfter}<span class="acu-text-[#444]">{previewAfter}</span>{/if}
