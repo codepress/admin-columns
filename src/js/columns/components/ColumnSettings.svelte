@@ -3,6 +3,7 @@
     import RowSetting from "./settings/RowSetting.svelte";
     import WidthRowSetting from "./settings/WidthRowSetting.svelte";
     import InputOnlySetting from "./settings/InputOnlySetting.svelte";
+    import ColumnInfoRowSetting from "./settings/ColumnInfoRowSetting.svelte";
 
     export let data: any;
     export let settings: AC.Column.Settings.ColumnSettingCollection
@@ -35,7 +36,8 @@
     const settingComponents: { [key: string]: any } = {
         'default': RowSetting,
         'input_only': InputOnlySetting,
-        'width': WidthRowSetting
+        'width': WidthRowSetting,
+        'column_info': ColumnInfoRowSetting,
     }
 
     const getSettingComponent = (type: string) => {

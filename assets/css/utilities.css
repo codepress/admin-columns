@@ -314,6 +314,10 @@
   display: flex
 }
 
+.acu-grid {
+  display: grid
+}
+
 .acu-hidden {
   display: none
 }
@@ -506,6 +510,10 @@
   flex: 1 1 auto
 }
 
+.acu-flex-shrink {
+  flex-shrink: 1
+}
+
 .acu-flex-shrink-0 {
   flex-shrink: 0
 }
@@ -628,12 +636,30 @@
   gap: 20px
 }
 
+.acu-gap-x-\[10px\] {
+  -moz-column-gap: 10px;
+       column-gap: 10px
+}
+
+.acu-gap-y-\[6px\] {
+  row-gap: 6px
+}
+
+.acu-gap-x-\[20px\] {
+  -moz-column-gap: 20px;
+       column-gap: 20px
+}
+
 .acu-overflow-hidden {
   overflow: hidden
 }
 
 .acu-overflow-x-auto {
   overflow-x: auto
+}
+
+.acu-whitespace-nowrap {
+  white-space: nowrap
 }
 
 .acu-text-wrap {
@@ -758,6 +784,11 @@
   background-color: rgb(238 238 238 / var(--tw-bg-opacity, 1))
 }
 
+.acu-bg-\[\#f0f0f0\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 240 240 / var(--tw-bg-opacity, 1))
+}
+
 .acu-bg-\[\#fff\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
@@ -866,6 +897,11 @@
   padding-right: 0
 }
 
+.acu-px-\[10px\] {
+  padding-left: 10px;
+  padding-right: 10px
+}
+
 .acu-px-\[20px\] {
   padding-left: 20px;
   padding-right: 20px
@@ -909,6 +945,11 @@
 .acu-py-\[2px\] {
   padding-top: 2px;
   padding-bottom: 2px
+}
+
+.acu-py-\[3px\] {
+  padding-top: 3px;
+  padding-bottom: 3px
 }
 
 .\!acu-pr-6 {
@@ -1011,10 +1052,6 @@
   padding-top: 0
 }
 
-.acu-pt-\[10px\] {
-  padding-top: 10px
-}
-
 .acu-pt-\[20px\] {
   padding-top: 20px
 }
@@ -1062,6 +1099,10 @@
 
 .acu-text-\[12px\] {
   font-size: 12px
+}
+
+.acu-text-\[13px\] {
+  font-size: 13px
 }
 
 .acu-text-\[14px\] {
@@ -1160,6 +1201,16 @@
 
 .acu-tracking-tight {
   letter-spacing: -0.025em
+}
+
+.acu-text-\[\#3c3c3c\] {
+  --tw-text-opacity: 1;
+  color: rgb(60 60 60 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#3c434a\] {
+  --tw-text-opacity: 1;
+  color: rgb(60 67 74 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#777\] {
@@ -1444,11 +1495,6 @@
   .xl\:acu-gap-6 {
     gap: 30px
   }
-
-  .xl\:acu-py-8 {
-    padding-top: 40px;
-    padding-bottom: 40px
-  }
 }
 
 @media (min-width: 1450px) {
@@ -1488,26 +1534,6 @@
 
   .\32xl\:acu-pt-\[30px\] {
     padding-top: 30px
-  }
-
-  .\32xl\:acu-pl-\[250px\] {
-    padding-left: 250px
-  }
-
-  .\32xl\:acu-pl-\[280px\] {
-    padding-left: 280px
-  }
-
-  .\32xl\:acu-pl-\[340px\] {
-    padding-left: 340px
-  }
-
-  .\32xl\:acu-pl-\[360px\] {
-    padding-left: 360px
-  }
-
-  .\32xl\:acu-pl-\[350px\] {
-    padding-left: 350px
   }
 }
 
