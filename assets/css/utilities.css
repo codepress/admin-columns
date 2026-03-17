@@ -314,6 +314,10 @@
   display: flex
 }
 
+.acu-inline-flex {
+  display: inline-flex
+}
+
 .acu-grid {
   display: grid
 }
@@ -612,6 +616,10 @@
   justify-content: center
 }
 
+.acu-gap-0\.5 {
+  gap: 3px
+}
+
 .acu-gap-1 {
   gap: 5px
 }
@@ -636,18 +644,17 @@
   gap: 20px
 }
 
-.acu-gap-x-\[10px\] {
-  -moz-column-gap: 10px;
-       column-gap: 10px
+.acu-gap-x-\[20px\] {
+  -moz-column-gap: 20px;
+       column-gap: 20px
 }
 
 .acu-gap-y-\[6px\] {
   row-gap: 6px
 }
 
-.acu-gap-x-\[20px\] {
-  -moz-column-gap: 20px;
-       column-gap: 20px
+.acu-self-start {
+  align-self: flex-start
 }
 
 .acu-overflow-hidden {
@@ -1146,6 +1153,11 @@
   line-height: 1.5rem
 }
 
+.acu-text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem
+}
+
 .acu-text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem
@@ -1203,6 +1215,11 @@
   letter-spacing: -0.025em
 }
 
+.acu-text-\[\#2271b1\] {
+  --tw-text-opacity: 1;
+  color: rgb(34 113 177 / var(--tw-text-opacity, 1))
+}
+
 .acu-text-\[\#3c3c3c\] {
   --tw-text-opacity: 1;
   color: rgb(60 60 60 / var(--tw-text-opacity, 1))
@@ -1211,6 +1228,16 @@
 .acu-text-\[\#3c434a\] {
   --tw-text-opacity: 1;
   color: rgb(60 67 74 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#444\] {
+  --tw-text-opacity: 1;
+  color: rgb(68 68 68 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#666\] {
+  --tw-text-opacity: 1;
+  color: rgb(102 102 102 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#777\] {

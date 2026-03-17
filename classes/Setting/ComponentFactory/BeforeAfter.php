@@ -27,8 +27,9 @@ final class BeforeAfter implements ComponentFactory
 
         return (new ComponentBuilder())
             ->set_label(
-                __('Display Options', 'codepress-admin-columns')
+                __('Before & After', 'codepress-admin-columns')
             )
+            ->set_type('before_after')
             ->set_formatter(
                 new AC\Formatter\BeforeAfter($before, $after)
             )
@@ -36,13 +37,13 @@ final class BeforeAfter implements ComponentFactory
                 new Children(
                     new ComponentCollection([
                         new Component(
-                            __('Prepend', 'codepress-admin-columns'),
-                            __('Appears before the rendered column value', 'codepress-admin-columns'),
+                            __('Before', 'codepress-admin-columns'),
+                            null,
                             new Open(self::BEFORE, null, $before)
                         ),
                         new Component(
-                            __('Append', 'codepress-admin-columns'),
-                            __('Appears after the rendered column value', 'codepress-admin-columns'),
+                            __('After', 'codepress-admin-columns'),
+                            null,
                             new Open(self::AFTER, null, $after)
                         ),
                     ])

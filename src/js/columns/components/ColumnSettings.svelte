@@ -4,6 +4,7 @@
     import WidthRowSetting from "./settings/WidthRowSetting.svelte";
     import InputOnlySetting from "./settings/InputOnlySetting.svelte";
     import ColumnInfoRowSetting from "./settings/ColumnInfoRowSetting.svelte";
+    import BeforeAfterRowSetting from "./settings/BeforeAfterRowSetting.svelte";
 
     export let data: any;
     export let settings: AC.Column.Settings.ColumnSettingCollection
@@ -38,6 +39,7 @@
         'input_only': InputOnlySetting,
         'width': WidthRowSetting,
         'column_info': ColumnInfoRowSetting,
+        'before_after': BeforeAfterRowSetting,
     }
 
     const getSettingComponent = (type: string) => {
