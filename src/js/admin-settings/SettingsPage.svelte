@@ -46,33 +46,92 @@
 
 <div class="acu-mx-[50px] acu-pt-[70px]">
 
-	<div class="acu-max-w-[1520px]">
-		<hr class="wp-header-end acu-hidden">
-	</div>
+    <div class="acu-max-w-[1520px]">
+        <hr class="wp-header-end acu-hidden">
+    </div>
 
-	<main class="acu-flex acu-gap-4 acu-w-full">
-		<AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
-			<AcPanelHeader slot="header" title={i18n.settings} type="h2" border/>
-			<AcPanelBody slot="body" classNames={['acu-pb-10']}>
+    <main class="acu-flex acu-flex-col acu-gap-4 acu-w-full">
+        <AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
+            <AcPanelHeader slot="header" title={i18n.settings} type="h2" border/>
+            <AcPanelBody slot="body" classNames={['acu-pb-10']}>
 
-				<SettingSection title="General Settings" subtitle="These settings affect the list table.">
-					<div>
-						<AcToggle bind:checked={showButtonValue} disabled={loadingShowButtonValue}
-							on:input={handleToggleShowButton}>{sprintf( i18n.show_x_button, `"${i18n.edit_button}"` )}</AcToggle>
-					</div>
+                <SettingSection title="General Settings" subtitle="These settings affect the list table.">
+                    <div>
+                        <AcToggle bind:checked={showButtonValue} disabled={loadingShowButtonValue}
+                                  on:input={handleToggleShowButton}>{sprintf(i18n.show_x_button, `"${i18n.edit_button}"`)}</AcToggle>
+                    </div>
 
-					{#each SettingSections.getSections( 'inside_general' ) as component}
-						<HtmlSection component={component}></HtmlSection>
-					{/each}
+                    {#each SettingSections.getSections('inside_general') as component}
+                        <HtmlSection component={component}></HtmlSection>
+                    {/each}
 
-				</SettingSection>
+                </SettingSection>
 
-				{#each SettingSections.getSections( 'after_general' ) as component}
-					<HtmlSection component={component}></HtmlSection>
-				{/each}
+                {#each SettingSections.getSections('after_general') as component}
+                    <HtmlSection component={component}></HtmlSection>
+                {/each}
 
-			</AcPanelBody>
-		</AcPanel>
-	</main>
+            </AcPanelBody>
+        </AcPanel>
+
+        {#if config.upgrade_panel}
+            <AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
+                <AcPanelHeader slot="header" title="Admin Columns Pro" type="h2" border/>
+                <AcPanelBody slot="body" classNames={['acu-pb-10']}>
+                    <p class="acu-font-bold acu-mt-0 acu-mb-4">{config.upgrade_panel.subtitle}</p>
+
+                    <div class="acu-grid md:acu-grid-cols-3 acu-grid-cols-2 acu-gap-x-8 acu-gap-y-2 acu-mb-6">
+                        {#each config.upgrade_panel.features as feature}
+                            <div class="feature-item">
+                                <div class="acu-flex acu-items-center acu-gap-1.5">
+                                    <span class="acu-text-pink acu-font-bold">+</span>
+                                    <span class="feature-label">{feature.label}</span>
+                                </div>
+                                <div class="feature-tooltip">{feature.tooltip}</div>
+                            </div>
+                        {/each}
+                        <div>
+                            <a href={config.upgrade_panel.upgrade_url} target="_blank">{config.upgrade_panel.view_all}</a>
+                        </div>
+                    </div>
+
+                    <a href={config.upgrade_panel.upgrade_url}
+                       target="_blank"
+                       class="acui-button acui-button-pink">
+                        {config.upgrade_panel.button}
+                    </a>
+                </AcPanelBody>
+            </AcPanel>
+        {/if}
+    </main>
 
 </div>
+
+<style>
+    .feature-item {
+        position: relative;
+    }
+
+    .feature-label {
+        border-bottom: 1px dotted currentColor;
+        text-decoration: none;
+    }
+
+    .feature-tooltip {
+        display: none;
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        z-index: 100;
+        width: 300px;
+        padding: 12px 15px;
+        background: #3D4350;
+        color: #fff;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .feature-item:hover .feature-tooltip {
+        display: block;
+    }
+</style>
