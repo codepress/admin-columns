@@ -15,6 +15,7 @@
     $: previewBefore = (beforeSetting?.input?.name ? data[beforeSetting.input.name] : '') ?? '';
     $: previewAfter = (afterSetting?.input?.name ? data[afterSetting.input.name] : '') ?? '';
     $: hasPreview = previewBefore !== '' || previewAfter !== '';
+    $: previewText = previewBefore + 'value' + previewAfter;
 </script>
 
 <ColumnSetting label={setting.label} {isSubComponent} attributes={setting.attributes ?? {}}>
@@ -58,10 +59,8 @@
         </div>
 
         {#if hasPreview}
-            <span class="acu-inline-flex acu-self-end acu-items-center acu-gap-0.5 acu-text-sm acu-text-[#888] acu-bg-[#f0f0f0] acu-rounded acu-px-2 acu-py-1">
-                {#if previewBefore}<span class="acu-text-[#444]">{previewBefore}</span>{/if}
-                <span class="acu-italic acu-text-[#2271b1]">value</span>
-                {#if previewAfter}<span class="acu-text-[#444]">{previewAfter}</span>{/if}
+            <span class="acu-inline-flex acu-self-end acu-items-center acu-text-sm acu-text-[#888] acu-bg-[#f0f0f0] acu-rounded acu-px-2 acu-py-1" style="white-space: pre;">
+                <span class="acu-text-[#444]">{previewBefore}</span><span class="acu-italic acu-text-[#2271b1]">value</span><span class="acu-text-[#444]">{previewAfter}</span>
             </span>
         {/if}
     </div>
