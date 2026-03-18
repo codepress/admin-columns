@@ -14711,10 +14711,10 @@ function create_if_block(ctx) {
   let current;
   propromotionmodal = new _ProPromotionModal_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
     props: {
-      title: /*i18n*/ctx[1].pro.modal.title
+      title: /*i18n*/ctx[2].pro.modal.title
     }
   });
-  propromotionmodal.$on("close", /*closeModal*/ctx[3]);
+  propromotionmodal.$on("close", /*closeModal*/ctx[4]);
   return {
     c() {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(propromotionmodal.$$.fragment);
@@ -14741,18 +14741,25 @@ function create_if_block(ctx) {
 function create_fragment(ctx) {
   let div;
   let actoggle;
+  let updating_checked;
   let t0;
   let span;
   let t2;
   let current;
   let mounted;
   let dispose;
+  function actoggle_checked_binding(value) {
+    /*actoggle_checked_binding*/ctx[7](value);
+  }
+  let actoggle_props = {};
+  if (/*enabled*/ctx[1] !== void 0) {
+    actoggle_props.checked = /*enabled*/ctx[1];
+  }
   actoggle = new ACUi_element_AcToggle_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
-    props: {
-      checked: false,
-      disabled: true
-    }
+    props: actoggle_props
   });
+  svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(actoggle, 'checked', actoggle_checked_binding));
+  actoggle.$on("input", /*ensureDisabledSetting*/ctx[5]);
   let if_block = /*showModal*/ctx[0] && create_if_block(ctx);
   return {
     c() {
@@ -14777,11 +14784,18 @@ function create_fragment(ctx) {
       if (if_block) if_block.m(div, null);
       current = true;
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "click", /*openModal*/ctx[2]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "keydown", /*keydown_handler*/ctx[4])];
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "click", /*openModal*/ctx[3]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "keydown", /*keydown_handler*/ctx[6])];
         mounted = true;
       }
     },
     p(ctx, [dirty]) {
+      const actoggle_changes = {};
+      if (!updating_checked && dirty & /*enabled*/2) {
+        updating_checked = true;
+        actoggle_changes.checked = /*enabled*/ctx[1];
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_checked = false);
+      }
+      actoggle.$set(actoggle_changes);
       if (/*showModal*/ctx[0]) {
         if (if_block) {
           if_block.p(ctx, dirty);
@@ -14827,16 +14841,26 @@ function create_fragment(ctx) {
 function instance($$self, $$props, $$invalidate) {
   const i18n = (0,_utils_global__WEBPACK_IMPORTED_MODULE_4__.getColumnSettingsTranslation)();
   let showModal = false;
+  let enabled = false;
   const openModal = () => {
     $$invalidate(0, showModal = true);
   };
   const closeModal = () => {
     $$invalidate(0, showModal = false);
   };
+  const ensureDisabledSetting = () => {
+    setTimeout(() => {
+      $$invalidate(1, enabled = false);
+    }, 500);
+  };
   function keydown_handler(event) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
   }
-  return [showModal, i18n, openModal, closeModal, keydown_handler];
+  function actoggle_checked_binding(value) {
+    enabled = value;
+    $$invalidate(1, enabled);
+  }
+  return [showModal, enabled, i18n, openModal, closeModal, ensureDisabledSetting, keydown_handler, actoggle_checked_binding];
 }
 class ProFeature extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {

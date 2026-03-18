@@ -70,8 +70,10 @@ class CustomFieldFactory extends BaseColumnFactory
         $components[] = $this->before_after->create($config);
         $components[] = $this->pro_promotion_factory->create(__('Enable Editing', 'codepress-admin-columns'))->create($config);
         $components[] = $this->pro_promotion_factory->create(__('Enable Bulk Editing', 'codepress-admin-columns'))->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Export', 'codepress-admin-columns'))->create($config);
         $components[] = $this->pro_promotion_factory->create(__('Enable Smart Filtering', 'codepress-admin-columns'))->create($config);
         $components[] = $this->pro_promotion_factory->create(__('Enable Filtering', 'codepress-admin-columns'))->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Sorting', 'codepress-admin-columns'))->create($config);
 
         return new ComponentCollection($components);
     }
