@@ -621,7 +621,7 @@ table.ac-table-items.-user-posts {
 	max-width: 100%;
 	background-color: #f0f0f1; // some transparent image won't be visible otherwise
 	vertical-align: middle;
-	border-radius: 10px;
+	border-radius: 4px;
 	border: 1px solid rgba(0, 0, 0, 0.1);
 
 	img {
@@ -646,6 +646,11 @@ table.ac-table-items.-user-posts {
 		img {
 			object-fit: cover;
 		}
+	}
+
+	a:hover > & {
+		border-color: #2271b1;
+		cursor: pointer;
 	}
 }
 
@@ -672,7 +677,7 @@ table.ac-table-items.-user-posts {
 		color: #2271b1;
 		font-weight: 700;
 		font-size: 11px;
-		padding: 3px 10px;
+		padding: 2px 4px;
 		min-width: 40px;
 		text-align: center;
 		text-transform: uppercase;
@@ -688,8 +693,12 @@ table.ac-table-items.-user-posts {
 	}
 
 	&:hover {
-		border-color: #b0b0b0;
 		text-decoration: none;
+	}
+
+	a:hover > & {
+		border-color: #2271b1;
+		cursor: pointer;
 	}
 }
 
@@ -1251,12 +1260,14 @@ table.ac-table-items.-clean {
 		}
 	}
 }
+
 table.ac-table-items.-plugins {
 	tr > *:first-child {
 		padding-left: 0;
 	}
+
 	thead tr {
-		>* {
+		> * {
 			text-align: left;
 		}
 	}
