@@ -25,6 +25,11 @@ class IntegrationPlaceholder extends BaseColumnFactory
         $this->integration = $integration;
     }
 
+    protected function get_group(): ?string
+    {
+        return 'plugin';
+    }
+
     protected function get_settings(Config $config): AC\Setting\ComponentCollection
     {
         return new AC\Setting\ComponentCollection([
