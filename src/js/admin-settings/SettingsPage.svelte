@@ -77,7 +77,7 @@
         {#if config.upgrade_panel}
             <AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
                 <AcPanelHeader slot="header" title="Admin Columns Pro" type="h2" border/>
-                <AcPanelBody slot="body" classNames={['acu-pb-10']}>
+                <AcPanelBody slot="body" classNames={['acu-pb-10','acu-relative','acu-pr-[100px]']}>
                     <p class="acu-font-bold acu-mt-0 acu-mb-4">{config.upgrade_panel.subtitle}</p>
 
                     <div class="acu-grid md:acu-grid-cols-3 acu-grid-cols-2 acu-gap-x-8 acu-gap-y-2 acu-mb-6">
@@ -100,6 +100,9 @@
                        class="acui-button acui-button-pink">
                         {config.upgrade_panel.button}
                     </a>
+                    <svg class="acu-absolute acu-hidden md:acu-block acu-right-[20px] acu-bottom-[20px] acu-w-[120px] acu-h-[200px]">
+                        <use xlink:href="{config.assets}/images/symbols.svg#zebra-thumbs-up"></use>
+                    </svg>
                 </AcPanelBody>
             </AcPanel>
         {/if}

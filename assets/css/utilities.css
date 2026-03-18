@@ -580,20 +580,8 @@
           appearance: none
 }
 
-.acu-grid-flow-col {
-  grid-auto-flow: column
-}
-
-.acu-grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr))
-}
-
 .acu-grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr))
-}
-
-.acu-grid-rows-5 {
-  grid-template-rows: repeat(5, minmax(0, 1fr))
 }
 
 .acu-flex-row-reverse {
@@ -1052,6 +1040,10 @@
   padding-right: 30px
 }
 
+.acu-pr-\[100px\] {
+  padding-right: 100px
+}
+
 .acu-pr-\[30px\] {
   padding-right: 30px
 }
@@ -1474,8 +1466,8 @@
     top: 32px
   }
 
-  .md\:acu-grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr))
+  .md\:acu-block {
+    display: block
   }
 
   .md\:acu-grid-cols-3 {

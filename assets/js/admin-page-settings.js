@@ -2686,7 +2686,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (72:16) <AcPanelBody slot="body" classNames={['acu-pb-10']}>
+// (72:16) <AcPanelBody slot="body" classNames={['acu-pb-10','acu-relative','acu-pr-[100px]']}>
 function create_default_slot(ctx) {
   let p;
   let t1;
@@ -2702,6 +2702,10 @@ function create_default_slot(ctx) {
   let t5_value = /*config*/ctx[3].upgrade_panel.button + "";
   let t5;
   let a1_href_value;
+  let t6;
+  let svg;
+  let use;
+  let use_xlink_href_value;
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*config*/ctx[3].upgrade_panel.features);
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
@@ -2723,6 +2727,9 @@ function create_default_slot(ctx) {
       t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       a1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("a");
       t5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t5_value);
+      t6 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      svg = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.svg_element)("svg");
+      use = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.svg_element)("use");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(p, "class", "acu-font-bold acu-mt-0 acu-mb-4");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a0, "href", a0_href_value = /*config*/ctx[3].upgrade_panel.upgrade_url);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a0, "target", "_blank");
@@ -2730,6 +2737,8 @@ function create_default_slot(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a1, "href", a1_href_value = /*config*/ctx[3].upgrade_panel.upgrade_url);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a1, "target", "_blank");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a1, "class", "acui-button acui-button-pink");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.xlink_attr)(use, "xlink:href", use_xlink_href_value = "" + (/*config*/ctx[3].assets + "/images/symbols.svg#zebra-thumbs-up"));
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(svg, "class", "acu-absolute acu-hidden md:acu-block acu-right-[20px] acu-bottom-[20px] acu-w-[120px] acu-h-[200px]");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, p, anchor);
@@ -2747,6 +2756,9 @@ function create_default_slot(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t4, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, a1, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(a1, t5);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t6, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, svg, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(svg, use);
     },
     p(ctx, dirty) {
       if (dirty & /*config*/8) {
@@ -2775,6 +2787,8 @@ function create_default_slot(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div1);
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t4);
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(a1);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t6);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(svg);
       }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
     }
@@ -2788,7 +2802,7 @@ function create_body_slot(ctx) {
   acpanelbody = new ACUi_acui_panel_AcPanelBody_svelte__WEBPACK_IMPORTED_MODULE_6__["default"]({
     props: {
       slot: "body",
-      classNames: ['acu-pb-10'],
+      classNames: ['acu-pb-10', 'acu-relative', 'acu-pr-[100px]'],
       $$slots: {
         default: [create_default_slot]
       },
