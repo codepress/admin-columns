@@ -5,6 +5,7 @@
 
     const i18n = getColumnSettingsTranslation();
     let showModal: boolean = false;
+	let enabled: boolean = false;
 
     const openModal = () => {
         showModal = true
@@ -13,6 +14,12 @@
     const closeModal = () => {
         showModal = false
     }
+
+	const ensureDisabledSetting = () => {
+		setTimeout( () => {
+			enabled = false;
+		},500)
+	}
 </script>
 
 <div class="acu-pt-1 acu-flex acu-gap-2 acu-items-center acu-cursor-pointer"
@@ -20,7 +27,7 @@
 	on:keydown
 	role="button"
 	tabindex="0">
-	<AcToggle checked={false} disabled={true}></AcToggle>
+	<AcToggle bind:checked={enabled} on:input={ ensureDisabledSetting } ></AcToggle>
 	<span
 		class="acu-bg-[#e9426e] acu-text-[#fff] acu-inline-block acu-px-2 acu-py-[2px] acu-rounded acu-font-bold">PRO
 	</span>

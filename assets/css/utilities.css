@@ -580,6 +580,10 @@
           appearance: none
 }
 
+.acu-grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+}
+
 .acu-flex-row-reverse {
   flex-direction: row-reverse
 }
@@ -620,6 +624,10 @@
   gap: 5px
 }
 
+.acu-gap-1\.5 {
+  gap: 8px
+}
+
 .acu-gap-2 {
   gap: 10px
 }
@@ -640,9 +648,18 @@
   gap: 20px
 }
 
+.acu-gap-x-8 {
+  -moz-column-gap: 40px;
+       column-gap: 40px
+}
+
 .acu-gap-x-\[20px\] {
   -moz-column-gap: 20px;
        column-gap: 20px
+}
+
+.acu-gap-y-2 {
+  row-gap: 10px
 }
 
 .acu-gap-y-\[6px\] {
@@ -1017,6 +1034,10 @@
 
 .acu-pr-6 {
   padding-right: 30px
+}
+
+.acu-pr-\[100px\] {
+  padding-right: 100px
 }
 
 .acu-pr-\[30px\] {
@@ -1439,6 +1460,14 @@
 @media (min-width: 782px) {
   .md\:acu-top-\[32px\] {
     top: 32px
+  }
+
+  .md\:acu-block {
+    display: block
+  }
+
+  .md\:acu-grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr))
   }
 
   .md\:acu-flex-row {

@@ -3,6 +3,15 @@ declare const ac_settings: InlineVarAcSettings;
 
 type InlineVarAcSettings = {
     _ajax_nonce: string
+    is_pro: boolean
+    assets: string
+    upgrade_panel: {
+        upgrade_url: string
+        subtitle: string
+        view_all: string
+        button: string
+        features: Array<{ url: string, label: string, tooltip: string }>
+    } | null
 }
 
 type LocalizedSettingsI18n = {
