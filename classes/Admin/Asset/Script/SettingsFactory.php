@@ -14,10 +14,12 @@ final class SettingsFactory
     public const HANDLE = 'ac-admin-page-settings';
 
     private Location $location;
+    private bool $is_pro_active;
 
-    public function __construct(AdminColumns $plugins)
+    public function __construct(AdminColumns $plugins, bool $is_pro_active)
     {
         $this->location = $plugins->get_location();
+        $this->is_pro_active = $is_pro_active;
     }
 
     public function create(): Script
@@ -55,6 +57,7 @@ final class SettingsFactory
             ->localize('ac_settings_i18n', Translation::create($translations))
             ->add_inline_variable('ac_settings', [
                 $nonce->get_name() => $nonce->create(),
+                'is_pro' => $this->is_pro_active
             ]);
 
         return $script;

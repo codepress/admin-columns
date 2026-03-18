@@ -2198,8 +2198,8 @@ function get_each_context_1(ctx, list, i) {
   return child_ctx;
 }
 
-// (47:3) 
-function create_header_slot(ctx) {
+// (47:12) 
+function create_header_slot_1(ctx) {
   let acpanelheader;
   let current;
   acpanelheader = new ACUi_acui_panel_AcPanelHeader_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
@@ -2234,8 +2234,8 @@ function create_header_slot(ctx) {
   };
 }
 
-// (52:6) <AcToggle bind:checked={showButtonValue} disabled={loadingShowButtonValue}        on:input={handleToggleShowButton}>
-function create_default_slot_2(ctx) {
+// (52:24) <AcToggle bind:checked={showButtonValue} disabled={loadingShowButtonValue}                                   on:input={handleToggleShowButton}>
+function create_default_slot_3(ctx) {
   let t_value = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.sprintf)(/*i18n*/ctx[2].show_x_button, `"${/*i18n*/ctx[2].edit_button}"`) + "";
   let t;
   return {
@@ -2254,7 +2254,7 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (56:5) {#each SettingSections.getSections( 'inside_general' ) as component}
+// (56:20) {#each SettingSections.getSections('inside_general') as component}
 function create_each_block_1(ctx) {
   let htmlsection;
   let current;
@@ -2287,8 +2287,8 @@ function create_each_block_1(ctx) {
   };
 }
 
-// (50:4) <SettingSection title="General Settings" subtitle="These settings affect the list table.">
-function create_default_slot_1(ctx) {
+// (50:16) <SettingSection title="General Settings" subtitle="These settings affect the list table.">
+function create_default_slot_2(ctx) {
   let div;
   let actoggle;
   let updating_checked;
@@ -2296,12 +2296,12 @@ function create_default_slot_1(ctx) {
   let each_1_anchor;
   let current;
   function actoggle_checked_binding(value) {
-    /*actoggle_checked_binding*/ctx[4](value);
+    /*actoggle_checked_binding*/ctx[5](value);
   }
   let actoggle_props = {
     disabled: /*loadingShowButtonValue*/ctx[0],
     $$slots: {
-      default: [create_default_slot_2]
+      default: [create_default_slot_3]
     },
     $$scope: {
       ctx
@@ -2314,7 +2314,7 @@ function create_default_slot_1(ctx) {
     props: actoggle_props
   });
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(actoggle, 'checked', actoggle_checked_binding));
-  actoggle.$on("input", /*handleToggleShowButton*/ctx[3]);
+  actoggle.$on("input", /*handleToggleShowButton*/ctx[4]);
   let each_value_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(_utils_page_sections__WEBPACK_IMPORTED_MODULE_9__["default"].getSections('inside_general'));
   let each_blocks = [];
   for (let i = 0; i < each_value_1.length; i += 1) {
@@ -2386,7 +2386,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (62:4) {#each SettingSections.getSections( 'after_general' ) as component}
+// (62:16) {#each SettingSections.getSections('after_general') as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
@@ -2419,8 +2419,8 @@ function create_each_block(ctx) {
   };
 }
 
-// (48:3) <AcPanelBody slot="body" classNames={['acu-pb-10']}>
-function create_default_slot(ctx) {
+// (48:12) <AcPanelBody slot="body" classNames={['acu-pb-10']}>
+function create_default_slot_1(ctx) {
   let settingsection;
   let t;
   let each_1_anchor;
@@ -2430,7 +2430,7 @@ function create_default_slot(ctx) {
       title: "General Settings",
       subtitle: "These settings affect the list table.",
       $$slots: {
-        default: [create_default_slot_1]
+        default: [create_default_slot_2]
       },
       $$scope: {
         ctx
@@ -2499,8 +2499,8 @@ function create_default_slot(ctx) {
   };
 }
 
-// (48:3) 
-function create_body_slot(ctx) {
+// (48:12) 
+function create_body_slot_1(ctx) {
   let acpanelbody;
   let current;
   acpanelbody = new ACUi_acui_panel_AcPanelBody_svelte__WEBPACK_IMPORTED_MODULE_6__["default"]({
@@ -2508,7 +2508,7 @@ function create_body_slot(ctx) {
       slot: "body",
       classNames: ['acu-pb-10'],
       $$slots: {
-        default: [create_default_slot]
+        default: [create_default_slot_1]
       },
       $$scope: {
         ctx
@@ -2547,20 +2547,11 @@ function create_body_slot(ctx) {
     }
   };
 }
-function create_fragment(ctx) {
-  let adminheaderbar;
-  let t0;
-  let div1;
-  let div0;
-  let t1;
-  let main;
+
+// (69:8) {#if !config.is_pro }
+function create_if_block(ctx) {
   let acpanel;
   let current;
-  adminheaderbar = new _components_AdminHeaderBar_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
-    props: {
-      title: /*i18n*/ctx[2].settings
-    }
-  });
   acpanel = new ACUi_acui_panel_AcPanel_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
     props: {
       classNames: ['acu-mb-3', 'acu-flex-grow', 'acu-max-w-[1520px]'],
@@ -2575,6 +2566,161 @@ function create_fragment(ctx) {
   });
   return {
     c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acpanel.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acpanel, target, anchor);
+      current = true;
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acpanel.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acpanel.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acpanel, detaching);
+    }
+  };
+}
+
+// (71:16) 
+function create_header_slot(ctx) {
+  let acpanelheader;
+  let current;
+  acpanelheader = new ACUi_acui_panel_AcPanelHeader_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
+    props: {
+      slot: "header",
+      title: "Admin Columns Pro",
+      type: "h2",
+      border: true
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acpanelheader.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acpanelheader, target, anchor);
+      current = true;
+    },
+    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acpanelheader.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acpanelheader.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acpanelheader, detaching);
+    }
+  };
+}
+
+// (72:16) <AcPanelBody slot="body" classNames={['acu-pb-10']}>
+function create_default_slot(ctx) {
+  let strong;
+  return {
+    c() {
+      strong = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("strong");
+      strong.textContent = "Upgrade to Admin Columns Pro and unlock all the awesome features.";
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, strong, anchor);
+    },
+    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(strong);
+      }
+    }
+  };
+}
+
+// (72:16) 
+function create_body_slot(ctx) {
+  let acpanelbody;
+  let current;
+  acpanelbody = new ACUi_acui_panel_AcPanelBody_svelte__WEBPACK_IMPORTED_MODULE_6__["default"]({
+    props: {
+      slot: "body",
+      classNames: ['acu-pb-10'],
+      $$slots: {
+        default: [create_default_slot]
+      },
+      $$scope: {
+        ctx
+      }
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acpanelbody.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acpanelbody, target, anchor);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const acpanelbody_changes = {};
+      if (dirty & /*$$scope*/2048) {
+        acpanelbody_changes.$$scope = {
+          dirty,
+          ctx
+        };
+      }
+      acpanelbody.$set(acpanelbody_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acpanelbody.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acpanelbody.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acpanelbody, detaching);
+    }
+  };
+}
+function create_fragment(ctx) {
+  let adminheaderbar;
+  let t0;
+  let div1;
+  let div0;
+  let t1;
+  let main;
+  let acpanel;
+  let t2;
+  let current;
+  adminheaderbar = new _components_AdminHeaderBar_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
+    props: {
+      title: /*i18n*/ctx[2].settings
+    }
+  });
+  acpanel = new ACUi_acui_panel_AcPanel_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
+    props: {
+      classNames: ['acu-mb-3', 'acu-flex-grow', 'acu-max-w-[1520px]'],
+      $$slots: {
+        body: [create_body_slot_1],
+        header: [create_header_slot_1]
+      },
+      $$scope: {
+        ctx
+      }
+    }
+  });
+  let if_block = ! /*config*/ctx[3].is_pro && create_if_block(ctx);
+  return {
+    c() {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(adminheaderbar.$$.fragment);
       t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -2583,8 +2729,10 @@ function create_fragment(ctx) {
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       main = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("main");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acpanel.$$.fragment);
+      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block) if_block.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acu-max-w-[1520px]");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(main, "class", "acu-flex acu-gap-4 acu-w-full");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(main, "class", "acu-flex acu-flex-col acu-gap-4 acu-w-full");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-mx-[50px] acu-pt-[70px]");
     },
     m(target, anchor) {
@@ -2595,6 +2743,8 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, main);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acpanel, main, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(main, t2);
+      if (if_block) if_block.m(main, null);
       current = true;
     },
     p(ctx, [dirty]) {
@@ -2611,11 +2761,13 @@ function create_fragment(ctx) {
       if (current) return;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(adminheaderbar.$$.fragment, local);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acpanel.$$.fragment, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block);
       current = true;
     },
     o(local) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(adminheaderbar.$$.fragment, local);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acpanel.$$.fragment, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block);
       current = false;
     },
     d(detaching) {
@@ -2625,6 +2777,7 @@ function create_fragment(ctx) {
       }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(adminheaderbar, detaching);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acpanel);
+      if (if_block) if_block.d();
     }
   };
 }
@@ -2658,7 +2811,7 @@ function instance($$self, $$props, $$invalidate) {
     showButtonValue = value;
     $$invalidate(1, showButtonValue);
   }
-  return [loadingShowButtonValue, showButtonValue, i18n, handleToggleShowButton, actoggle_checked_binding];
+  return [loadingShowButtonValue, showButtonValue, i18n, config, handleToggleShowButton, actoggle_checked_binding];
 }
 class SettingsPage extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {

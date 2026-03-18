@@ -46,33 +46,43 @@
 
 <div class="acu-mx-[50px] acu-pt-[70px]">
 
-	<div class="acu-max-w-[1520px]">
-		<hr class="wp-header-end acu-hidden">
-	</div>
+    <div class="acu-max-w-[1520px]">
+        <hr class="wp-header-end acu-hidden">
+    </div>
 
-	<main class="acu-flex acu-gap-4 acu-w-full">
-		<AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
-			<AcPanelHeader slot="header" title={i18n.settings} type="h2" border/>
-			<AcPanelBody slot="body" classNames={['acu-pb-10']}>
+    <main class="acu-flex acu-flex-col acu-gap-4 acu-w-full">
+        <AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
+            <AcPanelHeader slot="header" title={i18n.settings} type="h2" border/>
+            <AcPanelBody slot="body" classNames={['acu-pb-10']}>
 
-				<SettingSection title="General Settings" subtitle="These settings affect the list table.">
-					<div>
-						<AcToggle bind:checked={showButtonValue} disabled={loadingShowButtonValue}
-							on:input={handleToggleShowButton}>{sprintf( i18n.show_x_button, `"${i18n.edit_button}"` )}</AcToggle>
-					</div>
+                <SettingSection title="General Settings" subtitle="These settings affect the list table.">
+                    <div>
+                        <AcToggle bind:checked={showButtonValue} disabled={loadingShowButtonValue}
+                                  on:input={handleToggleShowButton}>{sprintf(i18n.show_x_button, `"${i18n.edit_button}"`)}</AcToggle>
+                    </div>
 
-					{#each SettingSections.getSections( 'inside_general' ) as component}
-						<HtmlSection component={component}></HtmlSection>
-					{/each}
+                    {#each SettingSections.getSections('inside_general') as component}
+                        <HtmlSection component={component}></HtmlSection>
+                    {/each}
 
-				</SettingSection>
+                </SettingSection>
 
-				{#each SettingSections.getSections( 'after_general' ) as component}
-					<HtmlSection component={component}></HtmlSection>
-				{/each}
+                {#each SettingSections.getSections('after_general') as component}
+                    <HtmlSection component={component}></HtmlSection>
+                {/each}
 
-			</AcPanelBody>
-		</AcPanel>
-	</main>
+            </AcPanelBody>
+        </AcPanel>
+
+        {#if !config.is_pro }
+            <AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
+                <AcPanelHeader slot="header" title="Admin Columns Pro" type="h2" border/>
+                <AcPanelBody slot="body" classNames={['acu-pb-10']}>
+                    <strong>Upgrade to Admin Columns Pro and unlock all the awesome features.</strong>
+                </AcPanelBody>
+
+            </AcPanel>
+        {/if}
+    </main>
 
 </div>
