@@ -1,0 +1,7 @@
+# Generated assets — use custom merge driver to avoid conflicts.
+# After a merge: frontend developer runs npm run build to update assets.
+# Setup: npm run setup:dev (once per developer, from admin-columns-pro/src/)
+
+# Free core assets
+assets/js/*.js      merge=ours-assets
+assets/css/*.css    merge=ours-assets
