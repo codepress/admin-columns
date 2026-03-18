@@ -160,7 +160,6 @@ class Columns extends Script
         }
 
         $this->add_inline_variable('ac_admin_columns', [
-
             'assets'                     => $this->parent_location->with_suffix('assets')->get_url(),
             'nonce'                      => NonceFactory::create_ajax()->create(),
             'show_column_info'           => (new AC\Admin\Preference\ScreenOptions())->is_active('show_column_info'),
@@ -170,9 +169,7 @@ class Columns extends Script
             'uninitialized_list_screens' => ! empty($uninitialized_table_screens) ? $uninitialized_table_screens : null,
             'column_groups'              => $this->encode_groups($this->column_groups->find_all()),
             'menu_items'                 => $this->get_menu_items(),
-            'menu_items_favorites'       => $this->encode_favorites(
-                $this->get_favorite_table_screens()
-            ),
+            'menu_items_favorites'       => $this->encode_favorites($this->get_favorite_table_screens()),
             'menu_groups_opened'         => (new EditorMenuStatus())->get_groups(),
             'urls'                       => [
                 'upgrade' => (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url(),
@@ -184,11 +181,12 @@ class Columns extends Script
             ],
             'support'                    => [
                 'description' => sprintf(
-                    __(
-                        "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>.",
-                        'codepress-admin-columns'
-                    ),
-                    (new UtmTags(new Documentation(), 'review-notice'))->get_url()
+                    __("For full documentation, bug reports, feature suggestions and other tips visit %s.", 'codepress-admin-columns'),
+                    sprintf(
+                        '<a href="%s">%s</a>',
+                        (new UtmTags(new Documentation()))->get_url(),
+                        __('the Admin Columns website', 'codepress-admin-columns')
+                    )
                 ),
                 'review'      => (new UtmTags(new Documentation(), 'review-notice'))->get_url(),
             ],
