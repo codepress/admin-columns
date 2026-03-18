@@ -4,6 +4,8 @@ declare const ac_settings: InlineVarAcSettings;
 type InlineVarAcSettings = {
     _ajax_nonce: string
     is_pro: boolean
+    upgrade_url: string
+    features: Array<{ url: string, label: string }>
 }
 
 type LocalizedSettingsI18n = {
@@ -16,4 +18,7 @@ type LocalizedSettingsI18n = {
     restore_settings: string
     restore_settings_description: string
     restore_settings_warning: string
+    upgrade_to_pro_subtitle: string
+    view_all_features: string
+    upgrade_button: string
 }

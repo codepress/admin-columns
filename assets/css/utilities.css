@@ -580,6 +580,18 @@
           appearance: none
 }
 
+.acu-grid-flow-col {
+  grid-auto-flow: column
+}
+
+.acu-grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr))
+}
+
+.acu-grid-rows-5 {
+  grid-template-rows: repeat(5, minmax(0, 1fr))
+}
+
 .acu-flex-row-reverse {
   flex-direction: row-reverse
 }
@@ -624,6 +636,10 @@
   gap: 5px
 }
 
+.acu-gap-1\.5 {
+  gap: 8px
+}
+
 .acu-gap-2 {
   gap: 10px
 }
@@ -644,9 +660,18 @@
   gap: 20px
 }
 
+.acu-gap-x-8 {
+  -moz-column-gap: 40px;
+       column-gap: 40px
+}
+
 .acu-gap-x-\[20px\] {
   -moz-column-gap: 20px;
        column-gap: 20px
+}
+
+.acu-gap-y-2 {
+  row-gap: 10px
 }
 
 .acu-gap-y-\[6px\] {

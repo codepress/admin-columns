@@ -78,9 +78,26 @@
             <AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
                 <AcPanelHeader slot="header" title="Admin Columns Pro" type="h2" border/>
                 <AcPanelBody slot="body" classNames={['acu-pb-10']}>
-                    <strong>Upgrade to Admin Columns Pro and unlock all the awesome features.</strong>
-                </AcPanelBody>
+                    <p class="acu-font-bold acu-mt-0 acu-mb-4">{i18n.upgrade_to_pro_subtitle}</p>
 
+                    <div class="acu-grid acu-grid-flow-col acu-grid-rows-5 acu-grid-cols-3 acu-gap-x-8 acu-gap-y-2 acu-mb-6">
+                        {#each config.features as feature}
+                            <div class="acu-flex acu-items-center acu-gap-1.5">
+                                <span class="acu-text-pink acu-font-bold">+</span>
+                                <a href={feature.url} target="_blank">{feature.label}</a>
+                            </div>
+                        {/each}
+                        <div>
+                            <a href={config.upgrade_url} target="_blank">{i18n.view_all_features}</a>
+                        </div>
+                    </div>
+
+                    <a href={config.upgrade_url}
+                       target="_blank"
+                       class="acui-button acui-button-pink">
+                        {i18n.upgrade_button}
+                    </a>
+                </AcPanelBody>
             </AcPanel>
         {/if}
     </main>
