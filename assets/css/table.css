@@ -1356,6 +1356,10 @@ table.ac-table-items.-user-posts .col-post-type {
 .ac-image:not(body).-cover img {
   object-fit: cover;
 }
+a:hover > .ac-image:not(body) {
+  border-color: #2271b1;
+  cursor: pointer;
+}
 
 .ac-file-pill {
   display: inline-flex;
