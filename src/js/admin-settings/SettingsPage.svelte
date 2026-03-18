@@ -74,28 +74,31 @@
             </AcPanelBody>
         </AcPanel>
 
-        {#if !config.is_pro }
+        {#if config.upgrade_panel}
             <AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
                 <AcPanelHeader slot="header" title="Admin Columns Pro" type="h2" border/>
                 <AcPanelBody slot="body" classNames={['acu-pb-10']}>
-                    <p class="acu-font-bold acu-mt-0 acu-mb-4">{i18n.upgrade_to_pro_subtitle}</p>
+                    <p class="acu-font-bold acu-mt-0 acu-mb-4">{config.upgrade_panel.subtitle}</p>
 
-                    <div class="acu-grid acu-grid-flow-col acu-grid-rows-5 acu-grid-cols-3 acu-gap-x-8 acu-gap-y-2 acu-mb-6">
-                        {#each config.features as feature}
-                            <div class="acu-flex acu-items-center acu-gap-1.5">
-                                <span class="acu-text-pink acu-font-bold">+</span>
-                                <a href={feature.url} target="_blank">{feature.label}</a>
+                    <div class="acu-grid md:acu-grid-cols-3 acu-grid-cols-2 acu-gap-x-8 acu-gap-y-2 acu-mb-6">
+                        {#each config.upgrade_panel.features as feature}
+                            <div class="feature-item">
+                                <div class="acu-flex acu-items-center acu-gap-1.5">
+                                    <span class="acu-text-pink acu-font-bold">+</span>
+                                    <span class="feature-label">{feature.label}</span>
+                                </div>
+                                <div class="feature-tooltip">{feature.tooltip}</div>
                             </div>
                         {/each}
                         <div>
-                            <a href={config.upgrade_url} target="_blank">{i18n.view_all_features}</a>
+                            <a href={config.upgrade_panel.upgrade_url} target="_blank">{config.upgrade_panel.view_all}</a>
                         </div>
                     </div>
 
-                    <a href={config.upgrade_url}
+                    <a href={config.upgrade_panel.upgrade_url}
                        target="_blank"
                        class="acui-button acui-button-pink">
-                        {i18n.upgrade_button}
+                        {config.upgrade_panel.button}
                     </a>
                 </AcPanelBody>
             </AcPanel>
@@ -103,3 +106,32 @@
     </main>
 
 </div>
+
+<style>
+    .feature-item {
+        position: relative;
+    }
+
+    .feature-label {
+        border-bottom: 1px dotted currentColor;
+        text-decoration: none;
+    }
+
+    .feature-tooltip {
+        display: none;
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        z-index: 100;
+        width: 300px;
+        padding: 12px 15px;
+        background: #3D4350;
+        color: #fff;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .feature-item:hover .feature-tooltip {
+        display: block;
+    }
+</style>
