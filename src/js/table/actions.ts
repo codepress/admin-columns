@@ -57,7 +57,7 @@ class ActionButtonCollection {
     }
 
     getById(id: string) {
-        this.getButtons().find(b => b.getElement().getElement().id === id);
+        return this.getButtons().find(b => b.getElement().getElement().id === id);
     }
 
     getButtons(): ActionButtonArray {

@@ -15,11 +15,13 @@ export default class Cells {
     }
 
     add(id: number, cell: Cell) {
-        if (!this.cells.hasOwnProperty(id)) {
-            this.cells[id] = {};
+        const key = id.toString();
+
+        if (!this.cells.hasOwnProperty(key)) {
+            this.cells[key] = {};
         }
 
-        this.cells[id][cell.getName()] = cell;
+        this.cells[key][cell.getName()] = cell;
     }
 
     getByID(id: number): Array<Cell> {
@@ -68,7 +70,9 @@ export default class Cells {
     }
 
     get(id: number, name: string): Cell|null {
-        return this.cells.hasOwnProperty(id.toString()) ? this.cells[id][name] : null
+        const key = id.toString();
+
+        return this.cells.hasOwnProperty(key) ? this.cells[key][name] : null
     }
 
 }

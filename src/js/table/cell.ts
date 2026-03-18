@@ -1,24 +1,22 @@
-import AcServices from "../modules/ac-services";
-import Table from "./table";
 import Nanobus from "nanobus";
-
-declare const AC_SERVICES: AcServices;
+import {ColumnTableSettings} from "./columns";
+import ServiceContainer from "../modules/service-container";
 
 export default class Cell {
 
     private readonly object_id: number
     private readonly column_name: string
-    private readonly services: Record<string, any>
+    private readonly services: ServiceContainer
     private original_value: string
     private el: HTMLTableCellElement
     events: Nanobus
 
-    constructor(id: number, name: string, el: HTMLTableCellElement) {
+    constructor(id: number, name: string, el: HTMLTableCellElement, private settings: ColumnTableSettings | null = null) {
         this.object_id = id;
         this.column_name = name;
         this.original_value = el.innerHTML;
         this.el = el;
-        this.services = {}
+        this.services = new ServiceContainer();
         this.events = new Nanobus();
     }
 
@@ -46,8 +44,8 @@ export default class Cell {
         return <HTMLTableRowElement>this.el.parentElement;
     }
 
-    getSettings() {
-        return AC_SERVICES.getService<Table>('Table')?.Columns.get(this.getName());
+    getSettings(): ColumnTableSettings | null {
+        return this.settings;
     }
 
     hasChanged(content: string) {
@@ -64,22 +62,21 @@ export default class Cell {
             this.el.append(rowActions);
         }
 
-        this.original_value = value;
         this.events.emit('setValue', this);
 
         return this;
     }
 
     setService(name: string, service: any) {
-        this.services[name] = service;
+        this.services.setService(name, service);
     }
 
     getService<T = any>(name: string): T|null {
-        return this.hasService(name) ? this.services[name] : null;
+        return this.services.getService<T>(name);
     }
 
     hasService(name: string): boolean {
-        return this.services.hasOwnProperty(name);
+        return this.services.hasService(name);
     }
 
 }
