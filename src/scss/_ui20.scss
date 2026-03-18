@@ -1,4 +1,4 @@
-@import 'list-screen-settings/buttons';
-@import 'list-screen-settings/columns';
-@import 'list-screen-settings/column';
-@import 'list-screen-settings/column-settings';
+@use 'list-screen-settings/buttons' as *;
+@use 'list-screen-settings/columns' as *;
+@use 'list-screen-settings/column' as *;
+@use 'list-screen-settings/column-settings' as *;

@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
 
 	import {onMount} from "svelte";
 
-	export let autostart = false;
-	let seconds = 0;
-	let interVal = null;
-	let displayMinutes = '00';
-	let displaySeconds = '00';
+	export let autostart: boolean = false;
+	let seconds: number = 0;
+	let interVal: ReturnType<typeof setInterval> | null = null;
+	let displayMinutes: string = '00';
+	let displaySeconds: string = '00';
 
 	export const start = () => {
 		interVal = window.setInterval( () => {

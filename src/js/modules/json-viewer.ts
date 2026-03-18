@@ -1,4 +1,3 @@
-// @ts-ignore
 import JsonValueComponent from "../components/JsonValue.svelte";
 
 export default class JsonViewer {

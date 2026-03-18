@@ -47,6 +47,9 @@ let config = {
 		jquery : 'jQuery',
 		jQuery : 'jQuery'
 	},
+	cache: {
+		type: 'filesystem',
+	},
 	stats : 'minimal',
 	performance: {
 		hints: false

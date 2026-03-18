@@ -23,7 +23,7 @@ import {get} from "svelte/store";
 const AcServices = initAcServices();
 const localConfig = getColumnSettingsConfig();
 
-require('./columns/init/setting-types.ts');
+import './columns/init/setting-types.ts';
 
 const debounce = <T extends (...args: any[]) => void>(
     fn: T,

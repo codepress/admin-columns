@@ -1,4 +1,3 @@
-// @ts-ignore
 import ValueModalComponent from "../components/ValueModal.svelte";
 import {ValueModalItemCollection} from "../types/admin-columns";
 

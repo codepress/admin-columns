@@ -1,5 +1,11 @@
 import AcAdminColumnsVar = AC.Vars.Admin.Columns.AcAdminColumnsVar;
 
+declare module "*.svelte" {
+    import { SvelteComponent } from "svelte";
+    const component: typeof SvelteComponent;
+    export default component;
+}
+
 
 declare namespace AC.Vars.Admin.Columns {
 

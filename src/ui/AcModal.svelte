@@ -1,7 +1,7 @@
 <script lang="ts">
     import {createEventDispatcher, onMount} from "svelte";
 
-    const bodyScrollLock = require('body-scroll-lock');
+    import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock';
 
     export let contentNoPadding: boolean = false;
     export let hideContent: boolean = false;
@@ -17,7 +17,7 @@
 
     export const FreeScrollLock = () => {
         if (disableScroll && element) {
-            bodyScrollLock.enableBodyScroll(element);
+            enableBodyScroll(element);
         }
     }
 
@@ -42,7 +42,7 @@
 		}
 
         if (disableScroll && element) {
-            bodyScrollLock.disableBodyScroll(element, {});
+            disableBodyScroll(element, {});
         }
     });
 </script>
