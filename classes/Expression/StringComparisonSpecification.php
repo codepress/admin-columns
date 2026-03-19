@@ -21,6 +21,11 @@ class StringComparisonSpecification extends ComparisonSpecification implements T
         return new self(ComparisonOperators::EQUAL, $fact);
     }
 
+    public static function not_equal(string $fact): self
+    {
+        return new self(ComparisonOperators::NOT_EQUAL, $fact);
+    }
+
     public function is_satisfied_by($value): bool
     {
         return parent::is_satisfied_by((string)$value);

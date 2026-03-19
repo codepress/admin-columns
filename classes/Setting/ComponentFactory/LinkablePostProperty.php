@@ -46,7 +46,7 @@ class LinkablePostProperty extends PostProperty
         $components->add(
             $this->post_link->create(
                 $config,
-                StringComparisonSpecification::equal(self::PROPERTY_TITLE)
+                StringComparisonSpecification::not_equal(self::PROPERTY_AUTHOR)
             )
         );
 
