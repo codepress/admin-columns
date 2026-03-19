@@ -200,17 +200,15 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 
 == Changelog ==
 
-= 7.0.12 =
-Release Date: March 16th, 2026
+= 7.0.13 =
+Release Date: March 19th, 2026
 
-* [Added] New "Auto Detect" option for the date save format setting.
-* [Added] New "File Display" setting for file columns with filename and preview options.
-* [Added] New `ac/init` action hook for accessing the DI container after plugin initialization.
-* [Improved] The Title Only column on the Media list table now displays both the post title and the filename.
-* [Improved] Before/After text settings now correctly apply to ID columns.
-* [Fixed] Fixed dropdown menus closing unexpectedly when clicked.
-* [Fixed] Fixed potential errors when displaying columns for deleted posts, users, or terms.
-* [Fixed] Resolved errors and deprecation warnings when running on PHP 8.4.
+* [Added] Word Count columns now support Before & After text to prepend or append custom text around the count.
+* [Added] Custom field column settings now display the meta key for reference.
+* [Improved] File columns now group attachments by file type and display multiple filenames separated by commas.
+* [Fixed] Fixed the post link option not appearing for most property types in the Comment Post column.
+* [Fixed] Fixed the post link option not appearing for most property types in the User First Post and Last Post columns.
+* [Fixed] Fixed a potential error in user property columns when the display setting has not been saved yet.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 
