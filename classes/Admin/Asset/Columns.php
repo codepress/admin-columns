@@ -80,13 +80,11 @@ class Columns extends Script
         $upgrade_page_url = new UtmTags(Site::create_admin_columns_pro(), 'banner');
 
         $items = [
-            'search'      => __('Search any content', 'codepress-admin-columns'),
-            'editing'     => __('Inline Edit any content', 'codepress-admin-columns'),
-            'bulk-edit'   => __('Bulk Edit any content', 'codepress-admin-columns'),
-            'sorting'     => __('Sort any content', 'codepress-admin-columns'),
-            'filter'      => __('Filter any content', 'codepress-admin-columns'),
-            'column-sets' => __('Create multiple columns sets', 'codepress-admin-columns'),
-            'export'      => __('Export table contents to CSV', 'codepress-admin-columns'),
+            'editing'     => __('Inline edit directly in the table', 'codepress-admin-columns'),
+            'sorting'     => __('Sort and filter on any column', 'codepress-admin-columns'),
+            'bulk-edit'   => __('Bulk edit hundreds of items', 'codepress-admin-columns'),
+            'export'      => __('Export table data to CSV', 'codepress-admin-columns'),
+            'column-sets' => __('Multiple views per screen', 'codepress-admin-columns'),
         ];
 
         if (current_user_can(Capabilities::MANAGE)) {
@@ -105,13 +103,48 @@ class Columns extends Script
             }
         }
 
-        $integrations = [];
+        $integration_priority = [
+            'ac-addon-woocommerce',
+            'ac-addon-acf',
+            'ac-addon-yoast-seo',
+            'ac-addon-gravityforms',
+            'ac-addon-metabox',
+            'ac-addon-events-calendar',
+            'ac-addon-buddypress',
+            'ac-addon-jetengine',
+            'ac-addon-pods',
+            'ac-addon-types',
+            'ac-addon-media-library-assistant',
+            'ac-addon-rankmath',
+            'ac-addon-seopress',
+        ];
+
+        $active_integrations = [];
 
         foreach ($this->integration_repository->find_all_by_active_plugins() as $integration) {
+            $active_integrations[$integration->get_slug()] = $integration;
+        }
+
+        $integrations = [];
+
+        foreach ($integration_priority as $slug) {
+            if ( ! isset($active_integrations[$slug])) {
+                continue;
+            }
+
+            $integration = $active_integrations[$slug];
             $integrations[] = [
                 'url'   => (string)$integration->get_url(),
-                'label' => $integration->get_title(),
+                'label' => sprintf(
+                    /* translators: %s: plugin name (e.g. Advanced Custom Fields, WooCommerce) */
+                    __('%s integration', 'codepress-admin-columns'),
+                    $integration->get_title()
+                ),
             ];
+
+            if (count($integrations) >= 2) {
+                break;
+            }
         }
 
         $features = [];
@@ -301,23 +334,45 @@ class Columns extends Script
                         ],
                     ],
                     'banner'   => [
-                        'title'                 => __('Upgrade to', 'codepress-admin-columns'),
-                        'title_pro'             => __('Pro', 'codepress-admin-columns'),
-                        'sub_title'             => __(
-                            'Take Admin Columns to the next level:',
+                        'badge'                => __('Admin Columns Pro', 'codepress-admin-columns'),
+                        'title'                => __('Manage your content faster', 'codepress-admin-columns'),
+                        'description'          => __(
+                            'Turn your list tables into a powerful command center for sorting, editing, filtering, and exporting content.',
                             'codepress-admin-columns'
                         ),
-                        'integrations'          => __('Includes special integrations for:', 'codepress-admin-columns'),
-                        'get_acp'               => __('Get Admin Columns Pro', 'codepress-admin-columns'),
-                        'get_percentage_off'    => __('Get %s Off!', 'codepress-admin-columns'),
-                        'submit_email'          => __(
-                            "Submit your email and we'll send you a discount for %s off.",
+                        'features_label'       => __('With Pro you get', 'codepress-admin-columns'),
+                        'trust'                => sprintf(
+                            '%s · %s',
+                            sprintf(
+                            /* translators: %s: number of sites (e.g. 250,000+) */
+                                __('%s sites', 'codepress-admin-columns'),
+                                '250,000+'
+                            ),
+                            sprintf(
+                            /* translators: %s: rating (e.g. 4.9) */
+                                __('%s on Trustpilot', 'codepress-admin-columns'),
+                                '4.9'
+                            )
+                        ),
+                        'upgrade_cta'          => sprintf(
+                            '%s — %s',
+                            __('Upgrade to Pro', 'codepress-admin-columns'),
+                            sprintf(
+                            /* translators: %s: price (e.g. €79) */
+                                __('from %s/year', 'codepress-admin-columns'),
+                                '€79'
+                            )
+                        ),
+                        'guarantee'            => __('30-day money-back guarantee', 'codepress-admin-columns'),
+                        'see_all'              => __('See all Pro features', 'codepress-admin-columns'),
+                        'discount_title'       => __('Get 10% off Admin Columns Pro', 'codepress-admin-columns'),
+                        'discount_description' => __(
+                            "Upgrade today and we'll send you a discount code for your first year.",
                             'codepress-admin-columns'
                         ),
-                        'your_first_name'       => __('Your First Name', 'codepress-admin-columns'),
-                        'your_email'            => __('Your Email', 'codepress-admin-columns'),
-                        'send_discount'         => __('Send me the discount', 'codepress-admin-columns'),
-                        'includes_integrations' => __('Includes special integrations for:', 'codepress-admin-columns'),
+                        'your_email'           => __('Your email address', 'codepress-admin-columns'),
+                        'send_discount'        => __('Get discount code', 'codepress-admin-columns'),
+                        'discount_note'        => __('No spam. Just your discount code.', 'codepress-admin-columns'),
                     ],
                     'settings' => [
                         'status'       => [
@@ -406,25 +461,28 @@ class Columns extends Script
                     'title' => __('Support', 'codepress-admin-columns'),
                 ],
                 'review'   => [
-                    'happy'       => __('Are you happy with Admin Columns ?', 'codepress-admin-columns'),
-                    'yes'         => __('Yes'),
-                    'no'          => __('No'),
-                    'glad'        => __("Woohoo! We're glad to hear that! ", 'codepress-admin-columns'),
-                    'give_rating' => __(
-                        'We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!',
+                    'happy'        => __('Missing something?', 'codepress-admin-columns'),
+                    'help_improve' => __(
+                        'Help us improve Admin Columns with one quick click.',
                         'codepress-admin-columns'
                     ),
-                    'whats_wrong' => __("What's wrong? Need help? Let us know!", 'codepress-admin-columns'),
-                    'checkdocs'   => __(
-                        'Check out our extensive documentation, or you can open a support topic on WordPress.org!',
+                    'all_good'     => __('All good', 'codepress-admin-columns'),
+                    'need_feature' => __('Need a feature', 'codepress-admin-columns'),
+                    'glad'         => __("Glad to hear it!", 'codepress-admin-columns'),
+                    'give_rating'  => __(
+                        'A quick rating or tweet helps us a lot.',
                         'codepress-admin-columns'
                     ),
-                    ''            => __('You can also find help on the %s, and %s.', 'codepress-admin-columns'),
-                    'docs'        => __('Docs', 'codepress-admin-columns'),
-                    'forum'       => __('Forum', 'codepress-admin-columns'),
-                    'rate'        => __('Rate', 'codepress-admin-columns'),
-                    'tweet'       => __('Tweet', 'codepress-admin-columns'),
-                    'buy'         => __('Buy Pro', 'codepress-admin-columns'),
+                    'whats_wrong'  => __('Let us know!', 'codepress-admin-columns'),
+                    'checkdocs'    => __(
+                        'Tell us what feature you need on the WordPress.org support forum.',
+                        'codepress-admin-columns'
+                    ),
+                    'check_pro'    => __('See Pro features', 'codepress-admin-columns'),
+                    'docs'         => __('Docs', 'codepress-admin-columns'),
+                    'forum'        => __('Forum', 'codepress-admin-columns'),
+                    'rate'         => __('Rate', 'codepress-admin-columns'),
+                    'tweet'        => __('Tweet', 'codepress-admin-columns'),
 
                 ],
                 'global'   => [
