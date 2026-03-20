@@ -143,21 +143,8 @@
   left: 2px;
   top: 0;
   color: #646970;
-  font-size: 7px;
-  line-height: 2.8;
-}
-.ac-settings-banner__footer {
-  padding: 0 28px 20px;
-}
-.ac-settings-banner__footer-link {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ac-primary-color);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-.ac-settings-banner__footer-link:hover {
-  color: var(--ac-primary-color-hover);
+  font-size: 6px;
+  line-height: 3.2;
 }
 
 /*# sourceMappingURL=admin-page-settings.css.map */

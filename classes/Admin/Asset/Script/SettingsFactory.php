@@ -31,28 +31,64 @@ final class SettingsFactory
             [
                 'title'    => __('Edit faster', 'codepress-admin-columns'),
                 'features' => [
-                    __('Inline editing', 'codepress-admin-columns'),
-                    __('Bulk editing', 'codepress-admin-columns'),
-                    __('Add rows from the table', 'codepress-admin-columns'),
-                    __('Conditional formatting', 'codepress-admin-columns'),
+                    [
+                        'label'   => __('Inline editing', 'codepress-admin-columns'),
+                        'tooltip' => __('Edit any value directly from the list table — no need to open individual items.', 'codepress-admin-columns'),
+                    ],
+                    [
+                        'label'   => __('Bulk editing', 'codepress-admin-columns'),
+                        'tooltip' => __('Update hundreds of values at once. Select rows, pick a column, and apply changes in bulk.', 'codepress-admin-columns'),
+                    ],
+                    [
+                        'label'   => __('Add rows from the table', 'codepress-admin-columns'),
+                        'tooltip' => __('Create new posts, users, or other content without leaving the list table.', 'codepress-admin-columns'),
+                    ],
+                    [
+                        'label'   => __('Conditional formatting', 'codepress-admin-columns'),
+                        'tooltip' => __('Apply color rules to cells so you can instantly spot trends, deadlines, or issues in your data.', 'codepress-admin-columns'),
+                    ],
                 ],
             ],
             [
                 'title'    => __('Find anything instantly', 'codepress-admin-columns'),
                 'features' => [
-                    __('Smart filters', 'codepress-admin-columns'),
-                    __('Sortable columns', 'codepress-admin-columns'),
-                    __('Sticky headers', 'codepress-admin-columns'),
-                    __('Column metrics', 'codepress-admin-columns'),
+                    [
+                        'label'   => __('Smart filters', 'codepress-admin-columns'),
+                        'tooltip' => __('Narrow down your list with advanced filter rules — combine conditions to find exactly what you need.', 'codepress-admin-columns'),
+                    ],
+                    [
+                        'label'   => __('Sortable columns', 'codepress-admin-columns'),
+                        'tooltip' => __('Click any column header to sort your list by that value — works with dates, numbers, text, and more.', 'codepress-admin-columns'),
+                    ],
+                    [
+                        'label'   => __('Sticky headers', 'codepress-admin-columns'),
+                        'tooltip' => __('Column headers stay visible as you scroll, so you always know what you are looking at.', 'codepress-admin-columns'),
+                    ],
+                    [
+                        'label'   => __('Column metrics', 'codepress-admin-columns'),
+                        'tooltip' => __('See totals, averages, and counts at the bottom of your columns for quick data insights.', 'codepress-admin-columns'),
+                    ],
                 ],
             ],
             [
                 'title'    => __('Work your way', 'codepress-admin-columns'),
                 'features' => [
-                    __('Multiple table views', 'codepress-admin-columns'),
-                    __('Export table to CSV', 'codepress-admin-columns'),
-                    __('Horizontal scrolling', 'codepress-admin-columns'),
-                    __('Integration add-ons', 'codepress-admin-columns'),
+                    [
+                        'label'   => __('Multiple table views', 'codepress-admin-columns'),
+                        'tooltip' => __('Create different column layouts for different tasks and switch between them with one click.', 'codepress-admin-columns'),
+                    ],
+                    [
+                        'label'   => __('Export table to CSV', 'codepress-admin-columns'),
+                        'tooltip' => __('Download your current view as a CSV file — ready for Excel, Google Sheets, or any other tool.', 'codepress-admin-columns'),
+                    ],
+                    [
+                        'label'   => __('Horizontal scrolling', 'codepress-admin-columns'),
+                        'tooltip' => __('Display as many columns as you need — scroll sideways to see them all without losing row context.', 'codepress-admin-columns'),
+                    ],
+                    [
+                        'label'   => __('Integration add-ons', 'codepress-admin-columns'),
+                        'tooltip' => __('Unlock columns for popular plugins like ACF, WooCommerce, Yoast SEO, and more.', 'codepress-admin-columns'),
+                    ],
                 ],
             ],
         ];

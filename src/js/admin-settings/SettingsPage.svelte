@@ -12,6 +12,7 @@
     import {getGeneralOption, persistGeneralOption} from "./ajax/requests";
     import {NotificationProgrammatic} from "../ui-wrapper/notification";
     import AcToggleButtons from "ACUi/acui-toggle-buttons/AcToggleButtons.svelte";
+    import AcTooltip from "ACUi/AcTooltip.svelte";
 
 
     const i18n = getAdminSettingsTranslation();
@@ -102,7 +103,11 @@
                                 <h3>{group.title}</h3>
                                 <ul>
                                     {#each group.features as feature}
-                                        <li>{feature}</li>
+                                        <li>
+                                            <AcTooltip label={feature.tooltip} position="top" multiline border>
+                                                {feature.label}
+                                            </AcTooltip>
+                                        </li>
                                     {/each}
                                 </ul>
                             </div>

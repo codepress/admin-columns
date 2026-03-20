@@ -15,7 +15,7 @@ type InlineVarAcSettings = {
         trust: string
         feature_groups: Array<{
             title: string
-            features: string[]
+            features: Array<{ label: string; tooltip: string }>
         }>
     } | null
 }
