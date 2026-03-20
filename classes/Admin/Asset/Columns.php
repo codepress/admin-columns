@@ -136,7 +136,7 @@ class Columns extends Script
             $integrations[] = [
                 'url'   => (string)$integration->get_url(),
                 'label' => sprintf(
-                    /* translators: %s: plugin name (e.g. Advanced Custom Fields, WooCommerce) */
+                /* translators: %s: plugin name (e.g. Advanced Custom Fields, WooCommerce) */
                     __('%s integration', 'codepress-admin-columns'),
                     $integration->get_title()
                 ),
@@ -217,7 +217,7 @@ class Columns extends Script
                 'description' => sprintf(
                     __("For full documentation, bug reports, feature suggestions and other tips visit %s.", 'codepress-admin-columns'),
                     sprintf(
-                        '<a href="%s">%s</a>',
+                        '<a target="_blank" href="%s">%s</a>',
                         (new UtmTags(new Documentation()))->get_url(),
                         __('the Admin Columns website', 'codepress-admin-columns')
                     )
