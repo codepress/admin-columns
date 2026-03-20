@@ -16,6 +16,7 @@ final class SettingsFactory
     public const HANDLE = 'ac-admin-page-settings';
 
     private Location $location;
+
     private bool $is_pro_active;
 
     public function __construct(AdminColumns $plugins, bool $is_pro_active)
@@ -94,37 +95,39 @@ final class SettingsFactory
             ->localize('ac_settings_i18n', Translation::create($translations))
             ->add_inline_variable('ac_settings', [
                 $nonce->get_name() => $nonce->create(),
-                'assets' => $this->location->with_suffix('assets')->get_url(),
-                'is_pro'          => $this->is_pro_active,
-                'upgrade_panel'   => $this->is_pro_active ? null : [
-                    'upgrade_url'    => $upgrade_url,
-                    'badge'          => __('Admin Columns Pro', 'codepress-admin-columns'),
-                    'title'          => __('Work faster in your list tables', 'codepress-admin-columns'),
-                    'subtitle'       => __(
-                        'Turn your list tables into a powerful workflow tool for editing, filtering, sorting, and exporting content — without jumping between screens.',
-                        'codepress-admin-columns'
-                    ),
-                    'button'         => sprintf(
-                        '%s — %s',
-                        __('Upgrade', 'codepress-admin-columns'),
-                        sprintf(
-                        /* translators: %s: price (e.g. €79) */
-                            __('from %s/year', 'codepress-admin-columns'),
-                            '€79'
-                        )
-                    ),
-                    'view_all'       => __('See all Pro features', 'codepress-admin-columns'),
-                    'trust'          => sprintf(
-                        '%s · %s',
-                        sprintf(
-                        /* translators: %s: number of sites (e.g. 250,000+) */
-                            __('%s sites', 'codepress-admin-columns'),
-                            '250,000+'
+                'assets'           => $this->location->with_suffix('assets')->get_url(),
+                'is_pro'           => $this->is_pro_active,
+                'upgrade_panel'    => $this->is_pro_active
+                    ? null
+                    : [
+                        'upgrade_url'    => $upgrade_url,
+                        'badge'          => __('Admin Columns Pro', 'codepress-admin-columns'),
+                        'title'          => __('Work faster in your list tables', 'codepress-admin-columns'),
+                        'subtitle'       => __(
+                            'Turn your list tables into a powerful workflow tool for editing, filtering, sorting, and exporting content - without jumping between screens.',
+                            'codepress-admin-columns'
                         ),
-                        __('30-day money-back guarantee', 'codepress-admin-columns')
-                    ),
-                    'feature_groups' => $this->get_feature_groups(),
-                ],
+                        'button'         => sprintf(
+                            '%s — %s',
+                            __('Upgrade', 'codepress-admin-columns'),
+                            sprintf(
+                            /* translators: %s: price (e.g. €79) */
+                                __('from %s/year', 'codepress-admin-columns'),
+                                '€79'
+                            )
+                        ),
+                        'view_all'       => __('See all Pro features', 'codepress-admin-columns'),
+                        'trust'          => sprintf(
+                            '%s · %s',
+                            sprintf(
+                            /* translators: %s: number of sites (e.g. 250,000+) */
+                                __('%s sites', 'codepress-admin-columns'),
+                                '250,000+'
+                            ),
+                            __('30-day money-back guarantee', 'codepress-admin-columns')
+                        ),
+                        'feature_groups' => $this->get_feature_groups(),
+                    ],
             ]);
 
         return $script;
