@@ -172,7 +172,8 @@ class Columns extends Script
             'menu_items_favorites'       => $this->encode_favorites($this->get_favorite_table_screens()),
             'menu_groups_opened'         => (new EditorMenuStatus())->get_groups(),
             'urls'                       => [
-                'upgrade' => (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url(),
+                'upgrade'    => (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url(),
+                'learn_more' => (new UtmTags(Site::create_admin_columns_pro(), 'learn-more'))->get_url(),
             ],
             'pro_banner'                 => $this->is_pro_active ? null : $this->get_pro_modal_arguments(),
             'review'                     => [
@@ -224,28 +225,43 @@ class Columns extends Script
                 ],
                 'pro'      => [
                     'modal'    => [
-                        'title'       => __('Do you like Admin Columns?', 'codepress-admin-columns'),
-                        'subtitle'    => __(
-                            'Upgrade to PRO, and take Admin Columns to the next level:',
+                        'title'         => __('This is a Pro feature', 'codepress-admin-columns'),
+                        'subtitle'      => __(
+                            'Upgrade to Pro and take Admin Columns to the next level:',
                             'codepress-admin-columns'
                         ),
-                        'sort_filter' => __('Sort & Filter on all your content.', 'codepress-admin-columns'),
-                        'search'      => __('Search the contents of your columns.', 'codepress-admin-columns'),
-                        'bulk_edit'   => __(
-                            'Bulk edit any content, including custom fields.',
+                        'sort_filter'   => __('Sort & filter on all your content.', 'codepress-admin-columns'),
+                        'search'        => __(
+                            'Find any content instantly with column search.',
                             'codepress-admin-columns'
                         ),
-                        'inline_edit' => __('Quick edit any content with Inline Editing, including custom fields.'),
-                        'export'      => __('Export all column data to CSV.', 'codepress-admin-columns'),
-                        'list_tables' => __(
-                            'Create multiple list table views with different columns.',
+                        'bulk_edit'     => __(
+                            'Edit multiple items at once, including custom fields.',
                             'codepress-admin-columns'
                         ),
-                        'addons'      => __(
-                            'Get add-ons for ACF, WooCommerce and many more',
+                        'inline_edit'   => __(
+                            'Edit content directly in the list table without opening each item.',
                             'codepress-admin-columns'
                         ),
-                        'upgrade'     => __('Upgrade', 'codepress-admin-columns'),
+                        'export'        => __('Export your list table data to CSV.', 'codepress-admin-columns'),
+                        'list_tables'   => __(
+                            'Create multiple table views with different column setups.',
+                            'codepress-admin-columns'
+                        ),
+                        'addons'        => __(
+                            'Integrations for ACF, WooCommerce, and many more.',
+                            'codepress-admin-columns'
+                        ),
+                        'upgrade'       => sprintf(
+                            '%s — %s',
+                            __('Upgrade', 'codepress-admin-columns'),
+                            sprintf(
+                                /* translators: %s: price (e.g. $79) */
+                                __('from %s/year', 'codepress-admin-columns'),
+                                '$79'
+                            )
+                        ),
+                        'learn_more'    => __('Learn more', 'codepress-admin-columns'),
                     ],
                     'banner'   => [
                         'title'                 => __('Upgrade to', 'codepress-admin-columns'),

@@ -13,9 +13,12 @@ class TogglePromotion extends BaseComponentFactory
 
     private string $label;
 
-    public function __construct(string $label)
+    private string $feature;
+
+    public function __construct(string $label, string $feature = '')
     {
         $this->label = $label;
+        $this->feature = $feature;
     }
 
     protected function get_label(Config $config): ?string
@@ -26,7 +29,7 @@ class TogglePromotion extends BaseComponentFactory
     protected function get_input(Config $config): ?Input
     {
         return new Input\Custom('pro_feature', 'pro_feature', [
-
+            'feature' => $this->feature,
         ]);
     }
 

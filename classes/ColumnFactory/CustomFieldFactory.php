@@ -68,12 +68,12 @@ class CustomFieldFactory extends BaseColumnFactory
         }
 
         $components[] = $this->before_after->create($config);
-        $components[] = $this->pro_promotion_factory->create(__('Enable Editing', 'codepress-admin-columns'))->create($config);
-        $components[] = $this->pro_promotion_factory->create(__('Enable Bulk Editing', 'codepress-admin-columns'))->create($config);
-        $components[] = $this->pro_promotion_factory->create(__('Enable Export', 'codepress-admin-columns'))->create($config);
-        $components[] = $this->pro_promotion_factory->create(__('Enable Smart Filtering', 'codepress-admin-columns'))->create($config);
-        $components[] = $this->pro_promotion_factory->create(__('Enable Filtering', 'codepress-admin-columns'))->create($config);
-        $components[] = $this->pro_promotion_factory->create(__('Enable Sorting', 'codepress-admin-columns'))->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Editing', 'codepress-admin-columns'), 'editing')->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Bulk Editing', 'codepress-admin-columns'), 'bulk-edit')->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Export', 'codepress-admin-columns'), 'export')->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Smart Filtering', 'codepress-admin-columns'), 'search')->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Filtering', 'codepress-admin-columns'), 'filter')->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Sorting', 'codepress-admin-columns'), 'sorting')->create($config);
 
         return new ComponentCollection($components);
     }
