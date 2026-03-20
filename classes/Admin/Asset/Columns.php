@@ -227,31 +227,12 @@ class Columns extends Script
                     'modal'    => [
                         'title'         => __('This is a Pro feature', 'codepress-admin-columns'),
                         'subtitle'      => __(
-                            'Upgrade to Pro and take Admin Columns to the next level:',
+                            'Upgrade to Pro and take Admin Columns to the next level.',
                             'codepress-admin-columns'
                         ),
-                        'sort_filter'   => __('Sort & filter on all your content.', 'codepress-admin-columns'),
-                        'search'        => __(
-                            'Find any content instantly with column search.',
-                            'codepress-admin-columns'
-                        ),
-                        'bulk_edit'     => __(
-                            'Edit multiple items at once, including custom fields.',
-                            'codepress-admin-columns'
-                        ),
-                        'inline_edit'   => __(
-                            'Edit content directly in the list table without opening each item.',
-                            'codepress-admin-columns'
-                        ),
-                        'export'        => __('Export your list table data to CSV.', 'codepress-admin-columns'),
-                        'list_tables'   => __(
-                            'Create multiple table views with different column setups.',
-                            'codepress-admin-columns'
-                        ),
-                        'addons'        => __(
-                            'Integrations for ACF, WooCommerce, and many more.',
-                            'codepress-admin-columns'
-                        ),
+                        'also_get'      => __('With Pro you also get', 'codepress-admin-columns'),
+                        'guarantee'     => __('30-day money-back guarantee', 'codepress-admin-columns'),
+                        'see_all'       => __('See all Pro features', 'codepress-admin-columns'),
                         'upgrade'       => sprintf(
                             '%s — %s',
                             __('Upgrade', 'codepress-admin-columns'),
@@ -261,7 +242,50 @@ class Columns extends Script
                                 '$79'
                             )
                         ),
-                        'learn_more'    => __('Learn more', 'codepress-admin-columns'),
+                        'features'      => [
+                            'inline_edit'  => [
+                                'badge'       => __('Inline Editing is a Pro feature', 'codepress-admin-columns'),
+                                'headline'    => __('Edit content directly in the list table', 'codepress-admin-columns'),
+                                'description' => __('Click any cell to edit — no need to open each item individually. Works with custom fields, taxonomies, and more.', 'codepress-admin-columns'),
+                                'label'       => __('Edit content directly in the list table', 'codepress-admin-columns'),
+                            ],
+                            'bulk_edit'    => [
+                                'badge'       => __('Bulk Editing is a Pro feature', 'codepress-admin-columns'),
+                                'headline'    => __('Edit hundreds of items at once', 'codepress-admin-columns'),
+                                'description' => __('Select multiple items and update them in one go — change statuses, categories, custom fields, and more.', 'codepress-admin-columns'),
+                                'label'       => __('Bulk edit hundreds of items at once', 'codepress-admin-columns'),
+                            ],
+                            'sorting'      => [
+                                'badge'       => __('Sorting is a Pro feature', 'codepress-admin-columns'),
+                                'headline'    => __('Sort and filter your content by any column', 'codepress-admin-columns'),
+                                'description' => __('Instantly find what you need — sort by any column and filter by custom fields, dates, statuses, and more.', 'codepress-admin-columns'),
+                                'label'       => __('Sort and filter by any column', 'codepress-admin-columns'),
+                            ],
+                            'filter'       => [
+                                'badge'       => __('Filtering is a Pro feature', 'codepress-admin-columns'),
+                                'headline'    => __('Sort and filter your content by any column', 'codepress-admin-columns'),
+                                'description' => __('Instantly find what you need — sort by any column and filter by custom fields, dates, statuses, and more.', 'codepress-admin-columns'),
+                                'label'       => __('Sort and filter by any column', 'codepress-admin-columns'),
+                            ],
+                            'search'       => [
+                                'badge'       => __('Smart Filtering is a Pro feature', 'codepress-admin-columns'),
+                                'headline'    => __('Filter your content with saved filters', 'codepress-admin-columns'),
+                                'description' => __('Create smart filters combining multiple conditions. Save them as segments and reuse them with one click.', 'codepress-admin-columns'),
+                                'label'       => __('Smart filters with saved segments', 'codepress-admin-columns'),
+                            ],
+                            'export'       => [
+                                'badge'       => __('Export is a Pro feature', 'codepress-admin-columns'),
+                                'headline'    => __('Export your list table data to CSV', 'codepress-admin-columns'),
+                                'description' => __('Export exactly what you see — your columns, your filters, your data. Ready for spreadsheets or further processing.', 'codepress-admin-columns'),
+                                'label'       => __('Export table data to CSV', 'codepress-admin-columns'),
+                            ],
+                            'list_tables'  => [
+                                'badge'       => __('Column Sets is a Pro feature', 'codepress-admin-columns'),
+                                'headline'    => __('Create multiple table views', 'codepress-admin-columns'),
+                                'description' => __('Set up different column configurations for different tasks. Switch between views with one click.', 'codepress-admin-columns'),
+                                'label'       => __('Multiple table views per screen', 'codepress-admin-columns'),
+                            ],
+                        ],
                     ],
                     'banner'   => [
                         'title'                 => __('Upgrade to', 'codepress-admin-columns'),

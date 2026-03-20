@@ -36,6 +36,6 @@
 		class="acu-bg-[#e9426e] acu-text-[#fff] acu-inline-block acu-px-2 acu-py-[2px] acu-rounded acu-font-bold">PRO
 	</span>
 	{#if showModal }
-		<ProPromotionModal on:close={closeModal} title={i18n.pro.modal.title} {feature}/>
+		<ProPromotionModal on:close={closeModal} {feature}/>
 	{/if}
 </div>
