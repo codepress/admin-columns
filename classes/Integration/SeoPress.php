@@ -15,19 +15,9 @@ final class SeoPress extends Integration
             'ac-addon-seopress',
             'SeoPress',
             'assets/images/addons/seopress.svg',
-            sprintf(
-                '%s %s',
-                sprintf(
-                    __('Integrates %s with Admin Columns.', 'codepress-admin-columns'),
-                    'SeoPress'
-                ),
-                sprintf(
-                    __(
-                        'Easily manage your SeoPress content with powerful tools for displaying, editing, exporting, filtering, and sorting',
-                        'codepress-admin-columns'
-                    ),
-                    'SeoPress'
-                )
+            __(
+                'Add SeoPress titles, descriptions, and scores to your post list table. Spot missing metadata at a glance and fix it inline - no need to open each post.',
+                'codepress-admin-columns'
             ),
             null,
             new Site(Site::PAGE_ADDON_SEOPRESS)

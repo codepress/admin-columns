@@ -298,7 +298,7 @@ class Columns extends Script
                             'bulk_edit'   => [
                                 'badge'       => __('Bulk Editing is a Pro feature', 'codepress-admin-columns'),
                                 'headline'    => __('Edit hundreds of items at once', 'codepress-admin-columns'),
-                                'description' => __('Select multiple items and update them in one go — change statuses, categories, custom fields, and more.', 'codepress-admin-columns'),
+                                'description' => __('Select multiple items and update them in one go - change statuses, categories, custom fields, and more.', 'codepress-admin-columns'),
                                 'label'       => __('Bulk edit hundreds of items at once', 'codepress-admin-columns'),
                             ],
                             'sorting'     => [
@@ -355,7 +355,7 @@ class Columns extends Script
                             )
                         ),
                         'upgrade_cta'          => sprintf(
-                            '%s — %s',
+                            '%s - %s',
                             __('Upgrade to Pro', 'codepress-admin-columns'),
                             sprintf(
                             /* translators: %s: price (e.g. €79) */

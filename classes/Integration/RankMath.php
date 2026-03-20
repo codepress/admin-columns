@@ -15,19 +15,9 @@ final class RankMath extends Integration
             'ac-addon-rankmath',
             'RankMath',
             'assets/images/addons/rank-math.svg',
-            sprintf(
-                '%s %s',
-                sprintf(
-                    __('Integrates %s with Admin Columns.', 'codepress-admin-columns'),
-                    'RankMath'
-                ),
-                sprintf(
-                    __(
-                        'Easily manage your Rank Math SEO content with powerful tools for displaying, editing, exporting, filtering, and sorting',
-                        'codepress-admin-columns'
-                    ),
-                    'RankMath'
-                )
+            __(
+                'See your SEO data where you manage your content. View focus keywords, SEO scores, and schema status as columns - then filter and sort to find pages that need attention.',
+                'codepress-admin-columns'
             ),
             null,
             new Site(Site::PAGE_ADDON_RANK_MATH)

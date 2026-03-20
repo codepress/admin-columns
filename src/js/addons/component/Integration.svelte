@@ -36,7 +36,7 @@
 	</div>
 	<div class="acu-p-4">
 		<h3>{integration.title}</h3>
-		<div class="acu-h-[120px] acu-overflow-hidden">
+		<div class="acu-h-[140px] acu-overflow-hidden">
 			<p>{integration.description}</p>
 		</div>
 		<div class="acu-mb-4">

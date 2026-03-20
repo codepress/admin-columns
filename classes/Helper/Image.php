@@ -68,7 +68,7 @@ class Image extends Creatable
             return $this->markup($src, $width, $height, $id);
         }
 
-        // Is File — render as pill instead of mime-type icon
+        // Is File - render as pill instead of mime-type icon
         if (wp_get_attachment_image_src($id, $size, true)) {
             return $this->markup_file_pill($id);
         }
@@ -78,7 +78,7 @@ class Image extends Creatable
 
     private function markup_file_pill(int $media_id): string
     {
-        $filename  = $this->get_file_name($media_id) ?? '';
+        $filename = $this->get_file_name($media_id) ?? '';
         $extension = (string)pathinfo($filename, PATHINFO_EXTENSION);
 
         return sprintf(

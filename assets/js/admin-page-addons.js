@@ -37,7 +37,7 @@ function create_header_slot(ctx) {
       slot: "header",
       title: "Integrations",
       type: "h2",
-      subtitle: "Available integrations with popular plugins.",
+      subtitle: /*i18n*/ctx[4].subtitle,
       border: true
     }
   });
@@ -733,7 +733,7 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a0, "href", a0_href_value = /*integration*/ctx[0].external_link);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a0, "class", "acu-p-4 acu-text-center acu-flex acu-h-[100px] acu-items-center acu-justify-center");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acu-bg-[#F1F5F9] ");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-h-[120px] acu-overflow-hidden");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-h-[140px] acu-overflow-hidden");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a1, "href", a1_href_value = /*integration*/ctx[0].external_link);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a1, "target", "_blank");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a1, "class", "acu-no-underline");

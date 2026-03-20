@@ -33,7 +33,7 @@ final class SettingsFactory
                 'features' => [
                     [
                         'label'   => __('Inline editing', 'codepress-admin-columns'),
-                        'tooltip' => __('Edit any value directly from the list table — no need to open individual items.', 'codepress-admin-columns'),
+                        'tooltip' => __('Edit any value directly from the list table - no need to open individual items.', 'codepress-admin-columns'),
                     ],
                     [
                         'label'   => __('Bulk editing', 'codepress-admin-columns'),
@@ -54,11 +54,11 @@ final class SettingsFactory
                 'features' => [
                     [
                         'label'   => __('Smart filters', 'codepress-admin-columns'),
-                        'tooltip' => __('Narrow down your list with advanced filter rules — combine conditions to find exactly what you need.', 'codepress-admin-columns'),
+                        'tooltip' => __('Narrow down your list with advanced filter rules - combine conditions to find exactly what you need.', 'codepress-admin-columns'),
                     ],
                     [
                         'label'   => __('Sortable columns', 'codepress-admin-columns'),
-                        'tooltip' => __('Click any column header to sort your list by that value — works with dates, numbers, text, and more.', 'codepress-admin-columns'),
+                        'tooltip' => __('Click any column header to sort your list by that value - works with dates, numbers, text, and more.', 'codepress-admin-columns'),
                     ],
                     [
                         'label'   => __('Sticky headers', 'codepress-admin-columns'),
@@ -79,11 +79,11 @@ final class SettingsFactory
                     ],
                     [
                         'label'   => __('Export table to CSV', 'codepress-admin-columns'),
-                        'tooltip' => __('Download your current view as a CSV file — ready for Excel, Google Sheets, or any other tool.', 'codepress-admin-columns'),
+                        'tooltip' => __('Download your current view as a CSV file - ready for Excel, Google Sheets, or any other tool.', 'codepress-admin-columns'),
                     ],
                     [
                         'label'   => __('Horizontal scrolling', 'codepress-admin-columns'),
-                        'tooltip' => __('Display as many columns as you need — scroll sideways to see them all without losing row context.', 'codepress-admin-columns'),
+                        'tooltip' => __('Display as many columns as you need - scroll sideways to see them all without losing row context.', 'codepress-admin-columns'),
                     ],
                     [
                         'label'   => __('Integration add-ons', 'codepress-admin-columns'),
@@ -144,7 +144,7 @@ final class SettingsFactory
                             'codepress-admin-columns'
                         ),
                         'button'         => sprintf(
-                            '%s — %s',
+                            '%s - %s',
                             __('Upgrade', 'codepress-admin-columns'),
                             sprintf(
                             /* translators: %s: price (e.g. €79) */
