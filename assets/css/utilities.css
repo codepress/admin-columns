@@ -310,6 +310,10 @@
   display: inline-block
 }
 
+.\!acu-inline-block {
+  display: inline-block !important
+}
+
 .acu-flex {
   display: flex
 }
@@ -436,6 +440,10 @@
 
 .acu-w-full {
   width: 100%
+}
+
+.\!acu-w-auto {
+  width: auto !important
 }
 
 .acu-min-w-\[200px\] {
@@ -602,6 +610,10 @@
 
 .acu-place-items-center {
   place-items: center
+}
+
+.acu-items-start {
+  align-items: flex-start
 }
 
 .acu-items-center {
@@ -980,6 +992,10 @@
   padding-bottom: 50px
 }
 
+.acu-pb-2 {
+  padding-bottom: 10px
+}
+
 .acu-pb-4 {
   padding-bottom: 20px
 }
@@ -1102,6 +1118,10 @@
 
 .acu-font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+}
+
+.\!acu-text-\[14px\] {
+  font-size: 14px !important
 }
 
 .\!acu-text-\[20px\] {
@@ -1417,6 +1437,10 @@
 
 .hover\:acu-text-notification-red:hover {
   color: var(--ac-notification-red)
+}
+
+.hover\:acu-underline:hover {
+  text-decoration-line: underline
 }
 
 .acu-group:focus-within .group-focus-within\:acu-visible {

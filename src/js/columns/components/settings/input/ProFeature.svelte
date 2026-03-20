@@ -3,9 +3,13 @@
     import ProPromotionModal from "../ProPromotionModal.svelte";
     import {getColumnSettingsTranslation} from "../../../utils/global";
 
+    export let config: any = {};
+
     const i18n = getColumnSettingsTranslation();
     let showModal: boolean = false;
 	let enabled: boolean = false;
+
+    $: feature = config?.input?.data?.feature || '';
 
     const openModal = () => {
         showModal = true
@@ -32,6 +36,6 @@
 		class="acu-bg-[#e9426e] acu-text-[#fff] acu-inline-block acu-px-2 acu-py-[2px] acu-rounded acu-font-bold">PRO
 	</span>
 	{#if showModal }
-		<ProPromotionModal on:close={closeModal} title={i18n.pro.modal.title}/>
+		<ProPromotionModal on:close={closeModal} {feature}/>
 	{/if}
 </div>
