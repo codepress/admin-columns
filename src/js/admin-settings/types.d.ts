@@ -7,10 +7,16 @@ type InlineVarAcSettings = {
     assets: string
     upgrade_panel: {
         upgrade_url: string
+        badge: string
+        title: string
         subtitle: string
-        view_all: string
         button: string
-        features: Array<{ url: string, label: string, tooltip: string }>
+        view_all: string
+        trust: string
+        feature_groups: Array<{
+            title: string
+            features: string[]
+        }>
     } | null
 }
 

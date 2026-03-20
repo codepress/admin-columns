@@ -75,66 +75,43 @@
         </AcPanel>
 
         {#if config.upgrade_panel}
-            <AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
-                <AcPanelHeader slot="header" title="Admin Columns Pro" type="h2" border/>
-                <AcPanelBody slot="body" classNames={['acu-pb-10','acu-relative','acu-pr-[100px]']}>
-                    <p class="acu-font-bold acu-mt-0 acu-mb-4">{config.upgrade_panel.subtitle}</p>
+            <section class="ac-settings-banner acu-max-w-[1520px]">
+                <div class="ac-settings-banner__top">
+                    <span class="ac-settings-banner__badge">{config.upgrade_panel.badge}</span>
+                    <h2 class="ac-settings-banner__title">{config.upgrade_panel.title}</h2>
+                    <p class="ac-settings-banner__copy">{config.upgrade_panel.subtitle}</p>
 
-                    <div class="acu-grid md:acu-grid-cols-3 acu-grid-cols-2 acu-gap-x-8 acu-gap-y-2 acu-mb-6">
-                        {#each config.upgrade_panel.features as feature}
-                            <div class="feature-item">
-                                <div class="acu-flex acu-items-center acu-gap-1.5">
-                                    <span class="acu-text-pink acu-font-bold">+</span>
-                                    <span class="feature-label">{feature.label}</span>
-                                </div>
-                                <div class="feature-tooltip">{feature.tooltip}</div>
+                    <div class="ac-settings-banner__cta-row">
+                        <a href={config.upgrade_panel.upgrade_url} target="_blank" class="ac-settings-banner__btn-primary">
+                            {config.upgrade_panel.button}
+                        </a>
+                        <a href={config.upgrade_panel.upgrade_url} target="_blank" class="ac-settings-banner__btn-secondary">
+                            {config.upgrade_panel.view_all}
+                        </a>
+                        <span class="ac-settings-banner__trust">
+                            <span class="ac-settings-banner__star">&#9733;</span>
+                            {config.upgrade_panel.trust}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="ac-settings-banner__body">
+                    <div class="ac-settings-banner__feature-grid">
+                        {#each config.upgrade_panel.feature_groups as group}
+                            <div class="ac-settings-banner__feature-group">
+                                <h3>{group.title}</h3>
+                                <ul>
+                                    {#each group.features as feature}
+                                        <li>{feature}</li>
+                                    {/each}
+                                </ul>
                             </div>
                         {/each}
-                        <div>
-                            <a href={config.upgrade_panel.upgrade_url} target="_blank">{config.upgrade_panel.view_all}</a>
-                        </div>
                     </div>
+                </div>
 
-                    <a href={config.upgrade_panel.upgrade_url}
-                       target="_blank"
-                       class="acui-button acui-button-pink">
-                        {config.upgrade_panel.button}
-                    </a>
-                    <svg class="acu-absolute acu-hidden md:acu-block acu-right-[20px] acu-bottom-[20px] acu-w-[120px] acu-h-[200px]">
-                        <use xlink:href="{config.assets}/images/symbols.svg#zebra-thumbs-up"></use>
-                    </svg>
-                </AcPanelBody>
-            </AcPanel>
+            </section>
         {/if}
     </main>
 
 </div>
-
-<style>
-    .feature-item {
-        position: relative;
-    }
-
-    .feature-label {
-        border-bottom: 1px dotted currentColor;
-        text-decoration: none;
-    }
-
-    .feature-tooltip {
-        display: none;
-        position: absolute;
-        top: calc(100% + 4px);
-        left: 0;
-        z-index: 100;
-        width: 300px;
-        padding: 12px 15px;
-        background: #3D4350;
-        color: #fff;
-        font-size: 13px;
-        line-height: 1.6;
-    }
-
-    .feature-item:hover .feature-tooltip {
-        display: block;
-    }
-</style>
