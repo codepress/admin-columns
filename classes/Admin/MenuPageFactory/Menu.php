@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\MenuPageFactory;
 
 use AC\Admin\Admin;

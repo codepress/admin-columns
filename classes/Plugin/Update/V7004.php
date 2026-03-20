@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin\Update;
 
 use AC\Column\ColumnIdGenerator;
@@ -21,7 +23,7 @@ class V7004 extends Update
     public function apply_update(): void
     {
         // just in case we need a bit of extra time to execute our upgrade script
-        $max_exec = (int) ini_get('max_execution_time');
+        $max_exec = (int)ini_get('max_execution_time');
         if ($max_exec > 0 && $max_exec < 120) {
             @set_time_limit(120);
         }

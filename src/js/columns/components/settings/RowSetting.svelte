@@ -14,7 +14,7 @@
     let inputSetting = setting as ColumnInputSetting;
 </script>
 
-<ColumnSetting description={setting.description ?? ''} label={setting.label} {isSubComponent} attributes={setting.attributes??{}}>
+<ColumnSetting setting={setting?.input?.name} description={setting.description ?? ''} label={setting.label} {isSubComponent} attributes={setting.attributes??{}}>
 
 	{#if inputSetting.input}
 		<svelte:component

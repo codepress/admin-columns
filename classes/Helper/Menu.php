@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper;
 
 class Menu extends Creatable
@@ -9,8 +11,9 @@ class Menu extends Creatable
     {
         global $wpdb;
 
-        return (string)$wpdb->get_var($wpdb->prepare(
-            "
+        return (string)$wpdb->get_var(
+            $wpdb->prepare(
+                "
 			SELECT t.name
 				FROM $wpdb->terms AS t
 				INNER JOIN $wpdb->term_taxonomy AS tt ON tt.term_id = t.term_id
@@ -19,8 +22,9 @@ class Menu extends Creatable
 				    AND menu.post_type = 'nav_menu_item'
     			WHERE menu.ID = %d
 			",
-            $menu_item_id
-        ));
+                $menu_item_id
+            )
+        );
     }
 
     public function get_ids(int $object_id, string $object_type): array

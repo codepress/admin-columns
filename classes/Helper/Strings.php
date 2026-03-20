@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper;
 
 class Strings extends Creatable
@@ -82,11 +84,11 @@ class Strings extends Creatable
             'c'     => '/\S/',
         ];
 
-        $string = preg_replace($patterns['strip'], ' ', $string);
-        $string = preg_replace('/&nbsp;|&#160;/i', ' ', $string);
-        $string = preg_replace($patterns['clean'], '', $string);
+        $string = (string) preg_replace($patterns['strip'], ' ', $string);
+        $string = (string) preg_replace('/&nbsp;|&#160;/i', ' ', $string);
+        $string = (string) preg_replace($patterns['clean'], '', $string);
 
-        if ( ! strlen(preg_replace('/\s/', '', $string))) {
+        if ( ! strlen((string) preg_replace('/\s/', '', $string))) {
             return 0;
         }
 

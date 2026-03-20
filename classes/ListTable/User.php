@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListTable;
 
 use AC\ListTable;
@@ -22,7 +24,17 @@ class User implements ListTable
 
     public function render_row($id): string
     {
-        return $this->table->single_row(get_userdata($id));
+        $user = get_userdata($id);
+
+        if ( ! $user) {
+            return '';
+        }
+
+        ob_start();
+
+        $this->table->single_row($user);
+
+        return ob_get_clean();
     }
 
 }

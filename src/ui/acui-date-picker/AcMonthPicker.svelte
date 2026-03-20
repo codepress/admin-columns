@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 
 	import AcDropdown from "../acui-dropdown/AcDropdown.svelte";
     import AcDateModal from "./AcDateModal.svelte";

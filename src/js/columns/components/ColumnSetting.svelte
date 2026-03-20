@@ -6,6 +6,7 @@
     export let extraClass: string = '';
     export let isSubComponent: boolean = false;
     export let attributes: null | Record<string, any> = null;
+	export let setting: string|null = null;
 
     const containerClass = () => {
         const base = ['acp-column-setting', 'lg:acu-flex', 'acu-px-6', 'acu-mb-2'];
@@ -23,7 +24,7 @@
         : 'acp-column-setting__value acu-flex-grow acu-py-1';
 </script>
 
-<div class={containerClass()}>
+<div class={containerClass()} data-setting={setting}>
 	<div class={labelClass}>
 		<span class={isSubComponent ? '' : 'acu-flex-grow'}>{label}</span>
 		{#if !isSubComponent && attributes && attributes['help-ref']}

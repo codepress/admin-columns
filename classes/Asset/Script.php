@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Asset;
 
 use AC\Asset\Script\Inline\Position;
