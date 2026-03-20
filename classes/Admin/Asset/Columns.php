@@ -225,29 +225,29 @@ class Columns extends Script
                 ],
                 'pro'      => [
                     'modal'    => [
-                        'title'     => __('This is a Pro feature', 'codepress-admin-columns'),
-                        'subtitle'  => __(
+                        'title'      => __('This is a Pro feature', 'codepress-admin-columns'),
+                        'subtitle'   => __(
                             'Upgrade to Pro and take Admin Columns to the next level.',
                             'codepress-admin-columns'
                         ),
-                        'also_get'  => __('With Pro you also get', 'codepress-admin-columns'),
+                        'also_get'   => __('With Pro you also get', 'codepress-admin-columns'),
                         'trusted_by' => sprintf(
                             '%s · %s',
                             sprintf(
-                                /* translators: %s: number of sites (e.g. 250,000+) */
+                            /* translators: %s: number of sites (e.g. 250,000+) */
                                 __('Trusted by %s WordPress sites', 'codepress-admin-columns'),
                                 '250,000+'
                             ),
                             sprintf(
-                                /* translators: %s: rating (e.g. 4.9) */
+                            /* translators: %s: rating (e.g. 4.9) */
                                 __('%s on Trustpilot', 'codepress-admin-columns'),
                                 '4.9'
                             )
                         ),
-                        'guarantee' => __('30-day money-back guarantee', 'codepress-admin-columns'),
-                        'see_all'   => __('See all Pro features', 'codepress-admin-columns'),
-                        'upgrade'   => sprintf(
-                            '%s — %s',
+                        'guarantee'  => __('30-day money-back guarantee', 'codepress-admin-columns'),
+                        'see_all'    => __('See all Pro features', 'codepress-admin-columns'),
+                        'upgrade'    => sprintf(
+                            '%s - %s',
                             __('Upgrade', 'codepress-admin-columns'),
                             sprintf(
                             /* translators: %s: price (e.g. $79) */
@@ -255,7 +255,7 @@ class Columns extends Script
                                 '$79'
                             )
                         ),
-                        'features'  => [
+                        'features'   => [
                             'inline_edit' => [
                                 'badge'       => __('Inline Editing is a Pro feature', 'codepress-admin-columns'),
                                 'headline'    => __('Edit content directly in the list table', 'codepress-admin-columns'),
