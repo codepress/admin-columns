@@ -169,14 +169,12 @@ Developers can extend Admin Columns using many actions and filters. You can find
 
 == Screenshots ==
 
-1. Column settings page for post types — drag and drop to reorder, configure each column's display options.
-2. Posts list screen with customized columns showing exactly the data you need.
-3. Column settings page for the Media Library.
-4. Media Library with custom columns for dimensions, file size, EXIF data, and more.
-5. Column settings page for the Users screen.
-6. Users list with custom columns for roles, post counts, and custom fields.
-7. Custom field column configuration — choose from color, date, image, number, URL, and more display types.
-8. Posts list showing multiple custom field columns with formatted values.
+1. Configure your columns with a simple drag-and-drop interface. Add custom fields, featured images, taxonomies, and more - then reorder them exactly how you want.
+2. Transform your WordPress posts list into a clear content overview. View featured images, word count, reading time, and custom fields without opening a single post.
+3. Admin Columns works on any custom post type. Add columns for your custom fields and see all your data at a glance - no more opening records one by one.
+4. Admin Columns works across every WordPress screen. Enhance the Users list table with last login, post count, role, and more - and apply the same power to media, orders, and custom post types.
+5. Sort by any column and filter with smart conditions like "contains", "before", and "is greater than". Save filters as segments and share them with your team. Works on posts, pages, users, and custom post types. (Admin Columns Pro feature)
+6. Admin Columns Pro lets you edit posts, users, and custom fields directly from the list table. No more opening and closing individual edit screens. (Admin Columns Pro feature)
 
 == Installation ==
 
