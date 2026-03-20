@@ -2,7 +2,7 @@
 /*
 Plugin Name: Admin Columns
 Version: 7.0.13
-Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
+Description: Add, reorder, and customize columns in your WordPress admin table for any post type, users, and media - no code required.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
 Plugin URI: https://www.admincolumns.com
