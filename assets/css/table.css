@@ -298,7 +298,7 @@ body .ac-modal .ac-modal-footer-actions__info {
   align-items: center;
 }
 body .ac-modal.-promotion .ac-modal__dialog {
-  width: 520px;
+  width: 560px;
   border: none;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
 }
@@ -388,6 +388,11 @@ body .ac-modal.-promotion .ac-promo-modal__check {
   background: #1d2327;
   border-radius: 50%;
   color: #fff;
+}
+body .ac-modal.-promotion .ac-promo-modal__trusted {
+  font-size: 13px;
+  color: #50575e;
+  margin: 0 0 20px;
 }
 body .ac-modal.-promotion .ac-promo-modal__actions {
   display: flex;

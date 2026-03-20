@@ -169,7 +169,7 @@ body .ac-modal {
 
 	&.-promotion {
 		.ac-modal__dialog {
-			width: 520px;
+			width: 560px;
 			border: none;
 			box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
 
@@ -272,6 +272,12 @@ body .ac-modal {
 				background: #1d2327;
 				border-radius: 50%;
 				color: #fff;
+			}
+
+			&__trusted {
+				font-size: 13px;
+				color: #50575e;
+				margin: 0 0 20px;
 			}
 
 			&__actions {

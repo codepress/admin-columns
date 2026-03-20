@@ -88,6 +88,8 @@
                 </div>
             {/if}
 
+            <p class="ac-promo-modal__trusted">&#11088; {i18n.trusted_by}</p>
+
             <div class="ac-promo-modal__actions">
                 <a href="{upgradeUrl}" target="_blank" class="button button-primary">
                     {i18n.upgrade}
