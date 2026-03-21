@@ -99,7 +99,7 @@ class Columns extends Script
             'editing'     => __('Inline edit directly in the table', 'codepress-admin-columns'),
             'sorting'     => __('Sort and filter on any column', 'codepress-admin-columns'),
             'bulk-edit'   => sprintf(
-                /* translators: %s: post type label plural (e.g. "posts", "pages") */
+            /* translators: %s: post type label plural (e.g. "posts", "pages") */
                 __('Bulk edit hundreds of %s at once', 'codepress-admin-columns'),
                 $plural_lower
             ),
@@ -173,25 +173,25 @@ class Columns extends Script
         }
 
         $arguments['title'] = sprintf(
-            /* translators: %s: post type label plural (e.g. "posts", "pages") */
+        /* translators: %s: post type label plural (e.g. "posts", "pages") */
             __('Manage your %s faster', 'codepress-admin-columns'),
             $plural_lower
         );
         $arguments['description'] = sprintf(
-            /* translators: 1: post type label plural, 2: post type label singular */
-            __('Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting — without opening a single %2$s.', 'codepress-admin-columns'),
+        /* translators: 1: post type label plural, 2: post type label singular */
+            __('Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s.', 'codepress-admin-columns'),
             $plural_lower,
             $singular_lower
         );
         $arguments['upgrade_cta'] = sprintf(
             '%s - %s',
             sprintf(
-                /* translators: %s: post type label plural (e.g. "posts", "pages") */
+            /* translators: %s: post type label plural (e.g. "posts", "pages") */
                 __('Manage your %s faster', 'codepress-admin-columns'),
                 $plural_lower
             ),
             sprintf(
-                /* translators: %s: price (e.g. €79) */
+            /* translators: %s: price (e.g. €79) */
                 __('from %s/year', 'codepress-admin-columns'),
                 '€79'
             )

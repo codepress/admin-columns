@@ -38,8 +38,8 @@ class WooCommerce implements BannerContext
                 ? __('Manage your products faster', 'codepress-admin-columns')
                 : __('Manage your orders faster', 'codepress-admin-columns'),
             'description'    => $is_product
-                ? __('Your product list is more than a list. With Pro, it becomes a workspace where you can view, edit, filter, and export every product detail — without opening a single product.', 'codepress-admin-columns')
-                : __('Stop clicking into orders to find what you need. Pro turns your order list into a filterable, sortable, exportable overview — built for the way you actually manage orders.', 'codepress-admin-columns'),
+                ? __('Your product list is more than a list. With Pro, it becomes a workspace where you can view, edit, filter, and export every product detail - without opening a single product.', 'codepress-admin-columns')
+                : __('Stop clicking into orders to find what you need. Pro turns your order list into a filterable, sortable, exportable overview - built for the way you actually manage orders.', 'codepress-admin-columns'),
             'features_label' => __('With Pro you get', 'codepress-admin-columns'),
             'features'       => $is_product
                 ? $this->get_product_features($upgrade_url)
@@ -98,7 +98,7 @@ class WooCommerce implements BannerContext
             ],
             [
                 'url'   => $upgrade_url->with_content('usp-wc-product-filtering')->get_url(),
-                'label' => __('Filter products by any field — including custom fields', 'codepress-admin-columns'),
+                'label' => __('Filter products by any field - including custom fields', 'codepress-admin-columns'),
             ],
             [
                 'url'   => $upgrade_url->with_content('usp-wc-product-export')->get_url(),
@@ -136,7 +136,7 @@ class WooCommerce implements BannerContext
             ],
             [
                 'url'   => $upgrade_url->with_content('usp-wc-order-views')->get_url(),
-                'label' => __('Save views for different workflows — refunds, fulfilment, reporting', 'codepress-admin-columns'),
+                'label' => __('Save views for different workflows - refunds, fulfilment, reporting', 'codepress-admin-columns'),
             ],
         ];
     }

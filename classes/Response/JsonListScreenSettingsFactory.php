@@ -157,7 +157,7 @@ class JsonListScreenSettingsFactory
                 $plural_lower
             ),
             'description' => sprintf(
-                __('Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting — without opening a single %2$s.', 'codepress-admin-columns'),
+                __('Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s.', 'codepress-admin-columns'),
                 $plural_lower,
                 $singular_lower
             ),
