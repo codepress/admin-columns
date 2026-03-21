@@ -33,6 +33,11 @@ class WooCommerceOrdersNotice implements UpsellNotice
         return 'ac-addon-woocommerce';
     }
 
+    public function get_icon(): string
+    {
+        return '📦';
+    }
+
     public function get_eyebrow(): string
     {
         return __('Admin Columns Pro for WooCommerce', 'codepress-admin-columns');
@@ -40,27 +45,17 @@ class WooCommerceOrdersNotice implements UpsellNotice
 
     public function get_title(): string
     {
-        return __('Still opening each order to check the details?', 'codepress-admin-columns');
+        return __('Still opening each order to find shipping or payment details?', 'codepress-admin-columns');
     }
 
     public function get_description(): string
     {
-        return __('Inline edit order status, filter by payment method, bulk update tracking numbers — all from this screen.', 'codepress-admin-columns');
-    }
-
-    public function get_features(): array
-    {
-        return [
-            __('Inline editing', 'codepress-admin-columns'),
-            __('Smart filters', 'codepress-admin-columns'),
-            __('Bulk actions', 'codepress-admin-columns'),
-            __('CSV export', 'codepress-admin-columns'),
-        ];
+        return __('Inline edit order status, filter by payment method, and bulk update orders - all from this table.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
     {
-        return __('Upgrade to Pro', 'codepress-admin-columns');
+        return sprintf('%s - %s', __('Upgrade', 'codepress-admin-columns'), '€79/year');
     }
 
     public function get_cta_url(): string
@@ -70,7 +65,7 @@ class WooCommerceOrdersNotice implements UpsellNotice
 
     public function get_secondary_label(): string
     {
-        return __('See Pro features', 'codepress-admin-columns');
+        return __('See features', 'codepress-admin-columns');
     }
 
     public function get_secondary_url(): string

@@ -1,5 +1,5 @@
 .ac-notice {
-	$e : &;
+	$e: &;
 	position: relative;
 	min-height: 1%;
 	overflow: hidden;
@@ -32,7 +32,10 @@
 	}
 
 	&--upsell {
-		border-left-color: #00a32a;
+		border: 1px solid #dcdcde;
+		border-left: 1px solid #dcdcde;
+		border-radius: 4px;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
 		padding: 0;
 		overflow: visible;
 
@@ -50,21 +53,22 @@
 
 .ac-notice-upsell {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	gap: 14px;
-	padding: 14px 16px 14px 18px;
+	padding: 16px 18px;
 
 	&__icon {
-		width: 28px;
-		height: 28px;
+		width: 24px;
+		height: 24px;
 		border-radius: 999px;
 		background: #edf7ed;
 		color: #00a32a;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 15px;
+		font-size: 13px;
 		flex: 0 0 auto;
+		margin-top: 3px;
 	}
 
 	&__copy {
@@ -73,7 +77,7 @@
 	}
 
 	&__eyebrow {
-		margin: 0 0 2px;
+		margin: 0 0 1px;
 		color: #646970;
 		font-size: 11px;
 		font-weight: 700;
@@ -83,43 +87,25 @@
 	}
 
 	&__title {
-		margin: 0 0 2px;
-		font-size: 16px;
-		line-height: 1.3;
+		margin: 0;
+		font-size: 14px;
+		line-height: 1.35;
 		font-weight: 600;
 		color: #1d2327;
 	}
 
 	&__desc {
-		margin: 0;
+		margin: 1px 0 0;
 		color: #50575e;
 		font-size: 13px;
 		line-height: 1.5;
 	}
 
-	&__features {
-		color: #646970;
-		font-size: 12px;
-
-		&::before {
-			content: " — ";
-		}
-	}
-
-	&__trust {
-		color: #646970;
-		font-size: 12px;
-		white-space: nowrap;
-
-		&::before {
-			content: " · ";
-		}
-	}
-
 	&__actions {
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		align-self: center;
+		gap: 14px;
 		flex: 0 0 auto;
 	}
 
@@ -127,8 +113,8 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 32px;
-		padding: 0 12px;
+		min-height: 34px;
+		padding: 0 13px;
 		border-radius: 4px;
 		text-decoration: none;
 		font-size: 13px;
@@ -146,16 +132,18 @@
 				color: #fff;
 			}
 		}
+	}
 
-		&--secondary {
-			background: #fff;
-			border-color: #dcdcde;
-			color: #2271b1;
+	&__link {
+		color: #2271b1;
+		text-decoration: none;
+		font-size: 13px;
+		font-weight: 600;
+		white-space: nowrap;
 
-			&:hover {
-				background: #f6f7f7;
-				color: #135e96;
-			}
+		&:hover {
+			color: #135e96;
+			text-decoration: underline;
 		}
 	}
 

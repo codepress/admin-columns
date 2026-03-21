@@ -33,6 +33,11 @@ class AcfNotice implements UpsellNotice
         return 'ac-addon-acf';
     }
 
+    public function get_icon(): string
+    {
+        return '⚡';
+    }
+
     public function get_eyebrow(): string
     {
         return __('Admin Columns Pro for ACF', 'codepress-admin-columns');
@@ -45,22 +50,12 @@ class AcfNotice implements UpsellNotice
 
     public function get_description(): string
     {
-        return __('Turn custom fields into sortable, filterable, editable columns — without writing a single line of code.', 'codepress-admin-columns');
-    }
-
-    public function get_features(): array
-    {
-        return [
-            __('ACF columns', 'codepress-admin-columns'),
-            __('Inline editing', 'codepress-admin-columns'),
-            __('Smart filters', 'codepress-admin-columns'),
-            __('CSV export', 'codepress-admin-columns'),
-        ];
+        return __('Turn custom fields into sortable, filterable, editable columns - without writing a single line of code.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
     {
-        return __('Upgrade to Pro', 'codepress-admin-columns');
+        return sprintf('%s - %s', __('Upgrade', 'codepress-admin-columns'), '€79/year');
     }
 
     public function get_cta_url(): string
@@ -70,7 +65,7 @@ class AcfNotice implements UpsellNotice
 
     public function get_secondary_label(): string
     {
-        return __('See Pro features', 'codepress-admin-columns');
+        return __('See features', 'codepress-admin-columns');
     }
 
     public function get_secondary_url(): string

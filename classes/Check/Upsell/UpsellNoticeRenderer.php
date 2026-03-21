@@ -107,10 +107,10 @@ class UpsellNoticeRenderer implements Registerable
     private function render(UpsellNotice $notice, Ajax\Handler $handler): string
     {
         $view = new View([
+            'icon'                 => $notice->get_icon(),
             'eyebrow'              => $notice->get_eyebrow(),
             'title'                => $notice->get_title(),
             'description'          => $notice->get_description(),
-            'features'             => $notice->get_features(),
             'cta_label'            => $notice->get_cta_label(),
             'cta_url'              => $notice->get_cta_url(),
             'secondary_label'      => $notice->get_secondary_label(),

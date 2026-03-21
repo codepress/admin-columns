@@ -15,16 +15,13 @@ interface UpsellNotice
 
     public function get_integration_slug(): string;
 
+    public function get_icon(): string;
+
     public function get_eyebrow(): string;
 
     public function get_title(): string;
 
     public function get_description(): string;
-
-    /**
-     * @return string[]
-     */
-    public function get_features(): array;
 
     public function get_cta_label(): string;
 
