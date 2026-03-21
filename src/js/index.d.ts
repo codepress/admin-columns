@@ -77,6 +77,7 @@ declare namespace AC.Vars.Admin.Columns {
             upgrade: string
         },
         pro_banner?: ProBanner
+        pro_banner_context?: ProBanner | null
         review: {
             doc_url: string
             upgrade_url: string

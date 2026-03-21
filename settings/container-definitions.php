@@ -66,6 +66,10 @@ return [
     Admin\Banner\BannerContextResolver::class => static function (): Admin\Banner\BannerContextResolver {
         $contexts = [];
 
+        if (class_exists('WooCommerce', false)) {
+            $contexts[] = new Admin\Banner\Context\WooCommerce();
+        }
+
         if (class_exists('acf', false)) {
             $contexts[] = new Admin\Banner\Context\Acf();
         }

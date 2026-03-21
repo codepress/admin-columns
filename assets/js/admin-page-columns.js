@@ -5876,27 +5876,27 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[24] = list[i];
+  child_ctx[25] = list[i];
   return child_ctx;
 }
 function get_each_context_1(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[24] = list[i];
+  child_ctx[25] = list[i];
   return child_ctx;
 }
 function get_each_context_2(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[24] = list[i];
+  child_ctx[25] = list[i];
   return child_ctx;
 }
 
-// (48:2) {#each ListScreenSections.getSections( 'header_bar' ) as component}
+// (50:2) {#each ListScreenSections.getSections( 'header_bar' ) as component}
 function create_each_block_2(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
     props: {
-      component: /*component*/ctx[24]
+      component: /*component*/ctx[25]
     }
   });
   return {
@@ -5923,7 +5923,7 @@ function create_each_block_2(ctx) {
   };
 }
 
-// (52:2) {#if !$listScreenIsReadOnly && $hasUsagePermissions }
+// (54:2) {#if !$listScreenIsReadOnly && $hasUsagePermissions }
 function create_if_block_7(ctx) {
   let acbutton;
   let current;
@@ -5968,7 +5968,7 @@ function create_if_block_7(ctx) {
   };
 }
 
-// (46:0) <AdminHeaderBar title="Columns">
+// (48:0) <AdminHeaderBar title="Columns">
 function create_default_slot_4(ctx) {
   let div;
   let t0;
@@ -6062,7 +6062,7 @@ function create_default_slot_4(ctx) {
   };
 }
 
-// (82:3) {#if !$listScreenIsTemplate && $listScreenDataStore && 'inactive' === $listScreenDataStore.status}
+// (84:3) {#if !$listScreenIsTemplate && $listScreenDataStore && 'inactive' === $listScreenDataStore.status}
 function create_if_block_6(ctx) {
   let acnotice;
   let current;
@@ -6089,7 +6089,7 @@ function create_if_block_6(ctx) {
     },
     p(ctx, dirty) {
       const acnotice_changes = {};
-      if (dirty[0] & /*$listScreenDataStore*/1024 | dirty[1] & /*$$scope*/1) {
+      if (dirty[0] & /*$listScreenDataStore*/1024 | dirty[1] & /*$$scope*/2) {
         acnotice_changes.$$scope = {
           dirty,
           ctx
@@ -6112,7 +6112,7 @@ function create_if_block_6(ctx) {
   };
 }
 
-// (83:4) <AcNotice type="info" styled showIcon>
+// (85:4) <AcNotice type="info" styled showIcon>
 function create_default_slot_3(ctx) {
   let span;
   let raw_value = /*i18n*/ctx[14].notices.inactive + "";
@@ -6159,7 +6159,7 @@ function create_default_slot_3(ctx) {
   };
 }
 
-// (88:3) {#if $listScreenDataStore?.title && $listScreenIsReadOnly && !$listScreenIsTemplate}
+// (90:3) {#if $listScreenDataStore?.title && $listScreenIsReadOnly && !$listScreenIsTemplate}
 function create_if_block_5(ctx) {
   let acnotice;
   let current;
@@ -6186,7 +6186,7 @@ function create_if_block_5(ctx) {
     },
     p(ctx, dirty) {
       const acnotice_changes = {};
-      if (dirty[1] & /*$$scope*/1) {
+      if (dirty[1] & /*$$scope*/2) {
         acnotice_changes.$$scope = {
           dirty,
           ctx
@@ -6209,7 +6209,7 @@ function create_if_block_5(ctx) {
   };
 }
 
-// (89:4) <AcNotice type="info" styled showIcon>
+// (91:4) <AcNotice type="info" styled showIcon>
 function create_default_slot_2(ctx) {
   let html_tag;
   let raw_value = /*i18n*/ctx[14].editor.sentence.columns_read_only + "";
@@ -6234,7 +6234,7 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (91:3) {#if $listScreenDataStore?.title && !$listScreenIsStored}
+// (93:3) {#if $listScreenDataStore?.title && !$listScreenIsStored}
 function create_if_block_4(ctx) {
   let acnotice;
   let current;
@@ -6261,7 +6261,7 @@ function create_if_block_4(ctx) {
     },
     p(ctx, dirty) {
       const acnotice_changes = {};
-      if (dirty[1] & /*$$scope*/1) {
+      if (dirty[1] & /*$$scope*/2) {
         acnotice_changes.$$scope = {
           dirty,
           ctx
@@ -6284,7 +6284,7 @@ function create_if_block_4(ctx) {
   };
 }
 
-// (92:4) <AcNotice type="info" styled showIcon>
+// (94:4) <AcNotice type="info" styled showIcon>
 function create_default_slot_1(ctx) {
   let html_tag;
   let raw_value = /*i18n*/ctx[14].notices.not_saved_settings + "";
@@ -6309,13 +6309,13 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (94:3) {#each ListScreenSections.getSections( 'notices' ) as component}
+// (96:3) {#each ListScreenSections.getSections( 'notices' ) as component}
 function create_each_block_1(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
     props: {
-      component: /*component*/ctx[24]
+      component: /*component*/ctx[25]
     }
   });
   return {
@@ -6342,7 +6342,7 @@ function create_each_block_1(ctx) {
   };
 }
 
-// (109:5) {#if !localConfig.is_pro }
+// (111:5) {#if !localConfig.is_pro }
 function create_if_block_3(ctx) {
   let prosettingsexample;
   let current;
@@ -6370,7 +6370,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (113:5) {#if $debugMode}
+// (115:5) {#if $debugMode}
 function create_if_block_2(ctx) {
   let acpanel;
   let current;
@@ -6394,7 +6394,7 @@ function create_if_block_2(ctx) {
     },
     p(ctx, dirty) {
       const acpanel_changes = {};
-      if (dirty[0] & /*$listScreenDataStore*/1024 | dirty[1] & /*$$scope*/1) {
+      if (dirty[0] & /*$listScreenDataStore*/1024 | dirty[1] & /*$$scope*/2) {
         acpanel_changes.$$scope = {
           dirty,
           ctx
@@ -6417,7 +6417,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (114:6) <AcPanel>
+// (116:6) <AcPanel>
 function create_default_slot(ctx) {
   let jsontree;
   let current;
@@ -6454,13 +6454,13 @@ function create_default_slot(ctx) {
   };
 }
 
-// (120:5) {#each ListScreenSections.getSections( 'sidebar' ) as component}
+// (122:5) {#each ListScreenSections.getSections( 'sidebar' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
     props: {
-      component: /*component*/ctx[24]
+      component: /*component*/ctx[25]
     }
   });
   return {
@@ -6487,7 +6487,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (124:6) {#if !localConfig.is_pro }
+// (126:6) {#if !localConfig.is_pro }
 function create_if_block(ctx) {
   let t;
   let reviewcomponent;
@@ -6530,7 +6530,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (125:7) {#if localConfig.pro_banner }
+// (127:7) {#if localConfig.pro_banner }
 function create_if_block_1(ctx) {
   let prosidebanner;
   let current;
@@ -6759,7 +6759,7 @@ function create_fragment(ctx) {
     },
     p(ctx, dirty) {
       const adminheaderbar_changes = {};
-      if (dirty[0] & /*isSaving, $listScreenDataHasChanges, $listScreenIsStored, form, $listScreenIsReadOnly, $hasUsagePermissions, $currentTableUrl*/508 | dirty[1] & /*$$scope*/1) {
+      if (dirty[0] & /*isSaving, $listScreenDataHasChanges, $listScreenIsStored, form, $listScreenIsReadOnly, $hasUsagePermissions, $currentTableUrl*/508 | dirty[1] & /*$$scope*/2) {
         adminheaderbar_changes.$$scope = {
           dirty,
           ctx
@@ -6937,7 +6937,7 @@ function instance($$self, $$props, $$invalidate) {
   let $config;
   let $debugMode;
   let $proBannerStore;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.currentListKey, $$value => $$invalidate(22, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.currentListKey, $$value => $$invalidate(23, $currentListKey = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.currentTableUrl, $$value => $$invalidate(4, $currentTableUrl = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.listScreenIsReadOnly, $$value => $$invalidate(5, $listScreenIsReadOnly = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store__WEBPACK_IMPORTED_MODULE_6__.hasUsagePermissions, $$value => $$invalidate(6, $hasUsagePermissions = $$value));
@@ -6975,6 +6975,7 @@ function instance($$self, $$props, $$invalidate) {
       step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
   };
+  var _a;
   let {
     menu
   } = $$props;
@@ -6985,6 +6986,7 @@ function instance($$self, $$props, $$invalidate) {
   let isSaving = false;
   const i18n = (0,_utils_global__WEBPACK_IMPORTED_MODULE_12__.getColumnSettingsTranslation)();
   const localConfig = (0,_utils_global__WEBPACK_IMPORTED_MODULE_12__.getColumnSettingsConfig)();
+  _store__WEBPACK_IMPORTED_MODULE_6__.proBannerStore.set((_a = localConfig.pro_banner_context) !== null && _a !== void 0 ? _a : null);
   (0,_service_list_screen_watcher__WEBPACK_IMPORTED_MODULE_8__.startListScreenWatcher)();
   const handleMenuSelect = e => __awaiter(void 0, void 0, void 0, function* () {
     if ($currentListKey === e.detail) {

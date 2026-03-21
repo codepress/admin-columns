@@ -37,6 +37,8 @@
     const i18n = getColumnSettingsTranslation();
     const localConfig = getColumnSettingsConfig();
 
+    proBannerStore.set(localConfig.pro_banner_context ?? null);
+
     startListScreenWatcher();
 
     const handleMenuSelect = async (e: CustomEvent<string>) => {
