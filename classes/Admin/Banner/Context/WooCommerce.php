@@ -29,7 +29,7 @@ class WooCommerce implements BannerContext
 
     public function get_arguments(TableScreen $table_screen): array
     {
-        $upgrade_url = new UtmTags(Site::create_admin_columns_pro(), 'banner-woocommerce');
+        $upgrade_url = new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'banner-woocommerce');
         $is_product = $this->get_screen_type($table_screen) === 'product';
 
         return [

@@ -37,7 +37,7 @@ class Acf implements BannerContext
 
     public function get_arguments(TableScreen $table_screen): array
     {
-        $upgrade_url = new UtmTags(Site::create_admin_columns_pro(), 'banner-acf');
+        $upgrade_url = new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'banner-acf');
 
         $field_count = $this->count_fields($table_screen);
         $label = $table_screen->get_labels()->get_plural();

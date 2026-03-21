@@ -5,6 +5,7 @@ namespace AC\Service;
 use AC\AdminColumns;
 use AC\Capabilities;
 use AC\Check;
+use AC\Check\Upsell;
 use AC\Integration\IntegrationRepository;
 use AC\Registerable;
 use AC\Services;
@@ -33,6 +34,12 @@ class NoticeChecks implements Registerable
 
         if (current_user_can(Capabilities::MANAGE)) {
             $services->add(new Check\Review($this->plugin->get_location()));
+
+            $services->add(new Upsell\UpsellNoticeRenderer([
+                new Upsell\WooCommerceProductsNotice(),
+                new Upsell\WooCommerceOrdersNotice(),
+                new Upsell\AcfNotice(),
+            ]));
 
             foreach ($this->integration_repository->find_all_by_active_plugins() as $integration) {
                 $services->add(new Check\AddonAvailable($integration));
