@@ -4,22 +4,39 @@
     export let proBannerConfig: AC.Vars.Admin.Columns.ProBanner;
 
     const i18n = getColumnSettingsTranslation().pro.banner;
-    const features = proBannerConfig.features;
-    const integrations = proBannerConfig.integrations ?? [];
-    const promo = proBannerConfig.promo;
+    $: badge = proBannerConfig.badge ?? i18n.badge;
+    $: title = proBannerConfig.title ?? i18n.title;
+    $: descriptionIntro = proBannerConfig.description_intro;
+    $: description = proBannerConfig.description ?? i18n.description;
+    $: featuresLabel = proBannerConfig.features_label ?? i18n.features_label;
+    $: upgradeCta = proBannerConfig.upgrade_cta ?? i18n.upgrade_cta;
+    $: features = proBannerConfig.features;
+    $: integrations = proBannerConfig.integrations ?? [];
+    $: quote = proBannerConfig.quote;
+    $: promo = proBannerConfig.promo;
 </script>
 
 <div class="ac-probanner">
     <div class="ac-probanner__card">
         <div class="ac-probanner__accent"></div>
         <div class="ac-probanner__header">
-            <span class="ac-probanner__badge">{i18n.badge}</span>
-            <h2 class="ac-probanner__title">{i18n.title}</h2>
-            <p class="ac-probanner__description">{i18n.description}</p>
+            <span class="ac-probanner__badge">{badge}</span>
+            <h2 class="ac-probanner__title">{title}</h2>
+            <p class="ac-probanner__description">
+                {#if descriptionIntro}<strong>{descriptionIntro}</strong><br>{/if}
+                {description}
+            </p>
         </div>
         <div class="ac-probanner__body">
+            {#if quote}
+                <blockquote class="ac-probanner__quote">
+                    <p>{quote.text}</p>
+                    <cite>— {quote.cite}</cite>
+                </blockquote>
+            {/if}
+
             <div class="ac-probanner__feature-box">
-                <p class="ac-probanner__feature-label">{i18n.features_label}</p>
+                <p class="ac-probanner__feature-label">{featuresLabel}</p>
                 <ul class="ac-probanner__feature-list">
                     {#each features as feature}
                         <li>{feature.label}</li>
@@ -43,7 +60,7 @@
             </div>
 
             <a target="_blank" href="{proBannerConfig.promo_url}" class="ac-probanner__cta">
-                {i18n.upgrade_cta}
+                {upgradeCta}
             </a>
             <p class="ac-probanner__guarantee">{i18n.guarantee}</p>
             <a target="_blank" href="{proBannerConfig.promo_url}" class="ac-probanner__see-all">

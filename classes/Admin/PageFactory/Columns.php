@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Admin\PageFactory;
 
 use AC\Admin;
+use AC\Admin\Banner\BannerContextResolver;
 use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
@@ -46,6 +47,8 @@ final class Columns implements PageFactoryInterface
 
     private View\MenuFactory $view_menu_factory;
 
+    private BannerContextResolver $banner_context_resolver;
+
     public function __construct(
         bool $is_pro_active,
         AdminColumns $plugin,
@@ -57,7 +60,8 @@ final class Columns implements PageFactoryInterface
         ColumnGroups $column_groups,
         PromoRepository $promos,
         IntegrationRepository $integration_repository,
-        View\MenuFactory $view_menu_factory
+        View\MenuFactory $view_menu_factory,
+        BannerContextResolver $banner_context_resolver
     ) {
         $this->is_pro_active = $is_pro_active;
         $this->plugin = $plugin;
@@ -70,6 +74,7 @@ final class Columns implements PageFactoryInterface
         $this->promos = $promos;
         $this->integration_repository = $integration_repository;
         $this->view_menu_factory = $view_menu_factory;
+        $this->banner_context_resolver = $banner_context_resolver;
     }
 
     public function create(): Page\Columns
@@ -105,6 +110,7 @@ final class Columns implements PageFactoryInterface
             $this->promos,
             $this->integration_repository,
             $this->is_pro_active,
+            $this->banner_context_resolver,
             $list_id
         );
     }

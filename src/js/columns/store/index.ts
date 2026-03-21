@@ -13,3 +13,4 @@ export * from "./table_url";
 export * from "./is_stored";
 export * from "./is_template";
 export * from "./loading";
+export * from "./pro-banner";

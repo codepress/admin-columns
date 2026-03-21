@@ -63,6 +63,15 @@ return [
         ->constructorParameter(0, admin_url('options-general.php')),
     Admin\PageFactory\Columns::class        => autowire()
         ->constructorParameter(0, false),
+    Admin\Banner\BannerContextResolver::class => static function (): Admin\Banner\BannerContextResolver {
+        $contexts = [];
+
+        if (class_exists('acf', false)) {
+            $contexts[] = new Admin\Banner\Context\Acf();
+        }
+
+        return new Admin\Banner\BannerContextResolver($contexts);
+    },
     EncoderFactory::class                   => static function (AdminColumns $plugin) {
         return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
     },

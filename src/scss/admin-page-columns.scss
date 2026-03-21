@@ -101,6 +101,29 @@
 		padding: 0 20px 20px;
 	}
 
+	&__quote {
+		border-left: 3px solid #c5d9ed;
+		padding: 10px 14px;
+		margin: 0 0 14px;
+		background: #f0f6fc;
+		border-radius: 0 6px 6px 0;
+
+		p {
+			margin: 0 0 4px;
+			font-size: 13px;
+			line-height: 1.5;
+			color: #1d2327;
+			font-style: italic;
+		}
+
+		cite {
+			font-style: normal;
+			font-size: 11px;
+			color: #646970;
+			font-weight: 600;
+		}
+	}
+
 	&__feature-box {
 		border: 1px solid #dcdcde;
 		background: #f6f7f7;

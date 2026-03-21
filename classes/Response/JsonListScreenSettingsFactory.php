@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Response;
 
 use AC;
+use AC\Admin\Banner\BannerContextResolver;
 use AC\ListScreen;
 use AC\Setting\Encoder;
 use AC\Storage\EncoderFactory;
@@ -19,14 +20,18 @@ class JsonListScreenSettingsFactory
 
     private AC\ColumnGroups $column_groups;
 
+    private BannerContextResolver $banner_context_resolver;
+
     public function __construct(
         EncoderFactory $encoder_factory,
         AC\ColumnTypeRepository $type_repository,
-        AC\ColumnGroups $column_groups
+        AC\ColumnGroups $column_groups,
+        BannerContextResolver $banner_context_resolver
     ) {
         $this->encoder_factory = $encoder_factory;
         $this->type_repository = $type_repository;
         $this->column_groups = $column_groups;
+        $this->banner_context_resolver = $banner_context_resolver;
     }
 
     public function create(ListScreen $list_screen, bool $is_stored = true, bool $is_template = false): Json
@@ -36,6 +41,8 @@ class JsonListScreenSettingsFactory
             ->set_list_screen($list_screen);
 
         $table_screen = $list_screen->get_table_screen();
+
+        $context = $this->banner_context_resolver->resolve($table_screen);
 
         return (new Json())->set_parameters([
             'read_only'       => $list_screen->is_read_only(),
@@ -51,6 +58,7 @@ class JsonListScreenSettingsFactory
                 'singular' => $table_screen->get_labels()->get_singular(),
                 'plural'   => $table_screen->get_labels()->get_plural(),
             ],
+            'pro_banner'      => $context ? $context->get_arguments($table_screen) : null,
         ]);
     }
 

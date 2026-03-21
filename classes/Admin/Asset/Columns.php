@@ -3,6 +3,7 @@
 namespace AC\Admin\Asset;
 
 use AC;
+use AC\Admin\Banner\BannerContextResolver;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Capabilities;
@@ -42,6 +43,8 @@ class Columns extends Script
 
     private ?ListScreenId $list_id;
 
+    private BannerContextResolver $banner_context_resolver;
+
     public function __construct(
         string $handle,
         Location $location,
@@ -55,6 +58,7 @@ class Columns extends Script
         AC\Integration\IntegrationRepository $integration_repository,
         Location $parent_location,
         bool $is_pro_active,
+        BannerContextResolver $banner_context_resolver,
         ?ListScreenId $list_id = null
     ) {
         parent::__construct($handle, $location, [
@@ -71,6 +75,7 @@ class Columns extends Script
         $this->parent_location = $parent_location;
         $this->integration_repository = $integration_repository;
         $this->is_pro_active = $is_pro_active;
+        $this->banner_context_resolver = $banner_context_resolver;
         $this->list_id = $list_id;
     }
 
@@ -156,6 +161,12 @@ class Columns extends Script
         $arguments['integrations'] = $integrations;
         $arguments['promo_url'] = $upgrade_page_url->get_url();
         $arguments['discount'] = 10;
+
+        $context = $this->banner_context_resolver->resolve($this->table_screen);
+
+        if ($context !== null) {
+            $arguments = array_merge($arguments, $context->get_arguments($this->table_screen));
+        }
 
         return $arguments;
     }

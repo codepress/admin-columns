@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Admin\Page;
 
 use AC\Admin;
+use AC\Admin\Banner\BannerContextResolver;
 use AC\Admin\RenderableHead;
 use AC\AdminColumns;
 use AC\Asset\Assets;
@@ -51,6 +52,8 @@ class Columns implements Enqueueables, Renderable, RenderableHead
 
     private ?ListScreenId $list_id;
 
+    private BannerContextResolver $banner_context_resolver;
+
     public function __construct(
         AdminColumns $plugin,
         TableScreenCollection $uninitialized_screens,
@@ -63,6 +66,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
         PromoRepository $promos,
         IntegrationRepository $integration_repository,
         bool $is_pro_active,
+        BannerContextResolver $banner_context_resolver,
         ?ListScreenId $list_id = null
     ) {
         $this->location = $plugin->get_location();
@@ -76,6 +80,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
         $this->promos = $promos;
         $this->integration_repository = $integration_repository;
         $this->is_pro_active = $is_pro_active;
+        $this->banner_context_resolver = $banner_context_resolver;
         $this->list_id = $list_id;
     }
 
@@ -106,6 +111,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
                 $this->integration_repository,
                 $this->location,
                 $this->is_pro_active,
+                $this->banner_context_resolver,
                 $this->list_id
             ),
             new Style(
