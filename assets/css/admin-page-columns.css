@@ -573,6 +573,20 @@
   font-size: 7px;
   line-height: 2.7;
 }
+.ac-probanner__integrations {
+  margin: 0 0 14px;
+  font-size: 12px;
+  color: #646970;
+  line-height: 1.5;
+}
+.ac-probanner__integrations a {
+  color: var(--ac-primary-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+.ac-probanner__integrations a:hover {
+  color: var(--ac-primary-color-hover);
+}
 .ac-probanner__trust {
   display: flex;
   align-items: center;

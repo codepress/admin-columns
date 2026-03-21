@@ -24,11 +24,18 @@
                     {#each features as feature}
                         <li>{feature.label}</li>
                     {/each}
-                {#each integrations as integration}
-                    <li>{integration.label}</li>
-                {/each}
                 </ul>
             </div>
+
+            {#if integrations.length > 0}
+                <p class="ac-probanner__integrations">
+                    {i18n.works_with}
+                    {#each integrations as integration, i}
+                        {#if i > 0} · {/if}
+                        <a target="_blank" href="{integration.url}">{integration.label}</a>
+                    {/each}
+                </p>
+            {/if}
 
             <div class="ac-probanner__trust">
                 <span class="ac-probanner__star">&#9733;</span>

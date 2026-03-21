@@ -135,11 +135,7 @@ class Columns extends Script
             $integration = $active_integrations[$slug];
             $integrations[] = [
                 'url'   => (string)$integration->get_url(),
-                'label' => sprintf(
-                /* translators: %s: plugin name (e.g. Advanced Custom Fields, WooCommerce) */
-                    __('%s integration', 'codepress-admin-columns'),
-                    $integration->get_title()
-                ),
+                'label' => $integration->get_title(),
             ];
 
             if (count($integrations) >= 2) {
@@ -341,6 +337,7 @@ class Columns extends Script
                             'codepress-admin-columns'
                         ),
                         'features_label'       => __('With Pro you get', 'codepress-admin-columns'),
+                        'works_with'           => __('Works with:', 'codepress-admin-columns'),
                         'trust'                => sprintf(
                             '%s · %s',
                             sprintf(

@@ -144,6 +144,23 @@
 		}
 	}
 
+	&__integrations {
+		margin: 0 0 14px;
+		font-size: 12px;
+		color: #646970;
+		line-height: 1.5;
+
+		a {
+			color: var(--ac-primary-color);
+			text-decoration: none;
+			font-weight: 600;
+
+			&:hover {
+				color: var(--ac-primary-color-hover);
+			}
+		}
+	}
+
 	&__trust {
 		display: flex;
 		align-items: center;
