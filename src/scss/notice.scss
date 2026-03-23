@@ -31,7 +31,7 @@
 		color: #8d8d8d;
 	}
 
-	&--suggestion {
+	&--integration {
 		border: 1px solid #dcdcde;
 		border-left: 1px solid #dcdcde;
 		border-radius: 4px;
@@ -51,7 +51,7 @@
 	}
 }
 
-.ac-notice-suggestion {
+.ac-notice-integration {
 	display: flex;
 	align-items: center;
 	gap: 14px;
@@ -132,7 +132,7 @@
 		&__actions {
 			width: 100%;
 
-			.ac-notice-suggestion__btn {
+			.ac-notice-integration__btn {
 				flex: 1 1 auto;
 				text-align: center;
 			}

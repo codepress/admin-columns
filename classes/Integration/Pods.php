@@ -16,7 +16,7 @@ final class Pods extends Integration
             __('Pods', 'codepress-admin-columns'),
             'assets/images/addons/pods.png',
             __(
-                'Surface your Pods fields as list table columns. Inline edit field values, filter by any Pod field, and keep your custom content types organized at scale.',
+                'Show your Pods fields as list table columns. Inline edit field values, filter by any Pod field, and keep your custom content types organized at scale.',
                 'codepress-admin-columns'
             ),
             null,

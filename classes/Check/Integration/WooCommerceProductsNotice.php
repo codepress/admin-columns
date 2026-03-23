@@ -2,55 +2,52 @@
 
 declare(strict_types=1);
 
-namespace AC\Check\Suggestion;
+namespace AC\Check\Integration;
 
 use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class AcfNotice implements SuggestionNotice
+class WooCommerceProductsNotice implements IntegrationNotice
 {
 
     public function is_active(Screen $screen): bool
     {
-        if ( ! class_exists('acf', false) && ! class_exists('ACF', false)) {
+        if ( ! class_exists('WooCommerce', false)) {
             return false;
         }
 
-        return in_array($screen->get_id(), [
-            'edit-acf-field-group',
-            'acf-field-group',
-        ], true);
+        return 'edit' === $screen->get_base() && 'product' === $screen->get_post_type();
     }
 
     public function get_slug(): string
     {
-        return 'acf';
+        return 'wc-products';
     }
 
     public function get_integration_slug(): string
     {
-        return 'ac-addon-acf';
+        return 'ac-addon-woocommerce';
     }
 
     public function get_icon(): string
     {
-        return '⚡';
+        return '🛒';
     }
 
     public function get_eyebrow(): string
     {
-        return __('Admin Columns Pro for ACF', 'codepress-admin-columns');
+        return __('Admin Columns Pro for WooCommerce', 'codepress-admin-columns');
     }
 
     public function get_title(): string
     {
-        return __('Your ACF fields could be visible in every list table!', 'codepress-admin-columns');
+        return __('Still opening each product to check stock or pricing?', 'codepress-admin-columns');
     }
 
     public function get_description(): string
     {
-        return __('Turn custom fields into sortable, filterable, editable columns - without writing a single line of code.', 'codepress-admin-columns');
+        return __('Inline edit prices and stock, filter by any field, and bulk update products - all from this table.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
@@ -60,7 +57,7 @@ class AcfNotice implements SuggestionNotice
 
     public function get_cta_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'notice-acf'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products'))->get_url();
     }
 
     public function get_secondary_label(): string
@@ -70,7 +67,7 @@ class AcfNotice implements SuggestionNotice
 
     public function get_secondary_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'notice-acf-features'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products-features'))->get_url();
     }
 
 }

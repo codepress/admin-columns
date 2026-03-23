@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AC\Check\Suggestion;
+namespace AC\Check\Integration;
 
 use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class WooCommerceOrdersNotice implements SuggestionNotice
+class WooCommerceOrdersNotice implements IntegrationNotice
 {
 
     public function is_active(Screen $screen): bool

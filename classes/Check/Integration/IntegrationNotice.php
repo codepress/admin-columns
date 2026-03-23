@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AC\Check\Suggestion;
+namespace AC\Check\Integration;
 
 use AC\Screen;
 
-interface SuggestionNotice
+interface IntegrationNotice
 {
 
     public function is_active(Screen $screen): bool;
