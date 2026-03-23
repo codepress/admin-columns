@@ -65,6 +65,7 @@ declare namespace AC.Vars.Admin.Columns {
         list_id: string
         urls: {
             upgrade: string
+            learn_more: string
         },
         pro_banner?: ProBanner
         review: {
@@ -75,7 +76,7 @@ declare namespace AC.Vars.Admin.Columns {
             review: string
             description: string
         }
-        table_elements : {
+        table_elements: {
             default: string[]
             features: string[]
         }

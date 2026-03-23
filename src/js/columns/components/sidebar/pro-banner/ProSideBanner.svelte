@@ -31,7 +31,7 @@
                 <p class="ac-probanner__integrations">
                     {i18n.works_with}
                     {#each integrations as integration, i}
-                        {#if i > 0} · {/if}
+                        {#if i > 0} ·{/if}
                         <a target="_blank" href="{integration.url}">{integration.label}</a>
                     {/each}
                 </p>
@@ -42,11 +42,11 @@
                 <span>{i18n.trust}</span>
             </div>
 
-            <a target="_blank" href="{proBannerConfig.promo_url}" class="ac-probanner__cta">
+            <a class="ac-probanner__cta" href="{proBannerConfig.promo_url}" target="_blank">
                 {i18n.upgrade_cta}
             </a>
             <p class="ac-probanner__guarantee">{i18n.guarantee}</p>
-            <a target="_blank" href="{proBannerConfig.promo_url}" class="ac-probanner__see-all">
+            <a class="ac-probanner__see-all" href="{proBannerConfig.promo_url}" target="_blank">
                 {i18n.see_all} &rarr;
             </a>
         </div>
@@ -64,7 +64,8 @@
         <div class="ac-probanner__discount-card">
             <h3>{i18n.discount_title}</h3>
             <p>{i18n.discount_description}</p>
-            <form method="post" action="https://www.admincolumns.com/admin-columns-pro/?utm_source=plugin-installation&utm_medium=send-coupon">
+            <form method="post"
+                  action="https://www.admincolumns.com/admin-columns-pro/?utm_source=plugin-installation&utm_medium=send-coupon">
                 <input name="action" type="hidden" value="mc_upgrade_pro">
                 <input type="email" name="EMAIL" required placeholder="{i18n.your_email}">
                 <input type="submit" class="ac-probanner__cta-secondary" value="{i18n.send_discount}">

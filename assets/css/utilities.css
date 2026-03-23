@@ -206,6 +206,10 @@
   margin-bottom: 15px
 }
 
+.acu-mb-3\.5 {
+  margin-bottom: 18px
+}
+
 .acu-mb-4 {
   margin-bottom: 20px
 }
@@ -270,6 +274,10 @@
   margin-top: 10px
 }
 
+.acu-mt-2\.5 {
+  margin-top: 13px
+}
+
 .acu-mt-3 {
   margin-top: 15px
 }
@@ -292,6 +300,10 @@
 
 .acu-mt-\[0\] {
   margin-top: 0
+}
+
+.acu-box-border {
+  box-sizing: border-box
 }
 
 .acu-block {
@@ -335,6 +347,10 @@
 .acu-size-6 {
   width: 30px;
   height: 30px
+}
+
+.acu-h-1 {
+  height: 5px
 }
 
 .acu-h-6 {
@@ -562,6 +578,10 @@
   cursor: pointer
 }
 
+.acu-list-none {
+  list-style-type: none
+}
+
 .acu-appearance-none {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -606,6 +626,10 @@
 
 .acu-gap-1 {
   gap: 5px
+}
+
+.acu-gap-1\.5 {
+  gap: 8px
 }
 
 .acu-gap-2 {
@@ -761,6 +785,11 @@
   background-color: rgb(240 240 240 / var(--tw-bg-opacity, 1))
 }
 
+.acu-bg-\[\#f6f7f7\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(246 247 247 / var(--tw-bg-opacity, 1))
+}
+
 .acu-bg-\[\#fff\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
@@ -780,8 +809,22 @@
   background-color: rgb(61 67 80 / var(--tw-bg-opacity, 1))
 }
 
+.acu-bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops))
+}
+
 .acu-bg-none {
   background-image: none
+}
+
+.acu-from-\[\#f04b78\] {
+  --tw-gradient-from: #f04b78 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(240 75 120 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
+
+.acu-to-\[\#ff8a5b\] {
+  --tw-gradient-to: #ff8a5b var(--tw-gradient-to-position)
 }
 
 .acu-object-cover {
@@ -1156,12 +1199,24 @@
   line-height: 1.5
 }
 
+.acu-leading-relaxed {
+  line-height: 1.625
+}
+
 .acu-leading-snug {
   line-height: 1.375
 }
 
+.acu-leading-tight {
+  line-height: 1.25
+}
+
 .acu-tracking-tight {
   letter-spacing: -0.025em
+}
+
+.acu-tracking-widest {
+  letter-spacing: 0.1em
 }
 
 .acu-text-\[\#2271b1\] {
@@ -1182,6 +1237,16 @@
 .acu-text-\[\#444\] {
   --tw-text-opacity: 1;
   color: rgb(68 68 68 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#50575e\] {
+  --tw-text-opacity: 1;
+  color: rgb(80 87 94 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#646970\] {
+  --tw-text-opacity: 1;
+  color: rgb(100 105 112 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#666\] {
@@ -1224,6 +1289,11 @@
   color: rgb(187 187 187 / var(--tw-text-opacity, 1))
 }
 
+.acu-text-\[\#dba617\] {
+  --tw-text-opacity: 1;
+  color: rgb(219 166 23 / var(--tw-text-opacity, 1))
+}
+
 .acu-text-\[\#fff\] {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1))
@@ -1231,6 +1301,10 @@
 
 .acu-text-\[--ac-link\] {
   color: var(--ac-link)
+}
+
+.acu-text-\[--ac-primary-color\] {
+  color: var(--ac-primary-color)
 }
 
 .acu-text-acbutton {
