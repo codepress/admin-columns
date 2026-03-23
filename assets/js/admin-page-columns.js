@@ -17950,9 +17950,9 @@ function create_fragment(ctx) {
     c() {
       a = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("a");
       if (default_slot) default_slot.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "ac-feedback-card__button");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*href*/ctx[0]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "target", "_blank");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "ac-feedback-card__button");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, a, anchor);

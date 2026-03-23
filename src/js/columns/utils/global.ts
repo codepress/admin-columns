@@ -118,18 +118,19 @@ type AdminColumnsI18n = {
         inactive: string
     }
     review: {
-        happy: string
-        yes: string
-        no: string
-        glad: string
-        give_rating: string
-        whats_wrong: string
+        all_good: string
+        check_pro: string
         checkdocs: string
         docs: string
         forum: string
+        give_rating: string
+        glad: string
+        happy: string
+        help_improve: string
+        need_feature: string
         rate: string
         tweet: string
-        buy: string
+        whats_wrong: string
     },
     support: {
         title: string
