@@ -140,7 +140,7 @@ final class SettingsFactory
                         'badge'          => __('Admin Columns Pro', 'codepress-admin-columns'),
                         'title'          => __('Work faster in your list tables', 'codepress-admin-columns'),
                         'subtitle'       => __(
-                            'Turn your list tables into a powerful workflow tool for editing, filtering, sorting, and exporting content - without jumping between screens.',
+                            'Turn your list tables into a powerful workflow tool for editing, filtering, sorting, and exporting content.',
                             'codepress-admin-columns'
                         ),
                         'button'         => sprintf(

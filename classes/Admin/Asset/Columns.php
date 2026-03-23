@@ -3,6 +3,7 @@
 namespace AC\Admin\Asset;
 
 use AC;
+use AC\Admin\Banner\BannerContextResolver;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Capabilities;
@@ -42,6 +43,8 @@ class Columns extends Script
 
     private ?ListScreenId $list_id;
 
+    private BannerContextResolver $banner_context_resolver;
+
     public function __construct(
         string $handle,
         Location $location,
@@ -55,6 +58,7 @@ class Columns extends Script
         AC\Integration\IntegrationRepository $integration_repository,
         Location $parent_location,
         bool $is_pro_active,
+        BannerContextResolver $banner_context_resolver,
         ?ListScreenId $list_id = null
     ) {
         parent::__construct($handle, $location, [
@@ -71,6 +75,7 @@ class Columns extends Script
         $this->parent_location = $parent_location;
         $this->integration_repository = $integration_repository;
         $this->is_pro_active = $is_pro_active;
+        $this->banner_context_resolver = $banner_context_resolver;
         $this->list_id = $list_id;
     }
 
@@ -79,10 +84,25 @@ class Columns extends Script
         $arguments = [];
         $upgrade_page_url = new UtmTags(Site::create_admin_columns_pro(), 'banner');
 
+        $plural = $this->table_screen->get_labels()->get_plural();
+        $singular = $this->table_screen->get_labels()->get_singular();
+
+        if (mb_strlen($plural) > 30) {
+            $plural = __('content', 'codepress-admin-columns');
+            $singular = __('item', 'codepress-admin-columns');
+        }
+
+        $plural_lower = mb_strtolower($plural);
+        $singular_lower = mb_strtolower($singular);
+
         $items = [
             'editing'     => __('Inline edit directly in the table', 'codepress-admin-columns'),
             'sorting'     => __('Sort and filter on any column', 'codepress-admin-columns'),
-            'bulk-edit'   => __('Bulk edit hundreds of items', 'codepress-admin-columns'),
+            'bulk-edit'   => sprintf(
+            /* translators: %s: post type label plural (e.g. "posts", "pages") */
+                __('Bulk edit hundreds of %s at once', 'codepress-admin-columns'),
+                $plural_lower
+            ),
             'export'      => __('Export table data to CSV', 'codepress-admin-columns'),
             'column-sets' => __('Multiple views per screen', 'codepress-admin-columns'),
         ];
@@ -152,12 +172,47 @@ class Columns extends Script
             ];
         }
 
+        $arguments['title'] = sprintf(
+        /* translators: %s: post type label plural (e.g. "posts", "pages") */
+            __('Manage your %s faster', 'codepress-admin-columns'),
+            $plural_lower
+        );
+        $arguments['description'] = sprintf(
+        /* translators: 1: post type label plural, 2: post type label singular */
+            __('Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s.', 'codepress-admin-columns'),
+            $plural_lower,
+            $singular_lower
+        );
+        $arguments['upgrade_cta'] = sprintf(
+            '%s - %s',
+            sprintf(
+            /* translators: %s: post type label plural (e.g. "posts", "pages") */
+                __('Manage your %s faster', 'codepress-admin-columns'),
+                $plural_lower
+            ),
+            sprintf(
+            /* translators: %s: price (e.g. €79) */
+                __('from %s/year', 'codepress-admin-columns'),
+                '€79'
+            )
+        );
         $arguments['features'] = $features;
         $arguments['integrations'] = $integrations;
         $arguments['promo_url'] = $upgrade_page_url->get_url();
         $arguments['discount'] = 10;
 
         return $arguments;
+    }
+
+    private function get_pro_banner_context(): ?array
+    {
+        $context = $this->banner_context_resolver->resolve($this->table_screen);
+
+        if ($context === null) {
+            return null;
+        }
+
+        return $context->get_arguments($this->table_screen);
     }
 
     private function encode_groups(AC\Type\Groups $groups): array
@@ -205,6 +260,7 @@ class Columns extends Script
                 'learn_more' => (new UtmTags(Site::create_admin_columns_pro(), 'learn-more'))->get_url(),
             ],
             'pro_banner'                 => $this->is_pro_active ? null : $this->get_pro_modal_arguments(),
+            'pro_banner_context'         => $this->is_pro_active ? null : $this->get_pro_banner_context(),
             'review'                     => [
                 'doc_url'     => (new UtmTags(new Documentation(), 'review-notice'))->get_url(),
                 'upgrade_url' => (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url(),
