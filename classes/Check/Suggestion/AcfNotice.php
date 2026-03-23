@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AC\Check\Upsell;
+namespace AC\Check\Suggestion;
 
 use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class AcfNotice implements UpsellNotice
+class AcfNotice implements SuggestionNotice
 {
 
     public function is_active(Screen $screen): bool
@@ -45,7 +45,7 @@ class AcfNotice implements UpsellNotice
 
     public function get_title(): string
     {
-        return __('Your ACF fields could be visible in every list table', 'codepress-admin-columns');
+        return __('Your ACF fields could be visible in every list table!', 'codepress-admin-columns');
     }
 
     public function get_description(): string

@@ -16964,7 +16964,7 @@ function get_each_context_1(ctx, list, i) {
   return child_ctx;
 }
 
-// (24:16) {#if descriptionIntro}
+// (24:4) {#if descriptionIntro}
 function create_if_block_4(ctx) {
   let strong;
   let t;
@@ -16992,7 +16992,7 @@ function create_if_block_4(ctx) {
   };
 }
 
-// (29:12) {#if quote}
+// (29:3) {#if quote}
 function create_if_block_3(ctx) {
   let blockquote;
   let p;
@@ -17035,7 +17035,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (39:20) {#each features as feature}
+// (39:5) {#each features as feature}
 function create_each_block_1(ctx) {
   let li;
   let t_value = /*feature*/ctx[21].label + "";
@@ -17060,7 +17060,7 @@ function create_each_block_1(ctx) {
   };
 }
 
-// (45:12) {#if integrations.length > 0}
+// (45:3) {#if integrations.length > 0}
 function create_if_block_1(ctx) {
   let p;
   let t0_value = /*i18n*/ctx[11].works_with + "";
@@ -17120,7 +17120,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (49:24) {#if i > 0}
+// (49:6) {#if i > 0}
 function create_if_block_2(ctx) {
   let t;
   return {
@@ -17138,7 +17138,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (48:20) {#each integrations as integration, i}
+// (48:5) {#each integrations as integration, i}
 function create_each_block(ctx) {
   let t0;
   let a;
@@ -17177,7 +17177,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (78:4) {:else}
+// (77:1) {:else}
 function create_else_block(ctx) {
   let div;
   let h3;
@@ -17251,7 +17251,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (70:4) {#if promo}
+// (69:1) {#if promo}
 function create_if_block(ctx) {
   let div;
   let h3;
@@ -17428,9 +17428,9 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a0, "href", a0_href_value = /*proBannerConfig*/ctx[0].promo_url);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a0, "class", "ac-probanner__cta");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(p2, "class", "ac-probanner__guarantee");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a1, "target", "_blank");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a1, "href", a1_href_value = /*proBannerConfig*/ctx[0].promo_url);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a1, "class", "ac-probanner__see-all");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a1, "href", a1_href_value = /*proBannerConfig*/ctx[0].promo_url);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a1, "target", "_blank");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "class", "ac-probanner__body");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div5, "class", "ac-probanner__card");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div6, "class", "ac-probanner");
@@ -18167,9 +18167,9 @@ function create_fragment(ctx) {
     c() {
       a = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("a");
       if (default_slot) default_slot.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "ac-feedback-card__button");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*href*/ctx[0]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "target", "_blank");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "ac-feedback-card__button");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, a, anchor);

@@ -4,7 +4,7 @@ namespace AC\Check;
 
 use AC\Ajax;
 use AC\Capabilities;
-use AC\Check\Upsell\UpsellNoticeRenderer;
+use AC\Check\Suggestion\SuggestionNoticeRenderer;
 use AC\Message\Notice\Dismissible;
 use AC\Preferences;
 use AC\Registerable;
@@ -57,7 +57,7 @@ final class AddonAvailable implements Registerable
             ! current_user_can(Capabilities::MANAGE)
             || ! $this->integration->show_notice($screen)
             || $this->get_preferences()->find('dismiss-notice')
-            || UpsellNoticeRenderer::has_active_notice_for($this->integration->get_slug())
+            || SuggestionNoticeRenderer::has_active_notice_for($this->integration->get_slug())
         ) {
             return;
         }

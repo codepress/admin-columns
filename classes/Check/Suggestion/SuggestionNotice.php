@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AC\Check\Upsell;
+namespace AC\Check\Suggestion;
 
 use AC\Screen;
 
-interface UpsellNotice
+interface SuggestionNotice
 {
 
     public function is_active(Screen $screen): bool;

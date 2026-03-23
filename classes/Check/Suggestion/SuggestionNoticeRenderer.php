@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\Check\Upsell;
+namespace AC\Check\Suggestion;
 
 use AC\Ajax;
 use AC\Asset\Script;
@@ -12,11 +12,11 @@ use AC\Registerable;
 use AC\Screen;
 use AC\View;
 
-class UpsellNoticeRenderer implements Registerable
+class SuggestionNoticeRenderer implements Registerable
 {
 
     /**
-     * @var UpsellNotice[]
+     * @var SuggestionNotice[]
      */
     private array $notices;
 
@@ -26,7 +26,7 @@ class UpsellNoticeRenderer implements Registerable
     private static array $active_integration_slugs = [];
 
     /**
-     * @param UpsellNotice[] $notices
+     * @param SuggestionNotice[] $notices
      */
     public function __construct(array $notices)
     {
@@ -35,6 +35,12 @@ class UpsellNoticeRenderer implements Registerable
 
     public function register(): void
     {
+        foreach ($this->notices as $notice) {
+            if ( ! $this->is_dismissed($notice)) {
+                $this->create_ajax_handler($notice)->register();
+            }
+        }
+
         add_action('ac/screen', [$this, 'display']);
     }
 
@@ -58,7 +64,6 @@ class UpsellNoticeRenderer implements Registerable
         self::$active_integration_slugs[] = $notice->get_integration_slug();
 
         $handler = $this->create_ajax_handler($notice);
-        $handler->register();
 
         add_action('admin_notices', function () use ($notice, $handler) {
             echo $this->render($notice, $handler);
@@ -70,7 +75,7 @@ class UpsellNoticeRenderer implements Registerable
         });
     }
 
-    private function resolve(Screen $screen): ?UpsellNotice
+    private function resolve(Screen $screen): ?SuggestionNotice
     {
         foreach ($this->notices as $notice) {
             if ($notice->is_active($screen)) {
@@ -81,21 +86,21 @@ class UpsellNoticeRenderer implements Registerable
         return null;
     }
 
-    private function is_dismissed(UpsellNotice $notice): bool
+    private function is_dismissed(SuggestionNotice $notice): bool
     {
         return (bool)$this->get_preferences($notice)->find('dismiss-notice');
     }
 
-    private function get_preferences(UpsellNotice $notice): Preferences\Preference
+    private function get_preferences(SuggestionNotice $notice): Preferences\Preference
     {
-        return (new Preferences\UserFactory())->create('upsell-notice-' . $notice->get_slug());
+        return (new Preferences\UserFactory())->create('suggestion-notice-' . $notice->get_slug());
     }
 
-    private function create_ajax_handler(UpsellNotice $notice): Ajax\Handler
+    private function create_ajax_handler(SuggestionNotice $notice): Ajax\Handler
     {
         $handler = new Ajax\Handler();
         $handler
-            ->set_action('ac_dismiss_upsell_' . $notice->get_slug())
+            ->set_action('ac_dismiss_suggestion_' . $notice->get_slug())
             ->set_callback(function () use ($notice, $handler) {
                 $handler->verify_request();
                 $this->get_preferences($notice)->save('dismiss-notice', true);
@@ -104,7 +109,7 @@ class UpsellNoticeRenderer implements Registerable
         return $handler;
     }
 
-    private function render(UpsellNotice $notice, Ajax\Handler $handler): string
+    private function render(SuggestionNotice $notice, Ajax\Handler $handler): string
     {
         $view = new View([
             'icon'                 => $notice->get_icon(),
@@ -118,7 +123,7 @@ class UpsellNoticeRenderer implements Registerable
             'dismissible_callback' => $handler->get_params(),
         ]);
 
-        $view->set_template('message/notice/upsell');
+        $view->set_template('message/notice/suggestion');
 
         return $view->render();
     }

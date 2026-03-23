@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AC\Check\Upsell;
+namespace AC\Check\Suggestion;
 
 use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class WooCommerceProductsNotice implements UpsellNotice
+class WooCommerceProductsNotice implements SuggestionNotice
 {
 
     public function is_active(Screen $screen): bool
