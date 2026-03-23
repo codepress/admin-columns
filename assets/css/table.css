@@ -1471,10 +1471,8 @@ table.ac-table-items.-user-posts .col-post-type {
   margin-bottom: 6px;
   overflow: hidden;
   max-width: 100%;
-  background-color: #f0f0f1;
+  background-color: #ccc;
   vertical-align: middle;
-  border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .ac-image:not(body) img {
   display: block;
@@ -1493,54 +1491,6 @@ table.ac-table-items.-user-posts .col-post-type {
 }
 .ac-image:not(body).-cover img {
   object-fit: cover;
-}
-a:hover > .ac-image:not(body) {
-  border-color: #2271b1;
-  cursor: pointer;
-}
-
-.ac-file-pill {
-  display: inline-flex;
-  align-items: center;
-  border: 1.5px solid #e0e0e0;
-  border-radius: 100px;
-  background: #f8f8f8;
-  padding: 3px 14px 3px 3px;
-  text-decoration: none;
-  color: inherit;
-  font-size: 13px;
-  vertical-align: middle;
-  max-width: 100%;
-}
-.ac-file-pill .ac-file-type {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1.5px solid #e0e0e0;
-  border-radius: 100px;
-  background: #fff;
-  color: #2271b1;
-  font-weight: 700;
-  font-size: 11px;
-  padding: 2px 4px;
-  min-width: 40px;
-  text-align: center;
-  text-transform: uppercase;
-  margin-right: 10px;
-  white-space: nowrap;
-}
-.ac-file-pill .ac-file-name {
-  color: #555;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.ac-file-pill:hover {
-  text-decoration: none;
-}
-a:hover > .ac-file-pill {
-  border-color: #2271b1;
-  cursor: pointer;
 }
 
 .rtl .column-column-attachment img {

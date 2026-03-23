@@ -1,6 +1,6 @@
-<script>
-	export let href;
+<script lang="ts">
+    export let href: string;
 </script>
-<a href="{href}" target="_blank" class="ac-feedback-card__button">
-	<slot></slot>
+<a class="ac-feedback-card__button" href="{href}" target="_blank">
+    <slot></slot>
 </a>
