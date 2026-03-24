@@ -30,11 +30,6 @@ class WooCommerceProductsNotice implements IntegrationNotice
         return 'ac-addon-woocommerce';
     }
 
-    public function get_icon(): string
-    {
-        return '🛒';
-    }
-
     public function get_eyebrow(): string
     {
         return '';
@@ -68,6 +63,11 @@ class WooCommerceProductsNotice implements IntegrationNotice
     public function get_secondary_url(): string
     {
         return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products-features'))->get_url();
+    }
+
+    public function get_extra_classes(): string
+    {
+        return '';
     }
 
 }

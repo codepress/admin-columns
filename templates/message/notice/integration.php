@@ -5,7 +5,7 @@ if ( ! defined('ABSPATH')) {
 }
 
 ?>
-<div class="ac-notice ac-notice--integration notice is-dismissible" data-dismissible-callback="<?php
+<div class="ac-notice ac-notice--integration notice is-dismissible<?php echo $this->extra_classes ? ' ' . esc_attr($this->extra_classes) : ''; ?>" data-dismissible-callback="<?php
 echo esc_attr(wp_json_encode($this->dismissible_callback)); ?>">
 	<div class="ac-notice-integration">
 		<div class="ac-notice-integration__copy">

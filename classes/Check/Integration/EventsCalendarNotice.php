@@ -31,14 +31,9 @@ class EventsCalendarNotice implements IntegrationNotice
         return 'ac-addon-events-calendar';
     }
 
-    public function get_icon(): string
-    {
-        return '📅';
-    }
-
     public function get_eyebrow(): string
     {
-        return __('Admin Columns Pro for The Events Calendar', 'codepress-admin-columns');
+        return '';
     }
 
     public function get_title(): string
@@ -53,7 +48,7 @@ class EventsCalendarNotice implements IntegrationNotice
 
     public function get_cta_label(): string
     {
-        return sprintf('%s - %s', __('Upgrade', 'codepress-admin-columns'), '€79/year');
+        return __('Upgrade to Admin Columns Pro', 'codepress-admin-columns');
     }
 
     public function get_cta_url(): string
@@ -69,6 +64,11 @@ class EventsCalendarNotice implements IntegrationNotice
     public function get_secondary_url(): string
     {
         return (new UtmTags(new Site(Site::PAGE_ADDON_EVENTS_CALENDAR), 'notice-events-calendar-features'))->get_url();
+    }
+
+    public function get_extra_classes(): string
+    {
+        return '';
     }
 
 }

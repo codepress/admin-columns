@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-03-23 18:47+0000\n"
+"POT-Creation-Date: 2026-03-24 11:50+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -86,14 +86,6 @@ msgstr ""
 
 #: classes/Admin/Tooltip.php:24
 msgid "Instructions"
-msgstr ""
-
-#: classes/Check/AddonAvailable.php:70
-msgid "Did you know Admin Columns Pro has full support for %s?"
-msgstr ""
-
-#: classes/Check/AddonAvailable.php:76
-msgid "Get Admin Columns Pro with 10% discount"
 msgstr ""
 
 #: classes/Check/Review.php:115, classes/Table/Screen.php:90, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17
@@ -273,7 +265,7 @@ msgid "Pods"
 msgstr ""
 
 #: classes/Integration/Pods.php:18
-msgid "Surface your Pods fields as list table columns. Inline edit field values, filter by any Pod field, and keep your custom content types organized at scale."
+msgid "Show your Pods fields as list table columns. Inline edit field values, filter by any Pod field, and keep your custom content types organized at scale."
 msgstr ""
 
 #: classes/Integration/RankMath.php:18
@@ -627,7 +619,7 @@ msgstr ""
 msgid "Buy Admin Columns Pro"
 msgstr ""
 
-#: classes/Admin/Asset/Addons.php:44
+#: classes/Admin/Asset/Addons.php:44, classes/Check/Integration/AcfNotice.php:65
 msgid "Learn more"
 msgstr ""
 
@@ -737,7 +729,7 @@ msgstr ""
 msgid "See all Pro features"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:336, classes/Check/Upsell/AcfNotice.php:58, classes/Check/Upsell/IntegrationNotice.php:67, classes/Check/Upsell/WooCommerceOrdersNotice.php:58, classes/Check/Upsell/WooCommerceProductsNotice.php:55, classes/Admin/Asset/Script/SettingsFactory.php:148
+#: classes/Admin/Asset/Columns.php:336, classes/Admin/Asset/Script/SettingsFactory.php:148
 msgid "Upgrade"
 msgstr ""
 
@@ -1168,47 +1160,55 @@ msgstr ""
 msgid "Create database table."
 msgstr ""
 
-#: classes/Check/Upsell/AcfNotice.php:43
-msgid "Admin Columns Pro for ACF"
+#: classes/Check/Integration/AcfNotice.php:45
+msgid "Use these fields directly in your list tables!"
 msgstr ""
 
-#: classes/Check/Upsell/AcfNotice.php:48
-msgid "Your ACF fields could be visible in every list table"
+#: classes/Check/Integration/AcfNotice.php:50
+msgid "Show ACF fields as columns so you can sort, filter, and edit them directly from your list table."
 msgstr ""
 
-#: classes/Check/Upsell/AcfNotice.php:53
-msgid "Turn custom fields into sortable, filterable, editable columns - without writing a single line of code."
+#: classes/Check/Integration/AcfNotice.php:55
+msgid "Add ACF columns"
 msgstr ""
 
-#: classes/Check/Upsell/AcfNotice.php:68, classes/Check/Upsell/IntegrationNotice.php:77, classes/Check/Upsell/WooCommerceOrdersNotice.php:68, classes/Check/Upsell/WooCommerceProductsNotice.php:65
+#: classes/Check/Integration/EventsCalendarNotice.php:41
+msgid "Still opening each event to check dates, venues, and organizers?"
+msgstr ""
+
+#: classes/Check/Integration/EventsCalendarNotice.php:46
+msgid "See every event detail at a glance - filter by date range, venue, or status, and edit events inline from this table."
+msgstr ""
+
+#: classes/Check/Integration/EventsCalendarNotice.php:51, classes/Check/Integration/GravityFormsNotice.php:50, classes/Check/Integration/WooCommerceOrdersNotice.php:53, classes/Check/Integration/WooCommerceProductsNotice.php:50
+msgid "Upgrade to Admin Columns Pro"
+msgstr ""
+
+#: classes/Check/Integration/EventsCalendarNotice.php:61, classes/Check/Integration/GravityFormsNotice.php:60, classes/Check/Integration/WooCommerceOrdersNotice.php:63, classes/Check/Integration/WooCommerceProductsNotice.php:60
 msgid "See features"
 msgstr ""
 
-#: classes/Check/Upsell/IntegrationNotice.php:47
-msgid "Admin Columns Pro for %s"
+#: classes/Check/Integration/GravityFormsNotice.php:40
+msgid "Still clicking into each entry to see what was submitted?"
 msgstr ""
 
-#: classes/Check/Upsell/IntegrationNotice.php:55
-msgid "Get more out of %s with Admin Columns Pro"
+#: classes/Check/Integration/GravityFormsNotice.php:45
+msgid "Display any form field as a column, sort and filter entries by any value, and export results to CSV - all from this screen."
 msgstr ""
 
-#: classes/Check/Upsell/WooCommerceOrdersNotice.php:43, classes/Check/Upsell/WooCommerceProductsNotice.php:40
-msgid "Admin Columns Pro for WooCommerce"
-msgstr ""
-
-#: classes/Check/Upsell/WooCommerceOrdersNotice.php:48
+#: classes/Check/Integration/WooCommerceOrdersNotice.php:43
 msgid "Still opening each order to find shipping or payment details?"
 msgstr ""
 
-#: classes/Check/Upsell/WooCommerceOrdersNotice.php:53
+#: classes/Check/Integration/WooCommerceOrdersNotice.php:48
 msgid "Inline edit order status, filter by payment method, and bulk update orders - all from this table."
 msgstr ""
 
-#: classes/Check/Upsell/WooCommerceProductsNotice.php:45
+#: classes/Check/Integration/WooCommerceProductsNotice.php:40
 msgid "Still opening each product to check stock or pricing?"
 msgstr ""
 
-#: classes/Check/Upsell/WooCommerceProductsNotice.php:50
+#: classes/Check/Integration/WooCommerceProductsNotice.php:45
 msgid "Inline edit prices and stock, filter by any field, and bulk update products - all from this table."
 msgstr ""
 

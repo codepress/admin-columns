@@ -121,6 +121,7 @@ class IntegrationNoticeRenderer implements Registerable
             'secondary_label'      => $notice->get_secondary_label(),
             'secondary_url'        => $notice->get_secondary_url(),
             'dismissible_callback' => $handler->get_params(),
+            'extra_classes'        => $notice->get_extra_classes(),
         ]);
 
         $view->set_template('message/notice/integration');

@@ -30,29 +30,24 @@ class GravityFormsNotice implements IntegrationNotice
         return 'ac-addon-gravityforms';
     }
 
-    public function get_icon(): string
-    {
-        return '📋';
-    }
-
     public function get_eyebrow(): string
     {
-        return __('Admin Columns Pro for Gravity Forms', 'codepress-admin-columns');
+        return '';
     }
 
     public function get_title(): string
     {
-        return __('Still clicking into each entry to see what was submitted?', 'codepress-admin-columns');
+        return __('Still opening entries to edit or manage data?', 'codepress-admin-columns');
     }
 
     public function get_description(): string
     {
-        return __('Display any form field as a column, sort and filter entries by any value, and export results to CSV - all from this screen.', 'codepress-admin-columns');
+        return __('Edit fields inline, filter and search faster, and export your entries - all without leaving this table.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
     {
-        return sprintf('%s - %s', __('Upgrade', 'codepress-admin-columns'), '€79/year');
+        return __('Upgrade to Admin Columns Pro', 'codepress-admin-columns');
     }
 
     public function get_cta_url(): string
@@ -68,6 +63,11 @@ class GravityFormsNotice implements IntegrationNotice
     public function get_secondary_url(): string
     {
         return (new UtmTags(new Site(Site::PAGE_ADDON_GRAVITYFORMS), 'notice-gravityforms-features'))->get_url();
+    }
+
+    public function get_extra_classes(): string
+    {
+        return 'gf-notice';
     }
 
 }

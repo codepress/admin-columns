@@ -70,4 +70,9 @@ class AcfNotice implements IntegrationNotice
         return (new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'notice-acf-features'))->get_url();
     }
 
+    public function get_extra_classes(): string
+    {
+        return '';
+    }
+
 }

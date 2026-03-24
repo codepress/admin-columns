@@ -15,8 +15,6 @@ interface IntegrationNotice
 
     public function get_integration_slug(): string;
 
-    public function get_icon(): string;
-
     public function get_eyebrow(): string;
 
     public function get_title(): string;
@@ -30,5 +28,7 @@ interface IntegrationNotice
     public function get_secondary_label(): string;
 
     public function get_secondary_url(): string;
+
+    public function get_extra_classes(): string;
 
 }

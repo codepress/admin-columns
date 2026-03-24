@@ -37,17 +37,10 @@
 	border-radius: 4px;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
 	padding: 3px 20px 0 12px !important;
-	overflow: hidden;
-
-	&::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 3px;
-		background: linear-gradient(90deg, #f04e98 0%, #ff8a5b 100%);
-	}
+	background-image: linear-gradient(90deg, #f04e98 0%, #ff8a5b 100%);
+	background-size: 100% 3px;
+	background-repeat: no-repeat;
+	background-position: top;
 
 	> div {
 		margin: 0;
@@ -141,49 +134,5 @@
 			color: #135e96;
 			text-decoration: underline;
 		}
-	}
-}
-
-// On ACF admin pages, keep ACF's notice styling and render our actions as text links
-.acf-admin-page .ac-notice.ac-notice--integration {
-	// Restore ACF's padding so their icon badge doesn't overlap the text
-	padding: 13px 56px 12px 50px !important;
-
-	// Restore ACF's ::before info icon — our base styles partially override it (same specificity, later in cascade)
-	&::before {
-		top: 15px !important;
-		left: 18px !important;
-		right: auto !important;
-		width: 16px !important;
-		height: 16px !important;
-		background: #fff !important;
-	}
-
-	.ac-notice-integration__btn--primary {
-		background: none !important;
-		border: none !important;
-		padding: 0 !important;
-		min-height: auto !important;
-		color: #2271b1 !important;
-		font-weight: 700;
-		text-decoration: underline;
-
-		&:hover {
-			color: #135e96 !important;
-		}
-	}
-
-	.ac-notice-integration__link {
-		font-weight: 400;
-		color: #2271b1;
-		text-decoration: none;
-
-		&:hover {
-			color: #135e96;
-		}
-	}
-
-	.ac-notice-integration {
-		padding: 0 18px 0 6px;
 	}
 }
