@@ -4,10 +4,10 @@
 
     export let title: string | undefined | null = null
     export let subtitle: string | undefined | null = null
-    export let type: 'h3' | 'h2' = 'h2'
+    export let type: 'h3' | 'h2' | 'h3-alt' = 'h2'
     export let border: boolean = false;
 
-    let classes = ['acu-px-5 acu-pt-5 acu-leading-normal'];
+    let classes = ['acu-px-4 acu-pt-4 acu-leading-normal'];
 
     if (border) {
         classes.push('acu-pb-[20px] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border')
@@ -16,12 +16,12 @@
 </script>
 
 <div class={classes.join(' ')}>
-	{#if title }
-		<AcPanelTitle {title} {type}/>
-	{/if}
-	{#if subtitle }
-		<AcPanelSubtitle {subtitle} {type} />
-	{/if}
+    {#if title }
+        <AcPanelTitle {title} {type}/>
+    {/if}
+    {#if subtitle }
+        <AcPanelSubtitle {subtitle} {type}/>
+    {/if}
 
-	<slot></slot>
+    <slot></slot>
 </div>

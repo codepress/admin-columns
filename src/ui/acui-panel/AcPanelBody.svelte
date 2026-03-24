@@ -2,8 +2,8 @@
     export let classNames: string[] = [];
 
 
-    let classes = ['acu-p-5', ...classNames];
+    let classes = ['acu-p-4', ...classNames];
 </script>
 <div class={classes.join(' ')}>
-	<slot></slot>
+    <slot></slot>
 </div>
