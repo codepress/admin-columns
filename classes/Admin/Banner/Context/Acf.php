@@ -40,7 +40,6 @@ class Acf implements BannerContext
         $upgrade_url = new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'banner-acf');
 
         $field_count = $this->count_fields($table_screen);
-        $label = $table_screen->get_labels()->get_plural();
 
         return [
             'badge'          => __('Admin Columns Pro', 'codepress-admin-columns'),
