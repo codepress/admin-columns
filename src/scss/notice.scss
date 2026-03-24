@@ -1,141 +1,141 @@
 .ac-notice {
-	$e: &;
-	position: relative;
-	min-height: 1%;
-	overflow: hidden;
-	padding-right: 40px;
+  $e: &;
+  position: relative;
+  min-height: 1%;
+  overflow: hidden;
+  padding-right: 40px;
 
-	.notice-dismiss {
-		text-decoration: none;
-	}
+  .notice-dismiss {
+    text-decoration: none;
+  }
 
-	&__dismiss {
-		float: right;
-		margin: .5em;
-	}
+  &__dismiss {
+    float: right;
+    margin: .5em;
+  }
 
-	&.review {
-		#{$e}__dismiss, .notice-dismiss {
-			display: none;
-		}
-	}
+  &.review {
+    #{$e}__dismiss, .notice-dismiss {
+      display: none;
+    }
+  }
 
-	> div {
-		margin: 0.5em 0;
-		padding: 2px;
-	}
+  > div {
+    margin: 0.5em 0;
+    padding: 2px;
+  }
 
-	.dashicons {
-		margin-right: 5px;
-		transform: translateY(-2px);
-		color: #8d8d8d;
-	}
-
-	&--integration {
-		border: 1px solid #dcdcde;
-		border-left: 1px solid #dcdcde;
-		border-radius: 4px;
-		box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
-		padding: 0;
-		overflow: visible;
-
-		> div {
-			margin: 0;
-			padding: 0;
-		}
-
-		.notice-dismiss {
-			top: 50%;
-			transform: translateY(-50%);
-		}
-	}
+  .dashicons {
+    margin-right: 5px;
+    transform: translateY(-2px);
+    color: #8d8d8d;
+  }
 }
 
-.ac-notice-integration {
-	display: flex;
-	align-items: center;
-	gap: 14px;
-	padding: 12px 18px;
+.ac-notice.ac-notice--integration {
+  border: 1px solid #dcdcde;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+  padding: 0 20px 0 12px !important;
+  overflow: visible;
 
-	&__copy {
-		flex: 1;
-		min-width: 0;
-	}
+  > div {
+    margin: 0;
+    padding: 0;
+  }
 
-	&__eyebrow {
-		margin: 0;
-		color: #1d2327;
-		font-size: 13px;
-		font-weight: 600;
-		letter-spacing: .02em;
-		text-transform: uppercase;
-		line-height: 1.4;
-	}
+  .notice-dismiss {
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-	&__desc {
-		margin: 1px 0 0;
-		color: #50575e;
-		font-size: 13px;
-		line-height: 1.5;
-	}
 
-	&__actions {
-		display: flex;
-		align-items: center;
-		align-self: center;
-		gap: 14px;
-		flex: 0 0 auto;
-	}
+  .ac-notice-integration {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px 12px 6px;
 
-	&__btn {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 34px;
-		padding: 0 13px;
-		border-radius: 4px;
-		text-decoration: none;
-		font-size: 13px;
-		font-weight: 600;
-		border: 1px solid transparent;
-		white-space: nowrap;
-		cursor: pointer;
+    &__copy {
+      flex: 1;
+      min-width: 0;
+    }
 
-		&--primary {
-			background: #f04b78;
-			color: #fff !important;
+    &__eyebrow {
+      margin: 0 !important;
+      color: #1d2327;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
 
-			&:hover {
-				background: #db3d68;
-				color: #fff !important;
-			}
-		}
-	}
+    &__desc {
+      margin: 1px 0 0 !important;
+      color: #50575e;
+      font-size: 13px;
+      line-height: 1.5;
+    }
 
-	&__link {
-		color: #2271b1;
-		text-decoration: none;
-		font-size: 13px;
-		font-weight: 600;
-		white-space: nowrap;
+    &__actions {
+      display: flex;
+      align-items: center;
+      align-self: center;
+      gap: 14px;
+      flex: 0 0 auto;
+    }
 
-		&:hover {
-			color: #135e96;
-			text-decoration: underline;
-		}
-	}
+    &__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 13px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      cursor: pointer;
 
-	@media (max-width: 980px) {
-		flex-direction: column;
-		align-items: stretch;
+      &--primary {
+        background: #f04b78;
+        color: #fff !important;
 
-		&__actions {
-			width: 100%;
+        &:hover {
+          background: #db3d68;
+          color: #fff !important;
+        }
+      }
+    }
+  }
 
-			.ac-notice-integration__btn {
-				flex: 1 1 auto;
-				text-align: center;
-			}
-		}
-	}
+  &__link {
+    color: #2271b1;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+
+    &:hover {
+      color: #135e96;
+      text-decoration: underline;
+    }
+  }
+
+  @media (max-width: 980px) {
+    flex-direction: column;
+    align-items: stretch;
+
+    &__actions {
+      width: 100%;
+
+      .ac-notice-integration__btn {
+        flex: 1 1 auto;
+        text-align: center;
+      }
+    }
+  }
 }
