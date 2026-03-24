@@ -71,51 +71,19 @@ class FieldSettings extends AbstractFieldSettings
         'wysiwyg',
     ];
 
-    public function render_tab(array $field): void
+    protected function render_tab_early_exit(array $field, string $type): bool
     {
-        $type = $field['type'] ?? '';
-
         if ($this->is_pro_only_field_type($type)) {
             $this->render_pro_upsell($field);
 
-            return;
+            return true;
         }
 
-        if ( ! $this->is_field_type_supported($type)) {
-            acf_render_field_setting(
-                $field,
-                [
-                    'label'   => __('Not Supported', 'codepress-admin-columns'),
-                    'type'    => 'message',
-                    'name'    => 'admin_columns_unsupported',
-                    'message' => __('This field type cannot be used as an admin column.', 'codepress-admin-columns'),
-                ]
-            );
+        return false;
+    }
 
-            return;
-        }
-
-        $enabled_condition = [
-            [
-                [
-                    'field'    => 'admin_columns_enabled',
-                    'operator' => '==',
-                    'value'    => '1',
-                ],
-            ],
-        ];
-
-        acf_render_field_setting(
-            $field,
-            [
-                'label'        => __('Add as Admin Column', 'codepress-admin-columns'),
-                'instructions' => $this->get_toggle_instructions($field),
-                'type'         => 'true_false',
-                'name'         => 'admin_columns_enabled',
-                'ui'           => 1,
-            ]
-        );
-
+    protected function render_tab_content(array $field, array $enabled_condition): void
+    {
         acf_render_field_setting(
             $field,
             [
@@ -132,8 +100,6 @@ class FieldSettings extends AbstractFieldSettings
                 'conditional_logic' => $enabled_condition,
             ]
         );
-
-        $this->render_editor_links($field, $enabled_condition);
     }
 
     protected function is_field_type_supported(string $type): bool
@@ -156,20 +122,18 @@ class FieldSettings extends AbstractFieldSettings
 
     protected function add_column_in_list_screens(TableScreen $table_screen, array $field): void
     {
-        $list_screens = $this->storage->find_all_by_table_id($table_screen->get_id());
+        $factory = $this->find_column_factory($table_screen, 'column-meta');
 
-        foreach ($list_screens as $list_screen) {
+        if ( ! $factory) {
+            return;
+        }
+
+        foreach ($this->storage->find_all_by_table_id($table_screen->get_id()) as $list_screen) {
             if ($list_screen->is_read_only()) {
                 continue;
             }
 
             if ($this->has_column_for_field($list_screen, $field)) {
-                continue;
-            }
-
-            $factory = $this->find_column_factory($table_screen, 'column-meta');
-
-            if ( ! $factory) {
                 continue;
             }
 
@@ -195,13 +159,7 @@ class FieldSettings extends AbstractFieldSettings
             return;
         }
 
-        $group = acf_get_field_group($field['parent'] ?? 0);
-
-        if ( ! $group) {
-            return;
-        }
-
-        $table_screens = $this->table_screen_resolver->resolve($group);
+        $table_screens = $this->resolve_table_screens($field);
 
         if ( ! $table_screens) {
             return;
