@@ -1,141 +1,189 @@
 .ac-notice {
-  $e: &;
-  position: relative;
-  min-height: 1%;
-  overflow: hidden;
-  padding-right: 40px;
+	$e: &;
+	position: relative;
+	min-height: 1%;
+	overflow: hidden;
+	padding-right: 40px;
 
-  .notice-dismiss {
-    text-decoration: none;
-  }
+	.notice-dismiss {
+		text-decoration: none;
+	}
 
-  &__dismiss {
-    float: right;
-    margin: .5em;
-  }
+	&__dismiss {
+		float: right;
+		margin: .5em;
+	}
 
-  &.review {
-    #{$e}__dismiss, .notice-dismiss {
-      display: none;
-    }
-  }
+	&.review {
+		#{$e}__dismiss, .notice-dismiss {
+			display: none;
+		}
+	}
 
-  > div {
-    margin: 0.5em 0;
-    padding: 2px;
-  }
+	> div {
+		margin: 0.5em 0;
+		padding: 2px;
+	}
 
-  .dashicons {
-    margin-right: 5px;
-    transform: translateY(-2px);
-    color: #8d8d8d;
-  }
+	.dashicons {
+		margin-right: 5px;
+		transform: translateY(-2px);
+		color: #8d8d8d;
+	}
 }
 
 .ac-notice.ac-notice--integration {
-  border: 1px solid #dcdcde;
-  border-radius: 4px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
-  padding: 0 20px 0 12px !important;
-  overflow: visible;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+	padding: 3px 20px 0 12px !important;
+	overflow: hidden;
 
-  > div {
-    margin: 0;
-    padding: 0;
-  }
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, #f04e98 0%, #ff8a5b 100%);
+	}
 
-  .notice-dismiss {
-    top: 50%;
-    transform: translateY(-50%);
-  }
+	> div {
+		margin: 0;
+		padding: 0;
+	}
+
+	.notice-dismiss {
+		top: calc(50% + 1px);
+		transform: translateY(-50%);
+	}
 
 
-  .ac-notice-integration {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 12px 18px 12px 6px;
+	.ac-notice-integration {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		padding: 12px 18px 12px 6px;
 
-    &__copy {
-      flex: 1;
-      min-width: 0;
-    }
+		&__copy {
+			flex: 1;
+			min-width: 0;
+		}
 
-    &__eyebrow {
-      margin: 0 !important;
-      color: #1d2327;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: .02em;
-      text-transform: uppercase;
-      line-height: 1.4;
-    }
+		&__eyebrow {
+			margin: 0 !important;
+			color: #1d2327;
+			font-size: 13px;
+			font-weight: 600;
+			letter-spacing: .02em;
+			text-transform: uppercase;
+			line-height: 1.4;
+		}
 
-    &__desc {
-      margin: 1px 0 0 !important;
-      color: #50575e;
-      font-size: 13px;
-      line-height: 1.5;
-    }
+		&__title {
+			margin: 0 0 2px !important;
+			color: #1d2327;
+			font-size: 14px;
+			font-weight: 600;
+			line-height: 1.4;
+		}
 
-    &__actions {
-      display: flex;
-      align-items: center;
-      align-self: center;
-      gap: 14px;
-      flex: 0 0 auto;
-    }
+		&__desc {
+			margin: 0 !important;
+			color: #50575e;
+			font-size: 13px;
+			line-height: 1.5;
+		}
 
-    &__btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 34px;
-      padding: 0 13px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-      border: 1px solid transparent;
-      white-space: nowrap;
-      cursor: pointer;
+		&__actions {
+			display: flex;
+			align-items: center;
+			align-self: center;
+			gap: 14px;
+			flex: 0 0 auto;
+		}
 
-      &--primary {
-        background: #f04b78;
-        color: #fff !important;
+		&__btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 34px;
+			padding: 0 13px;
+			border-radius: 4px;
+			text-decoration: none;
+			font-size: 13px;
+			font-weight: 600;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			cursor: pointer;
 
-        &:hover {
-          background: #db3d68;
-          color: #fff !important;
-        }
-      }
-    }
-  }
+			&--primary {
+				background: #f04b78;
+				color: #fff !important;
 
-  &__link {
-    color: #2271b1;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    white-space: nowrap;
+				&:hover {
+					background: #db3d68;
+					color: #fff !important;
+				}
+			}
+		}
+	}
 
-    &:hover {
-      color: #135e96;
-      text-decoration: underline;
-    }
-  }
+	&__link {
+		color: #2271b1;
+		text-decoration: none;
+		font-size: 13px;
+		font-weight: 600;
+		white-space: nowrap;
 
-  @media (max-width: 980px) {
-    flex-direction: column;
-    align-items: stretch;
+		&:hover {
+			color: #135e96;
+			text-decoration: underline;
+		}
+	}
+}
 
-    &__actions {
-      width: 100%;
+// On ACF admin pages, keep ACF's notice styling and render our actions as text links
+.acf-admin-page .ac-notice.ac-notice--integration {
+	// Restore ACF's padding so their icon badge doesn't overlap the text
+	padding: 13px 56px 12px 50px !important;
 
-      .ac-notice-integration__btn {
-        flex: 1 1 auto;
-        text-align: center;
-      }
-    }
-  }
+	// Restore ACF's ::before info icon — our base styles partially override it (same specificity, later in cascade)
+	&::before {
+		top: 15px !important;
+		left: 18px !important;
+		right: auto !important;
+		width: 16px !important;
+		height: 16px !important;
+		background: #fff !important;
+	}
+
+	.ac-notice-integration__btn--primary {
+		background: none !important;
+		border: none !important;
+		padding: 0 !important;
+		min-height: auto !important;
+		color: #2271b1 !important;
+		font-weight: 700;
+		text-decoration: underline;
+
+		&:hover {
+			color: #135e96 !important;
+		}
+	}
+
+	.ac-notice-integration__link {
+		font-weight: 400;
+		color: #2271b1;
+		text-decoration: none;
+
+		&:hover {
+			color: #135e96;
+		}
+	}
+
+	.ac-notice-integration {
+		padding: 0 18px 0 6px;
+	}
 }

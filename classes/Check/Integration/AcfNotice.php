@@ -17,10 +17,7 @@ class AcfNotice implements IntegrationNotice
             return false;
         }
 
-        return in_array($screen->get_id(), [
-            'edit-acf-field-group',
-            'acf-field-group',
-        ], true);
+        return $screen->get_id() === 'acf-field-group';
     }
 
     public function get_slug(): string
@@ -40,22 +37,22 @@ class AcfNotice implements IntegrationNotice
 
     public function get_eyebrow(): string
     {
-        return __('Admin Columns Pro for ACF', 'codepress-admin-columns');
+        return '';
     }
 
     public function get_title(): string
     {
-        return __('Your ACF fields could be visible in every list table!', 'codepress-admin-columns');
+        return __('Use these fields directly in your list tables!', 'codepress-admin-columns');
     }
 
     public function get_description(): string
     {
-        return __('Turn custom fields into sortable, filterable, editable columns - without writing a single line of code.', 'codepress-admin-columns');
+        return __('Show ACF fields as columns so you can sort, filter, and edit them directly from your list table.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
     {
-        return sprintf('%s - %s', __('Upgrade', 'codepress-admin-columns'), '€79/year');
+        return __('Add ACF columns', 'codepress-admin-columns');
     }
 
     public function get_cta_url(): string
@@ -65,7 +62,7 @@ class AcfNotice implements IntegrationNotice
 
     public function get_secondary_label(): string
     {
-        return __('See features', 'codepress-admin-columns');
+        return __('Learn more', 'codepress-admin-columns');
     }
 
     public function get_secondary_url(): string

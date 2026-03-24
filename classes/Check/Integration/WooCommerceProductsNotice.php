@@ -37,7 +37,7 @@ class WooCommerceProductsNotice implements IntegrationNotice
 
     public function get_eyebrow(): string
     {
-        return __('Admin Columns Pro for WooCommerce', 'codepress-admin-columns');
+        return '';
     }
 
     public function get_title(): string
@@ -52,7 +52,7 @@ class WooCommerceProductsNotice implements IntegrationNotice
 
     public function get_cta_label(): string
     {
-        return sprintf('%s - %s', __('Upgrade', 'codepress-admin-columns'), '€79/year');
+        return __('Upgrade to Admin Columns Pro', 'codepress-admin-columns');
     }
 
     public function get_cta_url(): string
