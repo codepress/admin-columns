@@ -5,50 +5,40 @@
     export let proBannerConfig: AC.Vars.Admin.Columns.ProBanner;
 
     const i18n = getColumnSettingsTranslation().pro.banner;
-    $: badge = proBannerConfig.badge ?? i18n.badge;
-    $: title = proBannerConfig.title ?? i18n.title;
-    $: descriptionIntro = proBannerConfig.description_intro;
-    $: description = proBannerConfig.description ?? i18n.description;
-    $: featuresLabel = proBannerConfig.features_label ?? i18n.features_label;
-    $: upgradeCta = proBannerConfig.upgrade_cta ?? i18n.upgrade_cta;
-    $: features = proBannerConfig.features;
-    $: integrations = proBannerConfig.integrations ?? [];
-    $: quote = proBannerConfig.quote;
-    $: promo = proBannerConfig.promo;
 </script>
 
 <div class="ac-probanner">
     <div class="ac-probanner__card">
         <div class="ac-probanner__accent"></div>
         <div class="ac-probanner__header">
-            <span class="ac-probanner__badge">{badge}</span>
-            <h2 class="ac-probanner__title">{title}</h2>
+            <span class="ac-probanner__badge">{proBannerConfig.badge ?? i18n.badge}</span>
+            <h2 class="ac-probanner__title">{proBannerConfig.title ?? i18n.title}</h2>
             <p class="ac-probanner__description">
-                {#if descriptionIntro}<strong>{descriptionIntro}</strong><br>{/if}
-                {description}
+                {#if proBannerConfig.description_intro}<strong>{proBannerConfig.description_intro}</strong><br>{/if}
+                {proBannerConfig.description ?? i18n.description}
             </p>
         </div>
         <div class="ac-probanner__body">
-            {#if quote}
+            {#if proBannerConfig.quote}
                 <blockquote class="ac-probanner__quote">
-                    <p>{quote.text}</p>
-                    <cite>— {quote.cite}</cite>
+                    <p>{proBannerConfig.quote.text}</p>
+                    <cite>— {proBannerConfig.quote.cite}</cite>
                 </blockquote>
             {/if}
 
             <div class="ac-probanner__feature-box">
-                <p class="ac-probanner__feature-label">{featuresLabel}</p>
+                <p class="ac-probanner__feature-label">{proBannerConfig.features_label ?? i18n.features_label}</p>
                 <ul class="ac-probanner__feature-list">
-                    {#each features as feature}
+                    {#each proBannerConfig.features as feature}
                         <li>{feature.label}</li>
                     {/each}
                 </ul>
             </div>
 
-            {#if integrations.length > 0}
+            {#if (proBannerConfig.integrations ?? []).length > 0}
                 <p class="ac-probanner__integrations">
                     {i18n.works_with}
-                    {#each integrations as integration, i}
+                    {#each proBannerConfig.integrations as integration, i}
                         {#if i > 0} ·{/if}
                         <a target="_blank" href="{integration.url}">{integration.label}</a>
                     {/each}
@@ -60,7 +50,7 @@
                 <span>{i18n.trust}</span>
             </div>
             <a class="ac-probanner__cta" href="{proBannerConfig.promo_url}" target="_blank">
-                {upgradeCta}
+                {proBannerConfig.upgrade_cta ?? i18n.upgrade_cta}
             </a>
             <p class="ac-probanner__guarantee">{i18n.guarantee}</p>
             <a class="ac-probanner__see-all" href="{proBannerConfig.promo_url}" target="_blank">
@@ -70,14 +60,14 @@
     </div>
 
 
-    {#if promo}
+    {#if proBannerConfig.promo}
         <AcPanel>
             <svelte:fragment slot="body">
-                <AcPanelHeader title={promo.title} type="h3-alt"/>
+                <AcPanelHeader title={proBannerConfig.promo.title} type="h3-alt"/>
                 <AcPanelBody classNames={['acu-pt-1']}>
-                    <p class="acu-mt-[0]">{promo.discount_until}</p>
-                    <a class="ac-probanner__cta" href={promo.url} target="_blank">
-                        {promo.button_label}
+                    <p class="acu-mt-[0]">{proBannerConfig.promo.discount_until}</p>
+                    <a class="ac-probanner__cta" href={proBannerConfig.promo.url} target="_blank">
+                        {proBannerConfig.promo.button_label}
                     </a>
                 </AcPanelBody>
             </svelte:fragment>
