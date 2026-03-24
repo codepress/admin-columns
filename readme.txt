@@ -199,11 +199,13 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 == Changelog ==
 
 = 7.0.13 =
-Release Date: March 19th, 2026
+Release Date: March 24th, 2026
 
 * [Added] Word Count columns now support Before & After text to prepend or append custom text around the count.
 * [Added] Custom field column settings now display the meta key for reference.
 * [Improved] File columns now group attachments by file type and display multiple filenames separated by commas.
+* [Improved] Refreshed column settings sidebar with updated review and support panels.
+* [Improved] Improved Before & After display options UI.
 * [Fixed] Fixed the post link option not appearing for most property types in the Comment Post column.
 * [Fixed] Fixed the post link option not appearing for most property types in the User First Post and Last Post columns.
 * [Fixed] Fixed a potential error in user property columns when the display setting has not been saved yet.
