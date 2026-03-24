@@ -1,7 +1,7 @@
 == Changelog ==
 
 = 7.0.13 =
-Release Date: March 19th, 2026
+Release Date: March 24th, 2026
 
 * [Added] Word Count columns now support Before & After text to prepend or append custom text around the count.
 * [Added] Custom field column settings now display the meta key for reference.
