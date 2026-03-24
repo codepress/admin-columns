@@ -34,7 +34,7 @@ abstract class AbstractFieldSettings implements Registerable
 
     public function register(): void
     {
-        if ( ! class_exists('acf', false)) {
+        if ( ! class_exists('acf', false) && ! class_exists('ACF', false)) {
             return;
         }
 
