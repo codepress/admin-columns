@@ -17,7 +17,7 @@ class GravityFormsNotice implements IntegrationNotice
             return false;
         }
 
-        return 'toplevel_page_gf_edit_forms' === $screen->get_id();
+        return 'forms_page_gf_entries' === $screen->get_id();
     }
 
     public function get_slug(): string
