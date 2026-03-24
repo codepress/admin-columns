@@ -4917,7 +4917,7 @@ function instance($$self, $$props, $$invalidate) {
   let {
     classNames = []
   } = $$props;
-  let classes = ['acu-p-5', ...classNames];
+  let classes = ['acu-p-4', ...classNames];
   $$self.$$set = $$props => {
     if ('classNames' in $$props) $$invalidate(1, classNames = $$props.classNames);
     if ('$$scope' in $$props) $$invalidate(2, $$scope = $$props.$$scope);
@@ -5101,7 +5101,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (17:1) {#if subtitle }
+// (17:4) {#if subtitle }
 function create_if_block(ctx) {
   let acpanelsubtitle;
   let current;
@@ -5255,7 +5255,7 @@ function instance($$self, $$props, $$invalidate) {
   let {
     border = false
   } = $$props;
-  let classes = ['acu-px-5 acu-pt-5 acu-leading-normal'];
+  let classes = ['acu-px-4 acu-pt-4 acu-leading-normal'];
   if (border) {
     classes.push('acu-pb-[20px] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border');
   }
@@ -5392,6 +5392,31 @@ function create_else_block(ctx) {
   };
 }
 
+// (8:28) 
+function create_if_block_1(ctx) {
+  let h3;
+  let t;
+  return {
+    c() {
+      h3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h3");
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(/*title*/ctx[0]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(h3, "class", "acu-my-[0] acu-text-[18px] acu-font-bold");
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, h3, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(h3, t);
+    },
+    p(ctx, dirty) {
+      if (dirty & /*title*/1) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*title*/ctx[0]);
+    },
+    d(detaching) {
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(h3);
+      }
+    }
+  };
+}
+
 // (6:0) {#if type === 'h2' }
 function create_if_block(ctx) {
   let h2;
@@ -5420,6 +5445,7 @@ function create_fragment(ctx) {
   let if_block_anchor;
   function select_block_type(ctx, dirty) {
     if (/*type*/ctx[1] === 'h2') return create_if_block;
+    if (/*type*/ctx[1] === 'h3-alt') return create_if_block_1;
     return create_else_block;
   }
   let current_block_type = select_block_type(ctx, -1);
