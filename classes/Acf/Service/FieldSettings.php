@@ -74,7 +74,7 @@ class FieldSettings extends AbstractFieldSettings
     protected function render_tab_early_exit(array $field, string $type): bool
     {
         if ($this->is_pro_only_field_type($type)) {
-            $this->render_pro_upsell($field);
+            $this->render_pro_section($field);
 
             return true;
         }
@@ -91,15 +91,41 @@ class FieldSettings extends AbstractFieldSettings
                 'type'              => 'message',
                 'name'              => 'admin_columns_upsell',
                 'message'           => sprintf(
-                    '<div style="background:#eaf5fc;border:1px solid #c8e3f6;border-radius:4px;padding:10px 14px;color:#184a6a;font-size:13px;line-height:1.5;"><strong>%s</strong><br>%s<br><a href="%s" target="_blank">%s</a></div>',
-                    esc_html__('Do more with this column', 'codepress-admin-columns'),
-                    esc_html__('Make this column sortable, editable, filterable, exportable to CSV - all from the list table.', 'codepress-admin-columns'),
-                    esc_url((string)(new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'acf-field-settings-upsell'))->get_url()),
-                    esc_html__('Learn more about Admin Columns Pro', 'codepress-admin-columns')
+                    '<div style="background:#eaf5fc;border:1px solid #c8e3f6;border-radius:4px;padding:10px 14px;color:#184a6a;font-size:13px;line-height:1.5;"><strong>%s</strong><br>%s <a href="%s" target="_blank">%s</a></div>',
+                    esc_html__('Unlock powerful column features', 'codepress-admin-columns'),
+                    esc_html($this->get_features_description($field)),
+                    esc_url((string)(new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'acf-field-settings'))->get_url()),
+                    esc_html__('Get Admin Columns Pro →', 'codepress-admin-columns')
                 ),
                 'conditional_logic' => $enabled_condition,
             ]
         );
+    }
+
+    private function get_features_description(array $field): string
+    {
+        $table_screens = $this->resolve_table_screens($field);
+        $labels = [];
+
+        foreach ($table_screens as $table_screen) {
+            $labels[] = $table_screen->get_labels()->get_plural();
+        }
+
+        $labels = array_slice($labels, 0, 3);
+
+        if ($labels) {
+            $last = strtolower(array_pop($labels));
+            $content = $labels
+                ? strtolower(implode(', ', $labels)) . ' & ' . $last
+                : $last;
+
+            return sprintf(
+                __('Make this column editable, sortable, and filterable - and manage your %s faster right from the overview.', 'codepress-admin-columns'),
+                $content
+            );
+        }
+
+        return __('Make this column editable, sortable, and filterable - and manage your content faster right from the overview.', 'codepress-admin-columns');
     }
 
     protected function is_field_type_supported(string $type): bool
@@ -202,7 +228,7 @@ class FieldSettings extends AbstractFieldSettings
         return in_array($type, self::PRO_ONLY_ACF_TYPES, true);
     }
 
-    private function render_pro_upsell(array $field): void
+    private function render_pro_section(array $field): void
     {
         $url = (new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'acf-field-settings-upsell'))->get_url();
 
