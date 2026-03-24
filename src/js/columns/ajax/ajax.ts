@@ -24,6 +24,7 @@ export type listScreenSettingsResponse = {
             singular: string,
             plural: string,
         }
+        pro_banner: AC.Vars.Admin.Columns.ProBanner | null
     },
     success: true
 }

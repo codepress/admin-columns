@@ -12,7 +12,8 @@
         listScreenDataStore,
         listScreenIsReadOnly,
         listScreenIsStored,
-        listScreenIsTemplate
+        listScreenIsTemplate,
+        proBannerStore
     } from "../store";
     import {config} from "../service/list-screen-service";
     import {startListScreenWatcher} from "../service/list-screen-watcher";
@@ -35,6 +36,8 @@
 
     const i18n = getColumnSettingsTranslation();
     const localConfig = getColumnSettingsConfig();
+
+    proBannerStore.set(localConfig.pro_banner_context ?? null);
 
     startListScreenWatcher();
 
@@ -133,7 +136,7 @@
 					<div class="acu-hidden xl:acu-block">
 						{#if !localConfig.is_pro }
 							{#if localConfig.pro_banner }
-								<ProSideBanner proBannerConfig={localConfig.pro_banner}/>
+								<ProSideBanner proBannerConfig={$proBannerStore ? {...localConfig.pro_banner, ...$proBannerStore} : localConfig.pro_banner}/>
 							{/if}
 							<ReviewComponent/>
 						{/if}

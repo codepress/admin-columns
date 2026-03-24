@@ -36,7 +36,7 @@
 	<main class="acu-flex acu-gap-4 acu-w-full">
 		<AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
 			<AcPanelHeader slot="header" title="Integrations" type="h2"
-					subtitle="Available integrations with popular plugins."
+					subtitle={i18n.subtitle}
 					border/>
 			<div class="acu-p-4 acu-mb-8" slot="body">
 				{#if enabled.length > 0}

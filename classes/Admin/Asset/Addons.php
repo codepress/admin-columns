@@ -44,10 +44,11 @@ class Addons extends Script
             'enable_integration'  => __('Enable Integration', 'codepress-admin-columns'),
             'buy_now'             => __('Buy Admin Columns Pro', 'codepress-admin-columns'),
             'learn_more'          => __('Learn more', 'codepress-admin-columns'),
+            'subtitle'            => __('Connect Admin Columns with the plugins you already use. Display, edit, filter, sort, and export their data - all from the list table.', 'codepress-admin-columns'),
             'title'               => [
                 'enabled'     => __('Enabled Integrations', 'codepress-admin-columns'),
                 'recommended' => __('Recommended Integrations', 'codepress-admin-columns'),
-                'available'   => __('Available Integrations', 'codepress-admin-columns'),
+                'available'   => __('More Integrations', 'codepress-admin-columns'),
             ],
         ]);
 

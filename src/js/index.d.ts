@@ -50,6 +50,16 @@ declare namespace AC.Vars.Admin.Columns {
         }
         promo_url: string
         discount: number
+        badge?: string
+        title?: string
+        description_intro?: string
+        description?: string
+        features_label?: string
+        upgrade_cta?: string
+        quote?: {
+            text: string
+            cite: string
+        }
     }
     type ProBannerFeature = {
         url: string
@@ -71,8 +81,10 @@ declare namespace AC.Vars.Admin.Columns {
         list_id: string
         urls: {
             upgrade: string
+            learn_more: string
         },
         pro_banner?: ProBanner
+        pro_banner_context?: ProBanner | null
         review: {
             doc_url: string
             upgrade_url: string
@@ -81,7 +93,7 @@ declare namespace AC.Vars.Admin.Columns {
             review: string
             description: string
         }
-        table_elements : {
+        table_elements: {
             default: string[]
             features: string[]
         }

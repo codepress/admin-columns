@@ -45,6 +45,14 @@ class Loader
         Registry::set(Storage::class, static function () use ($container) {
             return $container->get(Storage::class);
         });
+
+        $plugin = $container->get(AdminColumns::class);
+
+        /**
+         * @param AC\DI\Container $container A PSR-11 dependency injection container.
+         * @param AdminColumns    $plugin    The plugin instance.
+         */
+        do_action('ac/init', $container, $plugin);
     }
 
     private function register_factories(AC\DI\Container $container): void
