@@ -7,6 +7,7 @@ Icon
 ehthumbs.d*
 Thumbs.d*
 /.idea*
+/.claude
 
 # Project specific
 *.scssc
