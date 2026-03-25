@@ -156,14 +156,6 @@ class FieldSettingsSync implements Registerable
 
     private function add_column_in_list_screens(TableScreen $table_screen, array $field): void
     {
-        $selected_ids = array_filter((array)($field['admin_columns_table_screens'] ?? []));
-
-        if ($selected_ids && ! in_array((string)$table_screen->get_id(), $selected_ids, true)) {
-            $this->remove_column_from_list_screens($table_screen->get_id(), $field);
-
-            return;
-        }
-
         $column = $this->acf_column_factory->create($table_screen, $field);
 
         if ( ! $column) {
@@ -260,33 +252,9 @@ class FieldSettingsSync implements Registerable
      */
     private function get_enabled_fields_for_table(TableId $table_id): array
     {
-        $fields = [];
-
-        foreach (acf_get_field_groups() as $group) {
-            $table_screens = $this->table_screen_resolver->resolve($group);
-
-            $matches = false;
-
-            foreach ($table_screens as $table_screen) {
-                if ((string)$table_screen->get_id() === (string)$table_id) {
-                    $matches = true;
-
-                    break;
-                }
-            }
-
-            if ( ! $matches) {
-                continue;
-            }
-
-            foreach (acf_get_fields($group['ID']) as $field) {
-                if ( ! empty($field['admin_columns_enabled'])) {
-                    $fields[] = $field;
-                }
-            }
-        }
-
-        return $fields;
+        return $this->get_fields_for_table($table_id, static function (array $field): bool {
+            return ! empty($field['admin_columns_enabled']);
+        });
     }
 
     private function has_column_for_field(ListScreen $list_screen, array $field): bool
@@ -321,7 +289,7 @@ class FieldSettingsSync implements Registerable
             return false;
         }
 
-        if ($field['type'] === 'select' && '1' === $field['multiple']) {
+        if ($field['type'] === 'select' && ! empty($field['multiple'])) {
             return false;
         }
 
@@ -349,6 +317,14 @@ class FieldSettingsSync implements Registerable
      */
     private function get_supported_fields_for_table(TableId $table_id): array
     {
+        return $this->get_fields_for_table($table_id, [$this, 'is_field_supported']);
+    }
+
+    /**
+     * @return array[]
+     */
+    private function get_fields_for_table(TableId $table_id, callable $filter): array
+    {
         $fields = [];
 
         foreach (acf_get_field_groups() as $group) {
@@ -369,7 +345,7 @@ class FieldSettingsSync implements Registerable
             }
 
             foreach (acf_get_fields($group['ID']) as $field) {
-                if ($this->is_field_supported($field)) {
+                if ($filter($field)) {
                     $fields[] = $field;
                 }
             }
