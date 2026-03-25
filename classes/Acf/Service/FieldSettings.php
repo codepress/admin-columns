@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace AC\Acf\Service;
 
+use AC\Acf\AcfColumnFactory;
 use AC\Acf\FieldGroup\TableScreenResolver;
 use AC\Column;
-use AC\Column\ColumnIdGenerator;
 use AC\ColumnCollection;
 use AC\ColumnFactories\Aggregate;
 use AC\ColumnTypeRepository;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
-use AC\Setting\ComponentFactory\FieldType;
-use AC\Setting\Config;
 use AC\TableScreen;
 use AC\Type\EditorUrlFactory;
 use AC\Type\ListScreenIdGenerator;
@@ -22,26 +20,6 @@ use AC\Type\Url\UtmTags;
 
 class FieldSettings extends AbstractFieldSettings
 {
-
-    // TODO test variant, like multiple post_object, gallery etc.
-    private const FIELD_TYPE_MAP = [
-        'checkbox'         => FieldType::TYPE_ARRAY,
-        'color_picker'     => FieldType::TYPE_COLOR,
-        'date_picker'      => FieldType::TYPE_DATE,
-        'date_time_picker' => FieldType::TYPE_DATE,
-        'oembed'           => FieldType::TYPE_URL,
-        'file'             => FieldType::TYPE_MEDIA,
-        'image'            => FieldType::TYPE_IMAGE,
-        'number'           => FieldType::TYPE_NUMERIC,
-        'post_object'      => FieldType::TYPE_POST,
-        'page_link'        => FieldType::TYPE_POST,
-        'range'            => FieldType::TYPE_NUMERIC,
-        'text'             => FieldType::TYPE_TEXT,
-        'true_false'       => FieldType::TYPE_BOOLEAN,
-        'url'              => FieldType::TYPE_URL,
-        'user'             => FieldType::TYPE_USER,
-        'wysiwyg'          => FieldType::TYPE_HTML,
-    ];
 
     private const PRO_ONLY_ACF_TYPES = [
         'flexible_content',
@@ -80,6 +58,8 @@ class FieldSettings extends AbstractFieldSettings
         'wysiwyg',
     ];
 
+    private AcfColumnFactory $acf_column_factory;
+
     private ColumnTypeRepository $column_type_repository;
 
     private ListScreenIdGenerator $list_screen_id_generator;
@@ -88,11 +68,13 @@ class FieldSettings extends AbstractFieldSettings
         Storage $storage,
         Aggregate $column_factory,
         TableScreenResolver $table_screen_resolver,
+        AcfColumnFactory $acf_column_factory,
         ColumnTypeRepository $column_type_repository,
         ListScreenIdGenerator $list_screen_id_generator
     ) {
         parent::__construct($storage, $column_factory, $table_screen_resolver);
 
+        $this->acf_column_factory = $acf_column_factory;
         $this->column_type_repository = $column_type_repository;
         $this->list_screen_id_generator = $list_screen_id_generator;
     }
@@ -235,9 +217,9 @@ class FieldSettings extends AbstractFieldSettings
             return;
         }
 
-        $factory = $this->find_column_factory($table_screen, 'column-meta');
+        $column = $this->acf_column_factory->create($table_screen, $field);
 
-        if ( ! $factory) {
+        if ( ! $column) {
             return;
         }
 
@@ -255,7 +237,7 @@ class FieldSettings extends AbstractFieldSettings
             }
 
             $columns = ColumnCollection::from_iterator($list_screen->get_columns());
-            $columns->add($this->create_column($factory, $field));
+            $columns->add($column);
 
             $list_screen->set_columns($columns);
             $this->storage->save($list_screen);
@@ -263,7 +245,7 @@ class FieldSettings extends AbstractFieldSettings
 
         if ( ! $has_writable) {
             $columns = $this->column_type_repository->find_all_by_original($table_screen);
-            $columns->add($this->create_column($factory, $field));
+            $columns->add($column);
 
             $this->storage->save(
                 new ListScreen(
@@ -274,17 +256,6 @@ class FieldSettings extends AbstractFieldSettings
                 )
             );
         }
-    }
-
-    private function create_column(Column\ColumnFactory $factory, array $field): Column
-    {
-        return $factory->create(new Config([
-            'name'       => (string)(new ColumnIdGenerator())->generate(),
-            'type'       => 'column-meta',
-            'field'      => $field['name'] ?? '',
-            'label'      => $field['label'] ?? '',
-            'field_type' => self::FIELD_TYPE_MAP[$field['type'] ?? ''] ?? '',
-        ]));
     }
 
     protected function render_editor_links(array $field, array $enabled_condition): void
