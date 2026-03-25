@@ -31,6 +31,9 @@ class UserMeta implements UserData
 
     public function save($value): void
     {
+        // Prevent duplicate rows. update_user_meta() calls add_user_meta() without `$unique`,
+        // which can insert duplicates when concurrent requests race.
+        delete_user_meta($this->user_id, $this->key);
         update_user_meta($this->user_id, $this->key, $value);
     }
 
