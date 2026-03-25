@@ -107,12 +107,13 @@ class FieldSettingsSync implements Registerable
         }
 
         foreach ($fields as $field) {
-            $selected_table_screens = $field['admin_columns_table_screens'] ?? [];
+            $selected_screens = $field['admin_columns_table_screens'] ?? null;
+
             $is_enabled = ! empty($field['admin_columns_enabled'])
                           && $this->is_field_supported($field);
 
             foreach ($table_screens as $table_screen) {
-                if ($is_enabled && (empty($selected_table_screens) || in_array((string)$table_screen->get_id(), (array)$selected_table_screens, true))) {
+                if ($is_enabled && (null === $selected_screens || in_array((string)$table_screen->get_id(), (array)$selected_screens, true))) {
                     $this->add_column_in_list_screens($table_screen, $field);
                 } else {
                     $this->remove_column_from_list_screens($table_screen->get_id(), $field);

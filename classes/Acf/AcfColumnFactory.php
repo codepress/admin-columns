@@ -52,18 +52,30 @@ class AcfColumnFactory
             return null;
         }
 
+        $config = $this->create_config($field);
+
+        if (null === $config) {
+            return null;
+        }
+
         return $factory->create(new Config($this->create_config($field)));
     }
 
-    private function create_config(array $field): array
+    private function create_config(array $field): ?array
     {
+        $meta_key = $field['name'] ?? null;
+
+        if (empty($meta_key)) {
+            return null;
+        }
+
         $type = $field['type'] ?? '';
 
         $config = [
             'name'       => (string)(new ColumnIdGenerator())->generate(),
             'type'       => 'column-meta',
-            'field'      => $field['name'] ?? '',
-            'label'      => $field['label'] ?? '',
+            'field'      => $meta_key,
+            'label'      => $field['label'] ?? $type,
             'field_type' => self::FIELD_TYPE_MAP[$type] ?? '',
         ];
 

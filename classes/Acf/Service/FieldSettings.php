@@ -270,24 +270,34 @@ class FieldSettings implements Registerable
             return;
         }
 
-        if (count($table_screens) === 1) {
-            $buttons = $this->create_editor_button(reset($table_screens), $field);
+        $selected_table_screens = $field['admin_columns_table_screens'] ?? null;
 
-            $this->render_editor_link_setting($field, $buttons, $enabled_condition);
-
-            return;
-        }
+        $is_single_table_screen = count($table_screens) === 1;
 
         $rows = [];
 
         foreach ($table_screens as $table_screen) {
+            if ($selected_table_screens && ! in_array((string)$table_screen->get_id(), (array)$selected_table_screens, true)) {
+                continue;
+            }
+
             $title = $table_screen->get_labels()->get_plural();
+
+            $label = $is_single_table_screen
+                ? __('Edit Column →', 'codepress-admin-columns')
+                : sprintf(__('Edit %s Column →', 'codepress-admin-columns'), $title);
 
             $rows[] = sprintf(
                 '<a href="%s" style="margin-right: 8px;display:inline-block;" class="button" target="_blank">%s</a>',
                 esc_url((string)$this->create_editor_url($table_screen, $field)),
-                esc_html(sprintf(__('Edit %s Column →', 'codepress-admin-columns'), $title))
+                $label
             );
+        }
+
+        if ( ! $rows) {
+            $this->render_editor_link_setting($field, $this->create_editor_button(reset($table_screens), $field), $enabled_condition);
+
+            return;
         }
 
         $this->render_editor_link_setting($field, implode('', $rows), $enabled_condition);
