@@ -11,6 +11,10 @@ type FeatureTranslation = {
 }
 
 type AdminColumnsI18n = {
+    table_views: {
+        delete_view: string
+        delete_message: string
+    }
     errors: {
         ajax_unknown: string
         original_exist: string

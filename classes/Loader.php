@@ -154,6 +154,7 @@ class Loader
             'ac-restore-settings'             => Ajax\RestoreSettingsRequest::class,
             'ac-integration-toggle'           => Ajax\IntegrationToggle::class,
             'ac-integrations'                 => Ajax\Integrations::class,
+            'ac-list-screen-delete'           => Ajax\ListScreenDelete::class,
         ];
     }
 

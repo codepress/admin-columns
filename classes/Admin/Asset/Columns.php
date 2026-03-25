@@ -63,6 +63,7 @@ class Columns extends Script
     ) {
         parent::__construct($handle, $location, [
             'jquery-ui-sortable',
+            Script\GlobalTranslationFactory::HANDLE,
         ]);
 
         $this->table_screen = $table_screen;
@@ -276,6 +277,7 @@ class Columns extends Script
                 ),
                 'review'      => (new UtmTags(new Documentation(), 'review-notice'))->get_url(),
             ],
+            'confirm_delete'             => (bool)apply_filters('ac/delete_confirmation', true),
             'table_elements'             => [
                 'default'  => [
                     __('Filters', 'codepress-admin-columns'),
@@ -301,6 +303,13 @@ class Columns extends Script
         $this->localize(
             'ac_admin_columns_i18n',
             new Script\Localize\Translation([
+                'table_views' => [
+                    'delete_view'    => __('Delete view', 'codepress-admin-columns'),
+                    'delete_message' => __(
+                        "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop",
+                        'codepress-admin-columns'
+                    ),
+                ],
                 'errors'   => [
                     'ajax_unknown'   => __('Something went wrong.', 'codepress-admin-columns'),
                     'original_exist' => __(

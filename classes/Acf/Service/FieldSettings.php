@@ -11,6 +11,7 @@ use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\TableScreen;
 use AC\Type\EditorUrlFactory;
+use AC\Type\Uri;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
@@ -226,19 +227,15 @@ class FieldSettings implements Registerable
 
     private function is_pro_only_field(array $field): bool
     {
+        if ($field['type'] === 'select' && ! empty($field['multiple'])) {
+            return true;
+        }
+
         return $this->is_sub_field($field) || in_array($field['type'], self::PRO_ONLY_ACF_TYPES, true);
     }
 
     private function is_field_supported(array $field): bool
     {
-        if ($this->is_pro_only_field($field)) {
-            return false;
-        }
-
-        if ($field['type'] === 'select' && ! empty($field['multiple'])) {
-            return false;
-        }
-
         return in_array($field['type'], self::SUPPORTED_ACF_TYPES, true);
     }
 
@@ -267,10 +264,6 @@ class FieldSettings implements Registerable
 
     private function render_editor_links(array $field, array $enabled_condition): void
     {
-        if (empty($field['admin_columns_enabled'])) {
-            return;
-        }
-
         $table_screens = $this->resolve_table_screens($field);
 
         if ( ! $table_screens) {
@@ -278,43 +271,51 @@ class FieldSettings implements Registerable
         }
 
         if (count($table_screens) === 1) {
-            $this->render_single_editor_link($field, reset($table_screens), $enabled_condition);
+            $buttons = $this->create_editor_button(reset($table_screens), $field);
+
+            $this->render_editor_link_setting($field, $buttons, $enabled_condition);
 
             return;
         }
 
-        $this->render_multi_editor_links($field, $table_screens, $enabled_condition);
+        $rows = [];
+
+        foreach ($table_screens as $table_screen) {
+            $title = $table_screen->get_labels()->get_plural();
+
+            $rows[] = sprintf(
+                '<a href="%s" style="margin-right: 8px;display:inline-block;" class="button" target="_blank">%s</a>',
+                esc_url((string)$this->create_editor_url($table_screen, $field)),
+                esc_html(sprintf(__('Edit %s Column →', 'codepress-admin-columns'), $title))
+            );
+        }
+
+        $this->render_editor_link_setting($field, implode('', $rows), $enabled_condition);
     }
 
-    private function render_single_editor_link(array $field, TableScreen $table_screen, array $enabled_condition): void
+    private function create_editor_url(TableScreen $table_screen, array $field): Uri
     {
         $list_screen = $this->find_list_screen_with_field($table_screen, $field);
 
-        if ( ! $list_screen) {
-            return;
+        $url = EditorUrlFactory::create($table_screen->get_id(), false, $list_screen ? $list_screen->get_id() : null);
+
+        if ($list_screen) {
+            $column = $this->find_column_for_field($list_screen, $field);
+
+            if ($column) {
+                $url = $url->with_arg('open_columns', (string)$column->get_id());
+            }
         }
 
-        $url = EditorUrlFactory::create($table_screen->get_id(), false, $list_screen->get_id());
-        $column = $this->find_column_for_field($list_screen, $field);
+        return $url;
+    }
 
-        if ($column) {
-            $url = $url->with_arg('open_columns', (string)$column->get_id());
-        }
-
-        acf_render_field_setting(
-            $field,
-            [
-                'label'             => __('Manage Column Settings', 'codepress-admin-columns'),
-                'type'              => 'message',
-                'name'              => 'admin_columns_editor_link',
-                'message'           => sprintf(
-                    '<p class="description">%s</p><a href="%s" class="button" target="_blank">%s</a>',
-                    esc_html__('Open the column editor to manage the label, position, width, and other advanced settings.', 'codepress-admin-columns'),
-                    esc_url((string)$url),
-                    esc_html__('Edit Column →', 'codepress-admin-columns')
-                ),
-                'conditional_logic' => $enabled_condition,
-            ]
+    private function create_editor_button(TableScreen $table_screen, array $field): string
+    {
+        return sprintf(
+            '<a href="%s" class="button" target="_blank">%s</a>',
+            esc_url((string)$this->create_editor_url($table_screen, $field)),
+            esc_html__('Open Column Editor', 'codepress-admin-columns')
         );
     }
 
@@ -329,36 +330,8 @@ class FieldSettings implements Registerable
         return null;
     }
 
-    private function render_multi_editor_links(array $field, array $table_screens, array $enabled_condition): void
+    private function render_editor_link_setting(array $field, string $buttons, array $enabled_condition): void
     {
-        $rows = [];
-
-        foreach ($table_screens as $table_screen) {
-            $list_screen = $this->find_list_screen_with_field($table_screen, $field);
-
-            if ( ! $list_screen) {
-                continue;
-            }
-
-            $url = EditorUrlFactory::create($table_screen->get_id(), false, $list_screen->get_id());
-            $column = $this->find_column_for_field($list_screen, $field);
-
-            if ($column) {
-                $url = $url->with_arg('open_columns', (string)$column->get_id());
-            }
-            $title = $table_screen->get_labels()->get_plural();
-
-            $rows[] = sprintf(
-                '<a href="%s" style="margin-right: 8px;display:inline-block;" class="button" target="_blank">%s</a>',
-                esc_url((string)$url),
-                esc_html(sprintf(__('Edit %s Column →', 'codepress-admin-columns'), $title))
-            );
-        }
-
-        if ( ! $rows) {
-            return;
-        }
-
         acf_render_field_setting(
             $field,
             [
@@ -368,7 +341,7 @@ class FieldSettings implements Registerable
                 'message'           => sprintf(
                     '<p class="description">%s</p>%s',
                     esc_html__('Open the column editor to manage the label, position, width, and other advanced settings.', 'codepress-admin-columns'),
-                    implode('', $rows)
+                    $buttons
                 ),
                 'conditional_logic' => $enabled_condition,
             ]

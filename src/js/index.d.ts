@@ -91,6 +91,7 @@ declare namespace AC.Vars.Admin.Columns {
             default: string[]
             features: string[]
         }
+        confirm_delete: boolean
     }
 
 }
