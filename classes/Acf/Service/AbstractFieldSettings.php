@@ -102,6 +102,14 @@ abstract class AbstractFieldSettings implements Registerable
         return false;
     }
 
+    protected function is_sub_field(array $field): bool
+    {
+        return isset($field['parent_repeater'])
+               || isset($field['parent_group'])
+               || isset($field['parent_layout'])
+               || isset($field['_clone']);
+    }
+
     abstract protected function render_tab_content(array $field, array $enabled_condition): void;
 
     abstract protected function is_field_type_supported(string $type): bool;
@@ -127,7 +135,8 @@ abstract class AbstractFieldSettings implements Registerable
 
         foreach ($fields as $field) {
             $is_enabled = ! empty($field['admin_columns_enabled'])
-                          && $this->is_field_type_supported($field['type']);
+                          && $this->is_field_type_supported($field['type'])
+                          && ! $this->is_sub_field($field);
 
             foreach ($table_screens as $table_screen) {
                 if ($is_enabled) {

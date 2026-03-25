@@ -81,7 +81,7 @@ class FieldSettings extends AbstractFieldSettings
 
     protected function render_tab_early_exit(array $field, string $type): bool
     {
-        if ($this->is_pro_only_field_type($type)) {
+        if ($this->is_sub_field($field) || $this->is_pro_only_field_type($type)) {
             $this->render_pro_section($field);
 
             return true;

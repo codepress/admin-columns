@@ -70,9 +70,14 @@ class AcfColumnFactory
             case 'select':
             case 'button_group':
                 $config['is_multiple'] = ! empty($field['multiple']) ? 'on' : 'off';
+                $config['select_options'] = self::encode_choices($field);
                 break;
             case 'checkbox':
                 $config['is_multiple'] = 'on';
+                $config['select_options'] = self::encode_choices($field);
+                break;
+            case 'radio':
+                $config['select_options'] = self::encode_choices($field);
                 break;
             case 'file':
                 if ( ! empty($field['multiple'])) {
@@ -88,6 +93,26 @@ class AcfColumnFactory
         }
 
         return $config;
+    }
+
+    private static function encode_choices(array $field): string
+    {
+        $choices = $field['choices'] ?? [];
+
+        if ( ! $choices) {
+            return '';
+        }
+
+        $options = [];
+
+        foreach ($choices as $value => $label) {
+            $options[] = [
+                'value' => (string)$value,
+                'label' => (string)$label,
+            ];
+        }
+
+        return (string)json_encode($options);
     }
 
     private function find_column_factory(TableScreen $table_screen): ?Column\ColumnFactory
