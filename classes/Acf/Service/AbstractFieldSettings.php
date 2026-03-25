@@ -41,6 +41,11 @@ abstract class AbstractFieldSettings implements Registerable
         add_filter('acf/field_group/additional_field_settings_tabs', [$this, 'add_tab']);
         add_action('acf/field_group/render_field_settings_tab/admin_columns', [$this, 'render_tab']);
         add_action('save_post_acf-field-group', [$this, 'on_field_group_save'], 20);
+        add_action('ac/list_screen/saved', [$this, 'on_list_screen_save'], 10, 2);
+    }
+
+    public function on_list_screen_save(ListScreen $list_screen, ?ListScreen $previous_list_screen = null): void
+    {
     }
 
     public function add_tab(array $tabs): array

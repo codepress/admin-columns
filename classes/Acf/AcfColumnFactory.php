@@ -7,6 +7,7 @@ namespace AC\Acf;
 use AC\Column;
 use AC\Column\ColumnIdGenerator;
 use AC\ColumnFactories\Aggregate;
+use AC\Setting\ComponentFactory\DateSaveFormat;
 use AC\Setting\ComponentFactory\FieldType;
 use AC\Setting\Config;
 use AC\TableScreen;
@@ -85,8 +86,13 @@ class AcfColumnFactory
                 }
                 break;
             case 'date_picker':
-            case 'date_time_picker':
                 $config['date_save_format'] = Service\DateSaveFormat::DATE_FORMAT;
+                break;
+            case 'date_time_picker':
+                $display_format = $field['display_format'] ?? null;
+
+                $config['date_save_format'] = DateSaveFormat::FORMAT_DATETIME;
+                $config['date_format'] = $display_format ?: 'wp_date_format';
                 break;
         }
 
