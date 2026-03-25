@@ -235,7 +235,7 @@ class FieldSettings implements Registerable
             return false;
         }
 
-        if ($field['type'] === 'select' && '1' === $field['multiple']) {
+        if ($field['type'] === 'select' && ! empty($field['multiple'])) {
             return false;
         }
 
@@ -288,7 +288,7 @@ class FieldSettings implements Registerable
 
     private function render_single_editor_link(array $field, TableScreen $table_screen, array $enabled_condition): void
     {
-        $list_screen = $this->storage->find_all_by_table_id($table_screen->get_id())->first();
+        $list_screen = $this->find_list_screen_with_field($table_screen, $field);
 
         if ( ! $list_screen) {
             return;
@@ -308,7 +308,7 @@ class FieldSettings implements Registerable
                 'type'              => 'message',
                 'name'              => 'admin_columns_editor_link',
                 'message'           => sprintf(
-                    '<p class="description">%s</p></p><a href="%s" class="button" target="_blank">%s</a>',
+                    '<p class="description">%s</p><a href="%s" class="button" target="_blank">%s</a>',
                     esc_html__('Open the column editor to manage the label, position, width, and other advanced settings.', 'codepress-admin-columns'),
                     esc_url((string)$url),
                     esc_html__('Edit Column →', 'codepress-admin-columns')
