@@ -21,6 +21,8 @@ use AC\Type\Url\UtmTags;
 class FieldSettings extends AbstractFieldSettings
 {
 
+    private const UPSELL_BOX_STYLE = 'background:#eaf5fc;border:1px solid #c8e3f6;border-radius:4px;padding:10px 14px;color:#184a6a;font-size:13px;line-height:1.5;';
+
     private const PRO_ONLY_ACF_TYPES = [
         'flexible_content',
         'gallery',
@@ -79,22 +81,6 @@ class FieldSettings extends AbstractFieldSettings
         $this->list_screen_id_generator = $list_screen_id_generator;
     }
 
-    protected function render_tab_early_exit(array $field, string $type): bool
-    {
-        if ($this->is_sub_field($field) || $this->is_pro_only_field_type($type)) {
-            $this->render_pro_section($field);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    private function is_pro_only_field_type(string $type): bool
-    {
-        return in_array($type, self::PRO_ONLY_ACF_TYPES, true);
-    }
-
     private function render_pro_section(array $field): void
     {
         $url = (new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'acf-field-settings-upsell'))->get_url();
@@ -122,7 +108,7 @@ class FieldSettings extends AbstractFieldSettings
                 'type'    => 'message',
                 'name'    => 'admin_columns_pro_upsell',
                 'message' => sprintf(
-                    '<div style="background:#eaf5fc;border:1px solid #c8e3f6;border-radius:4px;padding:10px 14px;color:#184a6a;font-size:13px;line-height:1.5;"><strong>%s</strong><br>%s <a href="%s" target="_blank">%s</a></div>',
+                    '<div style="' . self::UPSELL_BOX_STYLE . '"><strong>%s</strong><br>%s <a href="%s" target="_blank">%s</a></div>',
                     esc_html__('This field type is supported in Admin Columns Pro', 'codepress-admin-columns'),
                     esc_html__(
                         'Add this field as a column with sorting, filtering, and inline editing.',
@@ -146,7 +132,7 @@ class FieldSettings extends AbstractFieldSettings
                 'type'              => 'message',
                 'name'              => 'admin_columns_upsell',
                 'message'           => sprintf(
-                    '<div style="background:#eaf5fc;border:1px solid #c8e3f6;border-radius:4px;padding:10px 14px;color:#184a6a;font-size:13px;line-height:1.5;"><strong>%s</strong><br>%s <a href="%s" target="_blank">%s</a></div>',
+                    '<div style="' . self::UPSELL_BOX_STYLE . '"><strong>%s</strong><br>%s <a href="%s" target="_blank">%s</a></div>',
                     esc_html__('Unlock powerful column features', 'codepress-admin-columns'),
                     esc_html($this->get_features_description($field)),
                     esc_url((string)(new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'acf-field-settings'))->get_url()),
@@ -189,9 +175,33 @@ class FieldSettings extends AbstractFieldSettings
         );
     }
 
-    protected function is_field_type_supported(string $type): bool
+    private function is_pro_only_field(array $field): bool
     {
-        return in_array($type, self::SUPPORTED_ACF_TYPES, true);
+        return $this->is_sub_field($field) || in_array($field['type'], self::PRO_ONLY_ACF_TYPES, true);
+    }
+
+    public function render_tab(array $field): void
+    {
+        if ($this->is_pro_only_field($field)) {
+            $this->render_pro_section($field);
+
+            return;
+        }
+
+        parent::render_tab($field);
+    }
+
+    protected function is_field_supported(array $field): bool
+    {
+        if ($this->is_pro_only_field($field)) {
+            return false;
+        }
+
+        if ($field['type'] === 'select' && '1' === $field['multiple']) {
+            return false;
+        }
+
+        return in_array($field['type'], self::SUPPORTED_ACF_TYPES, true);
     }
 
     protected function is_column_for_field(Column $column, array $field): bool

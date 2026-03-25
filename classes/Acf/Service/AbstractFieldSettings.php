@@ -52,13 +52,7 @@ abstract class AbstractFieldSettings implements Registerable
 
     public function render_tab(array $field): void
     {
-        $type = $field['type'] ?? '';
-
-        if ($this->render_tab_early_exit($field, $type)) {
-            return;
-        }
-
-        if ( ! $this->is_field_type_supported($type)) {
+        if ( ! $this->is_field_supported($field)) {
             acf_render_field_setting(
                 $field,
                 [
@@ -97,11 +91,6 @@ abstract class AbstractFieldSettings implements Registerable
         $this->render_editor_links($field, $enabled_condition);
     }
 
-    protected function render_tab_early_exit(array $field, string $type): bool
-    {
-        return false;
-    }
-
     protected function is_sub_field(array $field): bool
     {
         return isset($field['parent_repeater'])
@@ -112,7 +101,7 @@ abstract class AbstractFieldSettings implements Registerable
 
     abstract protected function render_tab_content(array $field, array $enabled_condition): void;
 
-    abstract protected function is_field_type_supported(string $type): bool;
+    abstract protected function is_field_supported(array $field): bool;
 
     abstract protected function is_column_for_field(Column $column, array $field): bool;
 
@@ -135,8 +124,7 @@ abstract class AbstractFieldSettings implements Registerable
 
         foreach ($fields as $field) {
             $is_enabled = ! empty($field['admin_columns_enabled'])
-                          && $this->is_field_type_supported($field['type'])
-                          && ! $this->is_sub_field($field);
+                          && $this->is_field_supported($field);
 
             foreach ($table_screens as $table_screen) {
                 if ($is_enabled) {
