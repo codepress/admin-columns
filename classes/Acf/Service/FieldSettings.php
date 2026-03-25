@@ -22,6 +22,7 @@ class FieldSettings extends AbstractFieldSettings
         'color_picker'     => 'color',
         'date_picker'      => 'date',
         'date_time_picker' => 'date',
+        'oembed'           => 'link',
         'file'             => 'library_id',
         'image'            => 'image',
         'number'           => 'numeric',
@@ -82,6 +83,51 @@ class FieldSettings extends AbstractFieldSettings
         return false;
     }
 
+    private function is_pro_only_field_type(string $type): bool
+    {
+        return in_array($type, self::PRO_ONLY_ACF_TYPES, true);
+    }
+
+    private function render_pro_section(array $field): void
+    {
+        $url = (new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'acf-field-settings-upsell'))->get_url();
+
+        echo '<div style="pointer-events:none;opacity:0.6;margin-bottom: 20px;">';
+        acf_render_field_setting(
+            $field,
+            [
+                'label'        => __('Add as Admin Column', 'codepress-admin-columns'),
+                'instructions' => __(
+                    'Display this field as a column in the admin list table.',
+                    'codepress-admin-columns'
+                ),
+                'type'         => 'true_false',
+                'name'         => 'admin_columns_enabled',
+                'ui'           => 1,
+            ]
+        );
+        echo '</div>';
+
+        acf_render_field_setting(
+            $field,
+            [
+                'label'   => '',
+                'type'    => 'message',
+                'name'    => 'admin_columns_pro_upsell',
+                'message' => sprintf(
+                    '<div style="background:#eaf5fc;border:1px solid #c8e3f6;border-radius:4px;padding:10px 14px;color:#184a6a;font-size:13px;line-height:1.5;"><strong>%s</strong><br>%s <a href="%s" target="_blank">%s</a></div>',
+                    esc_html__('This field type is supported in Admin Columns Pro', 'codepress-admin-columns'),
+                    esc_html__(
+                        'Add this field as a column with sorting, filtering, and inline editing.',
+                        'codepress-admin-columns'
+                    ),
+                    esc_url($url),
+                    esc_html__('Learn more', 'codepress-admin-columns')
+                ),
+            ]
+        );
+    }
+
     protected function render_tab_content(array $field, array $enabled_condition): void
     {
         acf_render_field_setting(
@@ -105,7 +151,7 @@ class FieldSettings extends AbstractFieldSettings
     private function get_features_description(array $field): string
     {
         $table_screens = $this->resolve_table_screens($field);
-        $labels = [];
+        $labels        = [];
 
         foreach ($table_screens as $table_screen) {
             $labels[] = $table_screen->get_labels()->get_plural();
@@ -114,18 +160,24 @@ class FieldSettings extends AbstractFieldSettings
         $labels = array_slice($labels, 0, 3);
 
         if ($labels) {
-            $last = strtolower(array_pop($labels));
+            $last    = strtolower(array_pop($labels));
             $content = $labels
                 ? strtolower(implode(', ', $labels)) . ' & ' . $last
                 : $last;
 
             return sprintf(
-                __('Make this column editable, sortable, and filterable - and manage your %s faster right from the overview.', 'codepress-admin-columns'),
+                __(
+                    'Make this column editable, sortable, and filterable - and manage your %s faster right from the overview.',
+                    'codepress-admin-columns'
+                ),
                 $content
             );
         }
 
-        return __('Make this column editable, sortable, and filterable - and manage your content faster right from the overview.', 'codepress-admin-columns');
+        return __(
+            'Make this column editable, sortable, and filterable - and manage your content faster right from the overview.',
+            'codepress-admin-columns'
+        );
     }
 
     protected function is_field_type_supported(string $type): bool
@@ -192,14 +244,14 @@ class FieldSettings extends AbstractFieldSettings
         }
 
         $table_screen = reset($table_screens);
-        $table_id = $table_screen->get_id();
-        $list_screen = $this->storage->find_all_by_table_id($table_id)->first();
+        $table_id     = $table_screen->get_id();
+        $list_screen  = $this->storage->find_all_by_table_id($table_id)->first();
 
         if ( ! $list_screen) {
             return;
         }
 
-        $url = EditorUrlFactory::create($table_id, false, $list_screen->get_id());
+        $url   = EditorUrlFactory::create($table_id, false, $list_screen->get_id());
         $title = $list_screen->get_title() ?: $table_screen->get_labels()->get_plural();
 
         acf_render_field_setting(
@@ -212,52 +264,16 @@ class FieldSettings extends AbstractFieldSettings
                     '<p>%s</p><p><a href="%s" class="button button-primary" target="_blank">%s &rarr;</a></p>',
                     sprintf(
                     /* translators: %s: table view name */
-                        esc_html__('Manage the label, position, width, and other advanced settings in the column editor for %s.', 'codepress-admin-columns'),
+                        esc_html__(
+                            'Manage the label, position, width, and other advanced settings in the column editor for %s.',
+                            'codepress-admin-columns'
+                        ),
                         '<strong>' . esc_html($title) . '</strong>'
                     ),
                     esc_url((string)$url),
                     esc_html__('Customize Columns', 'codepress-admin-columns')
                 ),
                 'conditional_logic' => $enabled_condition,
-            ]
-        );
-    }
-
-    private function is_pro_only_field_type(string $type): bool
-    {
-        return in_array($type, self::PRO_ONLY_ACF_TYPES, true);
-    }
-
-    private function render_pro_section(array $field): void
-    {
-        $url = (new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'acf-field-settings-upsell'))->get_url();
-
-        echo '<div style="pointer-events:none;opacity:0.6;margin-bottom: 20px;">';
-        acf_render_field_setting(
-            $field,
-            [
-                'label'        => __('Add as Admin Column', 'codepress-admin-columns'),
-                'instructions' => __('Display this field as a column in the admin list table.', 'codepress-admin-columns'),
-                'type'         => 'true_false',
-                'name'         => 'admin_columns_enabled',
-                'ui'           => 1,
-            ]
-        );
-        echo '</div>';
-
-        acf_render_field_setting(
-            $field,
-            [
-                'label'   => '',
-                'type'    => 'message',
-                'name'    => 'admin_columns_pro_upsell',
-                'message' => sprintf(
-                    '<div style="background:#eaf5fc;border:1px solid #c8e3f6;border-radius:4px;padding:10px 14px;color:#184a6a;font-size:13px;line-height:1.5;"><strong>%s</strong><br>%s <a href="%s" target="_blank">%s</a></div>',
-                    esc_html__('This field type is supported in Admin Columns Pro', 'codepress-admin-columns'),
-                    esc_html__('Add this field as a column with sorting, filtering, and inline editing.', 'codepress-admin-columns'),
-                    esc_url($url),
-                    esc_html__('Learn more', 'codepress-admin-columns')
-                ),
             ]
         );
     }
