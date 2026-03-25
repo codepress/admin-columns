@@ -6,6 +6,7 @@ namespace AC;
 
 use AC;
 use AC\Acf\Service\FieldSettings;
+use AC\Acf\Service\FieldSettingsSync;
 use AC\Admin\MenuGroupFactory;
 use AC\Admin\MenuGroupFactory\DefaultGroups;
 use AC\Admin\PageFactory;
@@ -186,6 +187,7 @@ class Loader
 
         if ( ! $this->is_pro_active) {
             $classes[] = FieldSettings::class;
+            $classes[] = FieldSettingsSync::class;
             $classes[] = Service\PromoChecks::class;
             $classes[] = Service\NoticeChecks::class;
             $classes[] = PluginActionUpgrade::class;

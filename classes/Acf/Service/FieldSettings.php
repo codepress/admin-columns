@@ -4,17 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Acf\Service;
 
-use AC\Acf\AcfColumnFactory;
-use AC\Acf\FieldGroup\TableScreenResolver;
 use AC\Column;
-use AC\ColumnCollection;
-use AC\ColumnFactories\Aggregate;
-use AC\ColumnTypeRepository;
 use AC\ListScreen;
-use AC\ListScreenRepository\Storage;
 use AC\TableScreen;
 use AC\Type\EditorUrlFactory;
-use AC\Type\ListScreenIdGenerator;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
@@ -59,27 +52,6 @@ class FieldSettings extends AbstractFieldSettings
         'user',
         'wysiwyg',
     ];
-
-    private AcfColumnFactory $acf_column_factory;
-
-    private ColumnTypeRepository $column_type_repository;
-
-    private ListScreenIdGenerator $list_screen_id_generator;
-
-    public function __construct(
-        Storage $storage,
-        Aggregate $column_factory,
-        TableScreenResolver $table_screen_resolver,
-        AcfColumnFactory $acf_column_factory,
-        ColumnTypeRepository $column_type_repository,
-        ListScreenIdGenerator $list_screen_id_generator
-    ) {
-        parent::__construct($storage, $column_factory, $table_screen_resolver);
-
-        $this->acf_column_factory = $acf_column_factory;
-        $this->column_type_repository = $column_type_repository;
-        $this->list_screen_id_generator = $list_screen_id_generator;
-    }
 
     private function render_pro_section(array $field): void
     {
@@ -206,7 +178,9 @@ class FieldSettings extends AbstractFieldSettings
 
     protected function is_column_for_field(Column $column, array $field): bool
     {
-        if ($column->get_type() !== 'column-meta') {
+        $meta_key = $field['name'] ?? '';
+
+        if ( ! $meta_key || $column->get_type() !== 'column-meta') {
             return false;
         }
 
@@ -214,58 +188,7 @@ class FieldSettings extends AbstractFieldSettings
 
         return $setting
                && $setting->has_input()
-               && (string)$setting->get_input()->get_value() === ($field['name'] ?? '');
-    }
-
-    protected function add_column_in_list_screens(TableScreen $table_screen, array $field): void
-    {
-        $selected_ids = array_filter((array)($field['admin_columns_table_screens'] ?? []));
-
-        if ($selected_ids && ! in_array((string)$table_screen->get_id(), $selected_ids, true)) {
-            $this->remove_column_from_list_screens($table_screen->get_id(), $field);
-
-            return;
-        }
-
-        $column = $this->acf_column_factory->create($table_screen, $field);
-
-        if ( ! $column) {
-            return;
-        }
-
-        $has_writable = false;
-
-        foreach ($this->storage->find_all_by_table_id($table_screen->get_id()) as $list_screen) {
-            if ($list_screen->is_read_only()) {
-                continue;
-            }
-
-            $has_writable = true;
-
-            if ($this->has_column_for_field($list_screen, $field)) {
-                continue;
-            }
-
-            $columns = ColumnCollection::from_iterator($list_screen->get_columns());
-            $columns->add($column);
-
-            $list_screen->set_columns($columns);
-            $this->storage->save($list_screen);
-        }
-
-        if ( ! $has_writable) {
-            $columns = $this->column_type_repository->find_all_by_original($table_screen);
-            $columns->add($column);
-
-            $this->storage->save(
-                new ListScreen(
-                    $this->list_screen_id_generator->generate(),
-                    $this->get_field_group_title($field),
-                    $table_screen,
-                    $columns
-                )
-            );
-        }
+               && (string)$setting->get_input()->get_value() === $meta_key;
     }
 
     protected function render_editor_links(array $field, array $enabled_condition): void
@@ -321,17 +244,23 @@ class FieldSettings extends AbstractFieldSettings
         );
     }
 
+    private function find_list_screen_with_field(TableScreen $table_screen, array $field): ?ListScreen
+    {
+        foreach ($this->storage->find_all_by_table_id($table_screen->get_id()) as $list_screen) {
+            if ($this->has_column_for_field($list_screen, $field)) {
+                return $list_screen;
+            }
+        }
+
+        return null;
+    }
+
     private function render_multi_editor_links(array $field, array $table_screens, array $enabled_condition): void
     {
-        $selected_ids = array_filter((array)($field['admin_columns_table_screens'] ?? []));
         $rows = [];
 
         foreach ($table_screens as $table_screen) {
-            if ( ! $selected_ids || ! in_array((string)$table_screen->get_id(), $selected_ids, true)) {
-                continue;
-            }
-
-            $list_screen = $this->storage->find_all_by_table_id($table_screen->get_id())->first();
+            $list_screen = $this->find_list_screen_with_field($table_screen, $field);
 
             if ( ! $list_screen) {
                 continue;
@@ -370,52 +299,6 @@ class FieldSettings extends AbstractFieldSettings
                 'conditional_logic' => $enabled_condition,
             ]
         );
-    }
-
-    private function render_table_screen_select(array $field, array $enabled_condition): void
-    {
-        $choices = $this->get_table_screen_choices($field);
-
-        if (count($choices) <= 1) {
-            return;
-        }
-
-        acf_render_field_setting(
-            $field,
-            [
-                'label'             => __('Admin List Tables', 'codepress-admin-columns'),
-                'instructions'      => __('Select which list table should include this column.', 'codepress-admin-columns'),
-                'type'              => 'select',
-                'name'              => 'admin_columns_table_screens',
-                'choices'           => $choices,
-                'default_value'     => array_keys($choices),
-                'multiple'          => 1,
-                'ui'                => 1,
-                'conditional_logic' => $enabled_condition,
-            ]
-        );
-    }
-
-    private function get_table_screen_choices(array $field): array
-    {
-        static $cache = [];
-
-        $parent = $field['parent'] ?? 0;
-
-        if (isset($cache[$parent])) {
-            return $cache[$parent];
-        }
-
-        $table_screens = $this->resolve_table_screens($field);
-        $choices = [];
-
-        foreach ($table_screens as $table_screen) {
-            $choices[(string)$table_screen->get_id()] = $table_screen->get_labels()->get_plural();
-        }
-
-        $cache[$parent] = $choices;
-
-        return $choices;
     }
 
 }
