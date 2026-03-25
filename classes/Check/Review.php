@@ -7,7 +7,7 @@ use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Capabilities;
 use AC\Message;
-use AC\Preferences;
+use AC\Notice\NoticeState;
 use AC\Registerable;
 use AC\Screen;
 use AC\Type\Url\Documentation;
@@ -16,11 +16,17 @@ use AC\Type\Url\UtmTags;
 final class Review implements Registerable
 {
 
+    private const SLUG = 'review';
+    private const DELAY_DAYS = 30;
+
     private Location $location;
 
-    public function __construct(Location $location)
+    private NoticeState $state;
+
+    public function __construct(Location $location, NoticeState $state)
     {
         $this->location = $location;
+        $this->state = $state;
     }
 
     public function register(): void
@@ -44,11 +50,13 @@ final class Review implements Registerable
             return;
         }
 
-        if ($this->get_preferences()->find('dismiss-review')) {
+        if ($this->state->is_dismissed(self::SLUG)) {
             return;
         }
 
-        if ( ! $this->first_login_compare()) {
+        $this->state->track_first_seen(self::SLUG);
+
+        if ( ! $this->state->is_delay_met(self::SLUG, self::DELAY_DAYS)) {
             return;
         }
 
@@ -72,37 +80,10 @@ final class Review implements Registerable
         return $handler;
     }
 
-    protected function get_preferences(): Preferences\Preference
-    {
-        return (new Preferences\UserFactory())->create('check-review');
-    }
-
-    protected function first_login_compare(): bool
-    {
-        // Show after 30 days
-        return time() - (30 * DAY_IN_SECONDS) > $this->get_first_login();
-    }
-
-    /**
-     * Return the Unix timestamp of first login
-     */
-    protected function get_first_login(): int
-    {
-        $timestamp = $this->get_preferences()->find('first-login-review');
-
-        if (empty($timestamp)) {
-            $timestamp = time();
-
-            $this->get_preferences()->save('first-login-review', $timestamp);
-        }
-
-        return $timestamp;
-    }
-
     public function ajax_dismiss_notice(): void
     {
         $this->get_ajax_handler()->verify_request();
-        $this->get_preferences()->save('dismiss-review', true);
+        $this->state->dismiss(self::SLUG);
     }
 
     private function get_documentation_url(): string

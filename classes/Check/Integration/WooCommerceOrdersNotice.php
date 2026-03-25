@@ -8,8 +8,13 @@ use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class WooCommerceOrdersNotice implements IntegrationNotice
+class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 {
+
+    public function is_usage_detected(): bool
+    {
+        return isset($_GET['orderby']) || isset($_GET['m']) || isset($_GET['_customer_user']) || isset($_GET['s']);
+    }
 
     public function is_active(Screen $screen): bool
     {

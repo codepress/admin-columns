@@ -8,13 +8,15 @@ use AC\Ajax;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Capabilities;
-use AC\Preferences;
+use AC\Notice\NoticeState;
 use AC\Registerable;
 use AC\Screen;
 use AC\View;
 
 class IntegrationNoticeRenderer implements Registerable
 {
+
+    private const DELAY_DAYS = 14;
 
     /**
      * @var IntegrationNotice[]
@@ -26,18 +28,21 @@ class IntegrationNoticeRenderer implements Registerable
      */
     private array $handlers = [];
 
+    private NoticeState $state;
+
     /**
      * @param IntegrationNotice[] $notices
      */
-    public function __construct(array $notices)
+    public function __construct(array $notices, NoticeState $state)
     {
         $this->notices = $notices;
+        $this->state = $state;
     }
 
     public function register(): void
     {
         foreach ($this->notices as $notice) {
-            if ( ! $this->is_dismissed($notice)) {
+            if ( ! $this->state->is_dismissed($notice->get_slug())) {
                 $handler = $this->create_ajax_handler($notice);
                 $handler->register();
                 $this->handlers[$notice->get_slug()] = $handler;
@@ -55,7 +60,15 @@ class IntegrationNoticeRenderer implements Registerable
             return;
         }
 
-        $handler = $this->handlers[$notice->get_slug()] ?? null;
+        $slug = $notice->get_slug();
+
+        $this->state->track_first_seen($slug);
+
+        if ( ! $this->is_ready_to_show($notice)) {
+            return;
+        }
+
+        $handler = $this->handlers[$slug] ?? null;
 
         if ( ! $handler) {
             return;
@@ -82,14 +95,17 @@ class IntegrationNoticeRenderer implements Registerable
         return null;
     }
 
-    private function is_dismissed(IntegrationNotice $notice): bool
+    private function is_ready_to_show(IntegrationNotice $notice): bool
     {
-        return (bool)$this->get_preferences($notice)->find('dismiss-notice');
-    }
+        if ( ! $this->state->is_delay_met($notice->get_slug(), self::DELAY_DAYS)) {
+            return false;
+        }
 
-    private function get_preferences(IntegrationNotice $notice): Preferences\Preference
-    {
-        return (new Preferences\UserFactory())->create('suggestion-notice-' . $notice->get_slug());
+        if ($notice instanceof UsageAwareNotice && ! $notice->is_usage_detected()) {
+            return false;
+        }
+
+        return true;
     }
 
     private function create_ajax_handler(IntegrationNotice $notice): Ajax\Handler
@@ -104,7 +120,7 @@ class IntegrationNoticeRenderer implements Registerable
                     wp_die('-1');
                 }
 
-                $this->get_preferences($notice)->save('dismiss-notice', true);
+                $this->state->dismiss($notice->get_slug());
             });
 
         return $handler;

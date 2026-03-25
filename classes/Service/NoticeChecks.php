@@ -6,6 +6,7 @@ use AC\AdminColumns;
 use AC\Capabilities;
 use AC\Check;
 use AC\Check\Integration;
+use AC\Notice\NoticeState;
 use AC\Registerable;
 use AC\Services;
 
@@ -29,7 +30,9 @@ class NoticeChecks implements Registerable
         $services = new Services();
 
         if (current_user_can(Capabilities::MANAGE)) {
-            $services->add(new Check\Review($this->plugin->get_location()));
+            $state = new NoticeState();
+
+            $services->add(new Check\Review($this->plugin->get_location(), $state));
 
             $services->add(
                 new Integration\IntegrationNoticeRenderer(
@@ -40,6 +43,7 @@ class NoticeChecks implements Registerable
                         new Integration\GravityFormsNotice(),
                         new Integration\EventsCalendarNotice(),
                     ],
+                    $state
                 )
             );
         }
