@@ -181,6 +181,7 @@ class Loader
             Service\AdminBarEditColumns::class,
             Service\PluginUpdate::class,
             Service\Tooltips::class,
+            AC\Acf\Service\DateSaveFormat::class,
         ];
 
         if ( ! $this->is_pro_active) {

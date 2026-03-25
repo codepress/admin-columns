@@ -346,17 +346,7 @@ class FieldSettings extends AbstractFieldSettings
             $title = $table_screen->get_labels()->get_plural();
 
             $rows[] = sprintf(
-                '<tr>'
-                . '<td style="padding:6px 12px 6px 0;vertical-align:middle;">'
-                . '<strong>%s</strong><br>'
-                . '<span>%s</span>'
-                . '</td>'
-                . '<td style="text-align:right;vertical-align:middle;white-space:nowrap;padding:6px 0 6px 12px;">'
-                . '<a href="%s" class="button" target="_blank">%s</a>'
-                . '</td>'
-                . '</tr>',
-                esc_html($title),
-                esc_html(sprintf(__("Manage this field's column settings for the %s list table", 'codepress-admin-columns'), $title)),
+                '<a href="%s" style="margin-right: 8px;display:inline-block;" class="button" target="_blank">%s</a>',
                 esc_url((string)$url),
                 esc_html(sprintf(__('Edit %s Column →', 'codepress-admin-columns'), $title))
             );
@@ -373,7 +363,7 @@ class FieldSettings extends AbstractFieldSettings
                 'type'              => 'message',
                 'name'              => 'admin_columns_editor_link',
                 'message'           => sprintf(
-                    '<p class="description">%s</p><table style="width:100%%;border-collapse:collapse;"><tbody>%s</tbody></table>',
+                    '<p class="description">%s</p>%s',
                     esc_html__('Open the column editor to manage the label, position, width, and other advanced settings.', 'codepress-admin-columns'),
                     implode('', $rows)
                 ),

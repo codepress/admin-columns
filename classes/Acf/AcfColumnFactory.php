@@ -86,9 +86,7 @@ class AcfColumnFactory
                 break;
             case 'date_picker':
             case 'date_time_picker':
-                if ( ! empty($field['save_format'])) {
-                    $config['date_save_format'] = $field['save_format'];
-                }
+                $config['date_save_format'] = Service\DateSaveFormat::DATE_FORMAT;
                 break;
         }
 
