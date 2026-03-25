@@ -7,6 +7,7 @@ namespace AC\Acf\Service;
 use AC\Column;
 use AC\Column\ColumnIdGenerator;
 use AC\ColumnCollection;
+use AC\Setting\ComponentFactory\FieldType;
 use AC\Setting\Config;
 use AC\TableScreen;
 use AC\Type\EditorUrlFactory;
@@ -18,21 +19,21 @@ class FieldSettings extends AbstractFieldSettings
 
     // TODO test variant, like multiple post_object, gallery etc.
     private const FIELD_TYPE_MAP = [
-        'checkbox'         => 'checkmark',
-        'color_picker'     => 'color',
-        'date_picker'      => 'date',
-        'date_time_picker' => 'date',
-        'oembed'           => 'link',
-        'file'             => 'library_id',
-        'image'            => 'image',
-        'number'           => 'numeric',
-        'post_object'      => 'title_by_id',
-        'range'            => 'numeric',
-        'text'             => 'excerpt',
-        'true_false'       => 'checkmark',
-        'url'              => 'link',
-        'user'             => 'user_by_id',
-        'wysiwyg'          => 'html',
+        'checkbox'         => FieldType::TYPE_ARRAY,
+        'color_picker'     => FieldType::TYPE_COLOR,
+        'date_picker'      => FieldType::TYPE_DATE,
+        'date_time_picker' => FieldType::TYPE_DATE,
+        'oembed'           => FieldType::TYPE_URL,
+        'file'             => FieldType::TYPE_MEDIA,
+        'image'            => FieldType::TYPE_IMAGE,
+        'number'           => FieldType::TYPE_NUMERIC,
+        'post_object'      => FieldType::TYPE_POST,
+        'range'            => FieldType::TYPE_NUMERIC,
+        'text'             => FieldType::TYPE_TEXT,
+        'true_false'       => FieldType::TYPE_BOOLEAN,
+        'url'              => FieldType::TYPE_URL,
+        'user'             => FieldType::TYPE_USER,
+        'wysiwyg'          => FieldType::TYPE_HTML,
     ];
 
     private const PRO_ONLY_ACF_TYPES = [
