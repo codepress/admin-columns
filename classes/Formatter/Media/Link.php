@@ -19,7 +19,11 @@ class Link implements Formatter
 
     protected function get_view_link(Value $value): ?string
     {
-        return get_attachment_link($value->get_id());
+        $url = get_attachment_link($value->get_id());
+
+        return $url
+            ? sprintf('<a href="%s">%s</a>', $url, $value->get_value())
+            : $value->get_value();
     }
 
     protected function get_download_link(Value $value): ?string
