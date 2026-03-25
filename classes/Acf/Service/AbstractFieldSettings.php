@@ -187,16 +187,29 @@ abstract class AbstractFieldSettings implements Registerable
         return null;
     }
 
-    protected function get_column_label_for_list_screen(ListScreen $list_screen, array $field): ?string
+    protected function find_column_for_field(ListScreen $list_screen, array $field): ?Column
     {
         foreach ($list_screen->get_columns() as $column) {
             if ($this->is_column_for_field($column, $field)) {
-                $label_setting = $column->get_setting('label');
-
-                if ($label_setting && $label_setting->has_input()) {
-                    return $label_setting->get_input()->get_value();
-                }
+                return $column;
             }
+        }
+
+        return null;
+    }
+
+    protected function get_column_label_for_list_screen(ListScreen $list_screen, array $field): ?string
+    {
+        $column = $this->find_column_for_field($list_screen, $field);
+
+        if ( ! $column) {
+            return null;
+        }
+
+        $label_setting = $column->get_setting('label');
+
+        if ($label_setting && $label_setting->has_input()) {
+            return $label_setting->get_input()->get_value();
         }
 
         return null;
@@ -281,13 +294,7 @@ abstract class AbstractFieldSettings implements Registerable
 
     protected function has_column_for_field(ListScreen $list_screen, array $field): bool
     {
-        foreach ($list_screen->get_columns() as $column) {
-            if ($this->is_column_for_field($column, $field)) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->find_column_for_field($list_screen, $field) !== null;
     }
 
     protected function remove_column_from_list_screens(TableId $table_id, array $field): void

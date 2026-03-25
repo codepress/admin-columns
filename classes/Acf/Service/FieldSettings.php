@@ -270,6 +270,49 @@ class FieldSettings extends AbstractFieldSettings
             return;
         }
 
+        if (count($table_screens) === 1) {
+            $this->render_single_editor_link($field, reset($table_screens), $enabled_condition);
+
+            return;
+        }
+
+        $this->render_multi_editor_links($field, $table_screens, $enabled_condition);
+    }
+
+    private function render_single_editor_link(array $field, TableScreen $table_screen, array $enabled_condition): void
+    {
+        $list_screen = $this->storage->find_all_by_table_id($table_screen->get_id())->first();
+
+        if ( ! $list_screen) {
+            return;
+        }
+
+        $url = EditorUrlFactory::create($table_screen->get_id(), false, $list_screen->get_id());
+        $column = $this->find_column_for_field($list_screen, $field);
+
+        if ($column) {
+            $url = $url->with_arg('open_columns', (string)$column->get_id());
+        }
+
+        acf_render_field_setting(
+            $field,
+            [
+                'label'             => __('Manage Column Settings', 'codepress-admin-columns'),
+                'type'              => 'message',
+                'name'              => 'admin_columns_editor_link',
+                'message'           => sprintf(
+                    '<p class="description">%s</p></p><a href="%s" class="button" target="_blank">%s</a>',
+                    esc_html__('Open the column editor to manage the label, position, width, and other advanced settings.', 'codepress-admin-columns'),
+                    esc_url((string)$url),
+                    esc_html__('Edit Column →', 'codepress-admin-columns')
+                ),
+                'conditional_logic' => $enabled_condition,
+            ]
+        );
+    }
+
+    private function render_multi_editor_links(array $field, array $table_screens, array $enabled_condition): void
+    {
         $selected_ids = array_filter((array)($field['admin_columns_table_screens'] ?? []));
         $rows = [];
 
@@ -285,22 +328,27 @@ class FieldSettings extends AbstractFieldSettings
             }
 
             $url = EditorUrlFactory::create($table_screen->get_id(), false, $list_screen->get_id());
+            $column = $this->find_column_for_field($list_screen, $field);
+
+            if ($column) {
+                $url = $url->with_arg('open_columns', (string)$column->get_id());
+            }
             $title = $table_screen->get_labels()->get_plural();
 
             $rows[] = sprintf(
                 '<tr>'
                 . '<td style="padding:6px 12px 6px 0;vertical-align:middle;">'
                 . '<strong>%s</strong><br>'
-                . '<span >%s</span>'
+                . '<span>%s</span>'
                 . '</td>'
                 . '<td style="text-align:right;vertical-align:middle;white-space:nowrap;padding:6px 0 6px 12px;">'
                 . '<a href="%s" class="button" target="_blank">%s</a>'
                 . '</td>'
                 . '</tr>',
                 esc_html($title),
-                esc_html(sprintf(__('Edit columns for the %s list table', 'codepress-admin-columns'), $title)),
+                esc_html(sprintf(__("Manage this field's column settings for the %s list table", 'codepress-admin-columns'), $title)),
                 esc_url((string)$url),
-                esc_html(sprintf(__('Open %s Columns →', 'codepress-admin-columns'), $title))
+                esc_html(sprintf(__('Edit %s Column →', 'codepress-admin-columns'), $title))
             );
         }
 
@@ -311,12 +359,12 @@ class FieldSettings extends AbstractFieldSettings
         acf_render_field_setting(
             $field,
             [
-                'label'             => false,
+                'label'             => __('Manage Column Settings', 'codepress-admin-columns'),
                 'type'              => 'message',
                 'name'              => 'admin_columns_editor_link',
                 'message'           => sprintf(
-                    '<p>%s</p><table style="width:100%%;border-collapse:collapse;"><tbody>%s</tbody></table>',
-                    esc_html__('Open the column editor for any selected screen to manage the label, position, width, and other advanced settings.', 'codepress-admin-columns'),
+                    '<p class="description">%s</p><table style="width:100%%;border-collapse:collapse;"><tbody>%s</tbody></table>',
+                    esc_html__('Open the column editor to manage the label, position, width, and other advanced settings.', 'codepress-admin-columns'),
                     implode('', $rows)
                 ),
                 'conditional_logic' => $enabled_condition,
@@ -328,7 +376,7 @@ class FieldSettings extends AbstractFieldSettings
     {
         $choices = $this->get_table_screen_choices($field);
 
-        if ( ! $choices) {
+        if (count($choices) <= 1) {
             return;
         }
 
