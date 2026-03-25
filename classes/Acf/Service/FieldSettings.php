@@ -59,6 +59,7 @@ class FieldSettings extends AbstractFieldSettings
         'image',
         'number',
         'oembed',
+        'page_link',
         'password',
         'post_object',
         'radio',
