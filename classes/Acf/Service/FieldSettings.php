@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace AC\Acf\Service;
 
+use AC\Acf\FieldGroup\TableScreenResolver;
 use AC\Column;
 use AC\ListScreen;
+use AC\ListScreenRepository\Storage;
+use AC\Registerable;
 use AC\TableScreen;
 use AC\Type\EditorUrlFactory;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class FieldSettings extends AbstractFieldSettings
+class FieldSettings implements Registerable
 {
 
     private const UPSELL_BOX_STYLE = 'background:#eaf5fc;border:1px solid #c8e3f6;border-radius:4px;padding:10px 14px;color:#184a6a;font-size:13px;line-height:1.5;';
@@ -53,6 +56,80 @@ class FieldSettings extends AbstractFieldSettings
         'wysiwyg',
     ];
 
+    private Storage $storage;
+
+    private TableScreenResolver $table_screen_resolver;
+
+    public function __construct(Storage $storage, TableScreenResolver $table_screen_resolver)
+    {
+        $this->storage = $storage;
+        $this->table_screen_resolver = $table_screen_resolver;
+    }
+
+    public function register(): void
+    {
+        if ( ! class_exists('acf', false) && ! class_exists('ACF', false)) {
+            return;
+        }
+
+        add_filter('acf/field_group/additional_field_settings_tabs', [$this, 'add_tab']);
+        add_action('acf/field_group/render_field_settings_tab/admin_columns', [$this, 'render_tab']);
+    }
+
+    public function add_tab(array $tabs): array
+    {
+        $tabs['admin_columns'] = __('List Table Columns', 'codepress-admin-columns');
+
+        return $tabs;
+    }
+
+    public function render_tab(array $field): void
+    {
+        if ($this->is_pro_only_field($field)) {
+            $this->render_pro_section($field);
+
+            return;
+        }
+
+        if ( ! $this->is_field_supported($field)) {
+            acf_render_field_setting(
+                $field,
+                [
+                    'label'   => __('Not Supported', 'codepress-admin-columns'),
+                    'type'    => 'message',
+                    'name'    => 'admin_columns_unsupported',
+                    'message' => __('This field type cannot be used as an admin column.', 'codepress-admin-columns'),
+                ]
+            );
+
+            return;
+        }
+
+        $enabled_condition = [
+            [
+                [
+                    'field'    => 'admin_columns_enabled',
+                    'operator' => '==',
+                    'value'    => '1',
+                ],
+            ],
+        ];
+
+        acf_render_field_setting(
+            $field,
+            [
+                'label'        => __('Add as Admin Column', 'codepress-admin-columns'),
+                'instructions' => __('Display this field as a column in the admin list table.', 'codepress-admin-columns'),
+                'type'         => 'true_false',
+                'name'         => 'admin_columns_enabled',
+                'ui'           => 1,
+            ]
+        );
+
+        $this->render_tab_content($field, $enabled_condition);
+        $this->render_editor_links($field, $enabled_condition);
+    }
+
     private function render_pro_section(array $field): void
     {
         $url = (new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'acf-field-settings-upsell'))->get_url();
@@ -93,7 +170,7 @@ class FieldSettings extends AbstractFieldSettings
         );
     }
 
-    protected function render_tab_content(array $field, array $enabled_condition): void
+    private function render_tab_content(array $field, array $enabled_condition): void
     {
         $this->render_table_screen_select($field, $enabled_condition);
 
@@ -152,18 +229,7 @@ class FieldSettings extends AbstractFieldSettings
         return $this->is_sub_field($field) || in_array($field['type'], self::PRO_ONLY_ACF_TYPES, true);
     }
 
-    public function render_tab(array $field): void
-    {
-        if ($this->is_pro_only_field($field)) {
-            $this->render_pro_section($field);
-
-            return;
-        }
-
-        parent::render_tab($field);
-    }
-
-    protected function is_field_supported(array $field): bool
+    private function is_field_supported(array $field): bool
     {
         if ($this->is_pro_only_field($field)) {
             return false;
@@ -176,7 +242,15 @@ class FieldSettings extends AbstractFieldSettings
         return in_array($field['type'], self::SUPPORTED_ACF_TYPES, true);
     }
 
-    protected function is_column_for_field(Column $column, array $field): bool
+    private function is_sub_field(array $field): bool
+    {
+        return isset($field['parent_repeater'])
+               || isset($field['parent_group'])
+               || isset($field['parent_layout'])
+               || isset($field['_clone']);
+    }
+
+    private function is_column_for_field(Column $column, array $field): bool
     {
         $meta_key = $field['name'] ?? '';
 
@@ -191,7 +265,7 @@ class FieldSettings extends AbstractFieldSettings
                && (string)$setting->get_input()->get_value() === $meta_key;
     }
 
-    protected function render_editor_links(array $field, array $enabled_condition): void
+    private function render_editor_links(array $field, array $enabled_condition): void
     {
         if (empty($field['admin_columns_enabled'])) {
             return;
@@ -299,6 +373,85 @@ class FieldSettings extends AbstractFieldSettings
                 'conditional_logic' => $enabled_condition,
             ]
         );
+    }
+
+    /**
+     * @return TableScreen[]
+     */
+    private function resolve_table_screens(array $field): array
+    {
+        static $cache = [];
+
+        $parent = $field['parent'] ?? 0;
+
+        if ( ! isset($cache[$parent])) {
+            $group = acf_get_field_group($parent);
+            $cache[$parent] = $group ? $this->table_screen_resolver->resolve($group) : [];
+        }
+
+        return $cache[$parent];
+    }
+
+    private function find_column_for_field(ListScreen $list_screen, array $field): ?Column
+    {
+        foreach ($list_screen->get_columns() as $column) {
+            if ($this->is_column_for_field($column, $field)) {
+                return $column;
+            }
+        }
+
+        return null;
+    }
+
+    private function has_column_for_field(ListScreen $list_screen, array $field): bool
+    {
+        return $this->find_column_for_field($list_screen, $field) !== null;
+    }
+
+    private function render_table_screen_select(array $field, array $enabled_condition): void
+    {
+        $choices = $this->get_table_screen_choices($field);
+
+        if (count($choices) <= 1) {
+            return;
+        }
+
+        acf_render_field_setting(
+            $field,
+            [
+                'label'             => __('Admin List Tables', 'codepress-admin-columns'),
+                'instructions'      => __('Select which list table should include this column.', 'codepress-admin-columns'),
+                'type'              => 'select',
+                'name'              => 'admin_columns_table_screens',
+                'choices'           => $choices,
+                'default_value'     => array_keys($choices),
+                'multiple'          => 1,
+                'ui'                => 1,
+                'conditional_logic' => $enabled_condition,
+            ]
+        );
+    }
+
+    private function get_table_screen_choices(array $field): array
+    {
+        static $cache = [];
+
+        $parent = $field['parent'] ?? 0;
+
+        if (isset($cache[$parent])) {
+            return $cache[$parent];
+        }
+
+        $table_screens = $this->resolve_table_screens($field);
+        $choices = [];
+
+        foreach ($table_screens as $table_screen) {
+            $choices[(string)$table_screen->get_id()] = $table_screen->get_labels()->get_plural();
+        }
+
+        $cache[$parent] = $choices;
+
+        return $choices;
     }
 
 }
