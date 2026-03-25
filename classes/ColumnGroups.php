@@ -2,7 +2,6 @@
 
 namespace AC;
 
-use AC\Asset\Location\Absolute;
 use AC\Type\Group;
 use AC\Type\Groups;
 
@@ -30,7 +29,7 @@ class ColumnGroups
                     'plugin',
                     __('Plugins'),
                     20,
-                    $this->plugin->get_location()->with_suffix('/assets/images/group/pro.png')->get_url()
+                    $this->plugin->get_location()->with_suffix('/assets/images/group/pro.svg')->get_url()
                 )
             );
             $groups->add(new Group('custom_field', __('Custom Fields', 'codepress-admin-columns'), 30));
