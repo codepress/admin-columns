@@ -271,6 +271,14 @@ abstract class AbstractFieldSettings implements Registerable
         );
     }
 
+    public function get_field_group_title(array $field): string
+    {
+        $parent = $field['parent'] ?? 0;
+        $group = acf_get_field_group($parent) ?: [];
+
+        return $group['title'] ?? '';
+    }
+
     protected function has_column_for_field(ListScreen $list_screen, array $field): bool
     {
         foreach ($list_screen->get_columns() as $column) {

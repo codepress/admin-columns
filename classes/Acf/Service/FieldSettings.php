@@ -4,12 +4,18 @@ declare(strict_types=1);
 
 namespace AC\Acf\Service;
 
+use AC\Acf\FieldGroup\TableScreenResolver;
 use AC\Column;
 use AC\Column\ColumnIdGenerator;
 use AC\ColumnCollection;
+use AC\ColumnFactories\Aggregate;
+use AC\ColumnTypeRepository;
+use AC\ListScreen;
+use AC\ListScreenRepository\Storage;
 use AC\Setting\Config;
 use AC\TableScreen;
 use AC\Type\EditorUrlFactory;
+use AC\Type\ListScreenIdGenerator;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
@@ -71,6 +77,23 @@ class FieldSettings extends AbstractFieldSettings
         'wysiwyg',
     ];
 
+    private ColumnTypeRepository $column_type_repository;
+
+    private ListScreenIdGenerator $list_screen_id_generator;
+
+    public function __construct(
+        Storage $storage,
+        Aggregate $column_factory,
+        TableScreenResolver $table_screen_resolver,
+        ColumnTypeRepository $column_type_repository,
+        ListScreenIdGenerator $list_screen_id_generator
+    ) {
+        parent::__construct($storage, $column_factory, $table_screen_resolver);
+
+        $this->column_type_repository = $column_type_repository;
+        $this->list_screen_id_generator = $list_screen_id_generator;
+    }
+
     protected function render_tab_early_exit(array $field, string $type): bool
     {
         if ($this->is_pro_only_field_type($type)) {
@@ -84,6 +107,8 @@ class FieldSettings extends AbstractFieldSettings
 
     protected function render_tab_content(array $field, array $enabled_condition): void
     {
+        $this->render_table_screen_select($field, $enabled_condition);
+
         acf_render_field_setting(
             $field,
             [
@@ -148,35 +173,64 @@ class FieldSettings extends AbstractFieldSettings
 
     protected function add_column_in_list_screens(TableScreen $table_screen, array $field): void
     {
+        $selected_ids = array_filter((array)($field['admin_columns_table_screens'] ?? []));
+
+        if ($selected_ids && ! in_array((string)$table_screen->get_id(), $selected_ids, true)) {
+            $this->remove_column_from_list_screens($table_screen->get_id(), $field);
+
+            return;
+        }
+
         $factory = $this->find_column_factory($table_screen, 'column-meta');
 
         if ( ! $factory) {
             return;
         }
 
+        $has_writable = false;
+
         foreach ($this->storage->find_all_by_table_id($table_screen->get_id()) as $list_screen) {
             if ($list_screen->is_read_only()) {
                 continue;
             }
 
+            $has_writable = true;
+
             if ($this->has_column_for_field($list_screen, $field)) {
                 continue;
             }
 
-            $new_column = $factory->create(new Config([
-                'name'       => (string)(new ColumnIdGenerator())->generate(),
-                'type'       => 'column-meta',
-                'field'      => $field['name'] ?? '',
-                'label'      => $field['label'] ?? '',
-                'field_type' => self::FIELD_TYPE_MAP[$field['type'] ?? ''] ?? '',
-            ]));
-
-            $columns = new ColumnCollection(iterator_to_array($list_screen->get_columns()));
-            $columns->add($new_column);
+            $columns = ColumnCollection::from_iterator($list_screen->get_columns());
+            $columns->add($this->create_column($factory, $field));
 
             $list_screen->set_columns($columns);
             $this->storage->save($list_screen);
         }
+
+        if ( ! $has_writable) {
+            $columns = $this->column_type_repository->find_all_by_original($table_screen);
+            $columns->add($this->create_column($factory, $field));
+
+            $this->storage->save(
+                new ListScreen(
+                    $this->list_screen_id_generator->generate(),
+                    $this->get_field_group_title($field),
+                    $table_screen,
+                    $columns
+                )
+            );
+        }
+    }
+
+    private function create_column(Column\ColumnFactory $factory, array $field): Column
+    {
+        return $factory->create(new Config([
+            'name'       => (string)(new ColumnIdGenerator())->generate(),
+            'type'       => 'column-meta',
+            'field'      => $field['name'] ?? '',
+            'label'      => $field['label'] ?? '',
+            'field_type' => self::FIELD_TYPE_MAP[$field['type'] ?? ''] ?? '',
+        ]));
     }
 
     protected function render_editor_links(array $field, array $enabled_condition): void
@@ -191,16 +245,43 @@ class FieldSettings extends AbstractFieldSettings
             return;
         }
 
-        $table_screen = reset($table_screens);
-        $table_id = $table_screen->get_id();
-        $list_screen = $this->storage->find_all_by_table_id($table_id)->first();
+        $selected_ids = array_filter((array)($field['admin_columns_table_screens'] ?? []));
+        $rows = [];
 
-        if ( ! $list_screen) {
-            return;
+        foreach ($table_screens as $table_screen) {
+            if ($selected_ids && ! in_array((string)$table_screen->get_id(), $selected_ids, true)) {
+                continue;
+            }
+
+            $list_screen = $this->storage->find_all_by_table_id($table_screen->get_id())->first();
+
+            if ( ! $list_screen) {
+                continue;
+            }
+
+            $url = EditorUrlFactory::create($table_screen->get_id(), false, $list_screen->get_id());
+            $title = $table_screen->get_labels()->get_plural();
+
+            $rows[] = sprintf(
+                '<tr>'
+                . '<td style="padding:6px 12px 6px 0;vertical-align:middle;">'
+                . '<strong>%s</strong><br>'
+                . '<span >%s</span>'
+                . '</td>'
+                . '<td style="text-align:right;vertical-align:middle;white-space:nowrap;padding:6px 0 6px 12px;">'
+                . '<a href="%s" class="button" target="_blank">%s</a>'
+                . '</td>'
+                . '</tr>',
+                esc_html($title),
+                esc_html(sprintf(__('Edit columns for the %s list table', 'codepress-admin-columns'), $title)),
+                esc_url((string)$url),
+                esc_html(sprintf(__('Open %s Columns →', 'codepress-admin-columns'), $title))
+            );
         }
 
-        $url = EditorUrlFactory::create($table_id, false, $list_screen->get_id());
-        $title = $list_screen->get_title() ?: $table_screen->get_labels()->get_plural();
+        if ( ! $rows) {
+            return;
+        }
 
         acf_render_field_setting(
             $field,
@@ -209,18 +290,59 @@ class FieldSettings extends AbstractFieldSettings
                 'type'              => 'message',
                 'name'              => 'admin_columns_editor_link',
                 'message'           => sprintf(
-                    '<p>%s</p><p><a href="%s" class="button button-primary" target="_blank">%s &rarr;</a></p>',
-                    sprintf(
-                    /* translators: %s: table view name */
-                        esc_html__('Manage the label, position, width, and other advanced settings in the column editor for %s.', 'codepress-admin-columns'),
-                        '<strong>' . esc_html($title) . '</strong>'
-                    ),
-                    esc_url((string)$url),
-                    esc_html__('Customize Columns', 'codepress-admin-columns')
+                    '<p>%s</p><table style="width:100%%;border-collapse:collapse;"><tbody>%s</tbody></table>',
+                    esc_html__('Open the column editor for any selected screen to manage the label, position, width, and other advanced settings.', 'codepress-admin-columns'),
+                    implode('', $rows)
                 ),
                 'conditional_logic' => $enabled_condition,
             ]
         );
+    }
+
+    private function render_table_screen_select(array $field, array $enabled_condition): void
+    {
+        $choices = $this->get_table_screen_choices($field);
+
+        if ( ! $choices) {
+            return;
+        }
+
+        acf_render_field_setting(
+            $field,
+            [
+                'label'             => __('Admin List Tables', 'codepress-admin-columns'),
+                'instructions'      => __('Select which list table should include this column.', 'codepress-admin-columns'),
+                'type'              => 'select',
+                'name'              => 'admin_columns_table_screens',
+                'choices'           => $choices,
+                'default_value'     => array_keys($choices),
+                'multiple'          => 1,
+                'ui'                => 1,
+                'conditional_logic' => $enabled_condition,
+            ]
+        );
+    }
+
+    private function get_table_screen_choices(array $field): array
+    {
+        static $cache = [];
+
+        $parent = $field['parent'] ?? 0;
+
+        if (isset($cache[$parent])) {
+            return $cache[$parent];
+        }
+
+        $table_screens = $this->resolve_table_screens($field);
+        $choices = [];
+
+        foreach ($table_screens as $table_screen) {
+            $choices[(string)$table_screen->get_id()] = $table_screen->get_labels()->get_plural();
+        }
+
+        $cache[$parent] = $choices;
+
+        return $choices;
     }
 
     private function is_pro_only_field_type(string $type): bool
