@@ -41,6 +41,8 @@
 
     startListScreenWatcher();
 
+    $: screenLocked = (localConfig.screen_notices ?? []).some(n => n.list_key === $currentListKey && n.locked);
+
     const handleMenuSelect = async (e: CustomEvent<string>) => {
         if ($currentListKey === e.detail) {
             return;
@@ -62,7 +64,7 @@
 			<HtmlSection component={component}></HtmlSection>
 		{/each}
 		<a href="{$currentTableUrl}" class="acui-button acui-button-default">{i18n.editor.label.view}</a>
-		{#if !$listScreenIsReadOnly && $hasUsagePermissions }
+		{#if !$listScreenIsReadOnly && $hasUsagePermissions && !screenLocked}
 			<AcButton
 				type="primary"
 				loading={isSaving}
@@ -109,7 +111,7 @@
 			{#if $listScreenDataStore?.title && $listScreenIsReadOnly && !$listScreenIsTemplate}
 				<AcNotice type="info" styled showIcon>{@html i18n.editor.sentence.columns_read_only}</AcNotice>
 			{/if}
-			{#if $listScreenDataStore?.title && !$listScreenIsStored}
+			{#if $listScreenDataStore?.title && !$listScreenIsStored && !screenLocked}
 				<AcNotice type="info" styled showIcon>{@html i18n.notices.not_saved_settings}</AcNotice>
 			{/if}
 			{#each ListScreenSections.getSections( 'notices' ) as component}
@@ -124,7 +126,7 @@
 						bind:isSaving={isSaving}
 						config={$config}
 						bind:data={$listScreenDataStore}
-						locked={$listScreenIsReadOnly || ! $hasUsagePermissions}
+						locked={$listScreenIsReadOnly || !$hasUsagePermissions || screenLocked}
 					/>
 
 					{#if !localConfig.is_pro }

@@ -66,6 +66,7 @@ declare namespace AC.Vars.Admin.Columns {
         type: 'warning' | 'info' | 'error'
         cta_label?: string
         cta_url?: string
+        locked?: boolean
     }
 
     type AcAdminColumnsVar = {

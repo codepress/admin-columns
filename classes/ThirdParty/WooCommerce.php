@@ -43,6 +43,7 @@ class WooCommerce implements Registerable
             ),
             'cta_label' => __('Upgrade to Admin Columns Pro', 'codepress-admin-columns'),
             'cta_url'   => (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'hpos-notice'))->get_url(),
+            'locked'    => true,
         ];
 
         return $notices;

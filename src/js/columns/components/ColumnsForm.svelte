@@ -244,35 +244,41 @@
 		<div slot="body">
 			{#if data.columns.length === 0 || data.columns === null}
 				<div class="acu-p-10 acu-bg-[#F1F5F9]">
-					<div class="acu-text-center acu-font-bold">
-						<p>{i18n.editor.sentence.get_started}</p>
-					</div>
+					{#if locked}
+						<div class="acu-text-center acu-text-gray-500 acu-py-4">
+							<p>{@html i18n.editor.sentence.columns_read_only}</p>
+						</div>
+					{:else}
+						<div class="acu-text-center acu-font-bold">
+							<p>{i18n.editor.sentence.get_started}</p>
+						</div>
 
-					<div class="acu-flex acu-gap-3 acu-items-center acu-justify-center acu-pt-4 acu-pb-6">
-						<AcDropdown
-							--acui-dropdown-width="300px"
-							value
-							position="bottom-right"
-							customClass="-selectv2">
+						<div class="acu-flex acu-gap-3 acu-items-center acu-justify-center acu-pt-4 acu-pb-6">
+							<AcDropdown
+								--acui-dropdown-width="300px"
+								value
+								position="bottom-right"
+								customClass="-selectv2">
 
-							<AcButton slot="trigger">+ {i18n.editor.label.add_column}</AcButton>
-							<ColumnTypeDropdownV2
-								on:selectItem={handleSelectColumnType}
-								on:close={() => handleCloseColumnTypeDropdown(columnTypeComponent)}
+								<AcButton slot="trigger">+ {i18n.editor.label.add_column}</AcButton>
+								<ColumnTypeDropdownV2
+									on:selectItem={handleSelectColumnType}
+									on:close={() => handleCloseColumnTypeDropdown(columnTypeComponent)}
+								/>
+
+							</AcDropdown>
+
+							<AcButton
+								loading={loadingDefaultColumns}
+								--acui-loading-color="#000"
+								on:click={handleLoadDefaultColumns}
+								label={i18n.editor.label.load_default_columns}
 							/>
-
-						</AcDropdown>
-
-						<AcButton
-							loading={loadingDefaultColumns}
-							--acui-loading-color="#000"
-							on:click={handleLoadDefaultColumns}
-							label={i18n.editor.label.load_default_columns}
-						/>
-					</div>
-					<div class="acu-text-center acu-text-12px">
-						<p>{@html i18n.editor.sentence.documentation}</p>
-					</div>
+						</div>
+						<div class="acu-text-center acu-text-12px">
+							<p>{@html i18n.editor.sentence.documentation}</p>
+						</div>
+					{/if}
 				</div>
 			{/if}
 
