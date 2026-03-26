@@ -76,7 +76,7 @@ class Loader
             $integration = new $class();
 
             if ($integration->is_plugin_active()) {
-                MenuGroupFactory\Aggregate::add($integration);
+                MenuGroupFactory\Aggregate::add($integration, 5);
             }
         }
         TableIdsFactory\Aggregate::add($container->get(TableIdsFactory\BaseFactory::class));
