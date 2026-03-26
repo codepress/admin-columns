@@ -50,7 +50,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_description(): string
     {
-        return __('Inline edit order status, filter by payment method, and bulk update orders - all from this table.', 'codepress-admin-columns');
+        return __('Show any order data as a column - shipping address, payment method, customer email, order notes. Search, filter, and edit without leaving this screen.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string

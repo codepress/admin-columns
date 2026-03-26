@@ -42,12 +42,12 @@ class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_title(): string
     {
-        return __('Still opening each product to check stock or pricing?', 'codepress-admin-columns');
+        return __('Updating products one by one?', 'codepress-admin-columns');
     }
 
     public function get_description(): string
     {
-        return __('Inline edit prices and stock, filter by any field, and bulk update products - all from this table.', 'codepress-admin-columns');
+        return __('Search, filter, and bulk edit prices, stock, and attributes across hundreds of products - find exactly what you need, then update in seconds.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
