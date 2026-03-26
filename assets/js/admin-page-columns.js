@@ -4686,7 +4686,7 @@ function create_header_slot(ctx) {
   };
 }
 
-// (208:3) {#if data.columns.length === 0 || data.columns === null}
+// (208:3) {#if data.columns === null || data.columns.length === 0}
 function create_if_block_4(ctx) {
   let div;
   let current_block_type_index;
@@ -5079,7 +5079,7 @@ function create_body_slot(ctx) {
   let each_blocks = [];
   let each_1_lookup = new Map();
   let current;
-  let if_block = (/*data*/ctx[0].columns.length === 0 || /*data*/ctx[0].columns === null) && create_if_block_4(ctx);
+  let if_block = (/*data*/ctx[0].columns === null || /*data*/ctx[0].columns.length === 0) && create_if_block_4(ctx);
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(/*data*/ctx[0].columns);
   const get_key = ctx => /*column_data*/ctx[45].name;
   for (let i = 0; i < each_value.length; i += 1) {
@@ -5115,7 +5115,7 @@ function create_body_slot(ctx) {
       current = true;
     },
     p(ctx, dirty) {
-      if (/*data*/ctx[0].columns.length === 0 || /*data*/ctx[0].columns === null) {
+      if (/*data*/ctx[0].columns === null || /*data*/ctx[0].columns.length === 0) {
         if (if_block) {
           if_block.p(ctx, dirty);
           if (dirty[0] & /*data*/1) {
@@ -39089,7 +39089,7 @@ class ListScreenSections {
             return [];
         }
         let sections = ListScreenSections.sections[location].sort((a, b) => {
-            return a.priority > b.priority ? -1 : 1;
+            return a.priority - b.priority;
         });
         return sections.map(d => d.component);
     }
@@ -39507,7 +39507,10 @@ class ListScreenInitializer {
 }
 const initUninitializedListScreens = (listScreens, listKey) => {
     const initializeSideListScreens = () => {
-        new ListScreenInitializer(listScreens);
+        const sideScreens = Object.fromEntries(Object.entries(listScreens).filter(([key]) => key !== listKey));
+        if (Object.keys(sideScreens).length > 0) {
+            new ListScreenInitializer(sideScreens);
+        }
     };
     if (Object.keys(listScreens).length > 0) {
         // Only load main screen first if unitialized, otherwise do the rest in background
@@ -39672,12 +39675,7 @@ class AndSpecification {
         return new ___WEBPACK_IMPORTED_MODULE_0__["default"].Or([specification, this]);
     }
     isSatisfiedBy(value) {
-        this.specifications.forEach(specification => {
-            if (!specification.isSatisfiedBy(value)) {
-                return false;
-            }
-        });
-        return true;
+        return this.specifications.every(specification => specification.isSatisfiedBy(value));
     }
 }
 

@@ -30,7 +30,7 @@ export default class ListScreenSections {
         }
 
         let sections =  ListScreenSections.sections[location].sort((a, b) => {
-            return a.priority > b.priority ? -1 : 1;
+            return a.priority - b.priority;
         });
 
         return sections.map( d => d.component );
