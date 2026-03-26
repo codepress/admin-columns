@@ -34,9 +34,12 @@ class WooCommerce implements Registerable
         $notices[] = [
             'list_key'  => 'shop_order',
             'type'      => 'info',
-            'message'   => __(
-                'WooCommerce is using High-Performance Order Storage on your site. Columns configured here won\'t appear on the Orders screen. Upgrade to Admin Columns Pro for full order management with HPOS support.',
-                'codepress-admin-columns'
+            'message'   => sprintf(
+                __(
+                    'WooCommerce is using %s on your site. Columns configured here won\'t appear on the Orders screen. Upgrade to Admin Columns Pro for full order management with HPOS support.',
+                    'codepress-admin-columns'
+                ),
+                '<strong>' . __('High-Performance Order Storage', 'codepress-admin-columns') . '</strong>'
             ),
             'cta_label' => __('Upgrade to Admin Columns Pro', 'codepress-admin-columns'),
             'cta_url'   => (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'hpos-notice'))->get_url(),

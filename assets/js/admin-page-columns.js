@@ -6103,26 +6103,27 @@ function create_if_block_7(ctx) {
 
 // (85:4) <AcNotice type="info" styled showIcon>
 function create_default_slot_4(ctx) {
-  let t0_value = /*notice*/ctx[31].message + "";
-  let t0;
-  let t1;
+  let html_tag;
+  let raw_value = /*notice*/ctx[31].message + "";
+  let t;
   let if_block_anchor;
   let if_block = /*notice*/ctx[31].cta_url && /*notice*/ctx[31].cta_label && create_if_block_7(ctx);
   return {
     c() {
-      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
-      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      html_tag = new svelte_internal__WEBPACK_IMPORTED_MODULE_0__.HtmlTag(false);
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block) if_block.c();
       if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+      html_tag.a = t;
     },
     m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t0, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t1, anchor);
+      html_tag.m(raw_value, target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
       if (if_block) if_block.m(target, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
     },
     p(ctx, dirty) {
-      if (dirty[0] & /*$currentListKey*/16 && t0_value !== (t0_value = /*notice*/ctx[31].message + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, t0_value);
+      if (dirty[0] & /*$currentListKey*/16 && raw_value !== (raw_value = /*notice*/ctx[31].message + "")) html_tag.p(raw_value);
       if (/*notice*/ctx[31].cta_url && /*notice*/ctx[31].cta_label) {
         if (if_block) {
           if_block.p(ctx, dirty);
@@ -6138,8 +6139,8 @@ function create_default_slot_4(ctx) {
     },
     d(detaching) {
       if (detaching) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t0);
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t1);
+        html_tag.d();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(if_block_anchor);
       }
       if (if_block) if_block.d(detaching);
