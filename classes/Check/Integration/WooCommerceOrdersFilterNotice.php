@@ -8,8 +8,13 @@ use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
+class WooCommerceOrdersFilterNotice implements IntegrationNotice, UsageAwareNotice
 {
+
+    public function is_usage_detected(): bool
+    {
+        return ! empty($_GET['m']) || ! empty($_GET['_customer_user']);
+    }
 
     public function is_active(Screen $screen): bool
     {
@@ -17,12 +22,15 @@ class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
             return false;
         }
 
-        return 'edit' === $screen->get_base() && 'product' === $screen->get_post_type();
+        $is_hpos_orders = 'woocommerce_page_wc-orders' === $screen->get_id();
+        $is_legacy_orders = 'edit' === $screen->get_base() && 'shop_order' === $screen->get_post_type();
+
+        return $is_hpos_orders || $is_legacy_orders;
     }
 
     public function get_slug(): string
     {
-        return 'wc-products';
+        return 'wc-orders-filter';
     }
 
     public function get_integration_slug(): string
@@ -37,12 +45,12 @@ class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_title(): string
     {
-        return __('Updating products one by one?', 'codepress-admin-columns');
+        return __('Wish you could filter by more than this?', 'codepress-admin-columns');
     }
 
     public function get_description(): string
     {
-        return __('Search, filter, and bulk edit prices, stock, and attributes across hundreds of products - find exactly what you need, then update in seconds.', 'codepress-admin-columns');
+        return __('With Pro, filter orders by any property - payment status, custom fields, order note content. Save filters as segments you can switch between in one click.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
@@ -52,7 +60,7 @@ class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_cta_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-orders-filter'))->get_url();
     }
 
     public function get_secondary_label(): string
@@ -62,7 +70,7 @@ class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_secondary_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products-features'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-orders-filter-features'))->get_url();
     }
 
     public function get_extra_classes(): string
@@ -70,14 +78,9 @@ class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
         return '';
     }
 
-    public function is_usage_detected(): bool
-    {
-        return ! empty($_GET['orderby']) || ! empty($_GET['product_cat']) || ! empty($_GET['product_type']) || ! empty($_GET['stock_status']) || ! empty($_GET['s']);
-    }
-
     public function get_delay_days(): int
     {
-        return 2 * 14;
+        return 14 * 3;
     }
 
 }

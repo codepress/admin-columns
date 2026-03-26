@@ -78,4 +78,9 @@ class EventsCalendarNotice implements IntegrationNotice, UsageAwareNotice
         return '';
     }
 
+    public function get_delay_days(): int
+    {
+        return 14;
+    }
+
 }

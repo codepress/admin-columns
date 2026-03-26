@@ -75,4 +75,9 @@ class AcfNotice implements IntegrationNotice
         return '';
     }
 
+    public function get_delay_days(): int
+    {
+        return 14;
+    }
+
 }

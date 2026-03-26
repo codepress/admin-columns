@@ -13,7 +13,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function is_usage_detected(): bool
     {
-        return isset($_GET['orderby']) || isset($_GET['m']) || isset($_GET['_customer_user']) || isset($_GET['s']);
+        return ! empty($_GET['orderby']) || ! empty($_GET['m']) || ! empty($_GET['_customer_user']) || ! empty($_GET['s']);
     }
 
     public function is_active(Screen $screen): bool
@@ -50,7 +50,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_description(): string
     {
-        return __('Inline edit order status, filter by payment method, and bulk update orders - all from this table.', 'codepress-admin-columns');
+        return __('Show any order data as a column - shipping address, payment method, customer email, order notes. Search, filter, and edit without leaving this screen.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
@@ -76,6 +76,11 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
     public function get_extra_classes(): string
     {
         return '';
+    }
+
+    public function get_delay_days(): int
+    {
+        return 14;
     }
 
 }

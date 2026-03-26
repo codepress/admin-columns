@@ -8,26 +8,31 @@ use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class GravityFormsNotice implements IntegrationNotice
+class WooCommerceProductsSearchNotice implements IntegrationNotice, UsageAwareNotice
 {
+
+    public function is_usage_detected(): bool
+    {
+        return ! empty($_GET['s']);
+    }
 
     public function is_active(Screen $screen): bool
     {
-        if ( ! class_exists('GFCommon', false)) {
+        if ( ! class_exists('WooCommerce', false)) {
             return false;
         }
 
-        return 'forms_page_gf_entries' === $screen->get_id();
+        return 'edit' === $screen->get_base() && 'product' === $screen->get_post_type();
     }
 
     public function get_slug(): string
     {
-        return 'gravityforms';
+        return 'wc-products-search';
     }
 
     public function get_integration_slug(): string
     {
-        return 'ac-addon-gravityforms';
+        return 'ac-addon-woocommerce';
     }
 
     public function get_eyebrow(): string
@@ -37,12 +42,12 @@ class GravityFormsNotice implements IntegrationNotice
 
     public function get_title(): string
     {
-        return __('Still opening entries to edit or manage data?', 'codepress-admin-columns');
+        return __("Can't find the right products?", 'codepress-admin-columns');
     }
 
     public function get_description(): string
     {
-        return __('Edit fields inline, filter and search faster, and export your entries - all without leaving this table.', 'codepress-admin-columns');
+        return __('Pro lets you search across any product property - SKU, attributes, custom fields, even variation data. Save searches as reusable segments and switch between them in one click.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
@@ -52,7 +57,7 @@ class GravityFormsNotice implements IntegrationNotice
 
     public function get_cta_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_GRAVITYFORMS), 'notice-gravityforms'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products-search'))->get_url();
     }
 
     public function get_secondary_label(): string
@@ -62,17 +67,17 @@ class GravityFormsNotice implements IntegrationNotice
 
     public function get_secondary_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_GRAVITYFORMS), 'notice-gravityforms-features'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products-search-features'))->get_url();
     }
 
     public function get_extra_classes(): string
     {
-        return 'gf-notice';
+        return '';
     }
 
     public function get_delay_days(): int
     {
-        return 14;
+        return 3 * 14;
     }
 
 }

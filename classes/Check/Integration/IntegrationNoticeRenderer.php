@@ -16,8 +16,6 @@ use AC\View;
 class IntegrationNoticeRenderer implements Registerable
 {
 
-    private const DELAY_DAYS = 14;
-
     /**
      * @var IntegrationNotice[]
      */
@@ -56,13 +54,6 @@ class IntegrationNoticeRenderer implements Registerable
             return;
         }
 
-        // First seen notice
-        $this->state->track_first_seen($notice->get_slug());
-
-        if ( ! $this->is_ready_to_show($notice)) {
-            return;
-        }
-
         $handler = $this->create_ajax_handler($notice);
 
         add_action('admin_notices', function () use ($notice, $handler) {
@@ -79,6 +70,12 @@ class IntegrationNoticeRenderer implements Registerable
     {
         foreach ($this->notices as $notice) {
             if ($notice->is_active($screen)) {
+                $this->state->track_first_seen($notice->get_slug());
+            }
+        }
+
+        foreach ($this->notices as $notice) {
+            if ($notice->is_active($screen) && $this->is_ready_to_show($notice)) {
                 return $notice;
             }
         }
@@ -92,11 +89,15 @@ class IntegrationNoticeRenderer implements Registerable
             return false;
         }
 
+        if ($this->state->is_cooldown_active(7)) {
+            return false;
+        }
+
         if ($this->state->is_dismissed($notice->get_slug())) {
             return false;
         }
 
-        if ( ! $this->state->is_delay_met($notice->get_slug(), self::DELAY_DAYS)) {
+        if ( ! $this->state->is_delay_met($notice->get_slug(), $notice->get_delay_days())) {
             return false;
         }
 
@@ -116,6 +117,7 @@ class IntegrationNoticeRenderer implements Registerable
                 }
 
                 $this->state->dismiss($notice->get_slug());
+                $this->state->track_dismissal();
             });
 
         return $handler;

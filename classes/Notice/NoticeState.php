@@ -48,11 +48,40 @@ class NoticeState
         }
     }
 
+    /**
+     * Check if enough time has passed since the notice was first seen.
+     * Each notice defines its own delay via get_delay_days(). This prevents
+     * notices from showing immediately on new installs.
+     */
     public function is_delay_met(string $slug, int $days): bool
     {
         $first_seen = $this->get($slug, 'first-seen');
 
         return $first_seen && (time() - (int)$first_seen) >= $days * DAY_IN_SECONDS;
+    }
+
+    /**
+     * Record that a notice was just dismissed. Used together with is_cooldown_active()
+     * to suppress all integration notices for a period after any dismissal, preventing
+     * the user from seeing back-to-back notices.
+     */
+    public function track_dismissal(): void
+    {
+        $data = $this->get_data();
+        $data['_last_dismissed'] = time();
+
+        $this->save_data($data);
+    }
+
+    /**
+     * Check if a recent dismissal should suppress all notices.
+     * Returns true if any notice was dismissed less than $days ago.
+     */
+    public function is_cooldown_active(int $days): bool
+    {
+        $last = $this->get_data()['_last_dismissed'] ?? null;
+
+        return $last && (time() - (int)$last) < $days * DAY_IN_SECONDS;
     }
 
     private function get_data(): array
