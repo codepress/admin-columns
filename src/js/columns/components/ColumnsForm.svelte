@@ -242,7 +242,7 @@
 		</AcPanelHeader>
 
 		<div slot="body">
-			{#if data.columns.length === 0 || data.columns === null}
+			{#if data.columns === null || data.columns.length === 0}
 				<div class="acu-p-10 acu-bg-[#F1F5F9]">
 					{#if locked}
 						<div class="acu-text-center acu-text-gray-500 acu-py-4">

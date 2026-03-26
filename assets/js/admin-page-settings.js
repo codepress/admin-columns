@@ -24518,10 +24518,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AcServices = (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_3__.initAcServices)();
-let restoreSettingsElement = document.createElement('div');
-new _admin_settings_RestoreSettingsSection_svelte__WEBPACK_IMPORTED_MODULE_1__["default"]({
-    target: restoreSettingsElement,
-});
 document.addEventListener("DOMContentLoaded", function () {
     const Bridge = new _admin_settings_utils_page_bridge__WEBPACK_IMPORTED_MODULE_2__["default"]();
     AcServices.registerService('SettingsPage', Bridge);

@@ -6801,7 +6801,7 @@ const initPointers = (elements = null) => {
     }
     elements.forEach(element => {
         var _a;
-        let selector = `#${(_a = element.getAttribute('rel')) !== null && _a !== void 0 ? _a : '#n'}`;
+        let selector = `#${(_a = element.getAttribute('rel')) !== null && _a !== void 0 ? _a : 'n'}`;
         let relElement = document.querySelector(selector);
         if (relElement) {
             new Pointer(element, relElement);
@@ -6972,6 +6972,7 @@ class ValueModals {
     constructor(links) {
         this.links = links;
         this.component = null;
+        this.container = null;
         this.initEventHandlers();
     }
     initEventHandlers() {
@@ -6985,11 +6986,18 @@ class ValueModals {
     destroyComponent() {
         if (this.component !== null) {
             this.component.$destroy();
+            this.component = null;
+        }
+        if (this.container !== null) {
+            this.container.remove();
+            this.container = null;
         }
     }
     displayModal(id) {
+        this.destroyComponent();
         let element = document.createElement('div');
         document.body.appendChild(element);
+        this.container = element;
         this.component = new _components_ValueModal_svelte__WEBPACK_IMPORTED_MODULE_0__["default"]({
             target: element,
             props: {
@@ -7186,7 +7194,7 @@ class ActionButtonCollection {
         this.data[priority].push(button);
     }
     getById(id) {
-        this.getButtons().find(b => b.getElement().getElement().id === id);
+        return this.getButtons().find(b => b.getElement().getElement().id === id);
     }
     getButtons() {
         let result = [];
