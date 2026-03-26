@@ -44,6 +44,8 @@ class NoticeChecks implements Registerable
                         new Integration\WooCommerceOrdersSearchNotice(),
                         new Integration\WooCommerceOrdersFilterNotice(),
                         new Integration\WooCommerceOrdersNotice(),
+                        new Integration\AcfBulkEditNotice(),
+                        new Integration\AcfSortAndFilterNotice(),
                         new Integration\AcfNotice(),
                         new Integration\GravityFormsNotice(),
                         new Integration\EventsCalendarNotice(),

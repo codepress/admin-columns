@@ -8,28 +8,33 @@ use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class WooCommerceProductsBulkEditNotice implements IntegrationNotice, UsageAwareNotice
+class AcfBulkEditNotice implements IntegrationNotice, UsageAwareNotice
 {
 
     use PostEditReferrerAware;
 
     public function is_active(Screen $screen): bool
     {
-        if ( ! class_exists('WooCommerce', false)) {
+        if ( ! class_exists('acf', false) && ! class_exists('ACF', false)) {
             return false;
         }
 
-        return 'edit' === $screen->get_base() && 'product' === $screen->get_post_type();
+        return 'edit' === $screen->get_base() && ! empty($screen->get_post_type());
+    }
+
+    public function is_usage_detected(): bool
+    {
+        return $this->is_post_edit_referrer();
     }
 
     public function get_slug(): string
     {
-        return 'wc-products-bulk-edit';
+        return 'acf-bulk-edit';
     }
 
     public function get_integration_slug(): string
     {
-        return 'ac-addon-woocommerce';
+        return 'ac-addon-acf';
     }
 
     public function get_eyebrow(): string
@@ -39,15 +44,12 @@ class WooCommerceProductsBulkEditNotice implements IntegrationNotice, UsageAware
 
     public function get_title(): string
     {
-        return __('Updating products one by one?', 'codepress-admin-columns');
+        return __('Editing custom fields one post at a time?', 'codepress-admin-columns');
     }
 
     public function get_description(): string
     {
-        return __(
-            'With Pro, bulk edit prices, stock, SKUs, attributes, and custom fields across your entire selection. Need to adjust pricing? The Price Update Wizard lets you change prices by percentage or fixed value across hundreds of products in seconds.',
-            'codepress-admin-columns'
-        );
+        return __('With Pro, edit ACF fields directly from this screen - text, dates, images, relationships, and more. Update multiple posts without opening each one.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
@@ -57,7 +59,7 @@ class WooCommerceProductsBulkEditNotice implements IntegrationNotice, UsageAware
 
     public function get_cta_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products-bulk-edit'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'notice-acf-bulk-edit'))->get_url();
     }
 
     public function get_secondary_label(): string
@@ -67,7 +69,7 @@ class WooCommerceProductsBulkEditNotice implements IntegrationNotice, UsageAware
 
     public function get_secondary_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products-bulk-edit-features'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'notice-acf-bulk-edit-features'))->get_url();
     }
 
     public function get_extra_classes(): string
@@ -75,14 +77,9 @@ class WooCommerceProductsBulkEditNotice implements IntegrationNotice, UsageAware
         return '';
     }
 
-    public function is_usage_detected(): bool
-    {
-        return $this->is_post_edit_referrer();
-    }
-
     public function get_delay_days(): int
     {
-        return 0;
+        return 3;
     }
 
 }
