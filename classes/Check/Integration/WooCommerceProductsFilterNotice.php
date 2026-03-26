@@ -8,12 +8,12 @@ use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
+class WooCommerceProductsFilterNotice implements IntegrationNotice, UsageAwareNotice
 {
 
     public function is_usage_detected(): bool
     {
-        return isset($_GET['orderby']) || isset($_GET['m']) || isset($_GET['_customer_user']) || isset($_GET['s']);
+        return isset($_GET['product_cat']) || isset($_GET['product_type']) || isset($_GET['stock_status']);
     }
 
     public function is_active(Screen $screen): bool
@@ -22,15 +22,12 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
             return false;
         }
 
-        $is_hpos_orders = 'woocommerce_page_wc-orders' === $screen->get_id();
-        $is_legacy_orders = 'edit' === $screen->get_base() && 'shop_order' === $screen->get_post_type();
-
-        return $is_hpos_orders || $is_legacy_orders;
+        return 'edit' === $screen->get_base() && 'product' === $screen->get_post_type();
     }
 
     public function get_slug(): string
     {
-        return 'wc-orders';
+        return 'wc-products-filter';
     }
 
     public function get_integration_slug(): string
@@ -45,12 +42,12 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_title(): string
     {
-        return __('Still opening each order to find shipping or payment details?', 'codepress-admin-columns');
+        return __('Need to narrow down your product list?', 'codepress-admin-columns');
     }
 
     public function get_description(): string
     {
-        return __('Show any order data as a column - shipping address, payment method, customer email, order notes. Search, filter, and edit without leaving this screen.', 'codepress-admin-columns');
+        return __('With Pro, filter products by any property - stock level, attribute, custom field, price range. Save filters as segments and share them with your team.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
@@ -60,7 +57,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_cta_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-orders'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products-filter'))->get_url();
     }
 
     public function get_secondary_label(): string
@@ -70,7 +67,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_secondary_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-orders-features'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products-filter-features'))->get_url();
     }
 
     public function get_extra_classes(): string
@@ -80,7 +77,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_delay_days(): int
     {
-        return 14;
+        return 3;
     }
 
 }

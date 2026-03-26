@@ -70,4 +70,9 @@ class GravityFormsNotice implements IntegrationNotice
         return 'gf-notice';
     }
 
+    public function get_delay_days(): int
+    {
+        return 14;
+    }
+
 }

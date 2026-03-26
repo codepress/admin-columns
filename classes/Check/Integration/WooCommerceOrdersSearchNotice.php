@@ -8,12 +8,12 @@ use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
+class WooCommerceOrdersSearchNotice implements IntegrationNotice, UsageAwareNotice
 {
 
     public function is_usage_detected(): bool
     {
-        return isset($_GET['orderby']) || isset($_GET['m']) || isset($_GET['_customer_user']) || isset($_GET['s']);
+        return ! empty($_GET['s']);
     }
 
     public function is_active(Screen $screen): bool
@@ -30,7 +30,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_slug(): string
     {
-        return 'wc-orders';
+        return 'wc-orders-search';
     }
 
     public function get_integration_slug(): string
@@ -45,12 +45,12 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_title(): string
     {
-        return __('Still opening each order to find shipping or payment details?', 'codepress-admin-columns');
+        return __('Looking for a specific order?', 'codepress-admin-columns');
     }
 
     public function get_description(): string
     {
-        return __('Show any order data as a column - shipping address, payment method, customer email, order notes. Search, filter, and edit without leaving this screen.', 'codepress-admin-columns');
+        return __('Pro lets you search across any order property - payment method, shipping address, customer email, even order notes. Save your searches as reusable segments and share them with your team.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
@@ -60,7 +60,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_cta_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-orders'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-orders-search'))->get_url();
     }
 
     public function get_secondary_label(): string
@@ -70,7 +70,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_secondary_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-orders-features'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-orders-search-features'))->get_url();
     }
 
     public function get_extra_classes(): string
@@ -80,7 +80,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_delay_days(): int
     {
-        return 14;
+        return 0;
     }
 
 }

@@ -31,4 +31,6 @@ interface IntegrationNotice
 
     public function get_extra_classes(): string;
 
+    public function get_delay_days(): int;
+
 }
