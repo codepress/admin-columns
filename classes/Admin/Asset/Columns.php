@@ -192,9 +192,9 @@ class Columns extends Script
                 $plural_lower
             ),
             sprintf(
-            /* translators: %s: price (e.g. €79) */
+            /* translators: %s: price (e.g. $79) */
                 __('from %s/year', 'codepress-admin-columns'),
-                '€79'
+                Site::PRICE_STARTING
             )
         );
         $arguments['features'] = $features;
@@ -310,14 +310,14 @@ class Columns extends Script
                         'codepress-admin-columns'
                     ),
                 ],
-                'errors'   => [
+                'errors'      => [
                     'ajax_unknown'   => __('Something went wrong.', 'codepress-admin-columns'),
                     'original_exist' => __(
                         '%s column is already present and can not be duplicated.',
                         'codepress-admin-columns'
                     ),
                 ],
-                'pro'      => [
+                'pro'         => [
                     'modal'    => [
                         'title'      => __('This is a Pro feature', 'codepress-admin-columns'),
                         'subtitle'   => __(
@@ -346,7 +346,7 @@ class Columns extends Script
                             sprintf(
                             /* translators: %s: price (e.g. $79) */
                                 __('from %s/year', 'codepress-admin-columns'),
-                                '$79'
+                                Site::PRICE_STARTING
                             )
                         ),
                         'features'   => [
@@ -420,9 +420,9 @@ class Columns extends Script
                             '%s - %s',
                             __('Upgrade to Pro', 'codepress-admin-columns'),
                             sprintf(
-                            /* translators: %s: price (e.g. €79) */
+                            /* translators: %s: price (e.g. $79) */
                                 __('from %s/year', 'codepress-admin-columns'),
-                                '€79'
+                                Site::PRICE_STARTING
                             )
                         ),
                         'guarantee'            => __('30-day money-back guarantee', 'codepress-admin-columns'),
@@ -491,7 +491,7 @@ class Columns extends Script
                         ],
                     ],
                 ],
-                'notices'  => [
+                'notices'     => [
                     'unsaved_changes'       => __('You have unsaved changes', 'codepress-admin-columns'),
                     'unsaved_changes_leave' => __(
                         'If you leave this page, all unsaved changes will be lost. Are you sure you want to leave?',
@@ -519,10 +519,10 @@ class Columns extends Script
                         )
                     ),
                 ],
-                'support'  => [
+                'support'     => [
                     'title' => __('Support', 'codepress-admin-columns'),
                 ],
-                'review'   => [
+                'review'      => [
                     'happy'        => __('Missing something?', 'codepress-admin-columns'),
                     'help_improve' => __(
                         'Help us improve Admin Columns with one quick click.',
@@ -547,14 +547,14 @@ class Columns extends Script
                     'tweet'        => __('Tweet', 'codepress-admin-columns'),
 
                 ],
-                'global'   => [
+                'global'      => [
                     'search' => __('Search', 'codepress-admin-columns'),
                     'select' => __('Select', 'codepress-admin-columns'),
                 ],
-                'menu'     => [
+                'menu'        => [
                     'favorites' => __('Favorites', 'codepress-admin-columns'),
                 ],
-                'settings' => [
+                'settings'    => [
                     'label' => [
                         'column'           => __('Column', 'codepress-admin-columns'),
                         'column_info'      => __('Column Info', 'codepress-admin-columns'),
@@ -562,7 +562,7 @@ class Columns extends Script
                         'select_icon'      => __('Select Icon', 'codepress-admin-columns'),
                     ],
                 ],
-                'editor'   => [
+                'editor'      => [
                     'label'    => [
                         'save'                 => __('Save Changes', 'codepress-admin-columns'),
                         'add_column'           => __('Add Column', 'codepress-admin-columns'),

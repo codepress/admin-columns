@@ -26,6 +26,15 @@ class FieldCount implements Registerable
     public function register(): void
     {
         add_action('save_post_acf-field-group', [$this, 'invalidate']);
+        add_action('trashed_post', [$this, 'invalidate_field_group']);
+        add_action('untrashed_post', [$this, 'invalidate_field_group']);
+    }
+
+    public function invalidate_field_group(int $post_id): void
+    {
+        if ('acf-field-group' === get_post_type($post_id)) {
+            $this->invalidate();
+        }
     }
 
     public function get_count_for_post_type(string $post_type): int

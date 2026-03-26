@@ -50,9 +50,9 @@ class WooCommerce implements BannerContext
                     ? __('Take control of your products', 'codepress-admin-columns')
                     : __('Take control of your orders', 'codepress-admin-columns'),
                 sprintf(
-                /* translators: %s: price (e.g. €79) */
+                /* translators: %s: price (e.g. $79) */
                     __('from %s/year', 'codepress-admin-columns'),
-                    '€79'
+                    Site::PRICE_STARTING
                 )
             ),
             'integrations'   => [],

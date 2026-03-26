@@ -164,7 +164,7 @@ class JsonListScreenSettingsFactory
             'upgrade_cta' => sprintf(
                 '%s - %s',
                 sprintf(__('Manage your %s faster', 'codepress-admin-columns'), $plural_lower),
-                sprintf(__('from %s/year', 'codepress-admin-columns'), '€79')
+                sprintf(__('from %s/year', 'codepress-admin-columns'), Site::PRICE_STARTING)
             ),
             'features'    => [
                 [

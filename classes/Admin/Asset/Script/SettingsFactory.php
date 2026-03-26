@@ -147,9 +147,9 @@ final class SettingsFactory
                             '%s - %s',
                             __('Upgrade', 'codepress-admin-columns'),
                             sprintf(
-                            /* translators: %s: price (e.g. €79) */
+                            /* translators: %s: price (e.g. $79) */
                                 __('from %s/year', 'codepress-admin-columns'),
-                                '€79'
+                                Site::PRICE_STARTING
                             )
                         ),
                         'view_all'       => __('See all Pro features', 'codepress-admin-columns'),

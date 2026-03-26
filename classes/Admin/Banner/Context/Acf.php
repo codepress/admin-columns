@@ -88,9 +88,9 @@ class Acf implements BannerContext
                 '%s - %s',
                 __('Show ACF fields in your table', 'codepress-admin-columns'),
                 sprintf(
-                /* translators: %s: price (e.g. €79) */
+                /* translators: %s: price (e.g. $79) */
                     __('from %s/year', 'codepress-admin-columns'),
-                    '€79'
+                    Site::PRICE_STARTING
                 )
             ),
             'integrations'   => [],

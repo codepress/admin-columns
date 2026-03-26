@@ -35,10 +35,7 @@ class NoticeState
 
     public function dismiss(string $slug): void
     {
-        $data = $this->get_data();
-        $data[$slug] = ['dismissed' => true];
-
-        $this->save_data($data);
+        $this->set($slug, 'dismissed', true);
     }
 
     public function track_first_seen(string $slug): void
