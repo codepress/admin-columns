@@ -11,11 +11,6 @@ use AC\Type\Url\UtmTags;
 class WooCommerceProductsFilterNotice implements IntegrationNotice, UsageAwareNotice
 {
 
-    public function is_usage_detected(): bool
-    {
-        return isset($_GET['product_cat']) || isset($_GET['product_type']) || isset($_GET['stock_status']);
-    }
-
     public function is_active(Screen $screen): bool
     {
         if ( ! class_exists('WooCommerce', false)) {
@@ -75,9 +70,14 @@ class WooCommerceProductsFilterNotice implements IntegrationNotice, UsageAwareNo
         return '';
     }
 
+    public function is_usage_detected(): bool
+    {
+        return ! empty($_GET['product_cat']) || ! empty($_GET['product_type']) || ! empty($_GET['stock_status']);
+    }
+
     public function get_delay_days(): int
     {
-        return 3;
+        return 14;
     }
 
 }

@@ -37,6 +37,7 @@ class NoticeChecks implements Registerable
             $services->add(
                 new Integration\IntegrationNoticeRenderer(
                     [
+                        new Integration\WooCommerceProductsBulkEditNotice(),
                         new Integration\WooCommerceProductsSearchNotice(),
                         new Integration\WooCommerceProductsFilterNotice(),
                         new Integration\WooCommerceProductsNotice(),

@@ -8,7 +8,7 @@ use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
+class WooCommerceProductsBulkEditNotice implements IntegrationNotice, UsageAwareNotice
 {
 
     public function is_active(Screen $screen): bool
@@ -22,7 +22,7 @@ class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_slug(): string
     {
-        return 'wc-products';
+        return 'wc-products-bulk-edit';
     }
 
     public function get_integration_slug(): string
@@ -42,7 +42,10 @@ class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_description(): string
     {
-        return __('Search, filter, and bulk edit prices, stock, and attributes across hundreds of products - find exactly what you need, then update in seconds.', 'codepress-admin-columns');
+        return __(
+            'With Pro, bulk edit prices, stock, SKUs, attributes, and custom fields across your entire selection. Need to adjust pricing? The Price Update Wizard lets you change prices by percentage or fixed value across hundreds of products in seconds.',
+            'codepress-admin-columns'
+        );
     }
 
     public function get_cta_label(): string
@@ -52,7 +55,7 @@ class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_cta_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products-bulk-edit'))->get_url();
     }
 
     public function get_secondary_label(): string
@@ -62,7 +65,7 @@ class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_secondary_url(): string
     {
-        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products-features'))->get_url();
+        return (new UtmTags(new Site(Site::PAGE_ADDON_WOOCOMMERCE), 'notice-wc-products-bulk-edit-features'))->get_url();
     }
 
     public function get_extra_classes(): string
@@ -70,14 +73,33 @@ class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
         return '';
     }
 
+    /**
+     * Check if the HTTP referrer indicates the user just came from editing a product.
+     */
     public function is_usage_detected(): bool
     {
-        return ! empty($_GET['orderby']) || ! empty($_GET['product_cat']) || ! empty($_GET['product_type']) || ! empty($_GET['stock_status']) || ! empty($_GET['s']);
+        $referrer = $_SERVER['HTTP_REFERER'] ?? '';
+
+        if (empty($referrer)) {
+            return false;
+        }
+
+        $parsed = parse_url($referrer);
+        $path = $parsed['path'] ?? '';
+        $query = $parsed['query'] ?? '';
+
+        if ('post.php' !== basename($path)) {
+            return false;
+        }
+
+        parse_str($query, $params);
+
+        return isset($params['action'], $params['post']) && 'edit' === $params['action'];
     }
 
     public function get_delay_days(): int
     {
-        return 14;
+        return 0;
     }
 
 }

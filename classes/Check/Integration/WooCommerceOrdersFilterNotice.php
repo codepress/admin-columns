@@ -13,7 +13,7 @@ class WooCommerceOrdersFilterNotice implements IntegrationNotice, UsageAwareNoti
 
     public function is_usage_detected(): bool
     {
-        return isset($_GET['m']) || isset($_GET['_customer_user']);
+        return ! empty($_GET['m']) || ! empty($_GET['_customer_user']);
     }
 
     public function is_active(Screen $screen): bool
