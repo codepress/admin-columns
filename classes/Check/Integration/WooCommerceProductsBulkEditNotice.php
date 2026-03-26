@@ -82,7 +82,7 @@ class WooCommerceProductsBulkEditNotice implements IntegrationNotice, UsageAware
 
     public function get_delay_days(): int
     {
-        return 0;
+        return 14;
     }
 
 }

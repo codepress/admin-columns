@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Check\Integration;
 
+use AC\Acf\FieldCount;
 use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
@@ -13,13 +14,25 @@ class AcfBulkEditNotice implements IntegrationNotice, UsageAwareNotice
 
     use PostEditReferrerAware;
 
+    private FieldCount $field_count;
+
+    public function __construct(FieldCount $field_count)
+    {
+        $this->field_count = $field_count;
+    }
+
     public function is_active(Screen $screen): bool
     {
         if ( ! class_exists('acf', false) && ! class_exists('ACF', false)) {
             return false;
         }
 
-        return 'edit' === $screen->get_base() && ! empty($screen->get_post_type());
+        if ('edit' !== $screen->get_base() || empty($screen->get_post_type())) {
+            return false;
+        }
+
+        // Restrict the notice to post types that have ACF fields
+        return $this->field_count->get_count($screen->get_post_type()) >= 2;
     }
 
     public function is_usage_detected(): bool
@@ -79,7 +92,7 @@ class AcfBulkEditNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_delay_days(): int
     {
-        return 3;
+        return 28;
     }
 
 }

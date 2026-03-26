@@ -80,7 +80,7 @@ class WooCommerceOrdersFilterNotice implements IntegrationNotice, UsageAwareNoti
 
     public function get_delay_days(): int
     {
-        return 3;
+        return 14 * 3;
     }
 
 }

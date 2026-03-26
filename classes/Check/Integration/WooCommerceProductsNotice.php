@@ -77,7 +77,7 @@ class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_delay_days(): int
     {
-        return 14;
+        return 2 * 14;
     }
 
 }
