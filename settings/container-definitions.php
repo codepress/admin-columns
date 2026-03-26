@@ -63,15 +63,15 @@ return [
         ->constructorParameter(0, admin_url('options-general.php')),
     Admin\PageFactory\Columns::class          => autowire()
         ->constructorParameter(0, false),
-    Admin\Banner\BannerContextResolver::class => static function (): Admin\Banner\BannerContextResolver {
+    Admin\Banner\BannerContextResolver::class => static function (ContainerInterface $container): Admin\Banner\BannerContextResolver {
         $contexts = [];
 
         if (class_exists('WooCommerce', false)) {
-            $contexts[] = get(Admin\Banner\Context\WooCommerce::class);
+            $contexts[] = $container->get(Admin\Banner\Context\WooCommerce::class);
         }
 
         if (class_exists('acf', false)) {
-            $contexts[] = get(Admin\Banner\Context\Acf::class);
+            $contexts[] = $container->get(Admin\Banner\Context\Acf::class);
         }
 
         return new Admin\Banner\BannerContextResolver($contexts);
