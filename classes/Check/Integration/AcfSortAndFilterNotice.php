@@ -35,7 +35,7 @@ class AcfSortAndFilterNotice implements IntegrationNotice, UsageAwareNotice
 
     public function is_usage_detected(): bool
     {
-        return isset($_GET['orderby']) || ! empty($_GET['s']);
+        return ! empty($_GET['orderby']) || ! empty($_GET['s']);
     }
 
     public function get_slug(): string

@@ -11,6 +11,8 @@ use AC\Type\Url\UtmTags;
 class WooCommerceOrdersFilterNotice implements IntegrationNotice, UsageAwareNotice
 {
 
+    use WooCommerceOrdersScreenAware;
+
     public function is_usage_detected(): bool
     {
         return ! empty($_GET['m']) || ! empty($_GET['_customer_user']);
@@ -22,10 +24,7 @@ class WooCommerceOrdersFilterNotice implements IntegrationNotice, UsageAwareNoti
             return false;
         }
 
-        $is_hpos_orders = 'woocommerce_page_wc-orders' === $screen->get_id();
-        $is_legacy_orders = 'edit' === $screen->get_base() && 'shop_order' === $screen->get_post_type();
-
-        return $is_hpos_orders || $is_legacy_orders;
+        return $this->is_woocommerce_orders_screen($screen);
     }
 
     public function get_slug(): string
