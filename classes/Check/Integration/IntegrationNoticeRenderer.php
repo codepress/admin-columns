@@ -93,13 +93,7 @@ class IntegrationNoticeRenderer implements Registerable
             return false;
         }
 
-        // Contextual notices can reappear once after 90 days, then are permanently dismissed on the second dismissal.
-        // Generic notices are permanently dismissed on the first dismissal.
-        $is_dismissed = $notice instanceof UsageAwareNotice
-            ? $this->state->is_recurring_dismissed($notice->get_slug(), 2, 90)
-            : $this->state->is_dismissed($notice->get_slug());
-
-        if ($is_dismissed) {
+        if ($this->state->is_dismissed($notice->get_slug())) {
             return false;
         }
 

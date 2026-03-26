@@ -36,40 +36,9 @@ class NoticeState
     public function dismiss(string $slug): void
     {
         $data = $this->get_data();
-        $count = (int)($data[$slug]['dismiss_count'] ?? 0);
-        $data[$slug]['dismiss_count'] = $count + 1;
-        $data[$slug]['dismissed_at'] = time();
+        $data[$slug] = ['dismissed' => true];
 
         $this->save_data($data);
-    }
-
-    /**
-     * Check if a contextual notice is currently suppressed. Supports recurring
-     * dismissal: the notice reappears after $cooldown_days, up to $max total
-     * dismissals. After reaching $max, permanently dismissed.
-     * Backwards compatible with old ['dismissed' => true] format.
-     */
-    public function is_recurring_dismissed(string $slug, int $max, int $cooldown_days): bool
-    {
-        $data = $this->get_data();
-
-        if ( ! empty($data[$slug]['dismissed'])) {
-            return true;
-        }
-
-        $count = (int)($data[$slug]['dismiss_count'] ?? 0);
-
-        if ($count === 0) {
-            return false;
-        }
-
-        if ($count >= $max) {
-            return true;
-        }
-
-        $dismissed_at = (int)($data[$slug]['dismissed_at'] ?? 0);
-
-        return $dismissed_at > 0 && (time() - $dismissed_at) < $cooldown_days * DAY_IN_SECONDS;
     }
 
     public function track_first_seen(string $slug): void
