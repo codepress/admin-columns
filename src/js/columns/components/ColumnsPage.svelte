@@ -92,6 +92,14 @@
 		<div class="acu-px-4 2xl:acu-px-[50px] acp-columns-notices" data-ac-notices>
 
 			<hr class="wp-header-end">
+			{#each (localConfig.screen_notices ?? []).filter(n => n.list_key === $currentListKey) as notice}
+				<AcNotice type="info" styled showIcon>
+					{notice.message}
+					{#if notice.cta_url && notice.cta_label}
+						<a href={notice.cta_url} target="_blank"><strong>{notice.cta_label}</strong></a>
+					{/if}
+				</AcNotice>
+			{/each}
 			{#if !$listScreenIsTemplate && $listScreenDataStore && 'inactive' === $listScreenDataStore.status}
 				<AcNotice type="info" styled showIcon>
 					<span class="acu-mr-4">{@html i18n.notices.inactive}</span>

@@ -60,6 +60,14 @@ declare namespace AC.Vars.Admin.Columns {
         label: string
     }
 
+    type ScreenNotice = {
+        list_key: string
+        message: string
+        type: 'warning' | 'info' | 'error'
+        cta_label?: string
+        cta_url?: string
+    }
+
     type AcAdminColumnsVar = {
         nonce: string
         assets: string
@@ -79,6 +87,7 @@ declare namespace AC.Vars.Admin.Columns {
         },
         pro_banner?: ProBanner
         pro_banner_context?: ProBanner | null
+        screen_notices?: ScreenNotice[]
         review: {
             doc_url: string
             upgrade_url: string

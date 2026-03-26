@@ -216,6 +216,14 @@ class Columns extends Script
         return $context->get_arguments($this->table_screen);
     }
 
+    /**
+     * @return array<int, array{list_key: string, message: string, type: string, cta_label?: string, cta_url?: string}>
+     */
+    private function get_screen_notices(): array
+    {
+        return apply_filters('ac/admin/screen_notices', []);
+    }
+
     private function encode_groups(AC\Type\Groups $groups): array
     {
         $encode = [];
@@ -262,6 +270,7 @@ class Columns extends Script
             ],
             'pro_banner'                 => $this->is_pro_active ? null : $this->get_pro_modal_arguments(),
             'pro_banner_context'         => $this->is_pro_active ? null : $this->get_pro_banner_context(),
+            'screen_notices'             => $this->get_screen_notices(),
             'review'                     => [
                 'doc_url'     => (new UtmTags(new Documentation(), 'review-notice'))->get_url(),
                 'upgrade_url' => (new UtmTags(Site::create_admin_columns_pro(), 'upgrade'))->get_url(),
