@@ -187,8 +187,6 @@ class Loader
         ];
 
         if ( ! $this->is_pro_active) {
-            $classes[] = FieldSettings::class;
-            $classes[] = FieldSettingsSync::class;
             $classes[] = Service\PromoChecks::class;
             $classes[] = Service\NoticeChecks::class;
             $classes[] = PluginActionUpgrade::class;

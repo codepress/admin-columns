@@ -23,11 +23,6 @@ class IntegrationNoticeRenderer implements Registerable
      */
     private array $notices;
 
-    /**
-     * @var Ajax\Handler[]
-     */
-    private array $handlers = [];
-
     private NoticeState $state;
 
     /**
@@ -41,12 +36,13 @@ class IntegrationNoticeRenderer implements Registerable
 
     public function register(): void
     {
+        if ( ! current_user_can(Capabilities::MANAGE)) {
+            return;
+        }
+
         foreach ($this->notices as $notice) {
-            if ( ! $this->state->is_dismissed($notice->get_slug())) {
-                $handler = $this->create_ajax_handler($notice);
-                $handler->register();
-                $this->handlers[$notice->get_slug()] = $handler;
-            }
+            $handler = $this->create_ajax_handler($notice);
+            $handler->register();
         }
 
         add_action('ac/screen', [$this, 'display']);
@@ -60,19 +56,14 @@ class IntegrationNoticeRenderer implements Registerable
             return;
         }
 
-        $slug = $notice->get_slug();
-
-        $this->state->track_first_seen($slug);
+        // First seen notice
+        $this->state->track_first_seen($notice->get_slug());
 
         if ( ! $this->is_ready_to_show($notice)) {
             return;
         }
 
-        $handler = $this->handlers[$slug] ?? null;
-
-        if ( ! $handler) {
-            return;
-        }
+        $handler = $this->create_ajax_handler($notice);
 
         add_action('admin_notices', function () use ($notice, $handler) {
             echo $this->render($notice, $handler);
@@ -97,11 +88,15 @@ class IntegrationNoticeRenderer implements Registerable
 
     private function is_ready_to_show(IntegrationNotice $notice): bool
     {
-        if ( ! $this->state->is_delay_met($notice->get_slug(), self::DELAY_DAYS)) {
+        if ($notice instanceof UsageAwareNotice && ! $notice->is_usage_detected()) {
             return false;
         }
 
-        if ($notice instanceof UsageAwareNotice && ! $notice->is_usage_detected()) {
+        if ($this->state->is_dismissed($notice->get_slug())) {
+            return false;
+        }
+
+        if ( ! $this->state->is_delay_met($notice->get_slug(), self::DELAY_DAYS)) {
             return false;
         }
 

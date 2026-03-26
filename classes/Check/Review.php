@@ -38,15 +38,15 @@ final class Review implements Registerable
 
     public function display(Screen $screen): void
     {
-        if ( ! $screen->has_screen()) {
-            return;
-        }
-
         if ( ! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
-        if ( ! $screen->is_admin_screen() && ! $screen->is_table_screen()) {
+        if ( ! $screen->has_screen()) {
+            return;
+        }
+
+        if ( ! $screen->is_admin_screen()) {
             return;
         }
 

@@ -8,7 +8,7 @@ use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class EventsCalendarNotice implements IntegrationNotice
+class EventsCalendarNotice implements IntegrationNotice, UsageAwareNotice
 {
 
     public function is_active(Screen $screen): bool
@@ -19,6 +19,13 @@ class EventsCalendarNotice implements IntegrationNotice
 
         return 'edit' === $screen->get_base()
                && in_array($screen->get_post_type(), ['tribe_events', 'tribe_organizer', 'tribe_venue'], true);
+    }
+
+    public function is_usage_detected(): bool
+    {
+        $search = $_GET['s'] ?? null;
+
+        return ! empty($search);
     }
 
     public function get_slug(): string
