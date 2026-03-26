@@ -21,7 +21,7 @@ class FieldCount implements Registerable
 {
 
     private const TRANSIENT_KEY = '_ac_acf_field_counts';
-    private const TTL_SECONDS = 604800;
+    private const TTL_SECONDS = WEEK_IN_SECONDS;
 
     public function register(): void
     {
