@@ -88,11 +88,8 @@ final class WooCommerce extends Integration implements MenuGroupFactory
 
         if ($table_screen instanceof PostType) {
             $post_type = (string)$table_screen->get_post_type();
-            if (in_array(
-                $post_type,
-                ['product', 'shop_order', 'product_variation'],
-                true
-            )) {
+
+            if (in_array($post_type, ['product', 'shop_order', 'product_variation'], true)) {
                 return new MenuGroup('woocommerce', __('WooCommerce'), 13, 'cpacicon-woo');
             }
 
