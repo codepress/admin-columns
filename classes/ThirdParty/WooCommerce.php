@@ -15,9 +15,7 @@ class WooCommerce implements Registerable
     public function remove_webhook($post_types)
     {
         if (class_exists('WooCommerce', false)) {
-            if (isset($post_types['shop_webhook'])) {
-                unset($post_types['shop_webhook']);
-            }
+            unset($post_types['shop_webhook']);
         }
 
         return $post_types;
