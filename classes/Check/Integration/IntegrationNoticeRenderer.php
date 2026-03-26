@@ -93,7 +93,11 @@ class IntegrationNoticeRenderer implements Registerable
             return false;
         }
 
-        if ($this->state->is_dismissed($notice->get_slug())) {
+        $is_dismissed = $notice instanceof UsageAwareNotice
+            ? $this->state->is_recurring_dismissed($notice->get_slug(), 2, 90)
+            : $this->state->is_dismissed($notice->get_slug());
+
+        if ($is_dismissed) {
             return false;
         }
 
