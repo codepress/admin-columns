@@ -203,6 +203,7 @@ Release Date: March 24th, 2026
 
 * [Added] Word Count columns now support Before & After text to prepend or append custom text around the count.
 * [Added] Custom field column settings now display the meta key for reference.
+* [Added] ACF date save format option for custom field date columns.
 * [Improved] File columns now group attachments by file type and display multiple filenames separated by commas.
 * [Improved] Refreshed column settings sidebar with updated review and support panels.
 * [Improved] Improved Before & After display options UI.
