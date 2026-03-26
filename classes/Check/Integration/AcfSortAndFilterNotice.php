@@ -30,7 +30,7 @@ class AcfSortAndFilterNotice implements IntegrationNotice, UsageAwareNotice
         }
 
         // Restrict the notice to post types that have ACF fields
-        return $this->field_count->get_count($screen->get_post_type()) >= 2;
+        return $this->field_count->get_count_for_post_type($screen->get_post_type()) >= 2;
     }
 
     public function is_usage_detected(): bool

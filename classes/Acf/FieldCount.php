@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace AC\Acf;
 
 use AC\Acf\FieldGroup\Location;
+use AC\Acf\FieldGroup\Query;
+use AC\PostType;
 use AC\Registerable;
+use AC\TableScreen;
 
 /**
- * Provides cached ACF field counts per post type. The cache is stored as a
- * transient (1 week TTL) and invalidated automatically when ACF field groups
- * are created, updated, trashed, or restored.
- *
- * Counts are built lazily: a post type is only counted on first request,
- * then cached alongside any previously counted post types.
+ * Provides cached ACF field counts. The cache is stored as a transient
+ * (1 week TTL) and invalidated automatically when ACF field groups are
+ * created, updated, trashed, or restored.
+ * Counts are built lazily: a key is only counted on first request,
+ * then cached alongside any previously counted keys.
  */
 class FieldCount implements Registerable
 {
@@ -26,7 +28,36 @@ class FieldCount implements Registerable
         add_action('save_post_acf-field-group', [$this, 'invalidate']);
     }
 
-    public function get_count(string $post_type): int
+    public function get_count_for_post_type(string $post_type): int
+    {
+        return $this->get_count_for_query($post_type, new Location\Post($post_type));
+    }
+
+    public function get_count_for_table_screen(TableScreen $table_screen): int
+    {
+        $query = $this->create_query($table_screen);
+
+        if ( ! $query) {
+            return 0;
+        }
+
+        return $this->get_count_for_query((string)$table_screen->get_id(), $query);
+    }
+
+    private function create_query(TableScreen $table_screen): ?Query
+    {
+        if ($table_screen instanceof PostType) {
+            return new Location\Post((string)$table_screen->get_post_type());
+        }
+
+        if ($table_screen instanceof TableScreen\User) {
+            return new Location\User();
+        }
+
+        return null;
+    }
+
+    private function get_count_for_query(string $cache_key, Query $query): int
     {
         if ( ! function_exists('acf_get_field_groups') || ! function_exists('acf_get_fields')) {
             return 0;
@@ -38,12 +69,12 @@ class FieldCount implements Registerable
             $counts = [];
         }
 
-        if (array_key_exists($post_type, $counts)) {
-            return $counts[$post_type];
+        if (array_key_exists($cache_key, $counts)) {
+            return $counts[$cache_key];
         }
 
-        $count = $this->count_fields($post_type);
-        $counts[$post_type] = $count;
+        $count = $this->count_fields($query);
+        $counts[$cache_key] = $count;
 
         set_transient(self::TRANSIENT_KEY, $counts, self::TTL_SECONDS);
 
@@ -55,12 +86,11 @@ class FieldCount implements Registerable
         delete_transient(self::TRANSIENT_KEY);
     }
 
-    private function count_fields(string $post_type): int
+    private function count_fields(Query $query): int
     {
-        $location = new Location\Post($post_type);
         $count = 0;
 
-        foreach ($location->get_groups() as $group) {
+        foreach ($query->get_groups() as $group) {
             $fields = acf_get_fields($group['key']);
 
             if (is_array($fields)) {

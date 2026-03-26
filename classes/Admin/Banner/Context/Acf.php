@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Admin\Banner\Context;
 
-use AC\Acf\FieldGroup\Location;
-use AC\Acf\FieldGroup\Query;
+use AC\Acf\FieldCount;
 use AC\Admin\Banner\BannerContext;
-use AC\PostType;
 use AC\TableScreen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
@@ -15,19 +13,20 @@ use AC\Type\Url\UtmTags;
 class Acf implements BannerContext
 {
 
+    private FieldCount $field_count;
+
+    public function __construct(FieldCount $field_count)
+    {
+        $this->field_count = $field_count;
+    }
+
     public function is_active(TableScreen $table_screen): bool
     {
         if ( ! class_exists('acf', false)) {
             return false;
         }
 
-        $query = $this->create_query($table_screen);
-
-        if ( ! $query) {
-            return false;
-        }
-
-        return ! empty($query->get_groups());
+        return $this->field_count->get_count_for_table_screen($table_screen) > 0;
     }
 
     public function get_priority(): int
@@ -39,7 +38,7 @@ class Acf implements BannerContext
     {
         $upgrade_url = new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'banner-acf');
 
-        $field_count = $this->count_fields($table_screen);
+        $field_count = $this->field_count->get_count_for_table_screen($table_screen);
 
         return [
             'badge'          => __('Admin Columns Pro', 'codepress-admin-columns'),
@@ -97,40 +96,6 @@ class Acf implements BannerContext
             'integrations'   => [],
             'promo_url'      => $upgrade_url->get_url(),
         ];
-    }
-
-    private function create_query(TableScreen $table_screen): ?Query
-    {
-        if ($table_screen instanceof PostType) {
-            return new Location\Post((string)$table_screen->get_post_type());
-        }
-
-        if ($table_screen instanceof TableScreen\User) {
-            return new Location\User();
-        }
-
-        return null;
-    }
-
-    private function count_fields(TableScreen $table_screen): int
-    {
-        $query = $this->create_query($table_screen);
-
-        if ( ! $query) {
-            return 0;
-        }
-
-        $count = 0;
-
-        foreach ($query->get_groups() as $group) {
-            $fields = acf_get_fields($group['key']);
-
-            if (is_array($fields)) {
-                $count += count($fields);
-            }
-        }
-
-        return $count;
     }
 
 }
