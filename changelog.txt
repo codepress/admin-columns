@@ -11,6 +11,7 @@ Release Date: March 24th, 2026
 * [Improved] Improved Before & After display options UI.
 * [Fixed] Fixed the post link option not appearing for most property types in the Comment Post column.
 * [Fixed] Fixed the post link option not appearing for most property types in the User First Post and Last Post columns.
+* [Fixed] Fixed a potential error in user property columns when the display setting has not been saved yet.
 
 = 7.0.12 =
 Release Date: March 16th, 2026
