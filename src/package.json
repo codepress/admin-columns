@@ -37,6 +37,10 @@
         "wp-pot": "latest"
     },
     "scripts": {
+        "setup:dev": "bash scripts/setup-git.sh",
+        "assets:release": "bash scripts/assets-release.sh",
+        "assets:lock": "bash scripts/assets-lock.sh",
+        "assets:discard": "bash scripts/assets-discard.sh",
         "build": "nps build",
         "build-nolanguage": "nps build.lite",
         "ac:build:development": "nps build.development",
