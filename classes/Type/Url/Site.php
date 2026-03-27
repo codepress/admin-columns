@@ -26,7 +26,8 @@ class Site extends Type\Uri
     public const PAGE_ADDON_SEOPRESS = '/seo-press';
     public const PAGE_SUPPORT = '/documentation';
 
-    public const PRICE_STARTING = '€79';
+    public const PRICE_STARTING_EURO = '€79';
+    public const PRICE_STARTING_DOLLAR = '$79';
 
     public function __construct(?string $path = null)
     {

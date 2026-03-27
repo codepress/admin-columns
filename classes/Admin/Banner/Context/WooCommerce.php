@@ -52,7 +52,7 @@ class WooCommerce implements BannerContext
                 sprintf(
                 /* translators: %s: price (e.g. $79) */
                     __('from %s/year', 'codepress-admin-columns'),
-                    Site::PRICE_STARTING
+                    Site::PRICE_STARTING_EURO
                 )
             ),
             'integrations'   => [],

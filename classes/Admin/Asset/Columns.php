@@ -66,34 +66,34 @@ class Columns extends Script
             Script\GlobalTranslationFactory::HANDLE,
         ]);
 
-        $this->table_screen            = $table_screen;
-        $this->table_screens           = $table_screens;
-        $this->menu_items              = $menu_items;
-        $this->favorite_repository     = $favorite_repository;
+        $this->table_screen = $table_screen;
+        $this->table_screens = $table_screens;
+        $this->menu_items = $menu_items;
+        $this->favorite_repository = $favorite_repository;
         $this->table_screen_repository = $table_screen_repository;
-        $this->column_groups           = $column_groups;
-        $this->promos                  = $promos;
-        $this->parent_location         = $parent_location;
-        $this->integration_repository  = $integration_repository;
-        $this->is_pro_active           = $is_pro_active;
+        $this->column_groups = $column_groups;
+        $this->promos = $promos;
+        $this->parent_location = $parent_location;
+        $this->integration_repository = $integration_repository;
+        $this->is_pro_active = $is_pro_active;
         $this->banner_context_resolver = $banner_context_resolver;
-        $this->list_id                 = $list_id;
+        $this->list_id = $list_id;
     }
 
     public function get_pro_modal_arguments(): array
     {
-        $arguments        = [];
+        $arguments = [];
         $upgrade_page_url = new UtmTags(Site::create_admin_columns_pro(), 'banner');
 
-        $plural   = $this->table_screen->get_labels()->get_plural();
+        $plural = $this->table_screen->get_labels()->get_plural();
         $singular = $this->table_screen->get_labels()->get_singular();
 
         if (mb_strlen($plural) > 30) {
-            $plural   = __('content', 'codepress-admin-columns');
+            $plural = __('content', 'codepress-admin-columns');
             $singular = __('item', 'codepress-admin-columns');
         }
 
-        $plural_lower   = mb_strtolower($plural);
+        $plural_lower = mb_strtolower($plural);
         $singular_lower = mb_strtolower($singular);
 
         $items = [
@@ -153,7 +153,7 @@ class Columns extends Script
                 continue;
             }
 
-            $integration    = $active_integrations[$slug];
+            $integration = $active_integrations[$slug];
             $integrations[] = [
                 'url'   => (string)$integration->get_url(),
                 'label' => $integration->get_title(),
@@ -173,12 +173,12 @@ class Columns extends Script
             ];
         }
 
-        $arguments['title']        = sprintf(
+        $arguments['title'] = sprintf(
         /* translators: %s: post type label plural (e.g. "posts", "pages") */
             __('Manage your %s faster', 'codepress-admin-columns'),
             $plural_lower
         );
-        $arguments['description']  = sprintf(
+        $arguments['description'] = sprintf(
         /* translators: 1: post type label plural, 2: post type label singular */
             __(
                 'Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s.',
@@ -187,7 +187,7 @@ class Columns extends Script
             $plural_lower,
             $singular_lower
         );
-        $arguments['upgrade_cta']  = sprintf(
+        $arguments['upgrade_cta'] = sprintf(
             '%s - %s',
             sprintf(
             /* translators: %s: post type label plural (e.g. "posts", "pages") */
@@ -197,13 +197,13 @@ class Columns extends Script
             sprintf(
             /* translators: %s: price (e.g. $79) */
                 __('from %s/year', 'codepress-admin-columns'),
-                Site::PRICE_STARTING
+                Site::PRICE_STARTING_EURO
             )
         );
-        $arguments['features']     = $features;
+        $arguments['features'] = $features;
         $arguments['integrations'] = $integrations;
-        $arguments['promo_url']    = $upgrade_page_url->get_url();
-        $arguments['discount']     = 10;
+        $arguments['promo_url'] = $upgrade_page_url->get_url();
+        $arguments['discount'] = 10;
 
         return $arguments;
     }
@@ -357,7 +357,7 @@ class Columns extends Script
                             sprintf(
                             /* translators: %s: price (e.g. $79) */
                                 __('from %s/year', 'codepress-admin-columns'),
-                                Site::PRICE_STARTING
+                                Site::PRICE_STARTING_EURO
                             )
                         ),
                         'features'   => [
@@ -469,7 +469,7 @@ class Columns extends Script
                             sprintf(
                             /* translators: %s: price (e.g. $79) */
                                 __('from %s/year', 'codepress-admin-columns'),
-                                Site::PRICE_STARTING
+                                Site::PRICE_STARTING_EURO
                             )
                         ),
                         'guarantee'            => __('30-day money-back guarantee', 'codepress-admin-columns'),
@@ -687,7 +687,7 @@ class Columns extends Script
         $options = [];
 
         foreach ($this->menu_items->all() as $item) {
-            $group      = $item->get_group();
+            $group = $item->get_group();
             $group_name = $group->get_name();
 
             if ( ! isset($options[$group_name])) {
