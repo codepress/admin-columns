@@ -66,34 +66,34 @@ class Columns extends Script
             Script\GlobalTranslationFactory::HANDLE,
         ]);
 
-        $this->table_screen = $table_screen;
-        $this->table_screens = $table_screens;
-        $this->menu_items = $menu_items;
-        $this->favorite_repository = $favorite_repository;
+        $this->table_screen            = $table_screen;
+        $this->table_screens           = $table_screens;
+        $this->menu_items              = $menu_items;
+        $this->favorite_repository     = $favorite_repository;
         $this->table_screen_repository = $table_screen_repository;
-        $this->column_groups = $column_groups;
-        $this->promos = $promos;
-        $this->parent_location = $parent_location;
-        $this->integration_repository = $integration_repository;
-        $this->is_pro_active = $is_pro_active;
+        $this->column_groups           = $column_groups;
+        $this->promos                  = $promos;
+        $this->parent_location         = $parent_location;
+        $this->integration_repository  = $integration_repository;
+        $this->is_pro_active           = $is_pro_active;
         $this->banner_context_resolver = $banner_context_resolver;
-        $this->list_id = $list_id;
+        $this->list_id                 = $list_id;
     }
 
     public function get_pro_modal_arguments(): array
     {
-        $arguments = [];
+        $arguments        = [];
         $upgrade_page_url = new UtmTags(Site::create_admin_columns_pro(), 'banner');
 
-        $plural = $this->table_screen->get_labels()->get_plural();
+        $plural   = $this->table_screen->get_labels()->get_plural();
         $singular = $this->table_screen->get_labels()->get_singular();
 
         if (mb_strlen($plural) > 30) {
-            $plural = __('content', 'codepress-admin-columns');
+            $plural   = __('content', 'codepress-admin-columns');
             $singular = __('item', 'codepress-admin-columns');
         }
 
-        $plural_lower = mb_strtolower($plural);
+        $plural_lower   = mb_strtolower($plural);
         $singular_lower = mb_strtolower($singular);
 
         $items = [
@@ -153,7 +153,7 @@ class Columns extends Script
                 continue;
             }
 
-            $integration = $active_integrations[$slug];
+            $integration    = $active_integrations[$slug];
             $integrations[] = [
                 'url'   => (string)$integration->get_url(),
                 'label' => $integration->get_title(),
@@ -173,18 +173,21 @@ class Columns extends Script
             ];
         }
 
-        $arguments['title'] = sprintf(
+        $arguments['title']        = sprintf(
         /* translators: %s: post type label plural (e.g. "posts", "pages") */
             __('Manage your %s faster', 'codepress-admin-columns'),
             $plural_lower
         );
-        $arguments['description'] = sprintf(
+        $arguments['description']  = sprintf(
         /* translators: 1: post type label plural, 2: post type label singular */
-            __('Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s.', 'codepress-admin-columns'),
+            __(
+                'Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s.',
+                'codepress-admin-columns'
+            ),
             $plural_lower,
             $singular_lower
         );
-        $arguments['upgrade_cta'] = sprintf(
+        $arguments['upgrade_cta']  = sprintf(
             '%s - %s',
             sprintf(
             /* translators: %s: post type label plural (e.g. "posts", "pages") */
@@ -197,10 +200,10 @@ class Columns extends Script
                 Site::PRICE_STARTING
             )
         );
-        $arguments['features'] = $features;
+        $arguments['features']     = $features;
         $arguments['integrations'] = $integrations;
-        $arguments['promo_url'] = $upgrade_page_url->get_url();
-        $arguments['discount'] = 10;
+        $arguments['promo_url']    = $upgrade_page_url->get_url();
+        $arguments['discount']     = 10;
 
         return $arguments;
     }
@@ -277,7 +280,10 @@ class Columns extends Script
             ],
             'support'                    => [
                 'description' => sprintf(
-                    __("For full documentation, bug reports, feature suggestions and other tips visit %s.", 'codepress-admin-columns'),
+                    __(
+                        "For full documentation, bug reports, feature suggestions and other tips visit %s.",
+                        'codepress-admin-columns'
+                    ),
                     sprintf(
                         '<a target="_blank" href="%s">%s</a>',
                         (new UtmTags(new Documentation()))->get_url(),
@@ -313,11 +319,7 @@ class Columns extends Script
             'ac_admin_columns_i18n',
             new Script\Localize\Translation([
                 'table_views' => [
-                    'delete_view'    => __('Delete view', 'codepress-admin-columns'),
-                    'delete_message' => __(
-                        "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop",
-                        'codepress-admin-columns'
-                    ),
+                    'delete_view' => __('Delete view', 'codepress-admin-columns'),
                 ],
                 'errors'      => [
                     'ajax_unknown'   => __('Something went wrong.', 'codepress-admin-columns'),
@@ -361,44 +363,80 @@ class Columns extends Script
                         'features'   => [
                             'inline_edit' => [
                                 'badge'       => __('Inline Editing is a Pro feature', 'codepress-admin-columns'),
-                                'headline'    => __('Edit content directly in the list table', 'codepress-admin-columns'),
-                                'description' => __('Click any cell to edit - no need to open each item individually. Works with custom fields, taxonomies, and more.', 'codepress-admin-columns'),
-                                'label'       => __('Edit content directly in the list table', 'codepress-admin-columns'),
+                                'headline'    => __(
+                                    'Edit content directly in the list table',
+                                    'codepress-admin-columns'
+                                ),
+                                'description' => __(
+                                    'Click any cell to edit - no need to open each item individually. Works with custom fields, taxonomies, and more.',
+                                    'codepress-admin-columns'
+                                ),
+                                'label'       => __(
+                                    'Edit content directly in the list table',
+                                    'codepress-admin-columns'
+                                ),
                             ],
                             'bulk_edit'   => [
                                 'badge'       => __('Bulk Editing is a Pro feature', 'codepress-admin-columns'),
                                 'headline'    => __('Edit hundreds of items at once', 'codepress-admin-columns'),
-                                'description' => __('Select multiple items and update them in one go - change statuses, categories, custom fields, and more.', 'codepress-admin-columns'),
+                                'description' => __(
+                                    'Select multiple items and update them in one go - change statuses, categories, custom fields, and more.',
+                                    'codepress-admin-columns'
+                                ),
                                 'label'       => __('Bulk edit hundreds of items at once', 'codepress-admin-columns'),
                             ],
                             'sorting'     => [
                                 'badge'       => __('Sorting is a Pro feature', 'codepress-admin-columns'),
-                                'headline'    => __('Sort and filter your content by any column', 'codepress-admin-columns'),
-                                'description' => __('Instantly find what you need - sort by any column and filter by custom fields, dates, statuses, and more.', 'codepress-admin-columns'),
+                                'headline'    => __(
+                                    'Sort and filter your content by any column',
+                                    'codepress-admin-columns'
+                                ),
+                                'description' => __(
+                                    'Instantly find what you need - sort by any column and filter by custom fields, dates, statuses, and more.',
+                                    'codepress-admin-columns'
+                                ),
                                 'label'       => __('Sort and filter by any column', 'codepress-admin-columns'),
                             ],
                             'filter'      => [
                                 'badge'       => __('Filtering is a Pro feature', 'codepress-admin-columns'),
-                                'headline'    => __('Sort and filter your content by any column', 'codepress-admin-columns'),
-                                'description' => __('Instantly find what you need - sort by any column and filter by custom fields, dates, statuses, and more.', 'codepress-admin-columns'),
+                                'headline'    => __(
+                                    'Sort and filter your content by any column',
+                                    'codepress-admin-columns'
+                                ),
+                                'description' => __(
+                                    'Instantly find what you need - sort by any column and filter by custom fields, dates, statuses, and more.',
+                                    'codepress-admin-columns'
+                                ),
                                 'label'       => __('Sort and filter by any column', 'codepress-admin-columns'),
                             ],
                             'search'      => [
                                 'badge'       => __('Smart Filtering is a Pro feature', 'codepress-admin-columns'),
-                                'headline'    => __('Filter your content with saved filters', 'codepress-admin-columns'),
-                                'description' => __('Create smart filters combining multiple conditions. Save them as segments and reuse them with one click.', 'codepress-admin-columns'),
+                                'headline'    => __(
+                                    'Filter your content with saved filters',
+                                    'codepress-admin-columns'
+                                ),
+                                'description' => __(
+                                    'Create smart filters combining multiple conditions. Save them as segments and reuse them with one click.',
+                                    'codepress-admin-columns'
+                                ),
                                 'label'       => __('Smart filters with saved segments', 'codepress-admin-columns'),
                             ],
                             'export'      => [
                                 'badge'       => __('Export is a Pro feature', 'codepress-admin-columns'),
                                 'headline'    => __('Export your list table data to CSV', 'codepress-admin-columns'),
-                                'description' => __('Export exactly what you see - your columns, your filters, your data. Ready for spreadsheets or further processing.', 'codepress-admin-columns'),
+                                'description' => __(
+                                    'Export exactly what you see - your columns, your filters, your data. Ready for spreadsheets or further processing.',
+                                    'codepress-admin-columns'
+                                ),
                                 'label'       => __('Export table data to CSV', 'codepress-admin-columns'),
                             ],
                             'list_tables' => [
                                 'badge'       => __('Column Sets is a Pro feature', 'codepress-admin-columns'),
                                 'headline'    => __('Create multiple table views', 'codepress-admin-columns'),
-                                'description' => __('Set up different column configurations for different tasks. Switch between views with one click.', 'codepress-admin-columns'),
+                                'description' => __(
+                                    'Set up different column configurations for different tasks. Switch between views with one click.',
+                                    'codepress-admin-columns'
+                                ),
                                 'label'       => __('Multiple table views per screen', 'codepress-admin-columns'),
                             ],
                         ],
@@ -649,7 +687,7 @@ class Columns extends Script
         $options = [];
 
         foreach ($this->menu_items->all() as $item) {
-            $group = $item->get_group();
+            $group      = $item->get_group();
             $group_name = $group->get_name();
 
             if ( ! isset($options[$group_name])) {
