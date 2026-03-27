@@ -12,7 +12,6 @@
     let available: IntegrationItem[] = [];
     let enabled: IntegrationItem[] = [];
 
-
     fetchIntegrations().then(r => {
         integrations = r.data.data.integrations
 

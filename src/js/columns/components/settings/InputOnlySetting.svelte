@@ -31,6 +31,6 @@
 		locked={disabled}
 		bind:data={data}
 		settings={setting.children}
-		parent={inputSetting.input ? inputSetting.input.name : null}
+		parent={inputSetting.input ? inputSetting.input.name : ''}
 	/>
 {/if}

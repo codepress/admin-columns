@@ -39,8 +39,9 @@ class Addons extends Script
         $translation = new Script\Localize\Translation([
             'plugin_installed'    => __('The Add-on %s is activated.', 'codepress-admin-columns'),
             'plugin_not_detected' => __('Plugin not detected', 'codepress-admin-columns'),
+            'plugin_detected'     => __('Detected on your site', 'codepress-admin-columns'),
             'enable_integration'  => __('Enable Integration', 'codepress-admin-columns'),
-            'buy_now'             => __('Unlock with Pro', 'codepress-admin-columns'),
+            'buy_now'             => __('Unlock with Pro →', 'codepress-admin-columns'),
             'learn_more'          => __('Learn more', 'codepress-admin-columns'),
             'subtitle'            => __('Connect Admin Columns with the plugins you already use. Display, edit, filter, sort, and export their data - all from the list table.', 'codepress-admin-columns'),
             'title'               => [
