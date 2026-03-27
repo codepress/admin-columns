@@ -64,9 +64,9 @@
 				</div>
 			{/if}
 		{:else}
-			<div>
+			<div class="acu-text-center">
 				<AcButton iconLeft="lock" iconLeftPack="dashicons" type="pink" label="{i18n.buy_now}"
-					customClass="acu-block acu-w-full" href={addons.buy_url} target="_blank"/>
+					href={addons.buy_url} target="_blank"/>
 			</div>
 		{/if}
 	</div>

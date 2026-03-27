@@ -446,7 +446,6 @@ function create_else_block_1(ctx) {
       iconLeftPack: "dashicons",
       type: "pink",
       label: /*i18n*/ctx[5].buy_now,
-      customClass: "acu-block acu-w-full",
       href: /*addons*/ctx[4].buy_url,
       target: "_blank"
     }
@@ -455,6 +454,7 @@ function create_else_block_1(ctx) {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acbutton.$$.fragment);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acu-text-center");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
