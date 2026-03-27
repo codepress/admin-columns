@@ -90,7 +90,7 @@ class AcfSortAndFilterNotice implements IntegrationNotice, UsageAwareNotice
 
     public function get_delay_days(): int
     {
-        return 56;
+        return 14;
     }
 
 }
