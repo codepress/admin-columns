@@ -27,5 +27,17 @@ if [ "$count" -gt 0 ]; then
 fi
 echo ""
 
+echo "Installing post-checkout hook..."
+echo "(assume-unchanged is automatically restored after branch switches)"
+hook="$AC_ROOT/.git/hooks/post-checkout"
+cat > "$hook" << EOF
+#!/bin/sh
+# Re-apply assume-unchanged on assets after branch switch.
+cd '$AC_ROOT/src' && npm run assets:lock 2>/dev/null || true
+EOF
+chmod +x "$hook"
+echo "  ✓ admin-columns (post-checkout hook)"
+echo ""
+
 echo "To commit assets: npm run assets:release"
 echo "To re-lock after commit: npm run assets:lock"
