@@ -11,6 +11,7 @@ type InlineVarAcAddons = {
 
 type LocalizedAddonsI18n = {
     plugin_installed: string,
+    plugin_detected: string,
     plugin_not_detected: string,
     enable_integration: string,
     learn_more: string,

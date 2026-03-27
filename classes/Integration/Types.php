@@ -15,12 +15,15 @@ final class Types extends Integration
             'ac-addon-types',
             __('Toolset Types', 'codepress-admin-columns'),
             'assets/images/addons/toolset-types.png',
-            __(
-                'Bring Toolset custom fields and post relationships into the list table. Sort and filter by any Toolset field, and edit values directly without switching screens.',
-                'codepress-admin-columns'
-            ),
+            __('Manage Toolset data directly from the list table.', 'codepress-admin-columns'),
             null,
-            new Site(Site::PAGE_ADDON_TOOLSET_TYPES)
+            new Site(Site::PAGE_ADDON_TOOLSET_TYPES),
+            [
+                __('Display custom fields and relationships as columns', 'codepress-admin-columns'),
+                __('Sort and filter by any Toolset field', 'codepress-admin-columns'),
+                __('Edit values directly without switching screens', 'codepress-admin-columns'),
+            ],
+            __('Best for sites built with Toolset custom fields and post relationships.', 'codepress-admin-columns')
         );
     }
 

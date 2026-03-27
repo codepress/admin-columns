@@ -20,12 +20,15 @@ final class EventsCalendar extends Integration implements MenuGroupFactory
             'ac-addon-events-calendar',
             __('Events Calendar', 'codepress-admin-columns'),
             'assets/images/addons/events-calendar.png',
-            __(
-                'See event dates, venues, organizers, and ticket data at a glance. Sort by date, filter by venue, and bulk edit event details without opening each event individually.',
-                'codepress-admin-columns'
-            ),
+            __('Manage event data directly from the list table.', 'codepress-admin-columns'),
             null,
-            new Site(Site::PAGE_ADDON_EVENTS_CALENDAR)
+            new Site(Site::PAGE_ADDON_EVENTS_CALENDAR),
+            [
+                __('Display event dates, venues, and organizers as columns', 'codepress-admin-columns'),
+                __('Sort and filter events by any field', 'codepress-admin-columns'),
+                __('Edit event details without opening each event', 'codepress-admin-columns'),
+            ],
+            __('Best for teams organizing events, venues, and schedules.', 'codepress-admin-columns')
         );
     }
 

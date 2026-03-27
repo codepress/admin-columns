@@ -13,6 +13,8 @@ export interface IntegrationItem {
     description: string
     plugin_logo: string
     plugin_link: string
+    features: string[]
+    audience: string
 }
 
 type FetchIntegrationsResponse = {

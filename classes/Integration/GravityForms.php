@@ -19,12 +19,15 @@ final class GravityForms extends Integration implements MenuGroupFactory
             'ac-addon-gravityforms',
             'Gravity Forms',
             'assets/images/addons/gravityforms.svg',
-            __(
-                'Turn your Gravity Forms entries into a sortable, filterable table. Review submissions, update entry fields inline, and export filtered results to CSV for reporting.',
-                'codepress-admin-columns'
-            ),
+            __('Manage form entries directly from the list table.', 'codepress-admin-columns'),
             null,
-            new Site(Site::PAGE_ADDON_GRAVITYFORMS)
+            new Site(Site::PAGE_ADDON_GRAVITYFORMS),
+            [
+                __('Display form entry fields as sortable columns', 'codepress-admin-columns'),
+                __('Filter entries by any submitted field value', 'codepress-admin-columns'),
+                __('Edit entry data without opening each submission', 'codepress-admin-columns'),
+            ],
+            __('Best for teams processing form submissions, leads, or survey responses.', 'codepress-admin-columns')
         );
     }
 

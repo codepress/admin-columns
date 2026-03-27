@@ -20,13 +20,20 @@ abstract class Integration
 
     private string $description;
 
+    /** @var string[] */
+    private array $features;
+
+    private string $audience;
+
     public function __construct(
         string $slug,
         string $title,
         string $logo,
         string $description,
         ?Url $plugin_link = null,
-        ?Url $url = null
+        ?Url $url = null,
+        array $features = [],
+        string $audience = ''
     ) {
         if (null === $plugin_link) {
             $plugin_link = new Url\PluginSearch($title);
@@ -42,6 +49,8 @@ abstract class Integration
         $this->description = $description;
         $this->plugin_link = $plugin_link;
         $this->url = $url;
+        $this->features = $features;
+        $this->audience = $audience;
     }
 
     abstract public function is_plugin_active(): bool;
@@ -76,6 +85,19 @@ abstract class Integration
     public function get_plugin_link(): string
     {
         return $this->plugin_link->get_url();
+    }
+
+    /**
+     * @return string[]
+     */
+    public function get_features(): array
+    {
+        return $this->features;
+    }
+
+    public function get_audience(): string
+    {
+        return $this->audience;
     }
 
     /**

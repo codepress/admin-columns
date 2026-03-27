@@ -15,12 +15,15 @@ final class SeoPress extends Integration
             'ac-addon-seopress',
             'SeoPress',
             'assets/images/addons/seopress.svg',
-            __(
-                'Add SeoPress titles, descriptions, and scores to your post list table. Spot missing metadata at a glance and fix it inline - no need to open each post.',
-                'codepress-admin-columns'
-            ),
+            __('Manage SEO data directly from the list table.', 'codepress-admin-columns'),
             null,
-            new Site(Site::PAGE_ADDON_SEOPRESS)
+            new Site(Site::PAGE_ADDON_SEOPRESS),
+            [
+                __('Display SEO titles, descriptions, and scores as columns', 'codepress-admin-columns'),
+                __('Filter content by SEO metadata', 'codepress-admin-columns'),
+                __('Edit SEO fields without opening each post', 'codepress-admin-columns'),
+            ],
+            __('Best for content teams managing on-page SEO with SeoPress.', 'codepress-admin-columns')
         );
     }
 

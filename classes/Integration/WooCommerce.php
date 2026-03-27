@@ -20,12 +20,15 @@ final class WooCommerce extends Integration implements MenuGroupFactory
             'ac-addon-woocommerce',
             __('WooCommerce', 'codepress-admin-columns'),
             'assets/images/addons/woocommerce-icon.png',
-            __(
-                'Manage products, orders, coupons, and subscriptions from one screen. Bulk edit prices, stock, and SKUs. Filter orders by any field, then export the results to CSV in one click.',
-                'codepress-admin-columns'
-            ),
+            __('Manage your store data directly from the list table.', 'codepress-admin-columns'),
             null,
-            new Site(Site::PAGE_ADDON_WOOCOMMERCE)
+            new Site(Site::PAGE_ADDON_WOOCOMMERCE),
+            [
+                __('Display product, order, and subscription data as columns', 'codepress-admin-columns'),
+                __('Filter and sort by any WooCommerce field', 'codepress-admin-columns'),
+                __('Edit prices, stock, and SKUs without opening each item', 'codepress-admin-columns'),
+            ],
+            __('Best for store owners managing products, orders, and inventory at scale.', 'codepress-admin-columns')
         );
     }
 

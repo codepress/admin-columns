@@ -20,12 +20,15 @@ final class JetEngine extends Integration implements MenuGroupFactory
             'ac-addon-jetengine',
             'JetEngine',
             'assets/images/addons/jetengine.svg?v3',
-            __(
-                'Display and manage JetEngine custom fields, relations, and meta data in any list table. Edit, filter, and sort JetEngine content the same way you manage native WordPress data.',
-                'codepress-admin-columns'
-            ),
+            __('Manage JetEngine data directly from the list table.', 'codepress-admin-columns'),
             new External('https://crocoblock.com/plugins/jetengine/'),
-            new Site(Site::PAGE_ADDON_JETENGINE)
+            new Site(Site::PAGE_ADDON_JETENGINE),
+            [
+                __('Display custom fields and relations as columns', 'codepress-admin-columns'),
+                __('Sort and filter by any JetEngine field', 'codepress-admin-columns'),
+                __('Edit field values without opening each item', 'codepress-admin-columns'),
+            ],
+            __('Best for developers building dynamic sites with custom content types.', 'codepress-admin-columns')
         );
     }
 

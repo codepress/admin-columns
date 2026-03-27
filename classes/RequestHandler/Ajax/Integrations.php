@@ -54,6 +54,8 @@ class Integrations implements RequestAjaxHandler
             'plugin_logo'   => $integration->get_logo(),
             'plugin_link'   => $integration->get_plugin_link(),
             'active'        => $active,
+            'features'      => $integration->get_features(),
+            'audience'      => $integration->get_audience(),
         ];
     }
 

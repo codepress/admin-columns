@@ -19,12 +19,15 @@ final class MetaBox extends Integration implements MenuGroupFactory
             'ac-addon-metabox',
             __('Meta Box', 'codepress-admin-columns'),
             'assets/images/addons/metabox.svg',
-            __(
-                'Display Meta Box fields as sortable, editable columns. Filter by custom fields, bulk update values, and manage your Meta Box content from a single overview.',
-                'codepress-admin-columns'
-            ),
+            __('Manage Meta Box data directly from the list table.', 'codepress-admin-columns'),
             null,
-            new Site(Site::PAGE_ADDON_METABOX)
+            new Site(Site::PAGE_ADDON_METABOX),
+            [
+                __('Display Meta Box fields as sortable columns', 'codepress-admin-columns'),
+                __('Filter and sort by any custom field', 'codepress-admin-columns'),
+                __('Bulk update field values from a single overview', 'codepress-admin-columns'),
+            ],
+            __('Best for developers managing structured content with Meta Box.', 'codepress-admin-columns')
         );
     }
 

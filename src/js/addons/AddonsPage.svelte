@@ -43,7 +43,7 @@
 					<Integrations integrations={enabled} pro={pro} title="{i18n.title.enabled}"/>
 				{/if}
 				{#if recommended.length > 0}
-					<Integrations integrations={recommended} pro={pro} title="{i18n.title.recommended}"/>
+					<Integrations integrations={recommended} pro={pro} title="{i18n.title.recommended}" recommended={true}/>
 				{/if}
 				{#if available.length > 0}
 					<Integrations integrations={available} pro={pro} title="{i18n.title.available}"/>

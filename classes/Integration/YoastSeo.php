@@ -15,12 +15,15 @@ final class YoastSeo extends Integration
             'ac-addon-yoast-seo',
             'Yoast SEO',
             'assets/images/addons/yoast-seo.png',
-            __(
-                'View Yoast focus keywords, readability scores, and SEO status directly in the list table. Filter by score to find underperforming content, then update SEO fields inline.',
-                'codepress-admin-columns'
-            ),
+            __('Manage SEO data directly from the list table.', 'codepress-admin-columns'),
             null,
-            new Site(Site::PAGE_ADDON_YOAST_SEO)
+            new Site(Site::PAGE_ADDON_YOAST_SEO),
+            [
+                __('Display focus keywords and readability scores as columns', 'codepress-admin-columns'),
+                __('Filter by score to find underperforming content', 'codepress-admin-columns'),
+                __('Update SEO fields without opening each post', 'codepress-admin-columns'),
+            ],
+            __('Best for content teams managing SEO with Yoast.', 'codepress-admin-columns')
         );
     }
 

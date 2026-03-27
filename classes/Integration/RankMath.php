@@ -15,12 +15,15 @@ final class RankMath extends Integration
             'ac-addon-rankmath',
             'RankMath',
             'assets/images/addons/rank-math.svg',
-            __(
-                'See your SEO data where you manage your content. View focus keywords, SEO scores, and schema status as columns - then filter and sort to find pages that need attention.',
-                'codepress-admin-columns'
-            ),
+            __('Manage SEO data directly from the list table.', 'codepress-admin-columns'),
             null,
-            new Site(Site::PAGE_ADDON_RANK_MATH)
+            new Site(Site::PAGE_ADDON_RANK_MATH),
+            [
+                __('Display focus keywords and SEO scores as columns', 'codepress-admin-columns'),
+                __('Filter content by SEO score or status', 'codepress-admin-columns'),
+                __('Spot underperforming pages at a glance', 'codepress-admin-columns'),
+            ],
+            __('Best for content teams optimizing search rankings with RankMath.', 'codepress-admin-columns')
         );
     }
 

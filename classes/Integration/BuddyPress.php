@@ -19,12 +19,15 @@ final class BuddyPress extends Integration implements MenuGroupFactory
             'ac-addon-buddypress',
             __('BuddyPress', 'codepress-admin-columns'),
             'assets/images/addons/buddypress.png',
-            __(
-                'Add BuddyPress profile fields, registration dates, and group data to your member and group tables. Filter by any field to find exactly the members you need.',
-                'codepress-admin-columns'
-            ),
+            __('Manage community data directly from the list table.', 'codepress-admin-columns'),
             null,
-            new Site(Site::PAGE_ADDON_BUDDYPRESS)
+            new Site(Site::PAGE_ADDON_BUDDYPRESS),
+            [
+                __('Display profile fields and group data as columns', 'codepress-admin-columns'),
+                __('Filter members by any BuddyPress field', 'codepress-admin-columns'),
+                __('Edit member data without opening each profile', 'codepress-admin-columns'),
+            ],
+            __('Best for community managers overseeing members and groups.', 'codepress-admin-columns')
         );
     }
 

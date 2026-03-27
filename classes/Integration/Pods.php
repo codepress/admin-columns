@@ -15,12 +15,15 @@ final class Pods extends Integration
             'ac-addon-pods',
             __('Pods', 'codepress-admin-columns'),
             'assets/images/addons/pods.png',
-            __(
-                'Show your Pods fields as list table columns. Inline edit field values, filter by any Pod field, and keep your custom content types organized at scale.',
-                'codepress-admin-columns'
-            ),
+            __('Manage Pods data directly from the list table.', 'codepress-admin-columns'),
             null,
-            new Site(Site::PAGE_ADDON_PODS)
+            new Site(Site::PAGE_ADDON_PODS),
+            [
+                __('Display Pod fields as sortable columns', 'codepress-admin-columns'),
+                __('Filter content by any Pod field value', 'codepress-admin-columns'),
+                __('Edit field values without switching screens', 'codepress-admin-columns'),
+            ],
+            __('Best for developers managing custom content types with Pods.', 'codepress-admin-columns')
         );
     }
 

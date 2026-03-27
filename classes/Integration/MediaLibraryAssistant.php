@@ -19,12 +19,15 @@ final class MediaLibraryAssistant extends Integration implements MenuGroupFactor
             'ac-addon-media-library-assistant',
             __('Media Library Assistant', 'codepress-admin-columns'),
             'assets/images/addons/mla.png',
-            __(
-                'Take control of large media libraries. Add ALT text, captions, and custom metadata as columns - then filter, sort, and bulk update across thousands of files.',
-                'codepress-admin-columns'
-            ),
+            __('Manage media metadata directly from the list table.', 'codepress-admin-columns'),
             null,
-            new Site(Site::PAGE_ADDONS)
+            new Site(Site::PAGE_ADDONS),
+            [
+                __('Display ALT text, captions, and metadata as columns', 'codepress-admin-columns'),
+                __('Filter and sort across large media libraries', 'codepress-admin-columns'),
+                __('Bulk update media details from a single overview', 'codepress-admin-columns'),
+            ],
+            __('Best for teams managing large media libraries with detailed metadata.', 'codepress-admin-columns')
         );
     }
 
