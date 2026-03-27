@@ -34,30 +34,31 @@ class WooCommerce implements BannerContext
         $is_product = $this->get_screen_type($table_screen) === 'product';
 
         return [
-            'badge'          => __('Admin Columns Pro', 'codepress-admin-columns'),
-            'title'          => $is_product
+            'badge'             => __('Admin Columns Pro', 'codepress-admin-columns'),
+            'title'             => $is_product
                 ? __('Manage your products faster', 'codepress-admin-columns')
                 : __('Manage your orders faster', 'codepress-admin-columns'),
-            'description'    => $is_product
+            'description'       => $is_product
                 ? __('Your product list is more than a list. With Pro, it becomes a workspace where you can view, edit, filter, and export every product detail - without opening a single product.', 'codepress-admin-columns')
                 : __('Stop clicking into orders to find what you need. Pro turns your order list into a filterable, sortable, exportable overview - built for the way you actually manage orders.', 'codepress-admin-columns'),
-            'features_label' => __('With Pro you get', 'codepress-admin-columns'),
-            'features'       => $is_product
+            'features_label'    => __('With Pro you get', 'codepress-admin-columns'),
+            'features'          => $is_product
                 ? $this->get_product_features($upgrade_url)
                 : $this->get_order_features($upgrade_url),
-            'upgrade_cta'    => sprintf(
-                '%s - %s',
-                $is_product
-                    ? __('Take control of your products', 'codepress-admin-columns')
-                    : __('Take control of your orders', 'codepress-admin-columns'),
+            'upgrade_cta'       => $is_product
+                ? __('Take control of your products', 'codepress-admin-columns')
+                : __('Filter, edit & manage your orders', 'codepress-admin-columns'),
+            'upgrade_cta_price' => sprintf(
+                '%s · %s',
                 sprintf(
                 /* translators: %s: price (e.g. $79) */
                     __('from %s/year', 'codepress-admin-columns'),
                     StartingPrice::get()
-                )
+                ),
+                __('all features included', 'codepress-admin-columns')
             ),
-            'integrations'   => [],
-            'promo_url'      => $upgrade_url->get_url(),
+            'integrations'      => [],
+            'promo_url'         => $upgrade_url->get_url(),
         ];
     }
 

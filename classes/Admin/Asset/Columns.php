@@ -14,8 +14,8 @@ use AC\Table\TableScreenCollection;
 use AC\Table\TableScreenRepository\SortByLabel;
 use AC\TableScreen;
 use AC\Type\ListScreenId;
-use AC\Type\Url\Documentation;
 use AC\Type\StartingPrice;
+use AC\Type\Url\Documentation;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
@@ -189,17 +189,14 @@ class Columns extends Script
             $singular_lower
         );
         $arguments['upgrade_cta'] = sprintf(
-            '%s - %s',
-            sprintf(
-            /* translators: %s: post type label plural (e.g. "posts", "pages") */
-                __('Manage your %s faster', 'codepress-admin-columns'),
-                $plural_lower
-            ),
-            sprintf(
-            /* translators: %s: price (e.g. $79) */
-                __('from %s/year', 'codepress-admin-columns'),
-                StartingPrice::get()
-            )
+        /* translators: %s: post type label plural (e.g. "posts", "pages") */
+            __('Unlock faster %s management ', 'codepress-admin-columns'),
+            $singular_lower
+        );
+        $arguments['upgrade_cta_price'] = sprintf(
+        /* translators: %s: price (e.g. $79) */
+            __('from %s/year', 'codepress-admin-columns'),
+            StartingPrice::get()
         );
         $arguments['features'] = $features;
         $arguments['integrations'] = $integrations;
@@ -464,14 +461,11 @@ class Columns extends Script
                                 '4.9'
                             )
                         ),
-                        'upgrade_cta'          => sprintf(
-                            '%s - %s',
-                            __('Upgrade to Pro', 'codepress-admin-columns'),
-                            sprintf(
-                            /* translators: %s: price (e.g. $79) */
-                                __('from %s/year', 'codepress-admin-columns'),
-                                StartingPrice::get()
-                            )
+                        'upgrade_cta'          => __('Upgrade to Pro', 'codepress-admin-columns'),
+                        'upgrade_cta_price'    => sprintf(
+                        /* translators: %s: price (e.g. $79) */
+                            __('from %s/year', 'codepress-admin-columns'),
+                            StartingPrice::get()
                         ),
                         'guarantee'            => __('30-day money-back guarantee', 'codepress-admin-columns'),
                         'see_all'              => __('See all Pro features', 'codepress-admin-columns'),

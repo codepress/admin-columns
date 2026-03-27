@@ -2,15 +2,12 @@
 
 namespace AC\Integration;
 
-use AC\Admin\MenuGroupFactory;
-use AC\Admin\Type\MenuGroup;
 use AC\Screen;
 use AC\TableScreen;
 use AC\Type\Integration;
-use AC\Type\TableId;
 use AC\Type\Url\Site;
 
-final class BuddyPress extends Integration implements MenuGroupFactory
+final class BuddyPress extends Integration
 {
 
     public function __construct()
@@ -41,38 +38,6 @@ final class BuddyPress extends Integration implements MenuGroupFactory
     public function show_placeholder(TableScreen $table_screen): bool
     {
         return $table_screen instanceof TableScreen\User;
-    }
-
-    public function create(TableScreen $table_screen): ?MenuGroup
-    {
-        $table_id = $table_screen->get_id();
-
-        if (
-            $table_id->equals(new TableId('bp-groups')) ||
-            $table_id->equals(new TableId('bp-activity')) ||
-            $table_id->equals(new TableId('bp-email'))
-        ) {
-            return new MenuGroup(
-                'buddypress',
-                __('BuddyPress'),
-                22,
-                'dashicons-buddicons-buddypress-logo'
-            );
-        }
-
-        if (
-            $table_id->equals(new TableId('wp-taxonomy_bp_member_type')) ||
-            $table_id->equals(new TableId('wp-taxonomy_bp_group_type'))
-        ) {
-            return new MenuGroup(
-                'buddypress',
-                __('BuddyPress'),
-                24,
-                'dashicons-buddicons-buddypress-logo'
-            );
-        }
-
-        return null;
     }
 
 }

@@ -2,16 +2,12 @@
 
 namespace AC\Integration;
 
-use AC\Admin\MenuGroupFactory;
-use AC\Admin\Type\MenuGroup;
-use AC\PostType;
 use AC\Screen;
-use AC\TableScreen;
 use AC\Type\Integration;
 use AC\Type\Url\External;
 use AC\Type\Url\Site;
 
-final class JetEngine extends Integration implements MenuGroupFactory
+final class JetEngine extends Integration
 {
 
     public function __construct()
@@ -43,18 +39,6 @@ final class JetEngine extends Integration implements MenuGroupFactory
             'jetengine_page_jet-engine-cpt-tax',
             'jetengine_page_jet-engine-relations',
         ]);
-    }
-
-    public function create(TableScreen $table_screen): ?MenuGroup
-    {
-        if (
-            $table_screen instanceof PostType &&
-            $table_screen->get_post_type()->equals('jet-engine')
-        ) {
-            return new MenuGroup('jet-engine', 'JetEngine', 14);
-        }
-
-        return null;
     }
 
 }

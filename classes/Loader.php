@@ -73,11 +73,7 @@ class Loader
         MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
 
         foreach ($this->get_menu_group_factory_classes() as $class) {
-            $integration = new $class();
-
-            if ($integration->is_plugin_active()) {
-                MenuGroupFactory\Aggregate::add($integration, 5);
-            }
+            MenuGroupFactory\Aggregate::add(new $class(), 5);
         }
         TableIdsFactory\Aggregate::add($container->get(TableIdsFactory\BaseFactory::class));
         TableScreen\TableRowsFactory\Aggregate::add(new TableScreen\TableRowsFactory\BaseFactory());
@@ -133,14 +129,14 @@ class Loader
     private function get_menu_group_factory_classes(): array
     {
         return [
-            Integration\WooCommerce::class,
-            Integration\BuddyPress::class,
-            Integration\EventsCalendar::class,
-            Integration\GravityForms::class,
-            Integration\JetEngine::class,
-            Integration\MediaLibraryAssistant::class,
-            Integration\MetaBox::class,
-            Integration\BeaverBuilder::class,
+            MenuGroupFactory\WooCommerceGroups::class,
+            MenuGroupFactory\BuddyPressGroups::class,
+            MenuGroupFactory\EventsCalendarGroups::class,
+            MenuGroupFactory\GravityFormsGroups::class,
+            MenuGroupFactory\JetEngineGroups::class,
+            MenuGroupFactory\MediaLibraryAssistantGroups::class,
+            MenuGroupFactory\MetaBoxGroups::class,
+            MenuGroupFactory\BeaverBuilderGroups::class,
         ];
     }
 

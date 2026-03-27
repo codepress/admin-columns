@@ -9,8 +9,8 @@ use AC\Admin\Banner\BannerContextResolver;
 use AC\ListScreen;
 use AC\Setting\Encoder;
 use AC\Storage\EncoderFactory;
-use AC\Type\Url\Preview;
 use AC\Type\StartingPrice;
+use AC\Type\Url\Preview;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
@@ -153,21 +153,26 @@ class JsonListScreenSettingsFactory
         $singular_lower = mb_strtolower($singular);
 
         return [
-            'title'       => sprintf(
+            'title'             => sprintf(
                 __('Manage your %s faster', 'codepress-admin-columns'),
                 $plural_lower
             ),
-            'description' => sprintf(
+            'description'       => sprintf(
                 __('Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s.', 'codepress-admin-columns'),
                 $plural_lower,
                 $singular_lower
             ),
-            'upgrade_cta' => sprintf(
-                '%s - %s',
-                sprintf(__('Manage your %s faster', 'codepress-admin-columns'), $plural_lower),
-                sprintf(__('from %s/year', 'codepress-admin-columns'), StartingPrice::get())
+            'upgrade_cta'       => sprintf(__('Manage your %s faster', 'codepress-admin-columns'), $plural_lower),
+            'upgrade_cta_price' => sprintf(
+                '%s · %s',
+                sprintf(
+                /* translators: %s: price (e.g. $79) */
+                    __('from %s/year', 'codepress-admin-columns'),
+                    StartingPrice::get()
+                ),
+                __('all features included', 'codepress-admin-columns')
             ),
-            'features'    => [
+            'features'          => [
                 [
                     'url'   => $upgrade_url->with_content('usp-editing')->get_url(),
                     'label' => __('Inline edit directly in the table', 'codepress-admin-columns'),
@@ -192,7 +197,7 @@ class JsonListScreenSettingsFactory
                     'label' => __('Multiple views per screen', 'codepress-admin-columns'),
                 ],
             ],
-            'promo_url'   => $upgrade_url->get_url(),
+            'promo_url'         => $upgrade_url->get_url(),
         ];
     }
 
