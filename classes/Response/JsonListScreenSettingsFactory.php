@@ -10,6 +10,7 @@ use AC\ListScreen;
 use AC\Setting\Encoder;
 use AC\Storage\EncoderFactory;
 use AC\Type\Url\Preview;
+use AC\Type\StartingPrice;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
@@ -164,7 +165,7 @@ class JsonListScreenSettingsFactory
             'upgrade_cta' => sprintf(
                 '%s - %s',
                 sprintf(__('Manage your %s faster', 'codepress-admin-columns'), $plural_lower),
-                sprintf(__('from %s/year', 'codepress-admin-columns'), Site::PRICE_STARTING_EURO)
+                sprintf(__('from %s/year', 'codepress-admin-columns'), StartingPrice::get())
             ),
             'features'    => [
                 [

@@ -7,6 +7,7 @@ namespace AC\Admin\Banner\Context;
 use AC\Acf\FieldCount;
 use AC\Admin\Banner\BannerContext;
 use AC\TableScreen;
+use AC\Type\StartingPrice;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
@@ -90,7 +91,7 @@ class Acf implements BannerContext
                 sprintf(
                 /* translators: %s: price (e.g. $79) */
                     __('from %s/year', 'codepress-admin-columns'),
-                    Site::PRICE_STARTING_EURO
+                    StartingPrice::get()
                 )
             ),
             'integrations'   => [],

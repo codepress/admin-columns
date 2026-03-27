@@ -15,6 +15,7 @@ use AC\Table\TableScreenRepository\SortByLabel;
 use AC\TableScreen;
 use AC\Type\ListScreenId;
 use AC\Type\Url\Documentation;
+use AC\Type\StartingPrice;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
@@ -197,7 +198,7 @@ class Columns extends Script
             sprintf(
             /* translators: %s: price (e.g. $79) */
                 __('from %s/year', 'codepress-admin-columns'),
-                Site::PRICE_STARTING_EURO
+                StartingPrice::get()
             )
         );
         $arguments['features'] = $features;
@@ -357,7 +358,7 @@ class Columns extends Script
                             sprintf(
                             /* translators: %s: price (e.g. $79) */
                                 __('from %s/year', 'codepress-admin-columns'),
-                                Site::PRICE_STARTING_EURO
+                                StartingPrice::get()
                             )
                         ),
                         'features'   => [
@@ -469,7 +470,7 @@ class Columns extends Script
                             sprintf(
                             /* translators: %s: price (e.g. $79) */
                                 __('from %s/year', 'codepress-admin-columns'),
-                                Site::PRICE_STARTING_EURO
+                                StartingPrice::get()
                             )
                         ),
                         'guarantee'            => __('30-day money-back guarantee', 'codepress-admin-columns'),
