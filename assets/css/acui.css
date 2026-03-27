@@ -769,7 +769,6 @@ a.acui-button {
 
 .acui-inline-confirmation {
   position: relative;
-  display: inline-block;
 }
 .acui-inline-confirmation__popover {
   position: absolute;
