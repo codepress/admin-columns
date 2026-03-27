@@ -21,11 +21,10 @@ import ColumnPageBridge from "./columns/utils/page-bridge";
 import ListScreenSections from "./columns/store/list-screen-sections";
 import DeleteViewButton from "./columns/components/DeleteViewButton.svelte";
 import {get} from "svelte/store";
+import './columns/init/setting-types.ts';
 
 const AcServices = initAcServices();
 const localConfig = getColumnSettingsConfig();
-
-import './columns/init/setting-types.ts';
 
 const debounce = <T extends (...args: any[]) => void>(
     fn: T,

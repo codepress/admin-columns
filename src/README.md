@@ -9,9 +9,10 @@ npm install
 npm run setup:dev
 ```
 
-`setup:dev` configures two things locally (once per developer, not synced via git):
+`setup:dev` configures three things locally (once per developer, not synced via git):
 - A git merge driver that prevents asset conflicts on merge
 - `assume-unchanged` on all compiled assets, so watch-mode rebuilds stay out of your git client
+- A `post-checkout` hook that automatically restores `assume-unchanged` after every branch switch
 
 ## Development
 
