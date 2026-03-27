@@ -188,11 +188,11 @@
         columnTypeComponent!.close();
     }
 
-    const handleCloseColumnTypeDropdown = (component) => {
-        component.close();
+    const handleCloseColumnTypeDropdown = (component: { close: () => void } | null) => {
+        component?.close();
     }
 
-    const toggleColumnInfo = (e) => {
+    const toggleColumnInfo = (e: CustomEvent<boolean>) => {
         persistScreenOptions('show_column_info', e.detail === true ? 1 : 0)
     }
 

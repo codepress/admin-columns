@@ -6,7 +6,7 @@
     import {getColumnSettingsConfig, getColumnSettingsTranslation} from "../utils/global";
     import {createEventDispatcher} from "svelte";
 
-    export let listScreenData: Writable<ListScreenData>;
+    export let listScreenData: Writable<ListScreenData | null>;
     export let readonlyListScreen: Writable<boolean>;
     export let isSaved: Writable<boolean>;
 
@@ -26,13 +26,13 @@
         if (config.confirm_delete) {
             showConfirmation = true;
         } else {
-            deleteView($listScreenData.id);
+            deleteView($listScreenData?.id ?? '');
         }
     }
 
     const handleConfirm = () => {
 
-        deleteView($listScreenData.id);
+        deleteView($listScreenData?.id ?? '');
     }
 </script>
 

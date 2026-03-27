@@ -9,7 +9,7 @@
 	let displaySeconds: string = '00';
 
 	export const start = () => {
-		interVal = window.setInterval( () => {
+		interVal = setInterval( () => {
 			seconds++;
 			updateTimer();
 		}, 1000 );
@@ -21,7 +21,7 @@
 	}
 
 	export const stop = () => {
-		clearInterval( interVal );
+		clearInterval( interVal ?? undefined );
 		updateTimer();
 	}
 

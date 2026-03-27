@@ -2,7 +2,7 @@
     import {getInputComponent} from "../../helper";
     import {ListScreenColumnData} from "../../../types/requests";
     import ColumnSettings from "../ColumnSettings.svelte";
-    import ColumnInputSetting = AC.Column.Settings.ColumnInputSetting;
+    type ColumnInputSetting = AC.Column.Settings.ColumnInputSetting;
 
     export let setting: AC.Column.Settings.AbstractColumnSetting;
     export let data: ListScreenColumnData;
@@ -31,6 +31,6 @@
 		locked={disabled}
 		bind:data={data}
 		settings={setting.children}
-		parent={inputSetting.input ? inputSetting.input.name : null}
+		parent={inputSetting.input ? inputSetting.input.name : undefined}
 	/>
 {/if}

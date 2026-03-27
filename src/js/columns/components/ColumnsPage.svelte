@@ -121,6 +121,7 @@
 		<main class="ac-admin-page-main acu-px-4 acu-pt-2 2xl:acu-pt-[30px] 2xl:acu-px-[50px]">
 			<div class="acu-flex acu-flex-col-reverse xl:acu-gap-6 xl:acu-flex-row">
 				<div class="acu-flex-grow acu-max-w-[1200px]">
+					{#if $listScreenDataStore}
 					<ListScreenForm
 						bind:this={form}
 						bind:isSaving={isSaving}
@@ -128,6 +129,7 @@
 						bind:data={$listScreenDataStore}
 						locked={$listScreenIsReadOnly || !$hasUsagePermissions || screenLocked}
 					/>
+					{/if}
 
 					{#if !localConfig.is_pro }
 						<ProSettingsExample/>

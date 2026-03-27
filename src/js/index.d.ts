@@ -2,8 +2,13 @@ import AcAdminColumnsVar = AC.Vars.Admin.Columns.AcAdminColumnsVar;
 
 declare module "*.svelte" {
     import {SvelteComponent} from "svelte";
-    const component: typeof SvelteComponent;
-    export default component;
+    export default SvelteComponent;
+}
+
+declare module 'body-scroll-lock' {
+    export function enableBodyScroll(targetElement: Element, options?: object): void;
+    export function disableBodyScroll(targetElement: Element, options?: object): void;
+    export function clearAllBodyScrollLocks(): void;
 }
 
 
@@ -116,7 +121,9 @@ declare namespace AC.Column.Settings.Input {
     interface AbstractSettingInput<Type = string> {
         type: Type
         name: string
-        default: string
+        default?: string
+        placeholder?: string
+        options?: AC.Column.Settings.SettingOption[]
         attributes?: { [key: string]: string }
     }
 }
@@ -130,7 +137,6 @@ declare namespace AC.Column.Settings {
 
     interface AbstractColumnSetting {
         type: string,
-        label: string,
         label: string,
         description?: string
         attributes: {
@@ -152,11 +158,6 @@ declare namespace AC.Column.Settings {
         input: AbstractSettingInput,
         children: AbstractSettingInput[]
     }
-
-    let t: WidthSetting;
-
-    type LabelSetting = AbstractColumnSetting;
-
 
     interface TextSetting extends AbstractColumnSetting {
         input: {
@@ -180,6 +181,7 @@ declare namespace AC.Column.Settings {
                     input: {
                         type: 'radio',
                         options: SettingOption[]
+                        default?: string
                     }
                 }
             ]
@@ -202,14 +204,7 @@ declare namespace AC.Column.Settings {
             type: 'select'
             options: SettingOption[]
             default: string
-            attributes: any
-        }
-    }
-
-    interface SelectSetting extends AbstractColumnSetting {
-        input: {
-            type: 'select'
-            options: SettingOption[]
+            attributes?: any
         }
     }
 
@@ -228,16 +223,11 @@ declare namespace AC.Column.Settings {
     }
 
 
-    interface TypeSetting extends AbstractColumnSetting<'type'> {
-        input: {
-            options: SettingOption[]
-        }
-    }
-
     interface ToggleSetting extends SelectSetting {
         input: {
             type: 'toggle'
-            options: SettingOption[],
+            options: SettingOption[]
+            default?: string
             attributes?: { [key: string]: string }
         }
     }
@@ -246,6 +236,7 @@ declare namespace AC.Column.Settings {
 }
 
 declare const ac_admin_columns: AcAdminColumnsVar;
+declare const ajaxurl: string;
 
 declare namespace AC.Ajax {
     interface JsonResponse {

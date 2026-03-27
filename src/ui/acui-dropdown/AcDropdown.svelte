@@ -4,8 +4,8 @@
     import AcDropdownMenu from "./AcDropdownMenu.svelte";
     import {AcDropdownMenuPosition} from "./index";
 
-    export let menuClass: string = null;
-    export let customClass: string = null;
+    export let menuClass: string | null = null;
+    export let customClass: string | null = null;
     export let appendToBody: boolean = false;
     export let closeOnClick: boolean = true;
     export let position: AcDropdownMenuPosition | null = null;
@@ -86,14 +86,14 @@
         moveFocus(-1);
     }
 
-    const handleOutsideClick = (e) => {
+    const handleOutsideClick = (e: MouseEvent) => {
         // Check if click is inside any dropdown menu element (including appendToBody menus)
         const target = e.target as HTMLElement;
         if (target.closest('[data-dropdown-menu="true"]')) {
             return;
         }
 
-        if (container && !container.contains(e.target)) {
+        if (container && !container.contains(e.target as Node | null)) {
             close();
         }
     }
@@ -109,8 +109,8 @@
         document.removeEventListener('focusout', handleOutsideClick);
     }
 
-    const handleSelect = (e) => {
-        value = e.detail;
+    const handleSelect = (e: CustomEvent | Event) => {
+        value = (e as CustomEvent).detail;
         dispatch('change', value);
 
         if (opened && closeOnClick) {
@@ -118,7 +118,7 @@
         }
     }
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             toggle();
@@ -150,7 +150,7 @@
 			style={menuStyle}
 			trigger={trigger}
 			zIndex={zIndex}
-			menuClass={menuClass}
+			menuClass={menuClass ?? ''}
 			on:click={handleSelect}
 			on:itemSelect={( e ) => { e.stopPropagation(); handleSelect(e)}}
 		>

@@ -22,7 +22,7 @@ type AdminColumnsI18n = {
     pro: {
         modal: {
             also_get: string
-            features: Record<string, FeatureTranslation>[]
+            features: Record<string, FeatureTranslation>
             guarantee: string
             see_all: string
             subtitle: string

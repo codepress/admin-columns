@@ -3,7 +3,7 @@
 
     export let label: string = '';
     export let helpRef: string = '';
-    export let helpRefPosition: string = 'right';
+    export let helpRefPosition: 'right' | 'left' | 'top' | 'bottom' = 'right';
 </script>
 
 <div class="ac-listscreen-prefs-item @[500px]/setting:acu-flex acu-pb-4 acu-mb-4 acu-border-0 acu-border-solid lg::acu-border-b acu-border-ui-border">

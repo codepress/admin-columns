@@ -7,7 +7,7 @@
     export let nativeValue: null | string = null;
     export let indeterminate: boolean = false;
     export let disabled: boolean = false;
-    export let label: string = null;
+    export let label: string | null = null;
 
     let input: HTMLInputElement;
     let checked = false;
@@ -45,7 +45,7 @@
         dispatch('input');
     }
 
-    const updateCheckedOnValue = (new_value) => {
+    const updateCheckedOnValue = (new_value: boolean | string[]) => {
         if (Array.isArray(new_value)) {
             let found = new_value.find(v => v === nativeValue);
             checked = typeof found !== 'undefined';

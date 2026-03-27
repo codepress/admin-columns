@@ -7,9 +7,9 @@
     export let softDisabled: boolean = false;
     export let isDestructive: boolean | null = false;
     export let iconLeft: string | null = null;
-    export let iconLeftPack: string | null = null;
+    export let iconLeftPack: 'ac' | 'dashicons' | null = null;
     export let iconRight: string | null = null;
-    export let iconRightPack: string | null = null;
+    export let iconRightPack: 'ac' | 'dashicons' | null = null;
     export let loading: boolean = false;
     export let customClass: string | undefined = '';
     export let label: string | undefined = undefined;
