@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace AC\Integration;
 
+use AC;
+use AC\Admin\MenuGroupFactory;
+use AC\Admin\Type\MenuGroup;
 use AC\Screen;
+use AC\TableScreen;
 use AC\Type\Integration;
 use AC\Type\Url\Site;
 
-final class MediaLibraryAssistant extends Integration
+final class MediaLibraryAssistant extends Integration implements MenuGroupFactory
 {
 
     public function __construct()
@@ -34,6 +38,15 @@ final class MediaLibraryAssistant extends Integration
     public function show_notice(Screen $screen): bool
     {
         return false;
+    }
+
+    public function create(TableScreen $table_screen): ?MenuGroup
+    {
+        if ($table_screen instanceof AC\ThirdParty\MediaLibraryAssistant\TableScreen) {
+            return new MenuGroup('mla', __('Media Library Assistant'), 20);
+        }
+
+        return null;
     }
 
 }

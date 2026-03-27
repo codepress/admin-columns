@@ -128,7 +128,7 @@ export const initPointers = (elements: NodeListOf<HTMLElement> | null = null) =>
     }
 
     elements.forEach(element => {
-        let selector = `#${element.getAttribute('rel') ?? '#n'}`;
+        let selector = `#${element.getAttribute('rel') ?? 'n'}`;
         let relElement = document.querySelector<HTMLElement>(selector);
 
         if (relElement) {

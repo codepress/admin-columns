@@ -12,19 +12,26 @@ class Aggregate implements MenuGroupFactory
 {
 
     /**
-     * @var MenuGroupFactory[]
+     * @var array{factory: MenuGroupFactory, priority: int}[]
      */
     private static array $factories = [];
 
-    public static function add(MenuGroupFactory $factory): void
+    public static function add(MenuGroupFactory $factory, int $priority = 10): void
     {
-        array_unshift(self::$factories, $factory);
+        self::$factories[] = [
+            'factory'  => $factory,
+            'priority' => $priority,
+        ];
+
+        usort(self::$factories, static function (array $a, array $b): int {
+            return $a['priority'] - $b['priority'];
+        });
     }
 
     public function create(TableScreen $table_screen): MenuGroup
     {
-        foreach (self::$factories as $factory) {
-            $group = $factory->create($table_screen);
+        foreach (self::$factories as $entry) {
+            $group = $entry['factory']->create($table_screen);
 
             if ($group) {
                 return $group;

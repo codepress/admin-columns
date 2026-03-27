@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace AC\Integration;
 
+use AC\Admin\MenuGroupFactory;
+use AC\Admin\Type\MenuGroup;
+use AC\PostType;
 use AC\Screen;
+use AC\TableScreen;
 use AC\Type\Integration;
 use AC\Type\Url\Site;
 
-final class MetaBox extends Integration
+final class MetaBox extends Integration implements MenuGroupFactory
 {
 
     public function __construct()
@@ -34,6 +38,22 @@ final class MetaBox extends Integration
     public function show_notice(Screen $screen): bool
     {
         return $screen->get_id() === 'edit-meta-box';
+    }
+
+    public function create(TableScreen $table_screen): ?MenuGroup
+    {
+        if (
+            $table_screen instanceof PostType &&
+            in_array(
+                (string)$table_screen->get_post_type(),
+                ['meta-box', 'mb-taxonomy', 'mb-relationship', 'mb-post-type'],
+                true
+            )
+        ) {
+            return new MenuGroup('metabox', 'MetaBox', 14);
+        }
+
+        return null;
     }
 
 }

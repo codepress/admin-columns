@@ -29,4 +29,9 @@ final class Config
         return $this->config;
     }
 
+    public function with(array $overrides): self
+    {
+        return new self(array_merge($this->config, $overrides));
+    }
+
 }

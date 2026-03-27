@@ -112,6 +112,19 @@ type defaultConfigPayload = {
 }
 
 
+export const deleteTableView = (listId: string): AxiosPromise<JsonSuccessResponse<{
+    message: string
+}> | JsonDefaultFailureResponse> => {
+    const nonce = getColumnSettingsConfig().nonce;
+    const data = new FormData();
+
+    data.set('_ajax_nonce', nonce);
+    data.set('action', 'ac-list-screen-delete');
+    data.set('list_id', listId);
+
+    return axios.post(ajaxurl, data);
+}
+
 export const loadDefaultColumns = (listKey: string): AxiosPromise<JsonSuccessResponse<defaultConfigPayload> | JsonDefaultFailureResponse> => {
     const nonce = getColumnSettingsConfig().nonce;
 

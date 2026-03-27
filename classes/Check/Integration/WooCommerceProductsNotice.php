@@ -8,7 +8,7 @@ use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class WooCommerceProductsNotice implements IntegrationNotice
+class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
 {
 
     public function is_active(Screen $screen): bool
@@ -37,12 +37,12 @@ class WooCommerceProductsNotice implements IntegrationNotice
 
     public function get_title(): string
     {
-        return __('Still opening each product to check stock or pricing?', 'codepress-admin-columns');
+        return __('Updating products one by one?', 'codepress-admin-columns');
     }
 
     public function get_description(): string
     {
-        return __('Inline edit prices and stock, filter by any field, and bulk update products - all from this table.', 'codepress-admin-columns');
+        return __('Search, filter, and bulk edit prices, stock, and attributes across hundreds of products - find exactly what you need, then update in seconds.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
@@ -68,6 +68,16 @@ class WooCommerceProductsNotice implements IntegrationNotice
     public function get_extra_classes(): string
     {
         return '';
+    }
+
+    public function is_usage_detected(): bool
+    {
+        return ! empty($_GET['orderby']) || ! empty($_GET['product_cat']) || ! empty($_GET['product_type']) || ! empty($_GET['stock_status']) || ! empty($_GET['s']);
+    }
+
+    public function get_delay_days(): int
+    {
+        return 42;
     }
 
 }

@@ -30,11 +30,6 @@ class AcfNotice implements IntegrationNotice
         return 'ac-addon-acf';
     }
 
-    public function get_icon(): string
-    {
-        return '⚡';
-    }
-
     public function get_eyebrow(): string
     {
         return '';
@@ -73,6 +68,11 @@ class AcfNotice implements IntegrationNotice
     public function get_extra_classes(): string
     {
         return '';
+    }
+
+    public function get_delay_days(): int
+    {
+        return 42;
     }
 
 }

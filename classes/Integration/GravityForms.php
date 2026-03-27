@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace AC\Integration;
 
+use AC\Admin\MenuGroupFactory;
+use AC\Admin\Type\MenuGroup;
 use AC\Screen;
 use AC\TableScreen;
 use AC\Type\Integration;
 use AC\Type\Url\Site;
 use ACA;
 
-final class GravityForms extends Integration
+final class GravityForms extends Integration implements MenuGroupFactory
 {
 
     public function __construct()
@@ -41,6 +43,19 @@ final class GravityForms extends Integration
     public function show_placeholder(TableScreen $table_screen): bool
     {
         return $table_screen instanceof ACA\GravityForms\TableScreen\Entry;
+    }
+
+    public function create(TableScreen $table_screen): ?MenuGroup
+    {
+        if ($table_screen instanceof ACA\GravityForms\TableScreen\Entry) {
+            return new MenuGroup(
+                'gravity_forms',
+                sprintf('%s - %s', __('Gravity Forms'), __('Entries', 'codepress-admin-columns')),
+                20
+            );
+        }
+
+        return null;
     }
 
 }

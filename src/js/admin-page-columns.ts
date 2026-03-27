@@ -18,6 +18,8 @@ import {
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import {initListScreenHeadings, initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
 import ColumnPageBridge from "./columns/utils/page-bridge";
+import ListScreenSections from "./columns/store/list-screen-sections";
+import DeleteViewButton from "./columns/components/DeleteViewButton.svelte";
 import {get} from "svelte/store";
 
 const AcServices = initAcServices();
@@ -90,6 +92,22 @@ document.addEventListener('DOMContentLoaded', () => {
     favoriteListKeysStore.set(localConfig.menu_items_favorites);
 
     const pageBridge = new ColumnPageBridge();
+
+    const deleteButtonElement = document.createElement('div');
+    const deleteViewButton = new DeleteViewButton({
+        target: deleteButtonElement,
+        props: {
+            listScreenData: listScreenDataStore,
+            readonlyListScreen: listScreenIsReadOnly,
+            isSaved: listScreenIsStored
+        }
+    });
+
+    deleteViewButton.$on('deleteView', () => {
+        currentListId.set('0');
+    });
+
+    ListScreenSections.registerSection('header_bar', deleteButtonElement);
 
     AcServices.registerService('ColumnPage', pageBridge);
 

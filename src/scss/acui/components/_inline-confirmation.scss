@@ -1,0 +1,84 @@
+.acui-inline-confirmation {
+	position: relative;
+
+	&__popover {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		background: #1e2432;
+		color: #fff;
+		border-radius: 6px;
+		padding: 8px 14px;
+		white-space: nowrap;
+		z-index: 9999;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 13px;
+		line-height: 1.4;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+
+		&.is-top {
+			bottom: calc(100% + 10px);
+		}
+
+		&.is-bottom {
+			top: calc(100% + 10px);
+		}
+	}
+
+	&__arrow {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 0;
+		height: 0;
+
+		.is-top & {
+			bottom: -7px;
+			border-left: 7px solid transparent;
+			border-right: 7px solid transparent;
+			border-top: 7px solid #1e2432;
+		}
+
+		.is-bottom & {
+			top: -7px;
+			border-left: 7px solid transparent;
+			border-right: 7px solid transparent;
+			border-bottom: 7px solid #1e2432;
+		}
+	}
+
+	&__message {
+		color: #fff;
+	}
+
+	&__confirm,
+	&__cancel {
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0;
+		font-size: inherit;
+		font-family: inherit;
+		line-height: inherit;
+	}
+
+	&__confirm {
+		color: #e05252;
+		font-weight: 500;
+
+		&:hover {
+			text-decoration: underline;
+			color: #e05252;
+		}
+	}
+
+	&__cancel {
+		color: #9ca3af;
+
+		&:hover {
+			color: #fff;
+		}
+	}
+}

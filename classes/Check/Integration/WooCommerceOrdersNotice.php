@@ -8,8 +8,15 @@ use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class WooCommerceOrdersNotice implements IntegrationNotice
+class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 {
+
+    use WooCommerceOrdersScreenAware;
+
+    public function is_usage_detected(): bool
+    {
+        return ! empty($_GET['orderby']) || ! empty($_GET['m']) || ! empty($_GET['_customer_user']) || ! empty($_GET['s']);
+    }
 
     public function is_active(Screen $screen): bool
     {
@@ -17,10 +24,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice
             return false;
         }
 
-        $is_hpos_orders = 'woocommerce_page_wc-orders' === $screen->get_id();
-        $is_legacy_orders = 'edit' === $screen->get_base() && 'shop_order' === $screen->get_post_type();
-
-        return $is_hpos_orders || $is_legacy_orders;
+        return $this->is_woocommerce_orders_screen($screen);
     }
 
     public function get_slug(): string
@@ -45,7 +49,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice
 
     public function get_description(): string
     {
-        return __('Inline edit order status, filter by payment method, and bulk update orders - all from this table.', 'codepress-admin-columns');
+        return __('Show any order data as a column - shipping address, payment method, customer email, order notes. Search, filter, and edit without leaving this screen.', 'codepress-admin-columns');
     }
 
     public function get_cta_label(): string
@@ -71,6 +75,11 @@ class WooCommerceOrdersNotice implements IntegrationNotice
     public function get_extra_classes(): string
     {
         return '';
+    }
+
+    public function get_delay_days(): int
+    {
+        return 42;
     }
 
 }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AC;
 
 use AC;
+use AC\Acf\Service\FieldSettings;
+use AC\Acf\Service\FieldSettingsSync;
 use AC\Admin\MenuGroupFactory;
 use AC\Admin\MenuGroupFactory\DefaultGroups;
 use AC\Admin\PageFactory;
@@ -69,6 +71,14 @@ class Loader
         ExtendedValueRegistry::add($container->get(Posts::class));
 
         MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
+
+        foreach ($this->get_menu_group_factory_classes() as $class) {
+            $integration = new $class();
+
+            if ($integration->is_plugin_active()) {
+                MenuGroupFactory\Aggregate::add($integration, 5);
+            }
+        }
         TableIdsFactory\Aggregate::add($container->get(TableIdsFactory\BaseFactory::class));
         TableScreen\TableRowsFactory\Aggregate::add(new TableScreen\TableRowsFactory\BaseFactory());
 
@@ -120,6 +130,20 @@ class Loader
         ];
     }
 
+    private function get_menu_group_factory_classes(): array
+    {
+        return [
+            Integration\WooCommerce::class,
+            Integration\BuddyPress::class,
+            Integration\EventsCalendar::class,
+            Integration\GravityForms::class,
+            Integration\JetEngine::class,
+            Integration\MediaLibraryAssistant::class,
+            Integration\MetaBox::class,
+            Integration\BeaverBuilder::class,
+        ];
+    }
+
     private function register_page_handlers(AC\DI\Container $container): void
     {
         $page_handler = new PageRequestHandler();
@@ -152,6 +176,7 @@ class Loader
             'ac-restore-settings'             => Ajax\RestoreSettingsRequest::class,
             'ac-integration-toggle'           => Ajax\IntegrationToggle::class,
             'ac-integrations'                 => Ajax\Integrations::class,
+            'ac-list-screen-delete'           => Ajax\ListScreenDelete::class,
         ];
     }
 
@@ -180,6 +205,7 @@ class Loader
             Service\AdminBarEditColumns::class,
             Service\PluginUpdate::class,
             Service\Tooltips::class,
+            AC\Acf\Service\DateSaveFormat::class,
         ];
 
         if ( ! $this->is_pro_active) {
