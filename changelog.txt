@@ -11,14 +11,6 @@ Release Date: March 24th, 2026
 * [Improved] Improved Before & After display options UI.
 * [Fixed] Fixed the post link option not appearing for most property types in the Comment Post column.
 * [Fixed] Fixed the post link option not appearing for most property types in the User First Post and Last Post columns.
-* [Fixed] Fixed a potential error in user property columns when the display setting has not been saved yet.
-* [Fixed] Fixed AND conditions in column settings always evaluating to true.
-* [Fixed] Fixed action buttons not retrievable by ID on the list table.
-* [Fixed] Fixed section priority sorting being inverted and unstable.
-* [Fixed] Fixed redundant list screen initialization request.
-* [Fixed] Fixed potential crash when columns data is null in the column editor.
-* [Fixed] Fixed orphaned DOM elements when opening value modals.
-* [Fixed] Fixed invalid CSS selector fallback for pointer tooltips.
 
 = 7.0.12 =
 Release Date: March 16th, 2026
