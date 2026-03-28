@@ -16,6 +16,11 @@ abstract class ColumnFactory
 
     abstract public function get_label(): string;
 
+    public function get_description(): ?string
+    {
+        return null;
+    }
+
     protected function get_settings(Config $config): ComponentCollection
     {
         return new ComponentCollection();

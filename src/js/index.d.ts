@@ -17,6 +17,7 @@ declare namespace AC.Vars.Admin.Columns {
         group: string
         group_key: string
         original: boolean
+        description?: string
     }
 
     type MenuOptions = { [key: string]: string }

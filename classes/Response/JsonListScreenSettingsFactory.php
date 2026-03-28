@@ -90,6 +90,11 @@ class JsonListScreenSettingsFactory
                 $column_type['searchable_label'] .= ' ' . $column_type['group'];
             }
 
+            $description = $column->get_description();
+            if ($description !== null) {
+                $column_type['description'] = $description;
+            }
+
             $column_types[] = $column_type;
         }
 

@@ -33,6 +33,7 @@
 
     let columnTypeLabel: string;
     let columnTypeName: string;
+    let columnDescription: string = '';
 
     const toggle = () => {
         openedColumnsStore.toggle(data.name);
@@ -53,6 +54,7 @@
         let columnInfo = $columnTypesStore.find(c => c.value === data.type);
         columnTypeLabel = columnInfo?.label ?? ''
         columnTypeName = columnInfo?.value ?? ''
+        columnDescription = columnInfo?.description ?? ''
     })
 
     const checkCondition = (condition: AC.Specification.Rule, parent: string) => {
@@ -105,6 +107,10 @@
 
     $: dispatch('update', data);
     $: opened = $openedColumnsStore.includes(data.name);
+    $: {
+        const info = $columnTypesStore.find(c => c.value === data.type);
+        columnDescription = info?.description ?? '';
+    }
 </script>
 
 <div class="ac-column" class:-opened={opened} data-name={data.name}>
@@ -159,7 +165,7 @@
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
 
-			<ColumnSetting description="" label={i18n.settings.label.column} extraClass="-type">
+			<ColumnSetting description={columnDescription} label={i18n.settings.label.column} extraClass="-type">
 				<TypeSetting bind:data={data} bind:columnConfig={config} disabled={locked}/>
 			</ColumnSetting>
 

@@ -36,6 +36,11 @@ class EstimateReadingTimeFactory extends BaseColumnFactory
         return __('Read Time', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __('Estimated reading time based on the word count of the content.', 'codepress-admin-columns');
+    }
+
     protected function get_settings(Config $config): ComponentCollection
     {
         return new ComponentCollection([
