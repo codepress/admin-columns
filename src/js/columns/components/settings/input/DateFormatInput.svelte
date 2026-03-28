@@ -90,6 +90,8 @@
 			--AcuiRadioMarginBottom="5px">{option.label}
 			{#if option.value === 'wp_default' && config.input?.data[ 'wp_date_format' ] }
 				<code class="acu-bg-[#eee]">{config.input?.data[ 'wp_date_format' ]}</code>
+			{:else if config.input?.data[ 'format_codes' ]?.[ option.value ] }
+				<code class="acu-bg-[#eee]">{config.input?.data[ 'format_codes' ][ option.value ]}</code>
 			{/if}
 		</AcRadio>
 	{/each}
