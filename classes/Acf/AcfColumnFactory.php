@@ -75,7 +75,7 @@ class AcfColumnFactory
             'name'       => (string)(new ColumnIdGenerator())->generate(),
             'type'       => 'column-meta',
             'field'      => $meta_key,
-            'label'      => $field['label'] ?? $type,
+            'label'      => $this->resolve_label($field, $type, $meta_key),
             'field_type' => self::FIELD_TYPE_MAP[$type] ?? '',
         ];
 
@@ -108,6 +108,17 @@ class AcfColumnFactory
                 break;
         }
 
+        $prepend = $field['prepend'] ?? '';
+        $append = $field['append'] ?? '';
+
+        if ($prepend !== '') {
+            $config['before'] = $prepend;
+        }
+
+        if ($append !== '') {
+            $config['after'] = $append;
+        }
+
         return $config;
     }
 
@@ -129,6 +140,23 @@ class AcfColumnFactory
         }
 
         return (string)json_encode($options);
+    }
+
+    private function resolve_label(array $field, string $type, string $meta_key): string
+    {
+        $label = trim($field['label'] ?? '');
+
+        if ($label !== '') {
+            return $label;
+        }
+
+        $type_object = acf_get_field_type($type);
+
+        if ($type_object && ! empty($type_object->label)) {
+            return $type_object->label;
+        }
+
+        return $meta_key;
     }
 
     private function find_column_factory(TableScreen $table_screen): ?Column\ColumnFactory

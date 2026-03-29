@@ -146,6 +146,7 @@ class FieldSettings implements Registerable
         }
 
         $meta_key = $field['name'] ?? '';
+        $has_meta_key = $meta_key !== '' && $meta_key !== 'new_field';
         $nonce = wp_create_nonce('ac-ajax');
 
         $rows_html = '';
@@ -154,8 +155,8 @@ class FieldSettings implements Registerable
             $table_id = (string)$table_screen->get_id();
             $label = $table_screen->get_labels()->get_plural();
 
-            if ( ! $meta_key) {
-                $rows_html .= $this->render_available_row($table_id, $label);
+            if ( ! $has_meta_key) {
+                $rows_html .= $this->render_unavailable_row($label);
 
                 continue;
             }
@@ -175,6 +176,16 @@ class FieldSettings implements Registerable
         $intro = '<p class="ac-acf-intro">'
                  . esc_html__('Add this field as a column in the list tables below. Once added, you can open that specific column in Admin Columns to configure it.', 'codepress-admin-columns')
                  . '</p>';
+
+        if ( ! $has_meta_key) {
+            $intro .= '<div class="ac-acf-notice">'
+                      . sprintf(
+                          esc_html__('Enter a %1$s under the %2$s tab to enable adding this field as a column.', 'codepress-admin-columns'),
+                          '<strong>' . esc_html__('Field Name', 'codepress-admin-columns') . '</strong>',
+                          '<strong>' . esc_html__('General', 'codepress-admin-columns') . '</strong>'
+                      )
+                      . '</div>';
+        }
 
         $helper = '<p class="ac-acf-helper">'
                   . esc_html__('Column settings are managed in Admin Columns after creation.', 'codepress-admin-columns')
@@ -223,10 +234,26 @@ class FieldSettings implements Registerable
             . '<span class="ac-acf-card-name">%s</span>'
             . '</div>'
             . '<div class="ac-acf-card-actions">'
-            . '<button type="button" class="button">%s</button>'
+            . '<button type="button" class="button ac-acf-add-column">%s</button>'
             . '</div>'
             . '</div>',
             esc_attr($table_id),
+            esc_html($label),
+            esc_html__('Add column', 'codepress-admin-columns')
+        );
+    }
+
+    private function render_unavailable_row(string $label): string
+    {
+        return sprintf(
+            '<div class="ac-acf-card ac-acf-card--unavailable">'
+            . '<div class="ac-acf-card-main">'
+            . '<span class="ac-acf-card-name">%s</span>'
+            . '</div>'
+            . '<div class="ac-acf-card-actions">'
+            . '<button type="button" class="button" disabled>%s</button>'
+            . '</div>'
+            . '</div>',
             esc_html($label),
             esc_html__('Add column', 'codepress-admin-columns')
         );
@@ -330,6 +357,18 @@ class FieldSettings implements Registerable
             }
             .ac-acf-card--added {
                 background: #fbfcfb;
+            }
+            .ac-acf-card--unavailable {
+                opacity: .6;
+            }
+            .ac-acf-notice {
+                background: #f0f6fc;
+                border: 1px solid #c5d9ed;
+                border-radius: 4px;
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #1f4f77;
+                margin-bottom: 12px;
             }
             .ac-acf-card-main {
                 display: flex;
@@ -451,7 +490,9 @@ class FieldSettings implements Registerable
 					var fieldData = {
 						name : metaKey,
 						type : $fieldObject.data( 'type' ) || '',
-						label : $fieldObject.find( '.acf-field[data-name="label"] input' ).val() || ''
+						label : $fieldObject.find( '.acf-field[data-name="label"] input' ).val() || '',
+						prepend : $fieldObject.find( '.acf-field[data-name="prepend"] input' ).val() || '',
+						append : $fieldObject.find( '.acf-field[data-name="append"] input' ).val() || ''
 					};
 
 					$button.prop( 'disabled', true ).text( '<?php echo esc_js(__('Adding...', 'codepress-admin-columns')); ?>' );
