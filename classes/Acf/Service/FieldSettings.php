@@ -212,8 +212,7 @@ class FieldSettings implements Registerable
             '<div class="ac-acf-card ac-acf-card--added" data-state="added">'
             . '<div class="ac-acf-card-main">'
             . '<span class="ac-acf-card-name">%s</span>'
-            . '<span class="ac-acf-badge">&#10003;</span>'
-            . '<span class="ac-acf-card-status">%s</span>'
+            . '<span class="ac-acf-status"><span class="ac-acf-badge">&#10003;</span><span class="ac-acf-card-status">%s</span></span>'
             . '</div>'
             . '<div class="ac-acf-card-actions">'
             . '<a href="%s" target="_blank" class="ac-acf-link">%s</a>'
@@ -373,13 +372,18 @@ class FieldSettings implements Registerable
             .ac-acf-card-main {
                 display: flex;
                 align-items: center;
-                gap: 10px;
+                gap: 16px;
                 min-width: 0;
             }
             .ac-acf-card-name {
                 font-size: 13px;
                 font-weight: 600;
                 color: #2c3338;
+            }
+            .ac-acf-status {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
             }
             .ac-acf-badge {
                 display: inline-flex;
@@ -388,8 +392,8 @@ class FieldSettings implements Registerable
                 width: 18px;
                 height: 18px;
                 border-radius: 50%;
-                background: #00a32a;
-                color: #fff;
+                background: #eaf6ec;
+                color: #008a20;
                 font-size: 10px;
                 font-weight: 700;
                 flex-shrink: 0;
@@ -397,7 +401,7 @@ class FieldSettings implements Registerable
             }
             .ac-acf-card-status {
                 font-size: 13px;
-                color: #50575e;
+                color: #646970;
             }
             .ac-acf-card-actions {
                 flex: 0 0 auto;
@@ -518,8 +522,11 @@ class FieldSettings implements Registerable
 								.append(
 									$( '<div>', { 'class' : 'ac-acf-card-main' } )
 										.append( $( '<span>', { 'class' : 'ac-acf-card-name', text : label } ) )
-										.append( $( '<span>', { 'class' : 'ac-acf-badge', html : '&#10003;' } ) )
-										.append( $( '<span>', { 'class' : 'ac-acf-card-status', text : '<?php echo esc_js(__('Column added', 'codepress-admin-columns')); ?>' } ) )
+										.append(
+											$( '<span>', { 'class' : 'ac-acf-status' } )
+												.append( $( '<span>', { 'class' : 'ac-acf-badge', html : '&#10003;' } ) )
+												.append( $( '<span>', { 'class' : 'ac-acf-card-status', text : '<?php echo esc_js(__('Column added', 'codepress-admin-columns')); ?>' } ) )
+										)
 								)
 								.append(
 									$( '<div>', { 'class' : 'ac-acf-card-actions' } ).append( $link )
