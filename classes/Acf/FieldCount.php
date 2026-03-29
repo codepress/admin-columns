@@ -55,6 +55,14 @@ class FieldCount implements Registerable
 
     private function create_query(TableScreen $table_screen): ?Query
     {
+        if ($table_screen instanceof TableScreen\Media) {
+            return new Location\Media();
+        }
+
+        if ($table_screen instanceof TableScreen\Comment) {
+            return new Location\Comment();
+        }
+
         if ($table_screen instanceof PostType) {
             return new Location\Post((string)$table_screen->get_post_type());
         }

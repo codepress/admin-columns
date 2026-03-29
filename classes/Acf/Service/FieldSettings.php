@@ -406,28 +406,6 @@ class FieldSettings implements Registerable
             .ac-acf-card-actions {
                 flex: 0 0 auto;
             }
-            .ac-acf-btn {
-                display: inline-flex;
-                align-items: center;
-                padding: 6px 14px;
-                border: 1px solid #c3c4c7;
-                border-radius: 4px;
-                background: #f6f7f7;
-                color: #2c3338;
-                font-size: 13px;
-                font-weight: 500;
-                cursor: pointer;
-                transition: background .15s, border-color .15s;
-                line-height: 1.5;
-            }
-            .ac-acf-btn:hover {
-                background: #f0f0f1;
-                border-color: #8c8f94;
-            }
-            .ac-acf-btn:disabled {
-                opacity: .6;
-                cursor: default;
-            }
             .ac-acf-link {
                 color: #2271b1;
                 font-size: 13px;
