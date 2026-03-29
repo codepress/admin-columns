@@ -6,7 +6,6 @@ namespace AC;
 
 use AC;
 use AC\Acf\Service\FieldSettings;
-use AC\Acf\Service\FieldSettingsSync;
 use AC\Admin\MenuGroupFactory;
 use AC\Admin\MenuGroupFactory\DefaultGroups;
 use AC\Admin\PageFactory;
@@ -173,6 +172,7 @@ class Loader
             'ac-integration-toggle'           => Ajax\IntegrationToggle::class,
             'ac-integrations'                 => Ajax\Integrations::class,
             'ac-list-screen-delete'           => Ajax\ListScreenDelete::class,
+            'ac-acf-add-column'               => AC\Acf\RequestHandler\FieldSettingsAddColumn::class,
         ];
     }
 
@@ -202,6 +202,7 @@ class Loader
             Service\PluginUpdate::class,
             Service\Tooltips::class,
             AC\Acf\Service\DateSaveFormat::class,
+            AC\Acf\Service\FieldSettings::class,
         ];
 
         if ( ! $this->is_pro_active) {
