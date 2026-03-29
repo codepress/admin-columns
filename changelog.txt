@@ -12,6 +12,9 @@ Release Date: March 24th, 2026
 * [Fixed] Fixed the post link option not appearing for most property types in the Comment Post column.
 * [Fixed] Fixed the post link option not appearing for most property types in the User First Post and Last Post columns.
 * [Fixed] Fixed a potential error in user property columns when the display setting has not been saved yet.
+* [Fixed] Fixed "Default" option duplicating in the primary column preference dropdown.
+* [Fixed] Fixed template creation showing a success notification even when it failed.
+* [Fixed] Fixed media custom field columns not supporting multiple file uploads.
 
 = 7.0.12 =
 Release Date: March 16th, 2026
@@ -36,11 +39,13 @@ Release Date: March 2nd, 2026
 * [Fixed] Fixed a SQL table alias conflict.
 * [Improved] Columns no longer open during column reordering.
 * [Improved] Improved performance of the list screen settings file decoder.
+* [Improved] Applied output escaping across templates for better security hardening.
 * [Deprecated] Deprecated the HTML::more() helper method.
 
 = 7.0.10 =
 Release Date: February 16th, 2026
 
+* [Fixed] Fixed an error in the Yoast Primary Taxonomy column.
 * [Improved] String limit setting added to Media Caption column
 * [Improved] Deprecated the Admin Columns helper function 'ac_helper'.
 * [Removed] Removed the hook ac/column/types/pro in favor of ac/column/types.
@@ -74,13 +79,17 @@ Release Date: January 28th, 2026
 = 7.0.5 =
 Release Date: January 27th, 2026
 
-* [Improved] We added 'get_post_type' and 'get_meta_type' to the CustomFieldContext class
-* [Fixed] The `EditorColumns` URI was incorrectly added to the WP_Admin_Bar object which could cause an error
+* [Fixed] Errors affecting date columns from some third-party plugins.
+* [Fixed] The `EditorColumns` URI was incorrectly added to the WP_Admin_Bar object which could cause an error.
+* [Improved] FileStorage performance and optimization.
+* [Improved] We added 'get_post_type' and 'get_meta_type' to the CustomFieldContext class.
 
 = 7.0.4 =
 Release Date: January 21st, 2026
 
-* [Fixed] Fixed PHP 8.4 deprecation messages
+* [Fixed] Default WordPress and third-party columns that no longer displayed values.
+* [Fixed] File Storage updater now supports older file formats.
+* [Fixed] Fixed PHP 8.4 deprecation messages.
 * [Fixed] User link setting did not work correctly and linked to the wrong page
 * [Updated] Context class for Hooks extended with method to retrieve all settings
 * [Updated] Database update: fix for possible incorrect column 'name' properties

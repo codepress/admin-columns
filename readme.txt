@@ -210,6 +210,9 @@ Release Date: March 24th, 2026
 * [Fixed] Fixed the post link option not appearing for most property types in the Comment Post column.
 * [Fixed] Fixed the post link option not appearing for most property types in the User First Post and Last Post columns.
 * [Fixed] Fixed a potential error in user property columns when the display setting has not been saved yet.
+* [Fixed] Fixed "Default" option duplicating in the primary column preference dropdown.
+* [Fixed] Fixed template creation showing a success notification even when it failed.
+* [Fixed] Fixed media custom field columns not supporting multiple file uploads.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 
