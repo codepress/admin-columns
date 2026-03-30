@@ -77,7 +77,12 @@ class FieldSettingsAddColumn implements RequestAjaxHandler
             $response->error();
         }
 
-        $field_data = $this->enrich_field_data($field_data);
+        $acf_field = function_exists('acf_get_field') ? acf_get_field($field_data['name']) : false;
+
+        if (is_array($acf_field)) {
+            $field_data = $acf_field;
+        }
+
         $column = $this->acf_column_factory->create($table_screen, $field_data);
 
         if ( ! $column) {
@@ -134,27 +139,5 @@ class FieldSettingsAddColumn implements RequestAjaxHandler
         return null;
     }
 
-    private function enrich_field_data(array $field_data): array
-    {
-        if ( ! function_exists('acf_get_field')) {
-            return $field_data;
-        }
-
-        $acf_field = acf_get_field($field_data['name']);
-
-        if ( ! is_array($acf_field)) {
-            return $field_data;
-        }
-
-        $keys = ['choices', 'multiple', 'display_format'];
-
-        foreach ($keys as $key) {
-            if ( ! isset($field_data[$key]) && isset($acf_field[$key])) {
-                $field_data[$key] = $acf_field[$key];
-            }
-        }
-
-        return $field_data;
-    }
 
 }
