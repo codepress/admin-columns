@@ -90,6 +90,11 @@ class FieldSettings implements Registerable
         return $tabs;
     }
 
+    private function get_add_column_label(): string
+    {
+        return __('Add as column', 'codepress-admin-columns');
+    }
+
     public function render_tab(array $field): void
     {
         if ($this->is_pro_only_field($field)) {
@@ -219,9 +224,9 @@ class FieldSettings implements Registerable
             . '</div>'
             . '</div>',
             esc_html($label),
-            esc_html__('Column added', 'codepress-admin-columns'),
+            esc_html__('Added', 'codepress-admin-columns'),
             esc_url((string)$editor_url),
-            esc_html__('Edit in Admin Columns →', 'codepress-admin-columns')
+            esc_html__('Edit column →', 'codepress-admin-columns')
         );
     }
 
@@ -238,7 +243,7 @@ class FieldSettings implements Registerable
             . '</div>',
             esc_attr($table_id),
             esc_html($label),
-            esc_html__('Add column', 'codepress-admin-columns')
+            esc_html($this->get_add_column_label())
         );
     }
 
@@ -254,7 +259,7 @@ class FieldSettings implements Registerable
             . '</div>'
             . '</div>',
             esc_html($label),
-            esc_html__('Add column', 'codepress-admin-columns')
+            esc_html($this->get_add_column_label())
         );
     }
 
@@ -493,7 +498,7 @@ class FieldSettings implements Registerable
 								href : editorUrl,
 								target : '_blank',
 								'class' : 'ac-acf-link',
-								text : '<?php echo esc_js(__('Edit in Admin Columns →', 'codepress-admin-columns')); ?>'
+								text : '<?php echo esc_js(__('Edit column →', 'codepress-admin-columns')); ?>'
 							} );
 
 							$card.addClass( 'ac-acf-card--added' ).attr( 'data-state', 'added' ).empty()
@@ -503,17 +508,17 @@ class FieldSettings implements Registerable
 										.append(
 											$( '<span>', { 'class' : 'ac-acf-status' } )
 												.append( $( '<span>', { 'class' : 'ac-acf-badge', html : '&#10003;' } ) )
-												.append( $( '<span>', { 'class' : 'ac-acf-card-status', text : '<?php echo esc_js(__('Column added', 'codepress-admin-columns')); ?>' } ) )
+												.append( $( '<span>', { 'class' : 'ac-acf-card-status', text : '<?php echo esc_js(__('Added', 'codepress-admin-columns')); ?>' } ) )
 										)
 								)
 								.append(
 									$( '<div>', { 'class' : 'ac-acf-card-actions' } ).append( $link )
 								);
 						} else {
-							$button.prop( 'disabled', false ).text( '<?php echo esc_js(__('Add column', 'codepress-admin-columns')); ?>' );
+							$button.prop( 'disabled', false ).text( '<?php echo esc_js($this->get_add_column_label()); ?>' );
 						}
 					} ).fail( function() {
-						$button.prop( 'disabled', false ).text( '<?php echo esc_js(__('Add column', 'codepress-admin-columns')); ?>' );
+						$button.prop( 'disabled', false ).text( '<?php echo esc_js($this->get_add_column_label()); ?>' );
 					} );
 				} );
 			})( jQuery );
