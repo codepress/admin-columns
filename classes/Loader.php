@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC;
 
 use AC;
-use AC\Acf\Service\FieldSettings;
 use AC\Admin\MenuGroupFactory;
 use AC\Admin\MenuGroupFactory\DefaultGroups;
 use AC\Admin\PageFactory;
@@ -202,13 +201,13 @@ class Loader
             Service\PluginUpdate::class,
             Service\Tooltips::class,
             AC\Acf\Service\DateSaveFormat::class,
-            AC\Acf\Service\FieldSettings::class,
         ];
 
         if ( ! $this->is_pro_active) {
             $classes[] = Service\PromoChecks::class;
             $classes[] = Service\NoticeChecks::class;
             $classes[] = PluginActionUpgrade::class;
+            $classes[] = AC\Acf\Service\FieldSettings::class;
         }
 
         return $classes;
