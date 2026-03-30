@@ -10,6 +10,7 @@ type rowMap = {
 
 export default class Cells {
 
+    private elementIndex: WeakMap<HTMLElement, Cell> = new WeakMap();
 
     constructor( private cells: rowMap = {} ) {
     }
@@ -22,6 +23,12 @@ export default class Cells {
         }
 
         this.cells[key][cell.getName()] = cell;
+        this.elementIndex.set(cell.getElement(), cell);
+    }
+
+    updateElement(cell: Cell, newEl: HTMLElement) {
+        this.elementIndex.delete(cell.getElement());
+        this.elementIndex.set(newEl, cell);
     }
 
     getByID(id: number): Array<Cell> {
@@ -38,8 +45,8 @@ export default class Cells {
         return result;
     }
 
-    getByElement( el: HTMLElement ){
-        return this.getAll().find( cell => cell.getElement() === el );
+    getByElement( el: HTMLElement ): Cell | undefined {
+        return this.elementIndex.get(el);
     }
 
     getAll() {
@@ -53,17 +60,14 @@ export default class Cells {
         return results;
     }
 
-    getByName(name: string) {
+    getByName(name: string): Array<Cell> {
         let results: Array<Cell> = [];
 
         Object.keys(this.cells).forEach(id => {
-            let cells = this.cells[id];
-
-            Object.keys(cells).forEach(column_name => {
-                if (name === column_name) {
-                    results.push(cells[column_name]);
-                }
-            })
+            const cell = this.cells[id][name];
+            if (cell !== undefined) {
+                results.push(cell);
+            }
         });
 
         return results;
