@@ -199,7 +199,7 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 == Changelog ==
 
 = 7.0.13 =
-Release Date: March 24th, 2026
+Release Date: March 30th, 2026
 
 * [Added] ACF field settings tab to add fields as admin columns directly from the field group editor.
 * [Added] Column editor now scrolls to the opened column when linked from ACF field settings.
