@@ -537,10 +537,25 @@ class FieldSettings implements Registerable
 
     private function is_sub_field(array $field): bool
     {
-        return isset($field['parent_repeater'])
-               || isset($field['parent_group'])
-               || isset($field['parent_layout'])
-               || isset($field['_clone']);
+        if (isset($field['parent_repeater'])
+            || isset($field['parent_group'])
+            || isset($field['parent_layout'])
+            || isset($field['_clone'])
+        ) {
+            return true;
+        }
+
+        $parent = $field['parent'] ?? 0;
+
+        if ($parent) {
+            $parent_field = acf_get_field($parent);
+
+            if ($parent_field && in_array($parent_field['type'], ['group', 'repeater', 'flexible_content'], true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
