@@ -18,6 +18,8 @@ interface Column
 
     public function get_label(): string;
 
+    public function get_description(): ?string;
+
     public function get_group(): string;
 
     public function get_setting(string $name): ?Component;

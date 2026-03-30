@@ -199,8 +199,10 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 == Changelog ==
 
 = 7.0.13 =
-Release Date: March 24th, 2026
+Release Date: March 30th, 2026
 
+* [Added] ACF field settings tab to add fields as admin columns directly from the field group editor.
+* [Added] Column editor now scrolls to the opened column when linked from ACF field settings.
 * [Added] Word Count columns now support Before & After text to prepend or append custom text around the count.
 * [Added] Custom field column settings now display the meta key for reference.
 * [Added] ACF date save format option for custom field date columns.
@@ -210,6 +212,9 @@ Release Date: March 24th, 2026
 * [Fixed] Fixed the post link option not appearing for most property types in the Comment Post column.
 * [Fixed] Fixed the post link option not appearing for most property types in the User First Post and Last Post columns.
 * [Fixed] Fixed a potential error in user property columns when the display setting has not been saved yet.
+* [Fixed] Fixed "Default" option duplicating in the primary column preference dropdown.
+* [Fixed] Fixed template creation showing a success notification even when it failed.
+* [Fixed] Fixed media custom field columns not supporting multiple file uploads.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 

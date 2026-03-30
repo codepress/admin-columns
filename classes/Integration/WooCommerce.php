@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace AC\Integration;
 
-use AC\Admin\MenuGroupFactory;
-use AC\Admin\Type\MenuGroup;
-use AC\PostType;
 use AC\Screen;
 use AC\TableScreen;
-use AC\Taxonomy;
 use AC\Type\Integration;
 use AC\Type\Url\Site;
 
-final class WooCommerce extends Integration implements MenuGroupFactory
+final class WooCommerce extends Integration
 {
 
     public function __construct()
@@ -74,45 +70,6 @@ final class WooCommerce extends Integration implements MenuGroupFactory
     public function show_placeholder(TableScreen $table_screen): bool
     {
         return in_array((string)$table_screen->get_id(), $this->get_list_keys(), true);
-    }
-
-    public function create(TableScreen $table_screen): ?MenuGroup
-    {
-        $table_id = (string)$table_screen->get_id();
-
-        if (
-            $table_id === 'wc_order' ||
-            $table_id === 'wc_order_subscription' ||
-            $table_id === 'shop_subscription'
-        ) {
-            return new MenuGroup('woocommerce', __('WooCommerce'), 13, 'cpacicon-woo');
-        }
-
-        if ($table_screen instanceof PostType) {
-            $post_type = (string)$table_screen->get_post_type();
-
-            if (in_array($post_type, ['product', 'shop_order', 'product_variation'], true)) {
-                return new MenuGroup('woocommerce', __('WooCommerce'), 13, 'cpacicon-woo');
-            }
-
-            if ('shop_coupon' === $post_type) {
-                return new MenuGroup('woocommerce', __('WooCommerce'), 14, 'cpacicon-woo');
-            }
-        }
-
-        if ($table_screen instanceof Taxonomy) {
-            $taxonomy = (string)$table_screen->get_taxonomy();
-
-            if (in_array($taxonomy, ['product_tag', 'product_cat'], true)) {
-                return new MenuGroup('woocommerce-taxonomy', __('WooCommerce Taxonomies'), 14, 'cpacicon-woo');
-            }
-
-            if (function_exists('taxonomy_is_product_attribute') && taxonomy_is_product_attribute($taxonomy)) {
-                return new MenuGroup('woocommerce-attributes', __('WooCommerce Attributes'), 14, 'cpacicon-woo');
-            }
-        }
-
-        return null;
     }
 
 }

@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace AC\Integration;
 
-use AC\Admin\MenuGroupFactory;
-use AC\Admin\Type\MenuGroup;
 use AC\PostType;
 use AC\Screen;
 use AC\TableScreen;
-use AC\TableScreen\Post;
 use AC\Type\Integration;
 use AC\Type\Url\Site;
 
-final class EventsCalendar extends Integration implements MenuGroupFactory
+final class EventsCalendar extends Integration
 {
 
     public function __construct()
@@ -58,23 +55,6 @@ final class EventsCalendar extends Integration implements MenuGroupFactory
                 (string)$table_screen->get_post_type(),
                 $this->get_post_types()
             );
-    }
-
-    public function create(TableScreen $table_screen): ?MenuGroup
-    {
-        if (
-            $table_screen instanceof Post &&
-            in_array((string)$table_screen->get_post_type(), $this->get_post_types(), true)
-        ) {
-            return new MenuGroup(
-                'events-calendar',
-                __('Events Calendar', 'codepress-admin-columns'),
-                14,
-                'dashicons-calendar-alt'
-            );
-        }
-
-        return null;
     }
 
 }

@@ -36,6 +36,11 @@ class WordCountFactory extends BaseColumnFactory
         return __('Word Count', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __('Number of words in the post content, excluding HTML tags and shortcodes.', 'codepress-admin-columns');
+    }
+
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);

@@ -1,29 +1,29 @@
 <script lang="ts">
 
-    import {
-        columnTypesStore,
-        currentListKey,
-        debugMode,
-        listScreenIsReadOnly,
-        openedColumnsStore,
-        showColumnInfo
-    } from "../store";
-    import {slide} from 'svelte/transition';
-    import {createEventDispatcher, onMount} from "svelte";
-    import {ColumnTypesUtils} from "../utils/column-types";
-    import ColumnSettings from "./ColumnSettings.svelte";
-    import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
-    import ProFeatureToggles from "./ProFeatureToggles.svelte";
-    import AcIcon from "ACUi/AcIcon.svelte";
-    import ColumnSetting from "./ColumnSetting.svelte";
-    import TypeSetting from "./settings/input/TypeInput.svelte";
-    import {refreshColumn} from "../ajax/ajax";
-    import ColumnLabel from "./ColumnLabel.svelte";
-    import JSONTree from "svelte-json-tree";
-    import {MaterialIcon} from "@ac/material-icons/src";
-    import {getColumnSettingsTranslation} from "../utils/global";
+	import {
+		columnTypesStore,
+		currentListKey,
+		debugMode,
+		listScreenIsReadOnly,
+		openedColumnsStore,
+		showColumnInfo
+	} from "../store";
+	import {slide} from 'svelte/transition';
+	import {createEventDispatcher, onMount} from "svelte";
+	import {ColumnTypesUtils} from "../utils/column-types";
+	import ColumnSettings from "./ColumnSettings.svelte";
+	import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
+	import ProFeatureToggles from "./ProFeatureToggles.svelte";
+	import AcIcon from "ACUi/AcIcon.svelte";
+	import ColumnSetting from "./ColumnSetting.svelte";
+	import TypeSetting from "./settings/input/TypeInput.svelte";
+	import {refreshColumn} from "../ajax/ajax";
+	import ColumnLabel from "./ColumnLabel.svelte";
+	import JSONTree from "svelte-json-tree";
+	import {MaterialIcon} from "@ac/material-icons/src";
+	import {getColumnSettingsTranslation} from "../utils/global";
 
-    export let data: any;
+	export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
     export let locked: boolean = false;
 
@@ -33,6 +33,8 @@
 
     let columnTypeLabel: string;
     let columnTypeName: string;
+    let columnDescription: string = '';
+    let columnElement: HTMLElement;
 
     const toggle = () => {
         openedColumnsStore.toggle(data.name);
@@ -53,6 +55,13 @@
         let columnInfo = $columnTypesStore.find(c => c.value === data.type);
         columnTypeLabel = columnInfo?.label ?? ''
         columnTypeName = columnInfo?.value ?? ''
+        columnDescription = columnInfo?.description ?? ''
+
+        if ($openedColumnsStore.includes(data.name) && columnElement) {
+            requestAnimationFrame(() => {
+                columnElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+            });
+        }
     })
 
     const checkCondition = (condition: AC.Specification.Rule, parent: string) => {
@@ -66,10 +75,10 @@
                 : true;
         }).forEach(setting => {
             if (setting.hasOwnProperty('input')) {
-                validSettings.push((setting as any).input?.name);
+                validSettings.push(setting.input?.name);
             }
             if (setting.children) {
-                checkAppliedSubSettings(validSettings, setting.children, setting?.input?.name ?? '');
+                checkAppliedSubSettings(validSettings, setting.children, setting.input?.name ?? '');
             }
         })
 
@@ -105,80 +114,89 @@
 
     $: dispatch('update', data);
     $: opened = $openedColumnsStore.includes(data.name);
+    $: {
+        const info = $columnTypesStore.find(c => c.value === data.type);
+        columnDescription = info?.description ?? '';
+    }
 </script>
 
-<div class="ac-column" class:-opened={opened} data-name={data.name}>
-	<header class="ac-column-header acu-flex acu-py-2 acu-pr-6 rtl:acu-pl-6 acu-items-center acu-bg-[#fff]" on:click={toggle} on:keydown role="none">
-		<div class="ac-column-header__move acu-cursor-move" on:click|stopPropagation role="none">
-			<AcIcon icon="move" size="sm"/>
-		</div>
-		<div class="ac-column-header__label">
-			<strong role="none">
-				<ColumnLabel value={data.label??''} fallback={columnTypeLabel}/>
-			</strong>
-			<div class="ac-column-row-actions">
-				<a class="ac-column-row-action -edit" href={'#'} on:click|preventDefault|stopPropagation={toggle}>Edit</a>
-				{#if !isOriginalColumn && !$listScreenIsReadOnly}
-					<a class="ac-column-row-action -duplicate" href={'#'} on:click|preventDefault|stopPropagation={handleDuplicate}>Duplicate</a>
-				{/if}
-				{#if !$listScreenIsReadOnly && !locked}
-					<a class="ac-column-row-action -delete" href={'#'} on:click|preventDefault|stopPropagation={handleDelete}>Delete</a>
-				{/if}
-			</div>
-		</div>
-		{#if $showColumnInfo}
-			<div class="acu-flex acu-flex-col acu-text-right acu-pr-2 acu-text-[#999] acu-leading-snug">
-				<small><strong class="acu-text-[#777] acu-pr-1">type:</strong>{columnTypeName}</small>
-				<small><strong class="acu-text-[#777] acu-pr-1">name:</strong>{data.name}</small>
-			</div>
-		{/if}
+<div class="ac-column" class:-opened={opened} data-name={data.name} bind:this={columnElement}
+     style="scroll-margin-top: 100px;">
+    <header class="ac-column-header acu-flex acu-py-2 acu-pr-6 rtl:acu-pl-6 acu-items-center acu-bg-[#fff]"
+            on:click={toggle} on:keydown role="none">
+        <div class="ac-column-header__move acu-cursor-move" on:click|stopPropagation role="none">
+            <AcIcon icon="move" size="sm"/>
+        </div>
+        <div class="ac-column-header__label">
+            <strong role="none">
+                <ColumnLabel value={data.label??''} fallback={columnTypeLabel}/>
+            </strong>
+            <div class="ac-column-row-actions">
+                <a class="ac-column-row-action -edit" href={'#'}
+                   on:click|preventDefault|stopPropagation={toggle}>Edit</a>
+                {#if !isOriginalColumn && !$listScreenIsReadOnly}
+                    <a class="ac-column-row-action -duplicate" href={'#'}
+                       on:click|preventDefault|stopPropagation={handleDuplicate}>Duplicate</a>
+                {/if}
+                {#if !$listScreenIsReadOnly && !locked}
+                    <a class="ac-column-row-action -delete" href={'#'}
+                       on:click|preventDefault|stopPropagation={handleDelete}>Delete</a>
+                {/if}
+            </div>
+        </div>
+        {#if $showColumnInfo}
+            <div class="acu-flex acu-flex-col acu-text-right acu-pr-2 acu-text-[#999] acu-leading-snug">
+                <small><strong class="acu-text-[#777] acu-pr-1">type:</strong>{columnTypeName}</small>
+                <small><strong class="acu-text-[#777] acu-pr-1">name:</strong>{data.name}</small>
+            </div>
+        {/if}
 
-		<div class="ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end">
+        <div class="ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end">
 
-			<div class="acu-pr-1 acu-pl-2 acu-uppercase acu-text-[#bbb] acu-font-bold acu-text-[10px] acu-tracking-tight">
-				{columnTypeLabel}
-			</div>
+            <div class="acu-pr-1 acu-pl-2 acu-uppercase acu-text-[#bbb] acu-font-bold acu-text-[10px] acu-tracking-tight">
+                {columnTypeLabel}
+            </div>
 
-			<div class="acu-min-w-[35px] acu-text-right acu-pr-2">
-				{#if data.width && data.width_unit}
-					<span class="acu-font-mono acu-text-[10px]">{data.width}{data.width_unit}</span>
-				{/if}
-			</div>
+            <div class="acu-min-w-[35px] acu-text-right acu-pr-2">
+                {#if data.width && data.width_unit}
+                    <span class="acu-font-mono acu-text-[10px]">{data.width}{data.width_unit}</span>
+                {/if}
+            </div>
 
-			{#if hasProfeatures( config )}
-				<ProFeatureToggles bind:data={data} bind:config={config} disabled={locked}/>
-			{/if}
-		</div>
-		<div class="ac-column-header__open-indicator acu-flex acu-justify-end">
-			<button class="ac-open-indicator" class:-open={opened} on:click|stopPropagation={toggle}>
-				<MaterialIcon icon="keyboard_arrow_down"/>
-			</button>
-		</div>
-	</header>
+            {#if hasProfeatures(config)}
+                <ProFeatureToggles bind:data={data} bind:config={config} disabled={locked}/>
+            {/if}
+        </div>
+        <div class="ac-column-header__open-indicator acu-flex acu-justify-end">
+            <button class="ac-open-indicator" class:-open={opened} on:click|stopPropagation={toggle}>
+                <MaterialIcon icon="keyboard_arrow_down"/>
+            </button>
+        </div>
+    </header>
 
-	{#if opened && config !== null }
-		<div class="ac-column-settings" transition:slide>
+    {#if opened && config !== null }
+        <div class="ac-column-settings" transition:slide>
 
-			<ColumnSetting description="" label={i18n.settings.label.column} extraClass="-type" setting="type">
-				<TypeSetting bind:data={data} bind:columnConfig={config} disabled={locked}/>
-			</ColumnSetting>
+            <ColumnSetting description="" label={i18n.settings.label.column} extraClass="-type" setting="type">
+                <TypeSetting bind:data={data} bind:columnConfig={config} disabled={locked}/>
+            </ColumnSetting>
 
-			<ColumnSettings
-				locked={locked}
-				bind:data={data}
-				bind:settings={config}
-				on:refresh={refreshSetting}
-			/>
+            <ColumnSettings
+                    locked={locked}
+                    bind:data={data}
+                    bind:settings={config}
+                    on:refresh={refreshSetting}
+            />
 
-			{#if $debugMode}
-				<div style="padding: 10px 30px; background: #FF; position: relative">
-					<div style="padding: 10px 0;">
-						<JSONTree value={data}/>
-					</div>
-					<button class="button" on:click={checkAppliedSettings}>Check settings</button>
-					<button class="button" on:click={refreshSetting}>Refresh settings</button>
-				</div>
-			{/if}
-		</div>
-	{/if}
+            {#if $debugMode}
+                <div style="padding: 10px 30px; background: #FF; position: relative">
+                    <div style="padding: 10px 0;">
+                        <JSONTree value={data}/>
+                    </div>
+                    <button class="button" on:click={checkAppliedSettings}>Check settings</button>
+                    <button class="button" on:click={refreshSetting}>Refresh settings</button>
+                </div>
+            {/if}
+        </div>
+    {/if}
 </div>

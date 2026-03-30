@@ -50,7 +50,11 @@
                 <span>{i18n.trust}</span>
             </div>
             <a class="ac-probanner__cta" href="{proBannerConfig.promo_url}" target="_blank">
-                {proBannerConfig.upgrade_cta ?? i18n.upgrade_cta}
+                <span class="ac-probanner__cta-label">
+                    {proBannerConfig.upgrade_cta ?? i18n.upgrade_cta}
+                    <span class="ac-probanner__cta-arrow">&rarr;</span>
+                </span>
+                <span class="ac-probanner__cta-price">{proBannerConfig.upgrade_cta_price ?? i18n.upgrade_cta_price}</span>
             </a>
             <p class="ac-probanner__guarantee">{i18n.guarantee}</p>
             <a class="ac-probanner__see-all" href="{proBannerConfig.promo_url}" target="_blank">

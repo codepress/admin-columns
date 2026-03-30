@@ -97,7 +97,7 @@
 
     const duplicateColumn = async (columnName: string) => {
         let foundColumn = data.columns.find(c => c.name === columnName) ?? null;
-        let foundIndex = data.columns.findIndex(c => c.name === columnName) ?? null;
+        let foundIndex = data.columns.findIndex(c => c.name === columnName);
 
         if (!foundColumn) {
             throw new Error(sprintf(i18n.editor.sentence.column_no_duplicate, columnName));
@@ -112,7 +112,7 @@
         openedColumnsStore.close(foundColumn.name);
         openedColumnsStore.open(clonedName);
         config[clonedName] = config[foundColumn.name];
-        scrollToColumn(columnName);
+        scrollToColumn(clonedName);
     }
 
     const scrollToColumn = (columnName: string) => {
@@ -158,7 +158,7 @@
     }
 
     const makeSortable = () => {
-        const JQ: any = jQuery;
+        const JQ: any = (window as any).jQuery;
         JQ(sortableContainer).sortable({
             axis: 'y',
             containment: JQ(sortableContainer),
@@ -187,8 +187,8 @@
         addColumn(d.detail);
         columnTypeComponent!.close();
     }
-
-    const handleCloseColumnTypeDropdown = (component: { close: () => void } | null) => {
+	
+    const handleCloseColumnTypeDropdown = (component: AcDropdown | null) => {
         component?.close();
     }
 

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace AC;
 
 use AC;
-use AC\Acf\Service\FieldSettings;
-use AC\Acf\Service\FieldSettingsSync;
 use AC\Admin\MenuGroupFactory;
 use AC\Admin\MenuGroupFactory\DefaultGroups;
 use AC\Admin\PageFactory;
@@ -73,11 +71,7 @@ class Loader
         MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
 
         foreach ($this->get_menu_group_factory_classes() as $class) {
-            $integration = new $class();
-
-            if ($integration->is_plugin_active()) {
-                MenuGroupFactory\Aggregate::add($integration, 5);
-            }
+            MenuGroupFactory\Aggregate::add(new $class(), 5);
         }
         TableIdsFactory\Aggregate::add($container->get(TableIdsFactory\BaseFactory::class));
         TableScreen\TableRowsFactory\Aggregate::add(new TableScreen\TableRowsFactory\BaseFactory());
@@ -133,14 +127,14 @@ class Loader
     private function get_menu_group_factory_classes(): array
     {
         return [
-            Integration\WooCommerce::class,
-            Integration\BuddyPress::class,
-            Integration\EventsCalendar::class,
-            Integration\GravityForms::class,
-            Integration\JetEngine::class,
-            Integration\MediaLibraryAssistant::class,
-            Integration\MetaBox::class,
-            Integration\BeaverBuilder::class,
+            MenuGroupFactory\WooCommerceGroups::class,
+            MenuGroupFactory\BuddyPressGroups::class,
+            MenuGroupFactory\EventsCalendarGroups::class,
+            MenuGroupFactory\GravityFormsGroups::class,
+            MenuGroupFactory\JetEngineGroups::class,
+            MenuGroupFactory\MediaLibraryAssistantGroups::class,
+            MenuGroupFactory\MetaBoxGroups::class,
+            MenuGroupFactory\BeaverBuilderGroups::class,
         ];
     }
 
@@ -177,6 +171,7 @@ class Loader
             'ac-integration-toggle'           => Ajax\IntegrationToggle::class,
             'ac-integrations'                 => Ajax\Integrations::class,
             'ac-list-screen-delete'           => Ajax\ListScreenDelete::class,
+            'ac-acf-add-column'               => AC\Acf\RequestHandler\FieldSettingsAddColumn::class,
         ];
     }
 
@@ -212,6 +207,7 @@ class Loader
             $classes[] = Service\PromoChecks::class;
             $classes[] = Service\NoticeChecks::class;
             $classes[] = PluginActionUpgrade::class;
+            $classes[] = AC\Acf\Service\FieldSettings::class;
         }
 
         return $classes;

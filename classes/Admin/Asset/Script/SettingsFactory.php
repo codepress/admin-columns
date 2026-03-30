@@ -9,6 +9,7 @@ use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Script\Localize\Translation;
 use AC\Form\NonceFactory;
+use AC\Type\StartingPrice;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
@@ -151,7 +152,7 @@ final class SettingsFactory
                             sprintf(
                             /* translators: %s: price (e.g. $79) */
                                 __('from %s/year', 'codepress-admin-columns'),
-                                Site::PRICE_STARTING
+                                StartingPrice::get()
                             )
                         ),
                         'view_all'       => __('See all Pro features', 'codepress-admin-columns'),
