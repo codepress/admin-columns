@@ -82,7 +82,7 @@
                 let newIndex: string[] = [];
                 let newItems: selectOptionType[] = [];
 
-                sortEl.childNodes.forEach((el: HTMLElement) => newIndex.push(el.dataset.id ?? ''))
+                Array.from(sortEl.children).forEach((el) => newIndex.push((el as HTMLElement).dataset.id ?? ''))
 
                 newIndex.forEach(id => {
                     let item = activeOptions.find(i => i.id === id);

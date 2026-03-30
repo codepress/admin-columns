@@ -619,8 +619,10 @@ table.ac-table-items.-user-posts {
 	margin-bottom: 6px;
 	overflow: hidden;
 	max-width: 100%;
-	background-color: #ccc; // some transparent image won't be visible otherwise
+	background-color: #f0f0f1; // some transparent image won't be visible otherwise
 	vertical-align: middle;
+	border-radius: 4px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
 
 	img {
 		display: block;
@@ -644,6 +646,59 @@ table.ac-table-items.-user-posts {
 		img {
 			object-fit: cover;
 		}
+	}
+
+	a:hover > & {
+		border-color: #2271b1;
+		cursor: pointer;
+	}
+}
+
+.ac-file-pill {
+	display: inline-flex;
+	align-items: center;
+	border: 1.5px solid #e0e0e0;
+	border-radius: 100px;
+	background: #f8f8f8;
+	padding: 3px 14px 3px 3px;
+	text-decoration: none;
+	color: inherit;
+	font-size: 13px;
+	vertical-align: middle;
+	max-width: 100%;
+
+	.ac-file-type {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border: 1.5px solid #e0e0e0;
+		border-radius: 100px;
+		background: #fff;
+		color: #2271b1;
+		font-weight: 700;
+		font-size: 11px;
+		padding: 2px 4px;
+		min-width: 40px;
+		text-align: center;
+		text-transform: uppercase;
+		margin-right: 10px;
+		white-space: nowrap;
+	}
+
+	.ac-file-name {
+		color: #555;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&:hover {
+		text-decoration: none;
+	}
+
+	a:hover > & {
+		border-color: #2271b1;
+		cursor: pointer;
 	}
 }
 
@@ -1205,12 +1260,14 @@ table.ac-table-items.-clean {
 		}
 	}
 }
+
 table.ac-table-items.-plugins {
 	tr > *:first-child {
 		padding-left: 0;
 	}
+
 	thead tr {
-		>* {
+		> * {
 			text-align: left;
 		}
 	}

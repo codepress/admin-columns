@@ -33,7 +33,8 @@ abstract class BaseColumnFactory extends ColumnFactory
             $column_id_generator->from_config($config),
             $this->get_context($config),
             $this->get_formatters($config),
-            $this->get_group()
+            $this->get_group(),
+            $this->get_description()
         );
     }
 

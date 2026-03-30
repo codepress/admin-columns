@@ -4,7 +4,7 @@ Tags: columns, admin columns, custom fields, list table, woocommerce
 Requires at least: 5.9
 Tested up to: 6.9.1
 Requires PHP: 7.4
-Stable tag: 7.0.12
+Stable tag: 7.0.13
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -169,14 +169,12 @@ Developers can extend Admin Columns using many actions and filters. You can find
 
 == Screenshots ==
 
-1. Column settings page for post types — drag and drop to reorder, configure each column's display options.
-2. Posts list screen with customized columns showing exactly the data you need.
-3. Column settings page for the Media Library.
-4. Media Library with custom columns for dimensions, file size, EXIF data, and more.
-5. Column settings page for the Users screen.
-6. Users list with custom columns for roles, post counts, and custom fields.
-7. Custom field column configuration — choose from color, date, image, number, URL, and more display types.
-8. Posts list showing multiple custom field columns with formatted values.
+1. Configure your columns with a simple drag-and-drop interface. Add custom fields, featured images, taxonomies, and more - then reorder them exactly how you want.
+2. Transform your WordPress posts list into a clear content overview. View featured images, word count, reading time, and custom fields without opening a single post.
+3. Admin Columns works on any custom post type. Add columns for your custom fields and see all your data at a glance - no more opening records one by one.
+4. Admin Columns works across every WordPress screen. Enhance the Users list table with last login, post count, role, and more - and apply the same power to media, orders, and custom post types.
+5. Sort by any column and filter with smart conditions like "contains", "before", and "is greater than". Save filters as segments and share them with your team. Works on posts, pages, users, and custom post types. (Admin Columns Pro feature)
+6. Admin Columns Pro lets you edit posts, users, and custom fields directly from the list table. No more opening and closing individual edit screens. (Admin Columns Pro feature)
 
 == Installation ==
 
@@ -200,17 +198,23 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 
 == Changelog ==
 
-= 7.0.12 =
-Release Date: March 16th, 2026
+= 7.0.13 =
+Release Date: March 30th, 2026
 
-* [Added] New "Auto Detect" option for the date save format setting.
-* [Added] New "File Display" setting for file columns with filename and preview options.
-* [Added] New `ac/init` action hook for accessing the DI container after plugin initialization.
-* [Improved] The Title Only column on the Media list table now displays both the post title and the filename.
-* [Improved] Before/After text settings now correctly apply to ID columns.
-* [Fixed] Fixed dropdown menus closing unexpectedly when clicked.
-* [Fixed] Fixed potential errors when displaying columns for deleted posts, users, or terms.
-* [Fixed] Resolved errors and deprecation warnings when running on PHP 8.4.
+* [Added] ACF field settings tab to add fields as admin columns directly from the field group editor.
+* [Added] Column editor now scrolls to the opened column when linked from ACF field settings.
+* [Added] Word Count columns now support Before & After text to prepend or append custom text around the count.
+* [Added] Custom field column settings now display the meta key for reference.
+* [Added] ACF date save format option for custom field date columns.
+* [Improved] File columns now group attachments by file type and display multiple filenames separated by commas.
+* [Improved] Refreshed column settings sidebar with updated review and support panels.
+* [Improved] Improved Before & After display options UI.
+* [Fixed] Fixed the post link option not appearing for most property types in the Comment Post column.
+* [Fixed] Fixed the post link option not appearing for most property types in the User First Post and Last Post columns.
+* [Fixed] Fixed a potential error in user property columns when the display setting has not been saved yet.
+* [Fixed] Fixed "Default" option duplicating in the primary column preference dropdown.
+* [Fixed] Fixed template creation showing a success notification even when it failed.
+* [Fixed] Fixed media custom field columns not supporting multiple file uploads.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 

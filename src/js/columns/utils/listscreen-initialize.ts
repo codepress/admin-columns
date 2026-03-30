@@ -80,7 +80,12 @@ class ListScreenInitializer {
 
 export const initUninitializedListScreens = (listScreens: UninitializedListScreens, listKey: string) => {
     const initializeSideListScreens = () => {
-        new ListScreenInitializer(listScreens);
+        const sideScreens = Object.fromEntries(
+            Object.entries(listScreens).filter(([key]) => key !== listKey)
+        );
+        if (Object.keys(sideScreens).length > 0) {
+            new ListScreenInitializer(sideScreens);
+        }
     }
 
     if (Object.keys(listScreens).length > 0) {

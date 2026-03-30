@@ -87,7 +87,7 @@
         }
 
         options = mapMenuToSelect(menu);
-        groups = [...new Set(options.map(o => typeof o.group === 'string' ? o.group : '') ?? [])];
+        groups = [...new Set(options.map(o => typeof o.group === 'string' ? o.group : ''))];
     })
 </script>
 <nav class="ac-table-screen-nav">

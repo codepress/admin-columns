@@ -33,6 +33,8 @@
 
     let columnTypeLabel: string;
     let columnTypeName: string;
+    let columnDescription: string = '';
+    let columnElement: HTMLElement;
 
     const toggle = () => {
         openedColumnsStore.toggle(data.name);
@@ -53,6 +55,13 @@
         let columnInfo = $columnTypesStore.find(c => c.value === data.type);
         columnTypeLabel = columnInfo?.label ?? ''
         columnTypeName = columnInfo?.value ?? ''
+        columnDescription = columnInfo?.description ?? ''
+
+        if ($openedColumnsStore.includes(data.name) && columnElement) {
+            requestAnimationFrame(() => {
+                columnElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+            });
+        }
     })
 
     const checkCondition = (condition: AC.Specification.Rule, parent: string) => {
@@ -66,10 +75,10 @@
                 : true;
         }).forEach(setting => {
             if (setting.hasOwnProperty('input')) {
-                validSettings.push((setting as any).input?.name);
+                validSettings.push(setting.input?.name);
             }
             if (setting.children) {
-                checkAppliedSubSettings(validSettings, setting.children, setting?.input?.name ?? '');
+                checkAppliedSubSettings(validSettings, setting.children, setting.input?.name ?? '');
             }
         })
 
@@ -105,9 +114,13 @@
 
     $: dispatch('update', data);
     $: opened = $openedColumnsStore.includes(data.name);
+    $: {
+        const info = $columnTypesStore.find(c => c.value === data.type);
+        columnDescription = info?.description ?? '';
+    }
 </script>
 
-<div class="ac-column" class:-opened={opened} data-name={data.name}>
+<div class="ac-column" class:-opened={opened} data-name={data.name} bind:this={columnElement} style="scroll-margin-top: 100px;">
 	<header class="ac-column-header acu-flex acu-py-2 acu-pr-6 rtl:acu-pl-6 acu-items-center acu-bg-[#fff]" on:click={toggle} on:keydown role="none">
 		<div class="ac-column-header__move acu-cursor-move" on:click|stopPropagation role="none">
 			<AcIcon icon="move" size="sm"/>
@@ -159,7 +172,7 @@
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
 
-			<ColumnSetting description="" label={i18n.settings.label.column} extraClass="-type">
+			<ColumnSetting description={columnDescription} label={i18n.settings.label.column} extraClass="-type">
 				<TypeSetting bind:data={data} bind:columnConfig={config} disabled={locked}/>
 			</ColumnSetting>
 

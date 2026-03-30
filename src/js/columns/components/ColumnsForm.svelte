@@ -97,7 +97,7 @@
 
     const duplicateColumn = async (columnName: string) => {
         let foundColumn = data.columns.find(c => c.name === columnName) ?? null;
-        let foundIndex = data.columns.findIndex(c => c.name === columnName) ?? null;
+        let foundIndex = data.columns.findIndex(c => c.name === columnName);
 
         if (!foundColumn) {
             throw new Error(sprintf(i18n.editor.sentence.column_no_duplicate, columnName));
@@ -112,7 +112,7 @@
         openedColumnsStore.close(foundColumn.name);
         openedColumnsStore.open(clonedName);
         config[clonedName] = config[foundColumn.name];
-        scrollToColumn(columnName);
+        scrollToColumn(clonedName);
     }
 
     const scrollToColumn = (columnName: string) => {
@@ -158,7 +158,7 @@
     }
 
     const makeSortable = () => {
-        const JQ: any = jQuery;
+        const JQ: any = (window as any).jQuery;
         JQ(sortableContainer).sortable({
             axis: 'y',
             containment: JQ(sortableContainer),
@@ -188,11 +188,11 @@
         columnTypeComponent!.close();
     }
 
-    const handleCloseColumnTypeDropdown = (component) => {
-        component.close();
+    const handleCloseColumnTypeDropdown = (component: AcDropdown | null) => {
+        component?.close();
     }
 
-    const toggleColumnInfo = (e) => {
+    const toggleColumnInfo = (e: CustomEvent<boolean>) => {
         persistScreenOptions('show_column_info', e.detail === true ? 1 : 0)
     }
 
@@ -242,37 +242,43 @@
 		</AcPanelHeader>
 
 		<div slot="body">
-			{#if data.columns.length === 0 || data.columns === null}
+			{#if data.columns === null || data.columns.length === 0}
 				<div class="acu-p-10 acu-bg-[#F1F5F9]">
-					<div class="acu-text-center acu-font-bold">
-						<p>{i18n.editor.sentence.get_started}</p>
-					</div>
+					{#if locked}
+						<div class="acu-text-center acu-text-gray-500 acu-py-4">
+							<p>{@html i18n.editor.sentence.columns_read_only}</p>
+						</div>
+					{:else}
+						<div class="acu-text-center acu-font-bold">
+							<p>{i18n.editor.sentence.get_started}</p>
+						</div>
 
-					<div class="acu-flex acu-gap-3 acu-items-center acu-justify-center acu-pt-4 acu-pb-6">
-						<AcDropdown
-							--acui-dropdown-width="300px"
-							value
-							position="bottom-right"
-							customClass="-selectv2">
+						<div class="acu-flex acu-gap-3 acu-items-center acu-justify-center acu-pt-4 acu-pb-6">
+							<AcDropdown
+								--acui-dropdown-width="300px"
+								value
+								position="bottom-right"
+								customClass="-selectv2">
 
-							<AcButton slot="trigger">+ {i18n.editor.label.add_column}</AcButton>
-							<ColumnTypeDropdownV2
-								on:selectItem={handleSelectColumnType}
-								on:close={() => handleCloseColumnTypeDropdown(columnTypeComponent)}
+								<AcButton slot="trigger">+ {i18n.editor.label.add_column}</AcButton>
+								<ColumnTypeDropdownV2
+									on:selectItem={handleSelectColumnType}
+									on:close={() => handleCloseColumnTypeDropdown(columnTypeComponent)}
+								/>
+
+							</AcDropdown>
+
+							<AcButton
+								loading={loadingDefaultColumns}
+								--acui-loading-color="#000"
+								on:click={handleLoadDefaultColumns}
+								label={i18n.editor.label.load_default_columns}
 							/>
-
-						</AcDropdown>
-
-						<AcButton
-							loading={loadingDefaultColumns}
-							--acui-loading-color="#000"
-							on:click={handleLoadDefaultColumns}
-							label={i18n.editor.label.load_default_columns}
-						/>
-					</div>
-					<div class="acu-text-center acu-text-12px">
-						<p>{@html i18n.editor.sentence.documentation}</p>
-					</div>
+						</div>
+						<div class="acu-text-center acu-text-12px">
+							<p>{@html i18n.editor.sentence.documentation}</p>
+						</div>
+					{/if}
 				</div>
 			{/if}
 

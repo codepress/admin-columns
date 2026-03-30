@@ -14,6 +14,7 @@ type LocalizedAddonsI18n = {
     plugin_not_detected: string,
     enable_integration: string,
     learn_more: string,
+    subtitle: string,
     buy_now: string,
     title: {
         enabled: string

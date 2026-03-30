@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace AC\Response;
 
 use AC;
+use AC\Admin\Banner\BannerContextResolver;
 use AC\ListScreen;
 use AC\Setting\Encoder;
 use AC\Storage\EncoderFactory;
+use AC\Type\StartingPrice;
 use AC\Type\Url\Preview;
+use AC\Type\Url\Site;
+use AC\Type\Url\UtmTags;
 
 class JsonListScreenSettingsFactory
 {
@@ -19,14 +23,18 @@ class JsonListScreenSettingsFactory
 
     private AC\ColumnGroups $column_groups;
 
+    private BannerContextResolver $banner_context_resolver;
+
     public function __construct(
         EncoderFactory $encoder_factory,
         AC\ColumnTypeRepository $type_repository,
-        AC\ColumnGroups $column_groups
+        AC\ColumnGroups $column_groups,
+        BannerContextResolver $banner_context_resolver
     ) {
         $this->encoder_factory = $encoder_factory;
         $this->type_repository = $type_repository;
         $this->column_groups = $column_groups;
+        $this->banner_context_resolver = $banner_context_resolver;
     }
 
     public function create(ListScreen $list_screen, bool $is_stored = true, bool $is_template = false): Json
@@ -36,6 +44,8 @@ class JsonListScreenSettingsFactory
             ->set_list_screen($list_screen);
 
         $table_screen = $list_screen->get_table_screen();
+
+        $context = $this->banner_context_resolver->resolve($table_screen);
 
         return (new Json())->set_parameters([
             'read_only'       => $list_screen->is_read_only(),
@@ -51,6 +61,9 @@ class JsonListScreenSettingsFactory
                 'singular' => $table_screen->get_labels()->get_singular(),
                 'plural'   => $table_screen->get_labels()->get_plural(),
             ],
+            'pro_banner'      => $context
+                ? $context->get_arguments($table_screen)
+                : $this->get_default_banner_arguments($table_screen),
         ]);
     }
 
@@ -75,6 +88,11 @@ class JsonListScreenSettingsFactory
 
             if ('custom' !== $column->get_group()) {
                 $column_type['searchable_label'] .= ' ' . $column_type['group'];
+            }
+
+            $description = $column->get_description();
+            if ($description !== null) {
+                $column_type['description'] = $description;
             }
 
             $column_types[] = $column_type;
@@ -122,6 +140,70 @@ class JsonListScreenSettingsFactory
         }
 
         return $settings;
+    }
+
+    private function get_default_banner_arguments(AC\TableScreen $table_screen): array
+    {
+        $upgrade_url = new UtmTags(Site::create_admin_columns_pro(), 'banner');
+
+        $plural = $table_screen->get_labels()->get_plural();
+        $singular = $table_screen->get_labels()->get_singular();
+
+        if (mb_strlen($plural) > 30) {
+            $plural = __('content', 'codepress-admin-columns');
+            $singular = __('item', 'codepress-admin-columns');
+        }
+
+        $plural_lower = mb_strtolower($plural);
+        $singular_lower = mb_strtolower($singular);
+
+        return [
+            'title'             => sprintf(
+                __('Manage your %s faster', 'codepress-admin-columns'),
+                $plural_lower
+            ),
+            'description'       => sprintf(
+                __('Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s.', 'codepress-admin-columns'),
+                $plural_lower,
+                $singular_lower
+            ),
+            'upgrade_cta'       => sprintf(__('Manage your %s faster', 'codepress-admin-columns'), $plural_lower),
+            'upgrade_cta_price' => sprintf(
+                '%s · %s',
+                sprintf(
+                /* translators: %s: price (e.g. $79) */
+                    __('from %s/year', 'codepress-admin-columns'),
+                    StartingPrice::get()
+                ),
+                __('all features included', 'codepress-admin-columns')
+            ),
+            'features'          => [
+                [
+                    'url'   => $upgrade_url->with_content('usp-editing')->get_url(),
+                    'label' => __('Inline edit directly in the table', 'codepress-admin-columns'),
+                ],
+                [
+                    'url'   => $upgrade_url->with_content('usp-sorting')->get_url(),
+                    'label' => __('Sort and filter on any column', 'codepress-admin-columns'),
+                ],
+                [
+                    'url'   => $upgrade_url->with_content('usp-bulk-edit')->get_url(),
+                    'label' => sprintf(
+                        __('Bulk edit hundreds of %s at once', 'codepress-admin-columns'),
+                        $plural_lower
+                    ),
+                ],
+                [
+                    'url'   => $upgrade_url->with_content('usp-export')->get_url(),
+                    'label' => __('Export table data to CSV', 'codepress-admin-columns'),
+                ],
+                [
+                    'url'   => $upgrade_url->with_content('usp-column-sets')->get_url(),
+                    'label' => __('Multiple views per screen', 'codepress-admin-columns'),
+                ],
+            ],
+            'promo_url'         => $upgrade_url->get_url(),
+        ];
     }
 
 }

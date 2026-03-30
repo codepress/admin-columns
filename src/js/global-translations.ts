@@ -1,5 +1,6 @@
 type globalTranslationType = {
     confirmation: {
+        default_message: string
         ok: string
         cancel: string
     },

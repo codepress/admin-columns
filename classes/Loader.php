@@ -69,6 +69,10 @@ class Loader
         ExtendedValueRegistry::add($container->get(Posts::class));
 
         MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
+
+        foreach ($this->get_menu_group_factory_classes() as $class) {
+            MenuGroupFactory\Aggregate::add(new $class(), 5);
+        }
         TableIdsFactory\Aggregate::add($container->get(TableIdsFactory\BaseFactory::class));
         TableScreen\TableRowsFactory\Aggregate::add(new TableScreen\TableRowsFactory\BaseFactory());
 
@@ -120,6 +124,20 @@ class Loader
         ];
     }
 
+    private function get_menu_group_factory_classes(): array
+    {
+        return [
+            MenuGroupFactory\WooCommerceGroups::class,
+            MenuGroupFactory\BuddyPressGroups::class,
+            MenuGroupFactory\EventsCalendarGroups::class,
+            MenuGroupFactory\GravityFormsGroups::class,
+            MenuGroupFactory\JetEngineGroups::class,
+            MenuGroupFactory\MediaLibraryAssistantGroups::class,
+            MenuGroupFactory\MetaBoxGroups::class,
+            MenuGroupFactory\BeaverBuilderGroups::class,
+        ];
+    }
+
     private function register_page_handlers(AC\DI\Container $container): void
     {
         $page_handler = new PageRequestHandler();
@@ -152,6 +170,8 @@ class Loader
             'ac-restore-settings'             => Ajax\RestoreSettingsRequest::class,
             'ac-integration-toggle'           => Ajax\IntegrationToggle::class,
             'ac-integrations'                 => Ajax\Integrations::class,
+            'ac-list-screen-delete'           => Ajax\ListScreenDelete::class,
+            'ac-acf-add-column'               => AC\Acf\RequestHandler\FieldSettingsAddColumn::class,
         ];
     }
 
@@ -180,12 +200,14 @@ class Loader
             Service\AdminBarEditColumns::class,
             Service\PluginUpdate::class,
             Service\Tooltips::class,
+            AC\Acf\Service\DateSaveFormat::class,
         ];
 
         if ( ! $this->is_pro_active) {
             $classes[] = Service\PromoChecks::class;
             $classes[] = Service\NoticeChecks::class;
             $classes[] = PluginActionUpgrade::class;
+            $classes[] = AC\Acf\Service\FieldSettings::class;
         }
 
         return $classes;

@@ -2,24 +2,26 @@
 
 namespace AC\Service;
 
+use AC\Acf\FieldCount;
 use AC\AdminColumns;
 use AC\Capabilities;
 use AC\Check;
-use AC\Integration\IntegrationRepository;
+use AC\Check\Integration;
+use AC\Notice\NoticeState;
 use AC\Registerable;
 use AC\Services;
 
 class NoticeChecks implements Registerable
 {
 
-    private IntegrationRepository $integration_repository;
-
     private AdminColumns $plugin;
 
-    public function __construct(AdminColumns $plugin, IntegrationRepository $integration_repository)
+    private FieldCount $field_count;
+
+    public function __construct(AdminColumns $plugin, FieldCount $field_count)
     {
         $this->plugin = $plugin;
-        $this->integration_repository = $integration_repository;
+        $this->field_count = $field_count;
     }
 
     public function register(): void
@@ -30,13 +32,32 @@ class NoticeChecks implements Registerable
     private function create_services(): Services
     {
         $services = new Services();
+        $services->add($this->field_count);
 
         if (current_user_can(Capabilities::MANAGE)) {
-            $services->add(new Check\Review($this->plugin->get_location()));
+            $state = new NoticeState();
 
-            foreach ($this->integration_repository->find_all_by_active_plugins() as $integration) {
-                $services->add(new Check\AddonAvailable($integration));
-            }
+            $services->add(new Check\Review($this->plugin->get_location(), $state));
+
+            $services->add(
+                new Integration\IntegrationNoticeRenderer(
+                    [
+                        new Integration\WooCommerceProductsBulkEditNotice(),
+                        new Integration\WooCommerceProductsSearchNotice(),
+                        new Integration\WooCommerceProductsFilterNotice(),
+                        new Integration\WooCommerceProductsNotice(),
+                        new Integration\WooCommerceOrdersSearchNotice(),
+                        new Integration\WooCommerceOrdersFilterNotice(),
+                        new Integration\WooCommerceOrdersNotice(),
+                        new Integration\AcfBulkEditNotice($this->field_count),
+                        new Integration\AcfSortAndFilterNotice($this->field_count),
+                        new Integration\AcfNotice(),
+                        new Integration\GravityFormsNotice(),
+                        new Integration\EventsCalendarNotice(),
+                    ],
+                    $state
+                )
+            );
         }
 
         return $services;
