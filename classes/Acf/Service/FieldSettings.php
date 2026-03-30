@@ -119,7 +119,7 @@ class FieldSettings implements Registerable
 
     private function render_pro_only_upsell(array $field): void
     {
-        $url = (string)(new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'acf-field-settings-upsell'))->get_url();
+        $url = (new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'acf-field-settings-upsell'))->get_url();
 
         acf_render_field_setting(
             $field,
