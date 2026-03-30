@@ -291,7 +291,7 @@ class FieldSettings implements Registerable
             );
         }
 
-        $url = (string)(new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'acf-field-settings'))->get_url();
+        $url = (new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'acf-field-settings'))->get_url();
 
         acf_render_field_setting(
             $field,
