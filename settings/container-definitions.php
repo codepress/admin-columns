@@ -2,7 +2,6 @@
 
 use AC\Admin;
 use AC\Admin\PageRequestHandlers;
-use AC\Admin\View;
 use AC\AdminColumns;
 use AC\Asset\Script\GlobalTranslationFactory;
 use AC\Asset\Script\Localize\Translation;
@@ -82,5 +81,4 @@ return [
     PluginUpdate::class                       => autowire()
         ->constructorParameter(0, get(AdminColumns::class))
         ->constructorParameter(1, new Site('upgrade-to-ac-version-%s')),
-    View\MenuFactory::class                   => autowire(),
 ];

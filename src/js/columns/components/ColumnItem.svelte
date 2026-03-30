@@ -34,6 +34,7 @@
     let columnTypeLabel: string;
     let columnTypeName: string;
     let columnDescription: string = '';
+    let columnElement: HTMLElement;
 
     const toggle = () => {
         openedColumnsStore.toggle(data.name);
@@ -55,6 +56,12 @@
         columnTypeLabel = columnInfo?.label ?? ''
         columnTypeName = columnInfo?.value ?? ''
         columnDescription = columnInfo?.description ?? ''
+
+        if ($openedColumnsStore.includes(data.name) && columnElement) {
+            requestAnimationFrame(() => {
+                columnElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+            });
+        }
     })
 
     const checkCondition = (condition: AC.Specification.Rule, parent: string) => {
@@ -113,7 +120,7 @@
     }
 </script>
 
-<div class="ac-column" class:-opened={opened} data-name={data.name}>
+<div class="ac-column" class:-opened={opened} data-name={data.name} bind:this={columnElement} style="scroll-margin-top: 100px;">
 	<header class="ac-column-header acu-flex acu-py-2 acu-pr-6 rtl:acu-pl-6 acu-items-center acu-bg-[#fff]" on:click={toggle} on:keydown role="none">
 		<div class="ac-column-header__move acu-cursor-move" on:click|stopPropagation role="none">
 			<AcIcon icon="move" size="sm"/>
