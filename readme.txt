@@ -2,9 +2,9 @@
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Tags: columns, admin columns, custom fields, list table, woocommerce
 Requires at least: 5.9
-Tested up to: 6.9.1
+Tested up to: 6.9.4
 Requires PHP: 7.4
-Stable tag: 7.0.13
+Stable tag: 7.0.14
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -198,7 +198,7 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 
 == Changelog ==
 
-= 7.0.13 =
+= 7.0.14 =
 Release Date: March 30th, 2026
 
 * [Added] ACF field settings tab to add fields as admin columns directly from the field group editor.
