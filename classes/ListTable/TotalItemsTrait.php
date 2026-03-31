@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace AC\ListTable;
 
 use WP_List_Table;
@@ -17,7 +15,7 @@ trait TotalItemsTrait
             return 0;
         }
 
-        return $wp_list_table->get_pagination_arg('total_items') ?? 0;
+        return (string)$wp_list_table->get_pagination_arg('total_items') ?? 0;
     }
 
 }
