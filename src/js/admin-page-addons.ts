@@ -1,14 +1,16 @@
 import AddonsPage from "./addons/AddonsPage.svelte";
+import AddonsPageFree from "./addons/AddonsPageFree.svelte";
 import {getAddonsConfig} from "./addons/global";
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    const config = getAddonsConfig();
+    const Component = config.pro_installed ? AddonsPage : AddonsPageFree;
+
     document.querySelectorAll('#cpac').forEach(el => {
-        new AddonsPage({
+        new Component({
             target: el,
-            props: {
-                pro: getAddonsConfig().pro_installed
-            }
+            props: config.pro_installed ? { pro: true } : {}
         })
     });
 

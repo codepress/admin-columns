@@ -49,6 +49,17 @@ class Addons extends Script
                 'recommended' => __('Recommended Integrations', 'codepress-admin-columns'),
                 'available'   => __('More Integrations', 'codepress-admin-columns'),
             ],
+            'detected_on_site'     => __('Detected on your site', 'codepress-admin-columns'),
+            'recommended'          => __('Recommended', 'codepress-admin-columns'),
+            'see_what_you_get'     => __('See what you get', 'codepress-admin-columns'),
+            'more_integrations'    => __('More integrations', 'codepress-admin-columns'),
+            'install_hint'         => __('Install a supported plugin to see it above', 'codepress-admin-columns'),
+            'no_plugins_detected'  => __('Install a supported plugin to get started', 'codepress-admin-columns'),
+            'detected_eyebrow'     => __('%d integrations detected on your site', 'codepress-admin-columns'),
+            'detected_eyebrow_one' => __('1 integration detected on your site', 'codepress-admin-columns'),
+            'page_heading'         => __('Do more with the plugins you already use', 'codepress-admin-columns'),
+            'page_subtitle'        => __('Admin Columns Pro adds sorting, filtering, inline editing, and bulk editing to your plugin data — right from the list table.', 'codepress-admin-columns'),
+            'your_site'            => __('Your site:', 'codepress-admin-columns'),
         ]);
 
         $this

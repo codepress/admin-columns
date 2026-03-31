@@ -4,6 +4,12 @@ import {getAddonsConfig} from "../global";
 declare const ajaxurl: string;
 
 
+export interface SiteContext {
+    field_group_count?: number;
+    post_type_count?: number;
+    product_count?: number;
+}
+
 export interface IntegrationItem {
     plugin_active: boolean
     title: string
@@ -13,6 +19,8 @@ export interface IntegrationItem {
     description: string
     plugin_logo: string
     plugin_link: string
+    priority: number
+    site_context: SiteContext | null
 }
 
 type FetchIntegrationsResponse = {

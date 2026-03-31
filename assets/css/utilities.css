@@ -154,12 +154,20 @@
   top: 0
 }
 
+.acu-top-\[3px\] {
+  top: 3px
+}
+
 .acu-top-\[50\%\] {
   top: 50%
 }
 
 .acu-top-\[7px\] {
   top: 7px
+}
+
+.acu-top-\[2px\] {
+  top: 2px
 }
 
 .acu-z-10 {
@@ -274,6 +282,10 @@
   margin-top: 15px
 }
 
+.acu-mt-5 {
+  margin-top: 25px
+}
+
 .acu-mt-6 {
   margin-top: 30px
 }
@@ -292,6 +304,17 @@
 
 .acu-mt-\[0\] {
   margin-top: 0
+}
+
+.acu-mt-auto {
+  margin-top: auto
+}
+
+.acu-line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1
 }
 
 .acu-block {
@@ -337,8 +360,24 @@
   height: 30px
 }
 
+.acu-h-10 {
+  height: 50px
+}
+
+.acu-h-4 {
+  height: 20px
+}
+
 .acu-h-6 {
   height: 30px
+}
+
+.acu-h-7 {
+  height: 35px
+}
+
+.acu-h-9 {
+  height: 45px
 }
 
 .acu-h-\[100px\] {
@@ -361,12 +400,20 @@
   height: 40px
 }
 
+.acu-h-\[52px\] {
+  height: 52px
+}
+
 .acu-h-\[60px\] {
   height: 60px
 }
 
 .acu-h-full {
   height: 100%
+}
+
+.acu-h-5 {
+  height: 25px
 }
 
 .acu-max-h-\[80px\] {
@@ -379,6 +426,22 @@
 
 .acu-min-h-\[calc\(100vh_-_70px\)\] {
   min-height: calc(100vh - 70px)
+}
+
+.acu-w-10 {
+  width: 50px
+}
+
+.acu-w-4 {
+  width: 20px
+}
+
+.acu-w-7 {
+  width: 35px
+}
+
+.acu-w-9 {
+  width: 45px
 }
 
 .acu-w-\[100\%\] {
@@ -413,6 +476,10 @@
   width: 40px
 }
 
+.acu-w-\[52px\] {
+  width: 52px
+}
+
 .acu-w-\[60px\] {
   width: 60px
 }
@@ -424,6 +491,10 @@
 
 .acu-w-full {
   width: 100%
+}
+
+.acu-w-5 {
+  width: 25px
 }
 
 .acu-min-w-\[200px\] {
@@ -482,8 +553,16 @@
   max-width: 500px
 }
 
+.acu-max-w-\[580px\] {
+  max-width: 580px
+}
+
 .acu-max-w-\[700px\] {
   max-width: 700px
+}
+
+.acu-max-w-\[760px\] {
+  max-width: 760px
 }
 
 .acu-max-w-\[80\%\] {
@@ -562,10 +641,26 @@
   cursor: pointer
 }
 
+.acu-list-none {
+  list-style-type: none
+}
+
 .acu-appearance-none {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none
+}
+
+.acu-grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr))
+}
+
+.acu-grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+}
+
+.acu-grid-cols-\[repeat\(auto-fill\,minmax\(200px\,1fr\)\)\] {
+  grid-template-columns: repeat(auto-fill,minmax(200px,1fr))
 }
 
 .acu-flex-row-reverse {
@@ -592,6 +687,10 @@
   place-items: center
 }
 
+.acu-items-start {
+  align-items: flex-start
+}
+
 .acu-items-center {
   align-items: center
 }
@@ -608,20 +707,40 @@
   justify-content: center
 }
 
+.acu-justify-between {
+  justify-content: space-between
+}
+
 .acu-gap-1 {
   gap: 5px
+}
+
+.acu-gap-1\.5 {
+  gap: 8px
 }
 
 .acu-gap-2 {
   gap: 10px
 }
 
+.acu-gap-2\.5 {
+  gap: 13px
+}
+
 .acu-gap-3 {
   gap: 15px
 }
 
+.acu-gap-3\.5 {
+  gap: 18px
+}
+
 .acu-gap-4 {
   gap: 20px
+}
+
+.acu-gap-5 {
+  gap: 25px
 }
 
 .acu-gap-8 {
@@ -647,6 +766,10 @@
 
 .acu-overflow-hidden {
   overflow: hidden
+}
+
+.acu-overflow-visible {
+  overflow: visible
 }
 
 .acu-overflow-x-auto {
@@ -677,6 +800,14 @@
   border-radius: 10px
 }
 
+.acu-rounded-\[14px\] {
+  border-radius: 14px
+}
+
+.acu-rounded-\[16px\] {
+  border-radius: 16px
+}
+
 .acu-rounded-\[3px\] {
   border-radius: 3px
 }
@@ -685,12 +816,21 @@
   border-radius: 5px
 }
 
+.acu-rounded-\[7px\] {
+  border-radius: 7px
+}
+
 .acu-rounded-full {
   border-radius: 9999px
 }
 
 .acu-rounded-lg {
   border-radius: 0.5rem
+}
+
+.acu-rounded-t-\[15px\] {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px
 }
 
 .acu-border {
@@ -722,6 +862,11 @@
   border-color: rgb(183 228 207 / var(--tw-border-opacity, 1))
 }
 
+.acu-border-\[\#B8C8E6\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(184 200 230 / var(--tw-border-opacity, 1))
+}
+
 .acu-border-\[\#C8C8C8\] {
   --tw-border-opacity: 1;
   border-color: rgb(200 200 200 / var(--tw-border-opacity, 1))
@@ -749,9 +894,19 @@
   background-color: rgb(230 249 241 / var(--tw-bg-opacity, 1))
 }
 
+.acu-bg-\[\#EEF4FF\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 244 255 / var(--tw-bg-opacity, 1))
+}
+
 .acu-bg-\[\#F1F5F9\] {
   --tw-bg-opacity: 1;
   background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1))
+}
+
+.acu-bg-\[\#F4F7FB\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 247 251 / var(--tw-bg-opacity, 1))
 }
 
 .acu-bg-\[\#F5F5F5\] {
@@ -759,9 +914,19 @@
   background-color: rgb(245 245 245 / var(--tw-bg-opacity, 1))
 }
 
+.acu-bg-\[\#F8FAFC\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1))
+}
+
 .acu-bg-\[\#F9FAFB\] {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1))
+}
+
+.acu-bg-\[\#FFF1D6\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 241 214 / var(--tw-bg-opacity, 1))
 }
 
 .acu-bg-\[\#e9426e\] {
@@ -798,8 +963,31 @@
   background-color: rgb(61 67 80 / var(--tw-bg-opacity, 1))
 }
 
+.acu-bg-ui-border {
+  background-color: var(--acui-border)
+}
+
+.acu-bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops))
+}
+
 .acu-bg-none {
   background-image: none
+}
+
+.acu-from-\[\#F0F4FF\] {
+  --tw-gradient-from: #F0F4FF var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(240 244 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
+
+.acu-to-\[\#F8F5FF\] {
+  --tw-gradient-to: #F8F5FF var(--tw-gradient-to-position)
+}
+
+.acu-object-contain {
+  -o-object-fit: contain;
+     object-fit: contain
 }
 
 .acu-object-cover {
@@ -825,6 +1013,14 @@
 
 .acu-p-4 {
   padding: 20px
+}
+
+.acu-p-5 {
+  padding: 25px
+}
+
+.acu-p-6 {
+  padding: 30px
 }
 
 .acu-p-\[0\] {
@@ -854,6 +1050,11 @@
   padding-right: 10px
 }
 
+.acu-px-2\.5 {
+  padding-left: 13px;
+  padding-right: 13px
+}
+
 .acu-px-3 {
   padding-left: 15px;
   padding-right: 15px
@@ -862,6 +1063,11 @@
 .acu-px-4 {
   padding-left: 20px;
   padding-right: 20px
+}
+
+.acu-px-5 {
+  padding-left: 25px;
+  padding-right: 25px
 }
 
 .acu-px-6 {
@@ -892,6 +1098,11 @@
 .acu-py-1 {
   padding-top: 5px;
   padding-bottom: 5px
+}
+
+.acu-py-1\.5 {
+  padding-top: 8px;
+  padding-bottom: 8px
 }
 
 .acu-py-2 {
@@ -937,6 +1148,10 @@
   padding-bottom: 50px
 }
 
+.acu-pb-3 {
+  padding-bottom: 15px
+}
+
 .acu-pb-4 {
   padding-bottom: 20px
 }
@@ -967,6 +1182,10 @@
 
 .acu-pl-5 {
   padding-left: 25px
+}
+
+.acu-pl-6 {
+  padding-left: 30px
 }
 
 .acu-pl-8\.5 {
@@ -1009,6 +1228,10 @@
   padding-top: 10px
 }
 
+.acu-pt-3 {
+  padding-top: 15px
+}
+
 .acu-pt-4 {
   padding-top: 20px
 }
@@ -1027,6 +1250,10 @@
 
 .acu-pt-\[70px\] {
   padding-top: 70px
+}
+
+.acu-pl-7 {
+  padding-left: 35px
 }
 
 .acu-text-left {
@@ -1078,6 +1305,10 @@
   font-size: 14px
 }
 
+.acu-text-\[15px\] {
+  font-size: 15px
+}
+
 .acu-text-\[16px\] {
   font-size: 16px
 }
@@ -1107,6 +1338,11 @@
   line-height: 1.5rem
 }
 
+.acu-text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem
+}
+
 .acu-text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem
@@ -1115,6 +1351,11 @@
 .acu-text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem
+}
+
+.acu-text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem
 }
 
 .acu-font-bold {
@@ -1161,6 +1402,10 @@
   line-height: 1.5
 }
 
+.acu-leading-relaxed {
+  line-height: 1.625
+}
+
 .acu-leading-snug {
   line-height: 1.375
 }
@@ -1169,14 +1414,33 @@
   letter-spacing: -0.025em
 }
 
+.acu-tracking-wider {
+  letter-spacing: 0.05em
+}
+
 .acu-text-\[\#00875A\] {
   --tw-text-opacity: 1;
   color: rgb(0 135 90 / var(--tw-text-opacity, 1))
 }
 
+.acu-text-\[\#1F2937\] {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#216E39\] {
+  --tw-text-opacity: 1;
+  color: rgb(33 110 57 / var(--tw-text-opacity, 1))
+}
+
 .acu-text-\[\#2271b1\] {
   --tw-text-opacity: 1;
   color: rgb(34 113 177 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#3559A8\] {
+  --tw-text-opacity: 1;
+  color: rgb(53 89 168 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#3c3c3c\] {
@@ -1194,6 +1458,11 @@
   color: rgb(68 68 68 / var(--tw-text-opacity, 1))
 }
 
+.acu-text-\[\#5F6B7A\] {
+  --tw-text-opacity: 1;
+  color: rgb(95 107 122 / var(--tw-text-opacity, 1))
+}
+
 .acu-text-\[\#666\] {
   --tw-text-opacity: 1;
   color: rgb(102 102 102 / var(--tw-text-opacity, 1))
@@ -1207,6 +1476,11 @@
 .acu-text-\[\#888\] {
   --tw-text-opacity: 1;
   color: rgb(136 136 136 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#8A5A00\] {
+  --tw-text-opacity: 1;
+  color: rgb(138 90 0 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#999\] {
@@ -1289,6 +1563,12 @@
 .acu-shadow-\[0px_1px_2px_rgba\(16\,24\,40\,0\.1\)\] {
   --tw-shadow: 0px 1px 2px rgba(16,24,40,0.1);
   --tw-shadow-colored: 0px 1px 2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+}
+
+.acu-shadow-lg {
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
 }
 

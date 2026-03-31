@@ -7,6 +7,7 @@ namespace AC\RequestHandler\Ajax;
 use AC;
 use AC\Capabilities;
 use AC\Integration\IntegrationRepository;
+use AC\Integration\SiteContext\SiteContextFactory;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
 
@@ -15,9 +16,12 @@ class Integrations implements RequestAjaxHandler
 
     private IntegrationRepository $integrations;
 
-    public function __construct(IntegrationRepository $integrations)
+    private SiteContextFactory $site_context_factory;
+
+    public function __construct(IntegrationRepository $integrations, SiteContextFactory $site_context_factory)
     {
         $this->integrations = $integrations;
+        $this->site_context_factory = $site_context_factory;
     }
 
     public function handle(): void
@@ -29,13 +33,14 @@ class Integrations implements RequestAjaxHandler
         $response = new Json();
 
         $integrations = [];
+        $priority = 0;
 
         foreach ($this->integrations->find_all_active() as $integration) {
-            $integrations[] = $this->encode($integration, true);
+            $integrations[] = $this->encode($integration, true, $priority++);
         }
 
         foreach ($this->integrations->find_all_inactive() as $integration) {
-            $integrations[] = $this->encode($integration, false);
+            $integrations[] = $this->encode($integration, false, $priority++);
         }
 
         $response->set_parameter('integrations', $integrations);
@@ -43,7 +48,7 @@ class Integrations implements RequestAjaxHandler
         $response->success();
     }
 
-    private function encode(AC\Type\Integration $integration, bool $active): array
+    private function encode(AC\Type\Integration $integration, bool $active, int $priority): array
     {
         return [
             'plugin_active' => $integration->is_plugin_active(),
@@ -54,6 +59,8 @@ class Integrations implements RequestAjaxHandler
             'plugin_logo'   => $integration->get_logo(),
             'plugin_link'   => $integration->get_plugin_link(),
             'active'        => $active,
+            'priority'      => $priority,
+            'site_context'  => $this->site_context_factory->create($integration->get_slug()),
         ];
     }
 
