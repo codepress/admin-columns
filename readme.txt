@@ -2,7 +2,7 @@
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Tags: columns, admin columns, custom fields, list table, woocommerce
 Requires at least: 5.9
-Tested up to: 6.9.1
+Tested up to: 6.9.4
 Requires PHP: 7.4
 Stable tag: 7.0.13
 License: GPLv3
