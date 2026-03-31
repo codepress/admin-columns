@@ -1,4 +1,8 @@
 import {initAcServices} from "./helpers/admin-columns";
+// Expose the Svelte runtime so Pro feature bundles can externalize it and share the same instance.
+// This prevents cross-bundle Svelte runtime conflicts (duplicate current_component singletons).
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+(window as any).__AC_SVELTE = require('svelte/internal');
 import ColumnsPage from "./columns/components/ColumnsPage.svelte";
 import {
     columnTypesStore,
