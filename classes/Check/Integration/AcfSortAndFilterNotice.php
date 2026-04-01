@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Check\Integration;
 
-use AC\Acf\FieldCount;
+use AC\Acf\FieldGroupCache;
 use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
@@ -12,11 +12,11 @@ use AC\Type\Url\UtmTags;
 class AcfSortAndFilterNotice implements IntegrationNotice, UsageAwareNotice
 {
 
-    private FieldCount $field_count;
+    private FieldGroupCache $field_group_cache;
 
-    public function __construct(FieldCount $field_count)
+    public function __construct(FieldGroupCache $field_group_cache)
     {
-        $this->field_count = $field_count;
+        $this->field_group_cache = $field_group_cache;
     }
 
     public function is_active(Screen $screen): bool
@@ -30,7 +30,7 @@ class AcfSortAndFilterNotice implements IntegrationNotice, UsageAwareNotice
         }
 
         // Restrict the notice to post types that have ACF fields
-        return $this->field_count->get_count_for_post_type($screen->get_post_type()) >= 2;
+        return $this->field_group_cache->get_count_for_post_type($screen->get_post_type()) >= 2;
     }
 
     public function is_usage_detected(): bool

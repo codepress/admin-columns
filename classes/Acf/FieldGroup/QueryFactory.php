@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Acf\FieldGroup;
 
-use AC\Acf\FieldGroup\Location;
 use AC\PostType;
 use AC\TableScreen;
 

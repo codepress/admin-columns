@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Acf\Service;
 
 use AC\Acf\ColumnMatcher;
-use AC\Acf\FieldGroup\TableScreenResolver;
+use AC\Acf\FieldGroupCache;
 use AC\Column;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
@@ -59,17 +59,17 @@ class FieldSettings implements Registerable
 
     private Storage $storage;
 
-    private TableScreenResolver $table_screen_resolver;
+    private FieldGroupCache $field_group_cache;
 
     private ColumnMatcher $column_matcher;
 
     public function __construct(
         Storage $storage,
-        TableScreenResolver $table_screen_resolver,
+        FieldGroupCache $field_group_cache,
         ColumnMatcher $column_matcher
     ) {
         $this->storage = $storage;
-        $this->table_screen_resolver = $table_screen_resolver;
+        $this->field_group_cache = $field_group_cache;
         $this->column_matcher = $column_matcher;
     }
 
@@ -573,8 +573,7 @@ class FieldSettings implements Registerable
         $parent = $field['parent'] ?? 0;
 
         if ( ! isset($cache[$parent])) {
-            $group = acf_get_field_group($parent);
-            $cache[$parent] = $group ? $this->table_screen_resolver->resolve($group) : [];
+            $cache[$parent] = $this->field_group_cache->get_table_screens_for_group((int)$parent);
         }
 
         return $cache[$parent];
