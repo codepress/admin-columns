@@ -6,7 +6,7 @@ namespace AC\Acf;
 
 use AC\Acf\FieldGroup\Location;
 use AC\Acf\FieldGroup\Query;
-use AC\PostType;
+use AC\Acf\FieldGroup\QueryFactory;
 use AC\Registerable;
 use AC\TableScreen;
 
@@ -22,6 +22,13 @@ class FieldCount implements Registerable
 
     private const TRANSIENT_KEY = '_ac_acf_field_counts';
     private const TTL_SECONDS = WEEK_IN_SECONDS;
+
+    private QueryFactory $query_factory;
+
+    public function __construct(QueryFactory $query_factory)
+    {
+        $this->query_factory = $query_factory;
+    }
 
     public function register(): void
     {
@@ -44,34 +51,13 @@ class FieldCount implements Registerable
 
     public function get_count_for_table_screen(TableScreen $table_screen): int
     {
-        $query = $this->create_query($table_screen);
+        $query = $this->query_factory->create($table_screen);
 
         if ( ! $query) {
             return 0;
         }
 
         return $this->get_count_for_query((string)$table_screen->get_id(), $query);
-    }
-
-    private function create_query(TableScreen $table_screen): ?Query
-    {
-        if ($table_screen instanceof TableScreen\Media) {
-            return new Location\Media();
-        }
-
-        if ($table_screen instanceof TableScreen\Comment) {
-            return new Location\Comment();
-        }
-
-        if ($table_screen instanceof PostType) {
-            return new Location\Post((string)$table_screen->get_post_type());
-        }
-
-        if ($table_screen instanceof TableScreen\User) {
-            return new Location\User();
-        }
-
-        return null;
     }
 
     private function get_count_for_query(string $cache_key, Query $query): int
