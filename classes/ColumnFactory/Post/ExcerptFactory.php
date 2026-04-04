@@ -51,8 +51,8 @@ class ExcerptFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->prepend(new AC\Formatter\Post\ContentExcerpt())
-                     ->add(new AC\Formatter\Post\ExcerptMissingMessage());
+            ->prepend(new AC\Formatter\Post\ContentExcerpt())
+            ->add(new AC\Formatter\Post\ExcerptMissingMessage());
     }
 
 }

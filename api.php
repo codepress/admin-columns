@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use AC\Column;
 use AC\Exception\HookTimingException;
 use AC\ListScreen;
@@ -39,7 +41,11 @@ if ( ! function_exists('ac_get_list_screen')) {
             return null;
         }
 
-        return $storage->find(new ListScreenId($id));
+        try {
+            return $storage->find(new ListScreenId($id));
+        } catch (Throwable $e) {
+            return null;
+        }
     }
 }
 
@@ -95,7 +101,11 @@ if ( ! function_exists('ac_get_column')) {
             return null;
         }
 
-        return $list_screen->get_column(new ColumnId($column_name));
+        try {
+            return $list_screen->get_column(new ColumnId($column_name));
+        } catch (Throwable $e) {
+            return null;
+        }
     }
 }
 
@@ -229,7 +239,7 @@ if ( ! function_exists('ac_format_date')) {
     {
         _deprecated_function(__METHOD__, '7.0.10', 'wp_date()');
 
-        return wp_date($format, $timestamp, $timezone) ?: null;
+        return wp_date($format, $timestamp, $timezone ?? new DateTimeZone('UTC')) ?: null;
     }
 }
 

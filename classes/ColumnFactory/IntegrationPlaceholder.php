@@ -25,6 +25,11 @@ class IntegrationPlaceholder extends BaseColumnFactory
         $this->integration = $integration;
     }
 
+    protected function get_group(): ?string
+    {
+        return 'plugin';
+    }
+
     protected function get_settings(Config $config): AC\Setting\ComponentCollection
     {
         return new AC\Setting\ComponentCollection([
@@ -56,8 +61,7 @@ class IntegrationPlaceholder extends BaseColumnFactory
             ); ?>
 		</p>
 
-		<a target="_blank" href="<?php
-        echo $this->integration->get_link(); ?>" class="button button-primary">
+		<a target="_blank" href="<?= $this->integration->get_url(); ?>" class="button button-primary">
             <?php
             _e('Find out more', 'codepress-admin-columns'); ?>
 		</a>

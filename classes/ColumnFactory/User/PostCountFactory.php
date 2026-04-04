@@ -43,12 +43,12 @@ class PostCountFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->add(
-                         new AC\Formatter\User\PostCount(
-                             $this->get_post_types($config) ?: [],
-                             $config->get('post_status') ?: []
-                         )
-                     );
+            ->add(
+                new AC\Formatter\User\PostCount(
+                    $this->get_post_types($config) ?: [],
+                    $config->get('post_status') ?: []
+                )
+            );
     }
 
     protected function get_settings(Config $config): ComponentCollection

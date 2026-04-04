@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 use AC\Type\Group;
@@ -7,6 +9,14 @@ use AC\Type\Groups;
 
 class ColumnGroups
 {
+
+
+    private AdminColumns $plugin;
+
+    public function __construct(AdminColumns $plugin)
+    {
+        $this->plugin = $plugin;
+    }
 
     private function all(): Groups
     {
@@ -16,10 +26,16 @@ class ColumnGroups
             $groups = new Groups();
 
             $groups->add(new Group('default', __('Default', 'codepress-admin-columns')));
-            $groups->add(new Group('plugin', __('Plugins'), 20));
+            $groups->add(
+                new Group(
+                    'plugin',
+                    __('Plugins'),
+                    20,
+                    $this->plugin->get_location()->with_suffix('/assets/images/group/pro.svg')->get_url()
+                )
+            );
             $groups->add(new Group('custom_field', __('Custom Fields', 'codepress-admin-columns'), 30));
             $groups->add(new Group('media', __('Media', 'codepress-admin-columns'), 32));
-            $groups->add(new Group('media-meta', __('Meta', 'codepress-admin-columns'), 32));
             $groups->add(new Group('media-meta', __('Meta', 'codepress-admin-columns'), 32));
             $groups->add(new Group('media-image', __('Image', 'codepress-admin-columns'), 33));
             $groups->add(new Group('media-video', __('Video', 'codepress-admin-columns'), 34));

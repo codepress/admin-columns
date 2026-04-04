@@ -46,7 +46,7 @@ class FormatsFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config)
-                            ->prepend(new AC\Formatter\Post\PostFormat());
+            ->prepend(new AC\Formatter\Post\PostFormat());
 
         if ('on' === $config->get('use_icon')) {
             $formatters->add(new AC\Formatter\Post\PostFormatIcon());

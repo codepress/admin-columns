@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListTable;
 
 use AC\ListTable;
@@ -20,6 +22,11 @@ class Post implements ListTable
         // populate globals
         $global_post = get_post();
         $post = get_post((int)$row_id);
+
+        if ( ! $post) {
+            return '';
+        }
+
         setup_postdata($post);
         $GLOBALS['post'] = $post;
 
@@ -39,6 +46,10 @@ class Post implements ListTable
     public function render_row($id): string
     {
         $post = get_post($id);
+
+        if ( ! $post) {
+            return '';
+        }
 
         // Title for some columns can only be retrieved when post is set globally
         if ( ! isset($GLOBALS['post'])) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Integration;
 
 use AC\Storage\Repository\IntegrationStatus;
@@ -18,20 +20,21 @@ class IntegrationRepository
 
     public function find_all(): Integrations
     {
+        // Ordered by popularity
         return new Integrations([
             new ACF(),
-            new BuddyPress(),
-            new EventsCalendar(),
+            new YoastSeo(),
             new GravityForms(),
+            new WooCommerce(),
+            new EventsCalendar(),
             new JetEngine(),
-            new Pods(),
-            new Types(),
             new MetaBox(),
-            new MediaLibraryAssistant(),
+            new Types(),
+            new Pods(),
+            new BuddyPress(),
             new RankMath(),
             new SeoPress(),
-            new WooCommerce(),
-            new YoastSeo(),
+            new MediaLibraryAssistant(),
         ]);
     }
 

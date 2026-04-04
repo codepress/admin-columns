@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper;
 
 use DOMDocument;
@@ -102,7 +104,7 @@ class Html extends Creatable
             $max_chars
         );
 
-        return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . $contents . '</textarea>';
+        return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . esc_textarea($contents) . '</textarea>';
     }
 
     private function get_attributes(array $attributes): string
@@ -197,37 +199,6 @@ class Html extends Creatable
         return implode($blocks);
     }
 
-    public function more(array $array, int $limit = 10, string $glue = ', '): string
-    {
-        if ($limit <= 0) {
-            return implode($glue, $array);
-        }
-
-        $first_set = array_slice($array, 0, $limit);
-        $last_set = array_slice($array, $limit);
-
-        ob_start();
-
-        if ($first_set) {
-            $first = sprintf('<span class="ac-show-more__part -first">%s</span>', implode($glue, $first_set));
-            $more = $last_set ? sprintf(
-                '<span class="ac-show-more__part -more">%s%s</span>',
-                $glue,
-                implode($glue, $last_set)
-            ) : '';
-            $content = sprintf('<span class="ac-show-more__content">%s%s</span>', $first, $more);
-            $toggler = $last_set ? sprintf(
-                '<span class="ac-show-more__divider">|</span><a class="ac-show-more__toggle" data-show-more-toggle data-more="%1$s" data-less="%2$s">%1$s</a>',
-                sprintf(__('%s more', 'codepress-admin-columns'), count($last_set)),
-                strtolower(__('Hide', 'codepress-admin-columns'))
-            ) : '';
-
-            echo sprintf('<span class="ac-show-more">%s</span>', $content . $toggler);
-        }
-
-        return ob_get_clean();
-    }
-
     /**
      * Return round HTML span
      */
@@ -291,6 +262,15 @@ class Html extends Creatable
         return '<div class="ac-image-container">' . $html . '</div>';
     }
 
+    public function file_pill(string $extension, string $filename): string
+    {
+        return sprintf(
+            '<span class="ac-file-type">%s</span><span class="ac-file-name">%s</span>',
+            esc_html(strtoupper($extension)),
+            esc_html($filename)
+        );
+    }
+
     /**
      * @depecated 7.0.9
      */
@@ -306,6 +286,13 @@ class Html extends Creatable
         _deprecated_function(__METHOD__, '7.0.9');
 
         return $html;
+    }
+
+    public function more(array $array, int $limit = 10, string $glue = ', '): string
+    {
+        _deprecated_function(__METHOD__, '7.0.11');
+
+        return implode($glue, $array);
     }
 
 }

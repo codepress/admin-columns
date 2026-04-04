@@ -36,7 +36,9 @@ class DateRangeSpecification extends RangeSpecification implements TypeSpecifica
 
     public function is_satisfied_by($value): bool
     {
-        return parent::is_satisfied_by((string)$value);
+        return parent::is_satisfied_by(
+            $this->create_date_from_value((string)$value)->getTimestamp()
+        );
     }
 
     public function export(): array

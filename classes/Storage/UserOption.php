@@ -31,6 +31,9 @@ class UserOption implements UserData
 
     public function save($value): void
     {
+        // Prevent duplicate rows. update_user_option() calls update_user_meta() internally,
+        // which can insert duplicates when concurrent requests race.
+        delete_user_option($this->user_id, $this->key);
         update_user_option($this->user_id, $this->key, $value);
     }
 

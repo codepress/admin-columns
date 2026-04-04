@@ -11,7 +11,7 @@
 
 </script>
 
-<ColumnSetting description="" label={widthRowSetting.label}>
+<ColumnSetting description="" label={widthRowSetting.label} setting="width">
 	<WidthInput
 		bind:data={data}
 		disabled={disabled}/>

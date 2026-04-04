@@ -13,7 +13,7 @@
         return action.primary ? 'primary' : 'default';
     }
 
-    const getRowActions = (row) => actions.filter(action => !action.condition || action.condition(row));
+    const getRowActions = (row: any) => actions.filter(action => !action.condition || action.condition(row));
 </script>
 
 

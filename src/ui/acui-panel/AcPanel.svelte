@@ -7,7 +7,7 @@
     export let title: string | undefined = '';
     export let classNames: string[] = [];
     export let containerClass: boolean = false;
-    export let id: string = null;
+    export let id: string | null = null;
 
     let classes = ['acu-bg-[white]', 'acu-border', 'acu-border-solid', 'acu-border-ui-border', 'acu-mb-[15px]'];
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Integration;
 
 use AC\Screen;
@@ -15,19 +17,9 @@ final class Types extends Integration
             'ac-addon-types',
             __('Toolset Types', 'codepress-admin-columns'),
             'assets/images/addons/toolset-types.png',
-            sprintf(
-                '%s %s',
-                sprintf(
-                    __('Integrates %s with Admin Columns.', 'codepress-admin-columns'),
-                    __('Toolset Types', 'codepress-admin-columns')
-                ),
-                sprintf(
-                    __(
-                        'Display, inline- and bulk-edit, export, smart filter and sort your %s contents on any admin list table.',
-                        'codepress-admin-columns'
-                    ),
-                    __('Toolset Types', 'codepress-admin-columns')
-                )
+            __(
+                'Bring Toolset custom fields and post relationships into the list table. Sort and filter by any Toolset field, and edit values directly without switching screens.',
+                'codepress-admin-columns'
             ),
             null,
             new Site(Site::PAGE_ADDON_TOOLSET_TYPES)
@@ -41,10 +33,7 @@ final class Types extends Integration
 
     public function show_notice(Screen $screen): bool
     {
-        return in_array($screen->get_id(), [
-            'toplevel_page_pods',
-            'pods-admin_page_pods-settings',
-        ]);
+        return $screen->is_screen('edit-custom-toolset-type');
     }
 
 }

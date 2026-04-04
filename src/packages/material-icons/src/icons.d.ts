@@ -2,6 +2,7 @@ export declare const icons: readonly [
     'add_circle',
     'bug_report',
     'cancel',
+    'calculate',
     'chevron_left',
     'chevron_right',
     'content_copy',

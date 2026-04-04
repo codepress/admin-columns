@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Table\TableScreenRepository;
 
 use AC\Table\TableScreenCollection;

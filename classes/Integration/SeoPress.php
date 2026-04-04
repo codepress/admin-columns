@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Integration;
 
 use AC\Screen;
@@ -15,19 +17,9 @@ final class SeoPress extends Integration
             'ac-addon-seopress',
             'SeoPress',
             'assets/images/addons/seopress.svg',
-            sprintf(
-                '%s %s',
-                sprintf(
-                    __('Integrates %s with Admin Columns.', 'codepress-admin-columns'),
-                    'RankMath'
-                ),
-                sprintf(
-                    __(
-                        'Easily manage your SeoPress content with powerful tools for displaying, editing, exporting, filtering, and sorting',
-                        'codepress-admin-columns'
-                    ),
-                    'SeoPress'
-                )
+            __(
+                'Add SeoPress titles, descriptions, and scores to your post list table. Spot missing metadata at a glance and fix it inline - no need to open each post.',
+                'codepress-admin-columns'
             ),
             null,
             new Site(Site::PAGE_ADDON_SEOPRESS)
@@ -41,8 +33,10 @@ final class SeoPress extends Integration
 
     public function show_notice(Screen $screen): bool
     {
-        // RankMath prevents messages/logs from loading on their settings page
-        return false;
+        return in_array($screen->get_id(), [
+            'toplevel_page_seopress-option',
+            'seo_page_seopress-titles',
+        ]);
     }
 
 }

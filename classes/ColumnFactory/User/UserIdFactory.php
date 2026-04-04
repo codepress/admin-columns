@@ -40,7 +40,7 @@ class UserIdFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->with_formatter(new Id());
+            ->prepend(new Id());
     }
 
     protected function get_settings(Config $config): ComponentCollection

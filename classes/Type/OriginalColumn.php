@@ -28,7 +28,7 @@ class OriginalColumn
 
     public static function validate($name, $label): bool
     {
-        return $name && is_scalar($name) && is_scalar($label);
+        return '' !== $name && is_scalar($name) && is_scalar($label);
     }
 
     public function get_name(): string

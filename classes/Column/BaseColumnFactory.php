@@ -25,12 +25,14 @@ abstract class BaseColumnFactory extends ColumnFactory
         return new Base(
             $this->get_column_type(),
             $this->get_label(),
-            $this->default_settings_builder->build($config)
-                                           ->merge($this->get_settings($config)),
+            $this->default_settings_builder
+                ->build($config)
+                ->merge($this->get_settings($config)),
             $this->resolve_id($config),
             $this->get_context($config),
             $this->get_formatters($config),
-            $this->get_group()
+            $this->get_group(),
+            $this->get_description()
         );
     }
 

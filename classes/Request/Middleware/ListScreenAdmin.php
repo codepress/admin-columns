@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Request\Middleware;
 
 use AC\Admin\Preference;
@@ -61,8 +63,9 @@ class ListScreenAdmin implements Middleware
 
     private function get_first_listscreen(): ?ListScreen
     {
-        return $this->storage->find_all_by_table_id($this->table_screen->get_id())
-                             ->first();
+        return $this->storage
+            ->find_all_by_table_id($this->table_screen->get_id())
+            ->first();
     }
 
     private function get_last_visited_listscreen(): ?ListScreen

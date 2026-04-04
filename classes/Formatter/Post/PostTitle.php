@@ -13,6 +13,13 @@ use WP_Post;
 class PostTitle implements Formatter
 {
 
+    private bool $use_file_name_for_attachments;
+
+    public function __construct(bool $use_file_name_for_attachments = true)
+    {
+        $this->use_file_name_for_attachments = $use_file_name_for_attachments;
+    }
+
     public function format(Value $value): Value
     {
         $post = get_post($value->get_id());
@@ -28,7 +35,7 @@ class PostTitle implements Formatter
 
     private function get_title(WP_Post $post): string
     {
-        if ('attachment' === $post->post_type) {
+        if ($this->use_file_name_for_attachments && 'attachment' === $post->post_type) {
             return Helper\Image::create()->get_file_name($post->ID) ?: '';
         }
 

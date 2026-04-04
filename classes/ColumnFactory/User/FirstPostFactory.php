@@ -19,23 +19,19 @@ class FirstPostFactory extends BaseColumnFactory
 
     private ComponentFactory\PostStatus $post_status;
 
-    private ComponentFactory\PostProperty $post_property;
-
-    private ComponentFactory\PostLink $post_link;
+    private ComponentFactory\LinkablePostProperty $post_property;
 
     public function __construct(
         DefaultSettingsBuilder $default_settings_builder,
         ComponentFactory\PostType $post_type,
         ComponentFactory\PostStatus $post_status,
-        ComponentFactory\PostProperty $post_property,
-        ComponentFactory\PostLink $post_link
+        ComponentFactory\LinkablePostProperty $post_property
     ) {
         parent::__construct($default_settings_builder);
 
         $this->post_type = $post_type;
         $this->post_status = $post_status;
         $this->post_property = $post_property;
-        $this->post_link = $post_link;
     }
 
     public function get_label(): string
@@ -54,7 +50,7 @@ class FirstPostFactory extends BaseColumnFactory
         $post_status = $config->has('post_status') ? (array)$config->get('post_status', []) : null;
 
         return parent::get_formatters($config)
-                     ->prepend(new AC\Formatter\User\FirstPost($post_type, $post_status));
+            ->prepend(new AC\Formatter\User\FirstPost($post_type, $post_status));
     }
 
     protected function get_settings(Config $config): ComponentCollection
@@ -63,7 +59,6 @@ class FirstPostFactory extends BaseColumnFactory
             $this->post_type->create($config),
             $this->post_status->create($config),
             $this->post_property->create($config),
-            $this->post_link->create($config),
         ]);
     }
 

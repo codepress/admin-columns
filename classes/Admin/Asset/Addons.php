@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\Asset;
 
 use AC\Asset\Location;
@@ -39,27 +41,30 @@ class Addons extends Script
         $translation = new Script\Localize\Translation([
             'plugin_installed'    => __('The Add-on %s is activated.', 'codepress-admin-columns'),
             'plugin_not_detected' => __('Plugin not detected', 'codepress-admin-columns'),
+            'plugin_detected'     => __('Detected on your site', 'codepress-admin-columns'),
             'enable_integration'  => __('Enable Integration', 'codepress-admin-columns'),
-            'buy_now'             => __('Buy Admin Columns Pro', 'codepress-admin-columns'),
+            'buy_now'             => __('Unlock with Pro →', 'codepress-admin-columns'),
             'learn_more'          => __('Learn more', 'codepress-admin-columns'),
+            'subtitle'            => __('Connect Admin Columns with the plugins you already use. Display, edit, filter, sort, and export their data - all from the list table.', 'codepress-admin-columns'),
             'title'               => [
                 'enabled'     => __('Enabled Integrations', 'codepress-admin-columns'),
                 'recommended' => __('Recommended Integrations', 'codepress-admin-columns'),
-                'available'   => __('Available Integrations', 'codepress-admin-columns'),
+                'available'   => __('More Integrations', 'codepress-admin-columns'),
             ],
         ]);
 
-        $this->localize('ac_addons_i18n', $translation)
-             ->add_inline_variable(
-                 'ac_addons',
-                 [
-                     $this->nonce->get_name() => $this->nonce->create(),
-                     'is_network_admin'       => is_network_admin(),
-                     'asset_location'         => $this->asset_location->get_url(),
-                     'pro_installed'          => $this->is_pro,
-                     'buy_url'                => (new UtmTags(new Site(Site::PAGE_PRICING), 'integration'))->get_url(),
-                 ]
-             );
+        $this
+            ->localize('ac_addons_i18n', $translation)
+            ->add_inline_variable(
+                'ac_addons',
+                [
+                    $this->nonce->get_name() => $this->nonce->create(),
+                    'is_network_admin'       => is_network_admin(),
+                    'asset_location'         => $this->asset_location->get_url(),
+                    'pro_installed'          => $this->is_pro,
+                    'buy_url'                => (new UtmTags(new Site(Site::PAGE_PRICING), 'integration'))->get_url(),
+                ]
+            );
     }
 
 }

@@ -190,8 +190,9 @@ final class ListScreen
 
     public function get_table_url(): Uri
     {
-        return $this->table_screen->get_url()
-                                  ->with_arg('layout', (string)$this->id);
+        return $this->table_screen
+            ->get_url()
+            ->with_arg('layout', (string)$this->id);
     }
 
     public function get_editor_url(): Uri

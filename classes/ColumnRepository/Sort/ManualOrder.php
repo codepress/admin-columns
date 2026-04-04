@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ColumnRepository\Sort;
 
 use AC\Preferences\SiteFactory;

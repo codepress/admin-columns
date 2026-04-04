@@ -5,11 +5,6 @@ import {initAcServices} from "./helpers/admin-columns";
 
 const AcServices = initAcServices();
 
-let restoreSettingsElement = document.createElement('div');
-new RestoreSettingsSection({
-    target: restoreSettingsElement,
-})
-
 document.addEventListener("DOMContentLoaded", function () {
     const Bridge = new SettingsPageBridge();
     AcServices.registerService('SettingsPage', Bridge);

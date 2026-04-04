@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-01-14 22:52:56+0000\n"
+"PO-Revision-Date: 2026-02-18 21:34:26+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -433,7 +433,7 @@ msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:95
 msgid "Need more columns than the size of your screen?"
-msgstr ""
+msgstr "Du brauchst mehr Spalten als dein Bildschirm groß ist?"
 
 #: templates/admin/page/settings-section-pro-cta.php:85
 msgid "With Bulk Edit you can update thousands of values at once."
@@ -441,7 +441,7 @@ msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:84
 msgid "Need to update multiple values at once?"
-msgstr ""
+msgstr "Musst du mehrere Werte auf einmal aktualisieren?"
 
 #: templates/admin/page/settings-section-pro-cta.php:73
 msgid "No need to open your post, page, order, user or anything else."
@@ -469,7 +469,7 @@ msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:50
 msgid "Need certain columns for certain tasks?"
-msgstr ""
+msgstr "Du brauchst bestimmte Spalten für bestimmte Aufgaben?"
 
 #: templates/admin/page/settings-section-pro-cta.php:47
 msgid "Multiple Table Views"
@@ -615,7 +615,7 @@ msgstr ""
 #: classes/Integration/Pods.php:22 classes/Integration/Types.php:22
 #: classes/Integration/WooCommerce.php:22 classes/Integration/YoastSeo.php:22
 msgid "Integrates %s with Admin Columns."
-msgstr ""
+msgstr "Integriert %s mit Admin-Spalten."
 
 #: classes/Integration/ACF.php:22
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your ACF contents on any admin list table."
@@ -847,7 +847,7 @@ msgstr ""
 #: templates/tooltip/smart-filtering.php:28
 msgctxt "smart filtering help"
 msgid "You can save your filters for later use."
-msgstr ""
+msgstr "Du kannst deine Filter zur späteren Verwendung speichern."
 
 #: templates/tooltip/smart-filtering.php:18
 msgid "Add Filter"

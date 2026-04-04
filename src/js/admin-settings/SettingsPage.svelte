@@ -12,6 +12,7 @@
     import {getGeneralOption, persistGeneralOption} from "./ajax/requests";
     import {NotificationProgrammatic} from "../ui-wrapper/notification";
     import AcToggleButtons from "ACUi/acui-toggle-buttons/AcToggleButtons.svelte";
+    import AcTooltip from "ACUi/AcTooltip.svelte";
 
 
     const i18n = getAdminSettingsTranslation();
@@ -46,33 +47,76 @@
 
 <div class="acu-mx-[50px] acu-pt-[70px]">
 
-	<div class="acu-max-w-[1520px]">
-		<hr class="wp-header-end acu-hidden">
-	</div>
+    <div class="acu-max-w-[1520px]">
+        <hr class="wp-header-end acu-hidden">
+    </div>
 
-	<main class="acu-flex acu-gap-4 acu-w-full">
-		<AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
-			<AcPanelHeader slot="header" title={i18n.settings} type="h2" border/>
-			<AcPanelBody slot="body" classNames={['acu-pb-10']}>
+    <main class="acu-flex acu-flex-col acu-gap-4 acu-w-full">
+        <AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
+            <AcPanelHeader slot="header" title={i18n.settings} type="h2" border/>
+            <AcPanelBody slot="body" classNames={['acu-pb-10']}>
 
-				<SettingSection title="General Settings" subtitle="These settings affect the list table.">
-					<div>
-						<AcToggle bind:checked={showButtonValue} disabled={loadingShowButtonValue}
-							on:input={handleToggleShowButton}>{sprintf( i18n.show_x_button, `"${i18n.edit_button}"` )}</AcToggle>
-					</div>
+                <SettingSection title="General Settings" subtitle="These settings affect the list table.">
+                    <div>
+                        <AcToggle bind:checked={showButtonValue} disabled={loadingShowButtonValue}
+                                  on:input={handleToggleShowButton}>{sprintf(i18n.show_x_button, `"${i18n.edit_button}"`)}</AcToggle>
+                    </div>
 
-					{#each SettingSections.getSections( 'inside_general' ) as component}
-						<HtmlSection component={component}></HtmlSection>
-					{/each}
+                    {#each SettingSections.getSections('inside_general') as component}
+                        <HtmlSection component={component}></HtmlSection>
+                    {/each}
 
-				</SettingSection>
+                </SettingSection>
 
-				{#each SettingSections.getSections( 'after_general' ) as component}
-					<HtmlSection component={component}></HtmlSection>
-				{/each}
+                {#each SettingSections.getSections('after_general') as component}
+                    <HtmlSection component={component}></HtmlSection>
+                {/each}
 
-			</AcPanelBody>
-		</AcPanel>
-	</main>
+            </AcPanelBody>
+        </AcPanel>
+
+        {#if config.upgrade_panel}
+            <section class="ac-settings-banner acu-max-w-[1520px]">
+                <div class="ac-settings-banner__top">
+                    <span class="ac-settings-banner__badge">{config.upgrade_panel.badge}</span>
+                    <h2 class="ac-settings-banner__title">{config.upgrade_panel.title}</h2>
+                    <p class="ac-settings-banner__copy">{config.upgrade_panel.subtitle}</p>
+
+                    <div class="ac-settings-banner__cta-row">
+                        <a href={config.upgrade_panel.upgrade_url} target="_blank" class="ac-settings-banner__btn-primary">
+                            {config.upgrade_panel.button}
+                        </a>
+                        <a href={config.upgrade_panel.upgrade_url} target="_blank" class="ac-settings-banner__btn-secondary">
+                            {config.upgrade_panel.view_all}
+                        </a>
+                        <span class="ac-settings-banner__trust">
+                            <span class="ac-settings-banner__star">&#9733;</span>
+                            {config.upgrade_panel.trust}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="ac-settings-banner__body">
+                    <div class="ac-settings-banner__feature-grid">
+                        {#each config.upgrade_panel.feature_groups as group}
+                            <div class="ac-settings-banner__feature-group">
+                                <h3>{group.title}</h3>
+                                <ul>
+                                    {#each group.features as feature}
+                                        <li>
+                                            <AcTooltip label={feature.tooltip} position="top" multiline border>
+                                                {feature.label}
+                                            </AcTooltip>
+                                        </li>
+                                    {/each}
+                                </ul>
+                            </div>
+                        {/each}
+                    </div>
+                </div>
+
+            </section>
+        {/if}
+    </main>
 
 </div>

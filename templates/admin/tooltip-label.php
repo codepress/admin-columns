@@ -1,11 +1,13 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+declare(strict_types=1);
+
+if ( ! defined('ABSPATH')) {
+    exit;
 }
 
 ?>
 
-<a class="ac-pointer instructions" rel="pointer-<?php echo esc_attr( $this->id ); ?>" data-pos="<?php echo esc_attr( $this->position ); ?>" data-width="300">
-	<?php echo $this->label; ?>
+<a class="ac-pointer instructions" rel="pointer-<?= esc_attr($this->id); ?>" data-pos="<?= esc_attr($this->position); ?>" data-width="300">
+    <?= $this->label; ?>
 </a>

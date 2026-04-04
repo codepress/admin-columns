@@ -27,9 +27,10 @@ class NetworkPostStati implements RequestAjaxHandler
             $response->error();
         }
 
-        $response->set_header('Cache-Control', 'max-age=120')
-                 ->set_parameter('options', $this->get_options())
-                 ->success();
+        $response
+            ->set_header('Cache-Control', 'max-age=120')
+            ->set_parameter('options', $this->get_options())
+            ->success();
     }
 
     private function get_distinct_db_values(): array
@@ -47,7 +48,7 @@ class NetworkPostStati implements RequestAjaxHandler
              */
             $table = $wpdb->get_blog_prefix($site->id) . 'posts';
 
-            $sql = "SELECT DISTINCT 'post_status' FROM $table";
+            $sql = "SELECT DISTINCT `post_status` FROM $table";
 
             $queries[] = $sql;
         }

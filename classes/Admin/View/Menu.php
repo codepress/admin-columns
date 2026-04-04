@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\View;
 
 use AC\Admin;
@@ -16,8 +18,9 @@ class Menu extends View
 
         parent::__construct(['menu_items' => $items]);
 
-        $this->set_template('admin/menu')
-             ->set('url', $location->get_url());
+        $this
+            ->set_template('admin/menu')
+            ->set('url', $location->get_url());
     }
 
     private function sort_by_position(array &$items): void

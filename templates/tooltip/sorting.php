@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use AC\Type\Url\Documentation;
 
 ?>
@@ -14,7 +16,7 @@ use AC\Type\Url\Documentation;
         ); ?>
 	</p>
 	<img width="230" src="<?= esc_url(
-        $this->url . 'assets/images/tooltip/sort-table.png'
+        $this->url . '/assets/images/tooltip/sort-table.png'
     ) ?>" alt="Sort" style="border:1px solid #ddd;">
 	<p>
         <?= __('The sorted column is saved as your personal preference.', 'codepress-admin-columns'); ?>
@@ -26,7 +28,7 @@ use AC\Type\Url\Documentation;
             sprintf('<strong>%s</strong>', __('Reset Sorting', 'codepress-admin-columns'))
         ); ?>
 	</p>
-	<img width="222" src="<?= esc_url($this->url . 'assets/images/tooltip/reset-sorting.png') ?>" alt="Reset Sorting">
+	<img width="222" src="<?= esc_url($this->url . '/assets/images/tooltip/reset-sorting.png') ?>" alt="Reset Sorting">
 	<p>
         <?= __(
             'You can change the default sorted column in the optional settings below.',

@@ -23,6 +23,7 @@ class MapOptionLabel implements Formatter
 
     public function format(Value $value): Value
     {
+        // TODO Stefan there was an issue with $label here...?
         $raw_value = $value->get_value();
 
         if ( ! is_scalar($raw_value)) {

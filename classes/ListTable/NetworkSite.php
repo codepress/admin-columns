@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListTable;
 
 use AC\ListTable;
@@ -38,8 +40,15 @@ class NetworkSite implements ListTable
 
     public function render_row($id): string
     {
+        $site = get_site($id);
+
+        if ( ! $site) {
+            return '';
+        }
+
         ob_start();
-        $this->table->single_row(get_site($id));
+
+        $this->table->single_row($site);
 
         return ob_get_clean();
     }

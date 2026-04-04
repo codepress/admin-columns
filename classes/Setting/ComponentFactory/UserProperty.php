@@ -57,7 +57,7 @@ class UserProperty extends BaseComponentFactory
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
-        $property = $config->get('display_author_as');
+        $property = $config->get('display_author_as', self::PROPERTY_DISPLAY_NAME);
 
         switch ($property) {
             case self::PROPERTY_GRAVATAR:
@@ -81,6 +81,7 @@ class UserProperty extends BaseComponentFactory
                 break;
             case self::PROPERTY_ROLES:
                 $formatters->add(new AC\Formatter\User\TranslatedRoles());
+                break;
         }
     }
 

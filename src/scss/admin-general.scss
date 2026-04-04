@@ -11,6 +11,7 @@
 @use 'components/toggle';
 @use 'components/forms';
 @use 'components/ajax-loader';
+@use 'admin-page-settings';
 
 
 body {
@@ -222,6 +223,9 @@ body.toplevel_page_codepress-admin-columns {
 		padding: 14px 20px;
 
 		border-radius: 4px;
+		transition-property: border, background, color;
+		transition-duration: .05s;
+		transition-timing-function: ease-in-out;
 
 		&:hover, &:active, &:focus {
 			background: #626979;

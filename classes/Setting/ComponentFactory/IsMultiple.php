@@ -23,6 +23,11 @@ final class IsMultiple extends BaseComponentFactory
         return __('Multiple', 'codepress-admin-columns');
     }
 
+    protected function get_description(Config $config): ?string
+    {
+        return __('Enable if this field stores multiple values.', 'codepress-admin-columns');
+    }
+
     protected function get_input(Config $config): ?Input
     {
         $default_mapped_value = $this->default_multiple ? 'on' : 'off';

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace AC\Formatter\Post;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
 use AC\Helper;
+use AC\Helper\Date;
 use AC\Type\Value;
+use DateTimeZone;
 
 class DatePublishFormatted implements Formatter
 {
@@ -16,25 +19,43 @@ class DatePublishFormatted implements Formatter
         $post = get_post((int)$value->get_id());
 
         if ( ! $post) {
-            return new Value(null);
+            throw ValueNotFoundException::from_id($value->get_id());
         }
+
+        $date = (string)$value;
 
         switch ($post->post_status) {
             // Icons
             case 'private' :
             case 'draft' :
             case 'pending' :
+                return (new PostStatusIcon())->format(
+                    new Value($post->ID, $post)
+                );
             case 'future' :
-                return (new PostStatusIcon())->format(new Value($post->ID, $post));
+                return $value->with_value(
+                    sprintf(
+                        '%s %s: <em>%s</em>',
+                        (new PostStatusIcon())->format(new Value($post->ID, $post)),
+                        __('Scheduled'),
+                        $date
+                    )
+                );
 
             // Tooltip
             default :
-                $format = get_option('date_format') . ' ' . get_option('time_format');
-
                 return $value->with_value(
                     Helper\Html::create()->tooltip(
-                        (string)$value,
-                        date($format, strtotime($post->post_date))
+                        $date,
+                        sprintf(
+                            '%s <br><em>%s</em>',
+                            __('Published'),
+                            wp_date(
+                                Date::create()->get_date_time_format(),
+                                strtotime($post->post_date),
+                                new DateTimeZone('UTC')
+                            )
+                        )
                     )
                 );
         }

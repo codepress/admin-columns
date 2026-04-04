@@ -22,12 +22,16 @@
         {feature: 'bulk_edit', title: 'Enable Bulk Editing', iconClass: 'ac-material-symbols', content: 'stacks'},
         {feature: 'search', title: 'Enable Smart Filter', iconClass: 'ac-material-symbols', content: 'filter_list'},
         {feature: 'filter', title: 'Enable Filtering', iconClass: 'ac-material-symbols', content: 'filter_alt'},
+        {feature: 'metrics', title: 'Enable Metrics', iconClass: 'ac-material-symbols', content: 'calculate'},
     ];
 
-    const getConfig = (feature: Feature) => {
+    const getConfig = (feature: Feature): AC.Column.Settings.AbstractColumnSetting | undefined => {
         return config.find(c => c.input && c.input.name === feature.feature);
     }
 
+    const getConfigDefault = (feature: Feature): string | undefined => {
+        return getConfig(feature)?.input?.default;
+    }
 
     onMount(() => {
 
@@ -40,7 +44,7 @@
 			{#if getConfig( feature ) }
 				<AcTooltip label={feature.title}>
 					<HeaderToggle
-						defaultValue={getConfig( feature ).input.default}
+						defaultValue={getConfigDefault( feature )}
 						bind:value={data[feature.feature]}
 						title={feature.title}
 						disabled={disabled}>

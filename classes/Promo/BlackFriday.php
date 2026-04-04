@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Promo;
 
 use AC\Type\DateRange;

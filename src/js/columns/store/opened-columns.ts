@@ -8,8 +8,19 @@ export interface OpenedColumnsStore extends Writable<string[]> {
     toggle(column: string): void;
 }
 
+function getInitialOpenedColumns(): string[] {
+    const params = new URLSearchParams(window.location.search);
+    const value = params.get('open_columns');
+
+    if (!value) {
+        return [];
+    }
+
+    return value.split(',').map(s => s.trim()).filter(s => s.length > 0);
+}
+
 function createOpenedColumnsStore(): OpenedColumnsStore {
-    const {subscribe, set, update} = writable<string[]>([]);
+    const {subscribe, set, update} = writable<string[]>(getInitialOpenedColumns());
 
     return {
         subscribe,

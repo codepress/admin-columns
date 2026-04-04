@@ -1,4 +1,8 @@
 import {initAcServices} from "./helpers/admin-columns";
+// Expose the Svelte runtime so Pro feature bundles can externalize it and share the same instance.
+// This prevents cross-bundle Svelte runtime conflicts (duplicate current_component singletons).
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+(window as any).__AC_SVELTE = require('svelte/internal');
 import ColumnsPage from "./columns/components/ColumnsPage.svelte";
 import {
     columnTypesStore,
@@ -18,12 +22,13 @@ import {
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import {initListScreenHeadings, initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
 import ColumnPageBridge from "./columns/utils/page-bridge";
+import ListScreenSections from "./columns/store/list-screen-sections";
+import DeleteViewButton from "./columns/components/DeleteViewButton.svelte";
 import {get} from "svelte/store";
+import './columns/init/setting-types.ts';
 
 const AcServices = initAcServices();
 const localConfig = getColumnSettingsConfig();
-
-require('./columns/init/setting-types.ts');
 
 const debounce = <T extends (...args: any[]) => void>(
     fn: T,
@@ -90,6 +95,22 @@ document.addEventListener('DOMContentLoaded', () => {
     favoriteListKeysStore.set(localConfig.menu_items_favorites);
 
     const pageBridge = new ColumnPageBridge();
+
+    const deleteButtonElement = document.createElement('div');
+    const deleteViewButton = new DeleteViewButton({
+        target: deleteButtonElement,
+        props: {
+            listScreenData: listScreenDataStore,
+            readonlyListScreen: listScreenIsReadOnly,
+            isSaved: listScreenIsStored
+        }
+    });
+
+    deleteViewButton.$on('deleteView', () => {
+        currentListId.set('0');
+    });
+
+    ListScreenSections.registerSection('header_bar', deleteButtonElement);
 
     AcServices.registerService('ColumnPage', pageBridge);
 

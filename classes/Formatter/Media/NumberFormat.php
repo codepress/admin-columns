@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Formatter\Media;
 
 use AC\Formatter;

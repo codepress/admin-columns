@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\PageFactory;
 
 use AC\Admin\MenuFactoryInterface;
@@ -12,7 +14,6 @@ use AC\Deprecated\Hooks;
 
 class Help implements PageFactoryInterface
 {
-
 
     protected AdminColumns $plugin;
 

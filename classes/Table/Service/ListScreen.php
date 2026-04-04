@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Table\Service;
 
 use AC;
@@ -49,8 +51,9 @@ final class ListScreen implements Registerable
 
     public function set_primary_column($default): string
     {
-        return $this->primary_column_factory->create($this->list_screen)
-                                            ->set_primary_column($default);
+        return $this->primary_column_factory
+            ->create($this->list_screen)
+            ->set_primary_column($default);
     }
 
     public function admin_head_scripts(): void

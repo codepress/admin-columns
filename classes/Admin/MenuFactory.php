@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
 use AC\Admin\Type\MenuItem;
@@ -82,7 +84,7 @@ class MenuFactory implements MenuFactoryInterface
             new MenuItem(
                 'pro',
                 $url,
-                sprintf('%s %s', 'Admin Columns Pro', '<span class="dashicons dashicons-external"></span>'),
+                sprintf('%s %s', 'Upgrade to Pro', '<span class="dashicons dashicons-external"></span>'),
                 '-pro',
                 '_blank',
                 30

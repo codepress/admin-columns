@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Meta;
 
 use WP_Meta_Query;
@@ -231,7 +233,7 @@ class Query
     {
         switch ($field) {
             case 'id':
-                $field = $this->join ? 'pt.' . $this->query->primary_id_column : 'mt' . $this->query->meta_id_column;
+                $field = $this->join ? 'pt.' . $this->query->primary_id_column : 'mt.' . $this->query->meta_id_column;
 
                 break;
             case 'meta_key':
@@ -395,8 +397,8 @@ class Query
      */
     public function get_sql(): string
     {
-        $sql = preg_replace('/ +/', ' ', $this->sql);
-        $sql = preg_replace(
+        $sql = (string) preg_replace('/ +/', ' ', $this->sql);
+        $sql = (string) preg_replace(
             '/(SELECT|FROM|LEFT|INNER|WHERE|(AND|OR) \(|(AND|OR) (?!\()|ORDER BY|GROUP BY|LIMIT)/',
             "\n$1",
             $sql

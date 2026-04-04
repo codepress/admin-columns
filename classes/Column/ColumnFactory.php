@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Column;
 
 use AC\Column;
@@ -26,6 +28,11 @@ abstract class ColumnFactory
         }
 
         return (new ColumnIdGenerator())->generate();
+    }
+
+    public function get_description(): ?string
+    {
+        return null;
     }
 
     protected function get_settings(Config $config): ComponentCollection

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper\Select\Generic\LabelFormatter;
 
 use AC\Helper\Select\Generic\LabelFormatter;

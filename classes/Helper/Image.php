@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper;
 
 use DOMDocument;
@@ -68,23 +70,24 @@ class Image extends Creatable
             return $this->markup($src, $width, $height, $id);
         }
 
-        $attributes = wp_get_attachment_image_src($id, $size, true);
-
-        // Is File, use icon
-        if ($attributes) {
-            $width = (int)($attributes[1] ?? 0);
-            $height = (int)($attributes[2] ?? 0);
-
-            return $this->markup(
-                $attributes[0],
-                $this->scale_size($width, 0.8),
-                $this->scale_size($height, 0.8),
-                $id,
-                true
-            );
+        // Is File - render as pill instead of mime-type icon
+        if (wp_get_attachment_image_src($id, $size, true)) {
+            return $this->markup_file_pill($id);
         }
 
         return null;
+    }
+
+    private function markup_file_pill(int $media_id): string
+    {
+        $filename = $this->get_file_name($media_id) ?? '';
+        $extension = (string)pathinfo($filename, PATHINFO_EXTENSION);
+
+        return sprintf(
+            '<span class="ac-file-pill" data-media-id="%s">%s</span>',
+            esc_attr((string)$media_id),
+            Html::create()->file_pill($extension, $filename)
+        );
     }
 
     private function scale_size(int $size, float $scale = 1): int
@@ -238,7 +241,7 @@ class Image extends Creatable
 
         $image_attributes = [
             'max-width'  => esc_attr((string)$width) . 'px',
-            'max_height' => esc_attr((string)$height) . 'px',
+            'max-height' => esc_attr((string)$height) . 'px',
         ];
 
         if (pathinfo($src, PATHINFO_EXTENSION) === 'svg') {

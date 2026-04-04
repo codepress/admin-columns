@@ -66,6 +66,8 @@ class FieldType extends BaseComponentFactory
 
     private NumberOfItems $number_of_items;
 
+    private FileDisplay $file_display;
+
     public function __construct(
         StringLimit $string_limit,
         NumberFormat $number_format,
@@ -80,7 +82,8 @@ class FieldType extends BaseComponentFactory
         SelectOptions $select_options,
         SerializedDisplay $serialized_display,
         ModalDisplay $modal_display,
-        NumberOfItems $number_of_items
+        NumberOfItems $number_of_items,
+        FileDisplay $file_display
     ) {
         $this->string_limit = $string_limit;
         $this->number_format = $number_format;
@@ -96,6 +99,7 @@ class FieldType extends BaseComponentFactory
         $this->user_link = $user_link;
         $this->modal_display = $modal_display;
         $this->number_of_items = $number_of_items;
+        $this->file_display = $file_display;
     }
 
     protected function get_label(Config $config): ?string
@@ -206,8 +210,11 @@ class FieldType extends BaseComponentFactory
     {
         switch ($config->get('field_type', self::TYPE_DEFAULT)) {
             case self::TYPE_IMAGE:
-            case self::TYPE_MEDIA:
                 $formatters->add(new AC\Formatter\Collection\Separator('', (int)$config->get('number_of_items', 0)));
+                break;
+            case self::TYPE_MEDIA:
+                $separator = $config->get('file_display') === '' ? ', ' : '';
+                $formatters->add(new AC\Formatter\Collection\Separator($separator, (int)$config->get('number_of_items', 0)));
                 break;
             case self::TYPE_POST:
             case self::TYPE_USER:
@@ -231,6 +238,12 @@ class FieldType extends BaseComponentFactory
                 break;
             case self::TYPE_DATE:
                 $source_format = $config->get('date_save_format', '');
+
+                if ($source_format === DateSaveFormat::FORMAT_AUTO) {
+                    $formatters->add(new AC\Formatter\Date\Timestamp());
+                    break;
+                }
+
                 $date_formatter = $source_format
                     ? new AC\Formatter\Date\DateFormat('U', $source_format)
                     : new AC\Formatter\Date\Timestamp();
@@ -246,8 +259,21 @@ class FieldType extends BaseComponentFactory
                 $formatters->add(new AC\Formatter\YesNoIcon());
                 break;
             case self::TYPE_IMAGE:
-            case self::TYPE_MEDIA:
                 $formatters->add(new AC\Formatter\ImageToCollection());
+                break;
+            case self::TYPE_MEDIA:
+                if ($config->get('is_multiple', 'off') === 'on') {
+                    $is_preview = $config->get('file_display') !== '';
+                    $formatters->add(
+                        $is_preview
+                            ? new AC\Formatter\GroupedIdsToCollection()
+                            : new AC\Formatter\IdsToCollection()
+                    );
+                }
+
+                if ($config->get('file_display') === '') {
+                    $formatters->add(new AC\Formatter\FileLink((string)$config->get('file_link_to', '')));
+                }
                 break;
             case self::TYPE_USER:
             case self::TYPE_POST:
@@ -269,6 +295,42 @@ class FieldType extends BaseComponentFactory
 
     protected function get_children(Config $config): ?Children
     {
+        // When TYPE_MEDIA is in filename mode, image/media settings do not apply.
+        $media_is_filename = $config->get('file_display') === '';
+
+        $image_spec = $media_is_filename
+            ? StringComparisonSpecification::equal(self::TYPE_IMAGE)
+            : new AC\Expression\OrSpecification([
+                StringComparisonSpecification::equal(self::TYPE_IMAGE),
+                StringComparisonSpecification::equal(self::TYPE_MEDIA),
+            ]);
+
+        $number_of_items_spec = $media_is_filename
+            ? new AC\Expression\OrSpecification([
+                StringComparisonSpecification::equal(self::TYPE_IMAGE),
+                StringComparisonSpecification::equal(self::TYPE_POST),
+                StringComparisonSpecification::equal(self::TYPE_USER),
+            ])
+            : new AC\Expression\OrSpecification([
+                StringComparisonSpecification::equal(self::TYPE_IMAGE),
+                StringComparisonSpecification::equal(self::TYPE_MEDIA),
+                StringComparisonSpecification::equal(self::TYPE_POST),
+                StringComparisonSpecification::equal(self::TYPE_USER),
+            ]);
+
+        $media_link_spec = $media_is_filename
+            ? StringComparisonSpecification::equal(self::TYPE_IMAGE)
+            : new AC\Expression\OrSpecification([
+                StringComparisonSpecification::equal(self::TYPE_IMAGE),
+                StringComparisonSpecification::equal(self::TYPE_MEDIA),
+            ]);
+
+        // Default the file_display to 'preview' for TYPE_MEDIA so existing columns
+        // (which have no file_display saved) continue to show as images.
+        $media_display_config = $config->has('file_display')
+            ? $config
+            : new Config(array_merge($config->all(), ['file_display' => 'preview']));
+
         return new Children(
             new AC\Setting\ComponentCollection([
                 $this->string_limit->create(
@@ -311,29 +373,22 @@ class FieldType extends BaseComponentFactory
                     $config,
                     StringComparisonSpecification::equal(self::TYPE_URL)
                 ),
+                $this->file_display->create(
+                    $media_display_config,
+                    StringComparisonSpecification::equal(self::TYPE_MEDIA)
+                ),
                 $this->image->create(
                     $config,
-                    new AC\Expression\OrSpecification([
-                        StringComparisonSpecification::equal(self::TYPE_IMAGE),
-                        StringComparisonSpecification::equal(self::TYPE_MEDIA),
-                    ])
+                    $image_spec
                 ),
                 $this->number_of_items->create(
                     $config,
-                    new AC\Expression\OrSpecification([
-                        StringComparisonSpecification::equal(self::TYPE_IMAGE),
-                        StringComparisonSpecification::equal(self::TYPE_MEDIA),
-                        StringComparisonSpecification::equal(self::TYPE_POST),
-                        StringComparisonSpecification::equal(self::TYPE_USER),
-                    ])
+                    $number_of_items_spec
                 ),
                 $this->serialized_display->create($config, StringComparisonSpecification::equal(self::TYPE_ARRAY)),
                 $this->media_link->create(
                     $config,
-                    new AC\Expression\OrSpecification([
-                        StringComparisonSpecification::equal(self::TYPE_IMAGE),
-                        StringComparisonSpecification::equal(self::TYPE_MEDIA),
-                    ])
+                    $media_link_spec
                 ),
             ])
         );

@@ -22,6 +22,11 @@ class ColumnCollection implements ColumnIterator
         $this->data[] = $column;
     }
 
+    public static function from_iterator(ColumnIterator $iterator): self
+    {
+        return new self(iterator_to_array($iterator));
+    }
+
     public function current(): Column
     {
         return current($this->data);

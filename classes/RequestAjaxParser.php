@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 class RequestAjaxParser implements Registerable
@@ -15,9 +17,10 @@ class RequestAjaxParser implements Registerable
     public function register(): void
     {
         foreach ($this->handlers->all() as $action => $handler) {
-            (new Ajax\Handler())->set_action($action)
-                                ->set_callback([$handler, 'handle'])
-                                ->register();
+            (new Ajax\Handler())
+                ->set_action($action)
+                ->set_callback([$handler, 'handle'])
+                ->register();
         }
     }
 

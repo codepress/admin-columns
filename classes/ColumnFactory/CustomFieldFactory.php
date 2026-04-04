@@ -10,6 +10,7 @@ use AC\Formatter\Aggregate;
 use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
+use AC\Setting\ComponentFactory\ColumnInfo;
 use AC\Setting\ComponentFactory\FieldType;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
@@ -49,17 +50,32 @@ class CustomFieldFactory extends BaseColumnFactory
 
     protected function get_settings(Config $config): ComponentCollection
     {
-        return new ComponentCollection([
+        $items = [];
+
+        $meta_key = $config->get('field', '');
+
+        if ('' !== $meta_key) {
+            $items[] = ['label' => __('Meta Key', 'codepress-admin-columns'), 'value' => $meta_key];
+        }
+
+        $components = [
             $this->custom_field_factory->create($this->table_context)->create($config),
             $this->field_type->create($config),
-            $this->before_after->create($config),
-            $this->pro_promotion_factory->create(__('Enable Editing', 'codepress-admin-columns'))->create($config),
-            $this->pro_promotion_factory->create(__('Enable Bulk Editing', 'codepress-admin-columns'))->create($config),
-            $this->pro_promotion_factory->create(__('Enable Smart Filtering', 'codepress-admin-columns'))->create(
-                $config
-            ),
-            $this->pro_promotion_factory->create(__('Enable Filtering', 'codepress-admin-columns'))->create($config),
-        ]);
+        ];
+
+        if (!empty($items)) {
+            $components[] = (new ColumnInfo($items))->create($config);
+        }
+
+        $components[] = $this->before_after->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Editing', 'codepress-admin-columns'), 'editing')->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Bulk Editing', 'codepress-admin-columns'), 'bulk-edit')->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Export', 'codepress-admin-columns'), 'export')->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Smart Filtering', 'codepress-admin-columns'), 'search')->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Filtering', 'codepress-admin-columns'), 'filter')->create($config);
+        $components[] = $this->pro_promotion_factory->create(__('Enable Sorting', 'codepress-admin-columns'), 'sorting')->create($config);
+
+        return new ComponentCollection($components);
     }
 
     public function get_column_type(): string

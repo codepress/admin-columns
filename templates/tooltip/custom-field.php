@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use AC\Type\Url\Documentation;
 
 ?>
@@ -14,7 +16,7 @@ use AC\Type\Url\Documentation;
         ); ?>
 	</p>
 	<img width="107" src="<?= esc_url(
-        $this->url . 'assets/images/tooltip/inline-edit-toggle.png'
+        $this->url . '/assets/images/tooltip/inline-edit-toggle.png'
     ) ?>" alt="Toggle Inline Edit" style="border:1px solid #ddd;">
 	<p>
 		<a href="<?= esc_url(

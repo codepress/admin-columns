@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Type;
 
 use AC\Screen;
@@ -68,9 +70,9 @@ abstract class Integration
         return $this->description;
     }
 
-    public function get_link(): string
+    public function get_url(): Url
     {
-        return $this->url->get_url();
+        return $this->url;
     }
 
     public function get_plugin_link(): string

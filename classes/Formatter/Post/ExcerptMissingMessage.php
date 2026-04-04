@@ -25,7 +25,8 @@ class ExcerptMissingMessage implements Formatter
             return $value;
         }
 
-        $post_excerpt = get_post((int)$value->get_id())->post_excerpt ?? null;
+        $post = get_post($value->get_id());
+        $post_excerpt = $post ? $post->post_excerpt : null;
 
         if ($post_excerpt) {
             return $value;

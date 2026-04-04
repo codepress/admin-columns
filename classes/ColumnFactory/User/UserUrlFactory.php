@@ -25,8 +25,8 @@ class UserUrlFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
-                     ->add(new AC\Formatter\User\Property('user_url'))
-                     ->add(new AC\Formatter\Linkable(null, '_blank'));
+            ->add(new AC\Formatter\User\Property('user_url'))
+            ->add(new AC\Formatter\Linkable(null, '_blank'));
     }
 
 }

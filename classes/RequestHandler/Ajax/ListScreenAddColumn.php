@@ -61,8 +61,9 @@ class ListScreenAddColumn implements RequestAjaxHandler
             $response->error();
         }
 
-        $this->json_response_factory->create_by_column($column)
-                                    ->success();
+        $this->json_response_factory
+            ->create_by_column($column)
+            ->success();
     }
 
 }

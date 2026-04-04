@@ -1,8 +1,8 @@
 <script lang="ts">
     export let count: number = 1;
     export let size: string = 'small';
-    export let height: string = null;
-    export let width: string = null;
+    export let height: string | null = null;
+    export let width: string | null = null;
     export let circle: boolean = false;
 </script>
 <div

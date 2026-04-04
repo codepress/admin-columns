@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use AC\View; ?>
 <div class="acu-mx-[50px] acu-pt-[70px]">
 	<div class="acu-hidden">

@@ -3,6 +3,8 @@
     import RowSetting from "./settings/RowSetting.svelte";
     import WidthRowSetting from "./settings/WidthRowSetting.svelte";
     import InputOnlySetting from "./settings/InputOnlySetting.svelte";
+    import ColumnInfoRowSetting from "./settings/ColumnInfoRowSetting.svelte";
+    import BeforeAfterRowSetting from "./settings/BeforeAfterRowSetting.svelte";
 
     export let data: any;
     export let settings: AC.Column.Settings.ColumnSettingCollection
@@ -35,7 +37,9 @@
     const settingComponents: { [key: string]: any } = {
         'default': RowSetting,
         'input_only': InputOnlySetting,
-        'width': WidthRowSetting
+        'width': WidthRowSetting,
+        'column_info': ColumnInfoRowSetting,
+        'before_after': BeforeAfterRowSetting,
     }
 
     const getSettingComponent = (type: string) => {
@@ -51,7 +55,6 @@
 
 {#if typeof filteredSettings !== 'undefined' }
 	{#each filteredSettings as setting (JSON.stringify( setting )) }
-
 		<svelte:component
 			this={getSettingComponent(setting.type ?? '')}
 			setting={setting}
@@ -60,7 +63,6 @@
 			on:refresh
 			{isSubComponent}
 		/>
-
 	{/each}
 
 {/if}

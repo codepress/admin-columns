@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Service;
 
 use AC;
@@ -26,7 +28,7 @@ class CommonAssets implements Registerable
         add_action('admin_enqueue_scripts', [$this, 'register_global_assets'], 1);
     }
 
-    public function register_global_assets()
+    public function register_global_assets(): void
     {
         $this->translation_factory->create();
         (new Style('ac-utilities', $this->location->with_suffix('assets/css/utilities.css')))->register();

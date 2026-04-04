@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Integration;
 
 use AC\Screen;
@@ -16,13 +18,9 @@ final class JetEngine extends Integration
             'ac-addon-jetengine',
             'JetEngine',
             'assets/images/addons/jetengine.svg?v3',
-            sprintf(
-                '%s %s',
-                __('Integrates JetEngine with Admin Columns.', 'codepress-admin-columns'),
-                __(
-                    'Display, inline- and bulk-edit, export, smart filter and sort your JetEngine contents on any admin list table.',
-                    'codepress-admin-columns'
-                )
+            __(
+                'Display and manage JetEngine custom fields, relations, and meta data in any list table. Edit, filter, and sort JetEngine content the same way you manage native WordPress data.',
+                'codepress-admin-columns'
             ),
             new External('https://crocoblock.com/plugins/jetengine/'),
             new Site(Site::PAGE_ADDON_JETENGINE)

@@ -90,10 +90,11 @@ class ListScreenSave implements RequestAjaxHandler
         $title = trim($data['title']) ?: $table_screen->get_labels()->get_singular();
         $preferences = (array)$data['settings'];
 
-        $list_screen = $this->storage->find($id);
+        $previous_list_screen = $this->storage->find($id);
 
         // Try updating existing list screen, or create a new one
-        if ($list_screen) {
+        if ($previous_list_screen) {
+            $list_screen = clone $previous_list_screen;
             $list_screen->set_title($title);
             $list_screen->set_table_screen($table_screen);
             $list_screen->set_columns($columns);
@@ -110,7 +111,7 @@ class ListScreenSave implements RequestAjaxHandler
             );
         }
 
-        do_action('ac/list_screen/before_save', $list_screen);
+        do_action('ac/list_screen/before_save', $list_screen, $previous_list_screen);
 
         try {
             $this->storage->save($list_screen);
@@ -128,7 +129,13 @@ class ListScreenSave implements RequestAjaxHandler
             $list_screen->get_id()
         );
 
-        do_action('ac/list_screen/saved', $list_screen);
+        /**
+         * Fires after a list screen has been saved to storage.
+         *
+         * @param ListScreen      $list_screen          The list screen that was saved.
+         * @param ListScreen|null $previous_list_screen  The previous list screen before the save, or null if newly created.
+         */
+        do_action('ac/list_screen/saved', $list_screen, $previous_list_screen);
 
         $response
             ->set_message(

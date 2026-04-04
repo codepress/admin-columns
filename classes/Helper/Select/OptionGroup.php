@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper\Select;
 
 final class OptionGroup
@@ -10,7 +12,7 @@ final class OptionGroup
     /**
      * @var Option[]
      */
-    private array $options;
+    private array $options = [];
 
     /**
      * @param string   $label
