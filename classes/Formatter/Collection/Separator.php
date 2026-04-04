@@ -24,7 +24,7 @@ class Separator implements CollectionFormatter
         $this->limit = $limit ?? 0;
     }
 
-    // TODO David use create_from_settings, which solves some leaking and dry issues
+    // TODO use create_from_settings, which solves some leaking and DRY issue
     public static function create_from_config(Config $config, int $limit = 20): self
     {
         return new self(
