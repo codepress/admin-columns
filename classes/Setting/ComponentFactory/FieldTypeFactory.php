@@ -26,12 +26,12 @@ class FieldTypeFactory extends BaseComponentFactory
 
     private array $children_configs;
 
-    public function __construct(array $field_types, array $formatter_configs = [], array $final_formatter_configs = [], array $children_configs = [])
+    public function __construct(array $field_types, array $formatter_configs = [], array $children_configs = [], array $final_formatter_configs = [])
     {
         $this->field_types = $field_types;
         $this->formatter_configs = $formatter_configs;
-        $this->final_formatter_configs = $final_formatter_configs;
         $this->children_configs = $children_configs;
+        $this->final_formatter_configs = $final_formatter_configs;
     }
 
     protected function get_label(Config $config): ?string

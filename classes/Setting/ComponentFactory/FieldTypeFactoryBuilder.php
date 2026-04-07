@@ -59,8 +59,8 @@ class FieldTypeFactoryBuilder
         return new FieldTypeFactory(
             $this->field_types,
             $this->formatter_configs,
-            $this->final_formatter_configs,
-            $this->children_configs
+            $this->children_configs,
+            $this->final_formatter_configs
         );
     }
 
