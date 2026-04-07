@@ -7,9 +7,9 @@ namespace AC\Setting\ComponentFactory;
 final class PostTypeFactory
 {
 
-    public function create(bool $show_any): PostType
+    public function create(bool $show_any, bool $multiple): PostType
     {
-        return new PostType($show_any);
+        return new PostType($show_any, $multiple);
     }
 
 }

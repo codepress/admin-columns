@@ -9,16 +9,19 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 
-final class SelectOptions extends BaseComponentFactory
+final class SelectOptions extends BaseComponentFactory implements InputNameAware
 {
-
-    private const NAME = 'select_options';
 
     private IsMultiple $is_multiple;
 
     public function __construct(IsMultiple $is_multiple)
     {
         $this->is_multiple = $is_multiple;
+    }
+
+    public function get_name(): string
+    {
+        return 'select_options';
     }
 
     protected function get_label(Config $config): ?string
@@ -28,7 +31,7 @@ final class SelectOptions extends BaseComponentFactory
 
     protected function get_input(Config $config): Input
     {
-        return new Input\Custom('select_options', self::NAME, [], $config->get(self::NAME, ''));
+        return new Input\Custom($this->get_name(), $this->get_name(), [], $config->get($this->get_name(), ''));
     }
 
     protected function get_children(Config $config): ?Children

@@ -16,7 +16,7 @@ final class TableId
         $this->id = $id;
 
         if ( ! self::validate($id)) {
-            throw new InvalidArgumentException('List key can not be empty.');
+            throw new InvalidArgumentException('The id cannot be empty.');
         }
     }
 
@@ -25,7 +25,7 @@ final class TableId
         return '' !== $id;
     }
 
-    public function equals(TableId $id): bool
+    public function equals(self $id): bool
     {
         return $this->id === (string)$id;
     }

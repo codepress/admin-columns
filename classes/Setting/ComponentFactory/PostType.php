@@ -17,9 +17,12 @@ final class PostType implements ComponentFactory
 
     private bool $show_any;
 
-    public function __construct(bool $show_any = true)
+    private bool $multiple;
+
+    public function __construct(bool $show_any = true, bool $multiple = false)
     {
         $this->show_any = $show_any;
+        $this->multiple = $multiple;
     }
 
     public function create(Config $config, ?Specification $conditions = null): Component
@@ -35,7 +38,9 @@ final class PostType implements ComponentFactory
                 OptionFactory::create_select(
                     'post_type',
                     $post_type_options,
-                    $post_type
+                    $post_type,
+                    null,
+                    $this->multiple
                 )
             );
 
