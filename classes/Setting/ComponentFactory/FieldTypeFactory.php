@@ -22,12 +22,15 @@ class FieldTypeFactory extends BaseComponentFactory
 
     private array $formatter_configs;
 
+    private array $final_formatter_configs;
+
     private array $children_configs;
 
-    public function __construct(array $field_types, array $formatter_configs = [], array $children_configs = [])
+    public function __construct(array $field_types, array $formatter_configs = [], array $final_formatter_configs = [], array $children_configs = [])
     {
         $this->field_types = $field_types;
         $this->formatter_configs = $formatter_configs;
+        $this->final_formatter_configs = $final_formatter_configs;
         $this->children_configs = $children_configs;
     }
 
@@ -89,6 +92,16 @@ class FieldTypeFactory extends BaseComponentFactory
     {
         $field_type = $config->get('field_type', '');
         $configs = $this->formatter_configs[$field_type] ?? [];
+
+        foreach ($configs as $formatter_config) {
+            $formatter_config($config, $formatters);
+        }
+    }
+
+    protected function add_final_formatters(Setting\Config $config, AC\FormatterCollection $formatters): void
+    {
+        $field_type = $config->get('field_type', '');
+        $configs = $this->final_formatter_configs[$field_type] ?? [];
 
         foreach ($configs as $formatter_config) {
             $formatter_config($config, $formatters);

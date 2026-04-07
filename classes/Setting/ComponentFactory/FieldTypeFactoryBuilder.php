@@ -14,6 +14,8 @@ class FieldTypeFactoryBuilder
 
     private array $formatter_configs = [];
 
+    private array $final_formatter_configs = [];
+
     private array $children_configs = [];
 
     public function add_option(string $type, string $label, string $group): self
@@ -35,6 +37,16 @@ class FieldTypeFactoryBuilder
         return $this;
     }
 
+    /**
+     * @param callable(Setting\Config, Setting\FormatterCollection):void $formatter_factory
+     */
+    public function add_final_formatter(string $type, callable $formatter_factory): self
+    {
+        $this->final_formatter_configs[$type][] = $formatter_factory;
+
+        return $this;
+    }
+
     public function add_child_component(Setting\ComponentFactory $component_factory, Specification $specification): self
     {
         $this->children_configs[] = [$component_factory, $specification];
@@ -47,6 +59,7 @@ class FieldTypeFactoryBuilder
         return new FieldTypeFactory(
             $this->field_types,
             $this->formatter_configs,
+            $this->final_formatter_configs,
             $this->children_configs
         );
     }
