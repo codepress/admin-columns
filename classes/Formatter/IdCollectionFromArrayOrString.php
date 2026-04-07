@@ -24,7 +24,7 @@ class IdCollectionFromArrayOrString implements Formatter
             return ValueCollection::from_ids($value->get_id(), $this->sanitise_ids($ids));
         }
 
-        throw new ValueNotFoundException($value->get_id());
+        throw ValueNotFoundException::from_id($value->get_id());
     }
 
     private function sanitise_ids(array $ids): array
