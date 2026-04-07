@@ -17,7 +17,11 @@ class IdCollectionFromArrayOrString implements Formatter
         $ids = $value->get_value();
 
         if (is_string($ids)) {
-            return ValueCollection::from_ids($value->get_id(), $this->get_ids_from_string($ids));
+            $resolved = $this->get_ids_from_string($ids);
+            if ($resolved === null) {
+                throw ValueNotFoundException::from_id($value->get_id());
+            }
+            return ValueCollection::from_ids($value->get_id(), $resolved);
         }
 
         if (is_array($ids)) {
@@ -34,7 +38,7 @@ class IdCollectionFromArrayOrString implements Formatter
 
     private function get_ids_from_string(string $value): ?array
     {
-        if (str_contains($value, ',')) {
+        if (strpos($value, ',') !== false) {
             return $this->sanitise_ids(explode(',', $value));
         }
 
