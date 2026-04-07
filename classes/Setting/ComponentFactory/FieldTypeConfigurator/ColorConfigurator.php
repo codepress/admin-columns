@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory\FieldTypeConfigurator;
 
+use AC\Formatter\Color;
 use AC\Setting;
 use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
-use AC\Value\Formatter\Color;
 
 class ColorConfigurator implements FieldTypeConfigurator
 {

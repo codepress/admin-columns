@@ -7,6 +7,7 @@ namespace AC\Setting\ComponentFactory\FieldTypeConfigurator;
 use AC\Expression\StringComparisonSpecification;
 use AC\Formatter\Collection\Separator;
 use AC\Formatter\ImageToCollection;
+use AC\FormatterCollection;
 use AC\Setting;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
@@ -38,7 +39,7 @@ class ImageConfigurator implements FieldTypeConfigurator
             ->add_option(self::TYPE, __('Image', 'codepress-admin-columns'), 'basic')
             ->add_formatter(
                 self::TYPE,
-                function (Setting\Config $config, Setting\FormatterCollection $formatters) {
+                function (Setting\Config $config, FormatterCollection $formatters) {
                     $formatters->add(new ImageToCollection());
                 }
             )->add_child_component(
@@ -52,7 +53,7 @@ class ImageConfigurator implements FieldTypeConfigurator
                 StringComparisonSpecification::equal(self::TYPE)
             )->add_final_formatter(
                 self::TYPE,
-                function (Setting\Config $config, Setting\FormatterCollection $formatters) {
+                function (Setting\Config $config, FormatterCollection $formatters) {
                     $formatters->add(new Separator('', (int)$config->get('number_of_items', 0)));
                 }
             );

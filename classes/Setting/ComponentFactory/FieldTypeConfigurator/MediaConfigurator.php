@@ -33,7 +33,7 @@ class MediaConfigurator implements FieldTypeConfigurator
             ->add_formatter(
                 self::TYPE,
                 function (Setting\Config $config, Setting\FormatterCollection $formatters) {
-                    $formatters->add(new AC\Value\Formatter\IdCollectionFromArrayOrString());
+                    $formatters->add(new AC\Formatter\IdsToCollection());
                 }
             )->add_child_component(
                 $this->image_size,

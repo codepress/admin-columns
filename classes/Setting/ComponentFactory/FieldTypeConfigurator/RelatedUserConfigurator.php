@@ -23,7 +23,7 @@ class RelatedUserConfigurator implements FieldTypeConfigurator
         Setting\ComponentFactory\UserLink $user_link
     ) {
         $this->user_property = $user_property;
-        $this->user_link = $user_link;
+        $this->user_link     = $user_link;
     }
 
     public function configure(FieldTypeFactoryBuilder $builder): void
@@ -33,7 +33,7 @@ class RelatedUserConfigurator implements FieldTypeConfigurator
             ->add_formatter(
                 self::TYPE,
                 function (Setting\Config $config, Setting\FormatterCollection $formatters) {
-                    $formatters->add(new AC\Value\Formatter\IdCollectionFromArrayOrString());
+                    $formatters->add(new AC\Formatter\IdsToCollection());
                 }
             )->add_child_component(
                 $this->user_property,

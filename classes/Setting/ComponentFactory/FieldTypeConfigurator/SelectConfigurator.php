@@ -29,9 +29,9 @@ class SelectConfigurator implements FieldTypeConfigurator
                 self::TYPE,
                 function (Setting\Config $config, Setting\FormatterCollection $formatters) {
                     if ($config->get('is_multiple', 'off') === 'on') {
-                        $formatters->add(new AC\Value\Formatter\ArrayToCollection());
+                        $formatters->add(new AC\Formatter\ArrayToCollection());
                     }
-                    $formatters->add(new AC\Value\Formatter\SelectOptionMapper($config));
+                    $formatters->add(new AC\Formatter\SelectOptionMapper($config));
                 }
             )->add_child_component(
                 $this->select_options,
