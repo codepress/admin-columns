@@ -18,7 +18,7 @@ class TextConfigurator implements FieldTypeConfigurator
         $this->string_limit = $string_limit;
     }
 
-    public const TYPE = 'string';
+    public const TYPE = 'excerpt';
 
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
