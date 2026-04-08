@@ -97,6 +97,10 @@ class FieldGroupCache implements Registerable
             return $map;
         }
 
+        if ( ! $this->is_acf_available()) {
+            return [];
+        }
+
         $map = [];
 
         foreach ($this->table_ids_factory->create() as $table_id) {
@@ -146,9 +150,16 @@ class FieldGroupCache implements Registerable
         return $this->get_count_for_query((string)$table_screen->get_id(), $query);
     }
 
+    private function is_acf_available(): bool
+    {
+        return function_exists('acf_get_field_groups')
+            && function_exists('acf_get_fields')
+            && function_exists('acf_get_store');
+    }
+
     private function get_count_for_query(string $cache_key, Query $query): int
     {
-        if ( ! function_exists('acf_get_field_groups') || ! function_exists('acf_get_fields')) {
+        if ( ! $this->is_acf_available()) {
             return 0;
         }
 
