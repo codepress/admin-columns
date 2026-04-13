@@ -9,7 +9,7 @@ final class Acf
 
     public static function is_active(): bool
     {
-        return class_exists('ACF', false);
+        return class_exists('ACF', false) && defined('ACF');
     }
 
 }
