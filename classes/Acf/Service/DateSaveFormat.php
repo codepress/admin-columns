@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Acf\Service;
 
+use AC\Acf;
 use AC\Registerable;
 
 class DateSaveFormat implements Registerable
@@ -13,7 +14,7 @@ class DateSaveFormat implements Registerable
 
     public function register(): void
     {
-        if ( ! class_exists('acf', false) && ! class_exists('ACF', false)) {
+        if ( ! Acf::is_active()) {
             return;
         }
 

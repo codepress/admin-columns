@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Acf\Service;
 
+use AC\Acf;
 use AC\Acf\ColumnMatcher;
 use AC\Acf\FieldGroupCache;
 use AC\Column;
@@ -75,7 +76,7 @@ class FieldSettings implements Registerable
 
     public function register(): void
     {
-        if ( ! class_exists('acf', false) && ! class_exists('ACF', false)) {
+        if ( ! Acf::is_active()) {
             return;
         }
 

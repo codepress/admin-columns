@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Check\Integration;
 
+use AC\Acf;
 use AC\Acf\FieldGroupCache;
 use AC\Screen;
 use AC\Type\Url\Site;
@@ -21,7 +22,7 @@ class AcfSortAndFilterNotice implements IntegrationNotice, UsageAwareNotice
 
     public function is_active(Screen $screen): bool
     {
-        if ( ! class_exists('acf', false) && ! class_exists('ACF', false)) {
+        if ( ! Acf::is_active()) {
             return false;
         }
 

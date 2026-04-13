@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Admin\Banner\Context;
 
+use AC;
 use AC\Acf\FieldGroupCache;
 use AC\Admin\Banner\BannerContext;
 use AC\TableScreen;
@@ -23,7 +24,7 @@ class Acf implements BannerContext
 
     public function is_active(TableScreen $table_screen): bool
     {
-        if ( ! class_exists('acf', false)) {
+        if ( ! AC\Acf::is_active()) {
             return false;
         }
 

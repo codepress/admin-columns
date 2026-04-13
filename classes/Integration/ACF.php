@@ -2,6 +2,7 @@
 
 namespace AC\Integration;
 
+use AC;
 use AC\Screen;
 use AC\Type\Integration;
 use AC\Type\Url\External;
@@ -27,7 +28,7 @@ final class ACF extends Integration
 
     public function is_plugin_active(): bool
     {
-        return class_exists('acf', false) || class_exists('ACF', false);
+        return AC\Acf::is_active();
     }
 
     public function show_notice(Screen $screen): bool
