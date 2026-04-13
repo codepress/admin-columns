@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 7.0.15 =
+Release Date: April 13th, 2026
+
+
+
 = 7.0.14 =
 Release Date: March 31st, 2026
 
