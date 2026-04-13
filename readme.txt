@@ -201,6 +201,8 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 = 7.0.15 =
 Release Date: April 13th, 2026
 
+* [Improved] Various improvements to ACF field setting support.
+
 = 7.0.14 =
 Release Date: March 31st, 2026
 
