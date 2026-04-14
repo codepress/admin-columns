@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\ThirdParty;
 
+use AC\Acf;
 use AC\Registerable;
 
 class AdvancedCustomFields implements Registerable
@@ -11,7 +12,7 @@ class AdvancedCustomFields implements Registerable
 
     public function register(): void
     {
-        if ( ! class_exists('acf', false)) {
+        if ( ! Acf::is_active()) {
             return;
         }
 

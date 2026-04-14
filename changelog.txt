@@ -1,7 +1,12 @@
 == Changelog ==
 
-= 7.0.13 =
-Release Date: March 30th, 2026
+= 7.0.15 =
+Release Date: April 14th, 2026
+
+* [Improved] Various improvements to ACF field setting support.
+
+= 7.0.14 =
+Release Date: March 31st, 2026
 
 * [Added] ACF field settings tab to add fields as admin columns directly from the field group editor.
 * [Added] Column editor now scrolls to the opened column when linked from ACF field settings.

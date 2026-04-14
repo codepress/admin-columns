@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Integration;
 
+use AC;
 use AC\Screen;
 use AC\TableScreen;
 use AC\Type\Integration;
@@ -29,7 +30,7 @@ final class WooCommerce extends Integration
 
     public function is_plugin_active(): bool
     {
-        return class_exists('WooCommerce', false);
+        return AC\WooCommerce::is_active();
     }
 
     private function get_post_types(): array

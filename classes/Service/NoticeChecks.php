@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Service;
 
-use AC\Acf\FieldCount;
+use AC\Acf\FieldGroupCache;
 use AC\AdminColumns;
 use AC\Capabilities;
 use AC\Check;
@@ -18,12 +18,12 @@ class NoticeChecks implements Registerable
 
     private AdminColumns $plugin;
 
-    private FieldCount $field_count;
+    private FieldGroupCache $field_group_cache;
 
-    public function __construct(AdminColumns $plugin, FieldCount $field_count)
+    public function __construct(AdminColumns $plugin, FieldGroupCache $field_group_cache)
     {
         $this->plugin = $plugin;
-        $this->field_count = $field_count;
+        $this->field_group_cache = $field_group_cache;
     }
 
     public function register(): void
@@ -34,7 +34,6 @@ class NoticeChecks implements Registerable
     private function create_services(): Services
     {
         $services = new Services();
-        $services->add($this->field_count);
 
         if (current_user_can(Capabilities::MANAGE)) {
             $state = new NoticeState();
@@ -51,8 +50,8 @@ class NoticeChecks implements Registerable
                         new Integration\WooCommerceOrdersSearchNotice(),
                         new Integration\WooCommerceOrdersFilterNotice(),
                         new Integration\WooCommerceOrdersNotice(),
-                        new Integration\AcfBulkEditNotice($this->field_count),
-                        new Integration\AcfSortAndFilterNotice($this->field_count),
+                        new Integration\AcfBulkEditNotice($this->field_group_cache),
+                        new Integration\AcfSortAndFilterNotice($this->field_group_cache),
                         new Integration\AcfNotice(),
                         new Integration\GravityFormsNotice(),
                         new Integration\EventsCalendarNotice(),

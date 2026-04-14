@@ -50,6 +50,10 @@ class Post implements FieldGroup\Query
             'user_type',
         ];
 
+        if ( ! function_exists('acf_get_store')) {
+            return $params;
+        }
+
         $store = acf_get_store('location-types');
 
         if ( ! $store) {

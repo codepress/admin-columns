@@ -17,9 +17,11 @@ class ColumnCollection implements ColumnIterator
         array_map([$this, 'add'], $data);
     }
 
-    public function add(Column $column): void
+    public function add(Column $column): self
     {
         $this->data[] = $column;
+
+        return $this;
     }
 
     public static function from_iterator(ColumnIterator $iterator): self

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Admin\Banner\Context;
 
-use AC\Acf\FieldCount;
+use AC;
+use AC\Acf\FieldGroupCache;
 use AC\Admin\Banner\BannerContext;
 use AC\TableScreen;
 use AC\Type\StartingPrice;
@@ -14,20 +15,20 @@ use AC\Type\Url\UtmTags;
 class Acf implements BannerContext
 {
 
-    private FieldCount $field_count;
+    private FieldGroupCache $field_group_cache;
 
-    public function __construct(FieldCount $field_count)
+    public function __construct(FieldGroupCache $field_group_cache)
     {
-        $this->field_count = $field_count;
+        $this->field_group_cache = $field_group_cache;
     }
 
     public function is_active(TableScreen $table_screen): bool
     {
-        if ( ! class_exists('acf', false)) {
+        if ( ! AC\Acf::is_active()) {
             return false;
         }
 
-        return $this->field_count->get_count_for_table_screen($table_screen) > 0;
+        return $this->field_group_cache->get_count_for_table_screen($table_screen) > 0;
     }
 
     public function get_priority(): int
@@ -39,7 +40,7 @@ class Acf implements BannerContext
     {
         $upgrade_url = new UtmTags(new Site(Site::PAGE_ADDON_ACF), 'banner-acf');
 
-        $field_count = $this->field_count->get_count_for_table_screen($table_screen);
+        $field_count = $this->field_group_cache->get_count_for_table_screen($table_screen);
 
         return [
             'badge'             => __('Admin Columns Pro', 'codepress-admin-columns'),

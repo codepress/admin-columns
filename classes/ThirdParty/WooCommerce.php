@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\ThirdParty;
 
+use AC;
 use AC\Registerable;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
@@ -20,7 +21,7 @@ class WooCommerce implements Registerable
 
     public function remove_webhook($post_types)
     {
-        if (class_exists('WooCommerce', false)) {
+        if (AC\WooCommerce::is_active()) {
             unset($post_types['shop_webhook']);
         }
 
