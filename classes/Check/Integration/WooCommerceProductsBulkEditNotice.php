@@ -7,6 +7,7 @@ namespace AC\Check\Integration;
 use AC\Screen;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
+use AC\WooCommerce;
 
 class WooCommerceProductsBulkEditNotice implements IntegrationNotice, UsageAwareNotice
 {
@@ -15,7 +16,7 @@ class WooCommerceProductsBulkEditNotice implements IntegrationNotice, UsageAware
 
     public function is_active(Screen $screen): bool
     {
-        if ( ! class_exists('WooCommerce', false)) {
+        if ( ! WooCommerce::is_active()) {
             return false;
         }
 

@@ -201,6 +201,7 @@ class Loader
             Service\PluginUpdate::class,
             Service\Tooltips::class,
             AC\Acf\Service\DateSaveFormat::class,
+            AC\Acf\FieldGroupCache::class,
         ];
 
         if ( ! $this->is_pro_active) {

@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-03-31 08:34+0000\n"
+"POT-Creation-Date: 2026-04-13 07:42+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -88,7 +88,7 @@ msgstr ""
 msgid "Instructions"
 msgstr ""
 
-#: classes/Check/Review.php:96, classes/Table/Screen.php:90, classes/Acf/Service/FieldSettings.php:88, classes/Acf/Service/FieldSettings.php:197, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17
+#: classes/Check/Review.php:96, classes/Table/Screen.php:90, classes/Acf/Service/FieldSettings.php:88, classes/Acf/Service/FieldSettings.php:202, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17
 msgid "Admin Columns"
 msgstr ""
 
@@ -634,71 +634,71 @@ msgstr ""
 msgid "Date Format"
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:109
+#: classes/Acf/Service/FieldSettings.php:95
+msgid "Add as column"
+msgstr ""
+
+#: classes/Acf/Service/FieldSettings.php:114
 msgid "This field type cannot be used as an admin column."
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:131
+#: classes/Acf/Service/FieldSettings.php:136
 msgid "This field type is supported in Admin Columns Pro"
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:132
+#: classes/Acf/Service/FieldSettings.php:137
 msgid "Add this field as a column with sorting, filtering, and inline editing."
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:134
+#: classes/Acf/Service/FieldSettings.php:139
 msgid "Learn more →"
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:177
+#: classes/Acf/Service/FieldSettings.php:182
 msgid "Add this field as a column in the list tables below. Once added, you can open that specific column in Admin Columns to configure it."
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:183
+#: classes/Acf/Service/FieldSettings.php:188
 msgid "Enter a %1$s under the %2$s tab to enable adding this field as a column."
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:184
+#: classes/Acf/Service/FieldSettings.php:189
 msgid "Field Name"
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:185
+#: classes/Acf/Service/FieldSettings.php:190
 msgid "General"
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:191
+#: classes/Acf/Service/FieldSettings.php:196
 msgid "Column settings are managed in Admin Columns after creation."
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:222, classes/Acf/Service/FieldSettings.php:506
-msgid "Column added"
+#: classes/Acf/Service/FieldSettings.php:227, classes/Acf/Service/FieldSettings.php:511
+msgid "Added"
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:224, classes/Acf/Service/FieldSettings.php:496
-msgid "Edit in Admin Columns →"
+#: classes/Acf/Service/FieldSettings.php:229, classes/Acf/Service/FieldSettings.php:501
+msgid "Edit column →"
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:241, classes/Acf/Service/FieldSettings.php:257, classes/Acf/Service/FieldSettings.php:513, classes/Acf/Service/FieldSettings.php:516
-msgid "Add column"
-msgstr ""
-
-#: classes/Acf/Service/FieldSettings.php:288
+#: classes/Acf/Service/FieldSettings.php:293
 msgid "Make this column editable, sortable, and filterable – and manage your content faster right from the overview."
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:281
+#: classes/Acf/Service/FieldSettings.php:286
 msgid "Make this column editable, sortable, and filterable – and manage your %s faster right from the overview."
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:303
+#: classes/Acf/Service/FieldSettings.php:308
 msgid "Unlock powerful column features"
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:306
+#: classes/Acf/Service/FieldSettings.php:311
 msgid "Get Admin Columns Pro →"
 msgstr ""
 
-#: classes/Acf/Service/FieldSettings.php:480
+#: classes/Acf/Service/FieldSettings.php:485
 msgid "Adding..."
 msgstr ""
 

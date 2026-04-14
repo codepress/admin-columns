@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Admin\Banner\Context;
 
+use AC;
 use AC\Admin\Banner\BannerContext;
 use AC\PostType;
 use AC\TableScreen;
@@ -16,7 +17,7 @@ class WooCommerce implements BannerContext
 
     public function is_active(TableScreen $table_screen): bool
     {
-        if ( ! class_exists('WooCommerce', false)) {
+        if ( ! AC\WooCommerce::is_active()) {
             return false;
         }
 

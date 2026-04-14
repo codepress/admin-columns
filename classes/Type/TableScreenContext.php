@@ -7,6 +7,7 @@ namespace AC\Type;
 use AC;
 use AC\MetaType;
 use AC\TableScreen;
+use ACA;
 
 final class TableScreenContext
 {
@@ -29,6 +30,13 @@ final class TableScreenContext
 
     public static function from_table_screen(TableScreen $screen): ?self
     {
+        if ($screen instanceof ACA\WC\TableScreen\Order) {
+            return new TableScreenContext(
+                new MetaType(MetaType::POST),
+                new PostTypeSlug('shop_order')
+            );
+        }
+
         if ( ! $screen instanceof TableScreen\MetaType) {
             return null;
         }
