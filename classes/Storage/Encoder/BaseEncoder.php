@@ -21,6 +21,9 @@ class BaseEncoder implements AC\Storage\Encoder
         $this->version = $version;
     }
 
+    /**
+     * @return static
+     */
     public function set_list_screen(ListScreen $list_screen): self
     {
         $this->list_screen = $list_screen;
