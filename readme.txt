@@ -198,6 +198,10 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 
 == Changelog ==
 
+= 7.0.16 =
+Release Date: TBD
+* [Fixed] Fixed a critical error on sites where the PHP mbstring extension is not available.
+
 = 7.0.15 =
 Release Date: April 14th, 2026
 

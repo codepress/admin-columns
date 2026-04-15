@@ -104,7 +104,7 @@ class Strings extends Creatable
 
         $string = wp_strip_all_tags($string);
 
-        if (mb_strlen($string) <= $limit) {
+        if (Mbstring::strlen($string) <= $limit) {
             return $string;
         }
 
@@ -112,7 +112,7 @@ class Strings extends Creatable
             $trail = __('&hellip;');
         }
 
-        return trim(mb_substr($string, 0, $limit)) . $trail;
+        return trim(Mbstring::substr($string, 0, $limit)) . $trail;
     }
 
     public function is_image(string $url): bool
