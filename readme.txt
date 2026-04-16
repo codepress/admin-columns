@@ -201,6 +201,7 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 = 7.0.16 =
 Release Date: TBD
 * [Fixed] Fixed a critical error on sites where the PHP mbstring extension is not available.
+* [Fixed] Fixed a UI issue in the ACF field settings tab where inline scripts interfered with the page rendering.
 
 = 7.0.15 =
 Release Date: April 14th, 2026

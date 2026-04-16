@@ -1,5 +1,8 @@
 <?php
 
+use AC\Acf\ColumnMatcher;
+use AC\Acf\FieldGroupCache;
+use AC\Acf\Service\FieldSettings;
 use AC\Admin;
 use AC\Admin\PageRequestHandlers;
 use AC\AdminColumns;
@@ -81,4 +84,12 @@ return [
     PluginUpdate::class                       => autowire()
         ->constructorParameter(0, get(AdminColumns::class))
         ->constructorParameter(1, new Site('upgrade-to-ac-version-%s')),
+    FieldSettings::class                      => static function (
+        Storage $storage,
+        FieldGroupCache $field_group_cache,
+        ColumnMatcher $column_matcher,
+        AdminColumns $plugin
+    ): FieldSettings {
+        return new FieldSettings($storage, $field_group_cache, $column_matcher, $plugin->get_location());
+    },
 ];
