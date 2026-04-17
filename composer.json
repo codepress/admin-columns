@@ -14,8 +14,15 @@
         "php-di/php-di": "^6.4"
     },
     "scripts": {
+        "prefix": [
+            "@composer install --working-dir=build --no-interaction",
+            "@php build/app.php prefix"
+        ],
+        "post-install-cmd": [
+            "@prefix"
+        ],
         "post-update-cmd": [
-            "@php ../build/app.php prefix"
+            "@prefix"
         ]
     }
 }

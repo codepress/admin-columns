@@ -7,6 +7,9 @@ namespace AC\Acf\Service;
 use AC\Acf;
 use AC\Acf\ColumnMatcher;
 use AC\Acf\FieldGroupCache;
+use AC\Asset\Location\Absolute;
+use AC\Asset\Script;
+use AC\Asset\Style;
 use AC\Column;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
@@ -64,14 +67,18 @@ class FieldSettings implements Registerable
 
     private ColumnMatcher $column_matcher;
 
+    private Absolute $location;
+
     public function __construct(
         Storage $storage,
         FieldGroupCache $field_group_cache,
-        ColumnMatcher $column_matcher
+        ColumnMatcher $column_matcher,
+        Absolute $location
     ) {
         $this->storage = $storage;
         $this->field_group_cache = $field_group_cache;
         $this->column_matcher = $column_matcher;
+        $this->location = $location;
     }
 
     public function register(): void
@@ -82,6 +89,24 @@ class FieldSettings implements Registerable
 
         add_filter('acf/field_group/additional_field_settings_tabs', [$this, 'add_tab']);
         add_action('acf/field_group/render_field_settings_tab/admin_columns', [$this, 'render_tab']);
+        add_action('acf/field_group/admin_enqueue_scripts', [$this, 'enqueue_scripts']);
+    }
+
+    public function enqueue_scripts(): void
+    {
+        $style = new Style('ac-acf-field-settings', $this->location->with_suffix('assets/css/acf-field-settings.css'));
+        $style->enqueue();
+
+        $script = new Script('ac-acf-field-settings', $this->location->with_suffix('assets/js/acf-field-settings.js'), ['jquery']);
+        $script->enqueue();
+
+        wp_localize_script('ac-acf-field-settings', 'ac_acf_field_settings', [
+            'nonce'         => wp_create_nonce('ac-ajax'),
+            'adding'        => __('Adding...', 'codepress-admin-columns'),
+            'added'         => __('Added', 'codepress-admin-columns'),
+            'edit_column'   => __('Edit column →', 'codepress-admin-columns'),
+            'add_as_column' => $this->get_add_column_label(),
+        ]);
     }
 
     public function add_tab(array $tabs): array
@@ -153,7 +178,6 @@ class FieldSettings implements Registerable
 
         $meta_key = $field['name'] ?? '';
         $has_meta_key = $meta_key !== '' && $meta_key !== 'new_field';
-        $nonce = wp_create_nonce('ac-ajax');
 
         $rows_html = '';
 
@@ -208,8 +232,6 @@ class FieldSettings implements Registerable
         );
 
         $this->render_upsell($field, $table_screens);
-        $this->render_inline_style();
-        $this->render_inline_script($nonce);
     }
 
     private function render_added_row(string $label, Uri $editor_url): string
@@ -327,204 +349,6 @@ class FieldSettings implements Registerable
             esc_url($url),
             esc_html($link_text)
         );
-    }
-
-    private function render_inline_style(): void
-    {
-        static $rendered = false;
-
-        if ($rendered) {
-            return;
-        }
-
-        $rendered = true;
-
-        echo '<style>
-            .ac-acf-intro {
-                font-size: 13px;
-                color: #50575e;
-                line-height: 1.5;
-                margin: 0 0 16px;
-            }
-            .ac-acf-list {
-                display: grid;
-                gap: 8px;
-            }
-            .ac-acf-card {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 16px;
-                padding: 12px 16px;
-                border: 1px solid #e3e5e8;
-                border-radius: 6px;
-                background: #fff;
-            }
-            .ac-acf-card--added {
-                background: #fbfcfb;
-            }
-            .ac-acf-card--unavailable {
-                opacity: .6;
-            }
-            .ac-acf-notice {
-                background: #f0f6fc;
-                border: 1px solid #c5d9ed;
-                border-radius: 4px;
-                padding: 10px 14px;
-                font-size: 13px;
-                color: #1f4f77;
-                margin-bottom: 12px;
-            }
-            .ac-acf-card-main {
-                display: flex;
-                align-items: center;
-                gap: 16px;
-                min-width: 0;
-            }
-            .ac-acf-card-name {
-                font-size: 13px;
-                font-weight: 600;
-                color: #2c3338;
-            }
-            .ac-acf-status {
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-            }
-            .ac-acf-badge {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 18px;
-                height: 18px;
-                border-radius: 50%;
-                background: #eaf6ec;
-                color: #008a20;
-                font-size: 10px;
-                font-weight: 700;
-                flex-shrink: 0;
-                line-height: 1;
-            }
-            .ac-acf-card-status {
-                font-size: 13px;
-                color: #646970;
-            }
-            .ac-acf-card-actions {
-                flex: 0 0 auto;
-            }
-            .ac-acf-link {
-                color: #2271b1;
-                font-size: 13px;
-                font-weight: 500;
-                text-decoration: none;
-            }
-            .ac-acf-link:hover {
-                color: #135e96;
-                text-decoration: underline;
-            }
-            .ac-acf-helper {
-                margin: 12px 0 0;
-                font-size: 12px;
-                color: #646970;
-            }
-            .ac-acf-upsell {
-                background: #f0f6fc;
-                border: 1px solid #c5d9ed;
-                border-radius: 6px;
-                padding: 16px 20px;
-                font-size: 13px;
-                line-height: 1.6;
-                color: #1d2327;
-            }
-            .ac-acf-upsell strong {
-                color: #1f4f77;
-            }
-            .ac-acf-upsell a {
-                color: #2271b1;
-                font-weight: 500;
-                text-decoration: none;
-            }
-            .ac-acf-upsell a:hover {
-                text-decoration: underline;
-            }
-        </style>';
-    }
-
-    private function render_inline_script(string $nonce): void
-    {
-        static $rendered = false;
-
-        if ($rendered) {
-            return;
-        }
-
-        $rendered = true;
-
-        ?>
-		<script>
-			(function( $ ) {
-				$( document ).on( 'click', '.ac-acf-add-column', function() {
-					var $button = $( this );
-					var $card = $button.closest( '.ac-acf-card' );
-					var tableId = $card.data( 'table-id' );
-
-					var $fieldObject = $button.closest( '.acf-field-object' );
-					var metaKey = $fieldObject.find( '.acf-field[data-name="name"] input' ).val() || $fieldObject.data( 'field-name' ) || '';
-
-					if ( !metaKey ) {
-						return;
-					}
-
-					var fieldData = {
-						name : metaKey,
-						type : $fieldObject.data( 'type' ) || '',
-						label : $fieldObject.find( '.acf-field[data-name="label"] input' ).val() || '',
-						prepend : $fieldObject.find( '.acf-field[data-name="prepend"] input' ).val() || '',
-						append : $fieldObject.find( '.acf-field[data-name="append"] input' ).val() || ''
-					};
-
-					$button.prop( 'disabled', true ).text( '<?php echo esc_js(__('Adding...', 'codepress-admin-columns')); ?>' );
-
-					$.post( ajaxurl, {
-						action : 'ac-acf-add-column',
-						_ajax_nonce : '<?php echo esc_js($nonce); ?>',
-						table_id : tableId,
-						meta_key : metaKey,
-						field_data : JSON.stringify( fieldData )
-					} ).done( function( response ) {
-						if ( response.success ) {
-							var editorUrl = response.data && response.data.editor_url ? response.data.editor_url : '#';
-							var label = $card.find( '.ac-acf-card-name' ).text();
-							var $link = $( '<a>', {
-								href : editorUrl,
-								target : '_blank',
-								'class' : 'ac-acf-link',
-								text : '<?php echo esc_js(__('Edit column →', 'codepress-admin-columns')); ?>'
-							} );
-
-							$card.addClass( 'ac-acf-card--added' ).attr( 'data-state', 'added' ).empty()
-								.append(
-									$( '<div>', { 'class' : 'ac-acf-card-main' } )
-										.append( $( '<span>', { 'class' : 'ac-acf-card-name', text : label } ) )
-										.append(
-											$( '<span>', { 'class' : 'ac-acf-status' } )
-												.append( $( '<span>', { 'class' : 'ac-acf-badge', html : '&#10003;' } ) )
-												.append( $( '<span>', { 'class' : 'ac-acf-card-status', text : '<?php echo esc_js(__('Added', 'codepress-admin-columns')); ?>' } ) )
-										)
-								)
-								.append(
-									$( '<div>', { 'class' : 'ac-acf-card-actions' } ).append( $link )
-								);
-						} else {
-							$button.prop( 'disabled', false ).text( '<?php echo esc_js($this->get_add_column_label()); ?>' );
-						}
-					} ).fail( function() {
-						$button.prop( 'disabled', false ).text( '<?php echo esc_js($this->get_add_column_label()); ?>' );
-					} );
-				} );
-			})( jQuery );
-		</script>
-        <?php
     }
 
     private function is_pro_only_field(array $field): bool
