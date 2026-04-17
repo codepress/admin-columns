@@ -110,6 +110,12 @@ Feature requests are welcome. Before filing, consider whether the idea fits the 
 
 Make a concrete case: what problem does the feature solve, who does it help, and how would it work in practice? Mockups, example configurations, or references to similar plugins all help.
 
+## Translating
+
+Admin Columns is translated into many languages by the community. If your language is missing or incomplete, help improve it on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns) — only a free WordPress.org account is required.
+
+Translations are reviewed by WordPress.org Translation Editors and ship with the plugin as they are approved.
+
 ## Issue labels
 
 Labels follow a `group:name` convention to keep the tracker tidy.
