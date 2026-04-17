@@ -4,7 +4,7 @@ Tags: columns, admin columns, custom fields, list table, woocommerce
 Requires at least: 5.9
 Tested up to: 6.9.4
 Requires PHP: 7.4
-Stable tag: 7.0.15
+Stable tag: 7.0.16
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -199,7 +199,8 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 == Changelog ==
 
 = 7.0.16 =
-Release Date: TBD
+Release Date: April 17th, 2026
+
 * [Fixed] Fixed a critical error on sites where the PHP mbstring extension is not available.
 * [Fixed] Fixed a UI issue in the ACF field settings tab where inline scripts interfered with the page rendering.
 

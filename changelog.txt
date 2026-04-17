@@ -1,7 +1,8 @@
 == Changelog ==
 
 = 7.0.16 =
-Release Date: TBD
+Release Date: April 17th, 2026
+
 * [Fixed] Fixed a critical error on sites where the PHP mbstring extension is not available.
 * [Fixed] Fixed a UI issue in the ACF field settings tab where inline scripts interfered with the page rendering.
 
