@@ -19,6 +19,7 @@ use AC\Service\PluginUpdate;
 use AC\Storage\EncoderFactory;
 use AC\Storage\Table;
 use AC\TableIdsFactory;
+use AC\DefaultColumnHandler;
 use AC\TableScreenFactory;
 use AC\Type\Url\Site;
 use AC\Vendor\DI\Container;
@@ -46,6 +47,7 @@ return [
     AdminColumns::class                       => static function (): AdminColumns {
         return new AdminColumns(AC_FILE, new Version(AC_VERSION));
     },
+    DefaultColumnHandler::class               => autowire(DefaultColumnHandler\Aggregate::class),
     TableScreenFactory::class                 => autowire(TableScreenFactory\Aggregate::class),
     SetupFactory\AdminColumns::class          => static function (
         AdminColumns $plugin,
