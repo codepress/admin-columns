@@ -8,7 +8,8 @@ let config = {
 		'admin-page-addons' : './js/admin-page-addons.ts',
 		'global-translations' : './js/global-translations.ts',
 		'notice-dismissible' : './js/notice-dismissible.ts',
-		'table' : './js/table.ts'
+		'table' : './js/table.ts',
+		'acf-field-settings' : './js/acf-field-settings.ts'
 	},
 	output : {
 		path : path.resolve( __dirname, '../assets/js' ),

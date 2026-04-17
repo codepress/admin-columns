@@ -6,6 +6,7 @@ namespace AC\Response;
 
 use AC;
 use AC\Admin\Banner\BannerContextResolver;
+use AC\Helper\Mbstring;
 use AC\ListScreen;
 use AC\Setting\Encoder;
 use AC\Storage\EncoderFactory;
@@ -149,13 +150,13 @@ class JsonListScreenSettingsFactory
         $plural = $table_screen->get_labels()->get_plural();
         $singular = $table_screen->get_labels()->get_singular();
 
-        if (mb_strlen($plural) > 30) {
+        if (Mbstring::strlen($plural) > 30) {
             $plural = __('content', 'codepress-admin-columns');
             $singular = __('item', 'codepress-admin-columns');
         }
 
-        $plural_lower = mb_strtolower($plural);
-        $singular_lower = mb_strtolower($singular);
+        $plural_lower = Mbstring::strtolower($plural);
+        $singular_lower = Mbstring::strtolower($singular);
 
         return [
             'title'             => sprintf(

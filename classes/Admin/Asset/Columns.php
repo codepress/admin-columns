@@ -10,6 +10,7 @@ use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Capabilities;
 use AC\Form\NonceFactory;
+use AC\Helper\Mbstring;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Storage\Repository\EditorMenuStatus;
 use AC\Table\TableScreenCollection;
@@ -91,13 +92,13 @@ class Columns extends Script
         $plural = $this->table_screen->get_labels()->get_plural();
         $singular = $this->table_screen->get_labels()->get_singular();
 
-        if (mb_strlen($plural) > 30) {
+        if (Mbstring::strlen($plural) > 30) {
             $plural = __('content', 'codepress-admin-columns');
             $singular = __('item', 'codepress-admin-columns');
         }
 
-        $plural_lower = mb_strtolower($plural);
-        $singular_lower = mb_strtolower($singular);
+        $plural_lower = Mbstring::strtolower($plural);
+        $singular_lower = Mbstring::strtolower($singular);
 
         $items = [
             'editing'     => __('Inline edit directly in the table', 'codepress-admin-columns'),

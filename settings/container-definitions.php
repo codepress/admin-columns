@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
+use AC\Acf\ColumnMatcher;
+use AC\Acf\FieldGroupCache;
+use AC\Acf\Service\FieldSettings;
 use AC\Admin;
 use AC\Admin\PageRequestHandlers;
 use AC\AdminColumns;
 use AC\Asset\Script\GlobalTranslationFactory;
 use AC\Asset\Script\Localize\Translation;
-use AC\DefaultColumnHandler;
 use AC\ListScreenRepository;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
@@ -16,7 +16,6 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
 use AC\Service\PluginUpdate;
-use AC\Setting\ComponentFactory\FieldTypeConfigurator\FieldTypeConfiguratorProvider;
 use AC\Storage\EncoderFactory;
 use AC\Storage\Table;
 use AC\TableIdsFactory;
@@ -28,7 +27,7 @@ use AC\Vendor\Psr\Container\ContainerInterface;
 use function AC\Vendor\DI\autowire;
 use function AC\Vendor\DI\get;
 
-$definition = [
+return [
     'translations.global'                     => static function (AdminColumns $plugin): Translation {
         return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
     },
@@ -47,7 +46,6 @@ $definition = [
     AdminColumns::class                       => static function (): AdminColumns {
         return new AdminColumns(AC_FILE, new Version(AC_VERSION));
     },
-    DefaultColumnHandler::class               => autowire(DefaultColumnHandler\Aggregate::class),
     TableScreenFactory::class                 => autowire(TableScreenFactory\Aggregate::class),
     SetupFactory\AdminColumns::class          => static function (
         AdminColumns $plugin,
@@ -67,8 +65,7 @@ $definition = [
         ->constructorParameter(0, admin_url('options-general.php')),
     Admin\PageFactory\Columns::class          => autowire()
         ->constructorParameter(0, false),
-    Admin\Banner\BannerContextResolver::class => static function (ContainerInterface $container
-    ): Admin\Banner\BannerContextResolver {
+    Admin\Banner\BannerContextResolver::class => static function (ContainerInterface $container): Admin\Banner\BannerContextResolver {
         $contexts = [];
 
         if (AC\WooCommerce::is_active()) {
@@ -87,9 +84,12 @@ $definition = [
     PluginUpdate::class                       => autowire()
         ->constructorParameter(0, get(AdminColumns::class))
         ->constructorParameter(1, new Site('upgrade-to-ac-version-%s')),
+    FieldSettings::class                      => static function (
+        Storage $storage,
+        FieldGroupCache $field_group_cache,
+        ColumnMatcher $column_matcher,
+        AdminColumns $plugin
+    ): FieldSettings {
+        return new FieldSettings($storage, $field_group_cache, $column_matcher, $plugin->get_location());
+    },
 ];
-
-return array_merge(
-    $definition,
-    (new FieldTypeConfiguratorProvider())->get_definitions()
-);

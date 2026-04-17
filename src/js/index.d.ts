@@ -7,10 +7,13 @@ declare module "*.svelte" {
 
 declare module 'body-scroll-lock' {
     export function enableBodyScroll(targetElement: Element, options?: object): void;
+
     export function disableBodyScroll(targetElement: Element, options?: object): void;
+
     export function clearAllBodyScrollLocks(): void;
 }
 
+declare const ajaxurl: string;
 
 declare namespace AC.Vars.Admin.Columns {
 
