@@ -1,5 +1,85 @@
 # Admin Columns [![WordPress](https://img.shields.io/wordpress/plugin/tested/codepress-admin-columns.svg?style=flat-square)](https://wordpress.org/plugins/codepress-admin-columns/) [![WordPress](https://img.shields.io/wordpress/plugin/r/codepress-admin-columns.svg?style=flat-square)](https://wordpress.org/plugins/codepress-admin-columns/) [![WordPress](https://img.shields.io/wordpress/plugin/v/codepress-admin-columns.svg?style=flat-square)](https://wordpress.org/plugins/codepress-admin-columns/) [![WordPress](https://img.shields.io/wordpress/plugin/dt/codepress-admin-columns.svg?style=flat-square)](https://wordpress.org/plugins/codepress-admin-columns/) 
 
+Customize columns on WordPress administration screens for posts, users, and other content. No code required.
+
+Plugin file: `codepress-admin-columns.php`
+
+## Requirements
+
+- PHP 7.4 or higher
+- WordPress 5.9 or higher
+- Composer 2.x
+- Node.js and npm (only needed for active frontend development)
+
+## Quick install
+
+From the `admin-columns/` folder:
+
+```bash
+./install.sh
+```
+
+This runs the full setup end-to-end: installs PHP dependencies (with vendor prefixing via the bundled `build/` tooling), installs frontend dependencies, and runs the one-time `setup:dev` hook. Compiled frontend assets are already committed to git, so the plugin works immediately after install. Run `npm run build` from `src/` only when producing a release. Re-running the script is safe.
+
+After the script finishes, activate **Admin Columns** in WordPress → Plugins.
+
+## Step-by-step installation
+
+If you prefer to run the steps manually (or need to debug a failure), the flow below mirrors what `install.sh` does.
+
+### 1. Place the plugin in WordPress
+
+Clone this repository into your WordPress plugins directory:
+
+```bash
+cd wp-content/plugins
+git clone https://github.com/codepress/admin-columns.git
+cd admin-columns
+```
+
+### 2. Install PHP dependencies
+
+```bash
+composer install
+```
+
+This installs the plugin's Composer packages and then automatically:
+
+1. Installs the build tooling in `build/vendor/`
+2. Runs the prefixer, isolating vendor namespaces under `AC\Vendor\`
+
+You can re-run the prefix cycle at any time with `composer prefix`.
+
+### 3. Install frontend dependencies (optional)
+
+Compiled assets are committed to git, so this step is only needed if you plan to make frontend changes. From `admin-columns/src/`:
+
+```bash
+npm install
+npm run setup:dev
+```
+
+See [`src/README.md`](src/README.md) for watch-mode, production build, and asset-release commands.
+
+### 4. Activate in WordPress
+
+Go to **WordPress Admin → Plugins** and activate **Admin Columns**. Configure columns under **Settings → Admin Columns**.
+
+## Project layout
+
+```
+admin-columns/
+├── codepress-admin-columns.php   # plugin bootstrap
+├── api.php                       # public PHP API
+├── assets/                       # compiled frontend output (committed)
+├── build/                        # prefixer tooling (shared with Admin Columns Pro)
+├── classes/                      # PSR-4 `AC\` namespace
+├── languages/                    # translations
+├── settings/                     # settings screens
+├── src/                          # TypeScript/Svelte frontend sources
+└── templates/                    # PHP view templates
+```
+
 ## Contributing to this project
 
 Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
