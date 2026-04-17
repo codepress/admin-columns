@@ -1,0 +1,17 @@
+{
+    "name": "admincolumns/prefixer",
+    "description": "Prefixer tool for Admin Columns — scopes Composer vendor namespaces via php-scoper.",
+    "require": {
+        "league/climate": "^3.8.2",
+        "symfony/process": "^6.1",
+        "php-di/php-di": "^6.4.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "psr-4": {
+            "AC\\Build\\": "classes/"
+        }
+    }
+}
