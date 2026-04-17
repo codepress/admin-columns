@@ -27,6 +27,8 @@ class Base implements Column
 
     protected string $group;
 
+    protected ?string $description;
+
     public function __construct(
         string $type,
         string $label,
@@ -34,7 +36,8 @@ class Base implements Column
         ColumnId $id,
         Context $context,
         ?FormatterCollection $formatters = null,
-        ?string $group = null
+        ?string $group = null,
+        ?string $description = null
     ) {
         $this->type = $type;
         $this->label = $label;
@@ -43,6 +46,7 @@ class Base implements Column
         $this->id = $id;
         $this->formatters = $formatters ?? new FormatterCollection();
         $this->group = $group ?? 'custom';
+        $this->description = $description;
     }
 
     public function get_type(): string
@@ -63,6 +67,11 @@ class Base implements Column
     public function get_group(): string
     {
         return $this->group;
+    }
+
+    public function get_description(): ?string
+    {
+        return $this->description;
     }
 
     public function get_settings(): ComponentCollection

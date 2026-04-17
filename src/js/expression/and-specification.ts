@@ -19,13 +19,7 @@ export default class AndSpecification implements Specification {
     }
 
     isSatisfiedBy(value: string): boolean {
-        this.specifications.forEach(specification => {
-            if (!specification.isSatisfiedBy(value)) {
-                return false;
-            }
-        });
-
-        return true;
+        return this.specifications.every(specification => specification.isSatisfiedBy(value));
     }
 
 }

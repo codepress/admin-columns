@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 namespace AC\ColumnSize;
 
-use AC;
 use AC\Column;
-use AC\Column\ColumnFactory;
-use AC\ColumnCollection;
-use AC\ColumnFactories\Aggregate;
+use AC\Column\SettingUpdater;
 use AC\ColumnIterator;
-use AC\ListScreenRepository\Storage;
-use AC\Setting\Config;
 use AC\Type\ColumnId;
 use AC\Type\ColumnWidth;
 use AC\Type\ListScreenId;
@@ -20,77 +15,22 @@ use InvalidArgumentException;
 class ListStorage
 {
 
-    private Storage $storage;
+    private SettingUpdater $setting_updater;
 
-    private Aggregate $column_factory;
-
-    private AC\Setting\ConfigFactory $config_factory;
-
-    public function __construct(Storage $storage, AC\Setting\ConfigFactory $config_factory, Aggregate $column_factory)
+    public function __construct(SettingUpdater $setting_updater)
     {
-        $this->storage = $storage;
-        $this->column_factory = $column_factory;
-        $this->config_factory = $config_factory;
-    }
-
-    private function get_column_factory($table_screen, $column_type): ?ColumnFactory
-    {
-        foreach ($this->column_factory->create($table_screen) as $factory) {
-            if ($factory->get_column_type() === $column_type) {
-                return $factory;
-            }
-        }
-
-        return null;
+        $this->setting_updater = $setting_updater;
     }
 
     public function save(ListScreenId $list_id, ColumnId $column_id, ColumnWidth $column_width): void
     {
-        $list_screen = $this->storage->find($list_id);
-
-        if ( ! $list_screen) {
-            return;
-        }
-
-        $column = $list_screen->get_column($column_id);
-
-        if ( ! $column) {
-            return;
-        }
-
-        $factory = $this->get_column_factory($list_screen->get_table_screen(), $column->get_type());
-
-        if ( ! $factory) {
-            return;
-        }
-
-        $config = $this->config_factory->create($column)->all();
-
-        $config['width'] = (string)$column_width->get_value();
-        $config['width_unit'] = $column_width->get_unit();
-
-        $column = $factory->create(new Config($config));
-        $columns = $this->modify_collection($list_screen->get_columns(), $column);
-
-        $list_screen->set_columns($columns);
-
-        $this->storage->save($list_screen);
+        $this->setting_updater->update($list_id, $column_id, [
+            'width'      => (string) $column_width->get_value(),
+            'width_unit' => $column_width->get_unit(),
+        ]);
     }
 
-    private function modify_collection(ColumnIterator $collection, Column $column): ColumnCollection
-    {
-        $columns = iterator_to_array($collection);
-
-        foreach ($columns as $k => $_column) {
-            if ($_column->get_id()->equals($column->get_id())) {
-                $columns[$k] = $column;
-            }
-        }
-
-        return new ColumnCollection($columns);
-    }
-
-    public function get(AC\Column $column): ?ColumnWidth
+    public function get(Column $column): ?ColumnWidth
     {
         return $this->create($column);
     }
@@ -106,7 +46,7 @@ class ListStorage
             $width = $this->create($column);
 
             if ($width) {
-                $results[(string)$column->get_id()] = $width;
+                $results[(string) $column->get_id()] = $width;
             }
         }
 
@@ -121,13 +61,13 @@ class ListStorage
             return null;
         }
 
-        $width = (int)$width_setting->get_input()->get_value();
+        $width = (int) $width_setting->get_input()->get_value();
 
         if ($width < 1) {
             return null;
         }
 
-        $unit = (string)$column->get_setting('width_unit')->get_input()->get_value();
+        $unit = (string) $column->get_setting('width_unit')->get_input()->get_value();
 
         try {
             $width = new ColumnWidth($unit, $width);

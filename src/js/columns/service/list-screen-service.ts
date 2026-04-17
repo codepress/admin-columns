@@ -15,7 +15,8 @@ import {
     listScreenIsReadOnly,
     listScreenIsStored,
     listScreenIsTemplate,
-    listScreenLabels
+    listScreenLabels,
+    proBannerStore
 } from "../store";
 
 export const config = writable<{ [key: string]: AC.Vars.Settings.ColumnSetting[] }>({});
@@ -62,6 +63,7 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
         listScreenDataHasChanges.set(false);
         listScreenIsStored.set(data.is_stored);
         listScreenIsTemplate.set(data.is_template);
+        proBannerStore.set(data.pro_banner);
 
         if (!data.is_stored && listScreenData.columns.length === 0) {
             const defaultData = await loadDefaultColumns(listKey);

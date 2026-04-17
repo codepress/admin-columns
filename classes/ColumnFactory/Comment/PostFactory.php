@@ -6,30 +6,24 @@ namespace AC\ColumnFactory\Comment;
 
 use AC\Column\BaseColumnFactory;
 use AC\Formatter\Comment\Property;
-use AC\Formatter\MapToId;
 use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactory\PostLink;
-use AC\Setting\ComponentFactory\PostProperty;
+use AC\Setting\ComponentFactory\LinkablePostProperty;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
 
 class PostFactory extends BaseColumnFactory
 {
 
-    private PostProperty $post_property;
-
-    private PostLink $post_link;
+    private LinkablePostProperty $post_property;
 
     public function __construct(
         DefaultSettingsBuilder $default_settings_builder,
-        PostProperty $post_property,
-        PostLink $post_link
+        LinkablePostProperty $post_property
     ) {
         parent::__construct($default_settings_builder);
 
         $this->post_property = $post_property;
-        $this->post_link = $post_link;
     }
 
     public function get_label(): string
@@ -41,7 +35,6 @@ class PostFactory extends BaseColumnFactory
     {
         return new ComponentCollection([
             $this->post_property->create($config),
-            $this->post_link->create($config),
         ]);
     }
 
@@ -53,7 +46,7 @@ class PostFactory extends BaseColumnFactory
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);
-        $formatters->prepend(new MapToId(new Property('comment_post_ID')));
+        $formatters->prepend(new Property('comment_post_ID'));
 
         return $formatters;
     }

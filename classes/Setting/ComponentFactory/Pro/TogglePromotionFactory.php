@@ -7,9 +7,9 @@ namespace AC\Setting\ComponentFactory\Pro;
 class TogglePromotionFactory
 {
 
-    public function create(string $label): TogglePromotion
+    public function create(string $label, string $feature = ''): TogglePromotion
     {
-        return new TogglePromotion($label);
+        return new TogglePromotion($label, $feature);
     }
 
 }

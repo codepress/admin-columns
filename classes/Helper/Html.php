@@ -262,6 +262,15 @@ class Html extends Creatable
         return '<div class="ac-image-container">' . $html . '</div>';
     }
 
+    public function file_pill(string $extension, string $filename): string
+    {
+        return sprintf(
+            '<span class="ac-file-type">%s</span><span class="ac-file-name">%s</span>',
+            esc_html(strtoupper($extension)),
+            esc_html($filename)
+        );
+    }
+
     /**
      * @depecated 7.0.9
      */

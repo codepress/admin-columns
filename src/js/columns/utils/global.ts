@@ -2,36 +2,49 @@ export const getColumnSettingsConfig = () => {
     return ac_admin_columns;
 }
 
+type FeatureTranslation = {
+    badge: string
+    headline: string
+    description: string
+    label: string,
+
+}
+
 type AdminColumnsI18n = {
+    table_views: {
+        delete_view: string
+        delete_message: string
+    }
     errors: {
         ajax_unknown: string
         original_exist: string
     }
     pro: {
         modal: {
-            title: string
+            also_get: string
+            features: Record<string, FeatureTranslation>[]
+            guarantee: string
+            see_all: string
             subtitle: string
-            sort_filter: string
-            search: string
-            bulk_edit: string
-            inline_edit: string
-            export: string
-            list_tables: string
-            addons: string
+            title: string
+            trusted_by: string
             upgrade: string
-            integrations: string
         }
         banner: {
-            title: string
-            title_pro: string
-            sub_title: string
-            integrations: string
-            get_acp: string
-            get_percentage_off: string
-            submit_email: string
-            your_first_name: string
-            your_email: string
+            badge: string
+            description: string
+            discount_description: string
+            discount_note: string
+            discount_title: string
+            features_label: string
+            guarantee: string
+            see_all: string
             send_discount: string
+            title: string
+            trust: string
+            upgrade_cta: string
+            works_with: string
+            your_email: string
         }
         settings: {
             status: {
@@ -110,18 +123,19 @@ type AdminColumnsI18n = {
         inactive: string
     }
     review: {
-        happy: string
-        yes: string
-        no: string
-        glad: string
-        give_rating: string
-        whats_wrong: string
+        all_good: string
+        check_pro: string
         checkdocs: string
         docs: string
         forum: string
+        give_rating: string
+        glad: string
+        happy: string
+        help_improve: string
+        need_feature: string
         rate: string
         tweet: string
-        buy: string
+        whats_wrong: string
     },
     support: {
         title: string

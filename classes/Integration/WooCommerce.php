@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Integration;
 
+use AC;
 use AC\Screen;
 use AC\TableScreen;
 use AC\Type\Integration;
@@ -18,16 +19,9 @@ final class WooCommerce extends Integration
             'ac-addon-woocommerce',
             __('WooCommerce', 'codepress-admin-columns'),
             'assets/images/addons/woocommerce-icon.png',
-            sprintf(
-                '%s %s',
-                sprintf(
-                    __('Integrates %s with Admin Columns.', 'codepress-admin-columns'),
-                    __('WooCommerce', 'codepress-admin-columns')
-                ),
-                __(
-                    'Display, inline- and bulk-edit, smart filter and sort your Products, Variations, Orders and Customers',
-                    'codepress-admin-columns'
-                )
+            __(
+                'Manage products, orders, coupons, and subscriptions from one screen. Bulk edit prices, stock, and SKUs. Filter orders by any field, then export the results to CSV in one click.',
+                'codepress-admin-columns'
             ),
             null,
             new Site(Site::PAGE_ADDON_WOOCOMMERCE)
@@ -36,7 +30,7 @@ final class WooCommerce extends Integration
 
     public function is_plugin_active(): bool
     {
-        return class_exists('WooCommerce', false);
+        return AC\WooCommerce::is_active();
     }
 
     private function get_post_types(): array

@@ -1,4 +1,5 @@
 export { default as AcIcon } from "./AcIcon.svelte";
+export { default as AcInlineConfirmation } from "./AcInlineConfirmation.svelte";
 export { default as AcModal } from "./AcModal.svelte";
 export { default as AcProgressBar } from "./AcProgressBar.svelte";
 export { default as AcSpinner } from "./AcSpinner.svelte";

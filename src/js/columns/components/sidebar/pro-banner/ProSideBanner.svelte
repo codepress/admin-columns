@@ -1,79 +1,97 @@
 <script lang="ts">
     import {getColumnSettingsTranslation} from "../../../utils/global";
-    import {sprintf} from "@wordpress/i18n";
-    import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
-    import AcPanel from "ACUi/acui-panel/AcPanel.svelte";
+    import {AcPanel, AcPanelBody, AcPanelHeader} from "ACUi/acui-panel";
 
     export let proBannerConfig: AC.Vars.Admin.Columns.ProBanner;
 
     const i18n = getColumnSettingsTranslation().pro.banner;
-    const features = proBannerConfig.features;
-    const integrations = proBannerConfig.integrations ?? [];
-    const promo = proBannerConfig.promo;
-
 </script>
 
-<div class="acu-bg-gray-dark acu-p-[20px] ac-probanner acu-rounded-t-[10px]">
-	<h3 class="acu-text-[white] acu-text-[34px] acu-leading-snug acu-my-[0] ">
-		{i18n.title}
-		<span class="acu-text-pink">{i18n.title_pro}</span>
-	</h3>
-	<div class="acu-text-[white]">
-		<p>{i18n.sub_title}</p>
-		<ul class="acu-mb-4">
-			{#each features as feature}
-				<li><a href="{feature.url}">{feature.label}</a></li>
-			{/each}
-		</ul>
+<div class="ac-probanner">
+    <div class="ac-probanner__card">
+        <div class="ac-probanner__accent"></div>
+        <div class="ac-probanner__header">
+            <span class="ac-probanner__badge">{proBannerConfig.badge ?? i18n.badge}</span>
+            <h2 class="ac-probanner__title">{proBannerConfig.title ?? i18n.title}</h2>
+            <p class="ac-probanner__description">
+                {#if proBannerConfig.description_intro}<strong>{proBannerConfig.description_intro}</strong><br>{/if}
+                {proBannerConfig.description ?? i18n.description}
+            </p>
+        </div>
+        <div class="ac-probanner__body">
+            {#if proBannerConfig.quote}
+                <blockquote class="ac-probanner__quote">
+                    <p>{proBannerConfig.quote.text}</p>
+                    <cite>— {proBannerConfig.quote.cite}</cite>
+                </blockquote>
+            {/if}
 
-		{#if integrations.length > 0}
-			<p class="acu-font-bold">{i18n.integrations}</p>
-			<ul class="acu-mb-4 -special">
-				{#each integrations as integration}
-					<li><a href="{integration.url}">{integration.label}</a></li>
-				{/each}
-			</ul>
-		{/if}
-		{#if !promo}
-			<a target="_blank"
-				href="{proBannerConfig.promo_url}"
-				class="acui-button acui-button-pink acu-block acu-text-center acu-text-[15px]">
-				{i18n.get_acp}
-			</a>
-		{/if}
-	</div>
+            <div class="ac-probanner__feature-box">
+                <p class="ac-probanner__feature-label">{proBannerConfig.features_label ?? i18n.features_label}</p>
+                <ul class="ac-probanner__feature-list">
+                    {#each proBannerConfig.features as feature}
+                        <li>{feature.label}</li>
+                    {/each}
+                </ul>
+            </div>
+
+            {#if (proBannerConfig.integrations ?? []).length > 0}
+                <p class="ac-probanner__integrations">
+                    {i18n.works_with}
+                    {#each proBannerConfig.integrations as integration, i}
+                        {#if i > 0} ·{/if}
+                        <a target="_blank" href="{integration.url}">{integration.label}</a>
+                    {/each}
+                </p>
+            {/if}
+
+            <div class="ac-probanner__trust">
+                <span class="ac-probanner__star">&#9733;</span>
+                <span>{i18n.trust}</span>
+            </div>
+            <a class="ac-probanner__cta" href="{proBannerConfig.promo_url}" target="_blank">
+                <span class="ac-probanner__cta-label">
+                    {proBannerConfig.upgrade_cta ?? i18n.upgrade_cta}
+                    <span class="ac-probanner__cta-arrow">&rarr;</span>
+                </span>
+                <span class="ac-probanner__cta-price">{proBannerConfig.upgrade_cta_price ?? i18n.upgrade_cta_price}</span>
+            </a>
+            <p class="ac-probanner__guarantee">{i18n.guarantee}</p>
+            <a class="ac-probanner__see-all" href="{proBannerConfig.promo_url}" target="_blank">
+                {i18n.see_all} &rarr;
+            </a>
+        </div>
+    </div>
+
+
+    {#if proBannerConfig.promo}
+        <AcPanel>
+            <svelte:fragment slot="body">
+                <AcPanelHeader title={proBannerConfig.promo.title} type="h3-alt"/>
+                <AcPanelBody classNames={['acu-pt-1']}>
+                    <p class="acu-mt-[0]">{proBannerConfig.promo.discount_until}</p>
+                    <a class="ac-probanner__cta" href={proBannerConfig.promo.url} target="_blank">
+                        {proBannerConfig.promo.button_label}
+                    </a>
+                </AcPanelBody>
+            </svelte:fragment>
+        </AcPanel>
+    {:else}
+        <AcPanel classNames={['ac-probanner__discount-card']}>
+            <svelte:fragment slot="body">
+                <AcPanelHeader title={i18n.discount_title} type="h3-alt"/>
+                <AcPanelBody classNames={['acu-pt-1']}>
+                    <p class="acu-mt-[0]">{i18n.discount_description}</p>
+                    <form method="post"
+                          action="https://www.admincolumns.com/admin-columns-pro/?utm_source=plugin-installation&utm_medium=send-coupon">
+                        <input name="action" type="hidden" value="mc_upgrade_pro">
+                        <input type="email" name="EMAIL" required placeholder="{i18n.your_email}">
+                        <input type="submit" class="ac-probanner__cta-secondary" value="{i18n.send_discount}">
+                    </form>
+                    <p class="ac-probanner__note">{i18n.discount_note}</p>
+                </AcPanelBody>
+            </svelte:fragment>
+        </AcPanel>
+
+    {/if}
 </div>
-{#if promo}
-	<AcPanel title={promo.title} rounded={false} classNames={['!acu-bg-[#FDEF95] acu-rounded-b-[10px] acu-border-t-[0]']}>
-		<a target="_blank"
-			href="{promo.url}" class="acui-button acui-button-pink acu-block acu-text-center acu-text-[15px] ">
-			{promo.button_label}</a>
-		<p>
-			{promo.discount_until}
-		</p>
-	</AcPanel>
-{:else}
-	<AcPanel title={sprintf( i18n.get_percentage_off, proBannerConfig.discount + '%' )} rounded={false}
-		classNames={['acu-rounded-b-[10px]']}>
-
-		<p class="acu-mt-[0]">
-			{sprintf( i18n.submit_email, proBannerConfig.discount + '%' )}
-		</p>
-		<form method="post" action="https://www.admincolumns.com/admin-columns-pro/?utm_source=plugin-installation&utm_medium=send-coupon">
-			<input name="action" type="hidden" value="mc_upgrade_pro">
-			<div class="acu-mb-2">
-				<AcInputGroup>
-					<input type="email" name="EMAIL" required placeholder={i18n.your_email}>
-				</AcInputGroup>
-			</div>
-			<div class="acu-mb-2">
-				<AcInputGroup>
-					<input type="text" name="FNAME" placeholder={i18n.your_first_name} required>
-				</AcInputGroup>
-			</div>
-			<input type="submit"
-				class="acui-button acui-button-pink acu-block acu-w-full acu-text-center acu-text-[15px]"
-				value={i18n.send_discount}/>
-		</form>
-	</AcPanel>
-{/if}

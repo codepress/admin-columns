@@ -18,7 +18,7 @@ final class MediaLibraryAssistant extends Integration
             __('Media Library Assistant', 'codepress-admin-columns'),
             'assets/images/addons/mla.png',
             __(
-                'The Media Library Assistant plugin from David Lingren provides several enhancements for managing the Media Library.',
+                'Take control of large media libraries. Add ALT text, captions, and custom metadata as columns - then filter, sort, and bulk update across thousands of files.',
                 'codepress-admin-columns'
             ),
             null,

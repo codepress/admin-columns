@@ -11,26 +11,26 @@ use AC\Formatter\Post\PostTitle;
 use AC\Formatter\Wrapper;
 use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactory\CharacterLimit;
 use AC\Setting\ComponentFactory\PostLink;
+use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\Config;
 use AC\Setting\DefaultSettingsBuilder;
 
 class TitleRawFactory extends BaseColumnFactory
 {
 
-    private CharacterLimit $character_limit_factory;
+    private StringLimit $string_limit_factory;
 
     private PostLink $post_link_factory;
 
     public function __construct(
         DefaultSettingsBuilder $default_settings_builder,
-        CharacterLimit $character_limit_factory,
+        StringLimit $string_limit_factory,
         PostLink $post_link_factory
     ) {
         parent::__construct($default_settings_builder);
 
-        $this->character_limit_factory = $character_limit_factory;
+        $this->string_limit_factory = $string_limit_factory;
         $this->post_link_factory = $post_link_factory;
     }
 
@@ -47,7 +47,7 @@ class TitleRawFactory extends BaseColumnFactory
     protected function get_settings(Config $config): ComponentCollection
     {
         return new ComponentCollection([
-            $this->character_limit_factory->create($config),
+            $this->string_limit_factory->create($config),
             $this->post_link_factory->create($config),
         ]);
     }

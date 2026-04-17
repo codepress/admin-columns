@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Integration;
 
+use AC;
 use AC\Screen;
 use AC\Type\Integration;
 use AC\Type\Url\External;
@@ -18,13 +19,9 @@ final class ACF extends Integration
             'ac-addon-acf',
             __('Advanced Custom Fields', 'codepress-admin-columns'),
             'assets/images/addons/acf-v2.png',
-            sprintf(
-                '%s %s',
-                __('Integrates ACF with Admin Columns.', 'codepress-admin-columns'),
-                __(
-                    'Display, inline- and bulk-edit, export, smart filter and sort your ACF contents on any admin list table.',
-                    'codepress-admin-columns'
-                )
+            __(
+                'See every ACF field directly in your list table - and edit values without opening a single post. Sort, filter, and bulk edit across all field types including repeaters, groups, and relationships.',
+                'codepress-admin-columns'
             ),
             new External('https://www.advancedcustomfields.com'),
             new Site(Site::PAGE_ADDON_ACF)
@@ -33,7 +30,7 @@ final class ACF extends Integration
 
     public function is_plugin_active(): bool
     {
-        return class_exists('acf', false) || class_exists('ACF', false);
+        return AC\Acf::is_active();
     }
 
     public function show_notice(Screen $screen): bool

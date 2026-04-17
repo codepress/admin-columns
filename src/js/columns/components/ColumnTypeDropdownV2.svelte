@@ -12,7 +12,7 @@
 
     const dispatch = createEventDispatcher();
 
-    const handleSelect = (e: CustomEvent<any>) => {
+    const handleSelect = (e: CustomEvent<{value: string}>) => {
         dispatch('selectItem', e.detail.value);
     }
 

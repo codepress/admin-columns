@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC\Expression\NotSpecification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Children;
 use AC\Setting\ComponentFactory\DateFormat\Date;
@@ -46,7 +47,7 @@ class LinkablePostProperty extends PostProperty
         $components->add(
             $this->post_link->create(
                 $config,
-                StringComparisonSpecification::equal(self::PROPERTY_TITLE)
+                new NotSpecification(StringComparisonSpecification::equal(self::PROPERTY_AUTHOR))
             )
         );
 
