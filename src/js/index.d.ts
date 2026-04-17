@@ -1,5 +1,6 @@
 import AcAdminColumnsVar = AC.Vars.Admin.Columns.AcAdminColumnsVar;
 
+declare const ajaxurl: string;
 
 declare namespace AC.Vars.Admin.Columns {
 
