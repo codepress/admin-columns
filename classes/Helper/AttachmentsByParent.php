@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Helper;
 
-class AttachmentsByParent
+class AttachmentsByParent extends Creatable
 {
 
     /**
