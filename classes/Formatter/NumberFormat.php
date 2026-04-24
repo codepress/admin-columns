@@ -32,7 +32,7 @@ class NumberFormat implements Formatter
 
         return $value->with_value(
             number_format(
-                $value->get_value(),
+                (float)$value->get_value(),
                 $this->number_decimals,
                 $this->decimal_separator,
                 $this->thousands_separator
