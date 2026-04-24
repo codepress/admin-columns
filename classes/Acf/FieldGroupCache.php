@@ -167,28 +167,50 @@ class FieldGroupCache implements Registerable
         }
 
         $result = [];
+        $seen_groups = [];
 
-        foreach ((array)acf_get_field_groups() as $group) {
-            $fields = acf_get_fields($group);
-
-            if ( ! is_array($fields)) {
+        foreach ($this->table_ids_factory->create() as $table_id) {
+            if ( ! $this->table_screen_factory->can_create($table_id)) {
                 continue;
             }
 
-            foreach ($fields as $field) {
-                if ( ! is_array($field) || empty($field['name']) || empty($field['type'])) {
+            $table_screen = $this->table_screen_factory->create($table_id);
+            $query = $this->query_factory->create($table_screen);
+
+            if ( ! $query) {
+                continue;
+            }
+
+            foreach ($query->get_groups() as $group) {
+                $group_key = (string)($group['key'] ?? '');
+
+                if ('' === $group_key || isset($seen_groups[$group_key])) {
                     continue;
                 }
 
-                $type = (string)$field['type'];
-                $name = (string)$field['name'];
+                $seen_groups[$group_key] = true;
 
-                if ( ! isset($result[$type])) {
-                    $result[$type] = [];
+                $fields = acf_get_fields($group_key);
+
+                if ( ! is_array($fields)) {
+                    continue;
                 }
 
-                if ( ! in_array($name, $result[$type], true)) {
-                    $result[$type][] = $name;
+                foreach ($fields as $field) {
+                    if ( ! is_array($field) || empty($field['name']) || empty($field['type'])) {
+                        continue;
+                    }
+
+                    $type = (string)$field['type'];
+                    $name = (string)$field['name'];
+
+                    if ( ! isset($result[$type])) {
+                        $result[$type] = [];
+                    }
+
+                    if ( ! in_array($name, $result[$type], true)) {
+                        $result[$type][] = $name;
+                    }
                 }
             }
         }
