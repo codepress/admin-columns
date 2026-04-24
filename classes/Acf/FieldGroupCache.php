@@ -24,6 +24,7 @@ class FieldGroupCache implements Registerable
 
     private const TRANSIENT_KEY = '_ac_acf_field_counts';
     private const TRANSIENT_KEY_TABLE_SCREENS = '_ac_acf_group_table_screens';
+    private const TRANSIENT_KEY_META_KEYS_BY_TYPE = '_ac_acf_meta_keys_by_type';
     private const TTL_SECONDS = WEEK_IN_SECONDS;
 
     private QueryFactory $query_factory;
@@ -150,11 +151,58 @@ class FieldGroupCache implements Registerable
         return $this->get_count_for_query((string)$table_screen->get_id(), $query);
     }
 
+    /**
+     * @return array<string, string[]> field type => list of meta_keys (field names)
+     */
+    public function get_meta_keys_grouped_by_type(): array
+    {
+        $cached = get_transient(self::TRANSIENT_KEY_META_KEYS_BY_TYPE);
+
+        if (is_array($cached)) {
+            return $cached;
+        }
+
+        if ( ! $this->is_acf_available()) {
+            return [];
+        }
+
+        $result = [];
+
+        foreach ((array)acf_get_field_groups() as $group) {
+            $fields = acf_get_fields($group);
+
+            if ( ! is_array($fields)) {
+                continue;
+            }
+
+            foreach ($fields as $field) {
+                if ( ! is_array($field) || empty($field['name']) || empty($field['type'])) {
+                    continue;
+                }
+
+                $type = (string)$field['type'];
+                $name = (string)$field['name'];
+
+                if ( ! isset($result[$type])) {
+                    $result[$type] = [];
+                }
+
+                if ( ! in_array($name, $result[$type], true)) {
+                    $result[$type][] = $name;
+                }
+            }
+        }
+
+        set_transient(self::TRANSIENT_KEY_META_KEYS_BY_TYPE, $result, self::TTL_SECONDS);
+
+        return $result;
+    }
+
     private function is_acf_available(): bool
     {
         return function_exists('acf_get_field_groups')
-            && function_exists('acf_get_fields')
-            && function_exists('acf_get_store');
+               && function_exists('acf_get_fields')
+               && function_exists('acf_get_store');
     }
 
     private function get_count_for_query(string $cache_key, Query $query): int
@@ -185,6 +233,7 @@ class FieldGroupCache implements Registerable
     {
         delete_transient(self::TRANSIENT_KEY);
         delete_transient(self::TRANSIENT_KEY_TABLE_SCREENS);
+        delete_transient(self::TRANSIENT_KEY_META_KEYS_BY_TYPE);
     }
 
     private function count_fields(Query $query): int
