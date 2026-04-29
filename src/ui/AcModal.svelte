@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {createEventDispatcher, onMount} from "svelte";
+    import {createEventDispatcher, onDestroy, onMount} from "svelte";
 
     import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock';
 
@@ -30,12 +30,14 @@
         FreeScrollLock();
     }
 
+    const handleEscape = (e: KeyboardEvent) => {
+        if ('Escape' === e.key) {
+            close();
+        }
+    };
+
     onMount(() => {
-        document.addEventListener('keyup', (e) => {
-            if ('Escape' === e.key) {
-                close();
-            }
-        });
+        document.addEventListener('keyup', handleEscape);
 
         if( appendToBody && element){
             document.body.append(element);
@@ -44,6 +46,10 @@
         if (disableScroll && element) {
             disableBodyScroll(element, {});
         }
+    });
+
+    onDestroy(() => {
+        document.removeEventListener('keyup', handleEscape);
     });
 </script>
 
