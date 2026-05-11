@@ -17,6 +17,16 @@ final class DateSaveFormat extends BaseComponentFactory
     public const FORMAT_DATETIME = 'Y-m-d H:i:s';
     public const FORMAT_DATE = 'Y-m-d';
 
+    private ?string $default = null;
+
+    public function with_default(string $default): self
+    {
+        $clone = clone $this;
+        $clone->default = $default;
+
+        return $clone;
+    }
+
     protected function get_label(Config $config): ?string
     {
         return __('Stored Date Format', 'codepress-admin-columns');
@@ -56,7 +66,7 @@ final class DateSaveFormat extends BaseComponentFactory
         return OptionFactory::create_select(
             'date_save_format',
             OptionCollection::from_array($options),
-            (string)$config->get('date_save_format') ?: self::FORMAT_DATE
+            (string)$config->get('date_save_format') ?: ($this->default ?? self::FORMAT_DATE)
         );
     }
 
