@@ -1,7 +1,7 @@
 == Changelog ==
 
 = 7.0.17 =
-Release Date: April 17th, 2026
+Release Date: May 11th, 2026
 
  * [Fixed] Material icons not rendering when CSS bundlers concatenated stylesheets (missing trailing semicolon after @layer declaration in acui.css).
  * [Fixed] Updated third party library Axios to latest version

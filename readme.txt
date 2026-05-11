@@ -4,7 +4,7 @@ Tags: columns, admin columns, custom fields, list table, woocommerce
 Requires at least: 5.9
 Tested up to: 6.9.4
 Requires PHP: 7.4
-Stable tag: 7.0.16
+Stable tag: 7.0.17
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -197,6 +197,12 @@ Developers can extend Admin Columns using many actions and filters. You can find
 Head to Settings > Admin Columns and start customizing your columns. Check out the [getting started guide](https://docs.admincolumns.com/category/16-getting-started/) for a walkthrough.
 
 == Changelog ==
+
+= 7.0.17 =
+Release Date: May 11th, 2026
+
+ * [Fixed] Material icons not rendering when CSS bundlers concatenated stylesheets (missing trailing semicolon after @layer declaration in acui.css).
+ * [Fixed] Updated third party library Axios to latest version
 
 = 7.0.16 =
 Release Date: April 17th, 2026
