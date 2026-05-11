@@ -281,6 +281,7 @@ class Image extends Creatable
 
     public function get_local_image_path(string $url): ?string
     {
+        $url = set_url_scheme($url, wp_parse_url(WP_CONTENT_URL, PHP_URL_SCHEME));
         $path = str_replace(WP_CONTENT_URL, WP_CONTENT_DIR, $url);
 
         if ( ! file_exists($path)) {
