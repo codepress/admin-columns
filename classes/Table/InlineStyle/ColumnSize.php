@@ -37,31 +37,38 @@ class ColumnSize
 
         foreach ($list_screen->get_columns() as $column) {
             $column_id = $column->get_id();
-
             $list_width = $this->list_storage->get($column);
-            if ($list_width) {
-                $html .= $this->render_style($table_id, $column_id, $list_width, 'list');
+            $user_width = $this->user_storage->get($list_screen->get_id(), $column_id);
+
+            if ( ! $list_width && ! $user_width) {
+                continue;
             }
 
-            $user_width = $this->user_storage->get($list_screen->get_id(), $column_id);
-            if ($user_width) {
-                $html .= $this->render_style($table_id, $column_id, $user_width, 'user');
-            }
+            $html .= $this->render_style($table_id, $column_id, $list_width, $user_width);
         }
 
         return $html;
     }
 
-    private function render_style(TableId $table_id, ColumnId $column_id, ColumnWidth $column_width, string $type): string
+    private function render_style(TableId $table_id, ColumnId $column_id, ?ColumnWidth $list_width, ?ColumnWidth $user_width): string
     {
         $view = new View([
-            'table_id'  => (string)$table_id,
-            'column_id' => (string)$column_id,
-            'width'     => $column_width->get_value() . $column_width->get_unit(),
-            'type'      => $type,
+            'table_id'   => (string)$table_id,
+            'column_id'  => (string)$column_id,
+            'list_width' => $this->format_width($list_width),
+            'user_width' => $this->format_width($user_width),
         ]);
 
         return $view->set_template('table/column-size')->render();
+    }
+
+    private function format_width(?ColumnWidth $width): ?string
+    {
+        if ( ! $width) {
+            return null;
+        }
+
+        return $width->get_value() . $width->get_unit();
     }
 
 }
