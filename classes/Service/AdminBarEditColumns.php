@@ -7,11 +7,19 @@ namespace AC\Service;
 use AC\Capabilities;
 use AC\ListScreen;
 use AC\Registerable;
+use AC\Storage\Repository\EditButton;
 use AC\TableScreen;
 use AC\Type\EditorUrlFactory;
 
 class AdminBarEditColumns implements Registerable
 {
+
+    private EditButton $setting;
+
+    public function __construct(EditButton $setting)
+    {
+        $this->setting = $setting;
+    }
 
     public function register(): void
     {
@@ -21,6 +29,10 @@ class AdminBarEditColumns implements Registerable
     public function init(TableScreen $table, ?ListScreen $listscreen = null): void
     {
         if ( ! current_user_can(Capabilities::MANAGE)) {
+            return;
+        }
+
+        if ( ! $this->setting->is_active()) {
             return;
         }
 
