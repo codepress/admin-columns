@@ -1,6 +1,6 @@
 import {addEventListenerLive} from "../helpers/events";
 
-const $ = require("jquery");
+import $ from "jquery";
 
 declare let ajaxurl: string;
 

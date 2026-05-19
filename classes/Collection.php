@@ -52,4 +52,13 @@ abstract class Collection implements Iterator, Countable
             : null;
     }
 
+    public function last()
+    {
+        $key = array_key_last($this->data);
+
+        return $key !== null
+            ? $this->data[$key]
+            : null;
+    }
+
 }

@@ -2,9 +2,7 @@
     import {createEventDispatcher, onDestroy, onMount} from "svelte";
     import AcRadio from "ACUi/element/AcRadio.svelte";
     import axios from "axios";
-    import SettingOption = AC.Column.Settings.SettingOption;
-
-    declare const ajaxurl: string;
+    type SettingOption = AC.Column.Settings.SettingOption;
 
     export let config: AC.Column.Settings.DateFormatSetting;
     export let value: any;
@@ -57,10 +55,10 @@
     }
 
     onMount(() => {
-        options = config.children[0].input.options;
+        options = config.input.children[0].input.options ?? [];
 
         if (value === '' || typeof value === 'undefined') {
-            let defaultValue = config.children[0].input?.default ?? null;
+            let defaultValue = config.input.children[0].input?.default ?? null;
             value = defaultValue ? defaultValue : options[0].value;
         }
 

@@ -5,7 +5,7 @@
     import {flip} from "svelte/animate";
     import AcDateMonths from "./AcDateMonths.svelte";
 
-    export let value: string = null;
+    export let value: string | null = null;
 
     const dispatch = createEventDispatcher();
 
@@ -21,8 +21,8 @@
         displayYear--;
     }
 
-    const handleSetMonth = (e) => {
-        let value: { year: number, month: number } = e.detail;
+    const handleSetMonth = (e: CustomEvent<{ year: number, month: number }>) => {
+        let value = e.detail;
         valueMonth = value.month;
         valueYear = value.year;
         updateValue();

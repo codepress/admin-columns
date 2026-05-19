@@ -130,4 +130,5 @@ abstract class BaseComponentFactory implements ComponentFactory
     {
         return null;
     }
+
 }

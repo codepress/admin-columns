@@ -18,7 +18,7 @@
     let editLink: string;
     let downloadLink: string;
     let viewLink: string;
-    let source;
+    let source: ReturnType<typeof axios.CancelToken.source> | null = null;
     let translation = getTableTranslation();
     let index: number;
     let hasNext: boolean;

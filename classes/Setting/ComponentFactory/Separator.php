@@ -11,7 +11,7 @@ use AC\Setting\ComponentBuilder;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 
-final class Separator implements ComponentFactory
+final class Separator implements ComponentFactory, InputNameAware
 {
 
     public const DEFAULT = '';
@@ -21,13 +21,18 @@ final class Separator implements ComponentFactory
     public const NONE = 'none';
     public const WHITE_SPACE = 'white_space';
 
+    public function get_name(): string
+    {
+        return 'separator';
+    }
+
     public function create(Config $config, ?Specification $conditions = null): Component
     {
         return (new ComponentBuilder())
             ->set_label(__('Separator', 'codepress-admin-columns'))
             ->set_input(
                 AC\Setting\Control\Input\OptionFactory::create_select(
-                    'separator',
+                    $this->get_name(),
                     AC\Setting\Control\OptionCollection::from_array([
                         self::DEFAULT         => __('Default', 'codepress-admin-columns'),
                         self::COMMA           => __('Comma Separated', 'codepress-admin-columns'),
@@ -36,9 +41,10 @@ final class Separator implements ComponentFactory
                         self::NONE            => __('None', 'codepress-admin-columns'),
                         self::WHITE_SPACE     => __('Whitespace', 'codepress-admin-columns'),
                     ]),
-                    $config->get('separator', '')
+                    $config->get($this->get_name(), self::DEFAULT)
                 )
             )
             ->build();
     }
+
 }

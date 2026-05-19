@@ -19,14 +19,14 @@ class Menu
         array_map([$this, 'add_item'], $items);
     }
 
-    public function add_item(Type\MenuItem $item): Menu
+    public function add_item(Type\MenuItem $item): self
     {
         $this->items[$item->get_slug()] = $item;
 
         return $this;
     }
 
-    public function remove_item(string $slug): Menu
+    public function remove_item(string $slug): self
     {
         unset($this->items[$slug]);
 

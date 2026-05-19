@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let type: 'h3' | 'h2' = 'h2'
+    export let type: 'h3' | 'h2' | 'h3-alt' = 'h2'
 	export let subtitle: string;
 </script>
 

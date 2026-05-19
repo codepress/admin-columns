@@ -30,11 +30,7 @@ class User implements ListTable
             return '';
         }
 
-        ob_start();
-
-        $this->table->single_row($user);
-
-        return ob_get_clean();
+        return (string)$this->table->single_row($user);
     }
 
 }

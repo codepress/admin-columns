@@ -1,7 +1,7 @@
 <script lang="ts">
     import ColumnSetting from "../ColumnSetting.svelte";
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
-    import ColumnInputSetting = AC.Column.Settings.ColumnInputSetting;
+    type ColumnInputSetting = AC.Column.Settings.ColumnInputSetting;
 
     export let setting: AC.Column.Settings.AbstractColumnSetting;
     export let data: any;

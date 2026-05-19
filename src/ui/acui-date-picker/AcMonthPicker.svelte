@@ -10,7 +10,7 @@
     const pattern = '[0-9]{4}-[0-9]{2}';
     let dropdown: AcDropdown;
 
-    const handleChange = ( e ) => {
+    const handleChange = ( e: CustomEvent ) => {
         if( closeOnSelect ){
 			dropdown.toggle();
 		}

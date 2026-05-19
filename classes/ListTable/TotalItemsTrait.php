@@ -17,7 +17,9 @@ trait TotalItemsTrait
             return 0;
         }
 
-        return $wp_list_table->get_pagination_arg('total_items') ?? 0;
+        $items = (int)$wp_list_table->get_pagination_arg('total_items');
+
+        return $items ?: 0;
     }
 
 }

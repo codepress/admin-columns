@@ -56,54 +56,52 @@
 </script>
 
 <AcModal visible contentNoPadding className="acui2 -promotion" appendToBody on:close>
-    <div slot="header">
-    </div>
-    <div slot="content">
-        <div class="ac-promo-modal">
-            {#if badge}
-                <div class="ac-promo-modal__topbar">
+	<div slot="header">
+	</div>
+	<div slot="content">
+		<div class="ac-promo-modal">
+			{#if badge}
+				<div class="ac-promo-modal__topbar">
                     <span class="ac-promo-modal__badge">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"/></svg>
-                        {badge}
+						{badge}
                     </span>
-                </div>
-            {/if}
+				</div>
+			{/if}
 
-            <h2 class="ac-promo-modal__title">{headline}</h2>
-            <p class="ac-promo-modal__description">{description}</p>
+			<h2 class="ac-promo-modal__title">{headline}</h2>
+			<p class="ac-promo-modal__description">{description}</p>
 
-            {#if alsoGetItems.length > 0}
-                <div class="ac-promo-modal__features">
-                    <p class="ac-promo-modal__features-title">{i18n.also_get}</p>
-                    <ul>
-                        {#each alsoGetItems as item}
-                            <li>
+			{#if alsoGetItems.length > 0}
+				<div class="ac-promo-modal__features">
+					<p class="ac-promo-modal__features-title">{i18n.also_get}</p>
+					<ul>
+						{#each alsoGetItems as item}
+							<li>
                                 <span class="ac-promo-modal__check">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                                 </span>
-                                {item.label}
-                            </li>
-                        {/each}
-                    </ul>
-                </div>
-            {/if}
+								{item.label}
+							</li>
+						{/each}
+					</ul>
+				</div>
+			{/if}
 
-            <p class="ac-promo-modal__trusted">&#11088; {i18n.trusted_by}</p>
+			<p class="ac-promo-modal__trusted">&#11088; {i18n.trusted_by}</p>
 
-            <div class="ac-promo-modal__actions">
-                <a href="{upgradeUrl}" target="_blank" class="button button-primary">
-                    {i18n.upgrade}
-                </a>
-                <a href="{config.urls.learn_more}" target="_blank" class="ac-promo-modal__see-all">
-                    {i18n.see_all} &rarr;
-                </a>
-            </div>
+			<div class="ac-promo-modal__actions">
+				<a href="{upgradeUrl}" target="_blank" class="button button-primary">
+					{i18n.upgrade}
+				</a>
+				<a href="{config.urls.learn_more}" target="_blank" class="ac-promo-modal__see-all">
+					{i18n.see_all} &rarr;
+				</a>
+			</div>
 
-            <p class="ac-promo-modal__guarantee">{i18n.guarantee}</p>
+			<p class="ac-promo-modal__guarantee">{i18n.guarantee}</p>
 
-            <svg class="ac-promo-modal__zebra">
-                <use xlink:href="{config.assets}/images/symbols.svg#zebra-thumbs-up"></use>
-            </svg>
-        </div>
-    </div>
+			<img class="ac-promo-modal__zebra" src="{config.assets}/images/zebra-thumbs-up.svg" alt="Zebra"/>
+		</div>
+	</div>
 </AcModal>

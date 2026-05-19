@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 use AC\Acf\ColumnMatcher;
 use AC\Acf\FieldGroupCache;
 use AC\Acf\Service\FieldSettings;
@@ -20,7 +18,9 @@ use AC\RequestHandler\Ajax\RestoreSettingsRequest;
 use AC\Service\PluginUpdate;
 use AC\Storage\EncoderFactory;
 use AC\Storage\Table;
+use AC\Setting\ComponentFactory\FieldTypeConfigurator\FieldTypeConfiguratorProvider;
 use AC\TableIdsFactory;
+use AC\DefaultColumnHandler;
 use AC\TableScreenFactory;
 use AC\Type\Url\Site;
 use AC\Vendor\DI\Container;
@@ -29,7 +29,7 @@ use AC\Vendor\Psr\Container\ContainerInterface;
 use function AC\Vendor\DI\autowire;
 use function AC\Vendor\DI\get;
 
-return [
+$definition = [
     'translations.global'                     => static function (AdminColumns $plugin): Translation {
         return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
     },
@@ -48,6 +48,7 @@ return [
     AdminColumns::class                       => static function (): AdminColumns {
         return new AdminColumns(AC_FILE, new Version(AC_VERSION));
     },
+    DefaultColumnHandler::class               => autowire(DefaultColumnHandler\Aggregate::class),
     TableScreenFactory::class                 => autowire(TableScreenFactory\Aggregate::class),
     SetupFactory\AdminColumns::class          => static function (
         AdminColumns $plugin,
@@ -95,3 +96,8 @@ return [
         return new FieldSettings($storage, $field_group_cache, $column_matcher, $plugin->get_location());
     },
 ];
+
+return array_merge(
+    $definition,
+    (new FieldTypeConfiguratorProvider())->get_definitions()
+);

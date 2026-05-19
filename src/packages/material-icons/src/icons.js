@@ -21,6 +21,7 @@ export const icons = [
 	'ink_highlighter',
 	'ink_highlighter_move',
 	'keep',
+	'keep_off',
 	'keyboard_arrow_up',
 	'keyboard_arrow_right',
 	'keyboard_arrow_left',

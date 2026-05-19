@@ -109,10 +109,8 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
         }
     );
 
-    event.table.Cells.getAll().forEach(cell => {
-        cell.events.addListener('setValue', () => {
-            auto_init_show_more();
-        });
+    event.table.getElement().addEventListener('AC_Cell_SetValue', () => {
+        auto_init_show_more();
     });
 
     // Modal creation
