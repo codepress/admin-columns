@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 7.0.18 =
+Release Date: May 19th, 2026
+
+* [Improved] The "Show edit columns" setting now also applies to the WP Admin Bar
+
 = 7.0.17 =
 Release Date: May 11th, 2026
 
