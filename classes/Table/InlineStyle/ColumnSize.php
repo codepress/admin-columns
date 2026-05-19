@@ -10,6 +10,7 @@ use AC\ListScreen;
 use AC\Type\ColumnId;
 use AC\Type\ColumnWidth;
 use AC\Type\TableId;
+use AC\View;
 
 class ColumnSize
 {
@@ -53,37 +54,14 @@ class ColumnSize
 
     private function render_style(TableId $table_id, ColumnId $column_id, ColumnWidth $column_width, string $type): string
     {
-        $id = sprintf('ac-column-size-%s-%s', $type, $column_id);
-        $rules = $this->build_css_rules($table_id, $column_id, $column_width);
+        $view = new View([
+            'table_id'  => (string)$table_id,
+            'column_id' => (string)$column_id,
+            'width'     => $column_width->get_value() . $column_width->get_unit(),
+            'type'      => $type,
+        ]);
 
-        return sprintf(
-            '<style id="%s">@media screen and (min-width: 783px) { %s }</style>',
-            esc_attr($id),
-            $rules
-        );
-    }
-
-    private function build_css_rules(TableId $table_id, ColumnId $column_id, ColumnWidth $column_width): string
-    {
-        $table = esc_attr((string)$table_id);
-        $column = esc_attr((string)$column_id);
-        $width = $column_width->get_value() . $column_width->get_unit();
-
-        $width_rule = sprintf(
-            '.ac-%1$s .wrap table th.column-%2$s, .ac-%1$s .wrap table td.column-%2$s { width: %3$s !important; }',
-            $table,
-            $column,
-            $width
-        );
-
-        $overflow_rule = sprintf(
-            'body.acp-overflow-table.ac-%1$s .wrap th.column-%2$s, body.acp-overflow-table.ac-%1$s .wrap td.column-%2$s { min-width: %3$s !important; max-width: %3$s !important; }',
-            $table,
-            $column,
-            $width
-        );
-
-        return $width_rule . ' ' . $overflow_rule;
+        return $view->set_template('table/column-size')->render();
     }
 
 }
