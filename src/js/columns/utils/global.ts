@@ -74,6 +74,7 @@ type AdminColumnsI18n = {
                 wrapping_options: {
                     wrap: string
                     clip: string
+                    auto: string
                 }
                 segments: string
                 no_segments: string

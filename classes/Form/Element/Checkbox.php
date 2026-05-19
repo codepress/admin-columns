@@ -13,6 +13,8 @@ class Checkbox extends Element
 
     protected ?bool $multiple = null;
 
+    protected ?bool $disabled = null;
+
     protected function get_type(): string
     {
         return 'checkbox';
@@ -72,6 +74,10 @@ class Checkbox extends Element
                 $input->set_attribute('checked', 'checked');
             }
 
+            if ($this->disabled) {
+                $input->set_attribute('disabled', 'disabled');
+            }
+
             $attributes = $this->get_attributes();
 
             $elements[] = sprintf(
@@ -119,6 +125,13 @@ class Checkbox extends Element
         }
 
         return $this->vertical;
+    }
+
+    public function set_disabled(bool $disabled): self
+    {
+        $this->disabled = $disabled;
+
+        return $this;
     }
 
 }
