@@ -203,41 +203,6 @@ Release Date: May 19th, 2026
 
 * [Improved] The "Show edit columns" setting now also applies to the WP Admin Bar
 
-= 7.0.17 =
-Release Date: May 11th, 2026
-
-* [Fixed] Material icons failing to render when CSS bundlers concatenated stylesheets due to a missing trailing semicolon after the `@layer` declaration in `acui.css`.
-* [Updated] Axios updated to the latest version.
-
-= 7.0.16 =
-Release Date: April 17th, 2026
-
-* [Fixed] Fixed a critical error on sites where the PHP mbstring extension is not available.
-* [Fixed] Fixed a UI issue in the ACF field settings tab where inline scripts interfered with the page rendering.
-
-= 7.0.15 =
-Release Date: April 14th, 2026
-
-* [Improved] Various improvements to ACF field setting support.
-
-= 7.0.14 =
-Release Date: March 31st, 2026
-
-* [Added] ACF field settings tab to add fields as admin columns directly from the field group editor.
-* [Added] Column editor now scrolls to the opened column when linked from ACF field settings.
-* [Added] Word Count columns now support Before & After text to prepend or append custom text around the count.
-* [Added] Custom field column settings now display the meta key for reference.
-* [Added] ACF date save format option for custom field date columns.
-* [Improved] File columns now group attachments by file type and display multiple filenames separated by commas.
-* [Improved] Refreshed column settings sidebar with updated review and support panels.
-* [Improved] Improved Before & After display options UI.
-* [Fixed] Fixed the post link option not appearing for most property types in the Comment Post column.
-* [Fixed] Fixed the post link option not appearing for most property types in the User First Post and Last Post columns.
-* [Fixed] Fixed a potential error in user property columns when the display setting has not been saved yet.
-* [Fixed] Fixed "Default" option duplicating in the primary column preference dropdown.
-* [Fixed] Fixed template creation showing a success notification even when it failed.
-* [Fixed] Fixed media custom field columns not supporting multiple file uploads.
-
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 
 == Upgrade Notice ==
