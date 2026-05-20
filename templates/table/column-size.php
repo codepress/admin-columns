@@ -44,6 +44,7 @@ $is_percentage = is_string($this->list_width) && substr(trim($this->list_width),
 		.ac-<?= $table_id ?> .wrap table th.column-<?= $column_id ?>,
 		.ac-<?= $table_id ?> .wrap table td.column-<?= $column_id ?> {
 			width: <?= $value ?> !important;
+			max-width: <?= $value ?> !important;
 		}
 	}
 </style>
