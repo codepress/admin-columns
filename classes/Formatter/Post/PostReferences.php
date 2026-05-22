@@ -43,7 +43,7 @@ final class PostReferences implements Formatter
             'meta_query'     => [
                 [
                     'key'   => $this->meta_key,
-                    'value' => (int)$current_id,
+                    'value' => $current_id,
                 ],
             ],
         ]);

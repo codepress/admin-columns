@@ -24,7 +24,7 @@ final class WordLimit implements Formatter
         if ($this->word_limit > 0 && '' !== $string) {
             $value = $value->with_value(
                 wp_trim_words(
-                    (string)$string,
+                    $string,
                     $this->word_limit
                 )
             );
