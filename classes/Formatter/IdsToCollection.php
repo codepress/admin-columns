@@ -39,7 +39,7 @@ class IdsToCollection implements Formatter
         }
 
         if (is_serialized($value)) {
-            $ids = @unserialize($value);
+            $ids = @unserialize($value, ['allowed_classes' => false]);
 
             if (is_array($ids)) {
                 return $this->sanitise_ids($ids);
