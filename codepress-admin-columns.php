@@ -44,7 +44,7 @@ if ( ! is_admin()) {
 }
 
 define('AC_FILE', __FILE__);
-define('AC_VERSION', '7.0.18');
+define('AC_VERSION', '7.1beta');
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
