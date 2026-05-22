@@ -722,14 +722,12 @@ class V4000 extends Update
 
         $layout_id = substr($storage_key, -13);
 
-        return (bool)$this->is_layout_id((string)$layout_id);
+        return $this->is_layout_id((string)$layout_id);
     }
 
-    private function is_layout_id(string $id): ?string
+    private function is_layout_id(string $id): bool
     {
-        return $id && (strlen($id) === 13) && $this->is_hex($id)
-            ? $id
-            : null;
+        return $id && (strlen($id) === 13) && $this->is_hex($id);
     }
 
     private function is_hex(string $string): bool

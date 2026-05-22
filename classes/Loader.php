@@ -30,8 +30,6 @@ class Loader
     {
         $this->is_pro_active = $is_pro_active;
 
-        Container::set_container($container);
-
         $this->load($container);
     }
 
