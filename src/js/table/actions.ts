@@ -35,11 +35,21 @@ export class ActionButton {
         return this;
     }
 
-    static createWithMarkup(slug: string, label: string) {
+    static createButton(slug: string, label: string) {
         return new ActionButton(AcHtmlElement
-            .create('a')
+            .create<HTMLButtonElement>('button')
+            .setAttribute('type', 'button')
             .setAttribute('data-slug', slug)
-            .addClasses('ac-table-button')
+            .addClasses('button', 'ac-table-button')
+            .addHtml(label).getElement());
+    }
+
+    static createLink(slug: string, label: string, href: string) {
+        return new ActionButton(AcHtmlElement
+            .create<HTMLAnchorElement>('a')
+            .setAttribute('href', href)
+            .setAttribute('data-slug', slug)
+            .addClasses('button', 'ac-table-button')
             .addHtml(label).getElement());
     }
 

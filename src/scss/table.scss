@@ -1049,114 +1049,37 @@ div.cpac-color span {
 	}
 
 	.ac-table-actions-buttons {
-		white-space: nowrap;
 		display: inline-flex;
-		height: 30px;
-		box-sizing: border-box;
 		vertical-align: top;
-		border: 1px solid var(--ac-button-border);
-		border-radius: 3px;
-		overflow: hidden;
 
+		// Visually join WP buttons into a single group: square off inner corners,
+		// overlap borders, lift hover/focus so the focus ring stays visible.
 		.ac-table-button {
-			display: flex;
-		}
-	}
+			border-radius: 0;
 
-	.ac-table-button {
-		display: inline-block;
-		padding: 2px 12px;
-		cursor: pointer;
-		color: var(--ac-button-color);
-		border-right: 1px solid var(--ac-button-border);
-		background: var(--ac-button-bg);
-		text-decoration: none;
-		font-size: 13px;
-		height: 24px;
-
-		line-height: 24px;
-		text-align: center;
-
-		&:last-child {
-			border-right: none !important;
-		}
-
-		&:hover, &:focus, &:active {
-			outline: none;
-			box-shadow: none;
-			background-color: #f0f0f1;
-			color: var(--ac-button-hover);
-		}
-
-		.dashicons {
-			font-size: 14px;
-			width: 14px;
-			height: 14px;
-			line-height: 24px;
-		}
-
-		&.disabled {
-			background: #ddd;
-			color: #484848;
-			cursor: not-allowed;
-		}
-
-		&.active {
-			background: #00A0D2;
-			border: 1px solid #008EC2;
-			color: #fff;
-
-			& + .ac-table-button {
-				border-left: none;
+			&:not(:first-child) {
+				margin-left: -1px;
 			}
-		}
 
-		&.-inline-edit {
-			.dashicons {
-				font-size: 18px;
-				margin-left: -2px;
+			&:first-child {
+				border-top-left-radius: 2px;
+				border-bottom-left-radius: 2px;
 			}
-		}
 
-		&.-toggle {
-			background: none;
-			border: 1px solid transparent;
-			padding-left: 4px;
-			padding-right: 4px;
-			transform: translateY(-1px);
-
-			.ac-toggle__switch {
-				vertical-align: middle;
-				margin-top: -3px;
-				margin-right: 1px;
-				color: #888;
+			&:last-child {
+				border-top-right-radius: 2px;
+				border-bottom-right-radius: 2px;
 			}
-		}
 
-		&.-segment {
-
-		}
-
-		&__caret {
-			display: inline-block;
-			vertical-align: middle;
-			width: 0;
-			height: 0;
-			border-left: 3px solid transparent;
-			border-right: 3px solid transparent;
-			border-top: 4px solid #6F6F6F;
-			transition: transform .2s;
-		}
-
-		&.-open {
-			color: #0072AA;
-
-			.ac-table-button__caret {
-				transform: rotate(180deg);
-
+			&:hover,
+			&:focus,
+			&:focus-visible {
+				position: relative;
+				z-index: 1;
 			}
 		}
 	}
+
 }
 
 
