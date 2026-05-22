@@ -19,7 +19,7 @@ class ImageUrlsFromContent implements AC\Formatter
         $this->context = $context;
     }
 
-    public function format(Value $value)
+    public function format(Value $value): ValueCollection
     {
         $string = (string)apply_filters(
             'ac/column/images/content',

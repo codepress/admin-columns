@@ -108,7 +108,7 @@ class FieldSettingsAddColumn implements RequestAjaxHandler
             $list_screen->set_columns($columns);
             $this->storage->save($list_screen);
         } else {
-            $columns = $this->column_type_repository->find_all_by_original($table_screen);
+            $columns = $this->column_type_repository->find_all_original($table_screen);
             $columns->add($column);
 
             $list_screen = new ListScreen(
@@ -138,6 +138,5 @@ class FieldSettingsAddColumn implements RequestAjaxHandler
 
         return null;
     }
-
 
 }

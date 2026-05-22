@@ -27,6 +27,11 @@ class ManageValue implements ManageValueService
         add_filter('mla_list_table_column_default', [$this, 'render_value'], $this->priority, 3);
     }
 
+    /**
+     * @param ...$args
+     *
+     * @return mixed
+     */
     public function render_value(...$args)
     {
         [$value, $post, $column_name] = $args;
