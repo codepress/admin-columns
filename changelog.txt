@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 7.0.19 =
+Release Date: May 22th, 2026
+
+* [Fixed] Hardened custom field value deserialization to improve validation of serialized data handling.
+
 = 7.0.18 =
 Release Date: May 19th, 2026
 
