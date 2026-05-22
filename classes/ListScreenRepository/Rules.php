@@ -35,19 +35,14 @@ final class Rules
         }
     }
 
-    /**
-     * @param Rule $rule
-     *
-     * @return $this
-     */
-    public function add_rule(Rule $rule)
+    public function add_rule(Rule $rule): self
     {
         $this->rules[] = $rule;
 
         return $this;
     }
 
-    public function match(array $args)
+    public function match(array $args): bool
     {
         $matches = 0;
 

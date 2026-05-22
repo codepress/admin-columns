@@ -27,11 +27,6 @@ use InvalidArgumentException;
 final class Helper
 {
 
-    public static function create(): self
-    {
-        return new self();
-    }
-
     public function __get(string $helper)
     {
         switch ($helper) {

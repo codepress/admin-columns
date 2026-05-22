@@ -111,7 +111,7 @@ class Checkbox extends Element
         return $this->multiple;
     }
 
-    public function set_vertical(bool $vertical)
+    public function set_vertical(bool $vertical): self
     {
         $this->vertical = $vertical;
 

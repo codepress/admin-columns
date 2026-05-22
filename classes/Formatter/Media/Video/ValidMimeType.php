@@ -20,7 +20,7 @@ class ValidMimeType implements Formatter
         return $value;
     }
 
-    private function is_valid_mime_type($id)
+    private function is_valid_mime_type($id): bool
     {
         return in_array(
             $this->get_mime_type($id),
@@ -29,12 +29,12 @@ class ValidMimeType implements Formatter
         );
     }
 
-    private function get_valid_mime_types()
+    private function get_valid_mime_types(): array
     {
         return (new ValidVideoMimetypes())->apply_filters();
     }
 
-    private function get_mime_type($id)
+    private function get_mime_type($id): string
     {
         return (string)get_post_field('post_mime_type', $id);
     }

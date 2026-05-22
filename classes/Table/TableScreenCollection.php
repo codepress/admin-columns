@@ -82,4 +82,22 @@ final class TableScreenCollection implements Iterator, Countable, ArrayAccess
         unset($this->data[$offset]);
     }
 
+    public function first(): ?TableScreen
+    {
+        $key = array_key_first($this->data);
+
+        return $key !== null
+            ? $this->data[$key]
+            : null;
+    }
+
+    public function last(): ?TableScreen
+    {
+        $key = array_key_last($this->data);
+
+        return $key !== null
+            ? $this->data[$key]
+            : null;
+    }
+
 }

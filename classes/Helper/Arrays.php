@@ -47,7 +47,9 @@ class Arrays extends Creatable
     {
         _deprecated_function(__METHOD__, '7.0', ImplodeRecursive::class);
 
-        return (new ImplodeRecursive($glue))->format(new Value($pieces));
+        $value = (new ImplodeRecursive($glue))->format(new Value($pieces));
+
+        return (string)$value;
     }
 
     /**

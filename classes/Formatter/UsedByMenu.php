@@ -19,7 +19,7 @@ class UsedByMenu implements Formatter
         $this->item_type = $item_type;
     }
 
-    public function format(Value $value)
+    public function format(Value $value): ValueCollection
     {
         $collection = new ValueCollection($value->get_id());
 
