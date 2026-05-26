@@ -20,11 +20,11 @@ class IsSticky implements Formatter
         $posts = wp_cache_get('ac_sticky_posts');
 
         if ( ! $posts) {
-            $posts = get_option('sticky_posts');
+            $posts = get_option('sticky_posts', []);
             wp_cache_set('ac_sticky_posts', $posts);
         }
 
-        return (array)$posts;
+        return is_array($posts) ? $posts : [];
     }
 
 }

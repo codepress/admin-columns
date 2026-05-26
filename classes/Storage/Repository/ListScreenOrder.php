@@ -39,7 +39,9 @@ class ListScreenOrder
 
     private function get_data(): array
     {
-        return get_option(self::KEY, []) ?: [];
+        $data = get_option(self::KEY, []);
+
+        return is_array($data) ? $data : [];
     }
 
 }
