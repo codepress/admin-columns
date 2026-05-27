@@ -47,12 +47,12 @@ class TermLink implements Formatter
                 break;
             case 'edit' :
                 $term = get_term($value->get_id());
-                $link = $term instanceof \WP_Term ? get_edit_term_link($term, $term->taxonomy) : null;
+                $link = $term instanceof WP_Term ? get_edit_term_link($term, $term->taxonomy) : null;
 
                 break;
         }
 
-        return $link
+        return $link && is_string($link)
             ? $value->with_value(Helper\Html::create()->link($link, (string)$value))
             : $value;
     }

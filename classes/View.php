@@ -63,7 +63,7 @@ class View implements Renderable
          * @param array  $paths    Template paths
          * @param string $template Current template path
          */
-        $paths = apply_filters(
+        $paths = (array)apply_filters(
             'ac/view/templates',
             [],
             $this->template

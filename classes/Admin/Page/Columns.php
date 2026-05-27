@@ -126,7 +126,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
 
     public function render(): string
     {
-        return apply_filters('ac/page/columns/render', '<div></div>', $this->list_id);
+        return (string)apply_filters('ac/page/columns/render', '<div></div>', $this->list_id);
     }
 
 }

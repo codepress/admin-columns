@@ -15,7 +15,7 @@ final class ThirdPartyFactory extends BaseFactory
     {
         $collection = new ColumnFactoryDefinitionCollection();
 
-        $factory_classes = apply_filters('ac/column/types', [], $table_screen, $this->container);
+        $factory_classes = (array)apply_filters('ac/column/types', [], $table_screen, $this->container);
 
         /**
          * @deprecated 7.0.10

@@ -225,7 +225,7 @@ class Columns extends Script
      */
     private function get_screen_notices(): array
     {
-        return apply_filters('ac/admin/screen_notices', []);
+        return (array)apply_filters('ac/admin/screen_notices', []);
     }
 
     private function encode_groups(AC\Type\Groups $groups): array

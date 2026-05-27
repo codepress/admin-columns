@@ -33,10 +33,9 @@ class Admin implements Registerable
 
     private function get_menu_page_factory(): MenuPageFactory
     {
-        return apply_filters(
-            'ac/menu_page_factory',
-            new MenuPageFactory\SubMenu()
-        );
+        $factory = apply_filters('ac/menu_page_factory', new MenuPageFactory\SubMenu());
+
+        return $factory instanceof MenuPageFactory ? $factory : new MenuPageFactory\SubMenu();
     }
 
     public function init(): void
