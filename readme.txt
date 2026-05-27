@@ -2,9 +2,9 @@
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Tags: columns, admin columns, custom fields, list table, woocommerce
 Requires at least: 5.9
-Tested up to: 6.9.4
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 7.0.18
+Stable tag: 7.0.19
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -198,10 +198,10 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 
 == Changelog ==
 
-= 7.0.18 =
-Release Date: May 19th, 2026
+= 7.0.19 =
+Release Date: May 27th, 2026
 
-* [Improved] The "Show edit columns" setting now also applies to the WP Admin Bar
+* [Fixed] Hardened custom field value deserialization to improve validation of serialized data handling.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 
