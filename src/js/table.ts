@@ -80,8 +80,8 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
     auto_init_show_more();
 
     // Tooltip setup
-    document.querySelectorAll('.cpac_use_icons').forEach((el: HTMLElement) => {
-        el?.parentElement?.querySelectorAll('.row-actions a').forEach((el: HTMLElement) => {
+    document.querySelectorAll<HTMLElement>('.cpac_use_icons').forEach((el) => {
+        el?.parentElement?.querySelectorAll<HTMLElement>('.row-actions a').forEach((el) => {
             new Tooltip(el, el.innerText);
         });
     });

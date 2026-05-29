@@ -44,6 +44,18 @@ export default class AcServices {
         this.events.addListener(name, callback);
     }
 
+    removeListener<
+        TEventMap extends Record<string, any>,
+        K extends keyof TEventMap & string = keyof TEventMap & string
+    >(
+        name: K,
+        callback: (payload: TEventMap[K]) => void
+    ): void;
+    removeListener(name: string, callback: any): void;
+    removeListener(name: string, callback: any) {
+        this.events.removeListener(name, callback);
+    }
+
     emitEvent<
         TEventMap extends Record<string, any>,
         K extends keyof TEventMap & string = keyof TEventMap & string

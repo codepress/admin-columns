@@ -1,5 +1,5 @@
 export const auto_init_show_more = () => {
-    document.querySelectorAll('.ac-show-more').forEach((el: HTMLElement) => {
+    document.querySelectorAll<HTMLElement>('.ac-show-more').forEach((el) => {
        new ShowMore(el);
     });
 }

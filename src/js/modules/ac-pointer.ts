@@ -3,9 +3,9 @@ import PointerModal from "../components/PointerModal.svelte";
 
 export class Pointer {
 
-    container: HTMLElement
-    component: PointerModal
-    onScreen: boolean
+    container!: HTMLElement
+    component!: PointerModal
+    onScreen: boolean = false
     width: string | null
     position: string
     noClick: boolean
