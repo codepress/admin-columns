@@ -40,7 +40,7 @@ class FeaturedImageDisplay extends BaseComponentFactory
         return OptionFactory::create_select(
             self::NAME,
             OptionCollection::from_array([
-                'image'      => __('Image'),
+                'image'      => __('Image', 'codepress-admin-columns'),
                 'filesize'   => __('Filesize', 'codepress-admin-columns'),
                 'dimensions' => __('Dimensions', 'codepress-admin-columns'),
             ]),

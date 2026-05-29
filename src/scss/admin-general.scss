@@ -14,7 +14,7 @@
 @use 'admin-page-settings';
 
 
-body {
+body.settings_page_codepress-admin-columns {
 	background-color: #F1F5F9;
 
 	#cpac {
@@ -124,6 +124,7 @@ h2, h3 {
 	}
 
 }
+
 #cpac {
 	a:focus,
 	a:active {
@@ -207,9 +208,11 @@ body.toplevel_page_codepress-admin-columns {
 				background: #626979;
 			}
 		}
+
 		&.-pro {
 			a {
 				background-color: var(--ac-pink-color);
+
 				.dashicons {
 					font-size: 16px;
 					transform: translateY('4px');
@@ -276,10 +279,12 @@ body.toplevel_page_codepress-admin-columns {
 			background: #E7EFF9;
 			border: 1px solid #9DBAEE;
 		}
+
 		&.notice-error {
 			background: var(--ac-color-error-alt);
 			border: 1px solid var(--ac-notification-red)
 		}
+
 		p {
 			margin: 6px 0;
 		}
@@ -293,6 +298,7 @@ body.toplevel_page_codepress-admin-columns {
 		.dashicons {
 			transform: translateY(0);
 		}
+
 		&.notice-info .dashicons {
 			color: #0072AA;
 		}
