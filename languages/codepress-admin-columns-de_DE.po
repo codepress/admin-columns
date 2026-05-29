@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-04-28 19:54:06+0000\n"
+"PO-Revision-Date: 2026-05-24 18:14:59+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2425,7 +2425,7 @@ msgstr ""
 #: classes/Setting/ComponentFactory/LinkLabel.php:25
 #: classes/Setting/ComponentFactory/ModalDisplay.php:56
 msgid "Link Label"
-msgstr "Link-Beschriftung"
+msgstr "Linkbeschriftung"
 
 #: classes/ColumnGroups.php:35
 msgid "Custom Fields"
@@ -2986,7 +2986,7 @@ msgstr "Maße"
 #: classes/ColumnFactory/Media/CaptionFactory.php:35
 #: classes/Setting/ComponentFactory/ExifData.php:61
 msgid "Caption"
-msgstr "Untertitel"
+msgstr "Beschriftung"
 
 #: classes/ColumnFactory/Media/AvailableSizesFactory.php:48
 msgid "Available Sizes"
