@@ -199,7 +199,7 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 == Changelog ==
 
 = 7.0.19 =
-Release Date: May 27th, 2026
+Release Date: May 29th, 2026
 
 * [Fixed] Hardened custom field value deserialization to improve validation of serialized data handling.
 
