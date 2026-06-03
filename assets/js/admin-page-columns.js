@@ -21455,7 +21455,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (67:2) <AcRadio bind:group={selectedOption}    value={option.value}    {disabled}    on:change={handleSelection}    --AcuiRadioMarginBottom="5px">
+// (67:2) <AcRadio bind:group={selectedOption}     value={option.value}     {disabled}     on:change={handleSelection}     --AcuiRadioMarginBottom="5px">
 function create_default_slot_1(ctx) {
 	let t0_value = /*option*/ ctx[18].label + "";
 	let t0;
@@ -21880,10 +21880,10 @@ function instance($$self, $$props, $$invalidate) {
 	};
 
 	(0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
-		$$invalidate(3, options = config.input.children[0].input.options ?? []);
+		$$invalidate(3, options = config.children?.[0]?.input?.options ?? []);
 
 		if (value === '' || typeof value === 'undefined') {
-			let defaultValue = config.input.children[0].input?.default ?? null;
+			let defaultValue = config.children?.[0]?.input?.default ?? null;
 			$$invalidate(9, value = defaultValue ? defaultValue : options[0].value);
 		}
 
@@ -45621,6 +45621,9 @@ class AcServices {
     addListener(name, callback) {
         this.events.addListener(name, callback);
     }
+    removeListener(name, callback) {
+        this.events.removeListener(name, callback);
+    }
     emitEvent(name, args) {
         this.events.emit(name, args);
     }
@@ -64861,13 +64864,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   icons: () => (/* binding */ icons)
 /* harmony export */ });
 const icons = [
+	'add',
 	'add_circle',
 	'bug_report',
 	'cancel',
 	'calculate',
+	'check_small',
+	'check',
 	'chevron_left',
 	'chevron_right',
 	'content_copy',
+	'close',
 	'download',
 	'delete',
 	'description',
@@ -64897,6 +64904,8 @@ const icons = [
 	'perm_media',
 	'person',
 	'person_shield',
+	'remove',
+	'redo',
 	'swap_vert',
 	'stacks',
 	'sentiment_satisfied',

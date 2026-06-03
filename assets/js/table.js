@@ -6795,6 +6795,7 @@ class Pointer {
     constructor(element, target) {
         this.element = element;
         this.target = target;
+        this.onScreen = false;
         this.width = element.dataset.width ?? null;
         this.position = element.dataset.pos ?? 'right';
         this.noClick = typeof element.dataset.noclick !== 'undefined';
@@ -6940,6 +6941,9 @@ class AcServices {
     }
     addListener(name, callback) {
         this.events.addListener(name, callback);
+    }
+    removeListener(name, callback) {
+        this.events.removeListener(name, callback);
     }
     emitEvent(name, args) {
         this.events.emit(name, args);

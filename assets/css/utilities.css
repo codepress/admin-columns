@@ -294,6 +294,10 @@
   margin-top: 0
 }
 
+.acu-box-border {
+  box-sizing: border-box
+}
+
 .acu-block {
   display: block
 }
@@ -713,6 +717,10 @@
   border-style: solid
 }
 
+.acu-border-dashed {
+  border-style: dashed
+}
+
 .acu-border-none {
   border-style: none
 }
@@ -730,6 +738,10 @@
 .acu-border-\[\#c3c4c7\] {
   --tw-border-opacity: 1;
   border-color: rgb(195 196 199 / var(--tw-border-opacity, 1))
+}
+
+.acu-border-\[--ac-border-grey\] {
+  border-color: var(--ac-border-grey)
 }
 
 .acu-border-\[transparent\] {
@@ -1237,6 +1249,10 @@
 .acu-text-\[\#fff\] {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[--ac-border-grey\] {
+  color: var(--ac-border-grey)
 }
 
 .acu-text-\[--ac-link\] {

@@ -179,17 +179,17 @@ declare namespace AC.Column.Settings {
             }
             type: 'date_format'
             default: string,
-            children: [
-                {
-                    name: 'date_format'
-                    input: {
-                        type: 'radio',
-                        options: SettingOption[]
-                        default?: string
-                    }
-                }
-            ]
         }
+        children: [
+            {
+                name: 'date_format'
+                input: {
+                    type: 'radio',
+                    options: SettingOption[]
+                    default?: string
+                }
+            }
+        ]
     }
 
     interface NumberSettings extends AbstractColumnSetting {

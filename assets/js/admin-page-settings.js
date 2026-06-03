@@ -17174,6 +17174,9 @@ class AcServices {
     addListener(name, callback) {
         this.events.addListener(name, callback);
     }
+    removeListener(name, callback) {
+        this.events.removeListener(name, callback);
+    }
     emitEvent(name, args) {
         this.events.emit(name, args);
     }
