@@ -11,7 +11,7 @@ use AC\Capabilities;
 class SubMenu implements MenuPageFactory
 {
 
-    public function create(array $args = []): string
+    public function create(array $args = []): ?string
     {
         return add_submenu_page(
             $args['parent'],
@@ -21,7 +21,7 @@ class SubMenu implements MenuPageFactory
             Admin::NAME,
             '',
             $args['position'] ?? null
-        );
+        ) ?: null;
     }
 
 }

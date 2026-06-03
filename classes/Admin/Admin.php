@@ -45,6 +45,10 @@ class Admin implements Registerable
             'icon'   => $this->location->with_suffix('assets/images/page-menu-icon.svg')->get_url(),
         ]);
 
+        if (null === $hook) {
+            return;
+        }
+
         $loader = new AdminLoader($hook, $this->request_handler, $this->scripts);
         $loader->register();
     }
