@@ -28,7 +28,13 @@ final class Prefix implements Task
      */
     public function run(): void
     {
-        $prefixer = $this->prefixerFactory->create(new SplFileInfo(getcwd()));
+        global $argv;
+
+        // Release builds pass `--no-dev` so dev-only tooling (e.g. php-cs-fixer)
+        // is neither scoped nor shipped inside the plugin.
+        $isDevelopment = ! in_array('--no-dev', $argv ?? [], true);
+
+        $prefixer = $this->prefixerFactory->create(new SplFileInfo(getcwd()), $isDevelopment);
         $prefixer->prefix();
     }
 

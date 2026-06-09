@@ -18,11 +18,18 @@
             "@composer install --working-dir=build --no-interaction",
             "@php build/app.php prefix"
         ],
+        "prefix:release": [
+            "@composer install --working-dir=build --no-interaction",
+            "@php build/app.php prefix --no-dev"
+        ],
         "post-install-cmd": [
             "@prefix"
         ],
         "post-update-cmd": [
             "@prefix"
-        ]
+        ],
+        "cs:install": "@composer install --working-dir=tools/php-cs-fixer --no-interaction",
+        "cs": "@php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix",
+        "cs:check": "@php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --dry-run --diff"
     }
 }
