@@ -8,7 +8,9 @@ wpPot( {
 	team : 'Admin Columns <info@admincolumns.com>',
 	package : 'Admin Columns',
 	src : [
-		'../*.php', // root
-		'../**/*.php' // subfolders
+		'../*.php', // root plugin files
+		'../classes/**/*.php',
+		'../templates/**/*.php',
+		'../settings/**/*.php'
 	]
 } );
