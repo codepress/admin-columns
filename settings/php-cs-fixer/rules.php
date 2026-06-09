@@ -2,8 +2,8 @@
 
 /**
  * Shared PHP CS Fixer rules.
- * Required by both .php-cs-fixer.dist.php (Pro root) and
- * admin-columns/.php-cs-fixer.dist.php (free core).
+ * Required by both admin-columns-pro/.php-cs-fixer.dist.php (Pro root) and
+ * admin-columns-pro/admin-columns/.php-cs-fixer.dist.php (free core).
  * Edit only this file to update the ruleset for both.
  */
 return [
