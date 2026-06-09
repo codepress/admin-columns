@@ -12,7 +12,7 @@ return [
     'declare_strict_types'         => true,
 
     // Brace style (match project style)
-    'curly_braces_position'        => [
+    'braces_position'              => [
         'classes_opening_brace'             => 'next_line_unless_newline_at_signature_end',
         'functions_opening_brace'           => 'next_line_unless_newline_at_signature_end',
         'control_structures_opening_brace'  => 'same_line',
