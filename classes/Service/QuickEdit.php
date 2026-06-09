@@ -54,14 +54,14 @@ class QuickEdit implements Registerable
                 $table_id = (string)filter_input(INPUT_POST, 'post_type');
                 break;
 
-            // Adding term & Quick edit term
+                // Adding term & Quick edit term
             case 'pll_update_term_rows':
             case 'add-tag' :
             case 'inline-save-tax' :
                 $table_id = 'wp-taxonomy_' . filter_input(INPUT_POST, 'taxonomy');
                 break;
 
-            // Quick edit comment & Inline reply on comment
+                // Quick edit comment & Inline reply on comment
             case 'edit-comment' :
             case 'replyto-comment' :
                 $table_id = 'wp-comments';

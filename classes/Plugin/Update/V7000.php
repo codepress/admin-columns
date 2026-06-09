@@ -37,7 +37,7 @@ class V7000 extends Update
 
         // Apply update in chunks to minimize the impact of a timeout.
         switch ($this->next_step) {
-            case 1 :
+            case 1:
                 // Add 'type' column to the 'admin_columns' DB table
                 $this->update_database();
 

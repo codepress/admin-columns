@@ -16,7 +16,7 @@ class TableScreen extends AC\TableScreen implements
     AC\TableScreen\ListTable,
     AC\TableScreen\MetaType,
     AC\PostType,
-                                                    AC\TableScreen\TotalItems
+    AC\TableScreen\TotalItems
 {
     public function __construct()
     {

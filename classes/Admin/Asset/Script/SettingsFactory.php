@@ -149,7 +149,7 @@ final class SettingsFactory
                             '%s - %s',
                             __('Upgrade', 'codepress-admin-columns'),
                             sprintf(
-                            /* translators: %s: price (e.g. $79) */
+                                /* translators: %s: price (e.g. $79) */
                                 __('from %s/year', 'codepress-admin-columns'),
                                 StartingPrice::get()
                             )
@@ -158,7 +158,7 @@ final class SettingsFactory
                         'trust'    => sprintf(
                             '%s · %s',
                             sprintf(
-                            /* translators: %s: number of sites (e.g. 250,000+) */
+                                /* translators: %s: number of sites (e.g. 250,000+) */
                                 __('%s sites', 'codepress-admin-columns'),
                                 '250,000+'
                             ),

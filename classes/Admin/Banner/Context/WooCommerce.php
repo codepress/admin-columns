@@ -51,7 +51,7 @@ class WooCommerce implements BannerContext
             'upgrade_cta_price' => sprintf(
                 '%s · %s',
                 sprintf(
-                /* translators: %s: price (e.g. $79) */
+                    /* translators: %s: price (e.g. $79) */
                     __('from %s/year', 'codepress-admin-columns'),
                     StartingPrice::get()
                 ),

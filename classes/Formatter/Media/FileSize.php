@@ -35,19 +35,19 @@ class FileSize implements Formatter
         }
 
         switch ($this->format) {
-            case 'kb' :
+            case 'kb':
                 $size = $bytes / 1024;
                 break;
-            case 'mb' :
+            case 'mb':
                 $size = $bytes / (1024 * 1024);
                 break;
-            case 'gb' :
+            case 'gb':
                 $size = $bytes / (1024 * 1024 * 1024);
                 break;
-            case 'tb' :
+            case 'tb':
                 $size = $bytes / (1024 * 1024 * 1024 * 1024);
                 break;
-            default :
+            default:
                 $size = $bytes;
         }
 

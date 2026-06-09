@@ -222,8 +222,8 @@ class Image extends Creatable
 
 		<span class="ac-image -cover" data-media-id="<?= esc_attr((string)$media_id); ?>">
 			<img style="width:<?= esc_attr((string)$width); ?>px;height:<?= esc_attr((string)$height); ?>px;" src="<?= esc_attr(
-                $src
-            ); ?>" alt="">
+			    $src
+			); ?>" alt="">
 		</span>
 
         <?php

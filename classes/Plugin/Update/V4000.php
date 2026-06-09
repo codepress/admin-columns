@@ -42,14 +42,14 @@ class V4000 extends Update
 
         // Apply update in chunks to minimize the impact of a timeout.
         switch ($this->next_step) {
-            case 1 :
+            case 1:
                 $this->create_database();
 
                 $this
                     ->update_next_step(2)
                     ->apply_update();
                 break;
-            case 2 :
+            case 2:
                 // 1. migrate segments to site specific user preference. Previously this was stored globally.
                 $this->migrate_segments_preferences();
 
@@ -59,7 +59,7 @@ class V4000 extends Update
                     ->apply_update();
 
                 break;
-            case 3 :
+            case 3:
 
                 // 2. migrate column settings to new DB table
                 $replaced_list_ids = $this->migrate_list_screen_settings();
@@ -73,7 +73,7 @@ class V4000 extends Update
                     ->apply_update();
 
                 break;
-            case 4 :
+            case 4:
 
                 // 3. User Preference "Segments": ac_preferences_search_segments
                 $this->update_user_preferences_segments($this->get_replacement_ids());
@@ -84,7 +84,7 @@ class V4000 extends Update
                     ->apply_update();
 
                 break;
-            case 5 :
+            case 5:
                 $replaced_list_ids = $this->get_replacement_ids();
 
                 // 4. User Preference "Horizontal Scrolling": ac_preferences_show_overflow_table
@@ -105,7 +105,7 @@ class V4000 extends Update
                     ->apply_update();
 
                 break;
-            case 6 :
+            case 6:
                 $this->migrate_invalid_network_settings();
 
                 // go to next step
@@ -114,7 +114,7 @@ class V4000 extends Update
                     ->apply_update();
 
                 break;
-            case 7 :
+            case 7:
                 $replaced_list_ids = $this->get_replacement_ids();
 
                 // 6. User Preference "Table selection": wp_ac_preferences_layout_table

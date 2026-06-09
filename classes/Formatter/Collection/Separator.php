@@ -47,15 +47,15 @@ class Separator implements CollectionFormatter
     private static function get_separator(?string $setting = null): string
     {
         switch ($setting) {
-            case Setting::WHITE_SPACE :
+            case Setting::WHITE_SPACE:
                 return ' ';
-            case Setting::NEW_LINE :
+            case Setting::NEW_LINE:
                 return '<br>';
-            case Setting::HORIZONTAL_RULE :
+            case Setting::HORIZONTAL_RULE:
                 return '<hr>';
             case Setting::NONE:
                 return '';
-            case Setting::COMMA :
+            case Setting::COMMA:
                 return ', ';
         }
 

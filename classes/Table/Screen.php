@@ -96,7 +96,7 @@ final class Screen implements Registerable
                     echo $option->render();
                 }
 
-                ?>
+        ?>
 			</div>
 		</fieldset>
 
@@ -234,13 +234,13 @@ final class Screen implements Registerable
         ];
 
         switch (true) {
-            case $this->table_screen instanceof AC\PostType :
+            case $this->table_screen instanceof AC\PostType:
                 $query_args_whitelist[] = 'post_status';
                 break;
-            case $this->table_screen instanceof AC\TableScreen\User :
+            case $this->table_screen instanceof AC\TableScreen\User:
                 $query_args_whitelist[] = 'role';
                 break;
-            case $this->table_screen instanceof AC\TableScreen\Comment :
+            case $this->table_screen instanceof AC\TableScreen\Comment:
                 $query_args_whitelist[] = 'comment_status';
                 break;
         }

@@ -40,7 +40,7 @@ abstract class ContentTypeLink implements Formatter
                 return $this->get_view_link($value);
             case self::EDIT:
                 return $this->get_edit_link($value);
-            default :
+            default:
                 return null;
         }
     }

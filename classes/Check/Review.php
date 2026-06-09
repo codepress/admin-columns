@@ -145,19 +145,19 @@ final class Review implements Registerable
                     ) . '</a>'
                 );
 
-                printf(
-                    __('You can also find help on the %s, and %s.', 'codepress-admin-columns'),
-                    '<a href="https://wordpress.org/support/plugin/codepress-admin-columns#postform" target="_blank">' . __(
-                        'Admin Columns forum on WordPress.org',
-                        'codepress-admin-columns'
-                    ) . '</a>',
-                    '<a href="https://wordpress.org/plugins/codepress-admin-columns/#faq" target="_blank">' . __(
-                        'find answers to frequently asked questions',
-                        'codepress-admin-columns'
-                    ) . '</a>'
-                );
+        printf(
+            __('You can also find help on the %s, and %s.', 'codepress-admin-columns'),
+            '<a href="https://wordpress.org/support/plugin/codepress-admin-columns#postform" target="_blank">' . __(
+                'Admin Columns forum on WordPress.org',
+                'codepress-admin-columns'
+            ) . '</a>',
+            '<a href="https://wordpress.org/plugins/codepress-admin-columns/#faq" target="_blank">' . __(
+                'find answers to frequently asked questions',
+                'codepress-admin-columns'
+            ) . '</a>'
+        );
 
-                ?>
+        ?>
 			</p>
 		</div>
 

@@ -13,7 +13,7 @@ class DefaultGroups implements MenuGroupFactory
     public function create(TableScreen $table_screen): ?MenuGroup
     {
         switch ($table_screen) {
-            case $table_screen instanceof TableScreen\Post :
+            case $table_screen instanceof TableScreen\Post:
                 $post_type = get_post_type_object((string)$table_screen->get_post_type());
 
                 if (! $post_type) {
@@ -46,13 +46,13 @@ class DefaultGroups implements MenuGroupFactory
                     ),
                     30
                 );
-            case $table_screen instanceof TableScreen\User :
+            case $table_screen instanceof TableScreen\User:
                 return $this->get_default_group(4);
-            case $table_screen instanceof TableScreen\Media :
+            case $table_screen instanceof TableScreen\Media:
                 return $this->get_default_group(5);
-            case $table_screen instanceof TableScreen\Comment :
+            case $table_screen instanceof TableScreen\Comment:
                 return $this->get_default_group(6);
-            default :
+            default:
                 return null;
         }
     }

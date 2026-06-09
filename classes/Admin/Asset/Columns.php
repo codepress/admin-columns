@@ -103,7 +103,7 @@ class Columns extends Script
             'editing'   => __('Inline edit directly in the table', 'codepress-admin-columns'),
             'sorting'   => __('Sort and filter on any column', 'codepress-admin-columns'),
             'bulk-edit' => sprintf(
-            /* translators: %s: post type label plural (e.g. "posts", "pages") */
+                /* translators: %s: post type label plural (e.g. "posts", "pages") */
                 __('Bulk edit hundreds of %s at once', 'codepress-admin-columns'),
                 $plural_lower
             ),
@@ -177,12 +177,12 @@ class Columns extends Script
         }
 
         $arguments['title'] = sprintf(
-        /* translators: %s: post type label plural (e.g. "posts", "pages") */
+            /* translators: %s: post type label plural (e.g. "posts", "pages") */
             __('Manage your %s faster', 'codepress-admin-columns'),
             $plural_lower
         );
         $arguments['description'] = sprintf(
-        /* translators: 1: post type label plural, 2: post type label singular */
+            /* translators: 1: post type label plural, 2: post type label singular */
             __(
                 'Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s.',
                 'codepress-admin-columns'
@@ -191,12 +191,12 @@ class Columns extends Script
             $singular_lower
         );
         $arguments['upgrade_cta'] = sprintf(
-        /* translators: %s: post type label plural (e.g. "posts", "pages") */
+            /* translators: %s: post type label plural (e.g. "posts", "pages") */
             __('Unlock faster %s management ', 'codepress-admin-columns'),
             $singular_lower
         );
         $arguments['upgrade_cta_price'] = sprintf(
-        /* translators: %s: price (e.g. $79) */
+            /* translators: %s: price (e.g. $79) */
             __('from %s/year', 'codepress-admin-columns'),
             StartingPrice::get()
         );
@@ -339,12 +339,12 @@ class Columns extends Script
                         'trusted_by' => sprintf(
                             '%s · %s',
                             sprintf(
-                            /* translators: %s: number of sites (e.g. 250,000+) */
+                                /* translators: %s: number of sites (e.g. 250,000+) */
                                 __('Trusted by %s WordPress sites', 'codepress-admin-columns'),
                                 '250,000+'
                             ),
                             sprintf(
-                            /* translators: %s: rating (e.g. 4.9) */
+                                /* translators: %s: rating (e.g. 4.9) */
                                 __('%s on Trustpilot', 'codepress-admin-columns'),
                                 '4.9'
                             )
@@ -355,7 +355,7 @@ class Columns extends Script
                             '%s - %s',
                             __('Upgrade', 'codepress-admin-columns'),
                             sprintf(
-                            /* translators: %s: price (e.g. $79) */
+                                /* translators: %s: price (e.g. $79) */
                                 __('from %s/year', 'codepress-admin-columns'),
                                 StartingPrice::get()
                             )
@@ -453,19 +453,19 @@ class Columns extends Script
                         'trust'          => sprintf(
                             '%s · %s',
                             sprintf(
-                            /* translators: %s: number of sites (e.g. 250,000+) */
+                                /* translators: %s: number of sites (e.g. 250,000+) */
                                 __('%s sites', 'codepress-admin-columns'),
                                 '250,000+'
                             ),
                             sprintf(
-                            /* translators: %s: rating (e.g. 4.9) */
+                                /* translators: %s: rating (e.g. 4.9) */
                                 __('%s on Trustpilot', 'codepress-admin-columns'),
                                 '4.9'
                             )
                         ),
                         'upgrade_cta'       => __('Upgrade to Pro', 'codepress-admin-columns'),
                         'upgrade_cta_price' => sprintf(
-                        /* translators: %s: price (e.g. $79) */
+                            /* translators: %s: price (e.g. $79) */
                             __('from %s/year', 'codepress-admin-columns'),
                             StartingPrice::get()
                         ),

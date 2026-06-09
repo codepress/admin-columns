@@ -25,13 +25,13 @@ class DatePublishFormatted implements Formatter
 
         switch ($post->post_status) {
             // Icons
-            case 'private' :
-            case 'draft' :
-            case 'pending' :
+            case 'private':
+            case 'draft':
+            case 'pending':
                 return (new PostStatusIcon())->format(
                     new Value($post->ID, $post)
                 );
-            case 'future' :
+            case 'future':
                 return $value->with_value(
                     sprintf(
                         '%s %s: <em>%s</em>',
@@ -41,8 +41,8 @@ class DatePublishFormatted implements Formatter
                     )
                 );
 
-            // Tooltip
-            default :
+                // Tooltip
+            default:
                 return $value->with_value(
                     Helper\Html::create()->tooltip(
                         $date,
