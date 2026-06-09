@@ -5,6 +5,7 @@ module.exports = {
 	scripts : {
 		build : {
 			default : npsUtils.series.nps(
+				'lint_php',
 				'styles.build --style=compressed --no-source-map',
 				'scripts --mode=production',
 				'tailwind.build',
@@ -25,6 +26,7 @@ module.exports = {
 		},
 		//clean_old : npsUtils.rimraf( `${core_path}*/*.map` ),
 		clean : npsUtils.rimraf( `${core_path}*/*.map` ),
+		lint_php: 'composer cs --working-dir=..',
 		tailwind : {
 			build : 'npx tailwindcss -i ./tailwind/ac-utilities.css -o ../assets/css/utilities.css',
 			watch : 'npx tailwindcss -i ./tailwind/ac-utilities.css -o ../assets/css/utilities.css --watch',
