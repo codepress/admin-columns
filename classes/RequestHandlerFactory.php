@@ -8,7 +8,6 @@ use LogicException;
 
 class RequestHandlerFactory
 {
-
     /**
      * @var RequestHandler[]
      */
@@ -42,7 +41,7 @@ class RequestHandlerFactory
 
     public function create(): RequestHandler
     {
-        if ( ! $this->is_request()) {
+        if (! $this->is_request()) {
             throw new LogicException('Invalid request.');
         }
 

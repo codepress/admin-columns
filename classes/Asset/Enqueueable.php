@@ -6,7 +6,6 @@ namespace AC\Asset;
 
 abstract class Enqueueable
 {
-
     protected string $handle;
 
     protected ?Location $location;

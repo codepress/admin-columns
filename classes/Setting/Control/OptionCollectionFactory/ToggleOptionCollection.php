@@ -9,7 +9,6 @@ use AC\Setting\Control\OptionCollectionFactory;
 
 final class ToggleOptionCollection implements OptionCollectionFactory
 {
-
     public const ON = 'on';
     public const OFF = 'off';
 

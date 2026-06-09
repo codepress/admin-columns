@@ -12,7 +12,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class AttachmentFactory extends BaseColumnFactory
 {
-
     private AttachmentDisplay $attachments_factory;
 
     public function __construct(

@@ -10,7 +10,6 @@ use AC\Setting\Control\Input\OptionFactory;
 
 final class IsMultiple extends BaseComponentFactory
 {
-
     private bool $default_multiple;
 
     public function __construct(bool $default_multiple = false)

@@ -12,7 +12,6 @@ use WP_User;
 
 interface ListScreenRepository
 {
-
     public function find(ListScreenId $id): ?ListScreen;
 
     public function exists(ListScreenId $id): bool;

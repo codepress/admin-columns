@@ -9,7 +9,6 @@ use AC\Setting;
 
 class FieldTypeFactoryBuilder
 {
-
     private array $field_types = [];
 
     private array $formatter_configs = [];

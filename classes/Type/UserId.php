@@ -8,7 +8,6 @@ use InvalidArgumentException;
 
 final class UserId
 {
-
     private int $id;
 
     public function __construct(int $id)

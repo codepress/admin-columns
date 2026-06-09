@@ -12,10 +12,12 @@ use AC\Type\TableId;
 use AC\Type\Url;
 use MLACore;
 
-class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC\TableScreen\MetaType, AC\PostType,
+class TableScreen extends AC\TableScreen implements
+    AC\TableScreen\ListTable,
+    AC\TableScreen\MetaType,
+    AC\PostType,
                                                     AC\TableScreen\TotalItems
 {
-
     public function __construct()
     {
         parent::__construct(

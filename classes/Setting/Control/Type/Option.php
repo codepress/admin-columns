@@ -6,7 +6,6 @@ namespace AC\Setting\Control\Type;
 
 final class Option
 {
-
     private string $label;
 
     private string $value;

@@ -8,7 +8,6 @@ use AC\MetaType;
 
 final class QueryMetaFactory
 {
-
     public function create(string $meta_key, MetaType $meta_type): Query
     {
         $query = new Query((string)$meta_type);

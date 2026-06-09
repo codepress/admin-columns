@@ -10,7 +10,6 @@ use AC\Setting\Control\Input\Number;
 
 class NumberOfItems extends BaseComponentFactory implements InputNameAware
 {
-
     public function get_name(): string
     {
         return 'number_of_items';

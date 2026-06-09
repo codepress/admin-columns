@@ -8,14 +8,13 @@ use InvalidArgumentException;
 
 final class TableId
 {
-
     private string $id;
 
     public function __construct(string $id)
     {
         $this->id = $id;
 
-        if ( ! self::validate($id)) {
+        if (! self::validate($id)) {
             throw new InvalidArgumentException('The id cannot be empty.');
         }
     }

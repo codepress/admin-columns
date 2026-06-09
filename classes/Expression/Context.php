@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 final class Context
 {
-
     private array $data;
 
     public function __construct(array $data)

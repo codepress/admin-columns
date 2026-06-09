@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class Bitrate implements Formatter
 {
-
     public function format(Value $value): Value
     {
         return $value->get_value() > 1000

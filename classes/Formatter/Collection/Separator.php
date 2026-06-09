@@ -12,7 +12,6 @@ use AC\Type\ValueCollection;
 
 class Separator implements CollectionFormatter
 {
-
     private string $separator;
 
     private int $limit;

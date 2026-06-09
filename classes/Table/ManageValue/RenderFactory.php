@@ -9,7 +9,6 @@ use AC\Type\ColumnId;
 
 interface RenderFactory
 {
-
     public function create(ColumnId $columnId): ?Formatter;
 
 }

@@ -6,7 +6,6 @@ namespace AC\ApplyFilter;
 
 class ValidAudioMimetypes
 {
-
     public function apply_filters(): array
     {
         return (array)apply_filters(

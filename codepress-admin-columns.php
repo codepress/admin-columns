@@ -35,11 +35,11 @@ use AC\DI\Container;
 use AC\Loader;
 use AC\Vendor\DI\ContainerBuilder;
 
-if ( ! defined('ABSPATH')) {
+if (! defined('ABSPATH')) {
     exit;
 }
 
-if ( ! is_admin()) {
+if (! is_admin()) {
     return;
 }
 
@@ -52,7 +52,7 @@ add_action('after_setup_theme', static function () {
     require __DIR__ . '/vendor/autoload.php';
     require __DIR__ . '/api.php';
 
-    if ( ! defined('ACP_VERSION')) {
+    if (! defined('ACP_VERSION')) {
         $container = new Container(
             (new ContainerBuilder())
                 ->addDefinitions(require __DIR__ . '/settings/container-definitions.php')

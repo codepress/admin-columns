@@ -13,7 +13,6 @@ use AC\View\Embed\Video;
 
 class MediaPreview implements ExtendedValue
 {
-
     private const NAME = 'media-preview';
 
     public function get_link($id, string $label): ExtendedValueLink

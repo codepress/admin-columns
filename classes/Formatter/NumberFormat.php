@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class NumberFormat implements Formatter
 {
-
     private int $number_decimals;
 
     private string $decimal_separator;
@@ -26,7 +25,7 @@ class NumberFormat implements Formatter
 
     public function format(Value $value): Value
     {
-        if ( ! is_numeric($value->get_value())) {
+        if (! is_numeric($value->get_value())) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

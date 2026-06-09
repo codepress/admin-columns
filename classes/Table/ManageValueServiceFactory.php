@@ -14,7 +14,6 @@ use AC\TableScreen;
  */
 interface ManageValueServiceFactory
 {
-
     public function create(TableScreen $table_screen, ListScreen $list_screen): ?Registerable;
 
 }

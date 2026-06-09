@@ -9,7 +9,6 @@ use Iterator;
 
 final class ListScreenCollection implements Iterator, Countable
 {
-
     /**
      * @var ListScreen[]
      */

@@ -9,7 +9,6 @@ use AC\Setting\Control\Input;
 
 class Message extends BaseComponentFactory
 {
-
     private string $label;
 
     private string $message;

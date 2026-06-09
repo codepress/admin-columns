@@ -12,7 +12,6 @@ use AC\Setting\Config;
 
 class ShortcodesFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Shortcodes', 'codepress-admin-columns');

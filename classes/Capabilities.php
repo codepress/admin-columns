@@ -8,7 +8,6 @@ use WP_Roles;
 
 abstract class Capabilities implements Registerable
 {
-
     // backwards compat
     public const MANAGE = 'manage_admin_columns';
 

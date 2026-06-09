@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class AlternateTextFactory extends BaseColumnFactory
 {
-
     protected function get_group(): ?string
     {
         return 'media-image';

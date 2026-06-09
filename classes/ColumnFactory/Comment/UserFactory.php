@@ -15,7 +15,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class UserFactory extends BaseColumnFactory
 {
-
     private UserProperty $user_property;
 
     private UserLink $user_link;

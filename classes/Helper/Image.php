@@ -9,7 +9,6 @@ use DOMElement;
 
 class Image extends Creatable
 {
-
     public function resize(string $file, int $max_w, int $max_h, bool $crop = false): ?string
     {
         $editor = wp_get_image_editor($file);
@@ -38,7 +37,7 @@ class Image extends Creatable
 
     public function get_image_by_id(int $id, $size): ?string
     {
-        if ( ! wp_get_attachment_url($id)) {
+        if (! wp_get_attachment_url($id)) {
             return null;
         }
 
@@ -143,7 +142,7 @@ class Image extends Creatable
 
         if (is_file($image_path)) {
             // try to resize image if it is not already resized
-            if ( ! $this->is_resized_image($image_path)) {
+            if (! $this->is_resized_image($image_path)) {
                 $resized = $this->resize(
                     $image_path,
                     $width,
@@ -167,7 +166,7 @@ class Image extends Creatable
 
     public function get_image(string $image_id_or_url, $size = 'thumbnail'): ?string
     {
-        if ( ! $image_id_or_url) {
+        if (! $image_id_or_url) {
             return null;
         }
 
@@ -200,7 +199,7 @@ class Image extends Creatable
     {
         $file = get_post_meta($attachment_id, '_wp_attached_file', true);
 
-        if ( ! $file) {
+        if (! $file) {
             return null;
         }
 
@@ -274,7 +273,7 @@ class Image extends Creatable
     {
         $path = $this->get_local_image_path($url);
 
-        if ( ! $path) {
+        if (! $path) {
             return null;
         }
 
@@ -286,7 +285,7 @@ class Image extends Creatable
         $url = set_url_scheme($url, wp_parse_url(WP_CONTENT_URL, PHP_URL_SCHEME));
         $path = str_replace(WP_CONTENT_URL, WP_CONTENT_DIR, $url);
 
-        if ( ! file_exists($path)) {
+        if (! file_exists($path)) {
             return null;
         }
 
@@ -304,7 +303,7 @@ class Image extends Creatable
 
     public function get_image_urls_from_string(string $string): array
     {
-        if ( ! $string) {
+        if (! $string) {
             return [];
         }
 
@@ -312,7 +311,7 @@ class Image extends Creatable
             return [];
         }
 
-        if ( ! class_exists('DOMDocument')) {
+        if (! class_exists('DOMDocument')) {
             return [];
         }
 
@@ -331,7 +330,7 @@ class Image extends Creatable
             /** @var DOMElement $img */
             $src = $img->getAttribute('src');
 
-            if ( ! $src) {
+            if (! $src) {
                 continue;
             }
 

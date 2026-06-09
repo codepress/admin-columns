@@ -14,7 +14,6 @@ use AC\View;
 
 class ColumnSize
 {
-
     private ListStorage $list_storage;
 
     private UserStorage $user_storage;
@@ -74,7 +73,7 @@ class ColumnSize
 
     private function format_width(?ColumnWidth $width): ?string
     {
-        if ( ! $width) {
+        if (! $width) {
             return null;
         }
 

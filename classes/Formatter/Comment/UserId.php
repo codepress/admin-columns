@@ -10,13 +10,12 @@ use AC\Type\Value;
 
 class UserId implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $comment = get_comment($value->get_id());
         $user_id = $comment->user_id ?? null;
 
-        if ( ! $user_id) {
+        if (! $user_id) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

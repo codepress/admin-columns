@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class DownloadFactory extends BaseColumnFactory
 {
-
     public function get_column_type(): string
     {
         return 'column-download';

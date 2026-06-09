@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 final class Wrapper implements Formatter
 {
-
     private string $preprend;
 
     private string $append;

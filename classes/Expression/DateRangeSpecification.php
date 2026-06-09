@@ -9,7 +9,6 @@ use DateTimeZone;
 
 class DateRangeSpecification extends RangeSpecification implements TypeSpecification, DateSpecification
 {
-
     use DateTrait;
     use TypeTrait;
 

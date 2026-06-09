@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class Roles implements AC\Formatter
 {
-
     private bool $allow_non_editable_roles;
 
     public function __construct(bool $allow_non_editable_roles)
@@ -23,7 +22,7 @@ class Roles implements AC\Formatter
     {
         $user = get_userdata($value->get_id());
 
-        if ( ! $user) {
+        if (! $user) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
@@ -32,7 +31,7 @@ class Roles implements AC\Formatter
         foreach ($user->roles as $role_name) {
             $role_object = $this->get_allowed_role($role_name);
 
-            if ( ! $role_object) {
+            if (! $role_object) {
                 continue;
             }
 

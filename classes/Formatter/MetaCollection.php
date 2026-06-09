@@ -12,7 +12,6 @@ use AC\Type\ValueCollection;
 
 class MetaCollection implements Formatter
 {
-
     private MetaType $meta_type;
 
     private string $meta_key;
@@ -27,13 +26,13 @@ class MetaCollection implements Formatter
     {
         $id = $value->get_id();
 
-        if ( ! $this->meta_key) {
+        if (! $this->meta_key) {
             throw ValueNotFoundException::from_id($id);
         }
 
         $values = get_metadata((string)$this->meta_type, (int)$id, $this->meta_key);
 
-        if ( ! $values || ! is_array($values)) {
+        if (! $values || ! is_array($values)) {
             throw ValueNotFoundException::from_id($id);
         }
 

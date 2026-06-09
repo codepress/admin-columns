@@ -12,7 +12,6 @@ use ReturnTypeWillChange;
 
 final class TableScreenCollection implements Iterator, Countable, ArrayAccess
 {
-
     /**
      * @var TableScreen[]
      */

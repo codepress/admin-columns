@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 final class WordCount implements Formatter
 {
-
     public function format(Value $value): Value
     {
         return $value->with_value(

@@ -10,7 +10,6 @@ use WP_Query;
 
 final class Media extends TableRows
 {
-
     public function register(): void
     {
         add_action('pre_get_posts', [$this, 'pre_handle_request']);
@@ -18,7 +17,7 @@ final class Media extends TableRows
 
     public function pre_handle_request(WP_Query $query): void
     {
-        if ( ! $query->is_main_query()) {
+        if (! $query->is_main_query()) {
             return;
         }
 

@@ -8,7 +8,6 @@ use AC\View;
 
 class Video extends View
 {
-
     public function __construct(array $attributes = [])
     {
         parent::__construct();

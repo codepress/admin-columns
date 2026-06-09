@@ -24,7 +24,6 @@ use DateTime;
 
 class Database extends Base implements ListScreenRepositoryWritable
 {
-
     private const TABLE = 'admin_columns';
 
     private TableScreenFactory $table_screen_factory;
@@ -62,7 +61,7 @@ class Database extends Base implements ListScreenRepositoryWritable
 
         $row = $wpdb->get_row($sql);
 
-        if ( ! $row) {
+        if (! $row) {
             return null;
         }
 
@@ -203,7 +202,7 @@ class Database extends Base implements ListScreenRepositoryWritable
     {
         $table_id = new TableId($data->list_key);
 
-        if ( ! $this->table_screen_factory->can_create($table_id)) {
+        if (! $this->table_screen_factory->can_create($table_id)) {
             return null;
         }
 

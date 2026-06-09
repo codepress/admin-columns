@@ -8,7 +8,6 @@ use LogicException;
 
 final class MetaType
 {
-
     public const POST = 'post';
     public const USER = 'user';
     public const COMMENT = 'comment';
@@ -62,7 +61,7 @@ final class MetaType
             self::SITE,
         ];
 
-        if ( ! in_array($this->meta_type, $types)) {
+        if (! in_array($this->meta_type, $types)) {
             throw new LogicException('Invalid meta type ' . $this->meta_type);
         }
     }

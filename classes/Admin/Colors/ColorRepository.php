@@ -10,7 +10,6 @@ use AC\Admin\Colors\Type\Color;
 
 final class ColorRepository implements ColorReader
 {
-
     private AC\Storage\Option $storage;
 
     private ?ColorCollection $colors = null;

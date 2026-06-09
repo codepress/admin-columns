@@ -16,7 +16,6 @@ use AC\Type\TableScreenContext;
 
 class PostExtendedProperty extends PostProperty
 {
-
     public const PROPERTY_CUSTOM_FIELD = 'custom_field';
 
     private FieldComponentDirectorFactory $field_type;

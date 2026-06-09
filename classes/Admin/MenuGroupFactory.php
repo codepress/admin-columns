@@ -9,7 +9,6 @@ use AC\TableScreen;
 
 interface MenuGroupFactory
 {
-
     public function create(TableScreen $table_screen): ?MenuGroup;
 
 }

@@ -6,7 +6,6 @@ namespace AC\Type;
 
 class UserRole
 {
-
     private string $name;
 
     private string $label;

@@ -9,7 +9,6 @@ namespace AC\Storage;
  */
 class UserOption implements UserData
 {
-
     private string $key;
 
     private int $user_id;

@@ -9,7 +9,6 @@ use ACF_Location;
 
 class Post implements FieldGroup\Query
 {
-
     private string $post_type;
 
     public function __construct(string $post_type)
@@ -50,18 +49,18 @@ class Post implements FieldGroup\Query
             'user_type',
         ];
 
-        if ( ! function_exists('acf_get_store')) {
+        if (! function_exists('acf_get_store')) {
             return $params;
         }
 
         $store = acf_get_store('location-types');
 
-        if ( ! $store) {
+        if (! $store) {
             return $params;
         }
 
         foreach ($store->get_data() as $location_rule) {
-            if ( ! $location_rule instanceof ACF_Location) {
+            if (! $location_rule instanceof ACF_Location) {
                 continue;
             }
 

@@ -9,7 +9,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 // TODO Should this be part of a field type setting?
 class CountConfigurator implements FieldTypeConfigurator
 {
-
     public const TYPE = 'count';
 
     public function configure(FieldTypeFactoryBuilder $builder): void

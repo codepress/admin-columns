@@ -9,7 +9,6 @@ namespace AC\ThirdParty;
  */
 class WPMLColumn
 {
-
     public const COLUMN_NAME = 'icl_translations';
 
     private ?string $column = null;

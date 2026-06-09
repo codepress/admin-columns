@@ -8,7 +8,6 @@ use InvalidArgumentException;
 
 final class Rules
 {
-
     public const MATCH_ALL = 'all';
     public const MATCH_ANY = 'any';
 
@@ -30,7 +29,7 @@ final class Rules
     {
         $match_decisions = [self::MATCH_ANY, self::MATCH_ALL];
 
-        if ( ! in_array($this->match_decision, $match_decisions, true)) {
+        if (! in_array($this->match_decision, $match_decisions, true)) {
             throw new InvalidArgumentException('Invalid match decision.');
         }
     }

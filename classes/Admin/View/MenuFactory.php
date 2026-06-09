@@ -9,7 +9,6 @@ use AC\AdminColumns;
 
 final class MenuFactory
 {
-
     private AdminColumns $plugin;
 
     public function __construct(AdminColumns $plugin)

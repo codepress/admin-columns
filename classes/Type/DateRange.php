@@ -8,7 +8,6 @@ use DateTime;
 
 class DateRange
 {
-
     private DateTime $start;
 
     private DateTime $end;

@@ -6,7 +6,6 @@ namespace AC\Type;
 
 final class Group
 {
-
     private string $slug;
 
     private string $label;

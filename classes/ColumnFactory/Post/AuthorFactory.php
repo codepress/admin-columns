@@ -17,7 +17,6 @@ use AC\Type\PostTypeSlug;
 
 class AuthorFactory extends BaseColumnFactory
 {
-
     private UserProperty $user_factory;
 
     private BeforeAfter $before_after_factory;

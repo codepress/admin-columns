@@ -8,7 +8,6 @@ use AC\ListScreenRepository\Rules;
 
 interface ListScreenRepositoryFactory
 {
-
     public function create(
         string $path,
         bool $writable,

@@ -20,7 +20,6 @@ use AC\Type\TableScreenContext;
 
 class CustomFieldFactory extends BaseColumnFactory
 {
-
     private ComponentFactory\CustomFieldFactory $custom_field_factory;
 
     private FieldType $field_type;
@@ -65,7 +64,7 @@ class CustomFieldFactory extends BaseColumnFactory
             $this->field_type->create($config),
         ];
 
-        if ( ! empty($items)) {
+        if (! empty($items)) {
             $components[] = (new ColumnInfo($items))->create($config);
         }
 
@@ -119,7 +118,8 @@ class CustomFieldFactory extends BaseColumnFactory
             return $formatters->prepend(
                 Aggregate::from_array([
                     new AC\Formatter\MetaCollection(
-                        $this->table_context->get_meta_type(), $config->get('field', '')
+                        $this->table_context->get_meta_type(),
+                        $config->get('field', '')
                     ),
                     new AC\Formatter\Count(),
                 ])

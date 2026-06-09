@@ -11,18 +11,17 @@ use AC\Type\Value;
 
 class ImageUrl implements Formatter
 {
-
     public function format(Value $value)
     {
         $data = $value->get_value();
 
-        if ( ! $data) {
+        if (! $data) {
             throw new ValueNotFoundException('No image data found.');
         }
 
         $url = $this->convert_to_url($data);
 
-        if ( ! $url) {
+        if (! $url) {
             throw new ValueNotFoundException('No image URL found.');
         }
 

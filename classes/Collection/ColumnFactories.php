@@ -9,7 +9,6 @@ use AC\Column\ColumnFactory;
 
 class ColumnFactories extends Collection
 {
-
     public function __construct(array $factories = [])
     {
         array_map([$this, 'add'], $factories);

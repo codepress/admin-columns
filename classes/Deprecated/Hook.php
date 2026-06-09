@@ -9,7 +9,6 @@ use ReflectionFunction;
 
 class Hook
 {
-
     private string $name;
 
     private string $version;
@@ -108,7 +107,7 @@ class Hook
             }
         }
 
-        if ( ! $messages) {
+        if (! $messages) {
             return null;
         }
 

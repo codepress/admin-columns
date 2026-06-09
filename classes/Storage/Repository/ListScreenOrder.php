@@ -9,7 +9,6 @@ use AC\Type\TableId;
 
 class ListScreenOrder
 {
-
     private const KEY = 'ac_list_screens_order';
 
     public function get(TableId $key): array

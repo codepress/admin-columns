@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class AuthorAvatarFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Avatar', 'codepress-admin-columns');

@@ -12,7 +12,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class DateConfigurator implements FieldTypeConfigurator
 {
-
     public const TYPE = 'date';
 
     protected ComponentFactory\DateFormat\Date $date_format;

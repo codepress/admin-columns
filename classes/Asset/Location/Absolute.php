@@ -8,7 +8,6 @@ use AC\Asset\Location;
 
 final class Absolute implements Location
 {
-
     private string $url;
 
     private string $path;

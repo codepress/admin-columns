@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class ToggleValue implements Formatter
 {
-
     private ToggleOptions $options;
 
     private ?Formatter $formatter;
@@ -21,7 +20,7 @@ class ToggleValue implements Formatter
         $this->options = $options;
         $this->formatter = $formatter;
 
-        if( ! $formatter ) {
+        if (! $formatter) {
             $this->formatter = new YesNoIcon();
         }
     }
@@ -31,7 +30,7 @@ class ToggleValue implements Formatter
         $true_value = $value->get_value() === $this->options->get_enabled()->get_value();
         $false_value = $value->get_value() === $this->options->get_disabled()->get_value();
 
-        if( ! $true_value && ! $false_value ) {
+        if (! $true_value && ! $false_value) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

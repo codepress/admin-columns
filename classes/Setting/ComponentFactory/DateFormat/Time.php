@@ -9,7 +9,6 @@ use AC\Setting\Control\OptionCollection;
 
 class Time extends ComponentFactory\DateFormat
 {
-
     protected function get_default_option(): string
     {
         return 'wp_default';

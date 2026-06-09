@@ -10,10 +10,9 @@ use AC\Type\Value;
 
 class ValidMimeType implements Formatter
 {
-
     public function format(Value $value): Value
     {
-        if ( ! $this->is_valid_mime_type($value->get_id())) {
+        if (! $this->is_valid_mime_type($value->get_id())) {
             return new Value(null);
         }
 

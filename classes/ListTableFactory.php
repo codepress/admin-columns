@@ -14,7 +14,6 @@ use AC\ListTable\User;
 
 class ListTableFactory
 {
-
     public static function create_post(string $screen_id): Post
     {
         return new Post(WpListTableFactory::create_post_table($screen_id));

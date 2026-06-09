@@ -12,7 +12,6 @@ use AC\Type\ColumnId;
 
 class Base implements Column
 {
-
     protected string $type;
 
     protected string $label;

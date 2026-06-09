@@ -24,20 +24,20 @@ use AC\Type\Url;
  * @method AC()
  */
 
-if ( ! function_exists('ac_get_list_screen')) {
+if (! function_exists('ac_get_list_screen')) {
     /**
      * Return the list table configuration, such as its ID, columns, and settings.
      * For usage @see https://docs.admincolumns.com/article/57-code-snippets
      */
     function ac_get_list_screen(string $id): ?ListScreen
     {
-        if ( ! did_action('wp_loaded')) {
+        if (! did_action('wp_loaded')) {
             throw HookTimingException::called_too_early('wp_loaded');
         }
 
         $storage = Registry::get(Storage::class);
 
-        if ( ! $storage instanceof Storage) {
+        if (! $storage instanceof Storage) {
             return null;
         }
 
@@ -49,20 +49,20 @@ if ( ! function_exists('ac_get_list_screen')) {
     }
 }
 
-if ( ! function_exists('ac_get_list_screens')) {
+if (! function_exists('ac_get_list_screens')) {
     /**
      * Returns a collection of all list table configurations for a specific table.
      * For usage @see https://docs.admincolumns.com/article/57-code-snippets
      */
     function ac_get_list_screens(string $table_id): ListScreenCollection
     {
-        if ( ! did_action('wp_loaded')) {
+        if (! did_action('wp_loaded')) {
             throw HookTimingException::called_too_early('wp_loaded');
         }
 
         $storage = Registry::get(Storage::class);
 
-        if ( ! $storage instanceof Storage) {
+        if (! $storage instanceof Storage) {
             return new ListScreenCollection();
         }
 
@@ -74,20 +74,20 @@ if ( ! function_exists('ac_get_list_screens')) {
     }
 }
 
-if ( ! function_exists('ac_get_column')) {
+if (! function_exists('ac_get_column')) {
     /**
      * Returns a single column by its name and list screen ID.
      * For usage @see https://docs.admincolumns.com/article/57-code-snippets
      */
     function ac_get_column(string $column_name, string $list_screen_id): ?Column
     {
-        if ( ! did_action('wp_loaded')) {
+        if (! did_action('wp_loaded')) {
             throw HookTimingException::called_too_early('wp_loaded');
         }
 
         $storage = Registry::get(Storage::class);
 
-        if ( ! $storage instanceof Storage) {
+        if (! $storage instanceof Storage) {
             return null;
         }
 
@@ -97,7 +97,7 @@ if ( ! function_exists('ac_get_column')) {
             return null;
         }
 
-        if ( ! $list_screen) {
+        if (! $list_screen) {
             return null;
         }
 
@@ -109,7 +109,7 @@ if ( ! function_exists('ac_get_column')) {
     }
 }
 
-if ( ! function_exists('ac_get_columns')) {
+if (! function_exists('ac_get_columns')) {
     /**
      * Returns all columns for a specific list table.
      * For usage @see https://docs.admincolumns.com/article/57-code-snippets
@@ -117,13 +117,13 @@ if ( ! function_exists('ac_get_columns')) {
      */
     function ac_get_columns(string $list_screen_id): array
     {
-        if ( ! did_action('wp_loaded')) {
+        if (! did_action('wp_loaded')) {
             throw HookTimingException::called_too_early('wp_loaded');
         }
 
         $storage = Registry::get(Storage::class);
 
-        if ( ! $storage instanceof Storage) {
+        if (! $storage instanceof Storage) {
             return [];
         }
 
@@ -133,7 +133,7 @@ if ( ! function_exists('ac_get_columns')) {
             return [];
         }
 
-        if ( ! $list_screen) {
+        if (! $list_screen) {
             return [];
         }
 
@@ -141,7 +141,7 @@ if ( ! function_exists('ac_get_columns')) {
     }
 }
 
-if ( ! function_exists('AC')) {
+if (! function_exists('AC')) {
     /**
      * returns thw AC\AdminColumn object. Contains the plugin version and directory path.
      */
@@ -157,7 +157,7 @@ if ( ! function_exists('AC')) {
     }
 }
 
-if ( ! function_exists('ac_is_pro_active')) {
+if (! function_exists('ac_is_pro_active')) {
     function ac_is_pro_active(): bool
     {
         return defined('ACP_VERSION');
@@ -215,14 +215,14 @@ function ac_get_url(string $relative_file_path): string
     return '';
 }
 
-if ( ! function_exists('ac_load_columns')) {
+if (! function_exists('ac_load_columns')) {
     function ac_load_columns(): void
     {
         _deprecated_function(__METHOD__, '4.1');
     }
 }
 
-if ( ! function_exists('ac_helper')) {
+if (! function_exists('ac_helper')) {
     /**
      * @deprecated 7.0.10 Use Helper\X::create() instead.
      */
@@ -234,7 +234,7 @@ if ( ! function_exists('ac_helper')) {
     }
 }
 
-if ( ! function_exists('ac_format_date')) {
+if (! function_exists('ac_format_date')) {
     function ac_format_date(string $format, ?int $timestamp = null, ?DateTimeZone $timezone = null): ?string
     {
         _deprecated_function(__METHOD__, '7.0.10', 'wp_date()');
@@ -242,25 +242,3 @@ if ( ! function_exists('ac_format_date')) {
         return wp_date($format, $timestamp, $timezone ?? new DateTimeZone('UTC')) ?: null;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

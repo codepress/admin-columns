@@ -17,7 +17,6 @@ use AC\Type\Url\UtmTags;
 
 class JsonListScreenSettingsFactory
 {
-
     private EncoderFactory $encoder_factory;
 
     private AC\ColumnTypeRepository $type_repository;
@@ -49,8 +48,8 @@ class JsonListScreenSettingsFactory
         $context = $this->banner_context_resolver->resolve($table_screen);
 
         return (new Json())->set_parameters([
-            'read_only'       => $list_screen->is_read_only(),
-            'table_url'       => $is_template
+            'read_only' => $list_screen->is_read_only(),
+            'table_url' => $is_template
                 ? (string)new Preview($list_screen->get_table_url(), 'columns')
                 : (string)$list_screen->get_table_url(),
             'settings'        => $encoder->encode(),
@@ -62,7 +61,7 @@ class JsonListScreenSettingsFactory
                 'singular' => $table_screen->get_labels()->get_singular(),
                 'plural'   => $table_screen->get_labels()->get_plural(),
             ],
-            'pro_banner'      => $context
+            'pro_banner' => $context
                 ? $context->get_arguments($table_screen)
                 : $this->get_default_banner_arguments($table_screen),
         ]);
@@ -159,11 +158,11 @@ class JsonListScreenSettingsFactory
         $singular_lower = Mbstring::strtolower($singular);
 
         return [
-            'title'             => sprintf(
+            'title' => sprintf(
                 __('Manage your %s faster', 'codepress-admin-columns'),
                 $plural_lower
             ),
-            'description'       => sprintf(
+            'description' => sprintf(
                 __('Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s.', 'codepress-admin-columns'),
                 $plural_lower,
                 $singular_lower
@@ -178,7 +177,7 @@ class JsonListScreenSettingsFactory
                 ),
                 __('all features included', 'codepress-admin-columns')
             ),
-            'features'          => [
+            'features' => [
                 [
                     'url'   => $upgrade_url->with_content('usp-editing')->get_url(),
                     'label' => __('Inline edit directly in the table', 'codepress-admin-columns'),
@@ -203,7 +202,7 @@ class JsonListScreenSettingsFactory
                     'label' => __('Multiple views per screen', 'codepress-admin-columns'),
                 ],
             ],
-            'promo_url'         => $upgrade_url->get_url(),
+            'promo_url' => $upgrade_url->get_url(),
         ];
     }
 

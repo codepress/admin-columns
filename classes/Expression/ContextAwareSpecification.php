@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 final class ContextAwareSpecification extends CompositeSpecification
 {
-
     private string $context;
 
     public function __construct(
@@ -20,7 +19,7 @@ final class ContextAwareSpecification extends CompositeSpecification
 
     public function is_satisfied_by($value): bool
     {
-        if ( ! $value instanceof Context || ! $value->has($this->context)) {
+        if (! $value instanceof Context || ! $value->has($this->context)) {
             return false;
         }
 

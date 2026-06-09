@@ -8,7 +8,6 @@ use AC\Expression\Exception\OperatorNotFoundException;
 
 class RangeSpecification extends OperatorExpression
 {
-
     public const A = 'a';
     public const B = 'b';
 

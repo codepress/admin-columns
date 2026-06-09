@@ -9,7 +9,6 @@ use AC\Preferences\UserFactory;
 
 class ScreenOptions
 {
-
     public function storage(): Preference
     {
         return (new UserFactory())->create(UserFactory::SCREEN_OPTIONS);

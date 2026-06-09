@@ -10,7 +10,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class HasContentConfigurator implements FieldTypeConfigurator
 {
-
     private const TYPE = 'has_content';
 
     public function configure(FieldTypeFactoryBuilder $builder): void

@@ -10,10 +10,9 @@ use AC\Type\Url\UtmTags;
 
 class GravityFormsNotice implements IntegrationNotice
 {
-
     public function is_active(Screen $screen): bool
     {
-        if ( ! class_exists('GFCommon', false)) {
+        if (! class_exists('GFCommon', false)) {
             return false;
         }
 

@@ -13,7 +13,6 @@ use AC\Setting\Config;
 
 class DateGmtFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Date GMT', 'codepress-admin-columns');

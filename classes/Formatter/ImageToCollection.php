@@ -21,12 +21,11 @@ use AC\Type\ValueCollection;
  */
 class ImageToCollection implements Formatter
 {
-
     public function format(Value $value): ValueCollection
     {
         $source = $value->get_value();
 
-        if ( ! $source) {
+        if (! $source) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
@@ -34,7 +33,7 @@ class ImageToCollection implements Formatter
             $source = $this->parse_string($source);
         }
 
-        if ( ! is_array($source)) {
+        if (! is_array($source)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

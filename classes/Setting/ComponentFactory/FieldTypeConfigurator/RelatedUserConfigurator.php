@@ -11,7 +11,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class RelatedUserConfigurator implements FieldTypeConfigurator
 {
-
     private const TYPE = 'user_by_id';
 
     private Setting\ComponentFactory\UserProperty $user_property;
@@ -23,7 +22,7 @@ class RelatedUserConfigurator implements FieldTypeConfigurator
         Setting\ComponentFactory\UserLink $user_link
     ) {
         $this->user_property = $user_property;
-        $this->user_link     = $user_link;
+        $this->user_link = $user_link;
     }
 
     public function configure(FieldTypeFactoryBuilder $builder): void

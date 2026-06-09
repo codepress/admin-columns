@@ -9,12 +9,11 @@ use AC\Type\Value;
 
 class BeforeMoreContent implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $post = get_post((int)$value->get_id());
 
-        if ( ! $post) {
+        if (! $post) {
             return new Value(null);
         }
 
@@ -22,7 +21,7 @@ class BeforeMoreContent implements Formatter
 
         $extended = get_extended($post->post_content);
 
-        if ( ! empty($extended['extended'])) {
+        if (! empty($extended['extended'])) {
             $content = $extended['main'];
         }
 

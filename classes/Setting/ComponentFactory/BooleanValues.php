@@ -12,7 +12,6 @@ use AC\Setting\Control\Input;
 
 final class BooleanValues extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Boolean Values', 'codepress-admin-columns');
@@ -40,7 +39,8 @@ final class BooleanValues extends BaseComponentFactory
                         $config->get('boolean_value_on', '1')
                     )
                 ),
-            ]), true
+            ]),
+            true
         );
     }
 

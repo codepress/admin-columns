@@ -15,7 +15,6 @@ use AC\TableScreen;
 
 class EncodedData implements ColumnRepository
 {
-
     private ColumnFactories $factories;
 
     private ConfigCollection $configs;

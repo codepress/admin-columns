@@ -6,7 +6,6 @@ namespace AC\Admin;
 
 interface Helpable
 {
-
     /**
      * @return HelpTab[]
      */

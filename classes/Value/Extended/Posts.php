@@ -13,7 +13,6 @@ use DateTimeZone;
 
 class Posts implements ExtendedValue
 {
-
     public function can_render(string $view): bool
     {
         return $view === 'posts';

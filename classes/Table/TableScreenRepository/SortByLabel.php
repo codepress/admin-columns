@@ -9,7 +9,6 @@ use AC\TableScreen;
 
 class SortByLabel implements Sort
 {
-
     public function sort(TableScreenCollection $collection): TableScreenCollection
     {
         $screens = iterator_to_array($collection);

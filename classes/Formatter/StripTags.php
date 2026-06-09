@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class StripTags implements Formatter
 {
-
     public function format(Value $value): Value
     {
         if ('' === (string)$value) {

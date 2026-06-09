@@ -10,7 +10,6 @@ use DateTime;
 
 final class DateFormat extends DateObject
 {
-
     private string $output_format;
 
     public function __construct(string $output_format, string $source_format)
@@ -24,7 +23,7 @@ final class DateFormat extends DateObject
     {
         $date = parent::format($value)->get_value();
 
-        if ( ! $date instanceof DateTime) {
+        if (! $date instanceof DateTime) {
             throw new ValueNotFoundException('Invalid date object');
         }
 

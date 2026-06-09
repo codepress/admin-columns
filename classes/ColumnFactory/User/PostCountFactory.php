@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class PostCountFactory extends BaseColumnFactory
 {
-
     private ComponentFactory\PostTypeFactory $post_type_factory;
 
     private ComponentFactory\PostStatus $post_status;

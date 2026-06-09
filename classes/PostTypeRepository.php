@@ -8,7 +8,6 @@ use AC\Exception\HookTimingException;
 
 class PostTypeRepository
 {
-
     public function exists(string $post_type): bool
     {
         static $post_types;
@@ -22,7 +21,7 @@ class PostTypeRepository
 
     public function find_all(): array
     {
-        if ( ! did_action('init')) {
+        if (! did_action('init')) {
             throw HookTimingException::called_too_early('init');
         }
 

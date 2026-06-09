@@ -9,7 +9,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class OriginalFactory extends BaseColumnFactory
 {
-
     private string $type;
 
     private string $label;

@@ -9,7 +9,6 @@ use AC\Expression\Specification;
 
 final class ConditionalComponentFactoryCollection extends Collection
 {
-
     public function add(ComponentFactory $factory, ?Specification $conditions = null): self
     {
         $this->data[] = new ConditionalComponentFactory($factory, $conditions);

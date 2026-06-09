@@ -9,12 +9,11 @@ use AC\Type\Value;
 
 class DottedPassword implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $raw_value = $value->get_value();
 
-        if ( ! $raw_value || ! is_string($raw_value)) {
+        if (! $raw_value || ! is_string($raw_value)) {
             return $value;
         }
 

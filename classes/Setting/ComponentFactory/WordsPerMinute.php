@@ -15,7 +15,6 @@ use AC\Setting\Control\Input\Number;
 
 final class WordsPerMinute implements ComponentFactory
 {
-
     private const WORDS_PER_MINUTE = 'words_per_minute';
 
     public function create(Config $config, ?Specification $conditions = null): Component
@@ -39,7 +38,6 @@ final class WordsPerMinute implements ComponentFactory
                 new ReadingTime($words_per_minute),
                 new HumanReadableTime(),
             ])
-
         );
     }
 

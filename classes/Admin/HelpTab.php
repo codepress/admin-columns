@@ -6,7 +6,6 @@ namespace AC\Admin;
 
 abstract class HelpTab
 {
-
     private string $id;
 
     private string $title;

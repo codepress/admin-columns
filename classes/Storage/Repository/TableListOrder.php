@@ -10,7 +10,6 @@ use AC\Type\TableId;
 
 class TableListOrder
 {
-
     private Preference $storage;
 
     public function __construct(?int $user_id = null)

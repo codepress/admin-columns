@@ -11,14 +11,13 @@ use AC\Type\Value;
 
 class Shortcodes implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $shortcodes = Helper\Strings::create()->get_shortcodes(
             (string)$value
         );
 
-        if ( ! $shortcodes) {
+        if (! $shortcodes) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

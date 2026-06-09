@@ -6,10 +6,9 @@ namespace AC\Helper;
 
 class Media extends Creatable
 {
-
     public function get_attachment_id_by_url(string $image_url, bool $check_cropped_versions = false): ?int
     {
-        if ( ! $image_url) {
+        if (! $image_url) {
             return null;
         }
 
@@ -25,9 +24,9 @@ class Media extends Creatable
         $image_id = null;
 
         $images = get_posts([
-            'post_type'      => 'attachment',
-            'fields'         => 'ids',
-            'meta_query'     => [
+            'post_type'  => 'attachment',
+            'fields'     => 'ids',
+            'meta_query' => [
                 [
                     'key'   => '_wp_attached_file',
                     'value' => $file_with_relative_path,
@@ -41,13 +40,13 @@ class Media extends Creatable
         }
 
         // Maybe it's a cropped version of an image. e.g. file-name-320x60.jpg
-        if ( ! $image_id && $check_cropped_versions) {
+        if (! $image_id && $check_cropped_versions) {
             $relative_upload_dir = dirname($file_with_relative_path);
 
             $image_ids = get_posts([
-                'post_type'      => 'attachment',
-                'fields'         => 'ids',
-                'meta_query'     => [
+                'post_type'  => 'attachment',
+                'fields'     => 'ids',
+                'meta_query' => [
                     [
                         'key'     => '_wp_attachment_metadata',
                         'value'   => serialize(basename($image_url)),

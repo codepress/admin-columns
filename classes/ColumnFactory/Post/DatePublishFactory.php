@@ -15,7 +15,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class DatePublishFactory extends BaseColumnFactory
 {
-
     private Date $date_factory;
 
     public function __construct(DefaultSettingsBuilder $default_settings_builder, Date $date_factory)

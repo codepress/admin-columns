@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class Meta implements Formatter
 {
-
     private MetaType $meta_type;
 
     private string $meta_key;
@@ -27,7 +26,7 @@ class Meta implements Formatter
 
     public function format(Value $value): Value
     {
-        if ( ! $this->meta_key) {
+        if (! $this->meta_key) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

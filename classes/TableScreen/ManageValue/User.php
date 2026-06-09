@@ -12,7 +12,6 @@ use AC\Type\Value;
 
 class User implements ManageValueService
 {
-
     private RenderFactory $factory;
 
     private int $priority;

@@ -10,7 +10,6 @@ use AC\Setting\Control\Input;
 
 class Control
 {
-
     private Input $input;
 
     private ?Specification $conditions;
@@ -40,7 +39,7 @@ class Control
 
     public function get_conditions(): Specification
     {
-        if ( ! $this->has_conditions()) {
+        if (! $this->has_conditions()) {
             return new NullSpecification();
         }
 

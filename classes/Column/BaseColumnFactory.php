@@ -10,7 +10,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 abstract class BaseColumnFactory extends ColumnFactory
 {
-
     use GroupTrait;
 
     private DefaultSettingsBuilder $default_settings_builder;

@@ -6,7 +6,6 @@ namespace AC\Helper;
 
 abstract class Creatable
 {
-
     final public function __construct()
     {
     }

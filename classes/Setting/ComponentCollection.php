@@ -8,7 +8,6 @@ use AC\Collection;
 
 final class ComponentCollection extends Collection
 {
-
     private int $added = 0;
 
     private const ADDED_SEPARATOR = '.';
@@ -63,8 +62,8 @@ final class ComponentCollection extends Collection
     {
         $merged = new ComponentCollection();
 
-        foreach( $this as $component ) {
-            $merged->add($component, $this->current_priority() );
+        foreach ($this as $component) {
+            $merged->add($component, $this->current_priority());
         }
 
         foreach ($collection as $component) {

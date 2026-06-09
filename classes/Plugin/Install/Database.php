@@ -8,7 +8,6 @@ use AC;
 
 final class Database implements AC\Plugin\Install
 {
-
     private AC\Storage\Table $table;
 
     public function __construct(AC\Storage\Table $table)
@@ -18,7 +17,7 @@ final class Database implements AC\Plugin\Install
 
     public function install(): void
     {
-        if ( ! $this->table->exists()) {
+        if (! $this->table->exists()) {
             $this->table->create();
         } else {
             $this->table->update();

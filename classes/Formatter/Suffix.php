@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class Suffix implements Formatter
 {
-
     private string $suffix;
 
     public function __construct(string $suffix)

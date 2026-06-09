@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class IsSticky implements Formatter
 {
-
     public function format(Value $value): Value
     {
         return $value->with_value(in_array($value->get_id(), $this->get_stickies(), true));
@@ -19,7 +18,7 @@ class IsSticky implements Formatter
     {
         $posts = wp_cache_get('ac_sticky_posts');
 
-        if ( ! $posts) {
+        if (! $posts) {
             $posts = get_option('sticky_posts', []);
             wp_cache_set('ac_sticky_posts', $posts);
         }

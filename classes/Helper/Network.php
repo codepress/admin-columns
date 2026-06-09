@@ -8,7 +8,6 @@ use WP_Theme;
 
 class Network extends Creatable
 {
-
     public function get_site_option(int $blog_id, string $option): string
     {
         global $wpdb;

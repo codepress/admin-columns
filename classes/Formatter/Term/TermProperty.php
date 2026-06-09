@@ -11,7 +11,6 @@ use WP_Term;
 
 class TermProperty implements Formatter
 {
-
     private string $field;
 
     public function __construct(string $field)
@@ -23,7 +22,7 @@ class TermProperty implements Formatter
     {
         $term = get_term($value->get_id());
 
-        if ( ! $term instanceof WP_Term) {
+        if (! $term instanceof WP_Term) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

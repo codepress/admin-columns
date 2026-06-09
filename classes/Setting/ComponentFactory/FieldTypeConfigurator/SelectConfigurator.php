@@ -11,7 +11,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class SelectConfigurator implements FieldTypeConfigurator
 {
-
     private const TYPE = 'select';
 
     private Setting\ComponentFactory\SelectOptions $select_options;

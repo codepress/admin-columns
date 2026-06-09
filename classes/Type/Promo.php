@@ -11,7 +11,6 @@ use DateTime;
 
 abstract class Promo
 {
-
     protected string $slug;
 
     protected int $discount;

@@ -17,7 +17,6 @@ use AC\Type\Url\UtmTags;
 
 final class Review implements Registerable
 {
-
     private const SLUG = 'review';
     private const DELAY_DAYS = 30;
 
@@ -40,15 +39,15 @@ final class Review implements Registerable
 
     public function display(Screen $screen): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
-        if ( ! $screen->has_screen()) {
+        if (! $screen->has_screen()) {
             return;
         }
 
-        if ( ! $screen->is_admin_screen()) {
+        if (! $screen->is_admin_screen()) {
             return;
         }
 
@@ -58,11 +57,14 @@ final class Review implements Registerable
 
         $this->state->track_first_seen(self::SLUG);
 
-        if ( ! $this->state->is_delay_met(self::SLUG, self::DELAY_DAYS)) {
+        if (! $this->state->is_delay_met(self::SLUG, self::DELAY_DAYS)) {
             return;
         }
 
-        $script = new Script('ac-notice-review', $this->location->with_suffix('assets/js/message-review.js'), ['jquery']
+        $script = new Script(
+            'ac-notice-review',
+            $this->location->with_suffix('assets/js/message-review.js'),
+            ['jquery']
         );
         $script->enqueue();
 

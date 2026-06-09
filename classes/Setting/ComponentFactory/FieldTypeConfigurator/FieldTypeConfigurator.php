@@ -8,7 +8,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 interface FieldTypeConfigurator
 {
-
     public function configure(FieldTypeFactoryBuilder $builder): void;
 
 }

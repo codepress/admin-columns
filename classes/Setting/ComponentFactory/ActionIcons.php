@@ -12,7 +12,6 @@ use AC\Setting\Control\Input\OptionFactory;
 
 final class ActionIcons extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Use icons?', 'codepress-admin-columns');

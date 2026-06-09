@@ -10,7 +10,6 @@ use WP_Screen;
 
 class Screen implements Registerable
 {
-
     protected ?WP_Screen $screen = null;
 
     private TableScreenFactory $table_screen_factory;
@@ -99,10 +98,10 @@ class Screen implements Registerable
             }
 
             return $this->is_main_admin_screen() && in_array(
-                    filter_input(INPUT_GET, RequestHandlerInterface::PARAM_TAB),
-                    $tabs,
-                    true
-                );
+                filter_input(INPUT_GET, RequestHandlerInterface::PARAM_TAB),
+                $tabs,
+                true
+            );
         }
 
         return $this->is_main_admin_screen();

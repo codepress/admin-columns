@@ -10,7 +10,6 @@ use AC\Setting\Config;
 
 final class ImageSize extends ImageSizeBase
 {
-
     protected function get_size_name(): string
     {
         return 'image_size';

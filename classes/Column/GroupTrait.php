@@ -6,7 +6,6 @@ namespace AC\Column;
 
 trait GroupTrait
 {
-
     protected function get_group(): ?string
     {
         return null;

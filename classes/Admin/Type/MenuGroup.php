@@ -6,7 +6,6 @@ namespace AC\Admin\Type;
 
 class MenuGroup
 {
-
     private string $name;
 
     private string $label;

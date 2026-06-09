@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 interface DateSpecification
 {
-
     public const FORMAT = 'format';
     public const TIMEZONE = 'timezone';
 

@@ -13,7 +13,6 @@ use AC\Type\Url\UtmTags;
 
 class MenuFactory implements MenuFactoryInterface
 {
-
     protected string $url;
 
     protected Location $location;

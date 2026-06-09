@@ -9,7 +9,6 @@ use InvalidArgumentException;
 
 final class OptionFactory
 {
-
     private const PREFIX = '_ac_colors_';
 
     public function create(string $key): Option

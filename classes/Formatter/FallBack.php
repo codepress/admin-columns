@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class FallBack implements AC\Formatter
 {
-
     private string $fallback_value;
 
     public function __construct(string $fallback_value)

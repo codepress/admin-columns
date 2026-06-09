@@ -9,7 +9,6 @@ use AC\Helper\Select\Generic\GroupFormatter;
 
 class BlogSite implements GroupFormatter
 {
-
     public function format(string $value): string
     {
         foreach ($this->get_groups() as $key => $label) {

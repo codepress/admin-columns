@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class FileMetaAudioFactory extends BaseColumnFactory
 {
-
     private FileMetaAudio $audio_meta;
 
     public function __construct(

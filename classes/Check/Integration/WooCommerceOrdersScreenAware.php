@@ -8,7 +8,6 @@ use AC\Screen;
 
 trait WooCommerceOrdersScreenAware
 {
-
     private function is_woocommerce_orders_screen(Screen $screen): bool
     {
         $is_hpos_orders = 'woocommerce_page_wc-orders' === $screen->get_id();

@@ -14,7 +14,6 @@ use AC\Type\ValueCollection;
 
 class TableRender implements Formatter
 {
-
     private TableScreen $table_screen;
 
     private ListScreen $list_screen;

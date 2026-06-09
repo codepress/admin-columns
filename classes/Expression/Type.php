@@ -8,7 +8,6 @@ use DomainException;
 
 final class Type
 {
-
     private string $type;
 
     private function __construct(string $type)
@@ -27,7 +26,7 @@ final class Type
             Types::DATE,
         ];
 
-        if ( ! in_array($this->type, $valid, true)) {
+        if (! in_array($this->type, $valid, true)) {
             throw new DomainException('Invalid type.');
         }
     }

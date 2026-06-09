@@ -12,7 +12,6 @@ use AC\Setting\Config;
 
 class AuthorUrlFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Author URL', 'codepress-admin-columns');

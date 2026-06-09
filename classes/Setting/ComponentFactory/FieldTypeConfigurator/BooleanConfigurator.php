@@ -10,7 +10,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class BooleanConfigurator implements FieldTypeConfigurator
 {
-
     private const TYPE = 'checkmark';
 
     public function configure(FieldTypeFactoryBuilder $builder): void

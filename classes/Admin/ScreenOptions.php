@@ -6,7 +6,6 @@ namespace AC\Admin;
 
 interface ScreenOptions
 {
-
     /**
      * @return ScreenOption[]
      */

@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class ExcerptFactory extends BaseColumnFactory
 {
-
     private StringLimit $string_limit;
 
     public function __construct(

@@ -10,7 +10,6 @@ use AC\Type\TableId;
 
 class Site implements Filter
 {
-
     public function filter(ListScreenCollection $list_screens): ListScreenCollection
     {
         $collection = new ListScreenCollection();

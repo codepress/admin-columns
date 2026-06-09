@@ -12,7 +12,6 @@ use AC\Registerable;
 
 class Scripts implements Registerable
 {
-
     private Location $location;
 
     public function __construct(AdminColumns $plugin)

@@ -12,7 +12,6 @@ use AC\Setting\Config;
 
 class FieldComponentDirectorFactory implements ComponentFactory
 {
-
     private ConfiguratorRegistry $registry;
 
     private array $configurator_keys = [];
@@ -24,11 +23,11 @@ class FieldComponentDirectorFactory implements ComponentFactory
 
     public function add(string $key): self
     {
-        if ( ! $this->registry->has($key)) {
+        if (! $this->registry->has($key)) {
             return $this;
         }
 
-        if ( ! in_array($key, $this->configurator_keys, true)) {
+        if (! in_array($key, $this->configurator_keys, true)) {
             $this->configurator_keys[] = $key;
         }
 

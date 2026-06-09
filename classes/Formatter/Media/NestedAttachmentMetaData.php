@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class NestedAttachmentMetaData implements Formatter
 {
-
     private array $keys;
 
     public function __construct(array $keys)
@@ -25,7 +24,7 @@ class NestedAttachmentMetaData implements Formatter
 
         $attachment_meta = Helper\Arrays::create()->get_nested_value($meta, $this->keys);
 
-        if ( ! is_scalar($attachment_meta)) {
+        if (! is_scalar($attachment_meta)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

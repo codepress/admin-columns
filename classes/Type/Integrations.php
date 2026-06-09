@@ -8,7 +8,6 @@ use AC\Collection;
 
 class Integrations extends Collection
 {
-
     public function __construct(array $data = [])
     {
         foreach ($data as $integration) {

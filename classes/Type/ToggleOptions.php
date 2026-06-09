@@ -9,7 +9,6 @@ use InvalidArgumentException;
 
 final class ToggleOptions
 {
-
     private Option $disabled;
 
     private Option $enabled;
@@ -24,7 +23,7 @@ final class ToggleOptions
 
     private function validate(): void
     {
-        if ( (string)$this->disabled->get_value() === (string)$this->enabled->get_value()) {
+        if ((string)$this->disabled->get_value() === (string)$this->enabled->get_value()) {
             throw new InvalidArgumentException('Values for enabled and disabled cannot be the same.');
         }
     }

@@ -8,7 +8,6 @@ use AC;
 
 final class InstallCollection extends AC\Collection
 {
-
     public function __construct(array $data = [])
     {
         array_map([$this, 'add'], $data);

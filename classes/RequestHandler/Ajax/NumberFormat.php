@@ -9,7 +9,6 @@ use AC\RequestAjaxHandler;
 
 final class NumberFormat implements RequestAjaxHandler
 {
-
     public function handle(): void
     {
         $request = new Request();

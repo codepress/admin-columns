@@ -10,7 +10,6 @@ use AC\Type;
 
 final class ListScreenStatus implements Filter
 {
-
     private Type\ListScreenStatus $status;
 
     public function __construct(Type\ListScreenStatus $status)

@@ -15,7 +15,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class ParentFactory extends BaseColumnFactory
 {
-
     private PostExtendedProperty $post_factory;
 
     private PostLink $post_link_factory;

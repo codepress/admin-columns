@@ -6,7 +6,6 @@ namespace AC\Helper\Select\Generic;
 
 interface LabelFormatter
 {
-
     public function format_label(string $value): string;
 
 }

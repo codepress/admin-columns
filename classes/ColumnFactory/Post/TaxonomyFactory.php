@@ -16,7 +16,6 @@ use AC\Type\PostTypeSlug;
 
 class TaxonomyFactory extends BaseColumnFactory
 {
-
     private ComponentFactory\TaxonomyFactory $taxonomy_factory;
 
     private ComponentFactory\TermLink $term_link_factory;

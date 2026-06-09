@@ -8,7 +8,6 @@ use AC\View;
 
 class Tooltip
 {
-
     private string $id;
 
     private string $content = '';

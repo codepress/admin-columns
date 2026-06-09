@@ -10,7 +10,6 @@ use AC\View;
 
 class Color implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $color = (string)$value;

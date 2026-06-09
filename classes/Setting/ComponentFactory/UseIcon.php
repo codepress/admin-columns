@@ -10,7 +10,6 @@ use AC\Setting\Control\Input\OptionFactory;
 
 class UseIcon extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Use an icon?', 'codepress-admin-columns');

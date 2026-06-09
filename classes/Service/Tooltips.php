@@ -9,7 +9,6 @@ use AC\View;
 
 class Tooltips implements Registerable
 {
-
     public function register(): void
     {
         add_filter('ac/page/columns/render', [$this, 'render'], 10, 2);

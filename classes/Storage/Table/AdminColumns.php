@@ -8,7 +8,6 @@ use AC\Storage\Table;
 
 final class AdminColumns extends Table
 {
-
     public function get_name(): string
     {
         global $wpdb;

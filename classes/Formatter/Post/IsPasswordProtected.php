@@ -10,12 +10,11 @@ use AC\Type\Value;
 
 class IsPasswordProtected implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $password = get_post_field('post_password', $value->get_id(), 'raw');
 
-        if ( ! $password) {
+        if (! $password) {
             return new Value(null);
         }
 

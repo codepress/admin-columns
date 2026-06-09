@@ -13,12 +13,11 @@ use WP_Post;
 
 class PostStatusIcon implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $post = $this->get_post_from_value($value);
 
-        if ( ! $post instanceof WP_Post) {
+        if (! $post instanceof WP_Post) {
             return $value;
         }
 

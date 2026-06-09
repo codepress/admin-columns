@@ -15,7 +15,6 @@ use AC\Setting\Control\OptionCollection;
 
 class SerializedDisplay extends BaseComponentFactory
 {
-
     private SerializedArrayKeys $array_keys;
 
     public function __construct(SerializedArrayKeys $array_keys)

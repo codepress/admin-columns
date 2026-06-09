@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory\FieldTypeConfigurator;
 
-use AC\Vendor\Psr\Container\ContainerInterface;
-
 use function AC\Vendor\DI\factory;
+
+use AC\Vendor\Psr\Container\ContainerInterface;
 
 final class FieldTypeConfiguratorProvider
 {
-
     public function get_definitions(): array
     {
         return [

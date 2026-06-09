@@ -12,7 +12,6 @@ use AC\Type\Value;
 
 class Comment implements ManageValueService
 {
-
     private AC\Table\ManageValue\RenderFactory $factory;
 
     private int $priority;

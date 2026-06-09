@@ -8,7 +8,6 @@ use AC\Setting\AttributeCollection;
 
 final class Number extends Open
 {
-
     private ?string $min;
 
     private ?string $max;
@@ -44,7 +43,8 @@ final class Number extends Open
         return new self(
             $name,
             (string)$min,
-            (string)$max, '1',
+            (string)$max,
+            '1',
             (string)$default,
             $placeholder,
             $attributes,

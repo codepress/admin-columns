@@ -13,7 +13,6 @@ use AC\Type\ValueCollection;
 
 final class Aggregate implements Formatter
 {
-
     private FormatterCollection $formatters;
 
     public function __construct(FormatterCollection $formatters)

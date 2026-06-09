@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class Implode implements Formatter
 {
-
     private string $separator;
 
     public function __construct(string $separator = ', ')
@@ -22,7 +21,7 @@ class Implode implements Formatter
     {
         $values = $value->get_value();
 
-        if ( ! is_array($values)) {
+        if (! is_array($values)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

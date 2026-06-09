@@ -13,7 +13,6 @@ use AC\Type\Integration;
 
 class IntegrationPlaceholder extends BaseColumnFactory
 {
-
     private Integration $integration;
 
     public function __construct(

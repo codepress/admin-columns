@@ -8,7 +8,6 @@ use AC\Collection;
 
 class Assets extends Collection
 {
-
     public function __construct(array $enqueueables = [])
     {
         array_map([$this, 'add'], $enqueueables);

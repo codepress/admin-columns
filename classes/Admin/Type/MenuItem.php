@@ -6,7 +6,6 @@ namespace AC\Admin\Type;
 
 class MenuItem
 {
-
     private string $slug;
 
     private string $url;

@@ -12,7 +12,6 @@ use AC\Storage\SiteOption;
 
 final class Network extends Setup
 {
-
     public function __construct(
         SiteOption $storage,
         Version $version,

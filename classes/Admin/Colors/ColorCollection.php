@@ -9,7 +9,6 @@ use AC\Collection;
 
 final class ColorCollection extends Collection
 {
-
     public function __construct(array $colors = [])
     {
         array_map([$this, 'add'], $colors);

@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class ManageValue implements ManageValueService
 {
-
     private AC\Table\ManageValue\RenderFactory $factory;
 
     private int $priority;

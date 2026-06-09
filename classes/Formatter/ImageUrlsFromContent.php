@@ -11,7 +11,6 @@ use AC\Type\ValueCollection;
 
 class ImageUrlsFromContent implements AC\Formatter
 {
-
     private AC\Column\Context $context;
 
     public function __construct(AC\Column\Context $context)

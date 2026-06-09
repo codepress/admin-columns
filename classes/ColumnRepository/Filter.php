@@ -9,7 +9,6 @@ use AC\ColumnIterator;
 
 interface Filter
 {
-
     public function filter(ColumnIterator $columns): ColumnCollection;
 
 }

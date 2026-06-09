@@ -13,7 +13,6 @@ use AC\View;
 
 class AdminLoader implements Registerable
 {
-
     protected string $hook;
 
     protected RequestHandlerInterface $request_handler;
@@ -44,7 +43,7 @@ class AdminLoader implements Registerable
 
     public function load(): void
     {
-        if ( ! $this->page) {
+        if (! $this->page) {
             return;
         }
 

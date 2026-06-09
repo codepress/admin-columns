@@ -8,7 +8,6 @@ use AC\Column;
 
 trait ColumnLabelTrait
 {
-
     public function get_column_label(Column $column): string
     {
         $label = $column->get_setting('label')->get_input()->get_value();

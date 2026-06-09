@@ -14,7 +14,6 @@ use AC\View;
 
 class Help implements Enqueueables, Renderable, RenderableHead
 {
-
     public const NAME = 'help';
 
     private Hooks $hooks;

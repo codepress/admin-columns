@@ -11,7 +11,6 @@ use AC\Type\ValueCollection;
 
 class IdsToCollection implements Formatter
 {
-
     public function format(Value $value): ValueCollection
     {
         $ids = $value->get_value();

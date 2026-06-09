@@ -18,7 +18,6 @@ use AC\Setting\Control\OptionCollection;
 
 abstract class DateFormat extends BaseComponentFactory
 {
-
     private string $source_format;
 
     public function __construct(string $source_format = 'U')

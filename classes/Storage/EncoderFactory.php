@@ -6,7 +6,6 @@ namespace AC\Storage;
 
 interface EncoderFactory
 {
-
     public function create(): Encoder;
 
 }

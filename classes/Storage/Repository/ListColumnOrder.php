@@ -12,7 +12,6 @@ use AC\Type\ListScreenId;
 
 class ListColumnOrder
 {
-
     private Storage $storage;
 
     public function __construct(Storage $storage)
@@ -24,7 +23,7 @@ class ListColumnOrder
     {
         $list_screen = $this->storage->find($list_id);
 
-        if ( ! $list_screen || $list_screen->is_read_only()) {
+        if (! $list_screen || $list_screen->is_read_only()) {
             return;
         }
 

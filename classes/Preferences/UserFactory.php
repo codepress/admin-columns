@@ -8,7 +8,6 @@ use AC\Storage\UserMeta;
 
 class UserFactory
 {
-
     public const SCREEN_OPTIONS = 'admin_screen_options';
     public const TOUR = 'onboarding_tour';
 

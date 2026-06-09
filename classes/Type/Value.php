@@ -6,7 +6,6 @@ namespace AC\Type;
 
 final class Value
 {
-
     /**
      * @var mixed The unique identifier of the value.
      */

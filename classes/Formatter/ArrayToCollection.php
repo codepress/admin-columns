@@ -11,7 +11,6 @@ use AC\Type\ValueCollection;
 
 class ArrayToCollection implements Formatter
 {
-
     private bool $convert_to_array;
 
     public function __construct(bool $convert_to_array = true)
@@ -27,7 +26,7 @@ class ArrayToCollection implements Formatter
             $array = [$array];
         }
 
-        if ( ! is_array($array)) {
+        if (! is_array($array)) {
             throw new ValueNotFoundException('Invalid value type. Expected array, got: ' . gettype($array));
         }
 

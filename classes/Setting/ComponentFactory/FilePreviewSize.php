@@ -8,7 +8,6 @@ use AC\Setting\Config;
 
 final class FilePreviewSize extends ImageSizeBase
 {
-
     protected function get_size_name(): string
     {
         return 'file_preview_size';

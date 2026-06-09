@@ -12,7 +12,6 @@ use AC\Type\Url\UtmTags;
 
 class Addons extends Script
 {
-
     private Nonce\Ajax $nonce;
 
     private Location $asset_location;

@@ -12,7 +12,6 @@ use AC\Type\Url\UtmTags;
 
 class AcfBulkEditNotice implements IntegrationNotice, UsageAwareNotice
 {
-
     use PostEditReferrerAware;
 
     private FieldGroupCache $field_group_cache;
@@ -24,7 +23,7 @@ class AcfBulkEditNotice implements IntegrationNotice, UsageAwareNotice
 
     public function is_active(Screen $screen): bool
     {
-        if ( ! Acf::is_active()) {
+        if (! Acf::is_active()) {
             return false;
         }
 

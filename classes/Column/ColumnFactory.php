@@ -12,7 +12,6 @@ use AC\Type\ColumnId;
 
 abstract class ColumnFactory
 {
-
     abstract public function create(Config $config): Column;
 
     abstract public function get_column_type(): string;

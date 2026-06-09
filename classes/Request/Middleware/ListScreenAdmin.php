@@ -15,7 +15,6 @@ use Exception;
 
 class ListScreenAdmin implements Middleware
 {
-
     protected ListScreenRepository $storage;
 
     protected TableScreen $table_screen;
@@ -83,11 +82,11 @@ class ListScreenAdmin implements Middleware
     {
         $list_screen = $this->get_requested_listscreen($request);
 
-        if ( ! $list_screen) {
+        if (! $list_screen) {
             $list_screen = $this->get_last_visited_listscreen();
         }
 
-        if ( ! $list_screen) {
+        if (! $list_screen) {
             $list_screen = $this->get_first_listscreen();
         }
 

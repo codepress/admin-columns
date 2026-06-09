@@ -8,7 +8,6 @@ use AC\Request;
 
 class Nonce
 {
-
     private string $action;
 
     private string $name;
@@ -33,7 +32,7 @@ class Nonce
     {
         $nonce = wp_create_nonce($this->action);
 
-        if ( ! $nonce) {
+        if (! $nonce) {
             return null;
         }
 

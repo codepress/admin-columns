@@ -11,7 +11,6 @@ use AC\WooCommerce;
 
 class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 {
-
     use WooCommerceOrdersScreenAware;
 
     public function is_usage_detected(): bool
@@ -21,7 +20,7 @@ class WooCommerceOrdersNotice implements IntegrationNotice, UsageAwareNotice
 
     public function is_active(Screen $screen): bool
     {
-        if ( ! WooCommerce::is_active()) {
+        if (! WooCommerce::is_active()) {
             return false;
         }
 

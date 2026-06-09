@@ -10,12 +10,11 @@ use AC\Type\Value;
 
 class Content implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $comment = get_comment($value->get_id());
 
-        if ( ! $comment || ! $comment->comment_content) {
+        if (! $comment || ! $comment->comment_content) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

@@ -14,7 +14,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class PostStatus implements ComponentFactory
 {
-
     private const NAME = 'post_status';
 
     public function create(Config $config, ?Specification $conditions = null): Component

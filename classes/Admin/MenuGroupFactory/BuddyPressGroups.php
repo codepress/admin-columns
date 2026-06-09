@@ -11,7 +11,6 @@ use AC\Type\TableId;
 
 class BuddyPressGroups implements MenuGroupFactory
 {
-
     public function create(TableScreen $table_screen): ?MenuGroup
     {
         $table_id = $table_screen->get_id();

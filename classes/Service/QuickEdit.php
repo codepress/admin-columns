@@ -13,7 +13,6 @@ use AC\Type\TableId;
 
 class QuickEdit implements Registerable
 {
-
     private Storage $storage;
 
     private TablePreference $preference;
@@ -44,7 +43,7 @@ class QuickEdit implements Registerable
      */
     public function init_columns_on_quick_edit(): void
     {
-        if ( ! wp_doing_ajax()) {
+        if (! wp_doing_ajax()) {
             return;
         }
 
@@ -74,13 +73,13 @@ class QuickEdit implements Registerable
 
         $list_id = $this->preference->get_list_id(new TableId($table_id));
 
-        if ( ! $list_id) {
+        if (! $list_id) {
             return;
         }
 
         $list_screen = $this->storage->find($list_id);
 
-        if ( ! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
+        if (! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
             return;
         }
 

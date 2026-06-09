@@ -11,7 +11,6 @@ use AC\TableScreen;
 
 final class IntegrationFactory extends BaseFactory
 {
-
     private AC\Integration\IntegrationRepository $repository;
 
     public function __construct(Container $container, AC\Integration\IntegrationRepository $integration_repository)

@@ -8,7 +8,6 @@ use AC\Collection;
 
 final class Groups extends Collection
 {
-
     public function __construct(array $groups = [])
     {
         array_map([$this, 'add'], $groups);

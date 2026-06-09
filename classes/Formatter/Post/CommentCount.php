@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class CommentCount implements Formatter
 {
-
     private string $comment_status;
 
     /**

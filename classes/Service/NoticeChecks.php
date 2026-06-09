@@ -15,7 +15,6 @@ use AC\Services;
 
 class NoticeChecks implements Registerable
 {
-
     private AdminColumns $plugin;
 
     private FieldGroupCache $field_group_cache;

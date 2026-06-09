@@ -8,7 +8,6 @@ use LogicException;
 
 class Json
 {
-
     public const MESSAGE = 'message';
 
     protected array $parameters = [];

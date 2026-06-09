@@ -12,7 +12,6 @@ use ACA;
 
 final class GravityForms extends Integration
 {
-
     public function __construct()
     {
         parent::__construct(

@@ -8,7 +8,6 @@ use InvalidArgumentException;
 
 class OriginalColumn
 {
-
     private string $name;
 
     private string $label;
@@ -21,7 +20,7 @@ class OriginalColumn
         $this->sortable = $sortable;
         $this->label = $label;
 
-        if ( ! self::validate($name, $label)) {
+        if (! self::validate($name, $label)) {
             throw new InvalidArgumentException('Invalid column name or label');
         }
     }

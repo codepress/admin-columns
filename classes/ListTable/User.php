@@ -9,7 +9,6 @@ use WP_Users_List_Table;
 
 class User implements ListTable
 {
-
     private WP_Users_List_Table $table;
 
     public function __construct(WP_Users_List_Table $table)
@@ -26,7 +25,7 @@ class User implements ListTable
     {
         $user = get_userdata($id);
 
-        if ( ! $user) {
+        if (! $user) {
             return '';
         }
 

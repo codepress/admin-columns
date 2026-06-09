@@ -10,7 +10,6 @@ use AC\Capabilities;
 
 class SubMenu implements MenuPageFactory
 {
-
     public function create(array $args = []): ?string
     {
         return add_submenu_page(

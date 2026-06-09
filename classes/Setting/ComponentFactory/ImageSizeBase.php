@@ -17,7 +17,6 @@ use AC\Setting\Control\Type\Option;
 
 abstract class ImageSizeBase extends BaseComponentFactory
 {
-
     abstract protected function get_size_name(): string;
 
     abstract protected function get_width_name(): string;
@@ -136,7 +135,7 @@ abstract class ImageSizeBase extends BaseComponentFactory
                 continue;
             }
 
-            if ( ! is_string($size)) {
+            if (! is_string($size)) {
                 continue;
             }
 

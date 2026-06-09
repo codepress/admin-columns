@@ -6,7 +6,6 @@ namespace AC\Type;
 
 class StartingPrice
 {
-
     private const EURO = '€79';
     private const DOLLAR = '$79';
 

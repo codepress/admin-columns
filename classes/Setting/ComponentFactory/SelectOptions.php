@@ -11,7 +11,6 @@ use AC\Setting\Control\Input;
 
 final class SelectOptions extends BaseComponentFactory implements InputNameAware
 {
-
     private IsMultiple $is_multiple;
 
     public function __construct(IsMultiple $is_multiple)

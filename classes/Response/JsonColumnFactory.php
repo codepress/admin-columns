@@ -9,7 +9,6 @@ use AC\Setting\Encoder;
 
 class JsonColumnFactory
 {
-
     public function create_by_column(Column $column): Json
     {
         return (new Json())->set_parameter(

@@ -13,7 +13,6 @@ use AC\Storage\Table\AdminColumns;
 
 final class DatabaseMissing implements Registerable
 {
-
     private AdminColumns $table;
 
     public function __construct(AdminColumns $table)
@@ -28,7 +27,7 @@ final class DatabaseMissing implements Registerable
 
     public function render_notice(Screen $screen): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE) ||
+        if (! current_user_can(Capabilities::MANAGE) ||
              ! $screen->is_admin_screen() ||
              $this->table->exists()
         ) {
@@ -41,14 +40,14 @@ final class DatabaseMissing implements Registerable
         );
 
         $message .= ' ' . sprintf(
-                '<a href="%s">%s</a>',
-                esc_url(
-                    add_query_arg(Setup::PARAM_FORCE_INSTALL, '1')
-                ),
-                esc_html(
-                    __('Create database table.', 'codepress-admin-columns')
-                )
-            );
+            '<a href="%s">%s</a>',
+            esc_url(
+                add_query_arg(Setup::PARAM_FORCE_INSTALL, '1')
+            ),
+            esc_html(
+                __('Create database table.', 'codepress-admin-columns')
+            )
+        );
 
         $notice = new Message\AdminNotice(
             $message,

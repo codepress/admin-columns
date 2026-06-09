@@ -8,7 +8,6 @@ use LogicException;
 
 abstract class TypedArrayIterator extends ArrayIterator
 {
-
     protected string $type;
 
     /**
@@ -38,7 +37,7 @@ abstract class TypedArrayIterator extends ArrayIterator
      */
     protected function validate_type($value): void
     {
-        if ( ! $value instanceof $this->type) {
+        if (! $value instanceof $this->type) {
             throw new LogicException(sprintf('Item is not a %s.', $this->type));
         }
     }

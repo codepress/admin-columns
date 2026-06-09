@@ -10,7 +10,6 @@ namespace AC\Check\Integration;
  */
 trait PostEditReferrerAware
 {
-
     private function is_post_edit_referrer(): bool
     {
         $referrer = $_SERVER['HTTP_REFERER'] ?? '';

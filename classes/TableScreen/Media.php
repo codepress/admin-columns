@@ -16,7 +16,6 @@ use AC\Type\Url;
 
 class Media extends TableScreen implements ListTable, PostType, TableScreen\MetaType, TotalItems
 {
-
     use AC\ListTable\TotalItemsTrait;
 
     public function __construct()

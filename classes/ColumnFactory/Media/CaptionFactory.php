@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class CaptionFactory extends BaseColumnFactory
 {
-
     private StringLimit $string_limit;
 
     public function __construct(DefaultSettingsBuilder $default_settings_builder, StringLimit $string_limit)

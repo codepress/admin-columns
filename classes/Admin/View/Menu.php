@@ -10,7 +10,6 @@ use AC\View;
 
 class Menu extends View
 {
-
     public function __construct(Location $location, Admin\Menu $menu)
     {
         $items = $menu->get_items();

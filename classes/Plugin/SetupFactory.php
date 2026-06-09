@@ -10,7 +10,6 @@ use InvalidArgumentException;
 
 class SetupFactory
 {
-
     public const SITE = 'site';
     public const NETWORK = 'network';
 

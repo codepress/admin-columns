@@ -9,7 +9,6 @@ use WP_Comments_List_Table;
 
 class Comment implements ListTable
 {
-
     private WP_Comments_List_Table $table;
 
     public function __construct(WP_Comments_List_Table $table)
@@ -21,7 +20,7 @@ class Comment implements ListTable
     {
         $comment = get_comment($row_id);
 
-        if ( ! $comment) {
+        if (! $comment) {
             return '';
         }
 
@@ -42,7 +41,7 @@ class Comment implements ListTable
     {
         $comment = get_comment($id);
 
-        if ( ! $comment) {
+        if (! $comment) {
             return '';
         }
 

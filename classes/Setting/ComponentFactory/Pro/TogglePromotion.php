@@ -10,7 +10,6 @@ use AC\Setting\Control\Input;
 
 class TogglePromotion extends BaseComponentFactory
 {
-
     private string $label;
 
     private string $feature;

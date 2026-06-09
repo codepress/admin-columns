@@ -11,7 +11,6 @@ use AC\Type\ValueCollection;
 
 class UsedByMenu implements Formatter
 {
-
     private string $item_type;
 
     public function __construct(string $item_type)

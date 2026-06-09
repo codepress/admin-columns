@@ -14,7 +14,6 @@ use WP_Screen;
 
 class PostFactory implements TableScreenFactory
 {
-
     protected PostTypeRepository $post_type_repository;
 
     public function __construct(PostTypeRepository $post_type_repository)
@@ -42,7 +41,7 @@ class PostFactory implements TableScreenFactory
 
     public function create(TableId $id): TableScreen
     {
-        if ( ! $this->can_create($id)) {
+        if (! $this->can_create($id)) {
             throw InvalidTableScreenException::from_invalid_id($id);
         }
 

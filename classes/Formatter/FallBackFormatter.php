@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class FallBackFormatter implements AC\Formatter
 {
-
     private Formatter $formatter;
 
     private ?Formatter $fallback_formatter;

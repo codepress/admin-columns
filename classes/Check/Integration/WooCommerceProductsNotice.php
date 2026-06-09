@@ -11,10 +11,9 @@ use AC\WooCommerce;
 
 class WooCommerceProductsNotice implements IntegrationNotice, UsageAwareNotice
 {
-
     public function is_active(Screen $screen): bool
     {
-        if ( ! WooCommerce::is_active()) {
+        if (! WooCommerce::is_active()) {
             return false;
         }
 

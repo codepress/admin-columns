@@ -14,7 +14,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class ImageConfigurator implements FieldTypeConfigurator
 {
-
     public const TYPE = 'image';
 
     private ComponentFactory\ImageSize $image_size;

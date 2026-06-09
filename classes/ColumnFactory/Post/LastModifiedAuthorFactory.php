@@ -16,7 +16,6 @@ use AC\Type\PostTypeSlug;
 
 class LastModifiedAuthorFactory extends BaseColumnFactory
 {
-
     private UserProperty $user_factory;
 
     private UserLinkFactory $user_link;

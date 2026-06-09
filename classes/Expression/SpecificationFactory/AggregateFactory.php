@@ -31,13 +31,12 @@ use InvalidArgumentException;
 
 final class AggregateFactory implements SpecificationFactory
 {
-
     /**
      * @throws InvalidDateFormatException
      */
     public function create(array $rule): Specification
     {
-        if ( ! ($rule[Specification::SPECIFICATION] ?? null)) {
+        if (! ($rule[Specification::SPECIFICATION] ?? null)) {
             throw new InvalidArgumentException('Missing specification.');
         }
 

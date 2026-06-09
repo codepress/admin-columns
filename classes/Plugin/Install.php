@@ -6,7 +6,6 @@ namespace AC\Plugin;
 
 interface Install
 {
-
     /**
      * Idempotent call to set up Admin Columns
      */

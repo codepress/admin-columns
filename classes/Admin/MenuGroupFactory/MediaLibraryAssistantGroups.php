@@ -11,7 +11,6 @@ use AC\ThirdParty\MediaLibraryAssistant\TableScreen as MLATableScreen;
 
 class MediaLibraryAssistantGroups implements MenuGroupFactory
 {
-
     public function create(TableScreen $table_screen): ?MenuGroup
     {
         if ($table_screen instanceof MLATableScreen) {

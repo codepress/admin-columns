@@ -13,7 +13,6 @@ use AC\Type\Value;
 
 class Post implements ManageValueService
 {
-
     private PostTypeSlug $post_type;
 
     private int $priority;

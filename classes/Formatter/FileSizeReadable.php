@@ -11,12 +11,11 @@ use AC\Type\Value;
 
 class FileSizeReadable implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $bytes = $value->get_value() ?? 0;
 
-        if ( ! is_numeric($bytes) || $bytes <= 0) {
+        if (! is_numeric($bytes) || $bytes <= 0) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

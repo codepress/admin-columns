@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 trait TypeTrait
 {
-
     protected string $type;
 
     protected function export_type(): array

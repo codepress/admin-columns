@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class Dimensions implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $meta = get_post_meta($value->get_id(), '_wp_attachment_metadata', true);
@@ -22,9 +21,9 @@ class Dimensions implements Formatter
 
         $label = $meta['width'] . '&nbsp;&times;&nbsp;' . $meta['height'];
         $tooltip = sprintf(__('Width : %s px', 'codepress-admin-columns'), $meta['width']) . "<br/>\n" . sprintf(
-                __('Height : %s px', 'codepress-admin-columns'),
-                $meta['height']
-            );
+            __('Height : %s px', 'codepress-admin-columns'),
+            $meta['height']
+        );
 
         return $value->with_value(
             Helper\Html::create()->tooltip($label, $tooltip)

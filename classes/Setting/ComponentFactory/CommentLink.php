@@ -15,7 +15,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class CommentLink implements ComponentFactory
 {
-
     public function create(Config $config, ?Specification $conditions = null): Component
     {
         $comment_link_to = (string)$config->get('comment_link_to');

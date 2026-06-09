@@ -14,7 +14,6 @@ use Exception;
 
 class TableScreenAdmin implements Middleware
 {
-
     private Preference\EditorPreference $preference;
 
     private TableScreenCollection $table_screens;
@@ -69,11 +68,11 @@ class TableScreenAdmin implements Middleware
     {
         $table_screen = $this->get_requested_table_screen($request);
 
-        if ( ! $table_screen) {
+        if (! $table_screen) {
             $table_screen = $this->get_last_visited_table_screen();
         }
 
-        if ( ! $table_screen) {
+        if (! $table_screen) {
             $table_screen = $this->get_first_visit_table_screen();
         }
 

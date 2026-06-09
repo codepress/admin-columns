@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class AudioPlayerFactory extends BaseColumnFactory
 {
-
     protected function get_group(): ?string
     {
         return 'media-audio';

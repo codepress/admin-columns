@@ -12,7 +12,6 @@ use AC\TableScreen;
 
 abstract class TableRows implements Registerable, RequestHandler
 {
-
     private TableScreen\ListTable $table_screen;
 
     public function __construct(TableScreen\ListTable $table_screen)
@@ -47,7 +46,7 @@ abstract class TableRows implements Registerable, RequestHandler
 
         $ids = $request->filter('ac_ids', [], FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
 
-        if ( ! $ids) {
+        if (! $ids) {
             $response->error();
         }
 

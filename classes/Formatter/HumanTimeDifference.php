@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class HumanTimeDifference implements Formatter
 {
-
     public function format(Value $value)
     {
         $days = (int)$value->get_value();

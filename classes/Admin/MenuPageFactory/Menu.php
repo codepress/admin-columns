@@ -10,7 +10,6 @@ use AC\Capabilities;
 
 class Menu implements MenuPageFactory
 {
-
     public function create(array $args = []): string
     {
         return add_menu_page(

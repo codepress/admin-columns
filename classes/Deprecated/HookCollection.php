@@ -8,7 +8,6 @@ use AC\Collection;
 
 class HookCollection extends Collection
 {
-
     public function __construct(array $hooks)
     {
         array_map([$this, 'add'], $hooks);

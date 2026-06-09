@@ -9,12 +9,11 @@ use AC\Registerable;
 
 class DateSaveFormat implements Registerable
 {
-
     public const DATE_FORMAT = 'Ymd';
 
     public function register(): void
     {
-        if ( ! Acf::is_active()) {
+        if (! Acf::is_active()) {
             return;
         }
 

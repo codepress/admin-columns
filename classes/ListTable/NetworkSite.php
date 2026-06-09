@@ -9,7 +9,6 @@ use WP_MS_Sites_List_Table;
 
 class NetworkSite implements ListTable
 {
-
     private WP_MS_Sites_List_Table $table;
 
     public function __construct(WP_MS_Sites_List_Table $table)
@@ -25,7 +24,7 @@ class NetworkSite implements ListTable
 
         $blog = get_site($row_id);
 
-        if ( ! $blog) {
+        if (! $blog) {
             return '';
         }
 
@@ -42,7 +41,7 @@ class NetworkSite implements ListTable
     {
         $site = get_site($id);
 
-        if ( ! $site) {
+        if (! $site) {
             return '';
         }
 

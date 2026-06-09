@@ -6,7 +6,6 @@ namespace AC\Setting\Type;
 
 final class Attribute
 {
-
     private string $name;
 
     private string $value;

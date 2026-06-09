@@ -6,7 +6,6 @@ namespace AC\Helper;
 
 class Translations extends Creatable
 {
-
     /**
      * Fetches remote translations. Expires in 7 days.
      */

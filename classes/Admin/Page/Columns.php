@@ -25,7 +25,6 @@ use AC\Type\ListScreenId;
 
 class Columns implements Enqueueables, Renderable, RenderableHead
 {
-
     public const NAME = 'columns';
 
     private Location $location;

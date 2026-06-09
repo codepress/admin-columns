@@ -11,12 +11,11 @@ use AC\Type\ValueCollection;
 
 class Attachments implements Formatter
 {
-
     public function format(Value $value): ValueCollection
     {
         $parent_id = (int)$value->get_value();
 
-        if ( ! $parent_id) {
+        if (! $parent_id) {
             throw new ValueNotFoundException('Parent ID is required');
         }
 
@@ -43,7 +42,7 @@ class Attachments implements Formatter
 
         foreach ($ids as $id) {
             $file = get_attached_file($id);
-            $ext  = $file ? strtolower((string)pathinfo($file, PATHINFO_EXTENSION)) : '';
+            $ext = $file ? strtolower((string)pathinfo($file, PATHINFO_EXTENSION)) : '';
 
             $groups[$ext][] = $id;
         }

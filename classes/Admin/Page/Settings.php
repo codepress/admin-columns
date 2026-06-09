@@ -12,7 +12,6 @@ use AC\Renderable;
 
 class Settings implements Enqueueables, Renderable, RenderableHead
 {
-
     public const NAME = 'settings';
 
     private Renderable $head;

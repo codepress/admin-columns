@@ -12,7 +12,6 @@ use AC\Asset\Style;
 
 class AdminScripts implements Enqueueables
 {
-
     private Location $location;
 
     public function __construct(AdminColumns $plugin)

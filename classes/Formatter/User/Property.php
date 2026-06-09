@@ -11,7 +11,6 @@ use InvalidArgumentException;
 
 class Property implements Formatter
 {
-
     private string $property;
 
     public function __construct(string $property)
@@ -49,7 +48,7 @@ class Property implements Formatter
             'user_url',
         ];
 
-        if ( ! in_array($this->property, $properties, true)) {
+        if (! in_array($this->property, $properties, true)) {
             throw new InvalidArgumentException('Invalid property');
         }
     }
@@ -58,7 +57,7 @@ class Property implements Formatter
     {
         $user = get_userdata($value->get_id());
 
-        if ( ! $user) {
+        if (! $user) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

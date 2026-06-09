@@ -6,7 +6,6 @@ namespace AC\Setting;
 
 class DefaultSettingsBuilder
 {
-
     private ComponentFactory\Name $name;
 
     private ComponentFactory\Label $label;

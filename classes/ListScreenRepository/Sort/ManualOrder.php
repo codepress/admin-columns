@@ -10,7 +10,6 @@ use AC\Storage;
 
 class ManualOrder implements Sort
 {
-
     private Storage\Repository\ListScreenOrder $list_screen_order;
 
     public function __construct()
@@ -22,7 +21,7 @@ class ManualOrder implements Sort
     {
         $list_screen = $list_screens->first();
 
-        if ( ! $list_screen) {
+        if (! $list_screen) {
             return $list_screens;
         }
 
@@ -37,7 +36,7 @@ class ManualOrder implements Sort
         $ordered = new ListScreenCollection();
 
         foreach ($this->list_screen_order->get($key) as $layout_id) {
-            if ( ! isset($layouts[$layout_id])) {
+            if (! isset($layouts[$layout_id])) {
                 continue;
             }
 

@@ -8,7 +8,6 @@ use AC\Type;
 
 class Documentation extends Type\Uri
 {
-
     public const ARTICLE_GETTING_STARTED = '/article/25-basics-how-to-use-admin-columns-pro';
     public const ARTICLE_BULK_EDITING = '/article/67-how-to-use-bulk-editing';
     public const ARTICLE_CONDITIONAL_FORMATTING = '/article/108-how-to-use-conditional-formatting';

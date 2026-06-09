@@ -12,7 +12,6 @@ use WP_Post;
 
 class PostTitle implements Formatter
 {
-
     private bool $use_file_name_for_attachments;
 
     public function __construct(bool $use_file_name_for_attachments = true)
@@ -24,7 +23,7 @@ class PostTitle implements Formatter
     {
         $post = get_post($value->get_id());
 
-        if ( ! $post) {
+        if (! $post) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

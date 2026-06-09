@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class DisplayNameFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Display Name', 'codepress-admin-columns');

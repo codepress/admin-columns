@@ -23,7 +23,6 @@ use AC\Value\ExtendedValueRegistry;
 
 class Loader
 {
-
     private bool $is_pro_active;
 
     public function __construct(AC\DI\Container $container, bool $is_pro_active = false)
@@ -104,7 +103,7 @@ class Loader
             ColumnFactories\UserFactory::class,
         ];
 
-        if ( ! $this->is_pro_active) {
+        if (! $this->is_pro_active) {
             $classes[] = ColumnFactories\ThirdPartyFactory::class;
             $classes[] = ColumnFactories\IntegrationFactory::class;
         }
@@ -202,7 +201,7 @@ class Loader
             AC\Acf\FieldGroupCache::class,
         ];
 
-        if ( ! $this->is_pro_active) {
+        if (! $this->is_pro_active) {
             $classes[] = Service\PromoChecks::class;
             $classes[] = Service\NoticeChecks::class;
             $classes[] = PluginActionUpgrade::class;

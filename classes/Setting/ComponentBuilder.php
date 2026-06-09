@@ -11,7 +11,6 @@ use AC\Setting\Control\Input;
 
 final class ComponentBuilder
 {
-
     private ?string $label = null;
 
     private ?string $description = null;

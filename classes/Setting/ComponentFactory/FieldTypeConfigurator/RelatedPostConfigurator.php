@@ -11,7 +11,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class RelatedPostConfigurator implements FieldTypeConfigurator
 {
-
     private const TYPE = 'title_by_id';
 
     private Setting\ComponentFactory\LinkablePostProperty $post_property;

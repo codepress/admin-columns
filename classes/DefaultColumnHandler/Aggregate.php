@@ -10,7 +10,6 @@ use AC\TableScreen;
 
 final class Aggregate implements DefaultColumnHandler
 {
-
     /**
      * @var DefaultColumnHandler[]
      */

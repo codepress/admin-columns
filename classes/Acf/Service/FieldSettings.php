@@ -23,7 +23,6 @@ use AC\Type\Url\UtmTags;
 
 class FieldSettings implements Registerable
 {
-
     private const PRO_ONLY_ACF_TYPES = [
         'flexible_content',
         'gallery',
@@ -83,7 +82,7 @@ class FieldSettings implements Registerable
 
     public function register(): void
     {
-        if ( ! Acf::is_active()) {
+        if (! Acf::is_active()) {
             return;
         }
 
@@ -129,7 +128,7 @@ class FieldSettings implements Registerable
             return;
         }
 
-        if ( ! $this->is_field_supported($field)) {
+        if (! $this->is_field_supported($field)) {
             acf_render_field_setting(
                 $field,
                 [
@@ -172,7 +171,7 @@ class FieldSettings implements Registerable
     {
         $table_screens = $this->resolve_table_screens($field);
 
-        if ( ! $table_screens) {
+        if (! $table_screens) {
             return;
         }
 
@@ -185,7 +184,7 @@ class FieldSettings implements Registerable
             $table_id = (string)$table_screen->get_id();
             $label = $table_screen->get_labels()->get_plural();
 
-            if ( ! $has_meta_key) {
+            if (! $has_meta_key) {
                 $rows_html .= $this->render_unavailable_row($label);
 
                 continue;
@@ -207,7 +206,7 @@ class FieldSettings implements Registerable
                  . esc_html__('Add this field as a column in the list tables below. Once added, you can open that specific column in Admin Columns to configure it.', 'codepress-admin-columns')
                  . '</p>';
 
-        if ( ! $has_meta_key) {
+        if (! $has_meta_key) {
             $intro .= '<div class="ac-acf-notice">'
                       . sprintf(
                           esc_html__('Enter a %1$s under the %2$s tab to enable adding this field as a column.', 'codepress-admin-columns'),
@@ -397,7 +396,7 @@ class FieldSettings implements Registerable
 
         $parent = $field['parent'] ?? 0;
 
-        if ( ! isset($cache[$parent])) {
+        if (! isset($cache[$parent])) {
             $cache[$parent] = $this->field_group_cache->get_table_screens_for_group((int)$parent);
         }
 

@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class CommentLink implements Formatter
 {
-
     private string $link_to;
 
     public function __construct(string $link_to)

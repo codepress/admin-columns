@@ -8,7 +8,6 @@ use AC\Collection;
 
 class PromoCollection extends Collection
 {
-
     public function __construct(array $promos = [])
     {
         array_map([$this, 'add'], $promos);

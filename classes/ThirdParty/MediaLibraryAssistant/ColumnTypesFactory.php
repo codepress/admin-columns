@@ -13,12 +13,11 @@ use AC\Type\ColumnFactoryDefinition;
 
 class ColumnTypesFactory extends AC\ColumnFactories\BaseFactory
 {
-
     protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
         $collection = new ColumnFactoryDefinitionCollection();
 
-        if ( ! $table_screen instanceof MediaLibraryAssistant\TableScreen) {
+        if (! $table_screen instanceof MediaLibraryAssistant\TableScreen) {
             return $collection;
         }
 

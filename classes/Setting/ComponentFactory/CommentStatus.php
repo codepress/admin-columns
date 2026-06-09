@@ -14,7 +14,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class CommentStatus extends BaseComponentFactory
 {
-
     public const NAME = 'comment_status';
 
     public const STATUS_ALL = 'all';

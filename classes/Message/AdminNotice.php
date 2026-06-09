@@ -8,7 +8,6 @@ use AC\View;
 
 class AdminNotice extends Notice
 {
-
     public function render(): string
     {
         $data = [

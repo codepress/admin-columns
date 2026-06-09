@@ -15,7 +15,6 @@ use AC\View;
 
 class IntegrationNoticeRenderer implements Registerable
 {
-
     /**
      * @var IntegrationNotice[]
      */
@@ -34,7 +33,7 @@ class IntegrationNoticeRenderer implements Registerable
 
     public function register(): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
@@ -50,7 +49,7 @@ class IntegrationNoticeRenderer implements Registerable
     {
         $notice = $this->resolve($screen);
 
-        if ( ! $notice) {
+        if (! $notice) {
             return;
         }
 
@@ -97,7 +96,7 @@ class IntegrationNoticeRenderer implements Registerable
             return false;
         }
 
-        if ( ! $this->state->is_delay_met($notice->get_slug(), $notice->get_delay_days())) {
+        if (! $this->state->is_delay_met($notice->get_slug(), $notice->get_delay_days())) {
             return false;
         }
 
@@ -112,7 +111,7 @@ class IntegrationNoticeRenderer implements Registerable
             ->set_callback(function () use ($notice, $handler) {
                 $handler->verify_request();
 
-                if ( ! current_user_can(Capabilities::MANAGE)) {
+                if (! current_user_can(Capabilities::MANAGE)) {
                     wp_die('-1');
                 }
 

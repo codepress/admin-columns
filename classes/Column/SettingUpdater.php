@@ -15,7 +15,6 @@ use AC\Type\ListScreenId;
 
 class SettingUpdater
 {
-
     private Storage $storage;
 
     private Aggregate $column_factory;
@@ -33,13 +32,13 @@ class SettingUpdater
     {
         $list_screen = $this->storage->find($list_id);
 
-        if ( ! $list_screen) {
+        if (! $list_screen) {
             return;
         }
 
         $column = $list_screen->get_column($column_id);
 
-        if ( ! $column) {
+        if (! $column) {
             return;
         }
 
@@ -52,7 +51,7 @@ class SettingUpdater
             }
         }
 
-        if ( ! $factory) {
+        if (! $factory) {
             return;
         }
 

@@ -9,8 +9,6 @@ use AC\Type\Groups;
 
 class ColumnGroups
 {
-
-
     private AdminColumns $plugin;
 
     public function __construct(AdminColumns $plugin)

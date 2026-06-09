@@ -11,7 +11,6 @@ use ACA;
 
 class GravityFormsGroups implements MenuGroupFactory
 {
-
     public function create(TableScreen $table_screen): ?MenuGroup
     {
         if ($table_screen instanceof ACA\GravityForms\TableScreen\Entry) {

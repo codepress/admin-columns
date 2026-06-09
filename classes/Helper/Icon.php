@@ -6,7 +6,6 @@ namespace AC\Helper;
 
 class Icon extends Creatable
 {
-
     public function dashicon(array $args = []): string
     {
         $defaults = [

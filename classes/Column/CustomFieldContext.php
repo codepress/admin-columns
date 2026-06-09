@@ -9,7 +9,6 @@ use AC\Type\TableScreenContext;
 
 class CustomFieldContext extends Context
 {
-
     private string $field_type;
 
     private string $meta_key;

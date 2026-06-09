@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class UserFilteredPostLink implements Formatter
 {
-
     private string $post_type;
 
     public function __construct(string $post_type)

@@ -9,7 +9,6 @@ use AC\Type\Url;
 
 class UtmTags extends Uri
 {
-
     private ?string $medium;
 
     private ?string $content;

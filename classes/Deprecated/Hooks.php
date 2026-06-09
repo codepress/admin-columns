@@ -8,7 +8,6 @@ use AC\Transient;
 
 class Hooks
 {
-
     private HookCollectionFactory $factory;
 
     public function __construct(HookCollectionFactory $factory)

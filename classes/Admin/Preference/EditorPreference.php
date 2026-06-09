@@ -11,7 +11,6 @@ use AC\Type\TableId;
 
 class EditorPreference
 {
-
     private Preference $storage;
 
     public function __construct(bool $is_network = false)

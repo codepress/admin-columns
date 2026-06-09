@@ -6,7 +6,6 @@ namespace AC\Setting\Control;
 
 interface OptionCollectionFactory
 {
-
     public function create(): OptionCollection;
 
 }

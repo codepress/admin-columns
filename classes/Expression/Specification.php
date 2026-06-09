@@ -8,7 +8,6 @@ use ReflectionClass;
 
 abstract class Specification
 {
-
     public const SPECIFICATION = 'specification';
 
     abstract public function is_satisfied_by($value): bool;

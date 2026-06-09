@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class Composite implements Formatter
 {
-
     /**
      * @var Formatter[] $formatters
      */
@@ -42,7 +41,7 @@ class Composite implements Formatter
             $values[] = $result;
         }
 
-        if ( ! $values) {
+        if (! $values) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

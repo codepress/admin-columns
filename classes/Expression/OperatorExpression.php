@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 abstract class OperatorExpression extends Specification
 {
-
     public const OPERATOR = 'operator';
 
     protected string $operator;

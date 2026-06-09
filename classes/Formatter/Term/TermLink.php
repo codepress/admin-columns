@@ -12,7 +12,6 @@ use WP_Term;
 
 class TermLink implements Formatter
 {
-
     private string $link_to;
 
     private ?PostTypeSlug $post_type;

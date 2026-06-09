@@ -26,7 +26,6 @@ use InvalidArgumentException;
  */
 final class Helper
 {
-
     public function __get(string $helper)
     {
         switch ($helper) {

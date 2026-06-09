@@ -9,7 +9,6 @@ use AC\Setting\Config;
 
 class Context implements AC\Setting\Context
 {
-
     protected Config $config;
 
     private string $label;

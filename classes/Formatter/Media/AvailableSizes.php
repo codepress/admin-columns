@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class AvailableSizes implements Formatter
 {
-
     private bool $include_missing_file_sizes;
 
     public function __construct(bool $include_missing_file_sizes)
@@ -24,7 +23,7 @@ class AvailableSizes implements Formatter
         $meta = get_post_meta($value->get_id(), '_wp_attachment_metadata', true);
         $sizes = $meta['sizes'] ?? null;
 
-        if ( ! $sizes) {
+        if (! $sizes) {
             throw new ValueNotFoundException();
         }
 
@@ -42,7 +41,7 @@ class AvailableSizes implements Formatter
             foreach ($available_sizes as $size) {
                 $src = (array)wp_get_attachment_image_src($value->get_id(), $size);
 
-                if ( ! empty($src[0])) {
+                if (! empty($src[0])) {
                     $paths[] = Helper\Html::create()->tooltip(Helper\Html::create()->link($src[0], $size), basename($src[0]));
                 }
             }

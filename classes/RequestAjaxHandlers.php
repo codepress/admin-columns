@@ -6,7 +6,6 @@ namespace AC;
 
 class RequestAjaxHandlers
 {
-
     /**
      * @var RequestAjaxHandler[]
      */

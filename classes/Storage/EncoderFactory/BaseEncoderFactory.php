@@ -10,7 +10,6 @@ use AC\Storage\Encoder\BaseEncoder;
 
 class BaseEncoderFactory implements AC\Storage\EncoderFactory
 {
-
     protected Version $version;
 
     public function __construct(Version $version)

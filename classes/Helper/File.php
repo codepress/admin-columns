@@ -6,7 +6,6 @@ namespace AC\Helper;
 
 class File extends Creatable
 {
-
     public function get_readable_filesize(int $bytes, int $decimals = 2, string $fallback = ''): string
     {
         if ($bytes <= 0) {
@@ -21,7 +20,7 @@ class File extends Creatable
 
         $unit = $filesize_units[$i] ?? null;
 
-        if ( ! $filesize || ! $unit) {
+        if (! $filesize || ! $unit) {
             return $fallback;
         }
 

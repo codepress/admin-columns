@@ -9,7 +9,6 @@ use MLAData;
 
 class ListTable implements AC\ListTable
 {
-
     private WpListTableFactory $factory;
 
     public function __construct(WpListTableFactory $factory)
@@ -21,7 +20,7 @@ class ListTable implements AC\ListTable
     {
         $item = $this->get_attachment($row_id);
 
-        if ( ! $item) {
+        if (! $item) {
             return '';
         }
 
@@ -52,7 +51,7 @@ class ListTable implements AC\ListTable
 
         $authordata = get_userdata(get_post_field('post_author', $id));
 
-        if ( ! class_exists('MLAData')) {
+        if (! class_exists('MLAData')) {
             require_once(MLA_PLUGIN_PATH . 'includes/class-mla-data.php');
             MLAData::initialize();
         }

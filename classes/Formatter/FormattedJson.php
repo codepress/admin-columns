@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class FormattedJson implements Formatter
 {
-
     private array $keys;
 
     public function __construct(array $keys = [])
@@ -23,7 +22,7 @@ class FormattedJson implements Formatter
     {
         $array = $value->get_value();
 
-        if ( ! is_array($array)) {
+        if (! is_array($array)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

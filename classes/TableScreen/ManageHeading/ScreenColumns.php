@@ -8,7 +8,6 @@ use AC\Registerable;
 
 class ScreenColumns implements Registerable
 {
-
     private string $screen_id;
 
     /**

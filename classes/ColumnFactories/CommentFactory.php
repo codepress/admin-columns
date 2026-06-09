@@ -11,12 +11,11 @@ use AC\TableScreen;
 
 final class CommentFactory extends BaseFactory
 {
-
     protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
         $collection = new ColumnFactoryDefinitionCollection();
 
-        if ( ! $table_screen instanceof AC\TableScreen\Comment) {
+        if (! $table_screen instanceof AC\TableScreen\Comment) {
             return $collection;
         }
 

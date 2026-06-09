@@ -10,7 +10,6 @@ use AC\Setting\ComponentFactory\StringLimit;
 
 class TextConfigurator implements FieldTypeConfigurator
 {
-
     private StringLimit $string_limit;
 
     public function __construct(StringLimit $string_limit)

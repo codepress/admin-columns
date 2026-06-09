@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 final class Timestamp implements Formatter
 {
-
     public function format(Value $value): Value
     {
         if ($this->is_invalid_date((string)$value)) {

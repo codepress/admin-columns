@@ -9,7 +9,6 @@ use AC\Registerable;
 
 class View implements Registerable
 {
-
     private Location $location;
 
     public function __construct(Location $location)

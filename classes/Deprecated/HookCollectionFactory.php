@@ -6,7 +6,6 @@ namespace AC\Deprecated;
 
 class HookCollectionFactory
 {
-
     public function create_filters(): HookCollection
     {
         $hooks = [];
@@ -18,15 +17,15 @@ class HookCollectionFactory
             'ac/headings/label'                       => 'ac/column/heading/label',
 
             // Removed Free
-            'ac/column/separator'                     => null,
-            'ac/headings'                             => null,
-            'ac/column_group'                         => null,
-            'ac/column/custom_field/field_types'      => null,
-            'ac/read_only_message'                    => null,
-            'ac/column/settings/column_types'         => null,
-            'ac/column/header'                        => null,
-            'ac/column/settings'                      => null,
-            'ac/list_screen/preferences'              => null,
+            'ac/column/separator'                => null,
+            'ac/headings'                        => null,
+            'ac/column_group'                    => null,
+            'ac/column/custom_field/field_types' => null,
+            'ac/read_only_message'               => null,
+            'ac/column/settings/column_types'    => null,
+            'ac/column/header'                   => null,
+            'ac/column/settings'                 => null,
+            'ac/list_screen/preferences'         => null,
         ];
 
         foreach ($free_filters as $old => $replacement) {
@@ -67,17 +66,17 @@ class HookCollectionFactory
             'acp/table/query_args_whitelist'               => 'ac/table/query_args_whitelist',
 
             // Integration specific
-            'acp/acf/export/repeater/delimiter'            => 'ac/acf/export/repeater/delimiter',
-            'acp/gravityforms/create_default_set'          => 'ac/gravityforms/create_default_set',
-            'acp/wc/column/product/sales/statuses'         => 'ac/wc/column/product/sales/statuses',
-            'acp/wc/show_product_variations'               => 'ac/wc/show_product_variations',
+            'acp/acf/export/repeater/delimiter'    => 'ac/acf/export/repeater/delimiter',
+            'acp/gravityforms/create_default_set'  => 'ac/gravityforms/create_default_set',
+            'acp/wc/column/product/sales/statuses' => 'ac/wc/column/product/sales/statuses',
+            'acp/wc/show_product_variations'       => 'ac/wc/show_product_variations',
 
             // Removed Pro
-            'ac/export/column/disable'                     => null,
-            'acp/admin/enable_submenu'                     => null,
-            'acp/editing/inline/deprecated_style'          => null,
-            'acp/editing/view_settings'                    => null,
-            'acp/sorting/post_status'                      => null,
+            'ac/export/column/disable'            => null,
+            'acp/admin/enable_submenu'            => null,
+            'acp/editing/inline/deprecated_style' => null,
+            'acp/editing/view_settings'           => null,
+            'acp/sorting/post_status'             => null,
         ];
 
         foreach ($pro_filters as $old => $replacement) {

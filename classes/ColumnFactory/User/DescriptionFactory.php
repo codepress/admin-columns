@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class DescriptionFactory extends BaseColumnFactory
 {
-
     private ComponentFactory\WordLimit $word_limit_factory;
 
     private ComponentFactory\BeforeAfter $before_after_factory;

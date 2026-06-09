@@ -9,7 +9,6 @@ use AC\ListScreenRepository\Sort;
 
 class Label implements Sort
 {
-
     public function sort(ListScreenCollection $list_screens): ListScreenCollection
     {
         $labels = [];

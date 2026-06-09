@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 class FloatComparisonSpecification extends ComparisonSpecification implements TypeSpecification
 {
-
     use TypeTrait;
 
     public function __construct(string $operator, string $fact)

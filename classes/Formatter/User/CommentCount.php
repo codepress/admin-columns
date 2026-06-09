@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class CommentCount implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $user_id = (int)$value->get_id();

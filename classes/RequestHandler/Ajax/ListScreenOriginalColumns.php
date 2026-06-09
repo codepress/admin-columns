@@ -19,7 +19,6 @@ use AC\Type\TableId;
 
 class ListScreenOriginalColumns implements RequestAjaxHandler
 {
-
     private Aggregate $table_screen_factory;
 
     private ColumnTypeRepository $column_type_repository;
@@ -38,20 +37,20 @@ class ListScreenOriginalColumns implements RequestAjaxHandler
 
     public function handle(): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
         $request = new Request();
         $response = new Response\Json();
 
-        if ( ! (new Nonce\Ajax())->verify($request)) {
+        if (! (new Nonce\Ajax())->verify($request)) {
             $response->error();
         }
 
         $list_key = new TableId($request->get('list_key'));
 
-        if ( ! $this->table_screen_factory->can_create($list_key)) {
+        if (! $this->table_screen_factory->can_create($list_key)) {
             $response->error();
         }
 

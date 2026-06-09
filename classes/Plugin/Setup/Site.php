@@ -12,7 +12,6 @@ use AC\Storage\Option;
 
 final class Site extends Setup
 {
-
     public function __construct(
         Option $storage,
         Version $version,

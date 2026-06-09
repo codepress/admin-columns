@@ -15,7 +15,6 @@ use AC\Value\Extended\MediaPreview;
 
 class VideoPlayerFactory extends BaseColumnFactory
 {
-
     private VideoDisplay $video_display;
 
     public function __construct(

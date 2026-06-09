@@ -6,10 +6,9 @@ namespace AC\Asset;
 
 class Style extends Enqueueable
 {
-
     public function register(): void
     {
-        if ( ! $this->location instanceof Location) {
+        if (! $this->location instanceof Location) {
             return;
         }
 
@@ -31,7 +30,7 @@ class Style extends Enqueueable
             return;
         }
 
-        if ( ! wp_style_is($this->get_handle(), 'registered')) {
+        if (! wp_style_is($this->get_handle(), 'registered')) {
             $this->register();
         }
 

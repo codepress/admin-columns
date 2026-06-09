@@ -12,12 +12,11 @@ use WP_Comment;
 
 class ReplyToLink implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $comment = get_comment($value->get_id());
 
-        if ( ! $comment instanceof WP_Comment) {
+        if (! $comment instanceof WP_Comment) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

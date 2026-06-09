@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class YesNoIcon implements Formatter
 {
-
     public function format(Value $value): Value
     {
         return $value->with_value(

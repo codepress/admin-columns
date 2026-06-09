@@ -12,7 +12,6 @@ use InvalidArgumentException;
 
 class Component
 {
-
     private ?string $label;
 
     private ?string $description;
@@ -72,7 +71,7 @@ class Component
 
     public function get_label(): string
     {
-        if ( ! $this->has_label()) {
+        if (! $this->has_label()) {
             throw new InvalidArgumentException();
         }
 
@@ -86,7 +85,7 @@ class Component
 
     public function get_description(): string
     {
-        if ( ! $this->has_description()) {
+        if (! $this->has_description()) {
             throw new InvalidArgumentException();
         }
 
@@ -100,7 +99,7 @@ class Component
 
     public function get_input(): Input
     {
-        if ( ! $this->has_input()) {
+        if (! $this->has_input()) {
             throw new InvalidArgumentException();
         }
 
@@ -119,7 +118,7 @@ class Component
 
     public function get_children(): Children
     {
-        if ( ! $this->has_children()) {
+        if (! $this->has_children()) {
             throw new InvalidArgumentException();
         }
 

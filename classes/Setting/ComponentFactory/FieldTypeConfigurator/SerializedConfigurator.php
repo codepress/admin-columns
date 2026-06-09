@@ -10,7 +10,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class SerializedConfigurator implements FieldTypeConfigurator
 {
-
     public const TYPE = 'array';
 
     private ComponentFactory\SerializedDisplay $serialized_display;

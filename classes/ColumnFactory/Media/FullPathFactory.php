@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class FullPathFactory extends BaseColumnFactory
 {
-
     private PathScope $path_scope;
 
     public function __construct(

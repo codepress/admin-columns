@@ -6,7 +6,6 @@ namespace AC;
 
 class ColumnCollection implements ColumnIterator
 {
-
     /**
      * @var Column[]
      */

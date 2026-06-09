@@ -12,7 +12,6 @@ use AC\Setting\Control\Input\OptionFactory;
 
 class IsLinkable extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Show Link', 'codepress-admin-columns');

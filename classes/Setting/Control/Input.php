@@ -8,7 +8,6 @@ use AC\Setting\AttributeCollection;
 
 class Input
 {
-
     private string $name;
 
     private string $type;

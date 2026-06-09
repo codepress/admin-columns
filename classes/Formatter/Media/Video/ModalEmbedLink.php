@@ -10,7 +10,6 @@ use AC\Value\Extended\ExtendedValue;
 
 class ModalEmbedLink implements Formatter
 {
-
     private ExtendedValue $extended_value;
 
     public function __construct(ExtendedValue $extended_value)
@@ -20,7 +19,7 @@ class ModalEmbedLink implements Formatter
 
     public function format(Value $value): Value
     {
-        if ( ! $value->get_value()) {
+        if (! $value->get_value()) {
             return $value;
         }
 

@@ -9,7 +9,6 @@ use LogicException;
 
 class ExtendedValueRegistry
 {
-
     private static array $views = [];
 
     public static function add(ExtendedValue $view): void

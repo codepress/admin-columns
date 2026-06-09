@@ -12,7 +12,6 @@ use AC\Type\ListScreenId;
 
 class UserStorage
 {
-
     private const OPTION_UNIT = 'unit';
     private const OPTION_VALUE = 'value';
 
@@ -54,7 +53,7 @@ class UserStorage
 
         $name = (string)$column_id;
 
-        if ( ! isset($widths[$name])) {
+        if (! isset($widths[$name])) {
             return null;
         }
 
@@ -73,7 +72,7 @@ class UserStorage
     {
         $widths = $this->create_storage()->find((string)$list_id);
 
-        if ( ! $widths) {
+        if (! $widths) {
             return [];
         }
 
@@ -95,7 +94,7 @@ class UserStorage
             (string)$list_id
         );
 
-        if ( ! $widths) {
+        if (! $widths) {
             return;
         }
 

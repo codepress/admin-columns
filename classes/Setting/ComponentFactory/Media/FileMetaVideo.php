@@ -14,7 +14,6 @@ use AC\Setting\Control\OptionCollection;
 
 class FileMetaVideo extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Video Meta');

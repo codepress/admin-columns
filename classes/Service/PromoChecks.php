@@ -9,7 +9,6 @@ use AC\Check\Promotion;
 
 class PromoChecks implements AC\Registerable
 {
-
     private AC\Promo\PromoRepository $repository;
 
     private AC\Preferences\UserFactory $preference_factory;
@@ -24,7 +23,7 @@ class PromoChecks implements AC\Registerable
     {
         $promo = $this->repository->find_active();
 
-        if ( ! $promo) {
+        if (! $promo) {
             return;
         }
 

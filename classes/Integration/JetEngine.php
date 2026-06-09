@@ -11,7 +11,6 @@ use AC\Type\Url\Site;
 
 final class JetEngine extends Integration
 {
-
     public function __construct()
     {
         parent::__construct(

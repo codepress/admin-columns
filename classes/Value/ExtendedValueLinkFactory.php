@@ -6,7 +6,6 @@ namespace AC\Value;
 
 final class ExtendedValueLinkFactory
 {
-
     private array $attributes;
 
     private array $params;

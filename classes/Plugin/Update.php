@@ -6,7 +6,6 @@ namespace AC\Plugin;
 
 abstract class Update
 {
-
     protected Version $version;
 
     public function __construct(Version $version)

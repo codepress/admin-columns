@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class StringSanitizer implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $formatter = Aggregate::from_array([

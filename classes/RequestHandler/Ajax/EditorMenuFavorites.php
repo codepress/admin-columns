@@ -14,7 +14,6 @@ use AC\Type\TableId;
 
 class EditorMenuFavorites implements RequestAjaxHandler
 {
-
     private Storage\Repository\EditorFavorites $favorite_repository;
 
     public function __construct(Storage\Repository\EditorFavorites $favorite_repository)
@@ -24,14 +23,14 @@ class EditorMenuFavorites implements RequestAjaxHandler
 
     public function handle(): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
         $request = new Request();
         $response = new Json();
 
-        if ( ! (new Nonce\Ajax())->verify($request)) {
+        if (! (new Nonce\Ajax())->verify($request)) {
             $response->error();
         }
 

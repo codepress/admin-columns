@@ -11,7 +11,6 @@ use AC\Type\TableId;
 
 class TablePreference
 {
-
     public function storage(): Preference
     {
         return (new SiteFactory())->create('layout_table');

@@ -29,7 +29,6 @@ use RuntimeException;
 
 class ListScreenSave implements RequestAjaxHandler
 {
-
     private Storage $storage;
 
     private Aggregate $column_factory;
@@ -56,14 +55,14 @@ class ListScreenSave implements RequestAjaxHandler
 
     public function handle(): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
         $request = new Request();
         $response = new Json();
 
-        if ( ! (new Nonce\Ajax())->verify($request)) {
+        if (! (new Nonce\Ajax())->verify($request)) {
             $response->error();
         }
 
@@ -71,13 +70,13 @@ class ListScreenSave implements RequestAjaxHandler
         $data = $request->get('data', '');
         $data = json_decode($data, true);
 
-        if ( ! $this->table_screen_factory->can_create($list_key)) {
+        if (! $this->table_screen_factory->can_create($list_key)) {
             wp_send_json_error(['message' => __('List screen not found', 'codepress-admin-columns')]);
         }
 
         $id = $data['id'] ?? null;
 
-        if ( ! ListScreenId::is_valid_id($id)) {
+        if (! ListScreenId::is_valid_id($id)) {
             $response->error();
 
             exit;
@@ -119,7 +118,7 @@ class ListScreenSave implements RequestAjaxHandler
             $response->set_message($e->getMessage())->error();
         }
 
-        if ( ! $this->storage->exists($id)) {
+        if (! $this->storage->exists($id)) {
             $response->set_message(__('Column settings could not be saved.', 'codepress-admin-columns'))->error();
         }
 
@@ -164,7 +163,7 @@ class ListScreenSave implements RequestAjaxHandler
 
             $config = new Config($data);
 
-            if ( ! $config->has('type')) {
+            if (! $config->has('type')) {
                 throw new InvalidArgumentException('Missing column type.');
             }
 

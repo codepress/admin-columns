@@ -12,7 +12,6 @@ use AC\Setting\Config;
 
 class LinkablePostProperty extends PostProperty
 {
-
     private PostLink $post_link;
 
     private UserLink $user_link;

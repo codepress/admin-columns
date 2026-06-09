@@ -16,7 +16,6 @@ use AC\Setting\Control\Input\Open;
 
 final class BeforeAfter implements ComponentFactory
 {
-
     private const BEFORE = 'before';
     private const AFTER = 'after';
 
@@ -46,8 +45,8 @@ final class BeforeAfter implements ComponentFactory
                             null,
                             new Open(self::AFTER, null, $after)
                         ),
-                    ])
-                    , true
+                    ]),
+                    true
                 )
             )
             ->build();

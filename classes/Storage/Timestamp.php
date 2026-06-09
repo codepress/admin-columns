@@ -9,7 +9,6 @@ use LogicException;
 
 final class Timestamp implements Expirable, KeyValue
 {
-
     private KeyValue $storage;
 
     public function __construct(KeyValue $storage)
@@ -43,7 +42,7 @@ final class Timestamp implements Expirable, KeyValue
 
     public function save($value): void
     {
-        if ( ! $this->validate($value)) {
+        if (! $this->validate($value)) {
             throw new LogicException('Value needs to be a positive integer.');
         }
 

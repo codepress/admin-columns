@@ -20,7 +20,6 @@ use AC\Setting\Control\OptionCollection;
 
 class NumberFormat extends BaseComponentFactory
 {
-
     private const NAME = 'number_format';
 
     protected function get_label(Config $config): ?string

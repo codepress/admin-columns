@@ -11,7 +11,6 @@ use ACA;
 
 final class TableScreenContext
 {
-
     private MetaType $meta_type;
 
     private ?PostTypeSlug $post_type;
@@ -37,7 +36,7 @@ final class TableScreenContext
             );
         }
 
-        if ( ! $screen instanceof TableScreen\MetaType) {
+        if (! $screen instanceof TableScreen\MetaType) {
             return null;
         }
 

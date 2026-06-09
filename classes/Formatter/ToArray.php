@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class ToArray implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $current_value = $value->get_value();
@@ -19,7 +18,7 @@ class ToArray implements Formatter
         }
 
         // Anything not serialized, try to create an array from it
-        if ( ! is_string($current_value)) {
+        if (! is_string($current_value)) {
             return $value->with_value((array)$current_value);
         }
 

@@ -11,7 +11,6 @@ use AC\Vendor;
  */
 final class Container implements Vendor\Psr\Container\ContainerInterface, FactoryContainer
 {
-
     private Vendor\DI\Container $container;
 
     public function __construct(Vendor\DI\Container $container)

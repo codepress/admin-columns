@@ -17,7 +17,6 @@ use InvalidArgumentException;
 
 class ListScreenSettings implements RequestAjaxHandler
 {
-
     protected Storage $storage;
 
     protected AC\TableScreenFactory\Aggregate $table_factory;
@@ -46,11 +45,11 @@ class ListScreenSettings implements RequestAjaxHandler
     {
         $response = new AC\Response\Json();
 
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             $response->error();
         }
 
-        if ( ! NonceFactory::create_ajax()->verify(new Request())) {
+        if (! NonceFactory::create_ajax()->verify(new Request())) {
             $response->error();
         }
     }
@@ -87,7 +86,7 @@ class ListScreenSettings implements RequestAjaxHandler
 
         $table_id = new TableId((string)$request->get('list_key'));
 
-        if ( ! $this->table_factory->can_create($table_id)) {
+        if (! $this->table_factory->can_create($table_id)) {
             throw new InvalidArgumentException('Invalid table screen.');
         }
 
@@ -105,7 +104,7 @@ class ListScreenSettings implements RequestAjaxHandler
         if ($list_screen instanceof ListScreen) {
             $this->set_editor_preference($list_screen);
 
-            if ( ! trim($list_screen->get_title())) {
+            if (! trim($list_screen->get_title())) {
                 $list_screen->set_title($title);
             }
 

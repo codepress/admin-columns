@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 abstract class ContentTypeLink implements Formatter
 {
-
     public const VIEW = 'view';
     public const EDIT = 'edit';
 

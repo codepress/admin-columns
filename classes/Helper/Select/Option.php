@@ -6,7 +6,6 @@ namespace AC\Helper\Select;
 
 class Option
 {
-
     private string $value;
 
     private string $label;

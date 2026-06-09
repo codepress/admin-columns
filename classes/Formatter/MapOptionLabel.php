@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class MapOptionLabel implements Formatter
 {
-
     private array $mapping;
 
     private bool $fallback_to_raw;
@@ -26,11 +25,11 @@ class MapOptionLabel implements Formatter
         // TODO Stefan there was an issue with $label here...?
         $raw_value = $value->get_value();
 
-        if ( ! is_scalar($raw_value)) {
+        if (! is_scalar($raw_value)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        if ( ! $this->fallback_to_raw && ! array_key_exists($raw_value, $this->mapping)) {
+        if (! $this->fallback_to_raw && ! array_key_exists($raw_value, $this->mapping)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

@@ -10,12 +10,11 @@ use AC\Type\Value;
 
 class DiscussionStatus implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $post = get_post($value->get_id());
 
-        if ( ! $post) {
+        if (! $post) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

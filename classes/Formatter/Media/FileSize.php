@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class FileSize implements Formatter
 {
-
     private ?string $format;
 
     private ?int $decimals;
@@ -25,7 +24,7 @@ class FileSize implements Formatter
     {
         $file = get_attached_file($value->get_id());
 
-        if ( ! file_exists($file)) {
+        if (! file_exists($file)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

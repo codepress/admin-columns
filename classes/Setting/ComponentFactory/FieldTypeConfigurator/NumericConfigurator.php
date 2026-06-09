@@ -10,7 +10,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class NumericConfigurator implements FieldTypeConfigurator
 {
-
     public const TYPE = 'numeric';
 
     private ComponentFactory\NumberFormat $number_format;

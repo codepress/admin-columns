@@ -13,17 +13,16 @@ use AC\Response\Json;
 
 class CustomFieldKeys implements RequestAjaxHandler
 {
-
     public function handle(): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
         $request = new Request();
         $response = new Json();
 
-        if ( ! (new Nonce\Ajax())->verify($request)) {
+        if (! (new Nonce\Ajax())->verify($request)) {
             $response->error();
         }
 

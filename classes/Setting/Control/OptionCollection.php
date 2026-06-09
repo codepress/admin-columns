@@ -9,7 +9,6 @@ use AC\Setting\Control\Type\Option;
 
 final class OptionCollection extends Collection
 {
-
     public function __construct(array $options = [])
     {
         array_map([$this, 'add'], $options);
@@ -20,7 +19,7 @@ final class OptionCollection extends Collection
         $self = new self();
 
         foreach ($data as $key => $value) {
-            if ( ! $associative) {
+            if (! $associative) {
                 $key = $value;
             }
 

@@ -8,7 +8,6 @@ use AC\Type;
 
 class Site extends Type\Uri
 {
-
     public const PAGE_CHANGELOG = '/changelog';
     public const PAGE_PRICING = '/pricing-purchase';
     public const PAGE_ABOUT_PRO = '/admin-columns-pro';

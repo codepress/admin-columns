@@ -11,7 +11,6 @@ use AC\Setting\ComponentCollection;
 
 class BaseEncoder implements AC\Storage\Encoder
 {
-
     private Version $version;
 
     private ?ListScreen $list_screen = null;

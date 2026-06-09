@@ -6,7 +6,6 @@ namespace AC\Helper\Select;
 
 final class ArrayMapper
 {
-
     public static function map(Options $options): array
     {
         $items = [];

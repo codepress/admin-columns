@@ -12,7 +12,6 @@ use AC\Type\ValueCollection;
 
 class Links implements Formatter
 {
-
     private ?string $filter_by;
 
     private ?array $internal_domains;
@@ -29,7 +28,7 @@ class Links implements Formatter
             (string)$value
         );
 
-        if ( ! $urls) {
+        if (! $urls) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

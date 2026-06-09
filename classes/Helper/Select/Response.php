@@ -6,7 +6,6 @@ namespace AC\Helper\Select;
 
 final class Response
 {
-
     private Options $options;
 
     private bool $more;

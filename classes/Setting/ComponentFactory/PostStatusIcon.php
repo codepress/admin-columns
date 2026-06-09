@@ -13,7 +13,6 @@ use AC\Setting\Control\OptionCollectionFactory\ToggleOptionCollection;
 
 class PostStatusIcon extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Use an icon?', 'codepress-admin-columns');

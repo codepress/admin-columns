@@ -18,7 +18,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class TitleRawFactory extends BaseColumnFactory
 {
-
     private StringLimit $string_limit_factory;
 
     private PostLink $post_link_factory;

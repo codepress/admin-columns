@@ -8,7 +8,6 @@ use AC\Request\Parameters;
 
 class Request
 {
-
     public const METHOD_POST = 'POST';
     public const METHOD_GET = 'GET';
 

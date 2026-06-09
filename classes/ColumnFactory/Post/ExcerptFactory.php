@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class ExcerptFactory extends BaseColumnFactory
 {
-
     private ComponentFactory\StringLimit $string_limit;
 
     private ComponentFactory\BeforeAfter $before_after;

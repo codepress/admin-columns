@@ -9,7 +9,6 @@ use AC\ColumnIterator;
 
 interface Sort
 {
-
     public function sort(ColumnIterator $columns): ColumnCollection;
 
 }

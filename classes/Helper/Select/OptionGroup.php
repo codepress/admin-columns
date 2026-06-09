@@ -6,7 +6,6 @@ namespace AC\Helper\Select;
 
 final class OptionGroup
 {
-
     private string $label;
 
     /**

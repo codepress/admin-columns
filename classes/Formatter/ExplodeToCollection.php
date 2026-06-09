@@ -10,7 +10,6 @@ use AC\Type\ValueCollection;
 
 final class ExplodeToCollection extends ArrayToCollection
 {
-
     private string $separator;
 
     public function __construct(string $separator)

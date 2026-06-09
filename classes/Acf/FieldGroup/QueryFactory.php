@@ -9,7 +9,6 @@ use AC\TableScreen;
 
 class QueryFactory
 {
-
     public function create(TableScreen $table_screen): ?Query
     {
         if ($table_screen instanceof TableScreen\Media) {

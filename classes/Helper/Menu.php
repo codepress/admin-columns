@@ -6,7 +6,6 @@ namespace AC\Helper;
 
 class Menu extends Creatable
 {
-
     public function get_menu_label(int $menu_item_id): string
     {
         global $wpdb;
@@ -52,13 +51,13 @@ class Menu extends Creatable
      */
     public function get_terms(array $terms_ids, array $args = []): array
     {
-        if ( ! $terms_ids) {
+        if (! $terms_ids) {
             return [];
         }
 
         $terms = wp_get_object_terms($terms_ids, 'nav_menu', $args);
 
-        if ( ! $terms || is_wp_error($terms)) {
+        if (! $terms || is_wp_error($terms)) {
             return [];
         }
 

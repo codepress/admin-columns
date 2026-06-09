@@ -12,7 +12,6 @@ use WP_Screen;
 
 class Aggregate implements TableScreenFactory
 {
-
     /**
      * @var TableScreenFactory[]
      */

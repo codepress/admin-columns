@@ -8,7 +8,6 @@ use AC\Storage;
 
 class GeneralOption
 {
-
     private Storage\OptionData $storage;
 
     private ?array $data = null;

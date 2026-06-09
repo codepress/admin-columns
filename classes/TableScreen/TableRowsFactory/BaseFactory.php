@@ -10,7 +10,6 @@ use AC\TableScreen\TableRowsFactory;
 
 class BaseFactory implements TableRowsFactory
 {
-
     public function create(TableScreen $table_screen): ?TableRows
     {
         switch (true) {

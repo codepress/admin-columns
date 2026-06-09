@@ -6,7 +6,6 @@ namespace AC\Value;
 
 final class ExtendedValueLink
 {
-
     private string $view;
 
     private array $attributes;
@@ -87,7 +86,7 @@ final class ExtendedValueLink
             $attribute_markup[] = sprintf('data-modal-class="%s"', esc_attr($attributes['class']));
         }
 
-        if ( ! empty($this->params)) {
+        if (! empty($this->params)) {
             $attribute_markup[] = sprintf('data-modal-params="%s"', esc_attr(json_encode($this->params)));
         }
 

@@ -8,7 +8,6 @@ use AC\Storage\UserData;
 
 final class Preference
 {
-
     private UserData $storage;
 
     public function __construct(UserData $storage)

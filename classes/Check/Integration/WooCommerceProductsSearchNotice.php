@@ -11,7 +11,6 @@ use AC\WooCommerce;
 
 class WooCommerceProductsSearchNotice implements IntegrationNotice, UsageAwareNotice
 {
-
     public function is_usage_detected(): bool
     {
         return ! empty($_GET['s']);
@@ -19,7 +18,7 @@ class WooCommerceProductsSearchNotice implements IntegrationNotice, UsageAwareNo
 
     public function is_active(Screen $screen): bool
     {
-        if ( ! WooCommerce::is_active()) {
+        if (! WooCommerce::is_active()) {
             return false;
         }
 

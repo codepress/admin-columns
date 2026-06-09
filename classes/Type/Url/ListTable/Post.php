@@ -8,7 +8,6 @@ use AC\Type\Uri;
 
 class Post extends Uri
 {
-
     public function __construct(string $post_type)
     {
         parent::__construct((string)admin_url('edit.php'));

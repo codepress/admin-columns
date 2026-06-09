@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class NoIcon implements Formatter
 {
-
     private ?string $class;
 
     public function __construct(?string $class = 'red')

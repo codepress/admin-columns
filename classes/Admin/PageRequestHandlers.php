@@ -8,7 +8,6 @@ use AC\Request;
 
 class PageRequestHandlers implements RequestHandlerInterface
 {
-
     /**
      * @var RequestHandlerInterface[]
      */

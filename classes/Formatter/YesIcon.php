@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class YesIcon implements Formatter
 {
-
     private ?string $class;
 
     private ?string $title;

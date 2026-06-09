@@ -13,7 +13,6 @@ use AC\Integration\IntegrationRepository;
 
 class Addons implements PageFactoryInterface
 {
-
     protected AdminColumns $plugin;
 
     protected IntegrationRepository $integrations;

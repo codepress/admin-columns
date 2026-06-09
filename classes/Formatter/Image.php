@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class Image implements Formatter
 {
-
     /**
      * @var string|array
      */

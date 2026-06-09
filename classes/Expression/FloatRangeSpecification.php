@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 class FloatRangeSpecification extends RangeSpecification implements TypeSpecification
 {
-
     use TypeTrait;
 
     public function __construct(string $operator, float $a, float $b)

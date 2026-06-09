@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class Property implements Formatter
 {
-
     private string $property;
 
     public function __construct(string $property)
@@ -22,7 +21,7 @@ class Property implements Formatter
     {
         $post = get_post($value->get_id());
 
-        if ( ! $post) {
+        if (! $post) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

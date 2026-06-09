@@ -14,7 +14,6 @@ use AC\Value;
 
 class HtmlConfigurator implements FieldTypeConfigurator
 {
-
     private ModalDisplay $modal_display;
 
     public function __construct(ModalDisplay $modal_display)

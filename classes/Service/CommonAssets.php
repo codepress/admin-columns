@@ -12,7 +12,6 @@ use AC\Registerable;
 
 class CommonAssets implements Registerable
 {
-
     private AC\Asset\Location $location;
 
     private Script\GlobalTranslationFactory $translation_factory;

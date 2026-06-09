@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class MapToLabel implements Formatter
 {
-
     private Formatter $formatter;
 
     private array $mapping;
@@ -25,7 +24,7 @@ class MapToLabel implements Formatter
     {
         $raw_value = $this->formatter->format($value);
 
-        if ( ! is_scalar($raw_value->get_value()) || ! array_key_exists($raw_value->get_value(), $this->mapping)) {
+        if (! is_scalar($raw_value->get_value()) || ! array_key_exists($raw_value->get_value(), $this->mapping)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

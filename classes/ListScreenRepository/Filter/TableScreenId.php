@@ -10,7 +10,6 @@ use AC\Type\TableId;
 
 final class TableScreenId implements Filter
 {
-
     private TableId $table_id;
 
     public function __construct(TableId $key)

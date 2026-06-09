@@ -10,7 +10,6 @@ use AC\Type\ListScreenId;
 
 class UserColumnOrder
 {
-
     private SiteFactory $storage_factory;
 
     public function __construct(SiteFactory $storage_factory)

@@ -8,7 +8,6 @@ use AC\ListScreenRepository\Rule;
 
 class EqualType implements Rule
 {
-
     private string $type;
 
     public function __construct(string $type)
@@ -18,7 +17,7 @@ class EqualType implements Rule
 
     public function match(array $args): bool
     {
-        if ( ! isset($args[self::TYPE])) {
+        if (! isset($args[self::TYPE])) {
             return false;
         }
 

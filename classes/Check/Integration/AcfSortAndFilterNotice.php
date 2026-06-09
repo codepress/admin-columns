@@ -12,7 +12,6 @@ use AC\Type\Url\UtmTags;
 
 class AcfSortAndFilterNotice implements IntegrationNotice, UsageAwareNotice
 {
-
     private FieldGroupCache $field_group_cache;
 
     public function __construct(FieldGroupCache $field_group_cache)
@@ -22,7 +21,7 @@ class AcfSortAndFilterNotice implements IntegrationNotice, UsageAwareNotice
 
     public function is_active(Screen $screen): bool
     {
-        if ( ! Acf::is_active()) {
+        if (! Acf::is_active()) {
             return false;
         }
 

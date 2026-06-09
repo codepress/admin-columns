@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class EmptyValue implements Formatter
 {
-
     public const DEFAULT = '&ndash;';
 
     private ?string $default;

@@ -19,7 +19,6 @@ use AC\Setting\Control\Type\Option;
 
 class FieldType extends BaseComponentFactory
 {
-
     public const TYPE_DEFAULT = '';
     public const TYPE_HTML = 'html';
     public const TYPE_ARRAY = 'array';
@@ -170,7 +169,7 @@ class FieldType extends BaseComponentFactory
     protected function get_field_types(): array
     {
         $options = [
-            'basic'      => [
+            'basic' => [
                 self::TYPE_COLOR   => __('Color', 'codepress-admin-columns'),
                 self::TYPE_DATE    => __('Date', 'codepress-admin-columns'),
                 self::TYPE_TEXT    => __('Text', 'codepress-admin-columns'),
@@ -179,7 +178,7 @@ class FieldType extends BaseComponentFactory
                 self::TYPE_URL     => __('URL', 'codepress-admin-columns'),
                 self::TYPE_NUMERIC => __('Number', 'codepress-admin-columns'),
             ],
-            'choice'     => [
+            'choice' => [
                 self::TYPE_NON_EMPTY => __('Has Content', 'codepress-admin-columns'),
                 self::TYPE_BOOLEAN   => __('True / False', 'codepress-admin-columns'),
                 self::TYPE_SELECT    => __('Select', 'codepress-admin-columns'),
@@ -189,7 +188,7 @@ class FieldType extends BaseComponentFactory
                 self::TYPE_POST  => __('Post', 'codepress-admin-columns'),
                 self::TYPE_USER  => __('User', 'codepress-admin-columns'),
             ],
-            'multiple'   => [
+            'multiple' => [
                 self::TYPE_COUNT => __('Number of Fields', 'codepress-admin-columns'),
                 self::TYPE_ARRAY => sprintf(
                     '%s / %s',

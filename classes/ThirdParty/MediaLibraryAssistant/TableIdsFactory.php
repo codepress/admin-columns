@@ -10,7 +10,6 @@ use AC\Type\TableIdCollection;
 
 class TableIdsFactory implements AC\TableIdsFactory
 {
-
     public function create(): TableIdCollection
     {
         return new TableIdCollection([

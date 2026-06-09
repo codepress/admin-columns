@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class AlbumFactory extends BaseColumnFactory
 {
-
     public function get_column_type(): string
     {
         return 'column-meta_album';

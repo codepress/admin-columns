@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class Arrays extends Creatable
 {
-
     public function add_nested_value(array $keys, $value, array $result = []): array
     {
         $key = array_shift($keys);
@@ -30,7 +29,7 @@ class Arrays extends Creatable
     public function get_nested_value(array $array, array $keys)
     {
         foreach ($keys as $key) {
-            if ( ! isset($array[$key])) {
+            if (! isset($array[$key])) {
                 return null;
             }
 
@@ -105,7 +104,7 @@ class Arrays extends Creatable
     {
         _deprecated_function(__METHOD__, '7.0');
 
-        if ( ! is_array($array)) {
+        if (! is_array($array)) {
             return false;
         }
 

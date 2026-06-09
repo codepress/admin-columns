@@ -7,10 +7,8 @@ namespace AC\Helper\Select\Options;
 use AC\ArrayIterator;
 use AC\Helper\Select;
 
-class Paginated extends Select\Options
-    implements Select\Paginated
+class Paginated extends Select\Options implements Select\Paginated
 {
-
     protected Select\Paginated $paginated;
 
     public function __construct(Select\Paginated $paginated, ArrayIterator $options)

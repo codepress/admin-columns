@@ -10,7 +10,6 @@ use AC\Admin\Colors\Type\Color;
 
 final class ColorParser
 {
-
     private string $file;
 
     public function __construct(string $file)
@@ -23,7 +22,7 @@ final class ColorParser
         $collection = new ColorCollection();
         $contents = file_get_contents($this->file);
 
-        if ( ! $contents) {
+        if (! $contents) {
             return $collection;
         }
 

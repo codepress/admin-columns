@@ -10,7 +10,6 @@ use AC\Type\Uri;
 
 class Editor extends Uri
 {
-
     public function __construct(?string $slug = null)
     {
         parent::__construct((string)admin_url('options-general.php'));

@@ -11,7 +11,6 @@ use AC\Type\TableIdCollection;
 
 class BaseFactory implements TableIdsFactory
 {
-
     private PostTypeRepository $post_type_repository;
 
     public function __construct(PostTypeRepository $post_type_repository)

@@ -10,7 +10,6 @@ use AC\Registerable;
 
 class AdminNetwork implements Registerable
 {
-
     private RequestHandlerInterface $request_handler;
 
     private Location $location_core;

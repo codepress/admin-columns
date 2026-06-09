@@ -12,7 +12,6 @@ use DateTime;
 
 class V4000 extends Update
 {
-
     public const DATABASE_TABLE = 'admin_columns';
 
     public const LAYOUT_PREFIX = 'cpac_layouts';
@@ -299,7 +298,7 @@ class V4000 extends Update
             $orginal_data = $data;
 
             foreach ($replaced_list_ids as $list_key => $ids) {
-                if ( ! array_key_exists($list_key, $data)) {
+                if (! array_key_exists($list_key, $data)) {
                     continue;
                 }
 
@@ -342,13 +341,13 @@ class V4000 extends Update
 
         $result = $wpdb->get_var($sql);
 
-        if ( ! $result) {
+        if (! $result) {
             return;
         }
 
         $list_screens = maybe_unserialize($result);
 
-        if ( ! $list_screens || ! is_array($list_screens)) {
+        if (! $list_screens || ! is_array($list_screens)) {
             return;
         }
 
@@ -399,13 +398,13 @@ class V4000 extends Update
 
     private function maybe_replace_id(array $replaced_list_ids, string $list_key, $id)
     {
-        if ( ! array_key_exists($list_key, $replaced_list_ids)) {
+        if (! array_key_exists($list_key, $replaced_list_ids)) {
             return $id;
         }
 
         $_ids = $replaced_list_ids[$list_key];
 
-        if ( ! $_ids || ! is_array($_ids)) {
+        if (! $_ids || ! is_array($_ids)) {
             return $id;
         }
 
@@ -447,7 +446,7 @@ class V4000 extends Update
                 $list_key = $this->remove_prefix(self::LAYOUT_PREFIX, $row->option_name);
                 $list_key = $this->remove_suffix((string)$list_id, $list_key);
 
-                if ( ! $list_key) {
+                if (! $list_key) {
                     continue;
                 }
 
@@ -459,13 +458,13 @@ class V4000 extends Update
                     'roles' => [],
                 ];
 
-                if ( ! empty($data->name)) {
+                if (! empty($data->name)) {
                     $layout_data['name'] = $data->name;
                 }
-                if ( ! empty($data->users) && is_array($data->users)) {
+                if (! empty($data->users) && is_array($data->users)) {
                     $layout_data['users'] = array_map('intval', $data->users);
                 }
-                if ( ! empty($data->roles) && is_array($data->roles)) {
+                if (! empty($data->roles) && is_array($data->roles)) {
                     $layout_data['roles'] = array_map('strval', $data->roles);
                 }
 
@@ -550,7 +549,7 @@ class V4000 extends Update
 
             $list_id = $layout_data['id'];
 
-            if ( ! $list_id) {
+            if (! $list_id) {
                 $list_id = uniqid();
 
                 // add to list of id's that have been replaced

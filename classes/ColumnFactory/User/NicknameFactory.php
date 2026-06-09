@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class NicknameFactory extends BaseColumnFactory
 {
-
     private UserLink $user_link;
 
     public function __construct(DefaultSettingsBuilder $default_settings_builder, UserLink $user_link)

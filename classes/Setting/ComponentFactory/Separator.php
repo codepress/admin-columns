@@ -13,7 +13,6 @@ use AC\Setting\Config;
 
 final class Separator implements ComponentFactory, InputNameAware
 {
-
     public const DEFAULT = '';
     public const COMMA = 'comma';
     public const HORIZONTAL_RULE = 'horizontal_rule';

@@ -13,13 +13,12 @@ use WP_Post;
 
 class DescriptivePostStatus implements Formatter
 {
-
     public function format(Value $value): Value
     {
         global $wp_post_statuses;
         $post = get_post($value->get_id());
 
-        if ( ! $post instanceof WP_Post) {
+        if (! $post instanceof WP_Post) {
             return $value;
         }
 

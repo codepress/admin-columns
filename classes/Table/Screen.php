@@ -16,7 +16,6 @@ use AC\Type\EditorUrlFactory;
 
 final class Screen implements Registerable
 {
-
     private Location $location;
 
     private AC\TableScreen $table_screen;
@@ -57,7 +56,7 @@ final class Screen implements Registerable
 
     private function show_edit_columns_action(): bool
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return false;
         }
 
@@ -179,7 +178,7 @@ final class Screen implements Registerable
                 'decimal_point' => $this->get_local_number_format('decimal_point'),
                 'thousands_sep' => $this->get_local_number_format('thousands_sep'),
             ],
-            'meta_type'         => $this->table_screen instanceof AC\TableScreen\MetaType
+            'meta_type' => $this->table_screen instanceof AC\TableScreen\MetaType
                 ? (string)$this->table_screen->get_meta_type()
                 : '',
         ];

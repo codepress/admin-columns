@@ -14,7 +14,6 @@ use AC\Deprecated\Hooks;
 
 class Help implements PageFactoryInterface
 {
-
     protected AdminColumns $plugin;
 
     protected MenuFactoryInterface $menu_factory;

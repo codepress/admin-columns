@@ -10,12 +10,11 @@ use DateTime;
 
 final class TimeDifference extends DateObject
 {
-
     public function format(Value $value): Value
     {
         $date = parent::format($value)->get_value();
 
-        if ( ! $date instanceof DateTime) {
+        if (! $date instanceof DateTime) {
             throw new ValueNotFoundException('Invalid date object');
         }
 

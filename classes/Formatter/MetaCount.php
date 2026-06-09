@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class MetaCount implements Formatter
 {
-
     private MetaType $meta_type;
 
     private string $meta_key;

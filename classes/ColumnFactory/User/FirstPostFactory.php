@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class FirstPostFactory extends BaseColumnFactory
 {
-
     private ComponentFactory\PostType $post_type;
 
     private ComponentFactory\PostStatus $post_status;

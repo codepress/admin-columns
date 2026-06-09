@@ -16,7 +16,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class ExifData implements ComponentFactory
 {
-
     private const NAME = 'exif_data';
 
     private BeforeAfter $before_after;

@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 final class CountLabelFormatter implements Formatter
 {
-
     private string $singular;
 
     private string $plural;
@@ -25,7 +24,7 @@ final class CountLabelFormatter implements Formatter
     {
         $count = $value->get_value();
 
-        if ( ! is_numeric($count)) {
+        if (! is_numeric($count)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

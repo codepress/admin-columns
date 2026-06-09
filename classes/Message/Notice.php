@@ -11,7 +11,6 @@ use AC\View;
 
 class Notice extends Message implements Registerable
 {
-
     public function render(): string
     {
         $data = [

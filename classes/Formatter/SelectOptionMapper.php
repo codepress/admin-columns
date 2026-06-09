@@ -8,7 +8,6 @@ use AC\Setting\Config;
 
 class SelectOptionMapper extends MapOptionLabel
 {
-
     public function __construct(Config $config)
     {
         $data = json_decode($config->get('select_options', '')) ?? [];

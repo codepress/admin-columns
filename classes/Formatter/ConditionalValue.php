@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 final class ConditionalValue implements Formatter
 {
-
     private Value $check_value;
 
     private Formatter $formatter;

@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 final class Avatar implements Formatter
 {
-
     private int $size;
 
     public function __construct(int $size = 60)
@@ -25,7 +24,7 @@ final class Avatar implements Formatter
             $this->size
         );
 
-        if ( ! $image) {
+        if (! $image) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

@@ -12,7 +12,6 @@ use AC\Storage\Repository\IntegrationStatus;
 
 class IntegrationToggle implements RequestAjaxHandler
 {
-
     private IntegrationStatus $repository;
 
     public function __construct(IntegrationStatus $repository)
@@ -22,19 +21,19 @@ class IntegrationToggle implements RequestAjaxHandler
 
     public function handle(): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             wp_send_json_error();
         }
 
         $request = new Request();
 
-        if ( ! (new Nonce\Ajax())->verify($request)) {
+        if (! (new Nonce\Ajax())->verify($request)) {
             wp_send_json_error();
         }
 
         $integration = $request->get('integration');
 
-        if ( ! $integration) {
+        if (! $integration) {
             wp_send_json_error();
         }
 

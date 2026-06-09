@@ -9,7 +9,6 @@ use AC\Setting\Control\Input;
 
 final class HiddenLabel extends BaseComponentFactory
 {
-
     protected function get_input(Config $config): ?Input
     {
         $label = $config->has('label')

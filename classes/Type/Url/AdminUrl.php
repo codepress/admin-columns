@@ -8,7 +8,6 @@ use AC\Type\Uri;
 
 final class AdminUrl extends Uri
 {
-
     public function __construct(string $path)
     {
         parent::__construct((string)admin_url($path));

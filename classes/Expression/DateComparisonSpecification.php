@@ -9,7 +9,6 @@ use DateTimeZone;
 
 class DateComparisonSpecification extends ComparisonSpecification implements TypeSpecification
 {
-
     use DateTrait;
     use TypeTrait;
 

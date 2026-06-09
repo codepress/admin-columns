@@ -14,7 +14,6 @@ use InvalidArgumentException;
 
 class ListStorage
 {
-
     private SettingUpdater $setting_updater;
 
     public function __construct(SettingUpdater $setting_updater)
@@ -57,7 +56,7 @@ class ListStorage
     {
         $width_setting = $column->get_setting('width');
 
-        if ( ! $width_setting) {
+        if (! $width_setting) {
             return null;
         }
 

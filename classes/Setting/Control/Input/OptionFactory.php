@@ -11,7 +11,6 @@ use AC\Setting\Type\Attribute;
 
 final class OptionFactory
 {
-
     public static function create_select(
         string $name,
         OptionCollection $options,

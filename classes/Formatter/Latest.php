@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 final class Latest implements Formatter
 {
-
     private Formatter $formatter;
 
     public function __construct(Formatter $formatter)

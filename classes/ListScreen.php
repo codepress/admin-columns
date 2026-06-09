@@ -17,7 +17,6 @@ use WP_User;
 
 final class ListScreen
 {
-
     private ListScreenId $id;
 
     private string $title;
@@ -118,7 +117,7 @@ final class ListScreen
 
     public function get_segments(): SegmentCollection
     {
-        if ( ! $this->segments) {
+        if (! $this->segments) {
             $this->segments = new SegmentCollection();
         }
 
@@ -132,7 +131,7 @@ final class ListScreen
 
     public function get_conditional_format(): RulesCollection
     {
-        if ( ! $this->conditional_format) {
+        if (! $this->conditional_format) {
             $this->conditional_format = new RulesCollection();
         }
 
@@ -222,7 +221,7 @@ final class ListScreen
             ? array_filter(array_map('strval', $roles))
             : [];
 
-        if ( ! $user_ids && ! $roles) {
+        if (! $user_ids && ! $roles) {
             return true;
         }
 

@@ -10,7 +10,6 @@ use WP_Terms_List_Table;
 
 class Taxonomy implements ListTable
 {
-
     private WP_Terms_List_Table $table;
 
     private string $taxonomy;
@@ -30,7 +29,7 @@ class Taxonomy implements ListTable
     {
         $term = get_term_by('id', $id, $this->taxonomy);
 
-        if ( ! $term instanceof WP_Term) {
+        if (! $term instanceof WP_Term) {
             return '';
         }
 

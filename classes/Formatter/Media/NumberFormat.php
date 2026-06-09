@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class NumberFormat implements Formatter
 {
-
     private int $decimals;
 
     private string $prefix;

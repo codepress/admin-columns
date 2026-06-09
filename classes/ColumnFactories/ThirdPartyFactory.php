@@ -10,7 +10,6 @@ use AC\Type\ColumnFactoryDefinition;
 
 final class ThirdPartyFactory extends BaseFactory
 {
-
     protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
         $collection = new ColumnFactoryDefinitionCollection();
@@ -38,7 +37,8 @@ final class ThirdPartyFactory extends BaseFactory
 
             $collection->add(
                 new ColumnFactoryDefinition(
-                    $factory, $props
+                    $factory,
+                    $props
                 )
             );
         }

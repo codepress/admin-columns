@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class ExcerptMissingMessage implements Formatter
 {
-
     private bool $tooltip;
 
     public function __construct(bool $tooltip = true)
@@ -21,7 +20,7 @@ class ExcerptMissingMessage implements Formatter
     public function format(Value $value): Value
     {
         $excerpt = $value->get_value();
-        if ( ! $excerpt) {
+        if (! $excerpt) {
             return $value;
         }
 

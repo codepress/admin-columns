@@ -9,7 +9,6 @@ use WP_Posts_List_Table;
 
 class Post implements ListTable
 {
-
     private WP_Posts_List_Table $table;
 
     public function __construct(WP_Posts_List_Table $table)
@@ -23,7 +22,7 @@ class Post implements ListTable
         $global_post = get_post();
         $post = get_post((int)$row_id);
 
-        if ( ! $post) {
+        if (! $post) {
             return '';
         }
 
@@ -47,12 +46,12 @@ class Post implements ListTable
     {
         $post = get_post($id);
 
-        if ( ! $post) {
+        if (! $post) {
             return '';
         }
 
         // Title for some columns can only be retrieved when post is set globally
-        if ( ! isset($GLOBALS['post'])) {
+        if (! isset($GLOBALS['post'])) {
             $GLOBALS['post'] = $post;
         }
 

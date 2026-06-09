@@ -13,7 +13,6 @@ use AC\Value\Extended\ExtendedValue;
 
 class PreviewViewLink implements Formatter
 {
-
     private ExtendedValue $extended_view;
 
     public function __construct(ExtendedValue $extended_view)
@@ -42,7 +41,7 @@ class PreviewViewLink implements Formatter
 
     public function format(Value $value): Value
     {
-        if ( ! $this->get_media_type($value->get_id())) {
+        if (! $this->get_media_type($value->get_id())) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

@@ -12,7 +12,6 @@ use AC\Type\Value;
 
 class UserLink implements Formatter
 {
-
     private string $link_to;
 
     private ?PostTypeSlug $post_type;
@@ -29,7 +28,7 @@ class UserLink implements Formatter
 
         $user = get_userdata($user_id);
 
-        if ( ! $user) {
+        if (! $user) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
@@ -42,8 +41,7 @@ class UserLink implements Formatter
                     $link = add_query_arg('user_id', $user_id, self_admin_url('user-edit.php'));
                 }
                 break;
-            case
-            'view_user_posts' :
+            case 'view_user_posts' :
                 $args['author'] = $user_id;
 
                 if ($this->post_type) {
@@ -59,7 +57,7 @@ class UserLink implements Formatter
             case 'email_user':
                 $email = get_the_author_meta('email', $user_id);
 
-                if ( ! $email) {
+                if (! $email) {
                     throw ValueNotFoundException::from_id($value->get_id());
                 }
 

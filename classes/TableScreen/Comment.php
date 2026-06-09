@@ -13,7 +13,6 @@ use AC\Type\Url;
 
 class Comment extends TableScreen implements ListTable, MetaType, TotalItems
 {
-
     use AC\ListTable\TotalItemsTrait;
 
     public function __construct()

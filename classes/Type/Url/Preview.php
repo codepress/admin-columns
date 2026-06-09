@@ -9,7 +9,6 @@ use AC\Type\Uri;
 
 class Preview extends Uri
 {
-
     public function __construct(Uri $url, ?string $tab = null)
     {
         parent::__construct((string)$url);

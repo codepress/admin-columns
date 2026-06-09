@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class ImplodeRecursive implements Formatter
 {
-
     private ?string $glue;
 
     public function __construct(?string $glue = ', ')
@@ -26,7 +25,7 @@ class ImplodeRecursive implements Formatter
             return $value->with_value((string)$current_value);
         }
 
-        if ( ! is_array($current_value)) {
+        if (! is_array($current_value)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
@@ -46,7 +45,7 @@ class ImplodeRecursive implements Formatter
             }
         }
 
-        return implode($glue, array_filter($scalars, static fn(string $v): bool => strlen($v) > 0));
+        return implode($glue, array_filter($scalars, static fn (string $v): bool => strlen($v) > 0));
     }
 
 }

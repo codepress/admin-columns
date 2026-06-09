@@ -8,7 +8,6 @@ use DateTimeZone;
 
 class Date extends Creatable
 {
-
     public function get_date_format(): string
     {
         return (string)get_option('date_format') ?: 'F j, Y';

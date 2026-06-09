@@ -9,7 +9,6 @@ use AC\MetaType;
 
 class Meta extends Formatter\Meta
 {
-
     public function __construct(string $meta_key)
     {
         parent::__construct(MetaType::create_post_meta(), $meta_key);

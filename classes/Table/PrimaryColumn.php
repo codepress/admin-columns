@@ -14,7 +14,6 @@ use WP_Post;
 
 class PrimaryColumn
 {
-
     private ListScreen $list_screen;
 
     public function __construct(ListScreen $list_screen)
@@ -29,7 +28,7 @@ class PrimaryColumn
         $columns = $this->list_screen->get_columns();
         $column = $columns->first();
 
-        if ( ! $default_column && $column) {
+        if (! $default_column && $column) {
             $default = (string)$column->get_id();
         }
 

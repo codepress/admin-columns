@@ -10,12 +10,11 @@ use AC\Type\Value;
 
 class CommentText implements Formatter
 {
-
     public function format(Value $value)
     {
         $text = get_comment_text($value->get_id());
 
-        if ( ! $text) {
+        if (! $text) {
             throw new ValueNotFoundException('Comment text not found for ID: ' . $value->get_id());
         }
 

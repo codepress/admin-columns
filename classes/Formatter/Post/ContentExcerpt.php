@@ -10,18 +10,17 @@ use AC\Type\Value;
 
 class ContentExcerpt implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $post = get_post((int)$value->get_id());
 
-        if ( ! $post) {
+        if (! $post) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
         $excerpt = get_the_excerpt($post);
 
-        if ( ! $excerpt) {
+        if (! $excerpt) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

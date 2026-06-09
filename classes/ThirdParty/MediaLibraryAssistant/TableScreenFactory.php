@@ -11,7 +11,6 @@ use WP_Screen;
 
 class TableScreenFactory implements AC\TableScreenFactory
 {
-
     protected function create_table_screen(): TableScreen
     {
         return new TableScreen();

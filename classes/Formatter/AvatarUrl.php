@@ -10,14 +10,13 @@ use AC\Type\Value;
 
 final class AvatarUrl implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $url = get_avatar_url(
             $value->get_value()
         );
 
-        if ( ! $url) {
+        if (! $url) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

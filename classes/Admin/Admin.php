@@ -10,7 +10,6 @@ use AC\Registerable;
 
 class Admin implements Registerable
 {
-
     public const NAME = 'codepress-admin-columns';
 
     private RequestHandlerInterface $request_handler;

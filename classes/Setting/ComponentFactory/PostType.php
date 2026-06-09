@@ -14,7 +14,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class PostType implements ComponentFactory
 {
-
     private bool $show_any;
 
     private bool $multiple;
@@ -82,7 +81,7 @@ final class PostType implements ComponentFactory
 
         $post_types = get_post_types();
 
-        if ( ! is_array($post_types)) {
+        if (! is_array($post_types)) {
             return $options;
         }
 

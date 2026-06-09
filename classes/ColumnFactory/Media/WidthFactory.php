@@ -12,7 +12,6 @@ use AC\Setting\Config;
 
 class WidthFactory extends BaseColumnFactory
 {
-
     public function get_column_type(): string
     {
         return 'column-width';

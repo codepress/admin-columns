@@ -9,7 +9,6 @@ use DOMElement;
 
 class Html extends Creatable
 {
-
     public function get_attribute_as_string(string $key, ?string $value = null): string
     {
         return Strings::create()->is_not_empty($value)
@@ -30,7 +29,7 @@ class Html extends Creatable
 
     public function link(string $url, ?string $label = null, array $attributes = []): string
     {
-        if ( ! $url) {
+        if (! $url) {
             return $label;
         }
 
@@ -38,11 +37,11 @@ class Html extends Creatable
             $label = urldecode($url);
         }
 
-        if ( ! $label) {
+        if (! $label) {
             return '';
         }
 
-        if ( ! $this->contains_html($label)) {
+        if (! $this->contains_html($label)) {
             $label = esc_html($label);
         }
 
@@ -71,7 +70,7 @@ class Html extends Creatable
 
     public function get_tooltip_attr(string $content): string
     {
-        if ( ! $content) {
+        if (! $content) {
             return '';
         }
 
@@ -94,7 +93,7 @@ class Html extends Creatable
 
     public function codearea(string $string, int $max_chars = 1000): string
     {
-        if ( ! $string) {
+        if (! $string) {
             return '';
         }
 
@@ -124,7 +123,7 @@ class Html extends Creatable
 
     public function get_links(string $string): ?array
     {
-        if ( ! class_exists('DOMDocument')) {
+        if (! class_exists('DOMDocument')) {
             return null;
         }
 
@@ -251,7 +250,7 @@ class Html extends Creatable
 
     public function images(string $html, ?int $removed = null): string
     {
-        if ( ! $html) {
+        if (! $html) {
             return '';
         }
 

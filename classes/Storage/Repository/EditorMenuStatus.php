@@ -8,7 +8,6 @@ use AC\Storage\UserOption;
 
 class EditorMenuStatus
 {
-
     private UserOption $storage;
 
     public function __construct()
@@ -32,7 +31,7 @@ class EditorMenuStatus
     {
         $data = $this->get_groups();
 
-        if ( ! in_array($group, $data, true)) {
+        if (! in_array($group, $data, true)) {
             $data[] = $group;
         }
 

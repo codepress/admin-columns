@@ -17,7 +17,6 @@ use AC\Renderable;
 
 class Addons implements Enqueueables, Renderable, RenderableHead
 {
-
     public const NAME = 'addons';
 
     protected Location $location;

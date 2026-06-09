@@ -14,7 +14,6 @@ use AC\Setting\Control\OptionCollection;
 
 class VideoDisplay implements ComponentFactory
 {
-
     public function create(Config $config, ?Specification $conditions = null): Component
     {
         $builder = (new ComponentBuilder())

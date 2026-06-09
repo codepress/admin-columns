@@ -6,7 +6,6 @@ namespace AC\Column;
 
 class LabelEncoder
 {
-
     public function encode(string $url): string
     {
         return $this->convert($url);

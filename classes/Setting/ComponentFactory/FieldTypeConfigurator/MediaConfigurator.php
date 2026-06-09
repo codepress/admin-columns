@@ -11,7 +11,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class MediaConfigurator implements FieldTypeConfigurator
 {
-
     private const TYPE = 'library_id';
 
     private Setting\ComponentFactory\ImageSize $image_size;

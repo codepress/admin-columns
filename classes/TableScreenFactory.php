@@ -9,7 +9,6 @@ use WP_Screen;
 
 interface TableScreenFactory
 {
-
     public function create(TableId $id): TableScreen;
 
     public function can_create(TableId $id): bool;

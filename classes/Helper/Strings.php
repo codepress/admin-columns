@@ -6,7 +6,6 @@ namespace AC\Helper;
 
 class Strings extends Creatable
 {
-
     public function starts_with(string $haystack, string $needle): bool
     {
         return '' === $needle || 0 === strpos($haystack, $needle);
@@ -41,7 +40,7 @@ class Strings extends Creatable
     {
         global $shortcode_tags;
 
-        if ( ! $shortcode_tags || ! $content) {
+        if (! $shortcode_tags || ! $content) {
             return [];
         }
 
@@ -88,7 +87,7 @@ class Strings extends Creatable
         $string = (string) preg_replace('/&nbsp;|&#160;/i', ' ', $string);
         $string = (string) preg_replace($patterns['clean'], '', $string);
 
-        if ( ! strlen((string) preg_replace('/\s/', '', $string))) {
+        if (! strlen((string) preg_replace('/\s/', '', $string))) {
             return 0;
         }
 
@@ -119,7 +118,7 @@ class Strings extends Creatable
 
     public function is_image(string $url): bool
     {
-        if ( ! $url) {
+        if (! $url) {
             return false;
         }
 

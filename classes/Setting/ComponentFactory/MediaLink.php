@@ -13,7 +13,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class MediaLink extends BaseComponentFactory
 {
-
     private const NAME = 'media_link_to';
 
     protected function get_label(Config $config): ?string

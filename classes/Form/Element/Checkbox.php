@@ -8,7 +8,6 @@ use AC\Form\Element;
 
 class Checkbox extends Element
 {
-
     protected ?bool $vertical = null;
 
     protected ?bool $multiple = null;
@@ -37,7 +36,7 @@ class Checkbox extends Element
     {
         $elements = $this->get_elements();
 
-        if ( ! $elements) {
+        if (! $elements) {
             return '';
         }
 

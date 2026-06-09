@@ -10,7 +10,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class UrlConfigurator implements FieldTypeConfigurator
 {
-
     public const TYPE = 'link';
 
     private ComponentFactory\LinkLabel $link_label;

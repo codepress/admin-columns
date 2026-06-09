@@ -9,7 +9,6 @@ use AC\Registerable;
 
 final class Setup implements Registerable
 {
-
     public const PARAM_FORCE_INSTALL = 'ac-force-install';
 
     private Plugin\Setup $setup;
@@ -30,7 +29,7 @@ final class Setup implements Registerable
             return;
         }
 
-        if ( ! is_blog_installed()) {
+        if (! is_blog_installed()) {
             return;
         }
 

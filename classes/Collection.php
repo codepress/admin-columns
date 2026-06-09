@@ -9,7 +9,6 @@ use Iterator;
 
 abstract class Collection implements Iterator, Countable
 {
-
     protected int $index = 0;
 
     protected array $data = [];

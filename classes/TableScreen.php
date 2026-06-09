@@ -11,7 +11,6 @@ use AC\Type\Url;
 
 class TableScreen
 {
-
     protected TableId $id;
 
     protected string $screen_id;

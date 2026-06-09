@@ -9,7 +9,6 @@ use AC\TableScreen;
 
 abstract class Integration
 {
-
     private string $slug;
 
     private string $title;

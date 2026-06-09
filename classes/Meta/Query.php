@@ -8,7 +8,6 @@ use WP_Meta_Query;
 
 class Query
 {
-
     private ?WP_Meta_Query $query = null;
 
     private string $sql;
@@ -92,7 +91,7 @@ class Query
     public function join_where(string $field, ?string $operator = null, $value = null, string $boolean = 'AND'): self
     {
         // set default join
-        if ( ! $this->join) {
+        if (! $this->join) {
             $this->join();
         }
 
@@ -269,7 +268,7 @@ class Query
                     default:
                         $valid_raw = ['IS NULL', 'IS NOT NULL'];
 
-                        if ( ! in_array($clause['value'], $valid_raw)) {
+                        if (! in_array($clause['value'], $valid_raw)) {
                             $clause['value'] = $wpdb->prepare('%s', $clause['value']);
                         }
                 }
@@ -287,7 +286,7 @@ class Query
     {
         global $wpdb;
 
-        if ( ! $this->query) {
+        if (! $this->query) {
             return [];
         }
 
@@ -349,13 +348,13 @@ class Query
         // parse ORDER BY
         $order_by = '';
 
-        if ( ! empty($this->order_by)) {
+        if (! empty($this->order_by)) {
             $order_by_clauses = [];
 
             foreach ($this->order_by as $order_by_clause) {
                 $order_by_clauses[] = $this->parse_field(
-                        $order_by_clause['order_by']
-                    ) . ' ' . $order_by_clause['order'];
+                    $order_by_clause['order_by']
+                ) . ' ' . $order_by_clause['order'];
             }
 
             $order_by = ' ORDER BY ' . implode(', ', $order_by_clauses);
@@ -374,7 +373,7 @@ class Query
 
         $results = $wpdb->get_results($sql);
 
-        if ( ! is_array($results)) {
+        if (! is_array($results)) {
             return [];
         }
 

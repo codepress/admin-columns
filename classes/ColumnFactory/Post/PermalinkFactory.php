@@ -15,7 +15,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class PermalinkFactory extends BaseColumnFactory
 {
-
     private BeforeAfter $before_after;
 
     private IsLink $is_link;

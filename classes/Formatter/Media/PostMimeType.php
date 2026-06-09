@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class PostMimeType implements Formatter
 {
-
     public function format(Value $value): Value
     {
         return $value->with_value(

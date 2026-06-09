@@ -11,5 +11,4 @@ use AC;
  */
 class FormatterCollection extends AC\FormatterCollection
 {
-
 }

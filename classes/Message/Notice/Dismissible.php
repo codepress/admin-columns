@@ -12,7 +12,6 @@ use AC\View;
 
 class Dismissible extends Notice
 {
-
     protected Handler $handler;
 
     public function __construct(string $message, ?Handler $handler = null, ?string $type = null)

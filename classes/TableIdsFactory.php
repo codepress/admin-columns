@@ -8,7 +8,6 @@ use AC\Type\TableIdCollection;
 
 interface TableIdsFactory
 {
-
     public function create(): TableIdCollection;
 
 }

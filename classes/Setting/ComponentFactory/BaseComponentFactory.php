@@ -17,7 +17,6 @@ use AC\Setting\Control\Input;
 
 abstract class BaseComponentFactory implements ComponentFactory
 {
-
     public function create(Config $config, ?Specification $conditions = null): Component
     {
         $builder = new ComponentBuilder();

@@ -11,5 +11,4 @@ use AC;
  */
 interface Formatter extends AC\Formatter
 {
-
 }

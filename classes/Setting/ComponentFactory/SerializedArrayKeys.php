@@ -9,7 +9,6 @@ use AC\Setting\Control\Input;
 
 class SerializedArrayKeys extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Array Keys', 'codepress-admin-columns');

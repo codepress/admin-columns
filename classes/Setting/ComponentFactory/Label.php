@@ -10,7 +10,6 @@ use AC\Setting\Control\Input;
 
 final class Label extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Label', 'codepress-admin-columns');

@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class Link implements Formatter
 {
-
     private string $type;
 
     public function __construct(string $type)

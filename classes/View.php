@@ -6,7 +6,6 @@ namespace AC;
 
 class View implements Renderable
 {
-
     private array $data = [];
 
     private ?string $template;

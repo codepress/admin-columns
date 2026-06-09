@@ -9,7 +9,6 @@ use WP_Media_List_Table;
 
 class Media implements ListTable
 {
-
     private WP_Media_List_Table $table;
 
     public function __construct(WP_Media_List_Table $table)
@@ -23,7 +22,7 @@ class Media implements ListTable
         $global_post = get_post();
         $post = get_post((int)$row_id);
 
-        if ( ! $post) {
+        if (! $post) {
             return '';
         }
 
@@ -50,12 +49,12 @@ class Media implements ListTable
 
         $post = get_post($id);
 
-        if ( ! $post) {
+        if (! $post) {
             return '';
         }
 
         // Title for some columns can only be retrieved when post is set globally
-        if ( ! isset($GLOBALS['post'])) {
+        if (! isset($GLOBALS['post'])) {
             $GLOBALS['post'] = $post;
         }
 

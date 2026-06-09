@@ -9,7 +9,6 @@ use AC\ListScreenRepository\Sort;
 
 class ListIds implements Sort
 {
-
     private array $list_ids;
 
     public function __construct(array $list_ids = [])
@@ -19,7 +18,7 @@ class ListIds implements Sort
 
     public function sort(ListScreenCollection $list_screens): ListScreenCollection
     {
-        if ( ! $list_screens->count()) {
+        if (! $list_screens->count()) {
             return $list_screens;
         }
 
@@ -32,7 +31,7 @@ class ListIds implements Sort
         $ordered = new ListScreenCollection();
 
         foreach (array_unique($this->list_ids) as $list_id) {
-            if ( ! isset($lists[$list_id])) {
+            if (! isset($lists[$list_id])) {
                 continue;
             }
 

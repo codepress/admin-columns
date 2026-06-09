@@ -17,7 +17,6 @@ use AC\Setting\Control\Type\Option;
 
 class FieldTypeFactory extends BaseComponentFactory
 {
-
     private array $field_types;
 
     private array $formatter_configs;

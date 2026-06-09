@@ -13,17 +13,16 @@ use WP_Site;
 
 class NetworkPostStati implements RequestAjaxHandler
 {
-
     public function handle(): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
         $request = new Request();
         $response = new Json();
 
-        if ( ! (new Nonce\Ajax())->verify($request)) {
+        if (! (new Nonce\Ajax())->verify($request)) {
             $response->error();
         }
 
@@ -35,7 +34,7 @@ class NetworkPostStati implements RequestAjaxHandler
 
     private function get_distinct_db_values(): array
     {
-        if ( ! function_exists('get_sites')) {
+        if (! function_exists('get_sites')) {
             return [];
         }
 
@@ -60,7 +59,7 @@ class NetworkPostStati implements RequestAjaxHandler
     {
         $values = wp_cache_get('ac-site-settings', 'ac-site-post-status');
 
-        if ( ! $values) {
+        if (! $values) {
             $values = $this->get_distinct_db_values();
 
             wp_cache_add('ac-site-settings', $values, 'ac-site-post-status', 60);
@@ -114,7 +113,7 @@ class NetworkPostStati implements RequestAjaxHandler
     {
         $post_statuses = $this->get_cached_options();
 
-        if ( ! $post_statuses) {
+        if (! $post_statuses) {
             return [];
         }
 

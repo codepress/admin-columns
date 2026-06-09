@@ -8,7 +8,6 @@ use AC\Admin\Type\MenuItem;
 
 class Menu
 {
-
     /**
      * @var MenuItem[]
      */

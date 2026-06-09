@@ -11,7 +11,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class FileLink extends BaseComponentFactory
 {
-
     private const NAME = 'file_link_to';
 
     protected function get_label(Config $config): ?string

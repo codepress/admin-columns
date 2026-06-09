@@ -13,7 +13,6 @@ use AC\AdminColumns;
 
 class Settings implements PageFactoryInterface
 {
-
     protected AdminColumns $plugin;
 
     protected MenuFactoryInterface $menu_factory;
@@ -27,10 +26,10 @@ class Settings implements PageFactoryInterface
         View\MenuFactory $view_menu_factory,
         bool $is_pro_active = false
     ) {
-        $this->plugin            = $plugin;
-        $this->menu_factory      = $menu_factory;
+        $this->plugin = $plugin;
+        $this->menu_factory = $menu_factory;
         $this->view_menu_factory = $view_menu_factory;
-        $this->is_pro_active     = $is_pro_active;
+        $this->is_pro_active = $is_pro_active;
     }
 
     public function create(): Page\Settings

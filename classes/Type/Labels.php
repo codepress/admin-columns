@@ -6,7 +6,6 @@ namespace AC\Type;
 
 class Labels
 {
-
     private string $singular;
 
     private string $plural;

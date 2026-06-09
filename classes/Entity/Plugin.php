@@ -9,7 +9,6 @@ use AC\Plugin\Version;
 
 class Plugin
 {
-
     private string $basename;
 
     private string $dir;

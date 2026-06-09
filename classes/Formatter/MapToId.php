@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class MapToId implements Formatter
 {
-
     private Formatter $formatter;
 
     public function __construct(Formatter $formatter)

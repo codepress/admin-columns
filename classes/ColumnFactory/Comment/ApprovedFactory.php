@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class ApprovedFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Approved', 'codepress-admin-columns');

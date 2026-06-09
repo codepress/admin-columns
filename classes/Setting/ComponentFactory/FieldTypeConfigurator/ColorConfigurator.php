@@ -10,7 +10,6 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class ColorConfigurator implements FieldTypeConfigurator
 {
-
     public const TYPE = 'color';
 
     public function configure(FieldTypeFactoryBuilder $builder): void

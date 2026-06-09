@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class FileLink implements Formatter
 {
-
     private string $link_to;
 
     public function __construct(string $link_to = '')
@@ -23,13 +22,13 @@ class FileLink implements Formatter
     {
         $attachment_id = $value->get_value();
 
-        if ( ! is_numeric($attachment_id)) {
+        if (! is_numeric($attachment_id)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
         $attachment = get_attached_file($attachment_id);
 
-        if ( ! $attachment) {
+        if (! $attachment) {
             return $value->with_value('<em>' . __('Invalid attachment', 'codepress-admin-columns') . '</em>');
         }
 

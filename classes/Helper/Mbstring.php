@@ -6,7 +6,6 @@ namespace AC\Helper;
 
 final class Mbstring
 {
-
     public static function strlen(string $string): int
     {
         return function_exists('mb_strlen')

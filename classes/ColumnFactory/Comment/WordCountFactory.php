@@ -15,7 +15,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class WordCountFactory extends BaseColumnFactory
 {
-
     private BeforeAfter $before_after_factory;
 
     public function __construct(

@@ -20,12 +20,12 @@ final class ConfiguratorRegistry
 
     public function has(string $key): bool
     {
-        return array_key_exists( $key, $this->configurators );
+        return array_key_exists($key, $this->configurators);
     }
 
     public function get(string $key): FieldTypeConfigurator
     {
-        if ( ! isset($this->configurators[$key])) {
+        if (! isset($this->configurators[$key])) {
             throw new LogicException(sprintf('Configurator with key "%s" not found.', $key));
         }
 

@@ -14,7 +14,6 @@ use AC\TableScreen;
 
 class AcfColumnFactory
 {
-
     private const FIELD_TYPE_MAP = [
         'button_group'     => FieldType::TYPE_SELECT,
         'checkbox'         => FieldType::TYPE_SELECT,
@@ -48,7 +47,7 @@ class AcfColumnFactory
     {
         $factory = $this->find_column_factory($table_screen);
 
-        if ( ! $factory) {
+        if (! $factory) {
             return null;
         }
 
@@ -93,7 +92,7 @@ class AcfColumnFactory
                 $config['select_options'] = self::encode_choices($field);
                 break;
             case 'file':
-                if ( ! empty($field['multiple'])) {
+                if (! empty($field['multiple'])) {
                     $config['is_multiple'] = 'on';
                 }
                 break;
@@ -126,7 +125,7 @@ class AcfColumnFactory
     {
         $choices = $field['choices'] ?? [];
 
-        if ( ! $choices) {
+        if (! $choices) {
             return '';
         }
 
