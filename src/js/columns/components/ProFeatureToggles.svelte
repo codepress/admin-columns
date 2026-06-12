@@ -22,7 +22,7 @@
         {feature: 'bulk_edit', title: 'Enable Bulk Editing', iconClass: 'ac-material-symbols', content: 'stacks'},
         {feature: 'search', title: 'Enable Smart Filter', iconClass: 'ac-material-symbols', content: 'filter_list'},
         {feature: 'filter', title: 'Enable Filtering', iconClass: 'ac-material-symbols', content: 'filter_alt'},
-        {feature: 'metrics', title: 'Enable Metrics', iconClass: 'ac-material-symbols', content: 'calculate'},
+        {feature: 'metrics', title: 'Enable Metrics', iconClass: 'ac-material-symbols', content: 'functions'},
     ];
 
     const getConfig = (feature: Feature): AC.Column.Settings.AbstractColumnSetting | undefined => {
