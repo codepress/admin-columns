@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace AC\Table;
@@ -127,8 +126,8 @@ final class Screen implements Registerable
             : null;
         ?>
 		<script>
-			var ac_table_total_items = <?= $count ?: 'null' ?>;
-			var ac_table_total_items_formatted = '<?= $formatted ?>';
+			const ac_table_total_items = <?= $count ?: 'null' ?>;
+			const ac_table_total_items_formatted = <?= wp_json_encode((string)$formatted) ?>;
 		</script>
         <?php
     }
