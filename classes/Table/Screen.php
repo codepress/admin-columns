@@ -121,13 +121,14 @@ final class Screen implements Registerable
             ? $this->table_screen->get_total_items()
             : null;
 
+
         $formatted = $count
             ? number_format_i18n($count)
             : null;
         ?>
 		<script>
-			var ac_table_total_items = <?= $count ?: 'null' ?>;
-			var ac_table_total_items_formatted = '<?= $formatted ?>';
+			const ac_table_total_items = <?= $count ?: 'null' ?>;
+			const ac_table_total_items_formatted = <?= wp_json_encode((string)$formatted) ?>;
 		</script>
         <?php
     }
