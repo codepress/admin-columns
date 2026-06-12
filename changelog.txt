@@ -3,7 +3,7 @@
 = 7.0.20 =
 Release Date: tbd
 
-* [Fixed] The table item count no longer causes a JavaScript error in locales that use an apostrophe as the thousands separator (e.g. Swiss German).
+* [Fixed] JavaScript error on the table item count in locales using an apostrophe thousands separator.
 
 = 7.0.19 =
 Release Date: May 29th, 2026
