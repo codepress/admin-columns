@@ -198,10 +198,10 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 
 == Changelog ==
 
-= 7.0.19 =
-Release Date: May 29th, 2026
+= 7.0.20 =
+Release Date: June 16th, 2026
 
-* [Fixed] Hardened custom field value deserialization to improve validation of serialized data handling.
+* [Fixed] JavaScript error on the table item count in locales using an apostrophe thousands separator.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 
