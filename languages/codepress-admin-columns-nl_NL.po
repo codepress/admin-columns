@@ -263,7 +263,7 @@ msgstr "Karakters"
 msgid "Before & After"
 msgstr "Voor & na"
 
-#: classes/Service/AdminBarEditColumns.php:35
+#: classes/Service/AdminBarEditColumns.php:47
 msgid "Edit Columns"
 msgstr "Kolommen bewerken"
 
