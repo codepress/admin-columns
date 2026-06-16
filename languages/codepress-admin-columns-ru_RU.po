@@ -262,7 +262,7 @@ msgstr "Символы"
 msgid "Before & After"
 msgstr ""
 
-#: classes/Service/AdminBarEditColumns.php:35
+#: classes/Service/AdminBarEditColumns.php:47
 msgid "Edit Columns"
 msgstr ""
 
