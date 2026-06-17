@@ -13,7 +13,6 @@ use AC\Vendor\DI\NotFoundException;
  */
 final class Container implements Vendor\Psr\Container\ContainerInterface, FactoryContainer
 {
-
     private Vendor\DI\Container $container;
 
     public function __construct(Vendor\DI\Container $container)

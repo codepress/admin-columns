@@ -12,7 +12,6 @@ class ImplodeRecursive implements Formatter
 {
     private string $glue;
 
-    // TODO Stefan null over ', '? It's better
     public function __construct(?string $glue = null)
     {
         $this->glue = $glue ?? ', ';

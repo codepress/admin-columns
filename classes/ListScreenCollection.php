@@ -44,7 +44,7 @@ final class ListScreenCollection implements Iterator, Countable
     {
         $current = current($this->data);
 
-        if ( ! $current instanceof ListScreen) {
+        if (! $current instanceof ListScreen) {
             throw IteratorException::from_current();
         }
 
@@ -62,7 +62,7 @@ final class ListScreenCollection implements Iterator, Countable
     {
         $key = key($this->data);
 
-        if ( ! is_string($key)) {
+        if (! is_string($key)) {
             throw IteratorException::from_key();
         }
 

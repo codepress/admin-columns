@@ -11,23 +11,21 @@ use AC\Type\Value;
 use DateTimeZone;
 use WP_Post;
 
-// TODO Stefan still checks out?
 class DescriptivePostStatus implements Formatter
 {
-
     public function format(Value $value): Value
     {
         global $wp_post_statuses;
 
         $post = get_post($value->get_id());
 
-        if ( ! $post instanceof WP_Post) {
+        if (! $post instanceof WP_Post) {
             return $value;
         }
 
         $status = $post->post_status;
 
-        if ( ! isset($wp_post_statuses[$status])) {
+        if (! isset($wp_post_statuses[$status])) {
             return $value->with_value($status);
         }
 
