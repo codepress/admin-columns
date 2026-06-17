@@ -38,7 +38,6 @@ class ToArray implements Formatter
             }
         }
 
-        // TODO Stefan in theory this can still be a string? That is ok?
         return $value->with_value($current_value);
     }
 
