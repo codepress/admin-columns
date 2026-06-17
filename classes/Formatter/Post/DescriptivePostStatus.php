@@ -11,7 +11,6 @@ use AC\Type\Value;
 use DateTimeZone;
 use WP_Post;
 
-// TODO Stefan still checks out?
 class DescriptivePostStatus implements Formatter
 {
     public function format(Value $value): Value
