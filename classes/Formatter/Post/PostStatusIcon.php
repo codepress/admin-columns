@@ -41,7 +41,7 @@ class PostStatusIcon implements Formatter
 
         if ($formatted_date !== null) {
             switch ($post->post_status) {
-                case 'private' :
+                case 'private':
                     return Helper\Html::create()->tooltip(
                         Helper\Icon::create()->dashicon(['icon' => 'hidden', 'class' => 'gray']),
                         sprintf(
@@ -51,7 +51,7 @@ class PostStatusIcon implements Formatter
                         )
                     );
 
-                case 'publish' :
+                case 'publish':
                     return Helper\Html::create()->tooltip(
                         Helper\Icon::create()->dashicon(['icon' => 'yes', 'class' => 'blue large']),
                         sprintf(
@@ -61,7 +61,7 @@ class PostStatusIcon implements Formatter
                         )
                     );
 
-                case 'draft' :
+                case 'draft':
                     return Helper\Html::create()->tooltip(
                         Helper\Icon::create()->dashicon(['icon' => 'edit', 'class' => 'green']),
                         sprintf(
@@ -71,7 +71,7 @@ class PostStatusIcon implements Formatter
                         )
                     );
 
-                case 'pending' :
+                case 'pending':
                     return Helper\Html::create()->tooltip(
                         Helper\Icon::create()->dashicon(['icon' => 'backup', 'class' => 'orange']),
                         sprintf(
@@ -81,7 +81,7 @@ class PostStatusIcon implements Formatter
                         )
                     );
 
-                case 'future' :
+                case 'future':
                     $icon = Helper\Html::create()->tooltip(
                         Helper\Icon::create()->dashicon(['icon' => 'clock']),
                         sprintf(

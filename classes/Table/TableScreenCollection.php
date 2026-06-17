@@ -32,7 +32,7 @@ final class TableScreenCollection implements Iterator, Countable, ArrayAccess
     {
         $current = current($this->data);
 
-        if ( ! $current instanceof TableScreen) {
+        if (! $current instanceof TableScreen) {
             throw IteratorException::from_current();
         }
 
@@ -48,7 +48,7 @@ final class TableScreenCollection implements Iterator, Countable, ArrayAccess
     {
         $key = key($this->data);
 
-        if ( ! is_int($key)) {
+        if (! is_int($key)) {
             throw IteratorException::from_key();
         }
 

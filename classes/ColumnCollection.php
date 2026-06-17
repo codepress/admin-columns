@@ -8,7 +8,6 @@ use AC\Exception\IteratorException;
 
 class ColumnCollection implements ColumnIterator
 {
-
     /**
      * @var Column[]
      */
@@ -35,7 +34,7 @@ class ColumnCollection implements ColumnIterator
     {
         $current = current($this->data);
 
-        if ( ! $current instanceof Column) {
+        if (! $current instanceof Column) {
             throw IteratorException::from_current();
         }
 
@@ -51,7 +50,7 @@ class ColumnCollection implements ColumnIterator
     {
         $key = key($this->data);
 
-        if ( ! is_int($key)) {
+        if (! is_int($key)) {
             throw IteratorException::from_key();
         }
 
