@@ -9,6 +9,8 @@ use WP_Media_List_Table;
 
 class Media implements ListTable
 {
+    use RenderColumnTrait;
+
     private WP_Media_List_Table $table;
 
     public function __construct(WP_Media_List_Table $table)
@@ -29,17 +31,11 @@ class Media implements ListTable
         setup_postdata($post);
         $GLOBALS['post'] = $post;
 
-        ob_start();
-
-        if (method_exists($this->table, 'column_' . $column_id)) {
-            call_user_func([$this->table, 'column_' . $column_id], $post);
-        } else {
-            $this->table->column_default($post, $column_id);
-        }
+        $output = $this->render_column($this->table, $column_id, $post);
 
         $GLOBALS['post'] = $global_post;
 
-        return ob_get_clean();
+        return $output;
     }
 
     public function render_row($id): string
@@ -64,7 +60,7 @@ class Media implements ListTable
 
         $this->table->single_row($post);
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
 }

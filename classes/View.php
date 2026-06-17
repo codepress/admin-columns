@@ -87,7 +87,7 @@ class View implements Renderable
 
         $this->resolve_template();
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
     public function get_template(): ?string

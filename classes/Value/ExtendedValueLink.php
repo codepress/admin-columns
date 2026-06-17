@@ -87,10 +87,10 @@ final class ExtendedValueLink
         }
 
         if (! empty($this->params)) {
-            $attribute_markup[] = sprintf('data-modal-params="%s"', esc_attr(json_encode($this->params)));
+            $attribute_markup[] = sprintf('data-modal-params="%s"', esc_attr(json_encode($this->params) ?: ''));
         }
 
-        $attribute_markup[] = sprintf('data-modal-id="%s"', esc_attr($this->id));
+        $attribute_markup[] = sprintf('data-modal-id="%s"', esc_attr((string)$this->id));
         $attribute_markup[] = sprintf('data-view="%s"', esc_attr($this->view));
 
         return sprintf(

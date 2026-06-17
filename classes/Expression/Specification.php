@@ -41,7 +41,7 @@ abstract class Specification
                 '/(?<!^)[A-Z]/',
                 '_$0',
                 (new ReflectionClass($this))->getShortName()
-            )
+            ) ?? ''
         );
 
         $needle = '_specification';

@@ -44,7 +44,7 @@ class Date extends Creatable
     {
         _deprecated_function(__METHOD__, '7.0.11', 'wp_date()');
 
-        return wp_date($format ?? $this->get_time_format(), strtotime($date), new DateTimeZone('UTC')) ?: null;
+        return wp_date($format ?? $this->get_time_format(), strtotime($date) ?: null, new DateTimeZone('UTC')) ?: null;
     }
 
     /**
@@ -54,7 +54,7 @@ class Date extends Creatable
     {
         _deprecated_function(__METHOD__, '7.0.11', 'wp_date()');
 
-        return wp_date($date_format ?? $this->get_date_format(), strtotime($date), new DateTimeZone('UTC')) ?: null;
+        return wp_date($date_format ?? $this->get_date_format(), strtotime($date) ?: null, new DateTimeZone('UTC')) ?: null;
     }
 
     /**

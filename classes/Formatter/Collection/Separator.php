@@ -117,7 +117,7 @@ class Separator implements CollectionFormatter
             echo sprintf('<span class="ac-show-more">%s</span>', $content . $toggler);
         }
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
 }

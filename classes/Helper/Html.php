@@ -12,7 +12,7 @@ class Html extends Creatable
     public function get_attribute_as_string(string $key, ?string $value = null): string
     {
         return Strings::create()->is_not_empty($value)
-            ? sprintf('%s="%s"', $key, esc_attr(trim($value)))
+            ? sprintf('%s="%s"', $key, esc_attr(trim((string)$value)))
             : $key;
     }
 
@@ -30,7 +30,7 @@ class Html extends Creatable
     public function link(string $url, ?string $label = null, array $attributes = []): string
     {
         if (! $url) {
-            return $label;
+            return $label ?? '';
         }
 
         if (null === $label) {
@@ -174,7 +174,7 @@ class Html extends Creatable
             $divider = $this->divider();
         }
 
-        return implode($divider, $array);
+        return implode($divider ?: '', $array);
     }
 
     public function remove_empty(array $array): array
@@ -245,7 +245,7 @@ class Html extends Creatable
             echo implode(' ', $icons); ?>
 		</span>
         <?php
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
     public function images(string $html, ?int $removed = null): string

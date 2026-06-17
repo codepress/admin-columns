@@ -34,7 +34,7 @@ class FormattedJson implements Formatter
         return $value->with_value(
             sprintf(
                 '<div data-component="ac-json" data-json="%s" data-level="1" ></div>',
-                esc_attr(json_encode($formatted_value))
+                esc_attr(json_encode($formatted_value) ?: '')
             )
         );
     }

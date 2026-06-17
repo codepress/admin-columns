@@ -18,15 +18,15 @@ class Component
 
     private ?Input $input;
 
-    private ?FormatterCollection $formatters;
+    private FormatterCollection $formatters;
 
     private ?Children $children;
 
     private $conditions;
 
-    private ?AttributeCollection $attributes;
+    private AttributeCollection $attributes;
 
-    private ?string $type;
+    private string $type;
 
     public function __construct(
         ?string $label = null,
@@ -71,7 +71,7 @@ class Component
 
     public function get_label(): string
     {
-        if (! $this->has_label()) {
+        if ($this->label === null) {
             throw new InvalidArgumentException();
         }
 
@@ -85,7 +85,7 @@ class Component
 
     public function get_description(): string
     {
-        if (! $this->has_description()) {
+        if ($this->description === null) {
             throw new InvalidArgumentException();
         }
 
@@ -99,7 +99,7 @@ class Component
 
     public function get_input(): Input
     {
-        if (! $this->has_input()) {
+        if ($this->input === null) {
             throw new InvalidArgumentException();
         }
 
@@ -118,7 +118,7 @@ class Component
 
     public function get_children(): Children
     {
-        if (! $this->has_children()) {
+        if ($this->children === null) {
             throw new InvalidArgumentException();
         }
 

@@ -16,7 +16,7 @@ class Input
 
     private ?string $placeholder;
 
-    private ?AttributeCollection $attributes;
+    private AttributeCollection $attributes;
 
     public function __construct(
         string $name,

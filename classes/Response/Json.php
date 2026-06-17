@@ -32,6 +32,9 @@ class Json
         $this->send_response($this->parameters);
     }
 
+    /**
+     * @return never
+     */
     private function send_response($data): void
     {
         status_header($this->status_code);
@@ -44,6 +47,9 @@ class Json
         exit;
     }
 
+    /**
+     * @return never
+     */
     public function error(): void
     {
         $this->send_response([
@@ -52,6 +58,9 @@ class Json
         ]);
     }
 
+    /**
+     * @return never
+     */
     public function success(): void
     {
         $this->send_response([

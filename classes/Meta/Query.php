@@ -148,7 +148,7 @@ class Query
             'nested'   => false,
             'boolean'  => strtoupper($boolean),
             'field'    => $field,
-            'operator' => strtoupper($operator),
+            'operator' => strtoupper((string)$operator),
             'value'    => $value,
         ];
 

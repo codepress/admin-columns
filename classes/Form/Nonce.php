@@ -28,15 +28,9 @@ class Nonce
         return $this->name;
     }
 
-    public function create(): ?string
+    public function create(): string
     {
-        $nonce = wp_create_nonce($this->action);
-
-        if (! $nonce) {
-            return null;
-        }
-
-        return $nonce;
+        return wp_create_nonce($this->action);
     }
 
     public function create_field(): string

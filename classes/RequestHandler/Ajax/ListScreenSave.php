@@ -142,7 +142,7 @@ class ListScreenSave implements RequestAjaxHandler
                     '%s %s',
                     sprintf(
                         __('Settings for %s updated successfully.', 'codepress-admin-columns'),
-                        sprintf('<strong>%s</strong>', esc_html($list_screen->get_title() ?: $list_screen->get_label()))
+                        sprintf('<strong>%s</strong>', esc_html((string)($list_screen->get_title() ?: $list_screen->get_label())))
                     ),
                     Helper\Html::create()->link(
                         (string)$list_screen->get_table_url(),

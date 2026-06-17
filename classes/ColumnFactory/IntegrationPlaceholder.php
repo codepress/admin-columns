@@ -66,7 +66,7 @@ class IntegrationPlaceholder extends BaseColumnFactory
 		</a>
         <?php
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
     public function get_label(): string

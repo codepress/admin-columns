@@ -36,7 +36,7 @@ class Taxonomy implements ListTable
         ob_start();
         $this->table->single_row($term);
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
 }

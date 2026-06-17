@@ -37,78 +37,88 @@ class PostStatusIcon implements Formatter
 
     private function get_status_icon(WP_Post $post): ?string
     {
-        switch ($post->post_status) {
-            case 'private' :
-                return Helper\Html::create()->tooltip(
-                    Helper\Icon::create()->dashicon(['icon' => 'hidden', 'class' => 'gray']),
-                    sprintf(
-                        '%s <br><em>%s</em>',
-                        __('Private'),
-                        $this->format_date($post->post_date)
-                    )
-                );
+        $formatted_date = $this->format_date($post->post_date);
 
-            case 'publish' :
-                return Helper\Html::create()->tooltip(
-                    Helper\Icon::create()->dashicon(['icon' => 'yes', 'class' => 'blue large']),
-                    sprintf(
-                        '%s <br><em>%s</em>',
-                        __('Published'),
-                        $this->format_date($post->post_date)
-                    )
-                );
-
-            case 'draft' :
-                return Helper\Html::create()->tooltip(
-                    Helper\Icon::create()->dashicon(['icon' => 'edit', 'class' => 'green']),
-                    sprintf(
-                        '%s <br><em>%s</em>',
-                        __('Draft'),
-                        $this->format_date($post->post_date)
-                    )
-                );
-
-            case 'pending' :
-                return Helper\Html::create()->tooltip(
-                    Helper\Icon::create()->dashicon(['icon' => 'backup', 'class' => 'orange']),
-                    sprintf(
-                        '%s <br><em>%s</em>',
-                        __('Pending for review'),
-                        $this->format_date($post->post_date)
-                    )
-                );
-
-            case 'future' :
-                $icon = Helper\Html::create()->tooltip(
-                    Helper\Icon::create()->dashicon(['icon' => 'clock']),
-                    sprintf(
-                        '%s <br><em>%s</em>',
-                        __('Scheduled'),
-                        $this->format_date($post->post_date)
-                    )
-                );
-
-                // Missed schedule
-                if ((time() - mysql2date('G', $post->post_date_gmt)) > 0) {
-                    $icon .= Helper\Html::create()->tooltip(
-                        Helper\Icon::create()->dashicon(['icon' => 'flag', 'class' => 'gray']),
-                        __('Missed schedule')
+        if ($formatted_date !== null) {
+            switch ($post->post_status) {
+                case 'private' :
+                    return Helper\Html::create()->tooltip(
+                        Helper\Icon::create()->dashicon(['icon' => 'hidden', 'class' => 'gray']),
+                        sprintf(
+                            '%s <br><em>%s</em>',
+                            __('Private'),
+                            $formatted_date
+                        )
                     );
-                }
 
-                return $icon;
-            default:
-                return null;
+                case 'publish' :
+                    return Helper\Html::create()->tooltip(
+                        Helper\Icon::create()->dashicon(['icon' => 'yes', 'class' => 'blue large']),
+                        sprintf(
+                            '%s <br><em>%s</em>',
+                            __('Published'),
+                            $formatted_date
+                        )
+                    );
+
+                case 'draft' :
+                    return Helper\Html::create()->tooltip(
+                        Helper\Icon::create()->dashicon(['icon' => 'edit', 'class' => 'green']),
+                        sprintf(
+                            '%s <br><em>%s</em>',
+                            __('Draft'),
+                            $formatted_date
+                        )
+                    );
+
+                case 'pending' :
+                    return Helper\Html::create()->tooltip(
+                        Helper\Icon::create()->dashicon(['icon' => 'backup', 'class' => 'orange']),
+                        sprintf(
+                            '%s <br><em>%s</em>',
+                            __('Pending for review'),
+                            $formatted_date
+                        )
+                    );
+
+                case 'future' :
+                    $icon = Helper\Html::create()->tooltip(
+                        Helper\Icon::create()->dashicon(['icon' => 'clock']),
+                        sprintf(
+                            '%s <br><em>%s</em>',
+                            __('Scheduled'),
+                            $formatted_date
+                        )
+                    );
+
+                    // Missed schedule
+                    if ((time() - mysql2date('G', $post->post_date_gmt)) > 0) {
+                        $icon .= Helper\Html::create()->tooltip(
+                            Helper\Icon::create()->dashicon(['icon' => 'flag', 'class' => 'gray']),
+                            __('Missed schedule')
+                        );
+                    }
+
+                    return $icon;
+            }
         }
+
+        return null;
     }
 
-    private function format_date(string $date): string
+    private function format_date(string $date): ?string
     {
+        $timestamp = strtotime($date);
+
+        if ($timestamp === false) {
+            return null;
+        }
+
         return wp_date(
             Date::create()->get_date_time_format(),
-            strtotime($date),
+            $timestamp,
             new DateTimeZone('UTC')
-        ) ?: '';
+        ) ?: null;
     }
 
 }

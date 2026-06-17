@@ -50,10 +50,17 @@ final class OptionFactory
             )
         );
 
+        $default_params = '{}';
+        $params = $default_params;
+
+        if ($data) {
+            $params = json_encode($data) ?: $default_params;
+        }
+
         $attributes->add(
             new Attribute(
                 'data-params',
-                $data ? json_encode($data) : '{}'
+                $params
             )
         );
 

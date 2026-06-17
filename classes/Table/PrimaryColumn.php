@@ -62,13 +62,22 @@ class PrimaryColumn
 
     public function set_media_download_row_action(array $actions, WP_Post $post): array
     {
+        $url = wp_get_attachment_url($post->ID);
+
+        if (! $url) {
+            return $actions;
+        }
+
+        $label = __('Download', 'codepress-admin-columns');
+
         $link_attributes = [
             'download' => '',
-            'title'    => __('Download', 'codepress-admin-columns'),
+            'title'    => $label,
         ];
+
         $actions['download'] = Helper\Html::create()->link(
-            wp_get_attachment_url($post->ID),
-            __('Download', 'codepress-admin-columns'),
+            $url,
+            $label,
             $link_attributes
         );
 

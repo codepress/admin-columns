@@ -46,20 +46,24 @@ class MediaPreview implements ExtendedValue
 
     public function render($id, array $params, Column $column, ListScreen $list_screen): string
     {
-        switch ($this->get_media_type($id)) {
-            case 'audio':
-                return sprintf(
-                    '<audio controls autoplay="autoplay" preload="none" src="%s">%s</audio>',
-                    esc_url(wp_get_attachment_url($id)),
-                    __('No support for audio player', 'codepress-admin-columns')
-                );
-            case 'video':
-                return (new Video([]))
-                    ->set_src(wp_get_attachment_url($id))
-                    ->render();
+        $url = wp_get_attachment_url($id);
 
-            case 'image':
-                return sprintf('<img src="%s" alt="">', esc_url(wp_get_attachment_url($id)));
+        if ($url) {
+            switch ($this->get_media_type($id)) {
+                case 'audio':
+                    return sprintf(
+                        '<audio controls autoplay="autoplay" preload="none" src="%s">%s</audio>',
+                        esc_url($url),
+                        __('No support for audio player', 'codepress-admin-columns')
+                    );
+                case 'video':
+                    return (new Video([]))
+                        ->set_src($url)
+                        ->render();
+
+                case 'image':
+                    return sprintf('<img src="%s" alt="">', esc_url($url));
+            }
         }
 
         return __('Preview not available', 'codepress-admin-columns');

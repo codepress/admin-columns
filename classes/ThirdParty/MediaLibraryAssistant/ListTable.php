@@ -29,7 +29,7 @@ class ListTable implements AC\ListTable
         $table = $this->factory->create();
 
         if (method_exists($table, $method)) {
-            return (string)call_user_func([$table, $method], $item);
+            return (string)$table->$method($item);
         }
 
         return (string)$table->column_default($item, $column_id);
@@ -41,7 +41,7 @@ class ListTable implements AC\ListTable
 
         $this->factory->create()->single_row($this->get_attachment($id));
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
     private function get_attachment(int $id): object
@@ -49,7 +49,7 @@ class ListTable implements AC\ListTable
         // Author column depends on this global to be set.
         global $authordata;
 
-        $authordata = get_userdata(get_post_field('post_author', $id));
+        $authordata = get_userdata((int)get_post_field('post_author', $id));
 
         if (! class_exists('MLAData')) {
             require_once(MLA_PLUGIN_PATH . 'includes/class-mla-data.php');

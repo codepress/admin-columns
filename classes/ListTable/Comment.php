@@ -9,6 +9,8 @@ use WP_Comments_List_Table;
 
 class Comment implements ListTable
 {
+    use RenderColumnTrait;
+
     private WP_Comments_List_Table $table;
 
     public function __construct(WP_Comments_List_Table $table)
@@ -24,17 +26,7 @@ class Comment implements ListTable
             return '';
         }
 
-        ob_start();
-
-        $method = 'column_' . $column_id;
-
-        if (method_exists($this->table, $method)) {
-            call_user_func([$this->table, $method], $comment);
-        } else {
-            $this->table->column_default($comment, $column_id);
-        }
-
-        return ob_get_clean();
+        return $this->render_column($this->table, $column_id, $comment);
     }
 
     public function render_row($id): string
@@ -49,7 +41,7 @@ class Comment implements ListTable
 
         $this->table->single_row($comment);
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
 }

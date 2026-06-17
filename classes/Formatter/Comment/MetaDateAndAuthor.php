@@ -28,8 +28,8 @@ class MetaDateAndAuthor implements Formatter
 
         $date = sprintf(
             __('%s at %s', 'codepress-admin-columns'),
-            wp_date(Date::create()->get_date_format(), strtotime($comment->comment_date_gmt)),
-            wp_date(Date::create()->get_time_format(), strtotime($comment->comment_date_gmt))
+            wp_date(Date::create()->get_date_format(), strtotime($comment->comment_date_gmt) ?: null),
+            wp_date(Date::create()->get_time_format(), strtotime($comment->comment_date_gmt) ?: null)
         );
 
         $edit_link = get_edit_comment_link($comment);

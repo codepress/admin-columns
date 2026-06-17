@@ -14,7 +14,7 @@ class FileSize implements Formatter
 
     private ?int $decimals;
 
-    public function __construct(string $format = null, ?int $decimals = 2)
+    public function __construct(?string $format = null, ?int $decimals = 2)
     {
         $this->format = $format ?? 'bytes';
         $this->decimals = $decimals;
@@ -22,7 +22,7 @@ class FileSize implements Formatter
 
     public function format(Value $value): Value
     {
-        $file = get_attached_file($value->get_id());
+        $file = (string)get_attached_file($value->get_id());
 
         if (! file_exists($file)) {
             throw ValueNotFoundException::from_id($value->get_id());

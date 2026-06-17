@@ -9,6 +9,8 @@ use WP_MS_Users_List_Table;
 
 class NetworkUser implements ListTable
 {
+    use RenderColumnTrait;
+
     private WP_MS_Users_List_Table $table;
 
     public function __construct(WP_MS_Users_List_Table $table)
@@ -24,17 +26,7 @@ class NetworkUser implements ListTable
             return '';
         }
 
-        ob_start();
-
-        $method = 'column_' . $column_id;
-
-        if (method_exists($this->table, $method)) {
-            call_user_func([$this->table, $method], $user);
-        } else {
-            $this->table->column_default($user, $column_id);
-        }
-
-        return ob_get_clean();
+        return $this->render_column($this->table, $column_id, $user);
     }
 
     public function render_row($id): string
@@ -49,7 +41,7 @@ class NetworkUser implements ListTable
 
         $this->table->single_row($user);
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
 }

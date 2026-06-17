@@ -33,10 +33,13 @@ class AvailableSizes implements Formatter
 
         if ($available_sizes) {
             $url = wp_get_attachment_url($value->get_id());
-            $paths[] = Helper\Html::create()->tooltip(
-                Helper\Html::create()->link($url, __('original', 'codepress-admin-columns')),
-                basename($url)
-            );
+
+            if ($url) {
+                $paths[] = Helper\Html::create()->tooltip(
+                    Helper\Html::create()->link($url, __('original', 'codepress-admin-columns')),
+                    basename($url)
+                );
+            }
 
             foreach ($available_sizes as $size) {
                 $src = (array)wp_get_attachment_image_src($value->get_id(), $size);

@@ -39,7 +39,7 @@ class Control
 
     public function get_conditions(): Specification
     {
-        if (! $this->has_conditions()) {
+        if ($this->conditions === null) {
             return new NullSpecification();
         }
 

@@ -10,11 +10,12 @@ use AC\Type\Value;
 
 class ImplodeRecursive implements Formatter
 {
-    private ?string $glue;
+    private string $glue;
 
-    public function __construct(?string $glue = ', ')
+    // TODO Stefan null over ', '? It's better
+    public function __construct(?string $glue = null)
     {
-        $this->glue = $glue;
+        $this->glue = $glue ?? ', ';
     }
 
     public function format(Value $value): Value

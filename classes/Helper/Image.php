@@ -203,17 +203,17 @@ class Image extends Creatable
             return null;
         }
 
-        return basename($file);
+        return basename((string)$file);
     }
 
     public function get_file_extension(int $attachment_id): string
     {
-        return (string)pathinfo($this->get_file_name($attachment_id), PATHINFO_EXTENSION);
+        return (string)pathinfo($this->get_file_name($attachment_id) ?? '', PATHINFO_EXTENSION);
     }
 
     private function get_file_tooltip_attr(int $media_id): string
     {
-        return Html::create()->get_tooltip_attr($this->get_file_name($media_id));
+        return Html::create()->get_tooltip_attr($this->get_file_name($media_id) ?? '');
     }
 
     private function markup_cover(string $src, int $width, int $height, ?int $media_id = null)
@@ -259,7 +259,7 @@ class Image extends Creatable
 
 			<?php
             if ($add_extension) : ?>
-				<span class="ac-extension"><?= esc_attr($this->get_file_extension($media_id)) ?></span>
+				<span class="ac-extension"><?= esc_attr($this->get_file_extension((int)$media_id)) ?></span>
             <?php
             endif; ?>
 
@@ -277,12 +277,12 @@ class Image extends Creatable
             return null;
         }
 
-        return getimagesize($path);
+        return getimagesize($path) ?: null;
     }
 
     public function get_local_image_path(string $url): ?string
     {
-        $url = set_url_scheme($url, wp_parse_url(WP_CONTENT_URL, PHP_URL_SCHEME));
+        $url = set_url_scheme($url, wp_parse_url(WP_CONTENT_URL, PHP_URL_SCHEME) ?: null);
         $path = str_replace(WP_CONTENT_URL, WP_CONTENT_DIR, $url);
 
         if (! file_exists($path)) {
@@ -296,9 +296,15 @@ class Image extends Creatable
     {
         $path = $this->get_local_image_path($url);
 
-        return $path
-            ? filesize($path)
-            : null;
+        if ($path === null) {
+            return null;
+        }
+
+        $size = filesize($path);
+
+        return $size === false
+            ? null
+            : $size;
     }
 
     public function get_image_urls_from_string(string $string): array
