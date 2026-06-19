@@ -75,7 +75,8 @@ class Hook
 
                 // Method
                 if (is_array($function)) {
-                    $messages[] = sprintf('%s::%s()', get_class($function[0]), $function[1]);
+                    $class_name = is_object($function[0]) ? get_class($function[0]) : $function[0];
+                    $messages[] = sprintf('%s::%s()', $class_name, $function[1]);
                     continue;
                 }
 
