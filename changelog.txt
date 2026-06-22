@@ -8,6 +8,7 @@ Release Date: TBD
 * [Improved] Smarter column width handling.
 * [Improved] Modernized the codebase with strict types, PHPStan type safety, and PSR-12 coding standards.
 * [Improved] User custom field context is now available in the free Meta column.
+* [Updated] The minimum version required to run Admin Columns is now WordPress 6.2.
 * [Fixed] Fixed an incorrect `add_submenu_page` call.
 
 = 7.0.19 =

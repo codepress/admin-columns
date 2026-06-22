@@ -6,7 +6,7 @@ namespace AC\Formatter;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
-use AC\Helper;
+use AC\Type\FileSize;
 use AC\Type\Value;
 
 class FileSizeReadable implements Formatter
@@ -20,7 +20,7 @@ class FileSizeReadable implements Formatter
         }
 
         return $value->with_value(
-            Helper\File::create()->get_readable_filesize((int)$bytes)
+            (string)new FileSize((int)$bytes)
         );
     }
 

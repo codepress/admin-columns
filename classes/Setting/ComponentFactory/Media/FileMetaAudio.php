@@ -72,7 +72,7 @@ final class FileMetaAudio extends BaseComponentFactory
             case 'created_timestamp':
                 $formatters->add(
                     new AC\Formatter\Date\LocalizedDateFormat(
-                        AC\Helper\Date::create()->get_date_time_format(),
+                        AC\Helper\WpDateFormat::date_time(),
                         'U'
                     )
                 );

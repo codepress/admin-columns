@@ -7,7 +7,7 @@ namespace AC\Formatter\Post;
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
 use AC\Helper;
-use AC\Helper\Date;
+use AC\Helper\WpDateFormat;
 use AC\Type\Value;
 
 class DatePublishFormatted implements Formatter
@@ -55,7 +55,7 @@ class DatePublishFormatted implements Formatter
                             '%s <br><em>%s</em>',
                             __('Published'),
                             wp_date(
-                                Date::create()->get_date_time_format(),
+                                WpDateFormat::date_time(),
                                 $timestamp
                             )
                         )

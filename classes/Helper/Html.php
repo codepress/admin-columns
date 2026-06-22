@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Helper;
 
-use DOMDocument;
-use DOMElement;
+use AC\Type\Link;
+use WP_HTML_Tag_Processor;
 
 class Html extends Creatable
 {
@@ -51,16 +51,16 @@ class Html extends Creatable
             unset($attributes['tooltip']);
         }
 
-        $allowed = wp_allowed_protocols();
-        $allowed[] = 'skype';
-        $allowed[] = 'call';
+        $protocols = wp_allowed_protocols();
+        $protocols[] = 'skype';
+        $protocols[] = 'call';
 
-        return sprintf(
-            '<a href="%s" %s>%s</a>',
-            esc_url($url, $allowed),
-            $this->get_attributes($attributes),
-            $label
-        );
+        return (new Link(
+            $url,
+            $label,
+            $this->filter_attributes($attributes),
+            $protocols
+        ))->render();
     }
 
     public function divider(): string
@@ -106,16 +106,27 @@ class Html extends Creatable
         return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . esc_textarea($contents) . '</textarea>';
     }
 
+    private function filter_attributes(array $attributes): array
+    {
+        $filtered = [];
+
+        foreach ($attributes as $attribute => $value) {
+            if (
+                in_array($attribute, ['title', 'id', 'class', 'style', 'target', 'rel', 'download'], true) ||
+                'data-' === substr($attribute, 0, 5)) {
+                $filtered[$attribute] = $value;
+            }
+        }
+
+        return $filtered;
+    }
+
     private function get_attributes(array $attributes): string
     {
         $_attributes = [];
 
-        foreach ($attributes as $attribute => $value) {
-            if (
-                in_array($attribute, ['title', 'id', 'class', 'style', 'target', 'rel', 'download']) ||
-                'data-' === substr($attribute, 0, 5)) {
-                $_attributes[] = $this->get_attribute_as_string($attribute, (string)$value);
-            }
+        foreach ($this->filter_attributes($attributes) as $attribute => $value) {
+            $_attributes[] = $this->get_attribute_as_string($attribute, (string)$value);
         }
 
         return ' ' . implode(' ', $_attributes);
@@ -123,10 +134,6 @@ class Html extends Creatable
 
     public function get_links(string $string): ?array
     {
-        if (! class_exists('DOMDocument')) {
-            return null;
-        }
-
         // Just do a very simple check to check for possible links
         if (false === strpos($string, '<a')) {
             return null;
@@ -134,23 +141,12 @@ class Html extends Creatable
 
         $hrefs = [];
 
-        $dom = new DOMDocument();
+        $processor = new WP_HTML_Tag_Processor($string);
 
-        libxml_use_internal_errors(true);
-        $dom->loadHTML($string);
-        libxml_clear_errors();
+        while ($processor->next_tag(['tag_name' => 'a'])) {
+            $href = $processor->get_attribute('href');
 
-        $links = $dom->getElementsByTagName('a');
-
-        // TODO check for DOMNodeList object
-
-        foreach ($links as $link) {
-            /**
-             * @var DOMElement $link
-             */
-            $href = $link->getAttribute('href');
-
-            if (0 === strpos($href, '#')) {
+            if (! is_string($href) || 0 === strpos($href, '#')) {
                 continue;
             }
 
@@ -204,48 +200,6 @@ class Html extends Creatable
     public function rounded(string $string): string
     {
         return sprintf('<span class="ac-rounded">%s</span>', $string);
-    }
-
-    /**
-     * Returns star rating based on X start from $max count. Does support decimals.
-     */
-    public function stars(int $count, int $max = 0): string
-    {
-        $stars = [
-            'filled' => floor($count),
-            'half'   => floor(round(($count * 2)) - (floor($count) * 2)) ? 1 : 0,
-            'empty'  => 0,
-        ];
-
-        $max = absint($max);
-
-        if ($max > 0) {
-            $star_count = $stars['filled'] + $stars['half'];
-
-            $stars['empty'] = $max - $star_count;
-
-            if ($star_count > $max) {
-                $stars['filled'] = $max;
-                $stars['half'] = 0;
-            }
-        }
-
-        $icons = [];
-
-        foreach ($stars as $type => $_count) {
-            for ($i = 1; $i <= $_count; $i++) {
-                $icons[] = Icon::create()->dashicon(['icon' => 'star-' . $type, 'class' => 'ac-value-star']);
-            }
-        }
-
-        ob_start();
-        ?>
-		<span class="ac-value-stars">
-			<?php
-            echo implode(' ', $icons); ?>
-		</span>
-        <?php
-        return (string)ob_get_clean();
     }
 
     public function images(string $html, ?int $removed = null): string

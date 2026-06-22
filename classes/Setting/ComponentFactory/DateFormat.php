@@ -60,7 +60,7 @@ abstract class DateFormat extends BaseComponentFactory
             'date_format',
             null,
             [
-                'wp_date_format' => Helper\Date::create()->get_date_format(),
+                'wp_date_format' => Helper\WpDateFormat::date(),
                 'wp_date_info'   => sprintf(
                     __('The %s can be changed in %s.', 'codepress-admin-columns'),
                     __('WordPress Date Format', 'codepress-admin-columns'),
@@ -97,7 +97,7 @@ abstract class DateFormat extends BaseComponentFactory
                 return new Formatter\Date\TimeDifference($this->source_format);
             case 'wp_default':
                 return new Formatter\Date\LocalizedDateFormat(
-                    Helper\Date::create()->get_date_format(),
+                    Helper\WpDateFormat::date(),
                     $this->source_format
                 );
             default:
