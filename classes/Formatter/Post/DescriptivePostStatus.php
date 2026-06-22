@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
-use AC\Helper\Date;
 use AC\Helper\Html;
+use AC\Helper\WpDateFormat;
 use AC\Type\Value;
 use DateTimeZone;
 use WP_Post;
@@ -34,7 +34,7 @@ class DescriptivePostStatus implements Formatter
 
         if ($timestamp) {
             $formatted_date = wp_date(
-                Date::create()->get_date_time_format(),
+                WpDateFormat::date_time(),
                 $timestamp,
                 new DateTimeZone('UTC')
             );

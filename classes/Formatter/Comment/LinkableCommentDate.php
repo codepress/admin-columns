@@ -6,7 +6,7 @@ namespace AC\Formatter\Comment;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
-use AC\Helper\Date;
+use AC\Helper\WpDateFormat;
 use AC\Type\Value;
 use DateTimeZone;
 
@@ -20,8 +20,8 @@ class LinkableCommentDate implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $date = wp_date(Date::create()->get_date_format(), $timestamp, new DateTimeZone('UTC')) ?: '';
-        $time = wp_date(Date::create()->get_time_format(), $timestamp, new DateTimeZone('UTC')) ?: '';
+        $date = wp_date(WpDateFormat::date(), $timestamp, new DateTimeZone('UTC')) ?: '';
+        $time = wp_date(WpDateFormat::time(), $timestamp, new DateTimeZone('UTC')) ?: '';
 
         if (! $date || ! $time) {
             throw ValueNotFoundException::from_id($value->get_id());

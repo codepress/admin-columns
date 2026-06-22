@@ -6,7 +6,7 @@ namespace AC\Formatter\Media;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
-use AC\Helper\Date;
+use AC\Helper\WpDateFormat;
 use AC\Type\Value;
 use DateTimeZone;
 
@@ -37,7 +37,7 @@ class ExifData implements Formatter
 
                 return $value->with_value(
                     wp_date(
-                        Date::create()->get_date_time_format(),
+                        WpDateFormat::date_time(),
                         $timestamp,
                         new DateTimeZone('UTC')
                     )

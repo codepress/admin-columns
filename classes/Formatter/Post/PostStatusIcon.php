@@ -6,7 +6,7 @@ namespace AC\Formatter\Post;
 
 use AC\Formatter;
 use AC\Helper;
-use AC\Helper\Date;
+use AC\Helper\WpDateFormat;
 use AC\Type\Value;
 use DateTimeZone;
 use WP_Post;
@@ -115,7 +115,7 @@ class PostStatusIcon implements Formatter
         }
 
         return wp_date(
-            Date::create()->get_date_time_format(),
+            WpDateFormat::date_time(),
             $timestamp,
             new DateTimeZone('UTC')
         ) ?: null;

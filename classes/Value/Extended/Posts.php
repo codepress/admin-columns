@@ -72,7 +72,7 @@ class Posts implements ExtendedValue
                 'post_title'  => $post_title,
                 'post_status' => $post_status_obj ? $post_status_obj->label : '-',
                 'post_date'   => wp_date(
-                    Helper\Date::create()->get_date_format(),
+                    Helper\WpDateFormat::date(),
                     strtotime($post->post_date)
                 ) ?: '',
             ];

@@ -11,7 +11,6 @@ use InvalidArgumentException;
  * Implements __call to work around any keyword restrictions for PHP versions > 7
  * @deprecated 7.0.11 Use Helper\{ClassName}::create() instead. Will be removed in 7.1.
  * @property Helper\Arrays   $array
- * @property Helper\Date     $date
  * @property Helper\Image    $image
  * @property Helper\Post     $post
  * @property Helper\Menu     $menu
