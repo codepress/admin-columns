@@ -11,12 +11,12 @@ class Context implements AC\Setting\Context
 {
     protected Config $config;
 
-    private string $label;
+    private string $type_label;
 
-    public function __construct(Config $config, string $label)
+    public function __construct(Config $config, string $type_label)
     {
         $this->config = $config;
-        $this->label = $label;
+        $this->type_label = $type_label;
     }
 
     public function get_type(): string
@@ -36,7 +36,7 @@ class Context implements AC\Setting\Context
 
     public function get_type_label(): string
     {
-        return $this->label;
+        return $this->type_label;
     }
 
     public function has(string $key): bool
