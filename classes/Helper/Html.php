@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Helper;
 
+use AC\Type\Link;
 use WP_HTML_Tag_Processor;
 
 class Html extends Creatable
@@ -50,16 +51,16 @@ class Html extends Creatable
             unset($attributes['tooltip']);
         }
 
-        $allowed = wp_allowed_protocols();
-        $allowed[] = 'skype';
-        $allowed[] = 'call';
+        $protocols = wp_allowed_protocols();
+        $protocols[] = 'skype';
+        $protocols[] = 'call';
 
-        return sprintf(
-            '<a href="%s" %s>%s</a>',
-            esc_url($url, $allowed),
-            $this->get_attributes($attributes),
-            $label
-        );
+        return (new Link(
+            $url,
+            $label,
+            $this->filter_attributes($attributes),
+            $protocols
+        ))->render();
     }
 
     public function divider(): string
@@ -105,16 +106,27 @@ class Html extends Creatable
         return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . esc_textarea($contents) . '</textarea>';
     }
 
+    private function filter_attributes(array $attributes): array
+    {
+        $filtered = [];
+
+        foreach ($attributes as $attribute => $value) {
+            if (
+                in_array($attribute, ['title', 'id', 'class', 'style', 'target', 'rel', 'download'], true) ||
+                'data-' === substr($attribute, 0, 5)) {
+                $filtered[$attribute] = $value;
+            }
+        }
+
+        return $filtered;
+    }
+
     private function get_attributes(array $attributes): string
     {
         $_attributes = [];
 
-        foreach ($attributes as $attribute => $value) {
-            if (
-                in_array($attribute, ['title', 'id', 'class', 'style', 'target', 'rel', 'download']) ||
-                'data-' === substr($attribute, 0, 5)) {
-                $_attributes[] = $this->get_attribute_as_string($attribute, (string)$value);
-            }
+        foreach ($this->filter_attributes($attributes) as $attribute => $value) {
+            $_attributes[] = $this->get_attribute_as_string($attribute, (string)$value);
         }
 
         return ' ' . implode(' ', $_attributes);
@@ -131,7 +143,7 @@ class Html extends Creatable
 
         $processor = new WP_HTML_Tag_Processor($string);
 
-        while ($processor->next_tag('a')) {
+        while ($processor->next_tag(['tag_name' => 'a'])) {
             $href = $processor->get_attribute('href');
 
             if (! is_string($href) || 0 === strpos($href, '#')) {

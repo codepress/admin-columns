@@ -20,7 +20,7 @@ class User extends Creatable
      */
     public function get_translations_remote(): array
     {
-        _deprecated_function(__METHOD__, '7.0', 'AC\Herlper\Translations::get_available_translations()');
+        _deprecated_function(__METHOD__, '7.0', 'AC\Helper\AvailableTranslations::get_available_translations()');
 
         return [];
     }
