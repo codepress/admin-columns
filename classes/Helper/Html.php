@@ -154,15 +154,9 @@ class Html extends Creatable
 
     public function divided(array $array): string
     {
-        // Remove empty values
-        $array = $this->remove_empty($array);
+        $array = Arrays::create()->filter($array);
 
         return implode('<span class="ac-divider"></span>', $array);
-    }
-
-    public function remove_empty(array $array): array
-    {
-        return array_filter($array, [Strings::create(), 'is_not_empty']);
     }
 
     /**
