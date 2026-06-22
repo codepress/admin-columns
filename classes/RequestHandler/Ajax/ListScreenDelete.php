@@ -11,6 +11,7 @@ use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response;
 use AC\Type\ListScreenId;
+use InvalidArgumentException;
 
 class ListScreenDelete implements RequestAjaxHandler
 {
@@ -34,7 +35,15 @@ class ListScreenDelete implements RequestAjaxHandler
             $response->error();
         }
 
-        $list_screen = $this->storage->find(new ListScreenId($request->get('list_id')));
+        try {
+            $list_screen = $this->storage->find(
+                new ListScreenId(
+                    (string)$request->get('list_id')
+                )
+            );
+        } catch (InvalidArgumentException $e) {
+            $response->error();
+        }
 
         if (! $list_screen) {
             $response->error();

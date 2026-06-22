@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace AC\Type;
 
+use InvalidArgumentException;
 use LogicException;
 
 final class ListScreenId
 {
+
     private string $id;
 
     public function __construct(string $id)
     {
-        if (! self::is_valid_id($id)) {
-            throw new LogicException('Found empty ListScreen identity.');
+        if ( ! self::is_valid_id($id)) {
+            throw new InvalidArgumentException('Invalid ListScreenId identifier.');
         }
 
         $this->id = $id;
@@ -29,7 +31,7 @@ final class ListScreenId
         return $this->id;
     }
 
-    public function equals(ListScreenId $id): bool
+    public function equals(self $id): bool
     {
         return $this->id === $id->get_id();
     }

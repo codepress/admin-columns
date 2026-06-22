@@ -78,11 +78,9 @@ class ListScreenSave implements RequestAjaxHandler
 
         if (! ListScreenId::is_valid_id($id)) {
             $response->error();
-
-            exit;
         }
 
-        $id = new ListScreenId($id);
+        $id = new ListScreenId((string)$id);
         $table_screen = $this->table_screen_factory->create($list_key);
         $columns = $this->decode_columns($table_screen, $this->decode_configs((array)$data['columns']));
         $status = new ListScreenStatus($data['status'] ?? null);
