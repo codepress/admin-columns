@@ -16,7 +16,7 @@ class Html extends Creatable
             : $key;
     }
 
-    public function get_style_attributes_as_string(array $attributes): string
+    public function get_inline_styles(array $attributes): string
     {
         $style = '';
 
@@ -45,8 +45,10 @@ class Html extends Creatable
             $label = esc_html($label);
         }
 
+        $tooltip = null;
+
         if (array_key_exists('tooltip', $attributes)) {
-            $attributes['data-ac-tip'] = $attributes['tooltip'];
+            $tooltip = (string)$attributes['tooltip'];
 
             unset($attributes['tooltip']);
         }
@@ -55,17 +57,18 @@ class Html extends Creatable
         $protocols[] = 'skype';
         $protocols[] = 'call';
 
-        return (new Link(
+        $link = new Link(
             $url,
             $label,
             $this->filter_attributes($attributes),
             $protocols
-        ))->render();
-    }
+        );
 
-    public function divider(): string
-    {
-        return '<span class="ac-divider"></span>';
+        if (null !== $tooltip) {
+            $link = $link->with_tooltip($tooltip);
+        }
+
+        return $link->render();
     }
 
     public function get_tooltip_attr(string $content): string
@@ -77,13 +80,12 @@ class Html extends Creatable
         return 'data-ac-tip="' . esc_attr($content) . '"';
     }
 
-    public function tooltip(string $label, string $tooltip, array $attributes = []): string
+    public function tooltip(string $label, string $tooltip): string
     {
         if (Strings::create()->is_not_empty($label) && $tooltip) {
             $label = sprintf(
-                '<span %s %s>%s</span>',
+                '<span %s>%s</span>',
                 $this->get_tooltip_attr($tooltip),
-                $this->get_attributes($attributes),
                 $label
             );
         }
@@ -121,17 +123,6 @@ class Html extends Creatable
         return $filtered;
     }
 
-    private function get_attributes(array $attributes): string
-    {
-        $_attributes = [];
-
-        foreach ($this->filter_attributes($attributes) as $attribute => $value) {
-            $_attributes[] = $this->get_attribute_as_string($attribute, (string)$value);
-        }
-
-        return ' ' . implode(' ', $_attributes);
-    }
-
     public function get_links(string $string): ?array
     {
         // Just do a very simple check to check for possible links
@@ -161,21 +152,11 @@ class Html extends Creatable
         return $string && $string !== strip_tags($string);
     }
 
-    public function implode(array $array, bool $divider = true): string
+    public function divided(array $array): string
     {
-        // Remove empty values
-        $array = $this->remove_empty($array);
+        $array = Arrays::create()->filter($array);
 
-        if (true === $divider) {
-            $divider = $this->divider();
-        }
-
-        return implode($divider ?: '', $array);
-    }
-
-    public function remove_empty(array $array): array
-    {
-        return array_filter($array, [Strings::create(), 'is_not_empty']);
+        return implode('<span class="ac-divider"></span>', $array);
     }
 
     /**

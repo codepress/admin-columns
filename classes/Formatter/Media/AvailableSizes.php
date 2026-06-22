@@ -55,20 +55,22 @@ class AvailableSizes implements Formatter
 
             if ($missing) {
                 foreach ($missing as $size) {
-                    $paths[] = Helper\Html::create()->tooltip(
-                        $size,
-                        sprintf(
-                            __('Missing image file for size %s.', 'codepress-admin-columns'),
-                            '<em>"' . $size . '"</em>'
-                        ),
-                        ['class' => 'ac-missing-size']
+                    $paths[] = sprintf(
+                        '<span class="ac-missing-size">%s</span>',
+                        Helper\Html::create()->tooltip(
+                            $size,
+                            sprintf(
+                                __('Missing image file for size %s.', 'codepress-admin-columns'),
+                                '<em>"' . $size . '"</em>'
+                            )
+                        )
                     );
                 }
             }
         }
 
         return $value->with_value(
-            "<div class='ac-image-sizes'>" . implode(Helper\Html::create()->divider(), $paths) . "</div>"
+            "<div class='ac-image-sizes'>" . Helper\Html::create()->divided($paths) . "</div>"
         );
     }
 
