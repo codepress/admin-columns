@@ -12,7 +12,7 @@ use DateTimeZone;
 class Date extends Creatable
 {
     /**
-     * @depecated 7.0.11
+     * @deprecated 7.0.11
      */
     public function strtotime($date): ?int
     {
@@ -22,7 +22,7 @@ class Date extends Creatable
     }
 
     /**
-     * @depecated 7.0.11
+     * @deprecated 7.0.11
      */
     public function time(string $date, ?string $format = null): ?string
     {
@@ -32,7 +32,7 @@ class Date extends Creatable
     }
 
     /**
-     * @depecated 7.0.11
+     * @deprecated 7.0.11
      */
     public function date(string $date, ?string $date_format = null): ?string
     {
@@ -42,7 +42,7 @@ class Date extends Creatable
     }
 
     /**
-     * @depecated 7.0.11
+     * @deprecated 7.0.11
      */
     public function date_by_timestamp(int $timestamp, ?string $date_format = null): ?string
     {
@@ -52,7 +52,7 @@ class Date extends Creatable
     }
 
     /**
-     * @depecated 7.0.11
+     * @deprecated 7.0.11
      */
     public function timezone(): DateTimeZone
     {
@@ -62,7 +62,7 @@ class Date extends Creatable
     }
 
     /**
-     * @depecated 7.0
+     * @deprecated 7.0
      */
     public function format_date(string $format, ?int $timestamp = null, ?DateTimeZone $timezone = null): ?string
     {
