@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Helper;
 
-use DOMDocument;
-use DOMElement;
+use WP_HTML_Tag_Processor;
 
 class Html extends Creatable
 {
@@ -123,10 +122,6 @@ class Html extends Creatable
 
     public function get_links(string $string): ?array
     {
-        if (! class_exists('DOMDocument')) {
-            return null;
-        }
-
         // Just do a very simple check to check for possible links
         if (false === strpos($string, '<a')) {
             return null;
@@ -134,23 +129,12 @@ class Html extends Creatable
 
         $hrefs = [];
 
-        $dom = new DOMDocument();
+        $processor = new WP_HTML_Tag_Processor($string);
 
-        libxml_use_internal_errors(true);
-        $dom->loadHTML($string);
-        libxml_clear_errors();
+        while ($processor->next_tag('a')) {
+            $href = $processor->get_attribute('href');
 
-        $links = $dom->getElementsByTagName('a');
-
-        // TODO check for DOMNodeList object
-
-        foreach ($links as $link) {
-            /**
-             * @var DOMElement $link
-             */
-            $href = $link->getAttribute('href');
-
-            if (0 === strpos($href, '#')) {
+            if (! is_string($href) || 0 === strpos($href, '#')) {
                 continue;
             }
 
