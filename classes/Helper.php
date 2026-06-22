@@ -22,7 +22,6 @@ use InvalidArgumentException;
  * @property Helper\Html     $html
  * @property Helper\Media    $media
  * @property Helper\Network  $network
- * @property Helper\File     $file
  */
 final class Helper
 {
