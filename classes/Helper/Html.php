@@ -71,11 +71,6 @@ class Html extends Creatable
         return $link->render();
     }
 
-    public function divider(): string
-    {
-        return '<span class="ac-divider"></span>';
-    }
-
     public function get_tooltip_attr(string $content): string
     {
         if (! $content) {
@@ -157,16 +152,12 @@ class Html extends Creatable
         return $string && $string !== strip_tags($string);
     }
 
-    public function implode(array $array, bool $divider = true): string
+    public function divided(array $array): string
     {
         // Remove empty values
         $array = $this->remove_empty($array);
 
-        if (true === $divider) {
-            $divider = $this->divider();
-        }
-
-        return implode($divider ?: '', $array);
+        return implode('<span class="ac-divider"></span>', $array);
     }
 
     public function remove_empty(array $array): array

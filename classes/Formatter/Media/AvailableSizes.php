@@ -70,7 +70,7 @@ class AvailableSizes implements Formatter
         }
 
         return $value->with_value(
-            "<div class='ac-image-sizes'>" . implode(Helper\Html::create()->divider(), $paths) . "</div>"
+            "<div class='ac-image-sizes'>" . Helper\Html::create()->divided($paths) . "</div>"
         );
     }
 
