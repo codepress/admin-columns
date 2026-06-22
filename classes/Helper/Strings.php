@@ -129,7 +129,7 @@ class Strings extends Creatable
 
     public function is_valid_url(string $url): bool
     {
-        return filter_var($url, FILTER_VALIDATE_URL) || preg_match('/[^\w.-]/', $url);
+        return false !== filter_var($url, FILTER_VALIDATE_URL);
     }
 
     public function is_empty($value): bool
