@@ -85,13 +85,12 @@ class Html extends Creatable
         return 'data-ac-tip="' . esc_attr($content) . '"';
     }
 
-    public function tooltip(string $label, string $tooltip, array $attributes = []): string
+    public function tooltip(string $label, string $tooltip): string
     {
         if (Strings::create()->is_not_empty($label) && $tooltip) {
             $label = sprintf(
-                '<span %s %s>%s</span>',
+                '<span %s>%s</span>',
                 $this->get_tooltip_attr($tooltip),
-                $this->get_attributes($attributes),
                 $label
             );
         }
@@ -127,17 +126,6 @@ class Html extends Creatable
         }
 
         return $filtered;
-    }
-
-    private function get_attributes(array $attributes): string
-    {
-        $_attributes = [];
-
-        foreach ($this->filter_attributes($attributes) as $attribute => $value) {
-            $_attributes[] = $this->get_attribute_as_string($attribute, (string)$value);
-        }
-
-        return ' ' . implode(' ', $_attributes);
     }
 
     public function get_links(string $string): ?array
