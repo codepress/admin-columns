@@ -254,7 +254,7 @@ class Image extends Creatable
 
         ob_start(); ?>
 		<span class="ac-image<?= $class ?>" data-media-id="<?= esc_attr((string)$media_id); ?>" <?= $tooltip_attr ?>>
-			<img style="<?= Html::create()->get_style_attributes_as_string($image_attributes) ?>"
+			<img style="<?= Html::create()->get_inline_styles($image_attributes) ?>"
 					src="<?= esc_attr($src) ?>" alt="">
 
 			<?php

@@ -16,7 +16,7 @@ class Html extends Creatable
             : $key;
     }
 
-    public function get_style_attributes_as_string(array $attributes): string
+    public function get_inline_styles(array $attributes): string
     {
         $style = '';
 
