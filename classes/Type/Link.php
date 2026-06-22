@@ -58,6 +58,11 @@ final class Link implements Renderable
         return new self($this->url, $this->label, $attributes, $this->protocols);
     }
 
+    public function with_tooltip(string $tooltip): self
+    {
+        return $this->with_attribute('data-ac-tip', $tooltip);
+    }
+
     /**
      * @param array<string, string> $attributes
      */
