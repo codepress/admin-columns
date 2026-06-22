@@ -45,8 +45,10 @@ class Html extends Creatable
             $label = esc_html($label);
         }
 
+        $tooltip = null;
+
         if (array_key_exists('tooltip', $attributes)) {
-            $attributes['data-ac-tip'] = $attributes['tooltip'];
+            $tooltip = (string)$attributes['tooltip'];
 
             unset($attributes['tooltip']);
         }
@@ -55,12 +57,18 @@ class Html extends Creatable
         $protocols[] = 'skype';
         $protocols[] = 'call';
 
-        return (new Link(
+        $link = new Link(
             $url,
             $label,
             $this->filter_attributes($attributes),
             $protocols
-        ))->render();
+        );
+
+        if (null !== $tooltip) {
+            $link = $link->with_tooltip($tooltip);
+        }
+
+        return $link->render();
     }
 
     public function divider(): string

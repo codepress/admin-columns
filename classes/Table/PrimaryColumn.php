@@ -70,15 +70,13 @@ class PrimaryColumn
 
         $label = __('Download', 'codepress-admin-columns');
 
-        $link_attributes = [
-            'download' => '',
-            'title'    => $label,
-        ];
-
         $actions['download'] = Helper\Html::create()->link(
             $url,
             $label,
-            $link_attributes
+            [
+                'download' => '',
+                'title'    => $label,
+            ]
         );
 
         return $actions;
