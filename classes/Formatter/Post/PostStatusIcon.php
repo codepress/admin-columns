@@ -6,6 +6,7 @@ namespace AC\Formatter\Post;
 
 use AC\Formatter;
 use AC\Helper;
+use AC\Helper\Dashicon;
 use AC\Helper\WpDateFormat;
 use AC\Type\Value;
 use DateTimeZone;
@@ -43,7 +44,7 @@ class PostStatusIcon implements Formatter
             switch ($post->post_status) {
                 case 'private':
                     return Helper\Html::create()->tooltip(
-                        Helper\Icon::create()->dashicon(['icon' => 'hidden', 'class' => 'gray']),
+                        Dashicon::create('hidden', 'gray')->render(),
                         sprintf(
                             '%s <br><em>%s</em>',
                             __('Private'),
@@ -53,7 +54,7 @@ class PostStatusIcon implements Formatter
 
                 case 'publish':
                     return Helper\Html::create()->tooltip(
-                        Helper\Icon::create()->dashicon(['icon' => 'yes', 'class' => 'blue large']),
+                        Dashicon::create('yes', 'blue large')->render(),
                         sprintf(
                             '%s <br><em>%s</em>',
                             __('Published'),
@@ -63,7 +64,7 @@ class PostStatusIcon implements Formatter
 
                 case 'draft':
                     return Helper\Html::create()->tooltip(
-                        Helper\Icon::create()->dashicon(['icon' => 'edit', 'class' => 'green']),
+                        Dashicon::create('edit', 'green')->render(),
                         sprintf(
                             '%s <br><em>%s</em>',
                             __('Draft'),
@@ -73,7 +74,7 @@ class PostStatusIcon implements Formatter
 
                 case 'pending':
                     return Helper\Html::create()->tooltip(
-                        Helper\Icon::create()->dashicon(['icon' => 'backup', 'class' => 'orange']),
+                        Dashicon::create('backup', 'orange')->render(),
                         sprintf(
                             '%s <br><em>%s</em>',
                             __('Pending for review'),
@@ -83,7 +84,7 @@ class PostStatusIcon implements Formatter
 
                 case 'future':
                     $icon = Helper\Html::create()->tooltip(
-                        Helper\Icon::create()->dashicon(['icon' => 'clock']),
+                        Dashicon::create('clock')->render(),
                         sprintf(
                             '%s <br><em>%s</em>',
                             __('Scheduled'),
@@ -94,7 +95,7 @@ class PostStatusIcon implements Formatter
                     // Missed schedule
                     if ((time() - mysql2date('G', $post->post_date_gmt)) > 0) {
                         $icon .= Helper\Html::create()->tooltip(
-                            Helper\Icon::create()->dashicon(['icon' => 'flag', 'class' => 'gray']),
+                            Dashicon::create('flag', 'gray')->render(),
                             __('Missed schedule')
                         );
                     }
