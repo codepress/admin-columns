@@ -20,7 +20,6 @@ use InvalidArgumentException;
  * @property Helper\User     $user
  * @property Helper\Icon     $icon
  * @property Helper\Html     $html
- * @property Helper\Media    $media
  * @property Helper\Network  $network
  */
 final class Helper
