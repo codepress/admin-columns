@@ -206,48 +206,6 @@ class Html extends Creatable
         return sprintf('<span class="ac-rounded">%s</span>', $string);
     }
 
-    /**
-     * Returns star rating based on X start from $max count. Does support decimals.
-     */
-    public function stars(int $count, int $max = 0): string
-    {
-        $stars = [
-            'filled' => floor($count),
-            'half'   => floor(round(($count * 2)) - (floor($count) * 2)) ? 1 : 0,
-            'empty'  => 0,
-        ];
-
-        $max = absint($max);
-
-        if ($max > 0) {
-            $star_count = $stars['filled'] + $stars['half'];
-
-            $stars['empty'] = $max - $star_count;
-
-            if ($star_count > $max) {
-                $stars['filled'] = $max;
-                $stars['half'] = 0;
-            }
-        }
-
-        $icons = [];
-
-        foreach ($stars as $type => $_count) {
-            for ($i = 1; $i <= $_count; $i++) {
-                $icons[] = Icon::create()->dashicon(['icon' => 'star-' . $type, 'class' => 'ac-value-star']);
-            }
-        }
-
-        ob_start();
-        ?>
-		<span class="ac-value-stars">
-			<?php
-            echo implode(' ', $icons); ?>
-		</span>
-        <?php
-        return (string)ob_get_clean();
-    }
-
     public function images(string $html, ?int $removed = null): string
     {
         if (! $html) {
