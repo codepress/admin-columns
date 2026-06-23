@@ -9,7 +9,7 @@ use AC\Helper\Image\SizeResolver;
 
 class Image extends Creatable
 {
-    public function resize(string $file, int $max_w, int $max_h, bool $crop = false): ?string
+    private function resize(string $file, int $max_w, int $max_h, bool $crop = false): ?string
     {
         $editor = wp_get_image_editor($file);
 
@@ -105,7 +105,7 @@ class Image extends Creatable
         }
 
         // External image
-        return Markup::create()->cover($image_path, $width, $height);
+        return Markup::create()->cover($url, $width, $height);
     }
 
     public function get_image(string $image_id_or_url, $size = 'thumbnail'): ?string
@@ -125,22 +125,6 @@ class Image extends Creatable
         return null;
     }
 
-    /**
-     * @deprecated 7.1 Use AC\Helper\LocalFile::create()->get_file_name() instead.
-     */
-    public function get_file_name(int $attachment_id): ?string
-    {
-        return LocalFile::create()->get_file_name($attachment_id);
-    }
-
-    /**
-     * @deprecated 7.1 Use AC\Helper\LocalFile::create()->get_file_extension() instead.
-     */
-    public function get_file_extension(int $attachment_id): string
-    {
-        return LocalFile::create()->get_file_extension($attachment_id);
-    }
-
     public function get_local_image_info(string $url): ?array
     {
         $path = LocalFile::create()->get_path($url);
@@ -150,22 +134,6 @@ class Image extends Creatable
         }
 
         return getimagesize($path) ?: null;
-    }
-
-    /**
-     * @deprecated 7.1 Use AC\Helper\LocalFile::create()->get_path() instead.
-     */
-    public function get_local_image_path(string $url): ?string
-    {
-        return LocalFile::create()->get_path($url);
-    }
-
-    /**
-     * @deprecated 7.1 Use AC\Helper\LocalFile::create()->get_size() instead.
-     */
-    public function get_local_image_size(string $url): ?int
-    {
-        return LocalFile::create()->get_size($url);
     }
 
     private function markup_image(string $src, int $width, int $height, ?int $media_id = null): string
@@ -182,6 +150,38 @@ class Image extends Creatable
         $fileinfo = pathinfo($path);
 
         return (bool)preg_match('/-[0-9]+x[0-9]+$/', $fileinfo['filename']);
+    }
+
+    /**
+     * @deprecated 7.1 Use AC\Helper\LocalFile::create()->get_file_name() instead.
+     */
+    public function get_file_name(int $attachment_id): ?string
+    {
+        return LocalFile::create()->get_file_name($attachment_id);
+    }
+
+    /**
+     * @deprecated 7.1 Use AC\Helper\LocalFile::create()->get_file_extension() instead.
+     */
+    public function get_file_extension(int $attachment_id): string
+    {
+        return LocalFile::create()->get_file_extension($attachment_id);
+    }
+
+    /**
+     * @deprecated 7.1 Use AC\Helper\LocalFile::create()->get_path() instead.
+     */
+    public function get_local_image_path(string $url): ?string
+    {
+        return LocalFile::create()->get_path($url);
+    }
+
+    /**
+     * @deprecated 7.1 Use AC\Helper\LocalFile::create()->get_size() instead.
+     */
+    public function get_local_image_size(string $url): ?int
+    {
+        return LocalFile::create()->get_size($url);
     }
 
 }
