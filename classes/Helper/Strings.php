@@ -178,10 +178,13 @@ class Strings extends Creatable
 
         $compound = sprintf(' %s ', trim($compound));
 
-        $last = end($items);
-        $delimiter = ', ';
+        $last = array_pop($items);
 
-        return str_replace($delimiter . $last, $compound . $last, implode($delimiter, $items));
+        if (! $items) {
+            return (string)$last;
+        }
+
+        return implode(', ', $items) . $compound . $last;
     }
 
 }

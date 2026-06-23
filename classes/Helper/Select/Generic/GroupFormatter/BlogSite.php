@@ -43,7 +43,10 @@ class BlogSite implements GroupFormatter
                 $groups[$wpdb->get_blog_prefix($site->blog_id)] = $label;
             }
 
-            $groups = array_reverse($groups);
+            // Match longer (sub-site) prefixes such as `wp_2_` before the shorter main-site `wp_`.
+            uksort($groups, static function (string $a, string $b): int {
+                return strlen($b) <=> strlen($a);
+            });
         }
 
         return $groups;

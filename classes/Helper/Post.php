@@ -35,18 +35,16 @@ class Post extends Creatable
         return (int)$wpdb->get_var($sql);
     }
 
+    /**
+     * @deprecated 7.0.13 Use get_post_field( $field, $id, 'raw' ) instead.
+     */
     public function get_raw_field(string $field, int $id): ?string
     {
-        global $wpdb;
+        _deprecated_function(__METHOD__, '7.0.13', "get_post_field( \$field, \$id, 'raw' )");
 
-        $sql = "
-			SELECT " . $wpdb->_real_escape($field) . "
-			FROM $wpdb->posts
-			WHERE ID = %d
-			LIMIT 1
-		";
+        $value = get_post_field($field, $id, 'raw');
 
-        return $wpdb->get_var($wpdb->prepare($sql, $id));
+        return '' === $value ? null : $value;
     }
 
     /*

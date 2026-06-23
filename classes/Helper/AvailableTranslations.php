@@ -21,7 +21,9 @@ class AvailableTranslations extends Creatable
 
         $translations = wp_get_available_translations();
 
-        set_site_transient('ac_available_translations', $translations, WEEK_IN_SECONDS);
+        if (! empty($translations)) {
+            set_site_transient('ac_available_translations', $translations, WEEK_IN_SECONDS);
+        }
 
         return $translations;
     }

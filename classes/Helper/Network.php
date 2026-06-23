@@ -23,9 +23,16 @@ class Network extends Creatable
         return (string)$wpdb->get_var($wpdb->prepare($sql, $option));
     }
 
-    public function get_active_theme(int $blog_id): WP_Theme
+    public function get_active_theme(int $blog_id): ?WP_Theme
     {
-        return wp_get_theme($this->get_site_option($blog_id, 'stylesheet'));
+        $stylesheet = $this->get_site_option($blog_id, 'stylesheet');
+
+        // An empty stylesheet would make wp_get_theme() fall back to the current site's theme, so bail instead.
+        if ('' === $stylesheet) {
+            return null;
+        }
+
+        return wp_get_theme($stylesheet);
     }
 
 }
