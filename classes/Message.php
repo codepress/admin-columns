@@ -15,17 +15,13 @@ abstract class Message
 
     protected string $message;
 
-    protected ?string $type;
+    protected string $type;
 
     protected string $id = '';
 
     public function __construct(string $message, ?string $type = null)
     {
-        if (null === $type) {
-            $type = self::SUCCESS;
-        }
-
-        $this->type = $type;
+        $this->type = $type ?? self::SUCCESS;
         $this->message = trim($message);
 
         $this->validate();
