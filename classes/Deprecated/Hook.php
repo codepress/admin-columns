@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Deprecated;
 
 use Closure;
+use LogicException;
 use ReflectionFunction;
 
 class Hook
@@ -34,6 +35,10 @@ class Hook
 
     public function get_replacement(): string
     {
+        if (null === $this->replacement) {
+            throw new LogicException('Empty replacement');
+        }
+
         return $this->replacement;
     }
 
@@ -49,7 +54,7 @@ class Hook
 
     public function usage_count(): int
     {
-        return count($this->get_callbacks());
+        return count($this->get_callbacks() ?? []);
     }
 
     private function get_filter_callbacks(): array
