@@ -26,13 +26,14 @@ class FileLink implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
+        $attachment_id = (int)$attachment_id;
+
         $attachment = get_attached_file($attachment_id);
 
         if (! $attachment) {
             return $value->with_value('<em>' . __('Invalid attachment', 'codepress-admin-columns') . '</em>');
         }
 
-        $attachment_id = (int)$attachment_id;
         $label = esc_html(basename($attachment));
 
         if ($this->link_to === 'download') {
