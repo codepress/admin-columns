@@ -17,6 +17,7 @@ final class Dashicon
 
     public function __construct(
         string $icon,
+        // TODO Tobias make nullable as well and then a default?
         string $class = '',
         ?string $title = null,
         ?string $tooltip = null
