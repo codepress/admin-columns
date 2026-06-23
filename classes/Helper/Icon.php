@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Helper;
 
+/**
+ * @deprecated 7.0.14 Use {@see Dashicon} instead. Will be removed in 7.1.
+ */
 class Icon extends Creatable
 {
     public function dashicon(array $args = []): string
@@ -17,63 +20,27 @@ class Icon extends Creatable
 
         $data = (object)wp_parse_args($args, $defaults);
 
-        $class = 'dashicons dashicons-' . $data->icon;
-
-        if ($data->class) {
-            $class .= ' ' . trim($data->class);
-        }
-
-        $attributes = [];
-
-        if ($data->title) {
-            $attributes[] = sprintf('title="%s"', esc_attr($data->title));
-        }
-
-        if ($data->tooltip && is_string($data->tooltip)) {
-            $attributes[] = Html::create()->get_tooltip_attr($data->tooltip);
-        }
-
-        return sprintf(
-            '<span class="%s" %s></span>',
-            esc_attr($class),
-            implode(' ', $attributes)
-        );
+        return (new Dashicon(
+            (string)$data->icon,
+            (string)$data->class,
+            '' !== (string)$data->title ? (string)$data->title : null,
+            is_string($data->tooltip) && '' !== $data->tooltip ? $data->tooltip : null
+        ))->render();
     }
 
     public function yes(?string $tooltip = null, ?string $title = null, ?string $class = null): string
     {
-        $class = $class ?: 'green';
-        if (null === $title) {
-            $title = __('Yes');
-        }
-
-        return $this->dashicon([
-            'icon'    => 'yes',
-            'class'   => $class,
-            'title'   => $title,
-            'tooltip' => $tooltip,
-        ]);
+        return Dashicon::yes($tooltip, $title, $class ?: 'green')->render();
     }
 
     public function no(?string $tooltip = null, ?string $title = null, ?string $class = 'red'): string
     {
-        if (null === $title) {
-            $title = __('No');
-        }
-
-        return $this->dashicon([
-            'icon'    => 'no-alt',
-            'class'   => $class,
-            'title'   => $title,
-            'tooltip' => $tooltip,
-        ]);
+        return Dashicon::no($tooltip, $title, $class)->render();
     }
 
     public function yes_or_no(bool $is_true, ?string $tooltip = null): string
     {
-        return $is_true
-            ? $this->yes($tooltip)
-            : $this->no($tooltip);
+        return Dashicon::yes_or_no($is_true, $tooltip)->render();
     }
 
 }

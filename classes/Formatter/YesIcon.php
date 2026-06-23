@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter;
 
 use AC\Formatter;
-use AC\Helper;
+use AC\Helper\Dashicon;
 use AC\Type\Value;
 
 class YesIcon implements Formatter
@@ -23,7 +23,7 @@ class YesIcon implements Formatter
     public function format(Value $value): Value
     {
         $icon = $value->get_value()
-            ? Helper\Icon::create()->yes(null, $this->title, $this->class)
+            ? Dashicon::yes(null, $this->title, $this->class)->render()
             : false;
 
         return $value->with_value(

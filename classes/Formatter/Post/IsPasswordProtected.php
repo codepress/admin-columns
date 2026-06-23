@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
-use AC\Helper;
+use AC\Helper\Dashicon;
 use AC\Type\Value;
 
 class IsPasswordProtected implements Formatter
@@ -25,7 +25,7 @@ class IsPasswordProtected implements Formatter
         );
 
         return $value->with_value(
-            Helper\Icon::create()->yes($tooltip)
+            Dashicon::yes($tooltip)->render()
         );
     }
 
