@@ -8,9 +8,12 @@ use AC\MetaType;
 
 final class QueryMetaFactory
 {
+    /**
+     * @throws \InvalidArgumentException When the meta type is not supported by the query builder.
+     */
     public function create(string $meta_key, MetaType $meta_type): Query
     {
-        $query = new Query((string)$meta_type);
+        $query = Query::from_meta_type($meta_type);
         $query
             ->select('meta_value')
             ->distinct()
