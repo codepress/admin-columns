@@ -12,7 +12,6 @@ use AC\Response\Json;
 
 class Integrations implements RequestAjaxHandler
 {
-
     private IntegrationRepository $integrations;
 
     public function __construct(IntegrationRepository $integrations)
@@ -22,7 +21,7 @@ class Integrations implements RequestAjaxHandler
 
     public function handle(): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
