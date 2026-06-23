@@ -37,7 +37,7 @@ class Integrations implements RequestAjaxHandler
         }
 
         (new Json())
-            ->with_parameter(('integrations', $integrations)
+            ->with_parameter('integrations', $integrations)
             ->success();
     }
 
