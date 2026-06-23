@@ -51,7 +51,7 @@ final class ListScreenRepository
 
     public function get_rules(): Rules
     {
-        if (! $this->has_rules()) {
+        if (null === $this->rules) {
             throw new LogicException('No rules defined.');
         }
 
