@@ -67,7 +67,13 @@ class PostExtendedProperty extends PostProperty
 
     protected function get_children(Config $config): ?Children
     {
-        $components = parent::get_children($config)->get_iterator();
+        $parent_children = parent::get_children($config);
+
+        if (! $parent_children) {
+            return null;
+        }
+
+        $components = $parent_children->get_iterator();
 
         $table_screen_context = new TableScreenContext(
             AC\MetaType::create_post_meta(),
