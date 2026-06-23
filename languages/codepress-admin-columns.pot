@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-06-12 13:00+0000\n"
+"POT-Creation-Date: 2026-06-23 11:17+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -184,11 +184,11 @@ msgstr ""
 msgid "Function"
 msgstr ""
 
-#: classes/Deprecated/Hook.php:94
+#: classes/Deprecated/Hook.php:95
 msgid "Anonymous function"
 msgstr ""
 
-#: classes/Deprecated/Hook.php:103
+#: classes/Deprecated/Hook.php:104
 msgid "Anonymous Function"
 msgstr ""
 
@@ -208,7 +208,7 @@ msgid_plural "seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/Helper/Strings.php:152
+#: classes/Helper/Strings.php:176
 msgid " or "
 msgstr ""
 
@@ -386,7 +386,7 @@ msgstr ""
 msgid "See the Plugins page for details."
 msgstr ""
 
-#: classes/Table/PrimaryColumn.php:67, classes/Table/PrimaryColumn.php:71, classes/Table/Screen.php:149, classes/ColumnFactory/Media/DownloadFactory.php:21, classes/Formatter/Media/Download.php:25, classes/Setting/ComponentFactory/MediaLink.php:30
+#: classes/Table/PrimaryColumn.php:71, classes/Table/Screen.php:149, classes/ColumnFactory/Media/DownloadFactory.php:21, classes/Formatter/Media/Download.php:25, classes/Setting/ComponentFactory/MediaLink.php:30
 msgid "Download"
 msgstr ""
 
@@ -1733,15 +1733,15 @@ msgstr ""
 msgid "in %s"
 msgstr ""
 
-#: classes/Formatter/Media/AudioPlayer.php:28, classes/Value/Extended/MediaPreview.php:54
+#: classes/Formatter/Media/AudioPlayer.php:28, classes/Value/Extended/MediaPreview.php:57
 msgid "No support for audio player"
 msgstr ""
 
-#: classes/Formatter/Media/AvailableSizes.php:37
+#: classes/Formatter/Media/AvailableSizes.php:39
 msgid "original"
 msgstr ""
 
-#: classes/Formatter/Media/AvailableSizes.php:58
+#: classes/Formatter/Media/AvailableSizes.php:63
 msgid "Missing image file for size %s."
 msgstr ""
 
@@ -1753,15 +1753,15 @@ msgstr ""
 msgid "Height : %s px"
 msgstr ""
 
-#: classes/Formatter/Post/ExcerptMissingMessage.php:40
+#: classes/Formatter/Post/ExcerptMissingMessage.php:41
 msgid "Excerpt is missing."
 msgstr ""
 
-#: classes/Formatter/Post/ExcerptMissingMessage.php:41
+#: classes/Formatter/Post/ExcerptMissingMessage.php:42
 msgid "Current excerpt is generated from the content."
 msgstr ""
 
-#: classes/Formatter/Post/ExcerptMissingMessage.php:50
+#: classes/Formatter/Post/ExcerptMissingMessage.php:51
 msgid "auto-generated"
 msgstr ""
 
@@ -1805,7 +1805,7 @@ msgstr ""
 msgid "Settings saved successfully."
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenDelete.php:49
+#: classes/RequestHandler/Ajax/ListScreenDelete.php:58
 msgid "Table view %s successfully deleted."
 msgstr ""
 
@@ -1813,15 +1813,15 @@ msgstr ""
 msgid "List screen not found"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:122
+#: classes/RequestHandler/Ajax/ListScreenSave.php:120
 msgid "Column settings could not be saved."
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:144
+#: classes/RequestHandler/Ajax/ListScreenSave.php:142
 msgid "Settings for %s updated successfully."
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:149
+#: classes/RequestHandler/Ajax/ListScreenSave.php:147
 msgid "View %s screen"
 msgstr ""
 
@@ -2081,7 +2081,7 @@ msgstr ""
 msgid "True / False"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:192, classes/Setting/ComponentFactory/FieldTypeConfigurator/CountConfigurator.php:16
+#: classes/Setting/ComponentFactory/FieldType.php:192, classes/Setting/ComponentFactory/FieldTypeConfigurator/CountConfigurator.php:15
 msgid "Number of Fields"
 msgstr ""
 
@@ -2435,15 +2435,15 @@ msgstr ""
 msgid "Assistant"
 msgstr ""
 
-#: classes/Value/Extended/MediaPreview.php:65
+#: classes/Value/Extended/MediaPreview.php:69
 msgid "Preview not available"
 msgstr ""
 
-#: classes/Value/Extended/Posts.php:43
+#: classes/Value/Extended/Posts.php:42
 msgid "No items"
 msgstr ""
 
-#: classes/Value/Extended/Posts.php:84
+#: classes/Value/Extended/Posts.php:82
 msgid "Recent items"
 msgstr ""
 
