@@ -8,6 +8,9 @@ class LocalFile extends Creatable
 {
     public function url_to_path(string $url): string
     {
+        // Normalize the scheme (http vs https) to WP_CONTENT_URL's so a local URL isn't mistaken for an external one.
+        $url = set_url_scheme($url, wp_parse_url(WP_CONTENT_URL, PHP_URL_SCHEME) ?: null);
+
         return (string)str_replace(WP_CONTENT_URL, WP_CONTENT_DIR, $url);
     }
 
@@ -18,7 +21,6 @@ class LocalFile extends Creatable
 
     public function get_path(string $url): ?string
     {
-        $url = set_url_scheme($url, wp_parse_url(WP_CONTENT_URL, PHP_URL_SCHEME) ?: null);
         $path = $this->url_to_path($url);
 
         if (! file_exists($path)) {

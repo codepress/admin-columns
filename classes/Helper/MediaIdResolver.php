@@ -14,12 +14,16 @@ class MediaIdResolver extends Creatable
 
         $upload_dir = wp_get_upload_dir();
 
+        // Normalize the scheme (http vs https) on both URLs so a valid local upload isn't rejected on a scheme mismatch.
+        $image_url = set_url_scheme($image_url);
+        $baseurl = set_url_scheme($upload_dir['baseurl']);
+
         // Is image in upload folder?
-        if (false === strpos($image_url, $upload_dir['baseurl'])) {
+        if (false === strpos($image_url, $baseurl)) {
             return null;
         }
 
-        $file_with_relative_path = ltrim(str_replace($upload_dir['baseurl'], '', $image_url), '/');
+        $file_with_relative_path = ltrim(str_replace($baseurl, '', $image_url), '/');
 
         $images = get_posts([
             'post_type'  => 'attachment',
@@ -82,6 +86,7 @@ class MediaIdResolver extends Creatable
         foreach ($image_ids as $_image_id) {
             if (0 === strpos((string) get_post_meta($_image_id, '_wp_attached_file', true), $relative_upload_dir)) {
                 $image_id = $_image_id;
+                break;
             }
         }
 

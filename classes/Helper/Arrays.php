@@ -17,7 +17,7 @@ class Arrays extends Creatable
             $value = $this->add_nested_value(
                 $keys,
                 $value,
-                is_array($result[$key]) ? $result[$key] : []
+                isset($result[$key]) && is_array($result[$key]) ? $result[$key] : []
             );
         }
 

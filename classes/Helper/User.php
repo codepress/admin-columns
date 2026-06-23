@@ -48,7 +48,9 @@ class User extends Creatable
     {
         _deprecated_function(__METHOD__, '7.0');
 
-        return get_user_by('id', $user_id)->{$field} ?? null;
+        $user = get_user_by('id', $user_id);
+
+        return $user ? ($user->{$field} ?? null) : null;
     }
 
     /**
