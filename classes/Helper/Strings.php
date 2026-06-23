@@ -10,7 +10,7 @@ class Strings extends Creatable
 {
     public function starts_with(string $haystack, string $needle): bool
     {
-        return '' === $needle || 0 === strpos($haystack, $needle);
+        return str_starts_with($haystack, $needle);
     }
 
     public function remove_prefix(string $string, string $prefix): string
@@ -29,13 +29,7 @@ class Strings extends Creatable
 
     public function ends_with(string $haystack, string $needle): bool
     {
-        if ('' === $haystack && '' !== $needle) {
-            return false;
-        }
-
-        $len = strlen($needle);
-
-        return 0 === substr_compare($haystack, $needle, -$len, $len);
+        return str_ends_with($haystack, $needle);
     }
 
     public function get_shortcodes(string $content): array
@@ -124,9 +118,10 @@ class Strings extends Creatable
             return false;
         }
 
-        $ext = strtolower(pathinfo(strtok($url, '?'), PATHINFO_EXTENSION));
+        $path = (string) strtok($url, '?#');
+        $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 
-        return in_array($ext, ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp']);
+        return in_array($ext, ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp', 'svg', 'avif'], true);
     }
 
     public function is_valid_url(string $url): bool
