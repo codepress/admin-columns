@@ -10,7 +10,10 @@ trait ColumnLabelTrait
 {
     public function get_column_label(Column $column): string
     {
-        $label = $column->get_setting('label')->get_input()->get_value();
+        $setting = $column->get_setting('label');
+        $label = $setting
+            ? (string)$setting->get_input()->get_value()
+            : '';
 
         if (str_contains($label, 'dashicons')) {
             return trim($label);
