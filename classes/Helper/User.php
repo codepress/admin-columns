@@ -61,7 +61,7 @@ class User extends Creatable
         _deprecated_function(__METHOD__, '7.0', 'get_userdata');
 
         if (is_numeric($user)) {
-            $user = get_userdata($user);
+            $user = get_userdata((int) $user);
         }
 
         return $user instanceof WP_User
