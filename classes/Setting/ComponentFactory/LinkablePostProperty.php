@@ -35,6 +35,10 @@ class LinkablePostProperty extends PostProperty
     {
         $children = parent::get_children($config);
 
+        if (null === $children) {
+            return null;
+        }
+
         $components = $children->get_iterator();
 
         $components->add(
