@@ -8,11 +8,12 @@ use WP_User;
 
 class User extends Creatable
 {
-    public function get_formatted_name(WP_User $user): ?string
+    public function get_formatted_name(WP_User $user): string
     {
         return trim($user->first_name . ' ' . $user->last_name)
             ?: $user->display_name
-                ?: $user->user_login;
+                ?: $user->user_login
+                    ?: '';
     }
 
     /**
