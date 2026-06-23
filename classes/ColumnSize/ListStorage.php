@@ -66,7 +66,13 @@ class ListStorage
             return null;
         }
 
-        $unit = (string) $column->get_setting('width_unit')->get_input()->get_value();
+        $unit_setting = $column->get_setting('width_unit');
+
+        if (! $unit_setting) {
+            return null;
+        }
+
+        $unit = (string) $unit_setting->get_input()->get_value();
 
         try {
             $width = new ColumnWidth($unit, $width);
