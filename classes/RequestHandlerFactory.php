@@ -41,11 +41,13 @@ class RequestHandlerFactory
 
     public function create(): RequestHandler
     {
-        if (! $this->is_request()) {
+        $request_handler = $this->get_request_handler();
+
+        if (null === $request_handler) {
             throw new LogicException('Invalid request.');
         }
 
-        return $this->get_request_handler();
+        return $request_handler;
     }
 
 }
