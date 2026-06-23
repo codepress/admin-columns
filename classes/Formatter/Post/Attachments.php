@@ -22,7 +22,7 @@ class Attachments implements Formatter
         $attachment_ids = get_posts([
             'post_type'      => 'attachment',
             'posts_per_page' => -1,
-            'post_status'    => null,
+            'post_status'    => 'inherit',
             'post_parent'    => $parent_id,
             'fields'         => 'ids',
         ]);
