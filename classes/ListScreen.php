@@ -27,7 +27,7 @@ final class ListScreen
 
     private array $preferences;
 
-    private ?DateTime $updated;
+    private DateTime $updated;
 
     private bool $read_only = false;
 
