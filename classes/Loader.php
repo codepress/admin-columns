@@ -121,6 +121,9 @@ class Loader
         ];
     }
 
+    /**
+     * @return array<class-string<MenuGroupFactory>>
+     */
     private function get_menu_group_factory_classes(): array
     {
         return [
