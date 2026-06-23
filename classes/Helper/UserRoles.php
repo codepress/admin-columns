@@ -34,10 +34,12 @@ final class UserRoles extends Creatable
         $roles = new Type\UserRoles();
 
         foreach ($roles_data as $role_name => $role) {
+            $label = is_array($role) ? ($role['name'] ?? $role_name) : $role_name;
+
             $roles->add(
                 new Type\UserRole(
                     (string)$role_name,
-                    (string)($role['name'] ?? $role_name)
+                    (string)$label
                 )
             );
         }

@@ -74,10 +74,11 @@ class Taxonomy extends Creatable
 
         $options = [];
 
-        foreach ($taxonomies as $index => $taxonomy) {
-            if ($taxonomy->name == 'post_format') {
-                unset($taxonomies[$index]);
+        foreach ($taxonomies as $taxonomy) {
+            if ($taxonomy->name === 'post_format') {
+                continue;
             }
+
             $options[$taxonomy->name] = $taxonomy->label;
         }
 
