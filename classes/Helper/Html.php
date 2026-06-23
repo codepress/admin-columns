@@ -99,7 +99,7 @@ class Html extends Creatable
             return '';
         }
 
-        $contents = substr(
+        $contents = Mbstring::substr(
             $string,
             0,
             $max_chars
@@ -172,7 +172,7 @@ class Html extends Creatable
             }
         }
 
-        return implode($blocks);
+        return implode('', $blocks);
     }
 
     /**
@@ -183,30 +183,8 @@ class Html extends Creatable
         return sprintf('<span class="ac-rounded">%s</span>', $string);
     }
 
-    public function images(string $html, ?int $removed = null): string
-    {
-        if (! $html) {
-            return '';
-        }
-
-        if ($removed) {
-            $html .= $this->rounded('+' . $removed);
-        }
-
-        return '<div class="ac-image-container">' . $html . '</div>';
-    }
-
-    public function file_pill(string $extension, string $filename): string
-    {
-        return sprintf(
-            '<span class="ac-file-type">%s</span><span class="ac-file-name">%s</span>',
-            esc_html(strtoupper($extension)),
-            esc_html($filename)
-        );
-    }
-
     /**
-     * @depecated 7.0.9
+     * @deprecated 7.0.9
      */
     public function get_internal_external_links(): ?array
     {

@@ -52,9 +52,10 @@ class Markup extends Creatable
         $extension = (string)pathinfo($filename, PATHINFO_EXTENSION);
 
         return sprintf(
-            '<span class="ac-file-pill" data-media-id="%s">%s</span>',
+            '<span class="ac-file-pill" data-media-id="%s"><span class="ac-file-type">%s</span><span class="ac-file-name">%s</span></span>',
             esc_attr((string)$media_id),
-            Html::create()->file_pill($extension, $filename)
+            esc_html(strtoupper($extension)),
+            esc_html($filename)
         );
     }
 
