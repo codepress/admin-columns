@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Helper;
 
+use WP_HTML_Tag_Processor;
+
 class Strings extends Creatable
 {
     public function starts_with(string $haystack, string $needle): bool
@@ -140,6 +142,33 @@ class Strings extends Creatable
     public function is_not_empty($value): bool
     {
         return $value || 0 === $value || '0' === $value;
+    }
+
+    public function get_image_urls_from_string(string $string): array
+    {
+        if (! $string) {
+            return [];
+        }
+
+        if (false === strpos($string, '<img')) {
+            return [];
+        }
+
+        $urls = [];
+
+        $processor = new WP_HTML_Tag_Processor($string);
+
+        while ($processor->next_tag(['tag_name' => 'img'])) {
+            $src = $processor->get_attribute('src');
+
+            if (! is_string($src) || '' === $src) {
+                continue;
+            }
+
+            $urls[] = $src;
+        }
+
+        return $urls;
     }
 
     public function enumeration_list(array $items, string $compound = 'or'): string

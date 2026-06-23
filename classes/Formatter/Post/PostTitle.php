@@ -35,7 +35,7 @@ class PostTitle implements Formatter
     private function get_title(WP_Post $post): string
     {
         if ($this->use_file_name_for_attachments && 'attachment' === $post->post_type) {
-            return Helper\Image::create()->get_file_name($post->ID) ?: '';
+            return Helper\LocalFile::create()->get_file_name($post->ID) ?: '';
         }
 
         return get_the_title($post);

@@ -27,7 +27,7 @@ class ImageUrlsFromContent implements AC\Formatter
             $this->context
         );
 
-        $urls = array_unique(Helper\Image::create()->get_image_urls_from_string($string));
+        $urls = array_unique(Helper\Strings::create()->get_image_urls_from_string($string));
 
         if (empty($urls)) {
             throw AC\Exception\ValueNotFoundException::from_id($value->get_id());
