@@ -94,7 +94,7 @@ class V7000 extends Update
         }
 
         foreach ($results as $item) {
-            if (! isset($item->option_name)) {
+            if (! isset($item->option_name, $item->option_value)) {
                 continue;
             }
 
