@@ -21,7 +21,9 @@ class Video extends View
      */
     public function set_src(string $src): self
     {
-        return $this->set('src', $src);
+        $this->set('src', $src);
+
+        return $this;
     }
 
 }
