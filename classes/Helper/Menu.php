@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace AC\Helper;
 
+use WP_Term;
+
 class Menu extends Creatable
 {
-    public function get_menu_label(int $menu_item_id): string
+    public function get_label(int $menu_item_id): string
     {
         global $wpdb;
 
@@ -26,7 +28,12 @@ class Menu extends Creatable
         );
     }
 
-    public function get_ids(int $object_id, string $object_type): array
+    /**
+     * The `nav_menu_item` post IDs that reference the given object.
+     *
+     * @return int[]
+     */
+    public function get_item_ids(int $object_id, string $object_type): array
     {
         return get_posts([
             'post_type'      => 'nav_menu_item',
@@ -47,15 +54,21 @@ class Menu extends Creatable
     }
 
     /**
+     * The `nav_menu` terms the given object is assigned to.
+     *
      * @see WP_Term_Query::__construct() for supported arguments.
+     *
+     * @return WP_Term[]|int[] Terms, or term IDs when `$args['fields']` is `ids`.
      */
-    public function get_terms(array $terms_ids, array $args = []): array
+    public function get_terms(int $object_id, string $object_type, array $args = []): array
     {
-        if (! $terms_ids) {
+        $object_ids = $this->get_item_ids($object_id, $object_type);
+
+        if (! $object_ids) {
             return [];
         }
 
-        $terms = wp_get_object_terms($terms_ids, 'nav_menu', $args);
+        $terms = wp_get_object_terms($object_ids, 'nav_menu', $args);
 
         if (! $terms || is_wp_error($terms)) {
             return [];

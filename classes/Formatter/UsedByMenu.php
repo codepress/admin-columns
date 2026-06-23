@@ -31,10 +31,9 @@ class UsedByMenu implements Formatter
 
     private function get_menu_terms(int $object_id): array
     {
-        $helper = new Menu();
-
-        return $helper->get_terms(
-            $helper->get_ids($object_id, $this->item_type),
+        return (new Menu())->get_terms(
+            $object_id,
+            $this->item_type,
             [
                 'orderby' => 'name',
             ]
