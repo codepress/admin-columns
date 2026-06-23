@@ -162,7 +162,11 @@ final class Storage extends Base implements ListScreenRepositoryWritable
             }
 
             if ($match && $repository->is_writable()) {
-                $repositories[] = $repository->get_list_screen_repository();
+                $list_screen_repository = $repository->get_list_screen_repository();
+
+                if ($list_screen_repository instanceof ListScreenRepositoryWritable) {
+                    $repositories[] = $list_screen_repository;
+                }
             }
         }
 
