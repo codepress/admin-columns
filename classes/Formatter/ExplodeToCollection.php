@@ -7,6 +7,7 @@ namespace AC\Formatter;
 use AC\Exception\ValueNotFoundException;
 use AC\Type\Value;
 use AC\Type\ValueCollection;
+use InvalidArgumentException;
 
 final class ExplodeToCollection extends ArrayToCollection
 {
@@ -16,6 +17,10 @@ final class ExplodeToCollection extends ArrayToCollection
     {
         parent::__construct();
 
+        if ('' === $separator) {
+            throw new InvalidArgumentException('Separator can not be empty.');
+        }
+
         $this->separator = $separator;
     }
 
@@ -23,7 +28,7 @@ final class ExplodeToCollection extends ArrayToCollection
     {
         $result = explode($this->separator, (string)$value);
 
-        if (false === $result || $result === ['']) {
+        if ($result === ['']) {
             throw new ValueNotFoundException('No values found');
         }
 
