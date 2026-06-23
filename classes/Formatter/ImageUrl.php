@@ -31,7 +31,7 @@ class ImageUrl implements Formatter
     private function convert_to_url($id_or_url): ?string
     {
         if (is_numeric($id_or_url)) {
-            return wp_get_attachment_url($id_or_url) ?: null;
+            return wp_get_attachment_url((int) $id_or_url) ?: null;
         }
 
         if (is_string($id_or_url) && Helper\Strings::create()->is_image($id_or_url)) {
