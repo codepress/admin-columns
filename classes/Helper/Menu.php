@@ -58,7 +58,7 @@ class Menu extends Creatable
      *
      * @see WP_Term_Query::__construct() for supported arguments.
      *
-     * @return WP_Term[]|int[] Terms, or term IDs when `$args['fields']` is `ids`.
+     * @return array<int|string|WP_Term> Terms, term IDs when `$args['fields']` is `ids`, or term names/slugs for other `fields` values.
      */
     public function get_terms(int $object_id, string $object_type, array $args = []): array
     {

@@ -10,6 +10,10 @@ use WP_Post;
 
 class Post extends Creatable
 {
+    /**
+     * @param string[]|null $post_types
+     * @param string[]|null $post_stati
+     */
     public function count_user_posts(int $user_id, ?array $post_types = null, ?array $post_stati = null): int
     {
         global $wpdb;
