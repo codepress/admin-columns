@@ -6,6 +6,7 @@ namespace AC;
 
 use AC\Admin\Page\Columns;
 use AC\Admin\RequestHandlerInterface;
+use LogicException;
 use WP_Screen;
 
 class Screen implements Registerable
@@ -28,7 +29,7 @@ class Screen implements Registerable
     {
         $this->set_screen($screen);
 
-        do_action('ac/screen', $this, $this->screen->id);
+        do_action('ac/screen', $this, $screen->id);
     }
 
     public function is_screen(string $id): bool
@@ -36,15 +37,17 @@ class Screen implements Registerable
         return $this->has_screen() && $this->get_screen()->id === $id;
     }
 
-    public function set_screen(WP_Screen $screen): self
+    public function set_screen(WP_Screen $screen): void
     {
         $this->screen = $screen;
-
-        return $this;
     }
 
     public function get_screen(): WP_Screen
     {
+        if (! $this->screen instanceof WP_Screen) {
+            throw new LogicException('Screen is not set.');
+        }
+
         return $this->screen;
     }
 
@@ -55,27 +58,27 @@ class Screen implements Registerable
 
     public function get_id(): string
     {
-        return $this->screen->id;
+        return $this->get_screen()->id;
     }
 
     public function get_base(): string
     {
-        return $this->screen->base;
+        return $this->get_screen()->base;
     }
 
     public function get_post_type(): string
     {
-        return $this->screen->post_type;
+        return $this->get_screen()->post_type;
     }
 
     private function is_admin_network(): bool
     {
-        return $this->screen->in_admin('network');
+        return $this->get_screen()->in_admin('network');
     }
 
     public function is_table_screen(): bool
     {
-        return $this->table_screen_factory->can_create_from_wp_screen($this->screen);
+        return $this->table_screen_factory->can_create_from_wp_screen($this->get_screen());
     }
 
     public function is_plugin_screen(): bool

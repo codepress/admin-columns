@@ -28,10 +28,10 @@ class CommentCount implements Formatter
 
     private function get_user_comments(int $user_id): int
     {
-        return get_comments([
+        return (int)get_comments([
             'user_id' => $user_id,
             'count'   => true,
-            'orderby' => false,
+            'orderby' => 'none',
         ]);
     }
 

@@ -17,7 +17,7 @@ class BaseEncoderFactory implements AC\Storage\EncoderFactory
         $this->version = $version;
     }
 
-    public function create(): AC\Storage\Encoder
+    public function create(): BaseEncoder
     {
         return new BaseEncoder($this->version);
     }

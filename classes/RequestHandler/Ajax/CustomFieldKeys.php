@@ -6,10 +6,12 @@ namespace AC\RequestHandler\Ajax;
 
 use AC\Capabilities;
 use AC\Meta\Query;
+use AC\MetaType;
 use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
+use Exception;
 
 class CustomFieldKeys implements RequestAjaxHandler
 {
@@ -29,7 +31,13 @@ class CustomFieldKeys implements RequestAjaxHandler
         $meta_type = $request->get('meta_type');
         $post_type = $request->get('post_type');
 
-        $query = new Query((string)$meta_type);
+        try {
+            $query = Query::from_meta_type(new MetaType((string)$meta_type));
+        } catch (Exception $e) {
+            $response
+                ->set_parameter('options', [])
+                ->success();
+        }
 
         $query
             ->select('meta_key')

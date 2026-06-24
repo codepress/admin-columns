@@ -54,7 +54,7 @@ class Plugin
         return $this->url;
     }
 
-    public function get_location(): Location
+    public function get_location(): Location\Absolute
     {
         return new Location\Absolute($this->url, $this->dir);
     }

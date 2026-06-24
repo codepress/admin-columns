@@ -56,7 +56,7 @@ class ListScreenDelete implements RequestAjaxHandler
         $response->set_message(
             sprintf(
                 __('Table view %s successfully deleted.', 'codepress-admin-columns'),
-                sprintf('<strong>"%s"</strong>', esc_html($list_screen->get_title() ?: $list_screen->get_label()))
+                sprintf('<strong>"%s"</strong>', esc_html((string)($list_screen->get_title() ?: $list_screen->get_label())))
             )
         )->success();
     }

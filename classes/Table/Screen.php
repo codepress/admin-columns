@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AC\Table;
@@ -183,7 +184,7 @@ final class Screen implements Registerable
         ];
 
         if ($this->list_screen) {
-            $args['column_types'] = $this->get_column_types_mapping();
+            $args['column_types'] = $this->get_column_types_mapping($this->list_screen);
             $args['layout'] = (string)$this->list_screen->get_id();
             $args['read_only'] = $this->list_screen->is_read_only();
 
@@ -203,10 +204,11 @@ final class Screen implements Registerable
         return (string)apply_filters('ac/table/body_class', $classes, $this);
     }
 
-    private function get_column_types_mapping(): array
+    private function get_column_types_mapping(ListScreen $list_screen): array
     {
         $types = [];
-        foreach ($this->list_screen->get_columns() as $column) {
+
+        foreach ($list_screen->get_columns() as $column) {
             $types[(string)$column->get_id()] = $column->get_type();
         }
 

@@ -53,6 +53,10 @@ class BaseEncoder implements AC\Storage\Encoder
 
     protected function get_preferences(): array
     {
+        if (! $this->list_screen instanceof ListScreen) {
+            return [];
+        }
+
         return $this->list_screen->get_preferences();
     }
 
@@ -74,6 +78,10 @@ class BaseEncoder implements AC\Storage\Encoder
     private function encode_columns(): array
     {
         $encode = [];
+
+        if (! $this->list_screen instanceof ListScreen) {
+            return $encode;
+        }
 
         /**
          * @var AC\Column $column

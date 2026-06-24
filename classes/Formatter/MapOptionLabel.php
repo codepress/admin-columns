@@ -28,12 +28,16 @@ class MapOptionLabel implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        if (! $this->fallback_to_raw && ! array_key_exists($raw_value, $this->mapping)) {
+        $key = is_int($raw_value) || is_string($raw_value)
+            ? $raw_value
+            : (int)$raw_value;
+
+        if (! $this->fallback_to_raw && ! array_key_exists($key, $this->mapping)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
         return $value->with_value(
-            $this->mapping[$raw_value] ?? $raw_value
+            $this->mapping[$key] ?? $raw_value
         );
     }
 

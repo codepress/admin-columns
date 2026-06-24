@@ -21,7 +21,7 @@ class IsPasswordProtected implements Formatter
         $tooltip = sprintf(
             '<strong>%s</strong>: %s',
             __('Password', 'codepress-admin-columns'),
-            $password
+            (string) $password
         );
 
         return $value->with_value(

@@ -22,7 +22,7 @@ class MetaCount implements Formatter
 
     public function format(Value $value): Value
     {
-        $values = get_metadata($this->meta_type, (int)$value->get_id(), $this->meta_key);
+        $values = get_metadata($this->meta_type->get(), (int)$value->get_id(), $this->meta_key);
 
         return $value->with_value(count($values));
     }

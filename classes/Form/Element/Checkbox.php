@@ -62,7 +62,7 @@ class Checkbox extends Element
         $value = (array)$this->get_value();
 
         foreach ($options as $key => $label) {
-            $input = new Input($this->get_name());
+            $input = new Input((string)$this->get_name());
 
             $input
                 ->set_value($key)

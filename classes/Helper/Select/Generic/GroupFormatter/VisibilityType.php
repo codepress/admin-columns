@@ -12,17 +12,13 @@ class VisibilityType implements GroupFormatter
 
     public function __construct(?string $label = null)
     {
-        if (null === $label) {
-            $label = __('Default', 'codepress-admin-columns');
-        }
-
-        $this->label = $label;
+        $this->label = $label ?? __('Default', 'codepress-admin-columns');
     }
 
     public function format(string $value): string
     {
         return 0 === strpos($value, '_')
-            ? __('Hidden', 'codepress-admin-columns')
+            ? (string)__('Hidden', 'codepress-admin-columns')
             : $this->label;
     }
 

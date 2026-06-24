@@ -418,7 +418,7 @@ class V4000 extends Update
     }
 
     /**
-     * @return object[]
+     * @return array<array<string, mixed>>
      */
     private function get_layouts_data(): array
     {
@@ -441,7 +441,7 @@ class V4000 extends Update
             $data = maybe_unserialize($row->option_value);
 
             if (is_object($data)) {
-                $list_id = $data->id;
+                $list_id = $data->id ?? null;
 
                 $list_key = $this->remove_prefix(self::LAYOUT_PREFIX, $row->option_name);
                 $list_key = $this->remove_suffix((string)$list_id, $list_key);

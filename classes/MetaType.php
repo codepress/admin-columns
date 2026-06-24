@@ -48,6 +48,11 @@ final class MetaType
         return new self(self::TERM);
     }
 
+    public static function create_site_meta(): self
+    {
+        return new self(self::SITE);
+    }
+
     /**
      * @throws LogicException
      */

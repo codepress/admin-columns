@@ -48,7 +48,7 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
 
     public function get_meta_type(): MetaType
     {
-        return new MetaType(MetaType::POST);
+        return MetaType::create_post_meta();
     }
 
 }

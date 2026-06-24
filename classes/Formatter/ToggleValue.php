@@ -13,16 +13,12 @@ class ToggleValue implements Formatter
 {
     private ToggleOptions $options;
 
-    private ?Formatter $formatter;
+    private Formatter $formatter;
 
     public function __construct(ToggleOptions $options, ?Formatter $formatter = null)
     {
         $this->options = $options;
-        $this->formatter = $formatter;
-
-        if (! $formatter) {
-            $this->formatter = new YesNoIcon();
-        }
+        $this->formatter = $formatter ?? new YesNoIcon();
     }
 
     public function format(Value $value): Value
@@ -34,9 +30,15 @@ class ToggleValue implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        return $this->formatter->format(
+        $result = $this->formatter->format(
             $value->with_value($true_value)
         );
+
+        if (! $result instanceof Value) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
+
+        return $result;
     }
 
 }

@@ -62,7 +62,9 @@ final class PluginUpdate implements Registerable
 
     public function render_additional_message(array $data, object $response): void
     {
-        $version = new Version($response->new_version);
+        $new_version = $response->new_version ?? '';
+
+        $version = new Version((string)$new_version);
 
         if ($this->plugin->get_version()->get_major_version() >= $version->get_major_version()) {
             return;

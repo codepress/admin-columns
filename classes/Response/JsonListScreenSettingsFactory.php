@@ -9,11 +9,13 @@ use AC\Admin\Banner\BannerContextResolver;
 use AC\Helper\Mbstring;
 use AC\ListScreen;
 use AC\Setting\Encoder;
+use AC\Storage\Encoder\BaseEncoder;
 use AC\Storage\EncoderFactory;
 use AC\Type\StartingPrice;
 use AC\Type\Url\Preview;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
+use LogicException;
 
 class JsonListScreenSettingsFactory
 {
@@ -39,9 +41,13 @@ class JsonListScreenSettingsFactory
 
     public function create(ListScreen $list_screen, bool $is_stored = true, bool $is_template = false): Json
     {
-        $encoder = $this->encoder_factory
-            ->create()
-            ->set_list_screen($list_screen);
+        $encoder = $this->encoder_factory->create();
+
+        if (! $encoder instanceof BaseEncoder) {
+            throw new LogicException('Encoder does not support setting a list screen.');
+        }
+
+        $encoder->set_list_screen($list_screen);
 
         $table_screen = $list_screen->get_table_screen();
 

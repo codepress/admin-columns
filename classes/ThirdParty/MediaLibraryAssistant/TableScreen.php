@@ -43,7 +43,7 @@ class TableScreen extends AC\TableScreen implements
 
     public function get_meta_type(): MetaType
     {
-        return new MetaType(MetaType::POST);
+        return MetaType::create_post_meta();
     }
 
     public function get_total_items(): int
