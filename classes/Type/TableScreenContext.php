@@ -32,7 +32,7 @@ final class TableScreenContext
     {
         if ($screen instanceof ACA\WC\TableScreen\Order) {
             return new TableScreenContext(
-                new MetaType(MetaType::POST),
+                MetaType::create_post_meta(),
                 new PostTypeSlug('shop_order')
             );
         }

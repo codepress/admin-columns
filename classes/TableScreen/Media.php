@@ -38,7 +38,7 @@ class Media extends TableScreen implements ListTable, PostType, TableScreen\Meta
 
     public function get_meta_type(): MetaType
     {
-        return new MetaType(MetaType::POST);
+        return MetaType::create_post_meta();
     }
 
     public function get_post_type(): PostTypeSlug
