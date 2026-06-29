@@ -198,10 +198,16 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 
 == Changelog ==
 
-= 7.0.19 =
-Release Date: May 29th, 2026
+= 7.1 =
+Release Date: June 29th, 2026
 
-* [Fixed] Hardened custom field value deserialization to improve validation of serialized data handling.
+* [Improved] Updated admin columns styling to align with the new WordPress 7 design.
+* [Improved] Smarter column width handling.
+* [Improved] Modernized the codebase with strict types, PHPStan type safety, and PSR-12 coding standards.
+* [Improved] User custom field context is now available in the free Meta column.
+* [Improved] Image columns now recognize SVG and AVIF URLs.
+* [Updated] The minimum version required to run Admin Columns is now WordPress 6.2.
+* [Fixed] Fixed an incorrect `add_submenu_page` call.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 
