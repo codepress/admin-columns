@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-06-23 11:17+0000\n"
+"POT-Creation-Date: 2026-06-29 06:42+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/ColumnGroups.php:26, classes/Response/JsonListScreenSettingsFactory.php:83, classes/RequestHandler/Ajax/CustomFieldKeys.php:73, classes/Setting/ComponentFactory/FieldType.php:151, classes/Setting/ComponentFactory/FieldTypeFactory.php:64, classes/Setting/ComponentFactory/ImageSizeBase.php:114, classes/Setting/ComponentFactory/Separator.php:36, classes/Setting/ComponentFactory/UserProperty.php:133, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:16
+#: classes/ColumnGroups.php:26, classes/Response/JsonListScreenSettingsFactory.php:89, classes/RequestHandler/Ajax/CustomFieldKeys.php:81, classes/Setting/ComponentFactory/FieldType.php:151, classes/Setting/ComponentFactory/FieldTypeFactory.php:64, classes/Setting/ComponentFactory/ImageSizeBase.php:114, classes/Setting/ComponentFactory/Separator.php:36, classes/Setting/ComponentFactory/UserProperty.php:133, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:15
 msgid "Default"
 msgstr ""
 
@@ -88,7 +88,7 @@ msgstr ""
 msgid "Instructions"
 msgstr ""
 
-#: classes/Check/Review.php:100, classes/Table/Screen.php:90, classes/Acf/Service/FieldSettings.php:113, classes/Acf/Service/FieldSettings.php:226, classes/Admin/MenuPageFactory/Menu.php:17
+#: classes/Check/Review.php:100, classes/Table/Screen.php:91, classes/Acf/Service/FieldSettings.php:113, classes/Acf/Service/FieldSettings.php:226, classes/Admin/MenuPageFactory/Menu.php:17
 msgid "Admin Columns"
 msgstr ""
 
@@ -180,19 +180,19 @@ msgstr ""
 msgid "Find out more"
 msgstr ""
 
-#: classes/Deprecated/Hook.php:72
+#: classes/Deprecated/Hook.php:77
 msgid "Function"
 msgstr ""
 
-#: classes/Deprecated/Hook.php:95
+#: classes/Deprecated/Hook.php:100
 msgid "Anonymous function"
 msgstr ""
 
-#: classes/Deprecated/Hook.php:104
+#: classes/Deprecated/Hook.php:109
 msgid "Anonymous Function"
 msgstr ""
 
-#: classes/Formatter/FileLink.php:32
+#: classes/Formatter/FileLink.php:34
 msgid "Invalid attachment"
 msgstr ""
 
@@ -316,51 +316,51 @@ msgstr ""
 msgid "Get %s now"
 msgstr ""
 
-#: classes/Response/JsonListScreenSettingsFactory.php:153, classes/Admin/Asset/Columns.php:95
+#: classes/Response/JsonListScreenSettingsFactory.php:159, classes/Admin/Asset/Columns.php:95
 msgid "content"
 msgstr ""
 
-#: classes/Response/JsonListScreenSettingsFactory.php:154, classes/Admin/Asset/Columns.php:96
+#: classes/Response/JsonListScreenSettingsFactory.php:160, classes/Admin/Asset/Columns.php:96
 msgid "item"
 msgstr ""
 
 #. translators: %s: post type label plural (e.g. "posts", "pages")
-#: classes/Response/JsonListScreenSettingsFactory.php:162, classes/Response/JsonListScreenSettingsFactory.php:170, classes/Admin/Asset/Columns.php:181
+#: classes/Response/JsonListScreenSettingsFactory.php:168, classes/Response/JsonListScreenSettingsFactory.php:176, classes/Admin/Asset/Columns.php:181
 msgid "Manage your %s faster"
 msgstr ""
 
 #. translators: 1: post type label plural, 2: post type label singular
-#: classes/Response/JsonListScreenSettingsFactory.php:166, classes/Admin/Asset/Columns.php:186
+#: classes/Response/JsonListScreenSettingsFactory.php:172, classes/Admin/Asset/Columns.php:186
 msgid "Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s."
 msgstr ""
 
 #. translators: %s: price (e.g. $79)
-#: classes/Response/JsonListScreenSettingsFactory.php:175, classes/Admin/Asset/Columns.php:200, classes/Admin/Asset/Columns.php:359, classes/Admin/Asset/Columns.php:469, classes/Admin/Asset/Script/SettingsFactory.php:153, classes/Admin/Banner/Context/Acf.php:93, classes/Admin/Banner/Context/WooCommerce.php:55
+#: classes/Response/JsonListScreenSettingsFactory.php:181, classes/Admin/Asset/Columns.php:200, classes/Admin/Asset/Columns.php:359, classes/Admin/Asset/Columns.php:469, classes/Admin/Asset/Script/SettingsFactory.php:153, classes/Admin/Banner/Context/Acf.php:93, classes/Admin/Banner/Context/WooCommerce.php:55
 msgid "from %s/year"
 msgstr ""
 
-#: classes/Response/JsonListScreenSettingsFactory.php:178, classes/Admin/Banner/Context/Acf.php:96, classes/Admin/Banner/Context/WooCommerce.php:58
+#: classes/Response/JsonListScreenSettingsFactory.php:184, classes/Admin/Banner/Context/Acf.php:96, classes/Admin/Banner/Context/WooCommerce.php:58
 msgid "all features included"
 msgstr ""
 
-#: classes/Response/JsonListScreenSettingsFactory.php:183, classes/Admin/Asset/Columns.php:103
+#: classes/Response/JsonListScreenSettingsFactory.php:189, classes/Admin/Asset/Columns.php:103
 msgid "Inline edit directly in the table"
 msgstr ""
 
-#: classes/Response/JsonListScreenSettingsFactory.php:187, classes/Admin/Asset/Columns.php:104
+#: classes/Response/JsonListScreenSettingsFactory.php:193, classes/Admin/Asset/Columns.php:104
 msgid "Sort and filter on any column"
 msgstr ""
 
 #. translators: %s: post type label plural (e.g. "posts", "pages")
-#: classes/Response/JsonListScreenSettingsFactory.php:192, classes/Admin/Asset/Columns.php:107
+#: classes/Response/JsonListScreenSettingsFactory.php:198, classes/Admin/Asset/Columns.php:107
 msgid "Bulk edit hundreds of %s at once"
 msgstr ""
 
-#: classes/Response/JsonListScreenSettingsFactory.php:198, classes/Admin/Asset/Columns.php:110, classes/Admin/Asset/Columns.php:431
+#: classes/Response/JsonListScreenSettingsFactory.php:204, classes/Admin/Asset/Columns.php:110, classes/Admin/Asset/Columns.php:431
 msgid "Export table data to CSV"
 msgstr ""
 
-#: classes/Response/JsonListScreenSettingsFactory.php:202, classes/Admin/Asset/Columns.php:111
+#: classes/Response/JsonListScreenSettingsFactory.php:208, classes/Admin/Asset/Columns.php:111
 msgid "Multiple views per screen"
 msgstr ""
 
@@ -372,41 +372,41 @@ msgstr ""
 msgid "You are upgrading to a new a major version of Admin Columns, which can include <strong>breaking changes</strong>."
 msgstr ""
 
-#: classes/Service/PluginUpdate.php:71
+#: classes/Service/PluginUpdate.php:73
 msgctxt "%s contains the link to upgrade guide. Label is translated separately."
 msgid "Please review the %s for details."
 msgstr ""
 
-#: classes/Service/PluginUpdate.php:89
+#: classes/Service/PluginUpdate.php:91
 msgctxt "Anchor text to upgrade guide."
 msgid "upgrade guide"
 msgstr ""
 
-#: classes/Service/PluginUpdate.php:120
+#: classes/Service/PluginUpdate.php:122
 msgid "See the Plugins page for details."
 msgstr ""
 
-#: classes/Table/PrimaryColumn.php:71, classes/Table/Screen.php:149, classes/ColumnFactory/Media/DownloadFactory.php:21, classes/Formatter/Media/Download.php:25, classes/Setting/ComponentFactory/MediaLink.php:30
+#: classes/Table/PrimaryColumn.php:71, classes/Table/Screen.php:150, classes/ColumnFactory/Media/DownloadFactory.php:21, classes/Formatter/Media/Download.php:25, classes/Setting/ComponentFactory/MediaLink.php:30
 msgid "Download"
 msgstr ""
 
-#: classes/Table/Screen.php:144, classes/Admin/Asset/Script/SettingsFactory.php:107
+#: classes/Table/Screen.php:145, classes/Admin/Asset/Script/SettingsFactory.php:107
 msgid "Edit columns"
 msgstr ""
 
-#: classes/Table/Screen.php:146
+#: classes/Table/Screen.php:147
 msgid "Loading..."
 msgstr ""
 
-#: classes/Table/Screen.php:147
+#: classes/Table/Screen.php:148
 msgid "Edit"
 msgstr ""
 
-#: classes/Table/Screen.php:148, classes/Formatter/Media/PreviewViewLink.php:49, classes/Setting/ComponentFactory/MediaLink.php:29
+#: classes/Table/Screen.php:149, classes/Formatter/Media/PreviewViewLink.php:49, classes/Setting/ComponentFactory/MediaLink.php:29
 msgid "View"
 msgstr ""
 
-#: classes/Table/Screen.php:152, classes/Admin/Asset/Script/SettingsFactory.php:106
+#: classes/Table/Screen.php:153, classes/Admin/Asset/Script/SettingsFactory.php:106
 msgid "Show %s button on table screen."
 msgstr ""
 
@@ -1777,7 +1777,7 @@ msgstr ""
 msgid "Original"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/CustomFieldKeys.php:70, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:25
+#: classes/RequestHandler/Ajax/CustomFieldKeys.php:78, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:21
 msgid "Hidden"
 msgstr ""
 
@@ -2279,11 +2279,11 @@ msgstr ""
 msgid "Use an icon?"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/PostType.php:35
+#: classes/Setting/ComponentFactory/PostType.php:36
 msgid "Post Type"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/PostType.php:58
+#: classes/Setting/ComponentFactory/PostType.php:59
 msgid "All Post Types"
 msgstr ""
 
