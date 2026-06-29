@@ -1264,7 +1264,7 @@
 }
 
 .acu-text-link {
-  color: var(--ac-link)
+  color: var(--ac-primary-color)
 }
 
 .acu-text-notification-red {
@@ -1356,7 +1356,7 @@
 }
 
 .hover\:acu-text-link-hover:hover {
-  color: var(--ac-link-hover)
+  color: var(--ac-primary-color-hover)
 }
 
 .hover\:acu-text-notification-blue:hover {
