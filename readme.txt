@@ -209,6 +209,11 @@ Release Date: June 29th, 2026
 * [Updated] The minimum version required to run Admin Columns is now WordPress 6.2.
 * [Fixed] Fixed an incorrect `add_submenu_page` call.
 
+= 7.0.20 =
+Release Date: June 16th, 2026
+
+* [Fixed] JavaScript error on the table item count in locales using an apostrophe thousands separator.
+
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 
 == Upgrade Notice ==
