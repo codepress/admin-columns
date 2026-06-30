@@ -10,6 +10,7 @@ use WP_Post;
 
 class Post extends Creatable
 {
+
     /**
      * @param string[]|null $post_types
      * @param string[]|null $post_stati
@@ -44,9 +45,9 @@ class Post extends Creatable
 
         $value = get_post_field($field, $id, 'raw');
 
-        return '' === $value
-            ? null :
-            $value;
+        return is_string($value) && '' !== $value
+            ? $value
+            : null;
     }
 
     /*

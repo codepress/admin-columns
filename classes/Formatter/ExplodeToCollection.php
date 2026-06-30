@@ -27,11 +27,13 @@ final class ExplodeToCollection extends ArrayToCollection
 
     public function format(Value $value): ValueCollection
     {
-        if ( ! (string)$value) {
+        $explode = (string)$value;
+
+        if (empty($explode)) {
             throw new ValueNotFoundException('No values found');
         }
 
-        $result = explode($this->separator, (string)$value);
+        $result = explode($this->separator, $explode);
 
         if ($result === ['']) {
             throw new ValueNotFoundException('No values found');
