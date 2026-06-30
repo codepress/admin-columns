@@ -44,7 +44,9 @@ class Post extends Creatable
 
         $value = get_post_field($field, $id, 'raw');
 
-        return '' === $value ? null : $value;
+        return '' === $value
+            ? null :
+            $value;
     }
 
     /*

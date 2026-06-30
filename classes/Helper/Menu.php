@@ -8,6 +8,7 @@ use WP_Term;
 
 class Menu extends Creatable
 {
+
     public function get_label(int $menu_item_id): string
     {
         global $wpdb;
@@ -56,21 +57,21 @@ class Menu extends Creatable
     /**
      * The `nav_menu` terms the given object is assigned to.
      *
+     * @return array<int|string|WP_Term> Terms, term IDs when `$args['fields']` is `ids`, or term names/slugs for other `fields` values.
      * @see WP_Term_Query::__construct() for supported arguments.
      *
-     * @return array<int|string|WP_Term> Terms, term IDs when `$args['fields']` is `ids`, or term names/slugs for other `fields` values.
      */
     public function get_terms(int $object_id, string $object_type, array $args = []): array
     {
         $object_ids = $this->get_item_ids($object_id, $object_type);
 
-        if (! $object_ids) {
+        if ( ! $object_ids) {
             return [];
         }
 
         $terms = wp_get_object_terms($object_ids, 'nav_menu', $args);
 
-        if (! $terms || is_wp_error($terms)) {
+        if ( ! $terms || is_string($terms) || is_wp_error($terms)) {
             return [];
         }
 
