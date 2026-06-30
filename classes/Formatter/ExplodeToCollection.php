@@ -11,7 +11,6 @@ use InvalidArgumentException;
 
 final class ExplodeToCollection extends ArrayToCollection
 {
-
     private string $separator;
 
     public function __construct(string $separator)
@@ -27,7 +26,7 @@ final class ExplodeToCollection extends ArrayToCollection
 
     public function format(Value $value): ValueCollection
     {
-        if ( ! (string)$value) {
+        if (! (string)$value) {
             throw new ValueNotFoundException('No values found');
         }
 
