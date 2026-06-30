@@ -9,16 +9,16 @@ use AC\Expression\StringComparisonSpecification;
 use AC\FormatterCollection;
 use AC\Setting\Children;
 use AC\Setting\ComponentFactory\DateFormat\Date;
+use AC\Setting\ComponentFactory\FieldTypeConfigurator\FieldComponentDirectorFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\OptionCollection;
 use AC\Type\TableScreenContext;
 
 class PostExtendedProperty extends PostProperty
 {
-
     public const PROPERTY_CUSTOM_FIELD = 'custom_field';
 
-    private FieldTypeBasic $field_type;
+    private FieldComponentDirectorFactory $field_type;
 
     private CustomFieldFactory $custom_field;
 
@@ -29,12 +29,12 @@ class PostExtendedProperty extends PostProperty
         PostStatusIcon $post_status_icon,
         Date $date,
         CustomFieldFactory $custom_field,
-        FieldTypeBasic $field_type
+        FieldComponentDirectorFactory $field_type
     ) {
         parent::__construct($string_limit, $image_size, $user_property, $post_status_icon, $date);
 
-        $this->field_type = $field_type;
         $this->custom_field = $custom_field;
+        $this->field_type = $field_type;
     }
 
     protected function get_display_options(): OptionCollection
@@ -67,7 +67,13 @@ class PostExtendedProperty extends PostProperty
 
     protected function get_children(Config $config): ?Children
     {
-        $components = parent::get_children($config)->get_iterator();
+        $parent_children = parent::get_children($config);
+
+        if (! $parent_children) {
+            return null;
+        }
+
+        $components = $parent_children->get_iterator();
 
         $table_screen_context = new TableScreenContext(
             AC\MetaType::create_post_meta(),
@@ -81,7 +87,7 @@ class PostExtendedProperty extends PostProperty
         );
 
         $components->add(
-            $this->field_type->create(
+            $this->field_type->add_basic()->create(
                 $config,
                 StringComparisonSpecification::equal('custom_field')
             )

@@ -21,7 +21,6 @@ use AC\Setting\Control\Type\Option;
 
 class UserProperty extends BaseComponentFactory
 {
-
     public const KEY = 'display_author_as';
     public const PROPERTY_DISPLAY_NAME = 'display_name';
     public const PROPERTY_EMAIL = 'user_email';

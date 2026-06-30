@@ -16,7 +16,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class Width extends BaseComponentFactory
 {
-
     private const OPTION_PERCENT = '%';
     private const OPTION_PIXELS = 'px';
 

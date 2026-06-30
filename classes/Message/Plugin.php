@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Message;
 
 use AC\Message;
@@ -7,7 +9,6 @@ use AC\View;
 
 class Plugin extends Message
 {
-
     protected string $plugin_basename;
 
     public function __construct(string $message, string $plugin_basename, ?string $type = null)

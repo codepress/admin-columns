@@ -2,9 +2,8 @@
     import {createEventDispatcher, onDestroy, onMount} from "svelte";
     import AcRadio from "ACUi/element/AcRadio.svelte";
     import axios from "axios";
-    import SettingOption = AC.Column.Settings.SettingOption;
 
-    declare const ajaxurl: string;
+    type SettingOption = AC.Column.Settings.SettingOption;
 
     export let config: AC.Column.Settings.DateFormatSetting;
     export let value: any;
@@ -57,10 +56,10 @@
     }
 
     onMount(() => {
-        options = config.children[0].input.options;
+        options = config.children?.[0]?.input?.options ?? [];
 
         if (value === '' || typeof value === 'undefined') {
-            let defaultValue = config.children[0].input?.default ?? null;
+            let defaultValue = config.children?.[0]?.input?.default ?? null;
             value = defaultValue ? defaultValue : options[0].value;
         }
 
@@ -84,10 +83,10 @@
 <div style="padding-top: 5px;">
 	{#each options as option}
 		<AcRadio bind:group={selectedOption}
-			value={option.value}
-			{disabled}
-			on:change={handleSelection}
-			--AcuiRadioMarginBottom="5px">{option.label}
+				value={option.value}
+				{disabled}
+				on:change={handleSelection}
+				--AcuiRadioMarginBottom="5px">{option.label}
 			{#if option.value === 'wp_default' && config.input?.data[ 'wp_date_format' ] }
 				<code class="acu-bg-[#eee]">{config.input?.data[ 'wp_date_format' ]}</code>
 			{:else if config.input?.data[ 'format_codes' ]?.[ option.value ] }

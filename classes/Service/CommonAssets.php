@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Service;
 
 use AC;
@@ -10,7 +12,6 @@ use AC\Registerable;
 
 class CommonAssets implements Registerable
 {
-
     private AC\Asset\Location $location;
 
     private Script\GlobalTranslationFactory $translation_factory;

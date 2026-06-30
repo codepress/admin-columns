@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 use AC\Storage\KeyValue;
 
 final class Transient implements Expirable
 {
-
     protected KeyValue $option;
 
     protected Storage\Timestamp $timestamp;

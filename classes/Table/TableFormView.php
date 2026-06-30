@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Table;
 
 use AC\Registerable;
 
 final class TableFormView implements Registerable
 {
-
     public const PARAM_ACTION = 'ac-actions-form';
 
     private string $meta_type;
@@ -33,7 +34,7 @@ final class TableFormView implements Registerable
                 add_action('restrict_manage_posts', [$this, 'render'], $this->priority);
 
                 break;
-            case'user':
+            case 'user':
                 add_action('restrict_manage_users', [$this, 'render'], $this->priority);
 
                 break;

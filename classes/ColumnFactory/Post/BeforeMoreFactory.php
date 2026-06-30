@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 final class BeforeMoreFactory extends BaseColumnFactory
 {
-
     private WordLimit $word_limit_factory;
 
     public function __construct(DefaultSettingsBuilder $default_settings_builder, WordLimit $word_limit_factory)

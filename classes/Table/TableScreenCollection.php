@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Table;
 
+use AC\Exception\IteratorException;
 use AC\TableScreen;
 use ArrayAccess;
 use Countable;
@@ -12,7 +13,6 @@ use ReturnTypeWillChange;
 
 final class TableScreenCollection implements Iterator, Countable, ArrayAccess
 {
-
     /**
      * @var TableScreen[]
      */
@@ -30,7 +30,13 @@ final class TableScreenCollection implements Iterator, Countable, ArrayAccess
 
     public function current(): TableScreen
     {
-        return current($this->data);
+        $current = current($this->data);
+
+        if (! $current instanceof TableScreen) {
+            throw IteratorException::from_current();
+        }
+
+        return $current;
     }
 
     public function next(): void
@@ -40,7 +46,13 @@ final class TableScreenCollection implements Iterator, Countable, ArrayAccess
 
     public function key(): int
     {
-        return key($this->data);
+        $key = key($this->data);
+
+        if (! is_int($key)) {
+            throw IteratorException::from_key();
+        }
+
+        return $key;
     }
 
     public function valid(): bool
@@ -80,6 +92,24 @@ final class TableScreenCollection implements Iterator, Countable, ArrayAccess
     public function offsetUnset($offset)
     {
         unset($this->data[$offset]);
+    }
+
+    public function first(): ?TableScreen
+    {
+        $key = array_key_first($this->data);
+
+        return $key !== null
+            ? $this->data[$key]
+            : null;
+    }
+
+    public function last(): ?TableScreen
+    {
+        $key = array_key_last($this->data);
+
+        return $key !== null
+            ? $this->data[$key]
+            : null;
     }
 
 }

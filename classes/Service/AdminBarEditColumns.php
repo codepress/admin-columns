@@ -13,7 +13,6 @@ use AC\Type\EditorUrlFactory;
 
 class AdminBarEditColumns implements Registerable
 {
-
     private EditButton $setting;
 
     public function __construct(EditButton $setting)
@@ -28,11 +27,11 @@ class AdminBarEditColumns implements Registerable
 
     public function init(TableScreen $table, ?ListScreen $listscreen = null): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
-        if ( ! $this->setting->is_active()) {
+        if (! $this->setting->is_active()) {
             return;
         }
 

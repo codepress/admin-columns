@@ -13,7 +13,6 @@ use WP_Post_Type;
 
 class PostCount implements Formatter
 {
-
     private array $post_types;
 
     private array $post_stati;
@@ -30,7 +29,7 @@ class PostCount implements Formatter
 
         $user = get_userdata($user_id);
 
-        if ( ! $user) {
+        if (! $user) {
             throw ValueNotFoundException::from_id($user_id);
         }
 

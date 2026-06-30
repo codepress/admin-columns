@@ -11,7 +11,6 @@ use AC\Type\ValueCollection;
 
 class GroupedIdsToCollection implements Formatter
 {
-
     /**
      * @throws ValueNotFoundException
      */
@@ -28,7 +27,7 @@ class GroupedIdsToCollection implements Formatter
 
         foreach ($collection as $item) {
             $file = get_attached_file((int)(string)$item);
-            $ext  = $file ? strtolower((string)pathinfo($file, PATHINFO_EXTENSION)) : '';
+            $ext = $file ? strtolower((string)pathinfo($file, PATHINFO_EXTENSION)) : '';
 
             $groups[$ext][] = $item;
         }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 use AC\Admin\Page\Columns;
@@ -7,7 +9,6 @@ use AC\Type\Url\Editor;
 
 class PluginActionLinks implements Registerable
 {
-
     private AdminColumns $plugin;
 
     public function __construct(AdminColumns $plugin)

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\Asset;
 
 use AC\Asset\Location;
@@ -10,7 +12,6 @@ use AC\Type\Url\UtmTags;
 
 class Addons extends Script
 {
-
     private Nonce\Ajax $nonce;
 
     private Location $asset_location;

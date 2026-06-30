@@ -10,7 +10,6 @@ use AC\TableScreen;
 
 class Aggregate
 {
-
     /**
      * @var ColumnFactoryCollectionFactory[]
      */
@@ -27,7 +26,7 @@ class Aggregate
 
         $id = (string)$table_screen->get_id();
 
-        if ( ! isset($factories[$id])) {
+        if (! isset($factories[$id])) {
             $factories[$id] = $this->get($table_screen);
         }
 

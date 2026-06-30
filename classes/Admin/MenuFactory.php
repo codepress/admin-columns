@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
 use AC\Admin\Type\MenuItem;
@@ -11,7 +13,6 @@ use AC\Type\Url\UtmTags;
 
 class MenuFactory implements MenuFactoryInterface
 {
-
     protected string $url;
 
     protected Location $location;

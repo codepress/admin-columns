@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 abstract class StringMatchSpecification extends Specification implements FactSpecification
 {
-
     use FactTrait;
 
     public function __construct(string $fact)

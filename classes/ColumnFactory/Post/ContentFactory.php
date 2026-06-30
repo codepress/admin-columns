@@ -16,7 +16,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class ContentFactory extends BaseColumnFactory
 {
-
     private StringLimit $string_limit_factory;
 
     private BeforeAfter $before_after_factory;

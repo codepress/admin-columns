@@ -15,7 +15,6 @@ use AC\Setting\Control\OptionCollectionFactory\ToggleOptionCollection;
 
 class ModalDisplay extends BaseComponentFactory
 {
-
     public const TOGGLE = 'show_modal_link';
     public const LABEL = 'show_modal_link_label';
 

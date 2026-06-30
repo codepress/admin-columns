@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Storage\Repository;
 
 use AC\Preferences\Preference;
@@ -8,7 +10,6 @@ use AC\Type\ListScreenId;
 
 class UserColumnOrder
 {
-
     private SiteFactory $storage_factory;
 
     public function __construct(SiteFactory $storage_factory)

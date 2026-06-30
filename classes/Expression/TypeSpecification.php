@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 interface TypeSpecification
 {
-
     public const TYPE = 'type';
 
 }

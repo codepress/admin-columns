@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class Permalink implements Formatter
 {
-
     public function format(Value $value): Value
     {
         return $value->with_value(

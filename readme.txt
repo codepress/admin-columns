@@ -1,7 +1,7 @@
 === Admin Columns ===
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Tags: columns, admin columns, custom fields, list table, woocommerce
-Requires at least: 5.9
+Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 7.4
 Stable tag: 7.0.19
@@ -197,6 +197,17 @@ Developers can extend Admin Columns using many actions and filters. You can find
 Head to Settings > Admin Columns and start customizing your columns. Check out the [getting started guide](https://docs.admincolumns.com/category/16-getting-started/) for a walkthrough.
 
 == Changelog ==
+
+= 7.1 =
+Release Date: June 29th, 2026
+
+* [Improved] Updated admin columns styling to align with the new WordPress 7 design.
+* [Improved] Smarter column width handling.
+* [Improved] Modernized the codebase with strict types, PHPStan type safety, and PSR-12 coding standards.
+* [Improved] User custom field context is now available in the free Meta column.
+* [Improved] Image columns now recognize SVG and AVIF URLs.
+* [Updated] The minimum version required to run Admin Columns is now WordPress 6.2.
+* [Fixed] Fixed an incorrect `add_submenu_page` call.
 
 = 7.0.20 =
 Release Date: June 16th, 2026

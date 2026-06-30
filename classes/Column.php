@@ -11,7 +11,6 @@ use AC\Type\ColumnId;
 
 interface Column
 {
-
     public function get_id(): ColumnId;
 
     public function get_type(): string;

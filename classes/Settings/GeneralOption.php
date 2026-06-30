@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings;
 
 use AC\Storage;
 
 class GeneralOption
 {
-
     private Storage\OptionData $storage;
 
     private ?array $data = null;

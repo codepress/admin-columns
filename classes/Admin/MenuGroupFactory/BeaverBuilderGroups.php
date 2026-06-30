@@ -12,7 +12,6 @@ use AC\Taxonomy;
 
 class BeaverBuilderGroups implements MenuGroupFactory
 {
-
     public function create(TableScreen $table_screen): ?MenuGroup
     {
         if (

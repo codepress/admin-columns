@@ -8,7 +8,6 @@ use AC\TableScreen;
 
 class BannerContextResolver
 {
-
     /** @var BannerContext[] */
     private array $contexts;
 

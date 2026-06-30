@@ -15,7 +15,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class Password implements ComponentFactory
 {
-
     private const NAME = 'password';
 
     public function create(Config $config, ?Specification $conditions = null): Component

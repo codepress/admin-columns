@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Form\Element;
 
 use AC\Form\Element;
 
 class Checkbox extends Element
 {
-
     protected ?bool $vertical = null;
 
     protected ?bool $multiple = null;
+
+    protected ?bool $disabled = null;
 
     protected function get_type(): string
     {
@@ -33,7 +36,7 @@ class Checkbox extends Element
     {
         $elements = $this->get_elements();
 
-        if ( ! $elements) {
+        if (! $elements) {
             return '';
         }
 
@@ -59,7 +62,7 @@ class Checkbox extends Element
         $value = (array)$this->get_value();
 
         foreach ($options as $key => $label) {
-            $input = new Input($this->get_name());
+            $input = new Input((string)$this->get_name());
 
             $input
                 ->set_value($key)
@@ -68,6 +71,10 @@ class Checkbox extends Element
 
             if (in_array($key, $value, true)) {
                 $input->set_attribute('checked', 'checked');
+            }
+
+            if ($this->disabled) {
+                $input->set_attribute('disabled', 'disabled');
             }
 
             $attributes = $this->get_attributes();
@@ -103,7 +110,7 @@ class Checkbox extends Element
         return $this->multiple;
     }
 
-    public function set_vertical(bool $vertical)
+    public function set_vertical(bool $vertical): self
     {
         $this->vertical = $vertical;
 
@@ -117,6 +124,13 @@ class Checkbox extends Element
         }
 
         return $this->vertical;
+    }
+
+    public function set_disabled(bool $disabled): self
+    {
+        $this->disabled = $disabled;
+
+        return $this;
     }
 
 }

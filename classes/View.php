@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 class View implements Renderable
 {
-
     private array $data = [];
 
     private ?string $template;
@@ -61,7 +62,7 @@ class View implements Renderable
          * @param array  $paths    Template paths
          * @param string $template Current template path
          */
-        $paths = apply_filters(
+        $paths = (array)apply_filters(
             'ac/view/templates',
             [],
             $this->template
@@ -86,7 +87,7 @@ class View implements Renderable
 
         $this->resolve_template();
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
     public function get_template(): ?string

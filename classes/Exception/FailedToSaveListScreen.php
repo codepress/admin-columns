@@ -8,7 +8,6 @@ use RuntimeException;
 
 final class FailedToSaveListScreen extends RuntimeException
 {
-
     public function __construct(?string $message = null)
     {
         if ($message === null) {

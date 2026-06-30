@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Type\Url;
 
 use AC\Admin;
@@ -8,7 +10,6 @@ use AC\Type\Uri;
 
 class EditorNetwork extends Uri
 {
-
     public function __construct(?string $slug = null)
     {
         parent::__construct(network_admin_url('settings.php'));

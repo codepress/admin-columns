@@ -8,10 +8,10 @@ use AC;
 use AC\MetaType;
 use AC\TableScreen;
 use ACA;
+use LogicException;
 
 final class TableScreenContext
 {
-
     private MetaType $meta_type;
 
     private ?PostTypeSlug $post_type;
@@ -32,12 +32,12 @@ final class TableScreenContext
     {
         if ($screen instanceof ACA\WC\TableScreen\Order) {
             return new TableScreenContext(
-                new MetaType(MetaType::POST),
+                MetaType::create_post_meta(),
                 new PostTypeSlug('shop_order')
             );
         }
 
-        if ( ! $screen instanceof TableScreen\MetaType) {
+        if (! $screen instanceof TableScreen\MetaType) {
             return null;
         }
 
@@ -60,6 +60,10 @@ final class TableScreenContext
 
     public function get_post_type(): PostTypeSlug
     {
+        if (null === $this->post_type) {
+            throw new LogicException('No post type defined.');
+        }
+
         return $this->post_type;
     }
 
@@ -70,6 +74,10 @@ final class TableScreenContext
 
     public function get_taxonomy(): TaxonomySlug
     {
+        if (null === $this->taxonomy) {
+            throw new LogicException('No taxonomy defined.');
+        }
+
         return $this->taxonomy;
     }
 

@@ -11,12 +11,11 @@ use AC\TableScreen;
 
 final class MediaFactory extends BaseFactory
 {
-
     protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
         $collection = new ColumnFactoryDefinitionCollection();
 
-        if ( ! $table_screen instanceof AC\TableScreen\Media) {
+        if (! $table_screen instanceof AC\TableScreen\Media) {
             return $collection;
         }
 

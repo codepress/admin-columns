@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListScreenRepository\Sort;
 
 use AC\Storage\Repository\ListScreenOrder;
@@ -9,7 +11,6 @@ use WP_User;
 
 class UserOrder extends ListIds
 {
-
     public function __construct(WP_User $user, TableId $table_id)
     {
         parent::__construct($this->get_manual_sorted_list_ids($user, $table_id));

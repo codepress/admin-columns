@@ -10,7 +10,6 @@ use AC\TableScreen\ManageHeadingFactory;
 
 abstract class ScreenColumnsFactory implements ManageHeadingFactory
 {
-
     public function create(TableScreen $table_screen, array $headings): Registerable
     {
         return new TableScreen\ManageHeading\ScreenColumns(

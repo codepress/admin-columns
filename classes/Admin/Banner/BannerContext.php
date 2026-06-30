@@ -8,7 +8,6 @@ use AC\TableScreen;
 
 interface BannerContext
 {
-
     public function is_active(TableScreen $table_screen): bool;
 
     /**

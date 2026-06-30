@@ -8,7 +8,6 @@ use AC\Collection;
 
 final class TableIdCollection extends Collection
 {
-
     public function __construct(array $ids = [])
     {
         array_map([$this, 'add'], $ids);

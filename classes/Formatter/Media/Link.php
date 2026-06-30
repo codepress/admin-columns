@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class Link implements Formatter
 {
-
     private string $type;
 
     public function __construct(string $type)
@@ -42,7 +41,7 @@ class Link implements Formatter
                 return $value->with_value($this->get_view_link($value));
             case 'download':
                 return $value->with_value($this->get_download_link($value));
-            default :
+            default:
                 return $value;
         }
     }

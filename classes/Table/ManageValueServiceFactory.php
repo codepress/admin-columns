@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Table;
 
 use AC\ListScreen;
@@ -12,7 +14,6 @@ use AC\TableScreen;
  */
 interface ManageValueServiceFactory
 {
-
     public function create(TableScreen $table_screen, ListScreen $list_screen): ?Registerable;
 
 }

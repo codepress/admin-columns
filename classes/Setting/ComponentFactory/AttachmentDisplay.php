@@ -16,7 +16,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class AttachmentDisplay extends BaseComponentFactory
 {
-
     private const NAME = 'attachment_display';
 
     private const OPTION_THUMBNAIL = 'thumbnail';

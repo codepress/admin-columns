@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListScreenRepository\Filter;
 
 use AC\ListScreenCollection;
@@ -7,7 +9,6 @@ use AC\ListScreenRepository\Filter;
 
 class Network implements Filter
 {
-
     public const KEYS = [
         'wp-ms_sites',
         'wp-ms_users',

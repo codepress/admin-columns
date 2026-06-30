@@ -11,7 +11,6 @@ use AC\ColumnRepository\Filter;
 
 class ColumnSetting implements Filter
 {
-
     private string $name;
 
     private string $value;

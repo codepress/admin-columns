@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class CommentCountFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Comments', 'codepress-admin-columns');

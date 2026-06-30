@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Message;
 
 use AC\Asset\Style;
@@ -9,7 +11,6 @@ use AC\View;
 
 class Notice extends Message implements Registerable
 {
-
     public function render(): string
     {
         $data = [

@@ -15,7 +15,6 @@ use AC\Type\PostTypeSlug;
 
 class Taxonomy implements ComponentFactory
 {
-
     private PostTypeSlug $post_type;
 
     public function __construct(PostTypeSlug $post_type)

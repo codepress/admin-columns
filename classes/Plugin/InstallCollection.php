@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin;
 
 use AC;
 
 final class InstallCollection extends AC\Collection
 {
-
     public function __construct(array $data = [])
     {
         array_map([$this, 'add'], $data);

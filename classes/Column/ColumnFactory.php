@@ -1,20 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Column;
 
 use AC\Column;
 use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
+use AC\Type\ColumnId;
 
 abstract class ColumnFactory
 {
-
     abstract public function create(Config $config): Column;
 
     abstract public function get_column_type(): string;
 
     abstract public function get_label(): string;
+
+    protected function resolve_id(Config $config): ColumnId
+    {
+        $id = (string)$config->get('name');
+
+        if (ColumnId::is_valid_id($id)) {
+            return new ColumnId($id);
+        }
+
+        return (new ColumnIdGenerator())->generate();
+    }
 
     public function get_description(): ?string
     {

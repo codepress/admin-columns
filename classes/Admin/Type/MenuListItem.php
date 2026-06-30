@@ -6,7 +6,6 @@ namespace AC\Admin\Type;
 
 class MenuListItem
 {
-
     private string $key;
 
     private string $label;

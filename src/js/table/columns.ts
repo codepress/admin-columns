@@ -1,5 +1,6 @@
 import {LocalizedAcTable} from "../types/table";
 import {getTableConfig} from "./utils/global";
+import ServiceContainer from "../modules/service-container";
 
 type ColumnsValue = {
     [key: string]: ColumnTableSettings
@@ -52,25 +53,25 @@ export class ColumnTableSettings {
     name: string
     type: string
     label: string;
-    services: Record<string, any>
+    private services: ServiceContainer
 
     constructor(name: string, type: string, label: string) {
         this.name = name;
         this.type = type;
         this.label = label;
-        this.services = {};
+        this.services = new ServiceContainer();
     }
 
     setService(name: string, service: any) {
-        this.services[name] = service;
+        this.services.setService(name, service);
     }
 
     getService<T = any>(name: string): T|null {
-        return this.hasService(name) ? this.services[name] : null;
+        return this.services.getService<T>(name);
     }
 
     hasService(name: string): boolean {
-        return this.services.hasOwnProperty(name);
+        return this.services.hasService(name);
     }
 
 }

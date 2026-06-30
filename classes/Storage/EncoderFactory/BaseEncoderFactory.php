@@ -10,7 +10,6 @@ use AC\Storage\Encoder\BaseEncoder;
 
 class BaseEncoderFactory implements AC\Storage\EncoderFactory
 {
-
     protected Version $version;
 
     public function __construct(Version $version)
@@ -18,7 +17,7 @@ class BaseEncoderFactory implements AC\Storage\EncoderFactory
         $this->version = $version;
     }
 
-    public function create(): AC\Storage\Encoder
+    public function create(): BaseEncoder
     {
         return new BaseEncoder($this->version);
     }

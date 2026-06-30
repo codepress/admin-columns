@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class AvailableSizesFactory extends BaseColumnFactory
 {
-
     private IncludeMissingSizes $include_missing_sizes;
 
     public function __construct(

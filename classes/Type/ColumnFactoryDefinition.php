@@ -6,7 +6,6 @@ namespace AC\Type;
 
 final class ColumnFactoryDefinition
 {
-
     private string $factory;
 
     private array $parameters;

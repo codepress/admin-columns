@@ -10,7 +10,6 @@ namespace AC;
  */
 interface DateFormats
 {
-
     public const DATE_MYSQL_TIME = 'Y-m-d H:i:s';
     public const DATE_MYSQL = 'Y-m-d';
 

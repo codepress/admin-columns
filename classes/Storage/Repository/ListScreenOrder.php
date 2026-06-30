@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Storage\Repository;
 
 use AC\Type\ListScreenId;
@@ -7,7 +9,6 @@ use AC\Type\TableId;
 
 class ListScreenOrder
 {
-
     private const KEY = 'ac_list_screens_order';
 
     public function get(TableId $key): array
@@ -37,7 +38,9 @@ class ListScreenOrder
 
     private function get_data(): array
     {
-        return get_option(self::KEY, []) ?: [];
+        $data = get_option(self::KEY, []);
+
+        return is_array($data) ? $data : [];
     }
 
 }

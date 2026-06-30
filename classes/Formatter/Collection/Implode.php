@@ -10,7 +10,6 @@ use AC\Type\ValueCollection;
 
 class Implode implements CollectionFormatter
 {
-
     private string $separator;
 
     public function __construct(?string $separator = null)

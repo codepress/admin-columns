@@ -7,30 +7,29 @@ namespace AC\Formatter\Comment;
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
 use AC\Helper;
-use AC\Helper\Date;
+use AC\Helper\WpDateFormat;
 use AC\Type\Value;
 use WP_Comment;
 use WP_User;
 
 class MetaDateAndAuthor implements Formatter
 {
-
     public function format(Value $value): Value
     {
-        if ( ! $value->get_value()) {
+        if (! $value->get_value()) {
             return $value;
         }
 
         $comment = get_comment($value->get_id());
 
-        if ( ! $comment instanceof WP_Comment) {
+        if (! $comment instanceof WP_Comment) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
         $date = sprintf(
             __('%s at %s', 'codepress-admin-columns'),
-            wp_date(Date::create()->get_date_format(), strtotime($comment->comment_date_gmt)),
-            wp_date(Date::create()->get_time_format(), strtotime($comment->comment_date_gmt))
+            wp_date(WpDateFormat::date(), strtotime($comment->comment_date_gmt) ?: null),
+            wp_date(WpDateFormat::time(), strtotime($comment->comment_date_gmt) ?: null)
         );
 
         $edit_link = get_edit_comment_link($comment);

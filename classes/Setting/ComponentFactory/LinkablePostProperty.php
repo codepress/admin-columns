@@ -12,7 +12,6 @@ use AC\Setting\Config;
 
 class LinkablePostProperty extends PostProperty
 {
-
     private PostLink $post_link;
 
     private UserLink $user_link;
@@ -35,6 +34,10 @@ class LinkablePostProperty extends PostProperty
     protected function get_children(Config $config): ?Children
     {
         $children = parent::get_children($config);
+
+        if (null === $children) {
+            return null;
+        }
 
         $components = $children->get_iterator();
 

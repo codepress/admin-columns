@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 final class HasValue implements Formatter
 {
-
     private array $empty_values;
 
     public function __construct(?array $empty_values = null)

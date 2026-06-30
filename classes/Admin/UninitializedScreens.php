@@ -11,7 +11,6 @@ use AC\TableScreen;
 
 class UninitializedScreens
 {
-
     private TableScreenRepository $table_screen_repository;
 
     private OriginalColumnsRepository $original_columns_repository;

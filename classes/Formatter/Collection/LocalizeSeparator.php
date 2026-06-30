@@ -10,7 +10,6 @@ use AC\Type\ValueCollection;
 
 class LocalizeSeparator implements CollectionFormatter
 {
-
     public function format(ValueCollection $collection): Value
     {
         $values = [];

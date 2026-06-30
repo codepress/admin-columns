@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
 abstract class HelpTab
 {
-
     private string $id;
 
     private string $title;

@@ -6,7 +6,6 @@ namespace AC;
 
 interface RequestAjaxHandler
 {
-
     public function handle(): void;
 
 }

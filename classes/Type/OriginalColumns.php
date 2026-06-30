@@ -8,7 +8,6 @@ use AC\Collection;
 
 class OriginalColumns extends Collection
 {
-
     public function __construct(array $data = [])
     {
         array_map([$this, 'add'], $data);

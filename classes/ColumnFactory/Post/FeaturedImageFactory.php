@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class FeaturedImageFactory extends BaseColumnFactory
 {
-
     private FeaturedImageDisplay $featured_image_component;
 
     public function __construct(

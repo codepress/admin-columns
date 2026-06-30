@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\RequestHandler\Ajax;
 
 use AC\Capabilities;
@@ -12,7 +14,6 @@ use AC\Response;
 
 class RestoreSettingsRequest implements RequestAjaxHandler
 {
-
     private ListScreenRepository\Storage\ListScreenRepository $repository;
 
     public function __construct(ListScreenRepository\Storage\ListScreenRepository $repository)
@@ -22,20 +23,20 @@ class RestoreSettingsRequest implements RequestAjaxHandler
 
     public function handle(): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
         $request = new Request();
         $response = new Response\Json();
 
-        if ( ! (new Nonce\Ajax())->verify($request)) {
+        if (! (new Nonce\Ajax())->verify($request)) {
             $response->error();
         }
 
         $repository = $this->repository->get_list_screen_repository();
 
-        if ( ! $repository instanceof ListScreenRepositoryWritable) {
+        if (! $repository instanceof ListScreenRepositoryWritable) {
             $response->error();
         }
 

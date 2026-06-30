@@ -13,7 +13,6 @@ use AC\Setting\Control\OptionCollection;
 
 class PostLink extends BaseComponentFactory
 {
-
     protected const NAME = 'post_link_to';
 
     private ?string $label;

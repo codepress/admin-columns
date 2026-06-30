@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\PageFactory;
 
 use AC\Admin\MenuFactoryInterface;
@@ -11,7 +13,6 @@ use AC\Integration\IntegrationRepository;
 
 class Addons implements PageFactoryInterface
 {
-
     protected AdminColumns $plugin;
 
     protected IntegrationRepository $integrations;

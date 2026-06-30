@@ -55,7 +55,6 @@
 
 {#if typeof filteredSettings !== 'undefined' }
 	{#each filteredSettings as setting (JSON.stringify( setting )) }
-
 		<svelte:component
 			this={getSettingComponent(setting.type ?? '')}
 			setting={setting}
@@ -64,7 +63,6 @@
 			on:refresh
 			{isSubComponent}
 		/>
-
 	{/each}
 
 {/if}

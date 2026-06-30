@@ -11,7 +11,6 @@ use DateTime;
 
 class DateObject implements Formatter
 {
-
     private string $source_format;
 
     public function __construct(string $source_format)
@@ -23,7 +22,7 @@ class DateObject implements Formatter
     {
         $date_string = (string)$value;
 
-        if ( ! $date_string) {
+        if (! $date_string) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
@@ -45,7 +44,7 @@ class DateObject implements Formatter
      * as DateTime::getLastErrors() is global and resets on the next parse.
      * @return bool True if the date was parsed but marked invalid, false otherwise.
      */
-    function is_invalid_parsed_date(): bool
+    public function is_invalid_parsed_date(): bool
     {
         $errors = DateTime::getLastErrors();
 

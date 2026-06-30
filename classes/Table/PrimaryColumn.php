@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Table;
 
 use AC\Helper;
@@ -12,7 +14,6 @@ use WP_Post;
 
 class PrimaryColumn
 {
-
     private ListScreen $list_screen;
 
     public function __construct(ListScreen $list_screen)
@@ -27,7 +28,7 @@ class PrimaryColumn
         $columns = $this->list_screen->get_columns();
         $column = $columns->first();
 
-        if ( ! $default_column && $column) {
+        if (! $default_column && $column) {
             $default = (string)$column->get_id();
         }
 
@@ -61,14 +62,21 @@ class PrimaryColumn
 
     public function set_media_download_row_action(array $actions, WP_Post $post): array
     {
-        $link_attributes = [
-            'download' => '',
-            'title'    => __('Download', 'codepress-admin-columns'),
-        ];
+        $url = wp_get_attachment_url($post->ID);
+
+        if (! $url) {
+            return $actions;
+        }
+
+        $label = __('Download', 'codepress-admin-columns');
+
         $actions['download'] = Helper\Html::create()->link(
-            wp_get_attachment_url($post->ID),
-            __('Download', 'codepress-admin-columns'),
-            $link_attributes
+            $url,
+            $label,
+            [
+                'download' => '',
+                'title'    => $label,
+            ]
         );
 
         return $actions;

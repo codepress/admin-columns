@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 interface FactSpecification
 {
-
     public const FACT = 'fact';
 
 }

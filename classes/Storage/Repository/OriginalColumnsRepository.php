@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Storage\Repository;
 
 use AC\Storage\Option;
@@ -10,7 +12,6 @@ use Exception;
 
 final class OriginalColumnsRepository
 {
-
     private function storage(TableId $id): Option
     {
         return new Option(
@@ -53,7 +54,7 @@ final class OriginalColumnsRepository
     {
         $data = $this->get_cached($id);
 
-        if ( ! $data) {
+        if (! $data) {
             return null;
         }
 
@@ -78,7 +79,7 @@ final class OriginalColumnsRepository
 
                 $column = $this->create_column($type, $column_data);
 
-                if ( ! $column) {
+                if (! $column) {
                     continue;
                 }
 
@@ -93,7 +94,7 @@ final class OriginalColumnsRepository
     {
         static $cached_storage;
 
-        if ( ! isset($cached_storage[(string)$id])) {
+        if (! isset($cached_storage[(string)$id])) {
             $cached_storage[(string)$id] = $this->storage($id)->get();
         }
 
@@ -111,7 +112,7 @@ final class OriginalColumnsRepository
 
             $column = $this->create_column($type, $data);
 
-            if ( ! $column) {
+            if (! $column) {
                 continue;
             }
 

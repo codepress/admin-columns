@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Promo;
 
 use AC\Type\DateRange;
@@ -9,8 +11,7 @@ use AC\Type\Url\CouponCode;
 
 final class BlackFriday extends Promo
 {
-
-    private string $coupon_code;
+    private ?string $coupon_code;
 
     public function __construct(DateRange $date_range, ?string $coupon_code = null)
     {

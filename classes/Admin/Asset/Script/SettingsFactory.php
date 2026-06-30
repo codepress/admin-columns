@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\Asset\Script;
 
 use AC\AdminColumns;
@@ -13,7 +15,6 @@ use AC\Type\Url\UtmTags;
 
 final class SettingsFactory
 {
-
     public const HANDLE = 'ac-admin-page-settings';
 
     private Location $location;
@@ -110,8 +111,8 @@ final class SettingsFactory
                 'Delete all column settings and restore the default settings.',
                 'codepress-admin-columns'
             ),
-            'settings_saved_successful'    => __('Settings saved successfully.', 'codepress-admin-columns'),
-            'restore_settings_warning'     => __(
+            'settings_saved_successful' => __('Settings saved successfully.', 'codepress-admin-columns'),
+            'restore_settings_warning'  => __(
                 "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop",
                 'codepress-admin-columns'
             ),
@@ -137,27 +138,27 @@ final class SettingsFactory
                 'upgrade_panel'    => $this->is_pro_active
                     ? null
                     : [
-                        'upgrade_url'    => $upgrade_url,
-                        'badge'          => __('Admin Columns Pro', 'codepress-admin-columns'),
-                        'title'          => __('Work faster in your list tables', 'codepress-admin-columns'),
-                        'subtitle'       => __(
+                        'upgrade_url' => $upgrade_url,
+                        'badge'       => __('Admin Columns Pro', 'codepress-admin-columns'),
+                        'title'       => __('Work faster in your list tables', 'codepress-admin-columns'),
+                        'subtitle'    => __(
                             'Turn your list tables into a powerful workflow tool for editing, filtering, sorting, and exporting content.',
                             'codepress-admin-columns'
                         ),
-                        'button'         => sprintf(
+                        'button' => sprintf(
                             '%s - %s',
                             __('Upgrade', 'codepress-admin-columns'),
                             sprintf(
-                            /* translators: %s: price (e.g. $79) */
+                                /* translators: %s: price (e.g. $79) */
                                 __('from %s/year', 'codepress-admin-columns'),
                                 StartingPrice::get()
                             )
                         ),
-                        'view_all'       => __('See all Pro features', 'codepress-admin-columns'),
-                        'trust'          => sprintf(
+                        'view_all' => __('See all Pro features', 'codepress-admin-columns'),
+                        'trust'    => sprintf(
                             '%s · %s',
                             sprintf(
-                            /* translators: %s: number of sites (e.g. 250,000+) */
+                                /* translators: %s: number of sites (e.g. 250,000+) */
                                 __('%s sites', 'codepress-admin-columns'),
                                 '250,000+'
                             ),

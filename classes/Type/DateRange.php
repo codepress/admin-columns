@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Type;
 
 use DateTime;
 
 class DateRange
 {
-
     private DateTime $start;
 
     private DateTime $end;

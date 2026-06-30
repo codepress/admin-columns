@@ -8,7 +8,6 @@ use AC\Collection;
 
 class UserRoles extends Collection
 {
-
     public function __construct(array $roles = [])
     {
         $this->data = $roles;

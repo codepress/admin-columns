@@ -16,7 +16,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class CommentDisplay extends BaseComponentFactory
 {
-
     public const PROPERTY_COMMENT = 'comment';
     public const PROPERTY_DATE = 'date';
     public const PROPERTY_ID = 'id';

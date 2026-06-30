@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper;
 
 use WP_User;
 
 class User extends Creatable
 {
-
-    public function get_formatted_name(WP_User $user): ?string
+    public function get_formatted_name(WP_User $user): string
     {
         return trim($user->first_name . ' ' . $user->last_name)
             ?: $user->display_name
-                ?: $user->user_login;
+                ?: $user->user_login
+                    ?: '';
     }
 
     /**
@@ -19,7 +21,7 @@ class User extends Creatable
      */
     public function get_translations_remote(): array
     {
-        _deprecated_function(__METHOD__, '7.0', 'AC\Herlper\Translations::get_available_translations()');
+        _deprecated_function(__METHOD__, '7.0', 'AC\Helper\AvailableTranslations::get_available_translations()');
 
         return [];
     }
@@ -33,7 +35,7 @@ class User extends Creatable
 
         $user = get_userdata($user);
 
-        if ( ! $user) {
+        if (! $user) {
             return null;
         }
 
@@ -47,7 +49,9 @@ class User extends Creatable
     {
         _deprecated_function(__METHOD__, '7.0');
 
-        return get_user_by('id', $user_id)->{$field} ?? null;
+        $user = get_user_by('id', $user_id);
+
+        return $user ? ($user->{$field} ?? null) : null;
     }
 
     /**
@@ -58,7 +62,7 @@ class User extends Creatable
         _deprecated_function(__METHOD__, '7.0', 'get_userdata');
 
         if (is_numeric($user)) {
-            $user = get_userdata($user);
+            $user = get_userdata((int) $user);
         }
 
         return $user instanceof WP_User

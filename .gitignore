@@ -18,3 +18,4 @@ Thumbs.d*
 node_modules
 bower_components
 vendor
+.php-cs-fixer.cache

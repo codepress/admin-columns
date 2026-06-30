@@ -19,7 +19,6 @@ use WP_User;
 
 class ListScreenTable implements Middleware
 {
-
     private Storage $storage;
 
     private Table\TablePreference $preference;
@@ -74,7 +73,7 @@ class ListScreenTable implements Middleware
     {
         $list_screen = $this->storage->find($id);
 
-        if ( ! $list_screen ||
+        if (! $list_screen ||
              ! $list_screen->is_user_allowed($this->user) ||
              ! $this->list_key->equals($list_screen->get_table_id()) ||
              (
@@ -93,7 +92,7 @@ class ListScreenTable implements Middleware
     {
         $list_screen = $this->get_requested_list_screen($request);
 
-        if ( ! $list_screen) {
+        if (! $list_screen) {
             $list_screen = $this->get_preference_list_screen();
         }
 

@@ -11,7 +11,6 @@ use AC\Type\TableId;
 
 class ScreenColumns implements Registerable
 {
-
     private string $screen_id;
 
     private OriginalColumnsRepository $repository;
@@ -74,7 +73,7 @@ class ScreenColumns implements Registerable
 
     public function save_sortable_columns($sortable_columns)
     {
-        if ( ! is_array($sortable_columns)) {
+        if (! is_array($sortable_columns)) {
             return $sortable_columns;
         }
 

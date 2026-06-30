@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class ShowToolbarFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Show Toolbar', 'codepress-admin-columns');

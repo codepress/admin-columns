@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Type;
 
 use AC\Type;
@@ -9,7 +11,6 @@ use DateTime;
 
 abstract class Promo
 {
-
     protected string $slug;
 
     protected int $discount;

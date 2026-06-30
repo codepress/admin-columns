@@ -8,7 +8,6 @@ use AC\Expression\Specification;
 
 final class ConditionalComponentFactory
 {
-
     private ComponentFactory $factory;
 
     private ?Specification $conditions;

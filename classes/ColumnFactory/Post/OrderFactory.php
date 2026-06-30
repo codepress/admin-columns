@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class OrderFactory extends BaseColumnFactory
 {
-
     public function get_column_type(): string
     {
         return 'column-order';

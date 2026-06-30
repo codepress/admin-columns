@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {ListScreenData} from "../../types/requests";
+    import type {ListScreenData} from "../../types/requests";
 
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };

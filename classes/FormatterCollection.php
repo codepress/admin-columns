@@ -9,7 +9,6 @@ use ReturnTypeWillChange;
 
 class FormatterCollection extends Collection
 {
-
     public function __construct(array $formatters = [])
     {
         array_map([$this, 'add'], $formatters);
@@ -25,7 +24,7 @@ class FormatterCollection extends Collection
      */
     public function add($formatter): self
     {
-        if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
+        if (! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
             throw new InvalidArgumentException('Expected a Formatter or CollectionFormatter.');
         }
 
@@ -44,7 +43,7 @@ class FormatterCollection extends Collection
 
     public function prepend($formatter): self
     {
-        if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
+        if (! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
             throw new InvalidArgumentException('Expected a Formatter or CollectionFormatter.');
         }
 

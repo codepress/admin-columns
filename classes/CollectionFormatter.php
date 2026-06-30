@@ -10,7 +10,6 @@ use AC\Type\ValueCollection;
 
 interface CollectionFormatter
 {
-
     /**
      * @throws ValueNotFoundException
      */

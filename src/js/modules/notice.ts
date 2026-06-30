@@ -1,6 +1,6 @@
 export default class Notice {
     element: HTMLElement;
-    message: string;
+    message: string = '';
     dismissible: Boolean;
 
     constructor() {

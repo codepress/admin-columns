@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Integration;
 
 use AC\Storage\Repository\IntegrationStatus;
@@ -8,7 +10,6 @@ use AC\Type\Integrations;
 
 class IntegrationRepository
 {
-
     private IntegrationStatus $storage;
 
     public function __construct(IntegrationStatus $storage)
@@ -52,7 +53,7 @@ class IntegrationRepository
         $integrations = new Integrations();
 
         foreach ($this->find_all() as $integration) {
-            if ( ! $this->is_active($integration)) {
+            if (! $this->is_active($integration)) {
                 $integrations->add($integration);
             }
         }

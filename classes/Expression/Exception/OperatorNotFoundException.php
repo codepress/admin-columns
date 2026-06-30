@@ -9,7 +9,6 @@ use Throwable;
 
 final class OperatorNotFoundException extends InvalidArgumentException
 {
-
     public function __construct(string $operator, ?Throwable $previous = null)
     {
         $message = sprintf('Operator %s was not found.', $operator);

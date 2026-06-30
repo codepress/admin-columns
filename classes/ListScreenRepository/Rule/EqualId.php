@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListScreenRepository\Rule;
 
 use AC\ListScreenRepository\Rule;
@@ -7,7 +9,6 @@ use AC\Type\ListScreenId;
 
 class EqualId implements Rule
 {
-
     private ListScreenId $id;
 
     public function __construct(ListScreenId $id)
@@ -17,7 +18,7 @@ class EqualId implements Rule
 
     public function match(array $args): bool
     {
-        if ( ! isset($args[self::ID])) {
+        if (! isset($args[self::ID])) {
             return false;
         }
 

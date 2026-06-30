@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Ajax;
 
 use AC\Registerable;
@@ -7,7 +9,6 @@ use LogicException;
 
 class Handler implements Registerable
 {
-
     public const NONCE_ACTION = 'ac-ajax';
 
     protected array $params = [];
@@ -30,11 +31,11 @@ class Handler implements Registerable
 
     public function register(): void
     {
-        if ( ! $this->get_action()) {
+        if (! $this->get_action()) {
             throw new LogicException('Action parameter is missing.');
         }
 
-        if ( ! $this->get_callback()) {
+        if (! $this->get_callback()) {
             throw new LogicException('Callback is missing.');
         }
 
@@ -113,7 +114,7 @@ class Handler implements Registerable
 
     public function get_param(string $key)
     {
-        if ( ! array_key_exists($key, $this->params)) {
+        if (! array_key_exists($key, $this->params)) {
             return null;
         }
 

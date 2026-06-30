@@ -8,7 +8,6 @@ use AC\Setting\AttributeCollection;
 
 class Input
 {
-
     private string $name;
 
     private string $type;
@@ -17,7 +16,7 @@ class Input
 
     private ?string $placeholder;
 
-    private ?AttributeCollection $attributes;
+    private AttributeCollection $attributes;
 
     public function __construct(
         string $name,

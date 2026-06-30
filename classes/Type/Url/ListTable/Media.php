@@ -8,7 +8,6 @@ use AC\Type\Uri;
 
 class Media extends Uri
 {
-
     public function __construct(?string $page = null)
     {
         parent::__construct((string)admin_url('upload.php'));

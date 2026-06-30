@@ -6,6 +6,8 @@ namespace AC\ColumnFactory;
 
 use AC;
 use AC\Column\BaseColumnFactory;
+use AC\Column\Context;
+use AC\Column\CustomFieldContext;
 use AC\Formatter\Aggregate;
 use AC\FormatterCollection;
 use AC\Setting\ComponentCollection;
@@ -18,7 +20,6 @@ use AC\Type\TableScreenContext;
 
 class CustomFieldFactory extends BaseColumnFactory
 {
-
     private ComponentFactory\CustomFieldFactory $custom_field_factory;
 
     private FieldType $field_type;
@@ -63,7 +64,7 @@ class CustomFieldFactory extends BaseColumnFactory
             $this->field_type->create($config),
         ];
 
-        if (!empty($items)) {
+        if (! empty($items)) {
             $components[] = (new ColumnInfo($items))->create($config);
         }
 
@@ -88,6 +89,27 @@ class CustomFieldFactory extends BaseColumnFactory
         return __('Custom Field', 'codepress-admin-columns');
     }
 
+    private function get_meta_key(Config $config): string
+    {
+        return (string)$config->get('field', '');
+    }
+
+    private function get_field_type(Config $config): string
+    {
+        return (string)$config->get('field_type', '');
+    }
+
+    protected function get_context(Config $config): Context
+    {
+        return new CustomFieldContext(
+            $config,
+            $this->get_label(),
+            $this->get_field_type($config),
+            $this->get_meta_key($config),
+            $this->table_context
+        );
+    }
+
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);
@@ -96,7 +118,8 @@ class CustomFieldFactory extends BaseColumnFactory
             return $formatters->prepend(
                 Aggregate::from_array([
                     new AC\Formatter\MetaCollection(
-                        $this->table_context->get_meta_type(), $config->get('field', '')
+                        $this->table_context->get_meta_type(),
+                        $config->get('field', '')
                     ),
                     new AC\Formatter\Count(),
                 ])

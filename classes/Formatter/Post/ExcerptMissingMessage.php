@@ -6,11 +6,11 @@ namespace AC\Formatter\Post;
 
 use AC\Formatter;
 use AC\Helper;
+use AC\Helper\Dashicon;
 use AC\Type\Value;
 
 class ExcerptMissingMessage implements Formatter
 {
-
     private bool $tooltip;
 
     public function __construct(bool $tooltip = true)
@@ -21,7 +21,7 @@ class ExcerptMissingMessage implements Formatter
     public function format(Value $value): Value
     {
         $excerpt = $value->get_value();
-        if ( ! $excerpt) {
+        if (! $excerpt) {
             return $value;
         }
 
@@ -35,7 +35,7 @@ class ExcerptMissingMessage implements Formatter
         if ($this->tooltip) {
             return $value->with_value(
                 Helper\Html::create()->tooltip(
-                    Helper\Icon::create()->dashicon(['icon' => 'media-text', 'class' => 'gray']),
+                    Dashicon::create('media-text', 'gray')->render(),
                     sprintf(
                         '%s %s',
                         __('Excerpt is missing.', 'codepress-admin-columns'),

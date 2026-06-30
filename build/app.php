@@ -2,6 +2,17 @@
 
 declare(strict_types=1);
 
+if (PHP_VERSION_ID >= 80400) {
+    fwrite(STDERR, sprintf(
+        "ERROR: build/app.php requires PHP < 8.4 (php-scoper 0.17.6 crashes on PHP 8.4+ due to nullable-parameter deprecations).\n"
+        . "Current: PHP %s at %s\n"
+        . "Re-run with PHP 7.4–8.3 before retrying composer install.\n",
+        PHP_VERSION,
+        PHP_BINARY
+    ));
+    exit(1);
+}
+
 use AC\Build\PrefixerFactory;
 use AC\Build\Router;
 use AC\Build\Task;

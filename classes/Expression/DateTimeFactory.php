@@ -11,7 +11,6 @@ use DateTimeZone;
 
 final class DateTimeFactory
 {
-
     public static function create(?DateTimeZone $timezone = null): DateTime
     {
         return new DateTime('now', self::resolve_timezone($timezone));
@@ -31,7 +30,7 @@ final class DateTimeFactory
             self::resolve_timezone($timezone)
         );
 
-        if ( ! $parsed) {
+        if (! $parsed) {
             throw new InvalidDateFormatException($date_time, (string)$format);
         }
 

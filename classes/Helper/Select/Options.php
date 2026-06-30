@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper\Select;
 
 use AC\ArrayIterator;
@@ -10,7 +12,6 @@ use LogicException;
  */
 class Options extends ArrayIterator
 {
-
     public function __construct(array $options)
     {
         parent::__construct($options);
@@ -21,7 +22,7 @@ class Options extends ArrayIterator
     private function validate(): void
     {
         foreach ($this as $option) {
-            if ( ! $option instanceof Option && ! $option instanceof OptionGroup) {
+            if (! $option instanceof Option && ! $option instanceof OptionGroup) {
                 throw new LogicException('Only Option and OptionGroup objects allowed.');
             }
         }

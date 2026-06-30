@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Integration;
 
 use AC\Screen;
@@ -9,7 +11,6 @@ use AC\Type\Url\Site;
 
 final class BuddyPress extends Integration
 {
-
     public function __construct()
     {
         parent::__construct(

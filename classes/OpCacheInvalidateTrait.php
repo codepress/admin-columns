@@ -6,7 +6,6 @@ namespace AC;
 
 trait OpCacheInvalidateTrait
 {
-
     /**
      * Check if the file exists, if opcache is enabled and invalidates the cache
      */

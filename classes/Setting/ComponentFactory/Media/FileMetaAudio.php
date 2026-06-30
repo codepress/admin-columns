@@ -14,7 +14,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class FileMetaAudio extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Audio Meta');
@@ -73,7 +72,7 @@ final class FileMetaAudio extends BaseComponentFactory
             case 'created_timestamp':
                 $formatters->add(
                     new AC\Formatter\Date\LocalizedDateFormat(
-                        AC\Helper\Date::create()->get_date_time_format(),
+                        AC\Helper\WpDateFormat::date_time(),
                         'U'
                     )
                 );
@@ -85,7 +84,7 @@ final class FileMetaAudio extends BaseComponentFactory
             case 'length':
                 $formatters->add(new AC\Formatter\Media\NumberFormat(0, '', ' sec'));
                 break;
-            case'sample_rate':
+            case 'sample_rate':
                 $formatters->add(new AC\Formatter\Media\NumberFormat(0, '', ' Hz'));
                 break;
         }

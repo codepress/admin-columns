@@ -6,7 +6,6 @@ namespace AC\Asset;
 
 abstract class Enqueueable
 {
-
     protected string $handle;
 
     protected ?Location $location;
@@ -27,11 +26,19 @@ abstract class Enqueueable
 
     protected function get_version(): ?int
     {
+        if (null === $this->location) {
+            return null;
+        }
+
         $path = $this->location->get_path();
 
-        return file_exists($path)
-            ? filemtime($path)
-            : null;
+        if (! file_exists($path)) {
+            return null;
+        }
+
+        $mtime = filemtime($path);
+
+        return false === $mtime ? null : $mtime;
     }
 
     abstract public function register(): void;

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper\Select;
 
 class Option
 {
-
     private string $value;
 
     private string $label;

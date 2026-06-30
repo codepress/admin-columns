@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ApplyFilter;
 
 class ValidVideoMimetypes
 {
-
     public function apply_filters(): array
     {
         return (array)apply_filters(

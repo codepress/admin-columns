@@ -13,12 +13,11 @@ use MLA_List_Table;
  */
 class WpListTableFactory
 {
-
     public function create(): MLA_List_Table
     {
         global $wp_list_table;
 
-        if ( ! class_exists('MLA_List_Table')) {
+        if (! class_exists('MLA_List_Table')) {
             require_once(MLA_PLUGIN_PATH . 'includes/class-mla-list-table.php');
             MLA_List_Table::mla_admin_init_action();
         }

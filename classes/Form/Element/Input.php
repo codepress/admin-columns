@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Form\Element;
 
 use AC\Form\Element;
 
 class Input extends Element
 {
-
     protected function is_valid_type(string $type): bool
     {
         $valid_types = [
@@ -38,7 +39,7 @@ class Input extends Element
     {
         $type = $this->get_attribute('type');
 
-        if ( ! $type) {
+        if (! $type) {
             return 'text';
         }
 

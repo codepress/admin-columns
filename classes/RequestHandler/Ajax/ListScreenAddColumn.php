@@ -16,7 +16,6 @@ use AC\Type\TableId;
 
 class ListScreenAddColumn implements RequestAjaxHandler
 {
-
     private Aggregate $table_screen_factory;
 
     private JsonColumnFactory $json_response_factory;
@@ -35,20 +34,20 @@ class ListScreenAddColumn implements RequestAjaxHandler
 
     public function handle(): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
         $request = new Request();
         $response = new Json();
 
-        if ( ! (new Nonce\Ajax())->verify($request)) {
+        if (! (new Nonce\Ajax())->verify($request)) {
             $response->error();
         }
 
         $list_key = new TableId((string)$request->get('list_screen'));
 
-        if ( ! $this->table_screen_factory->can_create($list_key)) {
+        if (! $this->table_screen_factory->can_create($list_key)) {
             $response->error();
         }
 
@@ -57,7 +56,7 @@ class ListScreenAddColumn implements RequestAjaxHandler
             (string)$request->get('column_type')
         );
 
-        if ( ! $column) {
+        if (! $column) {
             $response->error();
         }
 

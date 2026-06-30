@@ -6,7 +6,6 @@ namespace AC\Plugin;
 
 final class Version
 {
-
     private string $value;
 
     public function __construct(string $version)

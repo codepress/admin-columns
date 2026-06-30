@@ -10,7 +10,6 @@ use InvalidArgumentException;
 
 class External extends Uri
 {
-
     public function __construct(string $url)
     {
         parent::__construct($url);
@@ -20,7 +19,7 @@ class External extends Uri
 
     private function validate(): void
     {
-        if ( ! Helper\Strings::create()->starts_with($this->url, 'https')) {
+        if (! Helper\Strings::create()->starts_with($this->url, 'https')) {
             throw new InvalidArgumentException('Not https');
         }
     }

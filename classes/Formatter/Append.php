@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 final class Append implements Formatter
 {
-
     private Formatter $formatter;
 
     private string $separator;

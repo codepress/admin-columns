@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin;
 
 use AC\Storage\Option;
@@ -8,7 +10,6 @@ use InvalidArgumentException;
 
 class SetupFactory
 {
-
     public const SITE = 'site';
     public const NETWORK = 'network';
 

@@ -11,12 +11,11 @@ use AC\WooCommerce;
 
 class WooCommerceProductsBulkEditNotice implements IntegrationNotice, UsageAwareNotice
 {
-
     use PostEditReferrerAware;
 
     public function is_active(Screen $screen): bool
     {
-        if ( ! WooCommerce::is_active()) {
+        if (! WooCommerce::is_active()) {
             return false;
         }
 

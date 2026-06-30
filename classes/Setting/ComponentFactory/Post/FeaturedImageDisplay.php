@@ -20,7 +20,6 @@ use AC\Setting\Control\OptionCollection;
 
 class FeaturedImageDisplay extends BaseComponentFactory
 {
-
     public const NAME = 'featured_image_display';
 
     private ImageSize $image_size;

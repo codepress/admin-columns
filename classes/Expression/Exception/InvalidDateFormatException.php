@@ -9,7 +9,6 @@ use Throwable;
 
 final class InvalidDateFormatException extends RuntimeException
 {
-
     public function __construct(string $date_time, string $format, ?Throwable $previous = null)
     {
         $message = sprintf('Could parse format %s for %s.', $format, $date_time);

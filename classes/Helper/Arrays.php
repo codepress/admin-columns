@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper;
 
 use AC\Formatter\ImplodeRecursive;
@@ -7,7 +9,6 @@ use AC\Type\Value;
 
 class Arrays extends Creatable
 {
-
     public function add_nested_value(array $keys, $value, array $result = []): array
     {
         $key = array_shift($keys);
@@ -16,7 +17,7 @@ class Arrays extends Creatable
             $value = $this->add_nested_value(
                 $keys,
                 $value,
-                is_array($result[$key]) ? $result[$key] : []
+                isset($result[$key]) && is_array($result[$key]) ? $result[$key] : []
             );
         }
 
@@ -28,7 +29,7 @@ class Arrays extends Creatable
     public function get_nested_value(array $array, array $keys)
     {
         foreach ($keys as $key) {
-            if ( ! isset($array[$key])) {
+            if (! isset($array[$key])) {
                 return null;
             }
 
@@ -45,7 +46,9 @@ class Arrays extends Creatable
     {
         _deprecated_function(__METHOD__, '7.0', ImplodeRecursive::class);
 
-        return (new ImplodeRecursive($glue))->format(new Value($pieces));
+        $value = (new ImplodeRecursive($glue))->format(new Value($pieces));
+
+        return (string)$value;
     }
 
     /**
@@ -101,7 +104,7 @@ class Arrays extends Creatable
     {
         _deprecated_function(__METHOD__, '7.0');
 
-        if ( ! is_array($array)) {
+        if (! is_array($array)) {
             return false;
         }
 

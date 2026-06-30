@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\Page;
 
 use AC\Admin\RenderableHead;
@@ -12,7 +14,6 @@ use AC\View;
 
 class Help implements Enqueueables, Renderable, RenderableHead
 {
-
     public const NAME = 'help';
 
     private Hooks $hooks;

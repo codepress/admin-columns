@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class SmallBlocks implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $values = (array)$value->get_value();

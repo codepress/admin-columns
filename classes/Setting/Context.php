@@ -9,5 +9,4 @@ namespace AC\Setting;
  */
 interface Context
 {
-
 }

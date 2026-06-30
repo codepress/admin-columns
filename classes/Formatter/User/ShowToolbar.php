@@ -11,12 +11,11 @@ use WP_User;
 
 class ShowToolbar implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $user = get_userdata($value->get_id());
 
-        if ( ! $user instanceof WP_User) {
+        if (! $user instanceof WP_User) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

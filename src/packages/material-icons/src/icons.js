@@ -40,6 +40,7 @@ export const icons = [
 	'person',
 	'person_shield',
 	'remove',
+	'redo',
 	'swap_vert',
 	'stacks',
 	'sentiment_satisfied',

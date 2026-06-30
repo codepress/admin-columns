@@ -11,7 +11,6 @@ use AC\Value\ExtendedValueLinkFactory;
 
 final class ExtendedValueLink implements Formatter
 {
-
     private ExtendedValueLinkFactory $factory;
 
     private string $label;
@@ -24,7 +23,7 @@ final class ExtendedValueLink implements Formatter
 
     public function format(Value $value): Value
     {
-        if ( ! $value->get_value()) {
+        if (! $value->get_value()) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

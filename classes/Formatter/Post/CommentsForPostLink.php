@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class CommentsForPostLink implements Formatter
 {
-
     private string $comment_status;
 
     public function __construct(string $comment_status)
@@ -23,7 +22,7 @@ class CommentsForPostLink implements Formatter
     {
         $label = (string)$value;
 
-        if ( ! $label) {
+        if (! $label) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\View;
 
 use AC\Admin;
@@ -8,7 +10,6 @@ use AC\View;
 
 class Menu extends View
 {
-
     public function __construct(Location $location, Admin\Menu $menu)
     {
         $items = $menu->get_items();

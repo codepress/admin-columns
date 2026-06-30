@@ -83,7 +83,7 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
         refreshState.error.set(error.message ?? 'Unknown error');
         throw error;
     } finally {
-        if ( ! abortController.signal.aborted) {
+        if (!abortController.signal.aborted) {
             isLoadingColumnSettings.set(false);
             setTimeout(() => {
                 // Let the form 'correct' the data that is loaded by the settings
@@ -91,6 +91,13 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
                 isInitializingColumnSettings.set(false);
             }, 1000)
         }
+
+        isLoadingColumnSettings.set(false);
+        setTimeout(() => {
+            // Let the form 'correct' the data that is loaded by the settings
+            initialListScreenData.set(cloneDeep(get(listScreenDataStore)));
+            isInitializingColumnSettings.set(false);
+        }, 1000)
 
     }
 }

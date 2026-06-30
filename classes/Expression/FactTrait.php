@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 trait FactTrait
 {
-
     /**
      * @var mixed
      */

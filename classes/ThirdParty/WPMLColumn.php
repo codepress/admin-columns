@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ThirdParty;
 
 /**
@@ -7,7 +9,6 @@ namespace AC\ThirdParty;
  */
 class WPMLColumn
 {
-
     public const COLUMN_NAME = 'icl_translations';
 
     private ?string $column = null;

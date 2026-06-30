@@ -9,7 +9,6 @@ use AC\Setting\Control\Input;
 
 final class HiddenInput extends BaseComponentFactory
 {
-
     private string $name;
 
     public function __construct(string $name)

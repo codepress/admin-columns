@@ -12,12 +12,11 @@ use AC\TableScreen;
 
 final class UserFactory extends BaseFactory
 {
-
     protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
         $collection = new ColumnFactoryDefinitionCollection();
 
-        if ( ! $table_screen instanceof TableScreen\User) {
+        if (! $table_screen instanceof TableScreen\User) {
             return $collection;
         }
 
@@ -33,20 +32,20 @@ final class UserFactory extends BaseFactory
             User\FirstPostFactory::class               => [
                 'post_type' => new AC\Setting\ComponentFactory\PostType(true),
             ],
-            User\LastNameFactory::class                => [],
-            User\LastPostFactory::class                => [
+            User\LastNameFactory::class => [],
+            User\LastPostFactory::class => [
                 'post_type' => new AC\Setting\ComponentFactory\PostType(true),
             ],
-            User\NicknameFactory::class                => [],
-            User\PostCountFactory::class               => [
+            User\NicknameFactory::class  => [],
+            User\PostCountFactory::class => [
                 'post_type' => new AC\Setting\ComponentFactory\PostType(true),
             ],
-            User\RegisteredDateFactory::class          => [],
-            User\VisualEditingFactory::class           => [],
-            User\ShowToolbarFactory::class             => [],
-            User\UserNameFactory::class                => [],
-            User\UserIdFactory::class                  => [],
-            User\UserUrlFactory::class                 => [],
+            User\RegisteredDateFactory::class => [],
+            User\VisualEditingFactory::class  => [],
+            User\ShowToolbarFactory::class    => [],
+            User\UserNameFactory::class       => [],
+            User\UserIdFactory::class         => [],
+            User\UserUrlFactory::class        => [],
         ];
 
         foreach ($factories as $factory => $parameters) {

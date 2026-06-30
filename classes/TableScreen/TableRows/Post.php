@@ -9,7 +9,6 @@ use AC\TableScreen\TableRows;
 
 final class Post extends TableRows
 {
-
     public function register(): void
     {
         add_action('edit_posts_per_page', [$this, 'handle_request']);

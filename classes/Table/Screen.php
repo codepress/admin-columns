@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Table;
 
 use AC;
@@ -14,7 +16,6 @@ use AC\Type\EditorUrlFactory;
 
 final class Screen implements Registerable
 {
-
     private Location $location;
 
     private AC\TableScreen $table_screen;
@@ -55,7 +56,7 @@ final class Screen implements Registerable
 
     private function show_edit_columns_action(): bool
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return false;
         }
 
@@ -95,7 +96,7 @@ final class Screen implements Registerable
                     echo $option->render();
                 }
 
-                ?>
+        ?>
 			</div>
 		</fieldset>
 
@@ -120,7 +121,6 @@ final class Screen implements Registerable
         $count = $this->table_screen instanceof TableScreen\TotalItems
             ? $this->table_screen->get_total_items()
             : null;
-
 
         $formatted = $count
             ? number_format_i18n($count)
@@ -178,13 +178,13 @@ final class Screen implements Registerable
                 'decimal_point' => $this->get_local_number_format('decimal_point'),
                 'thousands_sep' => $this->get_local_number_format('thousands_sep'),
             ],
-            'meta_type'         => $this->table_screen instanceof AC\TableScreen\MetaType
+            'meta_type' => $this->table_screen instanceof AC\TableScreen\MetaType
                 ? (string)$this->table_screen->get_meta_type()
                 : '',
         ];
 
         if ($this->list_screen) {
-            $args['column_types'] = $this->get_column_types_mapping();
+            $args['column_types'] = $this->get_column_types_mapping($this->list_screen);
             $args['layout'] = (string)$this->list_screen->get_id();
             $args['read_only'] = $this->list_screen->is_read_only();
 
@@ -204,10 +204,11 @@ final class Screen implements Registerable
         return (string)apply_filters('ac/table/body_class', $classes, $this);
     }
 
-    private function get_column_types_mapping(): array
+    private function get_column_types_mapping(ListScreen $list_screen): array
     {
         $types = [];
-        foreach ($this->list_screen->get_columns() as $column) {
+
+        foreach ($list_screen->get_columns() as $column) {
             $types[(string)$column->get_id()] = $column->get_type();
         }
 
@@ -234,13 +235,13 @@ final class Screen implements Registerable
         ];
 
         switch (true) {
-            case $this->table_screen instanceof AC\PostType :
+            case $this->table_screen instanceof AC\PostType:
                 $query_args_whitelist[] = 'post_status';
                 break;
-            case $this->table_screen instanceof AC\TableScreen\User :
+            case $this->table_screen instanceof AC\TableScreen\User:
                 $query_args_whitelist[] = 'role';
                 break;
-            case $this->table_screen instanceof AC\TableScreen\Comment :
+            case $this->table_screen instanceof AC\TableScreen\Comment:
                 $query_args_whitelist[] = 'comment_status';
                 break;
         }

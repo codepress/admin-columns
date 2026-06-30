@@ -11,7 +11,6 @@ use DateTime;
 
 class PromoRepository
 {
-
     public function find_all(): PromoCollection
     {
         return new PromoCollection([

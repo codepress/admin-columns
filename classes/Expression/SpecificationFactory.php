@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 interface SpecificationFactory
 {
-
     public function create(array $rule): Specification;
 
 }

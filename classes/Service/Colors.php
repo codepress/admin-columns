@@ -10,7 +10,6 @@ use AC\Registerable;
 
 final class Colors implements Registerable
 {
-
     private ColorUpdater $shipped_colors_updater;
 
     private StyleInjector $style_injector;

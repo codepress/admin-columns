@@ -12,7 +12,6 @@ use InvalidArgumentException;
 
 class MediaServiceFactory implements ManageValueServiceFactory
 {
-
     public function can_create(TableScreen $table_screen): bool
     {
         return $table_screen instanceof TableScreen\Media;
@@ -23,7 +22,7 @@ class MediaServiceFactory implements ManageValueServiceFactory
         RenderFactory $factory,
         int $priority = 100
     ): ManageValueService {
-        if ( ! $table_screen instanceof TableScreen\Media) {
+        if (! $table_screen instanceof TableScreen\Media) {
             throw new InvalidArgumentException('Invalid table screen.');
         }
 

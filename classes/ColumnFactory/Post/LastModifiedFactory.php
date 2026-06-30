@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class LastModifiedFactory extends BaseColumnFactory
 {
-
     private Date $date_factory;
 
     public function __construct(

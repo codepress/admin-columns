@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin;
 
 use AC\Storage\KeyValue;
 
 abstract class Setup
 {
-
     private KeyValue $storage;
 
     private Version $version;
@@ -56,7 +57,7 @@ abstract class Setup
     private function update(): void
     {
         foreach ($this->updates as $update) {
-            if ( ! $update->needs_update($this->get_stored_version())) {
+            if (! $update->needs_update($this->get_stored_version())) {
                 continue;
             }
 

@@ -8,7 +8,6 @@ use AC\Expression\Exception\OperatorNotFoundException;
 
 class ComparisonSpecification extends OperatorExpression implements FactSpecification
 {
-
     use FactTrait;
 
     public function __construct(

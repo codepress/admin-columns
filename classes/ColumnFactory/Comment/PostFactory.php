@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class PostFactory extends BaseColumnFactory
 {
-
     private LinkablePostProperty $post_property;
 
     public function __construct(

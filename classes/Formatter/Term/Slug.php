@@ -11,12 +11,11 @@ use WP_Term;
 
 class Slug implements Formatter
 {
-
     public function format(Value $value)
     {
         $term = get_term($value->get_id());
 
-        if ( ! $term instanceof WP_Term) {
+        if (! $term instanceof WP_Term) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

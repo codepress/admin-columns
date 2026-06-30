@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
 use AC\AdminColumns;
@@ -10,7 +12,6 @@ use AC\Asset\Style;
 
 class AdminScripts implements Enqueueables
 {
-
     private Location $location;
 
     public function __construct(AdminColumns $plugin)

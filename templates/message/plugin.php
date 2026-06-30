@@ -1,7 +1,9 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+declare(strict_types=1);
+
+if ( ! defined('ABSPATH')) {
+    exit;
 }
 
 ?>
@@ -21,9 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php endif; ?>
 </style>
 
-<tr class="plugin-update-tr plugin-update-tr--message <?= esc_attr( $this->status ) ?>" data-slug="<?= esc_attr( basename( $this->plugin_basename ) ) ?>" data-plugin="<?= esc_attr( $this->plugin_basename ) ?>">
+<tr class="plugin-update-tr plugin-update-tr--message <?= esc_attr($this->status) ?>" data-slug="<?= esc_attr(basename($this->plugin_basename)) ?>" data-plugin="<?= esc_attr($this->plugin_basename) ?>">
 	<td colspan="100%" class="plugin-update colspanchange">
-		<div class="update-message notice notice-alt inline <?= esc_attr( $this->class ) ?>">
+		<div class="update-message notice notice-alt inline <?= esc_attr($this->class) ?>">
 			<p><?= $this->message ?></p>
 		</div>
 	</td>

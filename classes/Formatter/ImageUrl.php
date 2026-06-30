@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Formatter;
 
 use AC\Exception\ValueNotFoundException;
@@ -9,18 +11,17 @@ use AC\Type\Value;
 
 class ImageUrl implements Formatter
 {
-
     public function format(Value $value)
     {
         $data = $value->get_value();
 
-        if ( ! $data) {
+        if (! $data) {
             throw new ValueNotFoundException('No image data found.');
         }
 
         $url = $this->convert_to_url($data);
 
-        if ( ! $url) {
+        if (! $url) {
             throw new ValueNotFoundException('No image URL found.');
         }
 
@@ -30,7 +31,7 @@ class ImageUrl implements Formatter
     private function convert_to_url($id_or_url): ?string
     {
         if (is_numeric($id_or_url)) {
-            return wp_get_attachment_url($id_or_url) ?: null;
+            return wp_get_attachment_url((int) $id_or_url) ?: null;
         }
 
         if (is_string($id_or_url) && Helper\Strings::create()->is_image($id_or_url)) {

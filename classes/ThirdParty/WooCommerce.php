@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ThirdParty;
 
 use AC;
@@ -10,7 +12,6 @@ use Automattic\WooCommerce\Utilities\OrderUtil;
 
 class WooCommerce implements Registerable
 {
-
     public function register(): void
     {
         add_filter('ac/post_types', [$this, 'remove_webhook']);
@@ -28,14 +29,14 @@ class WooCommerce implements Registerable
 
     public function add_hpos_notice(array $notices): array
     {
-        if ( ! $this->is_hpos_enabled()) {
+        if (! $this->is_hpos_enabled()) {
             return $notices;
         }
 
         $notices[] = [
-            'list_key'  => 'shop_order',
-            'type'      => 'info',
-            'message'   => sprintf(
+            'list_key' => 'shop_order',
+            'type'     => 'info',
+            'message'  => sprintf(
                 __(
                     'WooCommerce is using %s on your site. Columns configured here won\'t appear on the Orders screen. Upgrade to Admin Columns Pro for full order management with HPOS support.',
                     'codepress-admin-columns'

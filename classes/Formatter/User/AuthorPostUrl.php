@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class AuthorPostUrl implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $url = get_author_posts_url($value->get_id());

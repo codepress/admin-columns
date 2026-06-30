@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Service;
 
 use AC\AdminColumns;
@@ -14,7 +16,6 @@ use WP_Screen;
 
 class CurrentTable implements Registerable
 {
-
     private Storage $storage;
 
     private Table\TablePreference $preference;
@@ -56,11 +57,11 @@ class CurrentTable implements Registerable
     {
         $user = wp_get_current_user();
 
-        if ( ! $user) {
+        if (! $user) {
             return;
         }
 
-        if ( ! $this->table_screen_factory->can_create_from_wp_screen($wp_screen)) {
+        if (! $this->table_screen_factory->can_create_from_wp_screen($wp_screen)) {
             return;
         }
 

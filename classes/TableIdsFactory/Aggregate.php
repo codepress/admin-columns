@@ -9,7 +9,6 @@ use AC\Type\TableIdCollection;
 
 class Aggregate implements TableIdsFactory
 {
-
     /**
      * @var TableIdsFactory[]
      */

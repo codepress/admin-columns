@@ -11,7 +11,6 @@ use DateTimeZone;
 
 final class DateRelativeDeductedSpecification extends OperatorExpression
 {
-
     use DateTrait;
 
     public function __construct(string $operator, ?string $format = null, ?DateTimeZone $timezone = null)

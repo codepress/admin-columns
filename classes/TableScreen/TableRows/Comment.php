@@ -9,7 +9,6 @@ use AC\TableScreen\TableRows;
 
 final class Comment extends TableRows
 {
-
     public function register(): void
     {
         add_action('parse_comment_query', [$this, 'handle_request']);

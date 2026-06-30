@@ -8,7 +8,6 @@ use AC\Collection;
 
 final class ValueCollection extends Collection
 {
-
     /**
      * @var mixed The unique identifier of the value collection.
      */
@@ -31,7 +30,7 @@ final class ValueCollection extends Collection
         $self = new self($id);
 
         $add = static function ($id) use ($self) {
-            $self->add(new Value((int)$id));
+            $self->add(new Value($id));
         };
 
         array_map($add, $data);

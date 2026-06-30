@@ -13,16 +13,31 @@
     "require": {
         "php-di/php-di": "^6.4"
     },
+    "_comment": [
+        "php-cs-fixer is intentionally installed as a standalone composer project under tools/php-cs-fixer/",
+        "(via the cs:* scripts) instead of as a require-dev dependency here. The 'prefix' script runs php-scoper",
+        "over the whole vendor/ on every install/update (see post-install-cmd / post-update-cmd). A require-dev",
+        "php-cs-fixer would therefore be rewritten under the AC\\Vendor namespace on every dev build, and would",
+        "only be excluded from release zips by --no-dev. Keeping it in tools/ leaves it out of vendor/ entirely,",
+        "so it is never scoped by php-scoper and never shipped in the plugin."
+    ],
     "scripts": {
         "prefix": [
             "@composer install --working-dir=build --no-interaction",
             "@php build/app.php prefix"
+        ],
+        "prefix:release": [
+            "@composer install --working-dir=build --no-interaction",
+            "@php build/app.php prefix --no-dev"
         ],
         "post-install-cmd": [
             "@prefix"
         ],
         "post-update-cmd": [
             "@prefix"
-        ]
+        ],
+        "cs:install": "@composer install --working-dir=tools/php-cs-fixer --no-interaction",
+        "cs": "@php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix",
+        "cs:check": "@php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --dry-run --diff"
     }
 }

@@ -10,7 +10,6 @@ use AC\Setting\Control\OptionCollection;
 
 class Option extends Input
 {
-
     protected OptionCollection $options;
 
     protected bool $multiple;

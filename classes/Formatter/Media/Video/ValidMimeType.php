@@ -10,17 +10,16 @@ use AC\Type\Value;
 
 class ValidMimeType implements Formatter
 {
-
     public function format(Value $value): Value
     {
-        if ( ! $this->is_valid_mime_type($value->get_id())) {
+        if (! $this->is_valid_mime_type($value->get_id())) {
             return new Value(null);
         }
 
         return $value;
     }
 
-    private function is_valid_mime_type($id)
+    private function is_valid_mime_type($id): bool
     {
         return in_array(
             $this->get_mime_type($id),
@@ -29,12 +28,12 @@ class ValidMimeType implements Formatter
         );
     }
 
-    private function get_valid_mime_types()
+    private function get_valid_mime_types(): array
     {
         return (new ValidVideoMimetypes())->apply_filters();
     }
 
-    private function get_mime_type($id)
+    private function get_mime_type($id): string
     {
         return (string)get_post_field('post_mime_type', $id);
     }

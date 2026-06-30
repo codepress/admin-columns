@@ -9,7 +9,6 @@ use Traversable;
 
 class CollectionSpecification extends OperatorExpression implements FactSpecification
 {
-
     use FactTrait;
 
     public function __construct(

@@ -8,7 +8,6 @@ use InvalidArgumentException;
 
 final class Color
 {
-
     private string $color;
 
     private string $name;
@@ -23,7 +22,7 @@ final class Color
 
     private function validate(): void
     {
-        if ( ! preg_match('/^#([a-f0-9]{3}){1,2}\b$/i', $this->color)) {
+        if (! preg_match('/^#([a-f0-9]{3}){1,2}\b$/i', $this->color)) {
             throw new InvalidArgumentException(sprintf('%s is not a valid decimal number.', $this->color));
         }
     }

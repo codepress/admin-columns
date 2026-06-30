@@ -10,7 +10,6 @@ use WP_Admin_Bar;
 
 class AdminBar implements Registerable
 {
-
     private Uri $url;
 
     private string $title;

@@ -13,7 +13,6 @@ use AC\Type\OriginalColumns;
 
 class SaveHeadings implements Registerable
 {
-
     private static array $factories = [];
 
     private OriginalColumnsRepository $repository;

@@ -11,7 +11,6 @@ use AC\TableScreen;
 
 class ListScreenServiceFactory implements AC\Table\ManageValueServiceFactory
 {
-
     private TableScreen\ManageValueServiceFactory $factory;
 
     public function __construct(TableScreen\ManageValueServiceFactory $factory)
@@ -21,7 +20,7 @@ class ListScreenServiceFactory implements AC\Table\ManageValueServiceFactory
 
     public function create(TableScreen $table_screen, ListScreen $list_screen): ?Registerable
     {
-        if ( ! $this->factory->can_create($table_screen)) {
+        if (! $this->factory->can_create($table_screen)) {
             return null;
         }
 

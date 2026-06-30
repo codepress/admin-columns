@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Asset\Location;
 
 use AC\Asset\Location;
 
 final class Absolute implements Location
 {
-
     private string $url;
 
     private string $path;

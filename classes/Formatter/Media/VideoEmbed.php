@@ -10,10 +10,9 @@ use AC\View\Embed\Video;
 
 class VideoEmbed implements Formatter
 {
-
     public function format(Value $value): Value
     {
-        if ( ! $value->get_value()) {
+        if (! $value->get_value()) {
             return $value;
         }
 

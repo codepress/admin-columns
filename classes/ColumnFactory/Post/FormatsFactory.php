@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class FormatsFactory extends BaseColumnFactory
 {
-
     private UseIcon $post_format_icon_factory;
 
     public function __construct(

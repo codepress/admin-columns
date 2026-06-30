@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\Page;
 
 use AC;
@@ -15,7 +17,6 @@ use AC\Renderable;
 
 class Addons implements Enqueueables, Renderable, RenderableHead
 {
-
     public const NAME = 'addons';
 
     protected Location $location;

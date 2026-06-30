@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 final class BeforeAfter implements Formatter
 {
-
     private string $before;
 
     private string $after;

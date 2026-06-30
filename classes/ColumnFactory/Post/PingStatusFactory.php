@@ -12,7 +12,6 @@ use AC\Setting\Config;
 
 class PingStatusFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Ping Status', 'codepress-admin-columns');

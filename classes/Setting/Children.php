@@ -6,7 +6,6 @@ namespace AC\Setting;
 
 class Children
 {
-
     private ComponentCollection $components;
 
     private bool $parent;

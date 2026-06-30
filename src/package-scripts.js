@@ -5,23 +5,32 @@ module.exports = {
 	scripts : {
 		build : {
 			default : npsUtils.series.nps(
+				'lint_php',
 				'styles.build --style=compressed --no-source-map',
 				'scripts --mode=production',
+				'tailwind.build',
 				'languages',
 				'clean'
 			),
 			lite : npsUtils.series.nps(
 				'styles.build --style=compressed --no-source-map',
 				'scripts --mode=production',
+				'tailwind.build',
 				'clean'
 			),
 			development : npsUtils.concurrent.nps(
 				'styles.build -w',
-				'scripts --mode=development'
+				'scripts --mode=development',
+				'tailwind.watch'
 			),
 		},
 		//clean_old : npsUtils.rimraf( `${core_path}*/*.map` ),
 		clean : npsUtils.rimraf( `${core_path}*/*.map` ),
+		lint_php: 'composer cs --working-dir=..',
+		tailwind : {
+			build : 'npx tailwindcss -i ./tailwind/ac-utilities.css -o ../assets/css/utilities.css',
+			watch : 'npx tailwindcss -i ./tailwind/ac-utilities.css -o ../assets/css/utilities.css --watch',
+		},
 		styles : `sass scss:${core_path}css/`,
 		scripts : 'webpack',
 		languages : {

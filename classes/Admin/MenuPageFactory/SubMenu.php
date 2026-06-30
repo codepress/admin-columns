@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\MenuPageFactory;
 
 use AC\Admin\Admin;
@@ -8,8 +10,7 @@ use AC\Capabilities;
 
 class SubMenu implements MenuPageFactory
 {
-
-    public function create(array $args = []): string
+    public function create(array $args = []): ?string
     {
         return add_submenu_page(
             $args['parent'],
@@ -19,7 +20,7 @@ class SubMenu implements MenuPageFactory
             Admin::NAME,
             '',
             $args['position'] ?? null
-        );
+        ) ?: null;
     }
 
 }

@@ -7,7 +7,7 @@
     export let trueValue: string = '';
     export let falseValue: string = '';
     export let disabled: boolean = false;
-    export let label: string = null;
+    export let label: string | null = null;
 
     export const toggle = ( value: boolean ) => {
         checked = value;

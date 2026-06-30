@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
 use AC\AdminColumns;
@@ -10,7 +12,6 @@ use AC\Registerable;
 
 class Scripts implements Registerable
 {
-
     private Location $location;
 
     public function __construct(AdminColumns $plugin)

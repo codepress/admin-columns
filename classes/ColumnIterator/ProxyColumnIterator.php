@@ -11,7 +11,6 @@ use AC\ColumnRepository;
 
 class ProxyColumnIterator implements ColumnIterator
 {
-
     private ColumnRepository $repository;
 
     private ?ColumnCollection $column_collection = null;

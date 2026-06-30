@@ -13,7 +13,6 @@ use WP_User;
 
 abstract class Base implements ListScreenRepository
 {
-
     public function exists(ListScreenId $id): bool
     {
         return null !== $this->find($id);

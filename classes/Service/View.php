@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Service;
 
 use AC\Asset\Location;
@@ -7,7 +9,6 @@ use AC\Registerable;
 
 class View implements Registerable
 {
-
     private Location $location;
 
     public function __construct(Location $location)

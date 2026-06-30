@@ -15,7 +15,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class PathScope implements ComponentFactory
 {
-
     private const NAME = 'path_scope';
 
     public function create(Config $config, ?Specification $conditions = null): Component

@@ -8,7 +8,6 @@ use AC\Screen;
 
 interface IntegrationNotice
 {
-
     public function is_active(Screen $screen): bool;
 
     public function get_slug(): string;

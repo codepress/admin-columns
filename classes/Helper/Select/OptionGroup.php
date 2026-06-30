@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper\Select;
 
 final class OptionGroup
 {
-
     private string $label;
 
     /**

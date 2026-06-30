@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin\Update;
 
 use AC\Column\ColumnIdGenerator;
@@ -8,7 +10,6 @@ use AC\Plugin\Version;
 
 class V7004 extends Update
 {
-
     private ColumnIdGenerator $generator;
 
     public function __construct(ColumnIdGenerator $generator)
@@ -21,7 +22,7 @@ class V7004 extends Update
     public function apply_update(): void
     {
         // just in case we need a bit of extra time to execute our upgrade script
-        $max_exec = (int) ini_get('max_execution_time');
+        $max_exec = (int)ini_get('max_execution_time');
         if ($max_exec > 0 && $max_exec < 120) {
             @set_time_limit(120);
         }
@@ -38,7 +39,7 @@ class V7004 extends Update
             FROM {$wpdb->prefix}admin_columns"
         );
 
-        if ( ! $results) {
+        if (! $results) {
             return;
         }
 
@@ -47,7 +48,7 @@ class V7004 extends Update
                 ? unserialize($row->columns, ['allowed_classes' => false])
                 : [];
 
-            if ( ! $columns || ! is_array($columns)) {
+            if (! $columns || ! is_array($columns)) {
                 continue;
             }
 
@@ -70,7 +71,7 @@ class V7004 extends Update
                 }
 
                 // Fix 2: 'name' argument must be present. use 'key' as 'name'.
-                if ( ! isset($settings['name'])) {
+                if (! isset($settings['name'])) {
                     $columns[$key]['name'] = is_numeric($key) && ((int)$key) < 1000
                         ? (string)$this->generator->generate()
                         : $key;
@@ -107,7 +108,7 @@ class V7004 extends Update
     {
         static $tables = [];
 
-        if ( ! isset($tables[$table_id])) {
+        if (! isset($tables[$table_id])) {
             $values = get_option('_ac_columns_default_' . $table_id);
 
             $tables[$table_id] = $values && is_array($values)

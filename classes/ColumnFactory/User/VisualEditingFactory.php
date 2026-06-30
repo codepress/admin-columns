@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class VisualEditingFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Visual Editor', 'codepress-admin-columns');

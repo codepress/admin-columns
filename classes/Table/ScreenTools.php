@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Table;
 
 use AC\Registerable;
 
 final class ScreenTools implements Registerable
 {
-
     public function register(): void
     {
         add_action('ac/table', function (Screen $screen) {
             $list_screen = $screen->get_list_screen();
 
-            if ( ! $list_screen) {
+            if (! $list_screen) {
                 return;
             }
 

@@ -13,7 +13,6 @@ use AC\Type\TableIdCollection;
 
 class TableScreenRepository
 {
-
     protected TableIdsFactory $table_ids_factory;
 
     protected TableScreenFactory $table_screen_factory;
@@ -55,7 +54,7 @@ class TableScreenRepository
         $table_screens = new TableScreenCollection();
 
         foreach ($this->table_ids_factory->create() as $id) {
-            if ( ! $this->table_screen_factory->can_create($id)) {
+            if (! $this->table_screen_factory->can_create($id)) {
                 continue;
             }
 

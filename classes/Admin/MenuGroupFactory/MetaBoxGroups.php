@@ -11,7 +11,6 @@ use AC\TableScreen;
 
 class MetaBoxGroups implements MenuGroupFactory
 {
-
     public function create(TableScreen $table_screen): ?MenuGroup
     {
         if (

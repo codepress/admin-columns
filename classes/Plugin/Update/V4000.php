@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin\Update;
 
 use AC\Plugin\Update;
@@ -10,7 +12,6 @@ use DateTime;
 
 class V4000 extends Update
 {
-
     public const DATABASE_TABLE = 'admin_columns';
 
     public const LAYOUT_PREFIX = 'cpac_layouts';
@@ -32,7 +33,7 @@ class V4000 extends Update
     public function apply_update(): void
     {
         // just in case we need a bit of extra time to execute our upgrade script
-        $max_exec = (int) ini_get('max_execution_time');
+        $max_exec = (int)ini_get('max_execution_time');
         if ($max_exec > 0 && $max_exec < 120) {
             @set_time_limit(120);
         }
@@ -41,14 +42,14 @@ class V4000 extends Update
 
         // Apply update in chunks to minimize the impact of a timeout.
         switch ($this->next_step) {
-            case 1 :
+            case 1:
                 $this->create_database();
 
                 $this
                     ->update_next_step(2)
                     ->apply_update();
                 break;
-            case 2 :
+            case 2:
                 // 1. migrate segments to site specific user preference. Previously this was stored globally.
                 $this->migrate_segments_preferences();
 
@@ -58,7 +59,7 @@ class V4000 extends Update
                     ->apply_update();
 
                 break;
-            case 3 :
+            case 3:
 
                 // 2. migrate column settings to new DB table
                 $replaced_list_ids = $this->migrate_list_screen_settings();
@@ -72,7 +73,7 @@ class V4000 extends Update
                     ->apply_update();
 
                 break;
-            case 4 :
+            case 4:
 
                 // 3. User Preference "Segments": ac_preferences_search_segments
                 $this->update_user_preferences_segments($this->get_replacement_ids());
@@ -83,7 +84,7 @@ class V4000 extends Update
                     ->apply_update();
 
                 break;
-            case 5 :
+            case 5:
                 $replaced_list_ids = $this->get_replacement_ids();
 
                 // 4. User Preference "Horizontal Scrolling": ac_preferences_show_overflow_table
@@ -104,7 +105,7 @@ class V4000 extends Update
                     ->apply_update();
 
                 break;
-            case 6 :
+            case 6:
                 $this->migrate_invalid_network_settings();
 
                 // go to next step
@@ -113,7 +114,7 @@ class V4000 extends Update
                     ->apply_update();
 
                 break;
-            case 7 :
+            case 7:
                 $replaced_list_ids = $this->get_replacement_ids();
 
                 // 6. User Preference "Table selection": wp_ac_preferences_layout_table
@@ -297,7 +298,7 @@ class V4000 extends Update
             $orginal_data = $data;
 
             foreach ($replaced_list_ids as $list_key => $ids) {
-                if ( ! array_key_exists($list_key, $data)) {
+                if (! array_key_exists($list_key, $data)) {
                     continue;
                 }
 
@@ -340,13 +341,13 @@ class V4000 extends Update
 
         $result = $wpdb->get_var($sql);
 
-        if ( ! $result) {
+        if (! $result) {
             return;
         }
 
         $list_screens = maybe_unserialize($result);
 
-        if ( ! $list_screens || ! is_array($list_screens)) {
+        if (! $list_screens || ! is_array($list_screens)) {
             return;
         }
 
@@ -397,13 +398,13 @@ class V4000 extends Update
 
     private function maybe_replace_id(array $replaced_list_ids, string $list_key, $id)
     {
-        if ( ! array_key_exists($list_key, $replaced_list_ids)) {
+        if (! array_key_exists($list_key, $replaced_list_ids)) {
             return $id;
         }
 
         $_ids = $replaced_list_ids[$list_key];
 
-        if ( ! $_ids || ! is_array($_ids)) {
+        if (! $_ids || ! is_array($_ids)) {
             return $id;
         }
 
@@ -417,7 +418,7 @@ class V4000 extends Update
     }
 
     /**
-     * @return object[]
+     * @return array<array<string, mixed>>
      */
     private function get_layouts_data(): array
     {
@@ -440,12 +441,12 @@ class V4000 extends Update
             $data = maybe_unserialize($row->option_value);
 
             if (is_object($data)) {
-                $list_id = $data->id;
+                $list_id = $data->id ?? null;
 
                 $list_key = $this->remove_prefix(self::LAYOUT_PREFIX, $row->option_name);
                 $list_key = $this->remove_suffix((string)$list_id, $list_key);
 
-                if ( ! $list_key) {
+                if (! $list_key) {
                     continue;
                 }
 
@@ -457,13 +458,13 @@ class V4000 extends Update
                     'roles' => [],
                 ];
 
-                if ( ! empty($data->name)) {
+                if (! empty($data->name)) {
                     $layout_data['name'] = $data->name;
                 }
-                if ( ! empty($data->users) && is_array($data->users)) {
+                if (! empty($data->users) && is_array($data->users)) {
                     $layout_data['users'] = array_map('intval', $data->users);
                 }
-                if ( ! empty($data->roles) && is_array($data->roles)) {
+                if (! empty($data->roles) && is_array($data->roles)) {
                     $layout_data['roles'] = array_map('strval', $data->roles);
                 }
 
@@ -548,7 +549,7 @@ class V4000 extends Update
 
             $list_id = $layout_data['id'];
 
-            if ( ! $list_id) {
+            if (! $list_id) {
                 $list_id = uniqid();
 
                 // add to list of id's that have been replaced
@@ -720,14 +721,12 @@ class V4000 extends Update
 
         $layout_id = substr($storage_key, -13);
 
-        return (bool)$this->is_layout_id((string)$layout_id);
+        return $this->is_layout_id((string)$layout_id);
     }
 
-    private function is_layout_id(string $id): ?string
+    private function is_layout_id(string $id): bool
     {
-        return $id && (strlen($id) === 13) && $this->is_hex($id)
-            ? $id
-            : null;
+        return $id && (strlen($id) === 13) && $this->is_hex($id);
     }
 
     private function is_hex(string $string): bool

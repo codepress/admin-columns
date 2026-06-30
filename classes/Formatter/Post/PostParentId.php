@@ -10,13 +10,12 @@ use AC\Type\Value;
 
 class PostParentId implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $post = get_post($value->get_id());
         $parent_id = $post ? $post->post_parent : null;
 
-        if ( ! $parent_id) {
+        if (! $parent_id) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

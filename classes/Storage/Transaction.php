@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Storage;
 
 use LogicException;
@@ -7,7 +9,6 @@ use wpdb;
 
 final class Transaction
 {
-
     public const START = 1;
     public const COMMIT = 2;
     public const ROLLBACK = 3;
@@ -28,7 +29,7 @@ final class Transaction
     {
         global $wpdb;
 
-        if ( ! $wpdb instanceof wpdb) {
+        if (! $wpdb instanceof wpdb) {
             throw new LogicException('The WordPress database is not yet initialized.');
         }
 

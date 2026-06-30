@@ -8,7 +8,6 @@ use LogicException;
 
 abstract class Table
 {
-
     public function exists(): bool
     {
         global $wpdb;

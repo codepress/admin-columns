@@ -8,7 +8,6 @@ use AC\Type\ColumnFactoryDefinition;
 
 final class ColumnFactoryDefinitionCollection extends Collection
 {
-
     public function __construct(array $data = [])
     {
         array_map([$this, 'add'], $data);

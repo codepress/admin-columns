@@ -12,7 +12,6 @@ use InvalidArgumentException;
 
 class CommentServiceFactory implements ManageValueServiceFactory
 {
-
     public function can_create(TableScreen $table_screen): bool
     {
         return $table_screen instanceof TableScreen\Comment;
@@ -23,7 +22,7 @@ class CommentServiceFactory implements ManageValueServiceFactory
         RenderFactory $factory,
         int $priority = 100
     ): ManageValueService {
-        if ( ! $table_screen instanceof TableScreen\Comment) {
+        if (! $table_screen instanceof TableScreen\Comment) {
             throw new InvalidArgumentException('Invalid table screen.');
         }
 

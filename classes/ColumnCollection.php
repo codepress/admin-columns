@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Exception\IteratorException;
+
 class ColumnCollection implements ColumnIterator
 {
-
     /**
      * @var Column[]
      */
@@ -31,7 +32,13 @@ class ColumnCollection implements ColumnIterator
 
     public function current(): Column
     {
-        return current($this->data);
+        $current = current($this->data);
+
+        if (! $current instanceof Column) {
+            throw IteratorException::from_current();
+        }
+
+        return $current;
     }
 
     public function next(): void
@@ -41,7 +48,13 @@ class ColumnCollection implements ColumnIterator
 
     public function key(): int
     {
-        return key($this->data);
+        $key = key($this->data);
+
+        if (! is_int($key)) {
+            throw IteratorException::from_key();
+        }
+
+        return $key;
     }
 
     public function valid(): bool
@@ -61,7 +74,11 @@ class ColumnCollection implements ColumnIterator
 
     public function first(): ?Column
     {
-        return reset($this->data) ?: null;
+        $first = reset($this->data);
+
+        return $first instanceof Column
+            ? $first
+            : null;
     }
 
 }

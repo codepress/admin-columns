@@ -10,7 +10,6 @@ use AC\Type\ValueCollection;
 
 class TotalSum implements CollectionFormatter
 {
-
     public function format(ValueCollection $collection): Value
     {
         $total = 0;

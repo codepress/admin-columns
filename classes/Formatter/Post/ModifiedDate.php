@@ -10,13 +10,12 @@ use AC\Type\Value;
 
 class ModifiedDate implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $post = get_post($value->get_id());
         $date = $post ? $post->post_modified : null;
 
-        if ( ! $date) {
+        if (! $date) {
             throw new ValueNotFoundException();
         }
 

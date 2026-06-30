@@ -6,7 +6,6 @@ namespace AC\ListScreenRepository;
 
 interface Types
 {
-
     public const DATABASE = 'ac-database';
 
 }

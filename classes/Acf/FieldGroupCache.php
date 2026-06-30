@@ -21,7 +21,6 @@ use AC\Type\TableId;
  */
 class FieldGroupCache implements Registerable
 {
-
     private const TRANSIENT_KEY = '_ac_acf_field_counts';
     private const TRANSIENT_KEY_TABLE_SCREENS = '_ac_acf_group_table_screens';
     private const TRANSIENT_KEY_META_KEYS_BY_TYPE = '_ac_acf_meta_keys_by_type';
@@ -70,7 +69,7 @@ class FieldGroupCache implements Registerable
     {
         $map = $this->get_group_table_screen_map();
 
-        if ( ! isset($map[$id])) {
+        if (! isset($map[$id])) {
             return [];
         }
 
@@ -98,21 +97,21 @@ class FieldGroupCache implements Registerable
             return $map;
         }
 
-        if ( ! $this->is_acf_available()) {
+        if (! $this->is_acf_available()) {
             return [];
         }
 
         $map = [];
 
         foreach ($this->table_ids_factory->create() as $table_id) {
-            if ( ! $this->table_screen_factory->can_create($table_id)) {
+            if (! $this->table_screen_factory->can_create($table_id)) {
                 continue;
             }
 
             $table_screen = $this->table_screen_factory->create($table_id);
             $query = $this->query_factory->create($table_screen);
 
-            if ( ! $query) {
+            if (! $query) {
                 continue;
             }
 
@@ -123,13 +122,13 @@ class FieldGroupCache implements Registerable
                     continue;
                 }
 
-                if ( ! isset($map[$group_id])) {
+                if (! isset($map[$group_id])) {
                     $map[$group_id] = [];
                 }
 
                 $table_id_string = (string)$table_id;
 
-                if ( ! in_array($table_id_string, $map[$group_id], true)) {
+                if (! in_array($table_id_string, $map[$group_id], true)) {
                     $map[$group_id][] = $table_id_string;
                 }
             }
@@ -144,7 +143,7 @@ class FieldGroupCache implements Registerable
     {
         $query = $this->query_factory->create($table_screen);
 
-        if ( ! $query) {
+        if (! $query) {
             return 0;
         }
 
@@ -162,7 +161,7 @@ class FieldGroupCache implements Registerable
             return $cached;
         }
 
-        if ( ! $this->is_acf_available()) {
+        if (! $this->is_acf_available()) {
             return [];
         }
 
@@ -170,14 +169,14 @@ class FieldGroupCache implements Registerable
         $seen_groups = [];
 
         foreach ($this->table_ids_factory->create() as $table_id) {
-            if ( ! $this->table_screen_factory->can_create($table_id)) {
+            if (! $this->table_screen_factory->can_create($table_id)) {
                 continue;
             }
 
             $table_screen = $this->table_screen_factory->create($table_id);
             $query = $this->query_factory->create($table_screen);
 
-            if ( ! $query) {
+            if (! $query) {
                 continue;
             }
 
@@ -192,23 +191,23 @@ class FieldGroupCache implements Registerable
 
                 $fields = acf_get_fields($group_key);
 
-                if ( ! is_array($fields)) {
+                if (! is_array($fields)) {
                     continue;
                 }
 
                 foreach ($fields as $field) {
-                    if ( ! is_array($field) || empty($field['name']) || empty($field['type'])) {
+                    if (! is_array($field) || empty($field['name']) || empty($field['type'])) {
                         continue;
                     }
 
                     $type = (string)$field['type'];
                     $name = (string)$field['name'];
 
-                    if ( ! isset($result[$type])) {
+                    if (! isset($result[$type])) {
                         $result[$type] = [];
                     }
 
-                    if ( ! in_array($name, $result[$type], true)) {
+                    if (! in_array($name, $result[$type], true)) {
                         $result[$type][] = $name;
                     }
                 }
@@ -229,13 +228,13 @@ class FieldGroupCache implements Registerable
 
     private function get_count_for_query(string $cache_key, Query $query): int
     {
-        if ( ! $this->is_acf_available()) {
+        if (! $this->is_acf_available()) {
             return 0;
         }
 
         $counts = get_transient(self::TRANSIENT_KEY);
 
-        if ( ! is_array($counts)) {
+        if (! is_array($counts)) {
             $counts = [];
         }
 

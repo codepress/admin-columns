@@ -25,7 +25,6 @@ use AC\Type\ListScreenId;
 
 class Columns implements Enqueueables, Renderable, RenderableHead
 {
-
     public const NAME = 'columns';
 
     private Location $location;
@@ -126,7 +125,7 @@ class Columns implements Enqueueables, Renderable, RenderableHead
 
     public function render(): string
     {
-        return apply_filters('ac/page/columns/render', '<div></div>', $this->list_id);
+        return (string)apply_filters('ac/page/columns/render', '<div></div>', $this->list_id);
     }
 
 }

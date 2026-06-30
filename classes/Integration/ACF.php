@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Integration;
 
 use AC;
@@ -10,7 +12,6 @@ use AC\Type\Url\Site;
 
 final class ACF extends Integration
 {
-
     public function __construct()
     {
         parent::__construct(

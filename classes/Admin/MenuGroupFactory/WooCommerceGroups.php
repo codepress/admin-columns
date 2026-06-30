@@ -12,7 +12,6 @@ use AC\Taxonomy;
 
 class WooCommerceGroups implements MenuGroupFactory
 {
-
     public function create(TableScreen $table_screen): ?MenuGroup
     {
         $table_id = (string)$table_screen->get_id();

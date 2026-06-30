@@ -22,7 +22,6 @@ use AC\Type\TableId;
 
 class FieldSettingsAddColumn implements RequestAjaxHandler
 {
-
     private Storage $storage;
 
     private TableScreenFactory $table_screen_factory;
@@ -53,27 +52,27 @@ class FieldSettingsAddColumn implements RequestAjaxHandler
 
     public function handle(): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
         $request = new Request();
         $response = new Json();
 
-        if ( ! (new Nonce\Ajax())->verify($request)) {
+        if (! (new Nonce\Ajax())->verify($request)) {
             $response->error();
         }
 
         $table_id = new TableId((string)$request->get('table_id'));
 
-        if ( ! $this->table_screen_factory->can_create($table_id)) {
+        if (! $this->table_screen_factory->can_create($table_id)) {
             $response->error();
         }
 
         $table_screen = $this->table_screen_factory->create($table_id);
         $field_data = json_decode((string)$request->get('field_data'), true);
 
-        if ( ! is_array($field_data) || empty($field_data['name'])) {
+        if (! is_array($field_data) || empty($field_data['name'])) {
             $response->error();
         }
 
@@ -85,7 +84,7 @@ class FieldSettingsAddColumn implements RequestAjaxHandler
 
         $column = $this->acf_column_factory->create($table_screen, $field_data);
 
-        if ( ! $column) {
+        if (! $column) {
             $response->error();
         }
 
@@ -108,7 +107,7 @@ class FieldSettingsAddColumn implements RequestAjaxHandler
             $list_screen->set_columns($columns);
             $this->storage->save($list_screen);
         } else {
-            $columns = $this->column_type_repository->find_all_by_original($table_screen);
+            $columns = $this->column_type_repository->find_all_original($table_screen);
             $columns->add($column);
 
             $list_screen = new ListScreen(
@@ -131,13 +130,12 @@ class FieldSettingsAddColumn implements RequestAjaxHandler
     private function find_writable_list_screen(TableId $table_id): ?ListScreen
     {
         foreach ($this->storage->find_all_by_table_id($table_id) as $list_screen) {
-            if ( ! $list_screen->is_read_only()) {
+            if (! $list_screen->is_read_only()) {
                 return $list_screen;
             }
         }
 
         return null;
     }
-
 
 }

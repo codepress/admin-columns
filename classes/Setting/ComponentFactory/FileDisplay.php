@@ -13,7 +13,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class FileDisplay extends BaseComponentFactory
 {
-
     private FileLink $file_link_factory;
 
     private FilePreviewSize $file_preview_size_factory;

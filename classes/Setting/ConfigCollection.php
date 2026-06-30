@@ -8,7 +8,6 @@ use AC\Collection;
 
 class ConfigCollection extends Collection
 {
-
     public function __construct(array $configs = [])
     {
         array_map([$this, 'add'], $configs);
@@ -24,7 +23,7 @@ class ConfigCollection extends Collection
         $collection = [];
 
         foreach ($data as $config) {
-            if ( ! $config instanceof Config) {
+            if (! $config instanceof Config) {
                 $config = new Config($config);
             }
 

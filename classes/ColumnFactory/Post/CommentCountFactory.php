@@ -13,7 +13,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class CommentCountFactory extends BaseColumnFactory
 {
-
     private CommentStatus $comment_status;
 
     public function __construct(

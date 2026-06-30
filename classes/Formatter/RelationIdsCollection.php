@@ -14,7 +14,6 @@ use AC\Type\ValueCollection;
  */
 class RelationIdsCollection implements Formatter
 {
-
     public function format(Value $value)
     {
         $raw_value = $value->get_value();

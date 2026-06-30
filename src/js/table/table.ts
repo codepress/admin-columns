@@ -94,7 +94,8 @@ export default class Table {
             let td = row.querySelector<HTMLTableCellElement>("td.column-" + selector);
 
             if (td) {
-                let cell = new Cell(id, name, td);
+                let settings = this.Columns.get(name);
+                let cell = new Cell(id, name, td, settings);
                 this.Cells.add(id, cell);
             }
         });

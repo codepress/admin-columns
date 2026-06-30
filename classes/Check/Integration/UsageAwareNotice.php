@@ -6,7 +6,6 @@ namespace AC\Check\Integration;
 
 interface UsageAwareNotice
 {
-
     public function is_usage_detected(): bool;
 
 }

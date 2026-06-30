@@ -8,7 +8,6 @@ use AC\Type\Uri;
 
 class PluginSearch extends Uri
 {
-
     public function __construct(string $search)
     {
         parent::__construct((string)admin_url('plugin-install.php'));

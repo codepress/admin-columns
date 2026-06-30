@@ -7,22 +7,20 @@ namespace AC;
 use AC\Type\Labels;
 use AC\Type\TableId;
 use AC\Type\Uri;
-use AC\Type\Url;
 
 class TableScreen
 {
-
     protected TableId $id;
 
     protected string $screen_id;
 
     protected Labels $labels;
 
-    private Url $url;
+    private Uri $url;
 
     protected bool $network;
 
-    private ?string $attr_id;
+    private string $attr_id;
 
     public function __construct(
         TableId $id,

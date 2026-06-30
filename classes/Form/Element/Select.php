@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Form\Element;
 
 use AC\Form\Element;
 
 class Select extends Element
 {
-
     protected string $no_result = '';
 
     protected function render_options(array $options): string
@@ -69,7 +70,7 @@ class Select extends Element
 
     public function render(): string
     {
-        if ( ! $this->get_options() && $this->get_no_result()) {
+        if (! $this->get_options() && $this->get_no_result()) {
             return $this->get_no_result();
         }
 

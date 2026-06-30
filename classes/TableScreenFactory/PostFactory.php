@@ -14,7 +14,6 @@ use WP_Screen;
 
 class PostFactory implements TableScreenFactory
 {
-
     protected PostTypeRepository $post_type_repository;
 
     public function __construct(PostTypeRepository $post_type_repository)
@@ -32,7 +31,13 @@ class PostFactory implements TableScreenFactory
 
     public function create_from_wp_screen(WP_Screen $screen): TableScreen
     {
-        return $this->create_table_screen(get_post_type_object($screen->post_type));
+        $post_type = get_post_type_object((string)$screen->post_type);
+
+        if (! $post_type instanceof WP_Post_Type) {
+            throw InvalidTableScreenException::from_invalid_id(new TableId((string)$screen->post_type));
+        }
+
+        return $this->create_table_screen($post_type);
     }
 
     public function can_create(TableId $id): bool
@@ -42,11 +47,17 @@ class PostFactory implements TableScreenFactory
 
     public function create(TableId $id): TableScreen
     {
-        if ( ! $this->can_create($id)) {
+        if (! $this->can_create($id)) {
             throw InvalidTableScreenException::from_invalid_id($id);
         }
 
-        return $this->create_table_screen(get_post_type_object((string)$id));
+        $post_type = get_post_type_object((string)$id);
+
+        if (! $post_type instanceof WP_Post_Type) {
+            throw InvalidTableScreenException::from_invalid_id($id);
+        }
+
+        return $this->create_table_screen($post_type);
     }
 
     protected function create_table_screen(WP_Post_Type $post_type): TableScreen\Post

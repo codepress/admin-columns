@@ -12,7 +12,6 @@ use AC\TableScreen;
 
 abstract class TableRows implements Registerable, RequestHandler
 {
-
     private TableScreen\ListTable $table_screen;
 
     public function __construct(TableScreen\ListTable $table_screen)
@@ -25,6 +24,20 @@ abstract class TableRows implements Registerable, RequestHandler
         return $request->get('ac_action') === 'get_table_rows';
     }
 
+    protected function get_rows(array $ids): array
+    {
+        $rows = [];
+
+        // TODO: do we really need the list_table here? Or can we let the parent class handle this?
+        $list_table = $this->table_screen->list_table();
+
+        foreach ($ids as $id) {
+            $rows[$id] = $list_table->render_row($id);
+        }
+
+        return $rows;
+    }
+
     public function handle(Request $request): void
     {
         check_ajax_referer('ac-ajax');
@@ -33,19 +46,11 @@ abstract class TableRows implements Registerable, RequestHandler
 
         $ids = $request->filter('ac_ids', [], FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
 
-        if ( ! $ids) {
+        if (! $ids) {
             $response->error();
         }
 
-        $rows = [];
-
-        $list_table = $this->table_screen->list_table();
-
-        foreach ($ids as $id) {
-            $rows[$id] = $list_table->render_row($id);
-        }
-
-        $response->set_parameter('table_rows', $rows);
+        $response->set_parameter('table_rows', $this->get_rows($ids));
 
         $response->success();
     }

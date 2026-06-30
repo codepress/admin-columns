@@ -8,7 +8,6 @@ use AC\Expression\Specification;
 
 interface ComponentFactory
 {
-
     public function create(Config $config, ?Specification $conditions = null): Component;
 
 }

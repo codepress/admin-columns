@@ -8,7 +8,6 @@ use AC\Type;
 
 final class UserRoles extends Creatable
 {
-
     public function find_all(bool $allow_non_editable_roles = false): Type\UserRoles
     {
         return $allow_non_editable_roles
@@ -35,10 +34,12 @@ final class UserRoles extends Creatable
         $roles = new Type\UserRoles();
 
         foreach ($roles_data as $role_name => $role) {
+            $label = is_array($role) ? ($role['name'] ?? $role_name) : $role_name;
+
             $roles->add(
                 new Type\UserRole(
                     (string)$role_name,
-                    (string)($role['name'] ?? $role_name)
+                    (string)$label
                 )
             );
         }

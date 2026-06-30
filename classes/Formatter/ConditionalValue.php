@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AC\Formatter;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
 use AC\Type\Value;
 
 final class ConditionalValue implements Formatter
 {
-
     private Value $check_value;
 
     private Formatter $formatter;
@@ -26,7 +26,13 @@ final class ConditionalValue implements Formatter
             return $value;
         }
 
-        return $this->formatter->format($value);
+        $formatted = $this->formatter->format($value);
+
+        if (! $formatted instanceof Value) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
+
+        return $formatted;
     }
 
 }

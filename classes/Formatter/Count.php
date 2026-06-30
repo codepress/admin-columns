@@ -11,7 +11,6 @@ use AC\Type\ValueCollection;
 
 class Count implements CollectionFormatter
 {
-
     public function format(ValueCollection $collection): Value
     {
         $count = count($collection);

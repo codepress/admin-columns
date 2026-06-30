@@ -40,6 +40,7 @@ export declare const icons: readonly [
     'person',
     'person_shield',
     'remove',
+    'redo',
     'swap_vert',
     'stacks',
     'sentiment_satisfied',

@@ -11,7 +11,6 @@ use AC\Setting\Control\Input\Custom;
 
 final class ColumnInfo
 {
-
     private array $items;
 
     /**

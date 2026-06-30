@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class FileMetaVideoFactory extends BaseColumnFactory
 {
-
     private FileMetaVideo $file_meta_video;
 
     public function __construct(

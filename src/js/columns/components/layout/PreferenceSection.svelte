@@ -1,9 +1,10 @@
 <script lang="ts">
+	export let id: string|null = null;
 	export let label: string;
 	export let description: string|null;
 </script>
 
-<div class="ac-listscreen-prefs-section acu-pb-8 acu-mb-8 last:acu-mb-[0] last:acu-pb-[0] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border last:acu-border-b-0">
+<div class="ac-listscreen-prefs-section acu-pb-8 acu-mb-8 last:acu-mb-[0] last:acu-pb-[0] acu-border-0 acu-border-b acu-border-solid acu-border-ui-border last:acu-border-b-0" {id}>
 	<div class="ac-listscreen-prefs-setting @[650px]/panel:acu-flex">
 		<div
 			class="ac-listscreen-prefs-setting__label @[650px]:acu-w-[240px] @[650px]:acu-mr-6 rtl:acu-mr-[0] rtl:acu-ml-6">

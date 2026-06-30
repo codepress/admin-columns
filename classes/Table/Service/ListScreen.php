@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Table\Service;
 
 use AC;
@@ -11,7 +13,6 @@ use AC\Table\TableFormView;
 
 final class ListScreen implements Registerable
 {
-
     private AC\ListScreen $list_screen;
 
     private PrimaryColumnFactory $primary_column_factory;

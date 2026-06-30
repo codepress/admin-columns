@@ -9,15 +9,16 @@ use AC\Admin\Banner\BannerContextResolver;
 use AC\Helper\Mbstring;
 use AC\ListScreen;
 use AC\Setting\Encoder;
+use AC\Storage\Encoder\BaseEncoder;
 use AC\Storage\EncoderFactory;
 use AC\Type\StartingPrice;
 use AC\Type\Url\Preview;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
+use LogicException;
 
 class JsonListScreenSettingsFactory
 {
-
     private EncoderFactory $encoder_factory;
 
     private AC\ColumnTypeRepository $type_repository;
@@ -40,17 +41,21 @@ class JsonListScreenSettingsFactory
 
     public function create(ListScreen $list_screen, bool $is_stored = true, bool $is_template = false): Json
     {
-        $encoder = $this->encoder_factory
-            ->create()
-            ->set_list_screen($list_screen);
+        $encoder = $this->encoder_factory->create();
+
+        if (! $encoder instanceof BaseEncoder) {
+            throw new LogicException('Encoder does not support setting a list screen.');
+        }
+
+        $encoder->set_list_screen($list_screen);
 
         $table_screen = $list_screen->get_table_screen();
 
         $context = $this->banner_context_resolver->resolve($table_screen);
 
         return (new Json())->set_parameters([
-            'read_only'       => $list_screen->is_read_only(),
-            'table_url'       => $is_template
+            'read_only' => $list_screen->is_read_only(),
+            'table_url' => $is_template
                 ? (string)new Preview($list_screen->get_table_url(), 'columns')
                 : (string)$list_screen->get_table_url(),
             'settings'        => $encoder->encode(),
@@ -62,7 +67,7 @@ class JsonListScreenSettingsFactory
                 'singular' => $table_screen->get_labels()->get_singular(),
                 'plural'   => $table_screen->get_labels()->get_plural(),
             ],
-            'pro_banner'      => $context
+            'pro_banner' => $context
                 ? $context->get_arguments($table_screen)
                 : $this->get_default_banner_arguments($table_screen),
         ]);
@@ -114,7 +119,7 @@ class JsonListScreenSettingsFactory
     private function get_original_types(AC\TableScreen $table_screen): array
     {
         $types = [];
-        foreach ($this->type_repository->find_all_by_original($table_screen) as $column) {
+        foreach ($this->type_repository->find_all_original($table_screen) as $column) {
             $types[] = $column->get_type();
         }
 
@@ -159,11 +164,11 @@ class JsonListScreenSettingsFactory
         $singular_lower = Mbstring::strtolower($singular);
 
         return [
-            'title'             => sprintf(
+            'title' => sprintf(
                 __('Manage your %s faster', 'codepress-admin-columns'),
                 $plural_lower
             ),
-            'description'       => sprintf(
+            'description' => sprintf(
                 __('Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s.', 'codepress-admin-columns'),
                 $plural_lower,
                 $singular_lower
@@ -172,13 +177,13 @@ class JsonListScreenSettingsFactory
             'upgrade_cta_price' => sprintf(
                 '%s · %s',
                 sprintf(
-                /* translators: %s: price (e.g. $79) */
+                    /* translators: %s: price (e.g. $79) */
                     __('from %s/year', 'codepress-admin-columns'),
                     StartingPrice::get()
                 ),
                 __('all features included', 'codepress-admin-columns')
             ),
-            'features'          => [
+            'features' => [
                 [
                     'url'   => $upgrade_url->with_content('usp-editing')->get_url(),
                     'label' => __('Inline edit directly in the table', 'codepress-admin-columns'),
@@ -203,7 +208,7 @@ class JsonListScreenSettingsFactory
                     'label' => __('Multiple views per screen', 'codepress-admin-columns'),
                 ],
             ],
-            'promo_url'         => $upgrade_url->get_url(),
+            'promo_url' => $upgrade_url->get_url(),
         ];
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 use AC\Type\Group;
@@ -7,8 +9,6 @@ use AC\Type\Groups;
 
 class ColumnGroups
 {
-
-
     private AdminColumns $plugin;
 
     public function __construct(AdminColumns $plugin)

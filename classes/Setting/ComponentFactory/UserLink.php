@@ -14,7 +14,6 @@ use AC\Type\PostTypeSlug;
 
 final class UserLink extends BaseComponentFactory
 {
-
     public const PROPERTY_EDIT_USER = 'edit_user';
     public const PROPERTY_VIEW_POSTS = 'view_user_posts';
     public const PROPERTY_VIEW_AUTHOR = 'view_author';

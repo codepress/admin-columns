@@ -13,7 +13,6 @@ use AC\Type\PostTypeSlug;
 
 class PageTemplateFactory extends BaseColumnFactory
 {
-
     private PostTypeSlug $post_type;
 
     public function __construct(

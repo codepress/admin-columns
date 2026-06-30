@@ -10,12 +10,11 @@ use AC\Type\Value;
 
 class FeaturedImage implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $thumbnail_id = get_post_thumbnail_id((int)$value->get_id());
 
-        if ( ! $thumbnail_id) {
+        if (! $thumbnail_id) {
             throw new ValueNotFoundException('No thumbnail found for post ' . $value->get_id());
         }
 

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\Type;
 
 class MenuItem
 {
-
     private string $slug;
 
     private string $url;

@@ -11,7 +11,6 @@ use AC\TableScreen;
 
 class ManageValue implements Registerable
 {
-
     private static array $factories = [];
 
     public static function add(ManageValueServiceFactory $factory): void

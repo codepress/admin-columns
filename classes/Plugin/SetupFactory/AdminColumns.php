@@ -16,7 +16,6 @@ use AC\Storage\Table;
 
 final class AdminColumns extends SetupFactory
 {
-
     private Table\AdminColumns $table;
 
     public function __construct(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Table;
 
 use AC\Preferences\Preference;
@@ -9,7 +11,6 @@ use AC\Type\TableId;
 
 class TablePreference
 {
-
     public function storage(): Preference
     {
         return (new SiteFactory())->create('layout_table');

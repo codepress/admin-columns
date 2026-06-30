@@ -11,7 +11,6 @@ use AC\TableScreen;
 
 abstract class ScreenColumnsFactory implements SaveHeadingFactory
 {
-
     private OriginalColumnsRepository $repository;
 
     public function __construct(OriginalColumnsRepository $repository)

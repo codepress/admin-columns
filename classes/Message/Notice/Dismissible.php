@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Message\Notice;
 
 use AC\Ajax\Handler;
@@ -10,7 +12,6 @@ use AC\View;
 
 class Dismissible extends Notice
 {
-
     protected Handler $handler;
 
     public function __construct(string $message, ?Handler $handler = null, ?string $type = null)

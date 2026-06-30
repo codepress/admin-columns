@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ColumnSize;
 
 use AC\Column;
@@ -12,7 +14,6 @@ use InvalidArgumentException;
 
 class ListStorage
 {
-
     private SettingUpdater $setting_updater;
 
     public function __construct(SettingUpdater $setting_updater)
@@ -55,7 +56,7 @@ class ListStorage
     {
         $width_setting = $column->get_setting('width');
 
-        if ( ! $width_setting) {
+        if (! $width_setting) {
             return null;
         }
 
@@ -65,7 +66,13 @@ class ListStorage
             return null;
         }
 
-        $unit = (string) $column->get_setting('width_unit')->get_input()->get_value();
+        $unit_setting = $column->get_setting('width_unit');
+
+        if (! $unit_setting) {
+            return null;
+        }
+
+        $unit = (string) $unit_setting->get_input()->get_value();
 
         try {
             $width = new ColumnWidth($unit, $width);

@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Deprecated;
 
 use AC\Transient;
 
 class Hooks
 {
-
     private HookCollectionFactory $factory;
 
     public function __construct(HookCollectionFactory $factory)

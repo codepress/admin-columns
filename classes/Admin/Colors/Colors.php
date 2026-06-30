@@ -6,7 +6,6 @@ namespace AC\Admin\Colors;
 
 interface Colors
 {
-
     public const SUCCESS = 'success';
     public const SUCCESS_ALT = 'success-alt';
     public const WARNING = 'warning';

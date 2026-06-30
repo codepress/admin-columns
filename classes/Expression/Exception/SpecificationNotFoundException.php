@@ -9,7 +9,6 @@ use Throwable;
 
 final class SpecificationNotFoundException extends InvalidArgumentException
 {
-
     public function __construct(string $specification, ?Throwable $previous = null)
     {
         $message = sprintf('Specification %s was not found.', $specification);

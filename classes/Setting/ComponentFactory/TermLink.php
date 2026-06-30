@@ -14,7 +14,6 @@ use AC\Type\PostTypeSlug;
 
 final class TermLink extends BaseComponentFactory
 {
-
     private ?PostTypeSlug $post_type;
 
     public function __construct(?PostTypeSlug $post_type = null)

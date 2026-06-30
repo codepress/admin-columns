@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'confirmation' => [
         'default_message' => __('Are you sure?', 'codepress-admin-columns'),

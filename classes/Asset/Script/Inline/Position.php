@@ -6,7 +6,6 @@ namespace AC\Asset\Script\Inline;
 
 final class Position
 {
-
     public const BEFORE = 'before';
     public const AFTER = 'after';
 

@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class EstimateReadingTimeFactory extends BaseColumnFactory
 {
-
     private WordsPerMinute $words_per_minute_factory;
 
     public function __construct(

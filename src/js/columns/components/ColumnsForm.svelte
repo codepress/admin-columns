@@ -187,7 +187,7 @@
         addColumn(d.detail);
         columnTypeComponent!.close();
     }
-
+	
     const handleCloseColumnTypeDropdown = (component: AcDropdown | null) => {
         component?.close();
     }

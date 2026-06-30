@@ -10,7 +10,6 @@ use AC\TableScreen\TableRowsFactory;
 
 class Aggregate implements TableRowsFactory
 {
-
     /**
      * @var TableRowsFactory[]
      */

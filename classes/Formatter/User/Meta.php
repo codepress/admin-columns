@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class Meta implements Formatter
 {
-
     private string $meta_key;
 
     public function __construct(string $meta_key)

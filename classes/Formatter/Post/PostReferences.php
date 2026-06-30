@@ -12,7 +12,6 @@ use AC\Type\ValueCollection;
 
 final class PostReferences implements Formatter
 {
-
     private string $meta_key;
 
     private ?PostTypeSlug $post_type;
@@ -27,7 +26,7 @@ final class PostReferences implements Formatter
     {
         $referenced_ids = $this->get_referenced_post_ids((int)$value->get_id());
 
-        if (empty ($referenced_ids)) {
+        if (empty($referenced_ids)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
@@ -43,7 +42,7 @@ final class PostReferences implements Formatter
             'meta_query'     => [
                 [
                     'key'   => $this->meta_key,
-                    'value' => (int)$current_id,
+                    'value' => $current_id,
                 ],
             ],
         ]);

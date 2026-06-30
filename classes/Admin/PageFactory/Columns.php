@@ -24,7 +24,6 @@ use InvalidArgumentException;
 
 final class Columns implements PageFactoryInterface
 {
-
     private bool $is_pro_active;
 
     private AdminColumns $plugin;
@@ -90,7 +89,7 @@ final class Columns implements PageFactoryInterface
 
         $table_screen = $request->get('table_screen');
 
-        if ( ! $table_screen instanceof TableScreen) {
+        if (! $table_screen instanceof TableScreen) {
             throw new InvalidArgumentException('Invalid screen.');
         }
 

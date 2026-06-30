@@ -11,7 +11,6 @@ use AC\Type\Url\Site;
 
 final class PluginUpdate implements Registerable
 {
-
     private Plugin $plugin;
 
     private Site $upgrade_url_template;
@@ -37,7 +36,7 @@ final class PluginUpdate implements Registerable
         add_action('admin_head', function () {
             $screen = get_current_screen();
 
-            if ( ! $screen || $screen->base !== 'plugins') {
+            if (! $screen || $screen->base !== 'plugins') {
                 return;
             }
 
@@ -63,19 +62,23 @@ final class PluginUpdate implements Registerable
 
     public function render_additional_message(array $data, object $response): void
     {
-        $version = new Version($response->new_version);
+        $new_version = $response->new_version ?? '';
+
+        $version = new Version((string)$new_version);
 
         if ($this->plugin->get_version()->get_major_version() >= $version->get_major_version()) {
             return;
         }
 
         $tpl = $this->get_general_warning_message() . ' ' . _x(
-                'Please review the %s for details.',
-                '%s contains the link to upgrade guide. Label is translated separately.',
-                'codepress-admin-columns'
-            );
+            'Please review the %s for details.',
+            '%s contains the link to upgrade guide. Label is translated separately.',
+            'codepress-admin-columns'
+        );
 
-        $tpl = wp_kses($tpl, [
+        $tpl = wp_kses(
+            $tpl,
+            [
                 'strong' => [],
             ]
         );

@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class AgentFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Agent', 'codepress-admin-columns');

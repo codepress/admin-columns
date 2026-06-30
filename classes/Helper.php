@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 use AC;
@@ -18,28 +20,20 @@ use InvalidArgumentException;
  * @property Helper\User     $user
  * @property Helper\Icon     $icon
  * @property Helper\Html     $html
- * @property Helper\Media    $media
  * @property Helper\Network  $network
- * @property Helper\File     $file
  */
 final class Helper
 {
-
-    public static function create(): self
-    {
-        return new self();
-    }
-
     public function __get(string $helper)
     {
         switch ($helper) {
-            case 'string' :
+            case 'string':
                 return new AC\Helper\Strings();
 
-            case 'array' :
+            case 'array':
                 return new AC\Helper\Arrays();
 
-            default :
+            default:
                 $class = 'AC\Helper\\' . ucfirst($helper);
 
                 if (class_exists($class)) {

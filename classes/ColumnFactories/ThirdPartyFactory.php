@@ -10,12 +10,11 @@ use AC\Type\ColumnFactoryDefinition;
 
 final class ThirdPartyFactory extends BaseFactory
 {
-
     protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
         $collection = new ColumnFactoryDefinitionCollection();
 
-        $factory_classes = apply_filters('ac/column/types', [], $table_screen, $this->container);
+        $factory_classes = (array)apply_filters('ac/column/types', [], $table_screen, $this->container);
 
         /**
          * @deprecated 7.0.10
@@ -38,7 +37,8 @@ final class ThirdPartyFactory extends BaseFactory
 
             $collection->add(
                 new ColumnFactoryDefinition(
-                    $factory, $props
+                    $factory,
+                    $props
                 )
             );
         }

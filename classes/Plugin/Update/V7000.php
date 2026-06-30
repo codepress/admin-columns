@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin\Update;
 
 use AC\Helper;
@@ -10,7 +12,6 @@ use AC\Transient;
 
 class V7000 extends Update
 {
-
     public const PROGRESS_KEY = 'ac_update_progress_v7000';
 
     private int $next_step;
@@ -29,14 +30,14 @@ class V7000 extends Update
     public function apply_update(): void
     {
         // just in case we need a bit of extra time to execute our upgrade script
-        $max_exec = (int) ini_get('max_execution_time');
+        $max_exec = (int)ini_get('max_execution_time');
         if ($max_exec > 0 && $max_exec < 120) {
             @set_time_limit(120);
         }
 
         // Apply update in chunks to minimize the impact of a timeout.
         switch ($this->next_step) {
-            case 1 :
+            case 1:
                 // Add 'type' column to the 'admin_columns' DB table
                 $this->update_database();
 
@@ -88,25 +89,25 @@ class V7000 extends Update
             "SELECT * FROM $wpdb->options WHERE option_name LIKE 'cpac_options_%__default' AND option_value != ''"
         );
 
-        if ( ! $results) {
+        if (! $results) {
             return;
         }
 
         foreach ($results as $item) {
-            if ( ! isset($item->option_name)) {
+            if (! isset($item->option_name, $item->option_value)) {
                 continue;
             }
 
             $list_key = Helper\Strings::create()->remove_prefix($item->option_name, 'cpac_options_');
             $list_key = Helper\Strings::create()->remove_suffix($list_key, '__default');
 
-            if ( ! $list_key) {
+            if (! $list_key) {
                 continue;
             }
 
             $data = unserialize($item->option_value, ['allowed_classes' => false]);
 
-            if ( ! $data || ! is_array($data)) {
+            if (! $data || ! is_array($data)) {
                 continue;
             }
 
@@ -136,9 +137,9 @@ class V7000 extends Update
             $wpdb->insert(
                 $wpdb->options,
                 [
-                    'option_name' => $option_name,
+                    'option_name'  => $option_name,
                     'option_value' => $updated ? serialize($updated) : '',
-                    'autoload' => 'off',
+                    'autoload'     => 'off',
                 ]
             );
         }
@@ -155,20 +156,20 @@ class V7000 extends Update
 
         $views = $wpdb->get_results("SELECT id, list_id, columns FROM {$wpdb->prefix}admin_columns");
 
-        if ( ! $views) {
+        if (! $views) {
             return;
         }
 
         $updates = [];
 
         foreach ($views as $view) {
-            if ( ! $view->columns) {
+            if (! $view->columns) {
                 continue;
             }
 
             $columns = unserialize($view->columns, ['allowed_classes' => false]);
 
-            if ( ! $columns || ! is_array($columns)) {
+            if (! $columns || ! is_array($columns)) {
                 continue;
             }
 
@@ -176,7 +177,7 @@ class V7000 extends Update
 
             foreach ($columns as $i => $column) {
                 // invalid data
-                if ( ! is_array($column) || ! $column) {
+                if (! is_array($column) || ! $column) {
                     continue;
                 }
 
@@ -202,7 +203,7 @@ class V7000 extends Update
 
     private function modify_column_options(array $column): ?array
     {
-        if ( ! isset($column['type'])) {
+        if (! isset($column['type'])) {
             return null;
         }
 
@@ -214,7 +215,7 @@ class V7000 extends Update
         }
 
         // The column setting 'character_limit' has been renamed to 'excerpt_length'
-        if ( ! empty($column['character_limit'])) {
+        if (! empty($column['character_limit'])) {
             $column['excerpt_length'] = $column['character_limit'];
             unset($column['character_limit']);
 

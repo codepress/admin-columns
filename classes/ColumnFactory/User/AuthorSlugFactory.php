@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class AuthorSlugFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Author Slug', 'codepress-admin-columns');

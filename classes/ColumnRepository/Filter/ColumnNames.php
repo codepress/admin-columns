@@ -11,7 +11,6 @@ use AC\ColumnRepository\Filter;
 
 class ColumnNames implements Filter
 {
-
     private array $column_names;
 
     public function __construct(array $column_names)

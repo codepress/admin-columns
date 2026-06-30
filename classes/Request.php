@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 use AC\Request\Parameters;
 
 class Request
 {
-
     public const METHOD_POST = 'POST';
     public const METHOD_GET = 'GET';
 

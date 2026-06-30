@@ -80,16 +80,15 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
     auto_init_show_more();
 
     // Tooltip setup
-    document.querySelectorAll('.cpac_use_icons').forEach((el: HTMLElement) => {
-        el?.parentElement?.querySelectorAll('.row-actions a').forEach((el: HTMLElement) => {
+    document.querySelectorAll<HTMLElement>('.cpac_use_icons').forEach((el) => {
+        el?.parentElement?.querySelectorAll<HTMLElement>('.row-actions a').forEach((el) => {
             new Tooltip(el, el.innerText);
         });
     });
 
     if( tableConfig.show_edit_columns ){
         const editColumnsButtons = ActionButton
-            .createWithMarkup( 'edit-columns', i18n.edit_columns );
-        editColumnsButtons.getElement().setAttribute('href',tableConfig.edit_columns_url);
+            .createLink( 'edit-columns', i18n.edit_columns, tableConfig.edit_columns_url );
         event.table.Actions?.addButton( editColumnsButtons,0 )
     }
 
@@ -109,10 +108,8 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
         }
     );
 
-    event.table.Cells.getAll().forEach(cell => {
-        cell.events.addListener('setValue', () => {
-            auto_init_show_more();
-        });
+    event.table.getElement().addEventListener('AC_Cell_SetValue', () => {
+        auto_init_show_more();
     });
 
     // Modal creation

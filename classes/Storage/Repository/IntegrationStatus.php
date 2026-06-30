@@ -8,7 +8,6 @@ use AC\Settings\GeneralOption;
 
 class IntegrationStatus
 {
-
     private GeneralOption $storage;
 
     public function __construct(GeneralOption $storage)

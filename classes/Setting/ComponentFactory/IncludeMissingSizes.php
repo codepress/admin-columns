@@ -10,7 +10,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class IncludeMissingSizes extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Include missing sizes?', 'codepress-admin-columns');

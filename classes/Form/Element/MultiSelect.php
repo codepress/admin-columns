@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Form\Element;
 
 class MultiSelect extends Select
 {
-
     public function __construct(string $name, array $options = [])
     {
         parent::__construct($name, $options);

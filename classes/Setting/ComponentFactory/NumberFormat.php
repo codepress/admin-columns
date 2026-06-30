@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Setting\ComponentFactory;
 
 use AC;
@@ -18,7 +20,6 @@ use AC\Setting\Control\OptionCollection;
 
 class NumberFormat extends BaseComponentFactory
 {
-
     private const NAME = 'number_format';
 
     protected function get_label(Config $config): ?string

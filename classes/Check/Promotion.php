@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Check;
 
 use AC\Ajax;
@@ -13,7 +15,6 @@ use AC\Type\Promo;
 
 final class Promotion implements Registerable
 {
-
     private Promo $promo;
 
     private UserFactory $preferences_factory;
@@ -67,7 +68,7 @@ final class Promotion implements Registerable
 
     public function display(Screen $screen): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE) ||
+        if (! current_user_can(Capabilities::MANAGE) ||
              ! $this->is_promo_screen($screen) ||
              $this->get_preferences()->find('dismiss-notice')
         ) {

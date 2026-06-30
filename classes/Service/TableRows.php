@@ -11,7 +11,6 @@ use AC\TableScreen\TableRowsFactory\Aggregate;
 
 class TableRows implements Registerable
 {
-
     private Aggregate $factory;
 
     public function __construct(Aggregate $factory)

@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 interface DateOperators
 {
-
     public const FUTURE = 'future';
     public const PAST = 'past';
     public const TODAY = 'today';

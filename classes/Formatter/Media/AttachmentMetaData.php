@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class AttachmentMetaData implements Formatter
 {
-
     private string $key;
 
     public function __construct(string $key)
@@ -22,7 +21,7 @@ class AttachmentMetaData implements Formatter
     {
         $meta = (array)get_post_meta($value->get_id(), '_wp_attachment_metadata', true);
 
-        if ( ! array_key_exists($this->key, $meta)) {
+        if (! array_key_exists($this->key, $meta)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

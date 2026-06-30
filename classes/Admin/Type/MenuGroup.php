@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Admin\Type;
 
+use LogicException;
+
 class MenuGroup
 {
-
     private string $name;
 
     private string $label;
@@ -51,6 +52,10 @@ class MenuGroup
 
     public function get_icon(): string
     {
+        if (null === $this->icon) {
+            throw new LogicException('Empty icon');
+        }
+
         return $this->icon;
     }
 

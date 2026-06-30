@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Integration;
 
 use AC\Screen;
@@ -8,7 +10,6 @@ use AC\Type\Url\Site;
 
 final class Pods extends Integration
 {
-
     public function __construct()
     {
         parent::__construct(

@@ -18,7 +18,6 @@ use AC\Type\PostTypeSlug;
 
 class MenuFactory extends BaseColumnFactory
 {
-
     private PostTypeSlug $post_type;
 
     private LinkToMenu $link_to_menu_factory;

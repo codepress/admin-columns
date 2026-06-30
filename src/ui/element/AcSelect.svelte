@@ -42,7 +42,7 @@
 
 	<select bind:value on:change>
 		{#if placeholder}
-			<option hidden="hidden" disabled value="">{@html placeholder}</option>
+			<option hidden disabled value="">{@html placeholder}</option>
 		{/if}
 		<slot></slot>
 	</select>

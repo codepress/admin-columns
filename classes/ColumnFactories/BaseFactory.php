@@ -16,7 +16,6 @@ use AC\Type\TableScreenContext;
 
 abstract class BaseFactory implements ColumnFactoryCollectionFactory
 {
-
     protected Container $container;
 
     public function __construct(Container $container)

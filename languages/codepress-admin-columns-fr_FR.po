@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-01-18 15:51:59+0000\n"
+"PO-Revision-Date: 2026-06-17 10:43:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1624,23 +1624,23 @@ msgstr "Mettre à niveau vers Admin Columns Pro"
 #: classes/Admin/Asset/Columns.php:352 classes/Admin/Asset/Columns.php:472
 #: classes/Admin/Asset/Script/SettingsFactory.php:156
 msgid "See all Pro features"
-msgstr ""
+msgstr "Voir toutes les fonctionnalités Pro"
 
 #: classes/Admin/Banner/Context/Acf.php:86
 msgid "Exportable to CSV"
-msgstr ""
+msgstr "Exportable au format CSV"
 
 #: classes/Admin/Asset/Script/SettingsFactory.php:78
 msgid "Multiple table views"
-msgstr ""
+msgstr "Multiples vues d’ensemble"
 
 #: classes/Admin/Asset/Script/SettingsFactory.php:65
 msgid "Sticky headers"
-msgstr ""
+msgstr "Entêtes épinglés"
 
 #: classes/Admin/Asset/Script/SettingsFactory.php:61
 msgid "Sortable columns"
-msgstr ""
+msgstr "Colonnes triables"
 
 #: classes/Admin/Asset/Columns.php:518
 msgid "Pre-applied Filters"
@@ -1922,11 +1922,11 @@ msgstr "Formaté"
 
 #: classes/Setting/ComponentFactory/NumberFormat.php:63
 msgid "Thousands Separator"
-msgstr ""
+msgstr "Séparateur de milliers"
 
 #: classes/Setting/ComponentFactory/NumberFormat.php:54
 msgid "Decimal Point"
-msgstr ""
+msgstr "Séparateur des décimales"
 
 #: classes/Setting/ComponentFactory/NumberFormat.php:48
 msgid "Decimals"
@@ -1990,7 +1990,7 @@ msgstr "Exportation"
 
 #: classes/Admin/Asset/Columns.php:333
 msgid "Upgrade to Pro and take Admin Columns to the next level."
-msgstr ""
+msgstr "Passez à la version PRO et amenez Admin Columns au niveau supérieur :"
 
 #: classes/Setting/ComponentFactory/DateFormat/Time.php:22
 msgid "WordPress Time Format"
@@ -2404,7 +2404,7 @@ msgstr "Aide"
 
 #: classes/Formatter/Post/DiscussionStatus.php:29
 msgid "Closed"
-msgstr ""
+msgstr "Fermé"
 
 #: classes/Integration/Types.php:16
 msgid "Toolset Types"
@@ -2502,7 +2502,7 @@ msgstr "Taux"
 
 #: classes/Admin/Asset/Columns.php:588
 msgid "Forum"
-msgstr ""
+msgstr "Forum"
 
 #: classes/Admin/Asset/Columns.php:587
 msgid "Docs"
@@ -2510,7 +2510,7 @@ msgstr "Docs"
 
 #: classes/Acf/Service/FieldSettings.php:334
 msgid "Get Admin Columns Pro →"
-msgstr ""
+msgstr "Obtenir Admin Columns Pro →"
 
 #: classes/Admin/MenuFactory.php:44
 msgid "Columns"
@@ -2548,7 +2548,7 @@ msgstr "Réglages généraux"
 
 #: classes/Acf/Service/FieldSettings.php:165
 msgid "Learn more →"
-msgstr ""
+msgstr "En savoir plus →"
 
 #: classes/ColumnFactory/User/UserNameFactory.php:17
 msgid "Username"
@@ -2699,7 +2699,7 @@ msgstr "Taille de prévisualisation"
 
 #: templates/tooltip/serialized.php:8
 msgid "Example"
-msgstr ""
+msgstr "Exemple"
 
 #: classes/Acf/Service/DateSaveFormat.php:28
 msgid "Date Format"

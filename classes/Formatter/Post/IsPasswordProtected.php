@@ -5,28 +5,27 @@ declare(strict_types=1);
 namespace AC\Formatter\Post;
 
 use AC\Formatter;
-use AC\Helper;
+use AC\Helper\Dashicon;
 use AC\Type\Value;
 
 class IsPasswordProtected implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $password = get_post_field('post_password', $value->get_id(), 'raw');
 
-        if ( ! $password) {
+        if (! $password) {
             return new Value(null);
         }
 
         $tooltip = sprintf(
             '<strong>%s</strong>: %s',
             __('Password', 'codepress-admin-columns'),
-            $password
+            (string) $password
         );
 
         return $value->with_value(
-            Helper\Icon::create()->yes($tooltip)
+            Dashicon::yes($tooltip)->render()
         );
     }
 

@@ -12,7 +12,6 @@ use AC\Response\Json;
 
 class Integrations implements RequestAjaxHandler
 {
-
     private IntegrationRepository $integrations;
 
     public function __construct(IntegrationRepository $integrations)
@@ -22,11 +21,9 @@ class Integrations implements RequestAjaxHandler
 
     public function handle(): void
     {
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
-
-        $response = new Json();
 
         $integrations = [];
 
@@ -38,9 +35,9 @@ class Integrations implements RequestAjaxHandler
             $integrations[] = $this->encode($integration, false);
         }
 
-        $response->set_parameter('integrations', $integrations);
-
-        $response->success();
+        (new Json())
+            ->with_parameter('integrations', $integrations)
+            ->success();
     }
 
     private function encode(AC\Type\Integration $integration, bool $active): array

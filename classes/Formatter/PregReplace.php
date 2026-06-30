@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class PregReplace implements Formatter
 {
-
     private array $patterns = [];
 
     private array $replacements = [];

@@ -10,7 +10,6 @@ use AC\Type\TableIdCollection;
 
 class EditorFavorites
 {
-
     private UserOption $storage;
 
     public function __construct()

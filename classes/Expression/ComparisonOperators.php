@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 interface ComparisonOperators
 {
-
     public const GREATER_THAN = 'greater_than';
     public const GREATER_THAN_EQUAL = 'greater_than_equal';
     public const LESS_THAN = 'less_than';

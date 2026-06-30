@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Setting\ComponentFactory;
 
 use AC;
@@ -11,7 +13,6 @@ use AC\Setting\Control\OptionCollection;
 
 class TermProperty extends BaseComponentFactory
 {
-
     private const NAME = 'term_property';
 
     protected function get_label(Config $config): ?string

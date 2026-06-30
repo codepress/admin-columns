@@ -6,25 +6,24 @@ namespace AC\Formatter\Comment;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
-use AC\Helper\Date;
+use AC\Helper\WpDateFormat;
 use AC\Type\Value;
 use DateTimeZone;
 
 class LinkableCommentDate implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $timestamp = (int)$value->get_value();
 
-        if ( ! $timestamp) {
+        if (! $timestamp) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $date = wp_date(Date::create()->get_date_format(), $timestamp, new DateTimeZone('UTC')) ?: '';
-        $time = wp_date(Date::create()->get_time_format(), $timestamp, new DateTimeZone('UTC')) ?: '';
+        $date = wp_date(WpDateFormat::date(), $timestamp, new DateTimeZone('UTC')) ?: '';
+        $time = wp_date(WpDateFormat::time(), $timestamp, new DateTimeZone('UTC')) ?: '';
 
-        if ( ! $date || ! $time) {
+        if (! $date || ! $time) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

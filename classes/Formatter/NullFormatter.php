@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class NullFormatter implements Formatter
 {
-
     public function format(Value $value): Value
     {
         return new Value(null);

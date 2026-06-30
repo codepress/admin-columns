@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ThirdParty;
 
 use AC;
@@ -11,7 +13,6 @@ use AC\Registerable;
  */
 class WPML implements Registerable
 {
-
     private Storage $storage;
 
     public function __construct(Storage $storage)
@@ -33,7 +34,7 @@ class WPML implements Registerable
 
     public function replace_flags(): void
     {
-        if ( ! class_exists('SitePress', false)) {
+        if (! class_exists('SitePress', false)) {
             return;
         }
 
@@ -41,7 +42,7 @@ class WPML implements Registerable
 
         $post_types = $settings['custom_posts_sync_option'] ?? [];
 
-        if ( ! $post_types) {
+        if (! $post_types) {
             return;
         }
 
@@ -66,7 +67,7 @@ class WPML implements Registerable
     // Create translatable column labels
     public function register_column_labels(): void
     {
-        if ( ! $this->is_translation_page()) {
+        if (! $this->is_translation_page()) {
             return;
         }
 
@@ -77,7 +78,7 @@ class WPML implements Registerable
             foreach ($list_screen->get_columns() as $column) {
                 $setting = $column->get_setting('label');
 
-                if ( ! $setting) {
+                if (! $setting) {
                     continue;
                 }
 

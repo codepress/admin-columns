@@ -11,7 +11,6 @@ use AC\Type\ValueCollection;
 
 class ImageUrlsFromContent implements AC\Formatter
 {
-
     private AC\Column\Context $context;
 
     public function __construct(AC\Column\Context $context)
@@ -19,7 +18,7 @@ class ImageUrlsFromContent implements AC\Formatter
         $this->context = $context;
     }
 
-    public function format(Value $value)
+    public function format(Value $value): ValueCollection
     {
         $string = (string)apply_filters(
             'ac/column/images/content',
@@ -28,7 +27,7 @@ class ImageUrlsFromContent implements AC\Formatter
             $this->context
         );
 
-        $urls = array_unique(Helper\Image::create()->get_image_urls_from_string($string));
+        $urls = array_unique(Helper\Strings::create()->get_image_urls_from_string($string));
 
         if (empty($urls)) {
             throw AC\Exception\ValueNotFoundException::from_id($value->get_id());

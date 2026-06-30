@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 use WP_Comments_List_Table;
@@ -12,7 +14,6 @@ use WP_Users_List_Table;
 
 class WpListTableFactory
 {
-
     public static function create_post_table(string $screen_id): WP_Posts_List_Table
     {
         require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');

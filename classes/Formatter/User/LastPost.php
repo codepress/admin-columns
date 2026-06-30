@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class LastPost implements Formatter
 {
-
     private ?array $post_type;
 
     private ?array $post_stati;
@@ -25,7 +24,7 @@ class LastPost implements Formatter
     {
         $post_id = $this->get_last_post((int)$value->get_id());
 
-        if ( ! $post_id) {
+        if (! $post_id) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

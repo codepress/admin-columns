@@ -8,7 +8,6 @@ use RuntimeException;
 
 final class ValueNotFoundException extends RuntimeException
 {
-
     public static function from_id($id): self
     {
         $message = is_scalar($id)

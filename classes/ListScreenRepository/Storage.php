@@ -15,7 +15,6 @@ use LogicException;
 
 final class Storage extends Base implements ListScreenRepositoryWritable
 {
-
     /**
      * @var Storage\ListScreenRepository[]
      */
@@ -32,7 +31,7 @@ final class Storage extends Base implements ListScreenRepositoryWritable
     public function set_repositories(array $repositories): void
     {
         foreach ($repositories as $repository) {
-            if ( ! $repository instanceof ListScreenRepository\Storage\ListScreenRepository) {
+            if (! $repository instanceof ListScreenRepository\Storage\ListScreenRepository) {
                 throw new LogicException('Expected a Storage\ListScreenRepository object.');
             }
         }
@@ -58,7 +57,7 @@ final class Storage extends Base implements ListScreenRepositoryWritable
 
     public function get_repository($key): Storage\ListScreenRepository
     {
-        if ( ! $this->has_repository($key)) {
+        if (! $this->has_repository($key)) {
             throw new LogicException(sprintf('Repository with key %s not found.', $key));
         }
 
@@ -86,7 +85,7 @@ final class Storage extends Base implements ListScreenRepositoryWritable
 
         foreach ($this->repositories as $repository) {
             foreach ($repository->get_list_screen_repository()->find_all() as $list_screen) {
-                if ( ! $collection->contains($list_screen)) {
+                if (! $collection->contains($list_screen)) {
                     $list_screen->set_read_only(! $repository->is_writable());
 
                     $collection->add($list_screen);
@@ -110,7 +109,7 @@ final class Storage extends Base implements ListScreenRepositoryWritable
                 ->find_all_by_table_id($table_id, null, $status);
 
             foreach ($list_screens as $list_screen) {
-                if ( ! $collection->contains($list_screen)) {
+                if (! $collection->contains($list_screen)) {
                     $list_screen->set_read_only(! $repository->is_writable());
 
                     $collection->add($list_screen);
@@ -163,7 +162,11 @@ final class Storage extends Base implements ListScreenRepositoryWritable
             }
 
             if ($match && $repository->is_writable()) {
-                $repositories[] = $repository->get_list_screen_repository();
+                $list_screen_repository = $repository->get_list_screen_repository();
+
+                if ($list_screen_repository instanceof ListScreenRepositoryWritable) {
+                    $repositories[] = $list_screen_repository;
+                }
             }
         }
 

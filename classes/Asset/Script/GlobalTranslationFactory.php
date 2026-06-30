@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Asset\Script;
 
 use AC\AdminColumns;
@@ -8,7 +10,6 @@ use AC\Asset\Script\Localize\Translation;
 
 class GlobalTranslationFactory
 {
-
     public const HANDLE = 'ac-global-translations';
 
     private AdminColumns $plugin;

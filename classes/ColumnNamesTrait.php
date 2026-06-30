@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 trait ColumnNamesTrait
 {
-
     public function get_column_names_from_collection(ColumnIterator $columns): array
     {
         return array_map(static function (Column $column) {

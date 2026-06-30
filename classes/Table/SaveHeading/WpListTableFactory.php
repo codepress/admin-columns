@@ -8,7 +8,6 @@ use AC\TableScreen;
 
 class WpListTableFactory extends ScreenColumnsFactory
 {
-
     public function can_create(TableScreen $table_screen): bool
     {
         return $table_screen instanceof TableScreen\Post ||

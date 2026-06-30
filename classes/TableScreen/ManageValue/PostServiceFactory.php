@@ -13,7 +13,6 @@ use InvalidArgumentException;
 
 class PostServiceFactory implements ManageValueServiceFactory
 {
-
     public function can_create(TableScreen $table_screen): bool
     {
         return $table_screen instanceof PostType;
@@ -24,7 +23,7 @@ class PostServiceFactory implements ManageValueServiceFactory
         RenderFactory $factory,
         int $priority = 100
     ): ManageValueService {
-        if ( ! $table_screen instanceof PostType) {
+        if (! $table_screen instanceof PostType) {
             throw new InvalidArgumentException('Invalid table screen.');
         }
 

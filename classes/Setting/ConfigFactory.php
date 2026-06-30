@@ -8,7 +8,6 @@ use AC\Column;
 
 class ConfigFactory
 {
-
     public function create(Column $column): Config
     {
         $data = [];

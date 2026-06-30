@@ -11,7 +11,6 @@ use DateTimeZone;
 
 trait DateTrait
 {
-
     protected ?string $format;
 
     protected ?DateTimeZone $timezone;

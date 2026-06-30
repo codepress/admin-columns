@@ -9,7 +9,6 @@ use AC\Plugin\Version;
 
 final class AdminColumns extends Plugin
 {
-
     public function __construct(string $file, Version $version)
     {
         parent::__construct(

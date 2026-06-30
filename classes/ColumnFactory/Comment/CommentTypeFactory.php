@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class CommentTypeFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Type', 'codepress-admin-columns');

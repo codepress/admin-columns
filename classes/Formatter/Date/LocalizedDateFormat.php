@@ -11,7 +11,6 @@ use DateTimeZone;
 
 final class LocalizedDateFormat extends DateObject
 {
-
     private string $output_format;
 
     public function __construct(string $output_format, string $source_format)
@@ -25,7 +24,7 @@ final class LocalizedDateFormat extends DateObject
     {
         $date = parent::format($value)->get_value();
 
-        if ( ! $date instanceof DateTime) {
+        if (! $date instanceof DateTime) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

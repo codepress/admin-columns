@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Service;
 
 use AC\Plugin;
@@ -7,7 +9,6 @@ use AC\Registerable;
 
 final class Setup implements Registerable
 {
-
     public const PARAM_FORCE_INSTALL = 'ac-force-install';
 
     private Plugin\Setup $setup;
@@ -28,7 +29,7 @@ final class Setup implements Registerable
             return;
         }
 
-        if ( ! is_blog_installed()) {
+        if (! is_blog_installed()) {
             return;
         }
 

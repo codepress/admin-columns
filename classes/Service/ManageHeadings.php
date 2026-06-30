@@ -12,7 +12,6 @@ use AC\TableScreen\ManageHeadingFactory;
 
 class ManageHeadings implements Registerable
 {
-
     private static array $factories = [];
 
     public static function add(ManageHeadingFactory $factory): void
@@ -64,13 +63,13 @@ class ManageHeadings implements Registerable
     {
         $factory = $this->get_factory($table_screen);
 
-        if ( ! $factory || ! $factory->can_create($table_screen)) {
+        if (! $factory || ! $factory->can_create($table_screen)) {
             return;
         }
 
         $headings = $this->get_column_headings($list_screen);
 
-        if ( ! $headings) {
+        if (! $headings) {
             return;
         }
 

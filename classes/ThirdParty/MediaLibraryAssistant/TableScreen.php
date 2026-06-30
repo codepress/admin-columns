@@ -12,10 +12,12 @@ use AC\Type\TableId;
 use AC\Type\Url;
 use MLACore;
 
-class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC\TableScreen\MetaType, AC\PostType,
-                                                    AC\TableScreen\TotalItems
+class TableScreen extends AC\TableScreen implements
+    AC\TableScreen\ListTable,
+    AC\TableScreen\MetaType,
+    AC\PostType,
+    AC\TableScreen\TotalItems
 {
-
     public function __construct()
     {
         parent::__construct(
@@ -41,7 +43,7 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
 
     public function get_meta_type(): MetaType
     {
-        return new MetaType(MetaType::POST);
+        return MetaType::create_post_meta();
     }
 
     public function get_total_items(): int

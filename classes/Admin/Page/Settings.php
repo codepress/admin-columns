@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\Page;
 
 use AC\Admin\Asset\Script\SettingsFactory;
@@ -10,7 +12,6 @@ use AC\Renderable;
 
 class Settings implements Enqueueables, Renderable, RenderableHead
 {
-
     public const NAME = 'settings';
 
     private Renderable $head;

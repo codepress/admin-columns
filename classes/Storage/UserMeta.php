@@ -6,7 +6,6 @@ namespace AC\Storage;
 
 class UserMeta implements UserData
 {
-
     protected int $user_id;
 
     protected string $key;

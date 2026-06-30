@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Formatter;
 
 use AC;
@@ -7,7 +9,6 @@ use AC\Type\Value;
 
 class FallBack implements AC\Formatter
 {
-
     private string $fallback_value;
 
     public function __construct(string $fallback_value)

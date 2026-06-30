@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Type;
 
 use AC\Collection;
 
 class PromoCollection extends Collection
 {
-
     public function __construct(array $promos = [])
     {
         array_map([$this, 'add'], $promos);

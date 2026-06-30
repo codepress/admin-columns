@@ -8,7 +8,6 @@ use AC\Collection\ColumnFactories;
 
 interface ColumnFactoryCollectionFactory
 {
-
     public function create(TableScreen $table_screen): ColumnFactories;
 
 }

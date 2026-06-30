@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class CommentCount implements Formatter
 {
-
     private string $comment_status;
 
     /**
@@ -26,7 +25,7 @@ class CommentCount implements Formatter
         $count = wp_count_comments($value->get_id())->{$this->comment_status} ?? null;
 
         if (null === $count) {
-            throw new ValueNotFoundException();
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         return $value->with_value(

@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 class IntegerComparisonSpecification extends ComparisonSpecification implements TypeSpecification
 {
-
     use TypeTrait;
 
     public function __construct(string $operator, int $fact)

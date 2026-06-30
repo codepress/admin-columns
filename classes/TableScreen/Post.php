@@ -17,7 +17,6 @@ use WP_Post_Type;
 
 class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaType, TotalItems
 {
-
     use AC\ListTable\TotalItemsTrait;
 
     protected WP_Post_Type $post_type;
@@ -49,7 +48,7 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
 
     public function get_meta_type(): MetaType
     {
-        return new MetaType(MetaType::POST);
+        return MetaType::create_post_meta();
     }
 
 }

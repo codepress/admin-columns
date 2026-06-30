@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Formatter\Media;
 
 use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
-use AC\Helper\Date;
+use AC\Helper\WpDateFormat;
 use AC\Type\Value;
 use DateTimeZone;
 
 class ExifData implements Formatter
 {
-
     private string $exif_key;
 
     public function __construct(string $exif_key)
@@ -30,19 +31,19 @@ class ExifData implements Formatter
             case 'created_timestamp' :
                 $timestamp = (int)$exif_value;
 
-                if ( ! $timestamp) {
+                if (! $timestamp) {
                     throw ValueNotFoundException::from_id($value->get_id());
                 }
 
                 return $value->with_value(
                     wp_date(
-                        Date::create()->get_date_time_format(),
+                        WpDateFormat::date_time(),
                         $timestamp,
                         new DateTimeZone('UTC')
                     )
                 );
             case 'keywords' :
-                if ( ! is_array($exif_value)) {
+                if (! is_array($exif_value)) {
                     throw ValueNotFoundException::from_id($value->get_id());
                 }
 

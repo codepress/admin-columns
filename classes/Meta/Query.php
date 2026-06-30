@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Meta;
 
+use AC\MetaType;
+use InvalidArgumentException;
 use WP_Meta_Query;
 
 class Query
 {
+    private WP_Meta_Query $query;
 
-    private ?WP_Meta_Query $query = null;
-
-    private string $sql;
+    private string $sql = '';
 
     private array $select = [];
 
@@ -29,9 +32,57 @@ class Query
 
     private int $limit = 0;
 
-    public function __construct(string $meta_type)
+    private function __construct(WP_Meta_Query $query)
     {
-        $this->set_query($meta_type);
+        $this->query = $query;
+    }
+
+    public static function create_post(): self
+    {
+        return self::build(MetaType::POST, 'posts', 'ID');
+    }
+
+    public static function create_user(): self
+    {
+        return self::build(MetaType::USER, 'users', 'ID');
+    }
+
+    public static function create_comment(): self
+    {
+        return self::build(MetaType::COMMENT, 'comments', 'comment_ID');
+    }
+
+    public static function create_term(): self
+    {
+        return self::build(MetaType::TERM, 'terms', 'term_id');
+    }
+
+    public static function from_meta_type(MetaType $meta_type): self
+    {
+        switch ((string)$meta_type) {
+            case MetaType::POST:
+                return self::create_post();
+            case MetaType::USER:
+                return self::create_user();
+            case MetaType::COMMENT:
+                return self::create_comment();
+            case MetaType::TERM:
+                return self::create_term();
+            default:
+                throw new InvalidArgumentException(
+                    sprintf('Unsupported meta type "%s".', $meta_type)
+                );
+        }
+    }
+
+    private static function build(string $type, string $table, string $id_column): self
+    {
+        global $wpdb;
+
+        $query = new WP_Meta_Query();
+        $query->get_sql($type, $wpdb->{$table}, $id_column);
+
+        return new self($query);
     }
 
     /**
@@ -90,7 +141,7 @@ class Query
     public function join_where(string $field, ?string $operator = null, $value = null, string $boolean = 'AND'): self
     {
         // set default join
-        if ( ! $this->join) {
+        if (! $this->join) {
             $this->join();
         }
 
@@ -147,7 +198,7 @@ class Query
             'nested'   => false,
             'boolean'  => strtoupper($boolean),
             'field'    => $field,
-            'operator' => strtoupper($operator),
+            'operator' => strtoupper((string)$operator),
             'value'    => $value,
         ];
 
@@ -231,7 +282,9 @@ class Query
     {
         switch ($field) {
             case 'id':
-                $field = $this->join ? 'pt.' . $this->query->primary_id_column : 'mt.' . $this->query->meta_id_column;
+                $query = $this->get_query();
+
+                $field = $this->join ? 'pt.' . $query->primary_id_column : 'mt.' . $query->meta_id_column;
 
                 break;
             case 'meta_key':
@@ -267,7 +320,7 @@ class Query
                     default:
                         $valid_raw = ['IS NULL', 'IS NOT NULL'];
 
-                        if ( ! in_array($clause['value'], $valid_raw)) {
+                        if (! in_array($clause['value'], $valid_raw)) {
                             $clause['value'] = $wpdb->prepare('%s', $clause['value']);
                         }
                 }
@@ -284,10 +337,6 @@ class Query
     public function get(): array
     {
         global $wpdb;
-
-        if ( ! $this->query) {
-            return [];
-        }
 
         // parse SELECT
         $select = 'SELECT ';
@@ -319,17 +368,19 @@ class Query
         // parse FROM
         $from_tpl = ' FROM %s AS %s';
 
-        $from = sprintf($from_tpl, $this->query->meta_table, 'mt');
+        $query = $this->get_query();
+
+        $from = sprintf($from_tpl, $query->meta_table, 'mt');
         $join = '';
 
         if ($this->join) {
-            $from = sprintf($from_tpl, $this->query->primary_table, 'pt');
+            $from = sprintf($from_tpl, $query->primary_table, 'pt');
             $join = sprintf(
                 ' %s JOIN %s AS mt ON mt.%s = pt.%s %s',
                 $this->join,
-                $this->query->meta_table,
-                $this->query->meta_id_column,
-                $this->query->primary_id_column,
+                $query->meta_table,
+                $query->meta_id_column,
+                $query->primary_id_column,
                 $this->parse_where('', $this->join_where)
             );
         }
@@ -347,13 +398,13 @@ class Query
         // parse ORDER BY
         $order_by = '';
 
-        if ( ! empty($this->order_by)) {
+        if (! empty($this->order_by)) {
             $order_by_clauses = [];
 
             foreach ($this->order_by as $order_by_clause) {
                 $order_by_clauses[] = $this->parse_field(
-                        $order_by_clause['order_by']
-                    ) . ' ' . $order_by_clause['order'];
+                    $order_by_clause['order_by']
+                ) . ' ' . $order_by_clause['order'];
             }
 
             $order_by = ' ORDER BY ' . implode(', ', $order_by_clauses);
@@ -372,7 +423,7 @@ class Query
 
         $results = $wpdb->get_results($sql);
 
-        if ( ! is_array($results)) {
+        if (! is_array($results)) {
             return [];
         }
 
@@ -395,8 +446,8 @@ class Query
      */
     public function get_sql(): string
     {
-        $sql = preg_replace('/ +/', ' ', $this->sql);
-        $sql = preg_replace(
+        $sql = (string) preg_replace('/ +/', ' ', $this->sql);
+        $sql = (string) preg_replace(
             '/(SELECT|FROM|LEFT|INNER|WHERE|(AND|OR) \(|(AND|OR) (?!\()|ORDER BY|GROUP BY|LIMIT)/',
             "\n$1",
             $sql
@@ -413,40 +464,6 @@ class Query
     public function get_query(): WP_Meta_Query
     {
         return $this->query;
-    }
-
-    private function set_query(string $type): void
-    {
-        global $wpdb;
-
-        switch ($type) {
-            case 'user':
-                $table = $wpdb->users;
-                $id = 'ID';
-
-                break;
-            case 'comment':
-                $table = $wpdb->comments;
-                $id = 'comment_ID';
-
-                break;
-            case 'post':
-                $table = $wpdb->posts;
-                $id = 'ID';
-
-                break;
-            case 'term':
-                $table = $wpdb->terms;
-                $id = 'term_id';
-
-                break;
-
-            default:
-                return;
-        }
-
-        $this->query = new WP_Meta_Query();
-        $this->query->get_sql($type, $table, $id);
     }
 
 }

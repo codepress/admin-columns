@@ -9,7 +9,6 @@ use Iterator;
 
 abstract class Collection implements Iterator, Countable
 {
-
     protected int $index = 0;
 
     protected array $data = [];
@@ -46,6 +45,15 @@ abstract class Collection implements Iterator, Countable
     public function first()
     {
         $key = array_key_first($this->data);
+
+        return $key !== null
+            ? $this->data[$key]
+            : null;
+    }
+
+    public function last()
+    {
+        $key = array_key_last($this->data);
 
         return $key !== null
             ? $this->data[$key]

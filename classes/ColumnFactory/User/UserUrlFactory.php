@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class UserUrlFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Website', 'codepress-admin-columns');

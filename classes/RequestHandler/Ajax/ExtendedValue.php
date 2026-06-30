@@ -15,7 +15,6 @@ use AC\Value\ExtendedValueRegistry;
 
 class ExtendedValue implements RequestAjaxHandler
 {
-
     private Storage $repository;
 
     private ExtendedValueRegistry $views;
@@ -31,7 +30,7 @@ class ExtendedValue implements RequestAjaxHandler
         $request = new Request();
         $response = new Json();
 
-        if ( ! NonceFactory::create_ajax()->verify($request)) {
+        if (! NonceFactory::create_ajax()->verify($request)) {
             $response->error();
         }
 
@@ -41,27 +40,27 @@ class ExtendedValue implements RequestAjaxHandler
         $view = (string)$request->filter('view', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $params = (array)$request->get('params', []);
 
-        if ( ! $id) {
+        if (! $id) {
             wp_send_json_error(__('Invalid item ID.', 'codepress-admin-columns'), 400);
         }
 
-        if ( ! ListScreenId::is_valid_id($list_id)) {
+        if (! ListScreenId::is_valid_id($list_id)) {
             wp_send_json_error(__('Invalid list ID.', 'codepress-admin-columns'), 400);
         }
 
         $list_screen = $this->repository->find(new ListScreenId($list_id));
 
-        if ( ! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
+        if (! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
             wp_send_json_error(__('Invalid list screen.', 'codepress-admin-columns'), 400);
         }
 
         $column = $list_screen->get_column(new ColumnId($column_name));
 
-        if ( ! $column) {
+        if (! $column) {
             wp_send_json_error(__('Invalid column.', 'codepress-admin-columns'), 400);
         }
 
-        if ( ! $this->views->has_view($view)) {
+        if (! $this->views->has_view($view)) {
             wp_send_json_error(__('Invalid view.', 'codepress-admin-columns'), 400);
         }
 

@@ -1,13 +1,16 @@
 <?php
+
+declare(strict_types=1);
+
 /*
 Plugin Name: Admin Columns
-Version: 7.0.20
+Version: 7.1
 Description: Add, reorder, and customize columns in your WordPress admin table for any post type, users, and media - no code required.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
 Plugin URI: https://www.admincolumns.com
 Requires PHP: 7.4
-Requires at least: 5.9
+Requires at least: 6.2
 Text Domain: codepress-admin-columns
 Domain Path: /languages
 License: GPL v3
@@ -32,16 +35,16 @@ use AC\DI\Container;
 use AC\Loader;
 use AC\Vendor\DI\ContainerBuilder;
 
-if ( ! defined('ABSPATH')) {
+if (! defined('ABSPATH')) {
     exit;
 }
 
-if ( ! is_admin()) {
+if (! is_admin()) {
     return;
 }
 
 define('AC_FILE', __FILE__);
-define('AC_VERSION', '7.0.20');
+define('AC_VERSION', '7.1');
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
@@ -49,7 +52,7 @@ add_action('after_setup_theme', static function () {
     require __DIR__ . '/vendor/autoload.php';
     require __DIR__ . '/api.php';
 
-    if ( ! defined('ACP_VERSION')) {
+    if (! defined('ACP_VERSION')) {
         $container = new Container(
             (new ContainerBuilder())
                 ->addDefinitions(require __DIR__ . '/settings/container-definitions.php')

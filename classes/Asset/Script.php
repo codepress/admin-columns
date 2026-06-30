@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Asset;
 
 use AC\Asset\Script\Inline\Position;
 
 class Script extends Enqueueable
 {
-
     protected bool $in_footer;
 
     protected array $templates = [];
@@ -34,7 +35,7 @@ class Script extends Enqueueable
 
     public function register(): void
     {
-        if ( ! $this->location instanceof Location) {
+        if (! $this->location instanceof Location) {
             return;
         }
 
@@ -57,7 +58,7 @@ class Script extends Enqueueable
             return;
         }
 
-        if ( ! $this->is_registered()) {
+        if (! $this->is_registered()) {
             $this->register();
         }
 
@@ -76,7 +77,7 @@ class Script extends Enqueueable
 
     public function localize(string $name, Script\Localize\Translation $translation): self
     {
-        if ( ! $this->is_registered()) {
+        if (! $this->is_registered()) {
             $this->register();
         }
 
@@ -87,7 +88,7 @@ class Script extends Enqueueable
 
     public function add_inline(string $data, ?Position $position = null): self
     {
-        if ( ! $this->is_registered()) {
+        if (! $this->is_registered()) {
             $this->register();
         }
 

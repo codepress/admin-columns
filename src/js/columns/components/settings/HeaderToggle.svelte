@@ -4,7 +4,7 @@
     export let value: string = '';
     export let title: string;
     export let disabled: boolean = false
-	export let defaultValue: string;
+	export let defaultValue: string | undefined = undefined;
 
     const toggle = () => {
         if (disabled) {
@@ -15,7 +15,7 @@
 
     onMount( () => {
         if( value === '' ){
-         	value = defaultValue
+         	value = defaultValue ?? ''
 		}
 	})
 

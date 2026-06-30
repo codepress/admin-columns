@@ -11,10 +11,9 @@ use AC\Type\Url\UtmTags;
 
 class AcfNotice implements IntegrationNotice
 {
-
     public function is_active(Screen $screen): bool
     {
-        if ( ! Acf::is_active()) {
+        if (! Acf::is_active()) {
             return false;
         }
 

@@ -11,7 +11,6 @@ use AC\Setting\ComponentCollection;
 
 class BaseEncoder implements AC\Storage\Encoder
 {
-
     private Version $version;
 
     private ?ListScreen $list_screen = null;
@@ -21,6 +20,9 @@ class BaseEncoder implements AC\Storage\Encoder
         $this->version = $version;
     }
 
+    /**
+     * @return static
+     */
     public function set_list_screen(ListScreen $list_screen): self
     {
         $this->list_screen = $list_screen;
@@ -51,6 +53,10 @@ class BaseEncoder implements AC\Storage\Encoder
 
     protected function get_preferences(): array
     {
+        if (! $this->list_screen instanceof ListScreen) {
+            return [];
+        }
+
         return $this->list_screen->get_preferences();
     }
 
@@ -72,6 +78,10 @@ class BaseEncoder implements AC\Storage\Encoder
     private function encode_columns(): array
     {
         $encode = [];
+
+        if (! $this->list_screen instanceof ListScreen) {
+            return $encode;
+        }
 
         /**
          * @var AC\Column $column

@@ -11,14 +11,13 @@ use AC\Type\Value;
 
 class AudioPlayer implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $src = $this->is_valid_mime_type($value->get_id())
             ? wp_get_attachment_url($value->get_id())
             : null;
 
-        if ( ! $src) {
+        if (! $src) {
             throw new ValueNotFoundException();
         }
 

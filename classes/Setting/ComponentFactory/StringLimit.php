@@ -14,7 +14,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class StringLimit extends BaseComponentFactory
 {
-
     private const OPTION_CHARACTER = 'character_limit';
     private const OPTION_WORD = 'word_limit';
 

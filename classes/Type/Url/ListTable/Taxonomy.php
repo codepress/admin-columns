@@ -8,7 +8,6 @@ use AC\Type\Uri;
 
 class Taxonomy extends Uri
 {
-
     public function __construct(string $taxonomy, ?string $post_type = null)
     {
         parent::__construct((string)admin_url('edit-tags.php'));

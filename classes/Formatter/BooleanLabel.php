@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class BooleanLabel implements Formatter
 {
-
     private string $true_label;
 
     private string $false_label;

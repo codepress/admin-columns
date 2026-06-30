@@ -13,7 +13,6 @@ use AC\Type\ColumnFactoryDefinition;
 
 final class OriginalFactory extends BaseFactory
 {
-
     private OriginalColumnsRepository $repository;
 
     public function __construct(OriginalColumnsRepository $repository, Container $container)

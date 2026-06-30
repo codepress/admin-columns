@@ -12,7 +12,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class ImageFactory extends BaseColumnFactory
 {
-
     private ImageSize $image_size;
 
     public function __construct(

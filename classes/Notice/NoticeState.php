@@ -8,7 +8,6 @@ use AC\Storage\UserMeta;
 
 class NoticeState
 {
-
     private const META_KEY = '_ac_notices';
 
     private ?array $data = null;
@@ -40,7 +39,7 @@ class NoticeState
 
     public function track_first_seen(string $slug): void
     {
-        if ( ! $this->get($slug, 'first-seen')) {
+        if (! $this->get($slug, 'first-seen')) {
             $this->set($slug, 'first-seen', time());
         }
     }

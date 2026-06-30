@@ -12,7 +12,6 @@ use AC\Setting\Control\Input\Number;
 
 final class WordLimit extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Word Limit', 'codepress-admin-columns');

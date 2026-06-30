@@ -8,12 +8,11 @@ use InvalidArgumentException;
 
 final class ColumnId
 {
-
     private string $id;
 
     public function __construct(string $id)
     {
-        if ( ! self::is_valid_id($id)) {
+        if (! self::is_valid_id($id)) {
             throw new InvalidArgumentException('Missing column identity.');
         }
 

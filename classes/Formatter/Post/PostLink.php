@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Formatter\Post;
 
 use AC\Exception\ValueNotFoundException;
@@ -10,7 +12,6 @@ use WP_Post;
 
 class PostLink implements Formatter
 {
-
     private string $link_type;
 
     public function __construct(string $link_type)
@@ -24,7 +25,7 @@ class PostLink implements Formatter
             $value->get_id()
         );
 
-        if ( ! $post instanceof WP_Post) {
+        if (! $post instanceof WP_Post) {
             throw ValueNotFoundException::from_id($value->get_id() ?? 0);
         }
 

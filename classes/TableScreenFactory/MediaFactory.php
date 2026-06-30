@@ -12,7 +12,6 @@ use WP_Screen;
 
 class MediaFactory implements TableScreenFactory
 {
-
     public function can_create_from_wp_screen(WP_Screen $screen): bool
     {
         return 'upload' === $screen->base &&

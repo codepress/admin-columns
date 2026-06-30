@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Setting\ComponentFactory;
 
 use AC\Setting\Config;
@@ -7,7 +9,6 @@ use AC\Setting\Control\Input;
 
 class Message extends BaseComponentFactory
 {
-
     private string $label;
 
     private string $message;

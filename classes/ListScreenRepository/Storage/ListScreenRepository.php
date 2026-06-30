@@ -10,7 +10,6 @@ use LogicException;
 
 final class ListScreenRepository
 {
-
     private AC\ListScreenRepository $list_screen_repository;
 
     private bool $writable;
@@ -52,7 +51,7 @@ final class ListScreenRepository
 
     public function get_rules(): Rules
     {
-        if ( ! $this->has_rules()) {
+        if (null === $this->rules) {
             throw new LogicException('No rules defined.');
         }
 

@@ -6,7 +6,6 @@ namespace AC\Admin\Colors;
 
 final class StyleInjector
 {
-
     private ColorReader $color_reader;
 
     public function __construct(ColorReader $color_reader)
@@ -29,7 +28,7 @@ final class StyleInjector
 		<!-- Admin Columns color variables for custom and shipped WordPress colors -->
 		<style>
 			:root {
-			<?= "\t" . implode( "\n" . str_repeat( "\t", 4 ), $colors ) . "\n" ?>
+			<?= "\t" . implode("\n" . str_repeat("\t", 4), $colors) . "\n" ?>
 			}
 		</style>
 

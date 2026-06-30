@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Integration;
 
 use AC\Screen;
@@ -10,7 +12,6 @@ use ACA;
 
 final class GravityForms extends Integration
 {
-
     public function __construct()
     {
         parent::__construct(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Formatter;
 
 use AC;
@@ -9,7 +11,6 @@ use AC\Type\Value;
 
 class FallBackFormatter implements AC\Formatter
 {
-
     private Formatter $formatter;
 
     private ?Formatter $fallback_formatter;
@@ -25,14 +26,27 @@ class FallBackFormatter implements AC\Formatter
         try {
             $formatted_value = $this->formatter->format($value);
         } catch (ValueNotFoundException $e) {
-            return $this->fallback_formatter
-                ? $this->fallback_formatter->format($value)
-                : $value;
+            return $this->format_fallback($value);
         }
 
-        return $formatted_value->get_value()
-            ? $formatted_value
-            : $this->fallback_formatter->format($value);
+        if ($formatted_value instanceof Value && $formatted_value->get_value()) {
+            return $formatted_value;
+        }
+
+        return $this->format_fallback($value);
+    }
+
+    private function format_fallback(Value $value): Value
+    {
+        if (! $this->fallback_formatter) {
+            return $value;
+        }
+
+        $fallback_value = $this->fallback_formatter->format($value);
+
+        return $fallback_value instanceof Value
+            ? $fallback_value
+            : $value;
     }
 
 }

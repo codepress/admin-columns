@@ -9,7 +9,6 @@ use AC\Helper\Select\OptionGroup;
 
 class Groups extends Select\Options
 {
-
     public function __construct(Select\Options $options, GroupFormatter $formatter)
     {
         parent::__construct($this->create_groups($options, $formatter));

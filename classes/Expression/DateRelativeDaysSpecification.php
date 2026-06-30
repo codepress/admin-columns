@@ -11,7 +11,6 @@ use DateTimeZone;
 
 final class DateRelativeDaysSpecification extends OperatorExpression implements FactSpecification
 {
-
     use DateTrait;
     use FactTrait;
 

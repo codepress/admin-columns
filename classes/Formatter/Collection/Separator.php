@@ -12,17 +12,17 @@ use AC\Type\ValueCollection;
 
 class Separator implements CollectionFormatter
 {
-
     private string $separator;
 
     private int $limit;
 
-    public function __construct(?string $separator = null, int $limit = 0)
+    public function __construct(?string $separator = null, ?int $limit = null)
     {
-        $this->separator = $separator ?? ', ';
-        $this->limit = $limit;
+        $this->separator = $separator ?? self::get_separator();
+        $this->limit = $limit ?? 0;
     }
 
+    // TODO use create_from_settings, which solves some leaking and DRY issue
     public static function create_from_config(Config $config, int $limit = 20): self
     {
         return new self(
@@ -31,21 +31,35 @@ class Separator implements CollectionFormatter
         );
     }
 
-    private static function get_separator(string $setting): string
+    public static function create_from_settings(
+        Config $config,
+        string $separator_key,
+        string $number_of_items_key
+    ): self {
+        return new self(
+            self::get_separator($config->get($separator_key)),
+            $config->has($number_of_items_key)
+                ? (int)$config->get($number_of_items_key)
+                : null
+        );
+    }
+
+    private static function get_separator(?string $setting = null): string
     {
         switch ($setting) {
-            case Setting::WHITE_SPACE :
+            case Setting::WHITE_SPACE:
                 return ' ';
-            case Setting::NEW_LINE :
+            case Setting::NEW_LINE:
                 return '<br>';
-            case Setting::HORIZONTAL_RULE :
+            case Setting::HORIZONTAL_RULE:
                 return '<hr>';
             case Setting::NONE:
                 return '';
-            case Setting::COMMA :
-            default :
+            case Setting::COMMA:
                 return ', ';
         }
+
+        return self::get_separator(Setting::COMMA);
     }
 
     public function format(ValueCollection $collection): Value
@@ -103,7 +117,7 @@ class Separator implements CollectionFormatter
             echo sprintf('<span class="ac-show-more">%s</span>', $content . $toggler);
         }
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
 }

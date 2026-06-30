@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class AuthorEmailFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Author Email', 'codepress-admin-columns');

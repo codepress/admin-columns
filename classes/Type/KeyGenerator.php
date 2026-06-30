@@ -8,7 +8,6 @@ use Throwable;
 
 abstract class KeyGenerator
 {
-
     protected function generate_raw(): string
     {
         do {
@@ -17,7 +16,7 @@ abstract class KeyGenerator
             } catch (Throwable $e) {
                 $key = uniqid();
             }
-        } while ( ! strpbrk($key, 'abcdef'));
+        } while (! strpbrk($key, 'abcdef'));
 
         return $key;
     }

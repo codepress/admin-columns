@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 abstract class AggregateSpecification extends Specification
 {
-
     public const RULES = 'rules';
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListTable;
 
 use AC\ListTable;
@@ -7,6 +9,7 @@ use WP_MS_Users_List_Table;
 
 class NetworkUser implements ListTable
 {
+    use RenderColumnTrait;
 
     private WP_MS_Users_List_Table $table;
 
@@ -19,28 +22,18 @@ class NetworkUser implements ListTable
     {
         $user = get_userdata($row_id);
 
-        if ( ! $user) {
+        if (! $user) {
             return '';
         }
 
-        ob_start();
-
-        $method = 'column_' . $column_id;
-
-        if (method_exists($this->table, $method)) {
-            call_user_func([$this->table, $method], $user);
-        } else {
-            $this->table->column_default($user, $column_id);
-        }
-
-        return ob_get_clean();
+        return $this->render_column($this->table, $column_id, $user);
     }
 
     public function render_row($id): string
     {
         $user = get_userdata($id);
 
-        if ( ! $user) {
+        if (! $user) {
             return '';
         }
 
@@ -48,7 +41,7 @@ class NetworkUser implements ListTable
 
         $this->table->single_row($user);
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
 }

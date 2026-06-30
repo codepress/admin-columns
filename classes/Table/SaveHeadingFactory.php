@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Table;
 
 use AC\Registerable;
@@ -11,7 +13,6 @@ use AC\TableScreen;
  */
 interface SaveHeadingFactory
 {
-
     public function can_create(TableScreen $table_screen): bool;
 
     public function create(TableScreen $table_screen): ?Registerable;

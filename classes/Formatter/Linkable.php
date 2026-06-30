@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class Linkable implements Formatter
 {
-
     private string $target;
 
     private ?string $custom_label;

@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class CommentLink implements Formatter
 {
-
     private string $link_to;
 
     public function __construct(string $link_to)
@@ -23,11 +22,11 @@ class CommentLink implements Formatter
         $link = false;
 
         switch ($this->link_to) {
-            case 'view_comment' :
+            case 'view_comment':
                 $link = get_comment_link($value->get_id());
 
                 break;
-            case 'edit_comment' :
+            case 'edit_comment':
                 $comment = get_comment($value->get_id());
 
                 $link = $comment

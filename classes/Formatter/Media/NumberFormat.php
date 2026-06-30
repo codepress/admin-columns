@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Formatter\Media;
 
 use AC\Formatter;
@@ -7,7 +9,6 @@ use AC\Type\Value;
 
 class NumberFormat implements Formatter
 {
-
     private int $decimals;
 
     private string $prefix;

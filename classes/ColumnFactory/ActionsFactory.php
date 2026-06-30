@@ -13,7 +13,6 @@ use AC\Setting\Config;
 
 class ActionsFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Actions', 'codepress-admin-columns');

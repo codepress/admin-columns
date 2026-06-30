@@ -26,8 +26,6 @@
         "svelte-check": "3.5.1",
         "svelte-loader": "3.1.9",
         "svelte-preprocess": "5.0.4",
-        "svg-symbols": "1.0.4",
-        "svgstore-cli": "^2.0.1",
         "tailwindcss": "^3.4.17",
         "ts-loader": "^9.4.4",
         "typescript": "^5.2.2",
@@ -46,8 +44,7 @@
         "ac:build:development": "nps build.development",
         "ac:tailwind": "npx tailwindcss -i ./tailwind/ac-utilities.css -o ../assets/css/utilities.css --watch",
         "ac:languages": "nps languages",
-        "ac:webfont": "node ./scripts/webfont.js",
-        "ac:svgsymbols": "svgstore ./svg-symbols/*.svg -o ../assets/images/symbols.svg"
+        "ac:webfont": "node ./scripts/webfont.js"
     },
     "webfont": {
         "formats": [

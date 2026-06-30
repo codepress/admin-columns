@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Formatter;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
 use AC\Type\Value;
 
 class PathScope implements Formatter
 {
-
     private string $path_scope;
 
     public function __construct(string $path_scope)
@@ -19,7 +21,7 @@ class PathScope implements Formatter
     {
         $file = $value->get_value();
 
-        if ( ! $file) {
+        if (! $file) {
             return $value;
         }
 
@@ -44,8 +46,13 @@ class PathScope implements Formatter
 
                 return $value->with_value($file);
             case 'local':
+                $file = get_attached_file($value->get_id());
 
-                return $value->with_value(get_attached_file($value->get_id()));
+                if (! $file) {
+                    throw ValueNotFoundException::from_id($value->get_id());
+                }
+
+                return $value->with_value($file);
             default:
                 return $value;
         }

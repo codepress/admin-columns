@@ -8,7 +8,6 @@ use InvalidArgumentException;
 
 class ListScreenStatus
 {
-
     private const ACTIVE = '';
     private const INACTIVE = 'inactive';
 
@@ -22,7 +21,7 @@ class ListScreenStatus
 
     private function validate(): void
     {
-        if ( ! in_array($this->status, [self::ACTIVE, self::INACTIVE], true)) {
+        if (! in_array($this->status, [self::ACTIVE, self::INACTIVE], true)) {
             throw new InvalidArgumentException('Invalid list screen status');
         }
     }

@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Deprecated;
 
 use Closure;
+use LogicException;
 use ReflectionFunction;
 
 class Hook
 {
-
     private string $name;
 
     private string $version;
@@ -33,6 +35,10 @@ class Hook
 
     public function get_replacement(): string
     {
+        if (null === $this->replacement) {
+            throw new LogicException('Empty replacement');
+        }
+
         return $this->replacement;
     }
 
@@ -48,7 +54,7 @@ class Hook
 
     public function usage_count(): int
     {
-        return count($this->get_callbacks());
+        return count($this->get_callbacks() ?? []);
     }
 
     private function get_filter_callbacks(): array
@@ -74,7 +80,8 @@ class Hook
 
                 // Method
                 if (is_array($function)) {
-                    $messages[] = sprintf('%s::%s()', get_class($function[0]), $function[1]);
+                    $class_name = is_object($function[0]) ? get_class($function[0]) : $function[0];
+                    $messages[] = sprintf('%s::%s()', $class_name, $function[1]);
                     continue;
                 }
 
@@ -106,7 +113,7 @@ class Hook
             }
         }
 
-        if ( ! $messages) {
+        if (! $messages) {
             return null;
         }
 

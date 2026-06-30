@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class PostFormatIcon implements Formatter
 {
-
     public function format(Value $value): Value
     {
         return $value->get_value()

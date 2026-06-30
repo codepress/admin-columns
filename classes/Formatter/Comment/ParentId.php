@@ -11,12 +11,11 @@ use WP_Comment;
 
 class ParentId implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $comment = get_comment($value->get_id());
 
-        if ( ! $comment instanceof WP_Comment || ! $comment->comment_parent) {
+        if (! $comment instanceof WP_Comment || ! $comment->comment_parent) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

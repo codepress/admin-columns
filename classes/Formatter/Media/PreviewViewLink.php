@@ -13,7 +13,6 @@ use AC\Value\Extended\ExtendedValue;
 
 class PreviewViewLink implements Formatter
 {
-
     private ExtendedValue $extended_view;
 
     public function __construct(ExtendedValue $extended_view)
@@ -42,7 +41,7 @@ class PreviewViewLink implements Formatter
 
     public function format(Value $value): Value
     {
-        if ( ! $this->get_media_type($value->get_id())) {
+        if (! $this->get_media_type($value->get_id())) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
@@ -50,8 +49,8 @@ class PreviewViewLink implements Formatter
             ->get_link($value->get_id(), __('View', 'codepress-admin-columns'))
             ->with_class("-nopadding -preview")
             ->with_title(get_the_title($value->get_id()))
-            ->with_edit_link(get_edit_post_link($value->get_id()))
-            ->with_download_link(wp_get_attachment_url($value->get_id()));
+            ->with_edit_link(get_edit_post_link($value->get_id()) ?? '')
+            ->with_download_link(wp_get_attachment_url($value->get_id()) ?: '');
 
         return $value->with_value($link->render());
     }

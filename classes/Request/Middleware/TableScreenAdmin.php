@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Request\Middleware;
 
 use AC\Admin\Preference;
@@ -12,7 +14,6 @@ use Exception;
 
 class TableScreenAdmin implements Middleware
 {
-
     private Preference\EditorPreference $preference;
 
     private TableScreenCollection $table_screens;
@@ -60,18 +61,18 @@ class TableScreenAdmin implements Middleware
     {
         $table_screen = $this->get_table_screen_by_id(new TableId('post'));
 
-        return $table_screen ?: $this->table_screens->offsetGet($this->table_screens->count() - 1);
+        return $table_screen ?: $this->table_screens->last();
     }
 
     private function get_table_screen(Request $request): ?TableScreen
     {
         $table_screen = $this->get_requested_table_screen($request);
 
-        if ( ! $table_screen) {
+        if (! $table_screen) {
             $table_screen = $this->get_last_visited_table_screen();
         }
 
-        if ( ! $table_screen) {
+        if (! $table_screen) {
             $table_screen = $this->get_first_visit_table_screen();
         }
 

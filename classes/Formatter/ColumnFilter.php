@@ -12,7 +12,6 @@ use AC\Type\Value;
 
 class ColumnFilter implements Formatter
 {
-
     private Context $context;
 
     private TableScreen $table_screen;

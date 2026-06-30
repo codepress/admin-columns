@@ -8,12 +8,11 @@ use Closure;
 
 final class Registry
 {
-
     private static array $items = [];
 
     public static function get(string $id, $default = null)
     {
-        if ( ! self::has($id)) {
+        if (! self::has($id)) {
             return $default;
         }
 

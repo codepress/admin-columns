@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListScreenRepository;
 
 use InvalidArgumentException;
 
 final class Rules
 {
-
     public const MATCH_ALL = 'all';
     public const MATCH_ANY = 'any';
 
@@ -28,24 +29,19 @@ final class Rules
     {
         $match_decisions = [self::MATCH_ANY, self::MATCH_ALL];
 
-        if ( ! in_array($this->match_decision, $match_decisions, true)) {
+        if (! in_array($this->match_decision, $match_decisions, true)) {
             throw new InvalidArgumentException('Invalid match decision.');
         }
     }
 
-    /**
-     * @param Rule $rule
-     *
-     * @return $this
-     */
-    public function add_rule(Rule $rule)
+    public function add_rule(Rule $rule): self
     {
         $this->rules[] = $rule;
 
         return $this;
     }
 
-    public function match(array $args)
+    public function match(array $args): bool
     {
         $matches = 0;
 

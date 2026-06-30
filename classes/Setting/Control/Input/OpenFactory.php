@@ -8,7 +8,6 @@ use AC\Setting\AttributeCollection;
 
 final class OpenFactory
 {
-
     public static function create_text(
         string $name,
         ?string $default = null,

@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class IdFactory extends BaseColumnFactory
 {
-
     private BeforeAfter $before_after;
 
     public function __construct(

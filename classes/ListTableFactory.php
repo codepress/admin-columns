@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 use AC\ListTable\Comment;
@@ -12,7 +14,6 @@ use AC\ListTable\User;
 
 class ListTableFactory
 {
-
     public static function create_post(string $screen_id): Post
     {
         return new Post(WpListTableFactory::create_post_table($screen_id));

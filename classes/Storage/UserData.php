@@ -6,5 +6,4 @@ namespace AC\Storage;
 
 interface UserData extends KeyValue
 {
-
 }

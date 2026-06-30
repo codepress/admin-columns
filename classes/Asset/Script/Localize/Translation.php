@@ -8,7 +8,6 @@ use InvalidArgumentException;
 
 final class Translation
 {
-
     private array $translations;
 
     public function __construct(array $translations)
@@ -31,7 +30,7 @@ final class Translation
         $translations = $this->translations;
 
         if ($component) {
-            if ( ! isset($translations[$component])) {
+            if (! isset($translations[$component])) {
                 throw new InvalidArgumentException(sprintf('Undefined component %s for translation.', $component));
             }
 

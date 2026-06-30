@@ -9,7 +9,6 @@ use AC\Setting\Control\Input;
 
 final class Custom extends Input
 {
-
     private array $data;
 
     public function __construct(

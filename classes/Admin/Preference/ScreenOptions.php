@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\Preference;
 
 use AC\Preferences\Preference;
@@ -7,7 +9,6 @@ use AC\Preferences\UserFactory;
 
 class ScreenOptions
 {
-
     public function storage(): Preference
     {
         return (new UserFactory())->create(UserFactory::SCREEN_OPTIONS);

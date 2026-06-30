@@ -6,7 +6,6 @@ namespace AC\Storage;
 
 class Option implements OptionData
 {
-
     protected string $key;
 
     public function __construct(string $key)

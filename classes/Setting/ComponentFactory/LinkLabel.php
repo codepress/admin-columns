@@ -14,7 +14,6 @@ use AC\Setting\Control\Input\OpenFactory;
 
 final class LinkLabel implements ComponentFactory
 {
-
     private const NAME = 'link_label';
 
     public function create(Config $config, ?Specification $conditions = null): Component

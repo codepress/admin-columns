@@ -1,21 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper;
 
-use DOMDocument;
-use DOMElement;
+use AC\Type\Link;
+use WP_HTML_Tag_Processor;
 
 class Html extends Creatable
 {
-
     public function get_attribute_as_string(string $key, ?string $value = null): string
     {
         return Strings::create()->is_not_empty($value)
-            ? sprintf('%s="%s"', $key, esc_attr(trim($value)))
+            ? sprintf('%s="%s"', $key, esc_attr(trim((string)$value)))
             : $key;
     }
 
-    public function get_style_attributes_as_string(array $attributes): string
+    public function get_inline_styles(array $attributes): string
     {
         $style = '';
 
@@ -28,61 +29,63 @@ class Html extends Creatable
 
     public function link(string $url, ?string $label = null, array $attributes = []): string
     {
-        if ( ! $url) {
-            return $label;
+        if (! $url) {
+            return $label ?? '';
         }
 
         if (null === $label) {
             $label = urldecode($url);
         }
 
-        if ( ! $label) {
+        if (! $label) {
             return '';
         }
 
-        if ( ! $this->contains_html($label)) {
+        if (! $this->contains_html($label)) {
             $label = esc_html($label);
         }
 
+        $tooltip = null;
+
         if (array_key_exists('tooltip', $attributes)) {
-            $attributes['data-ac-tip'] = $attributes['tooltip'];
+            $tooltip = (string)$attributes['tooltip'];
 
             unset($attributes['tooltip']);
         }
 
-        $allowed = wp_allowed_protocols();
-        $allowed[] = 'skype';
-        $allowed[] = 'call';
+        $protocols = wp_allowed_protocols();
+        $protocols[] = 'skype';
+        $protocols[] = 'call';
 
-        return sprintf(
-            '<a href="%s" %s>%s</a>',
-            esc_url($url, $allowed),
-            $this->get_attributes($attributes),
-            $label
+        $link = new Link(
+            $url,
+            $label,
+            $this->filter_attributes($attributes),
+            $protocols
         );
-    }
 
-    public function divider(): string
-    {
-        return '<span class="ac-divider"></span>';
+        if (null !== $tooltip) {
+            $link = $link->with_tooltip($tooltip);
+        }
+
+        return $link->render();
     }
 
     public function get_tooltip_attr(string $content): string
     {
-        if ( ! $content) {
+        if (! $content) {
             return '';
         }
 
         return 'data-ac-tip="' . esc_attr($content) . '"';
     }
 
-    public function tooltip(string $label, string $tooltip, array $attributes = []): string
+    public function tooltip(string $label, string $tooltip): string
     {
         if (Strings::create()->is_not_empty($label) && $tooltip) {
             $label = sprintf(
-                '<span %s %s>%s</span>',
+                '<span %s>%s</span>',
                 $this->get_tooltip_attr($tooltip),
-                $this->get_attributes($attributes),
                 $label
             );
         }
@@ -92,11 +95,11 @@ class Html extends Creatable
 
     public function codearea(string $string, int $max_chars = 1000): string
     {
-        if ( ! $string) {
+        if (! $string) {
             return '';
         }
 
-        $contents = substr(
+        $contents = Mbstring::substr(
             $string,
             0,
             $max_chars
@@ -105,27 +108,23 @@ class Html extends Creatable
         return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . esc_textarea($contents) . '</textarea>';
     }
 
-    private function get_attributes(array $attributes): string
+    private function filter_attributes(array $attributes): array
     {
-        $_attributes = [];
+        $filtered = [];
 
         foreach ($attributes as $attribute => $value) {
             if (
-                in_array($attribute, ['title', 'id', 'class', 'style', 'target', 'rel', 'download']) ||
+                in_array($attribute, ['title', 'id', 'class', 'style', 'target', 'rel', 'download'], true) ||
                 'data-' === substr($attribute, 0, 5)) {
-                $_attributes[] = $this->get_attribute_as_string($attribute, (string)$value);
+                $filtered[$attribute] = $value;
             }
         }
 
-        return ' ' . implode(' ', $_attributes);
+        return $filtered;
     }
 
     public function get_links(string $string): ?array
     {
-        if ( ! class_exists('DOMDocument')) {
-            return null;
-        }
-
         // Just do a very simple check to check for possible links
         if (false === strpos($string, '<a')) {
             return null;
@@ -133,23 +132,12 @@ class Html extends Creatable
 
         $hrefs = [];
 
-        $dom = new DOMDocument();
+        $processor = new WP_HTML_Tag_Processor($string);
 
-        libxml_use_internal_errors(true);
-        $dom->loadHTML($string);
-        libxml_clear_errors();
+        while ($processor->next_tag(['tag_name' => 'a'])) {
+            $href = $processor->get_attribute('href');
 
-        $links = $dom->getElementsByTagName('a');
-
-        // TODO check for DOMNodeList object
-
-        foreach ($links as $link) {
-            /**
-             * @var DOMElement $link
-             */
-            $href = $link->getAttribute('href');
-
-            if (0 === strpos($href, '#')) {
+            if (! is_string($href) || 0 === strpos($href, '#')) {
                 continue;
             }
 
@@ -164,21 +152,11 @@ class Html extends Creatable
         return $string && $string !== strip_tags($string);
     }
 
-    public function implode(array $array, bool $divider = true): string
+    public function divided(array $array): string
     {
-        // Remove empty values
-        $array = $this->remove_empty($array);
+        $array = Arrays::create()->filter($array);
 
-        if (true === $divider) {
-            $divider = $this->divider();
-        }
-
-        return implode($divider, $array);
-    }
-
-    public function remove_empty(array $array): array
-    {
-        return array_filter($array, [Strings::create(), 'is_not_empty']);
+        return implode('<span class="ac-divider"></span>', $array);
     }
 
     /**
@@ -194,7 +172,7 @@ class Html extends Creatable
             }
         }
 
-        return implode($blocks);
+        return implode('', $blocks);
     }
 
     /**
@@ -206,71 +184,7 @@ class Html extends Creatable
     }
 
     /**
-     * Returns star rating based on X start from $max count. Does support decimals.
-     */
-    public function stars(int $count, int $max = 0): string
-    {
-        $stars = [
-            'filled' => floor($count),
-            'half'   => floor(round(($count * 2)) - (floor($count) * 2)) ? 1 : 0,
-            'empty'  => 0,
-        ];
-
-        $max = absint($max);
-
-        if ($max > 0) {
-            $star_count = $stars['filled'] + $stars['half'];
-
-            $stars['empty'] = $max - $star_count;
-
-            if ($star_count > $max) {
-                $stars['filled'] = $max;
-                $stars['half'] = 0;
-            }
-        }
-
-        $icons = [];
-
-        foreach ($stars as $type => $_count) {
-            for ($i = 1; $i <= $_count; $i++) {
-                $icons[] = Icon::create()->dashicon(['icon' => 'star-' . $type, 'class' => 'ac-value-star']);
-            }
-        }
-
-        ob_start();
-        ?>
-		<span class="ac-value-stars">
-			<?php
-            echo implode(' ', $icons); ?>
-		</span>
-        <?php
-        return ob_get_clean();
-    }
-
-    public function images(string $html, ?int $removed = null): string
-    {
-        if ( ! $html) {
-            return '';
-        }
-
-        if ($removed) {
-            $html .= $this->rounded('+' . $removed);
-        }
-
-        return '<div class="ac-image-container">' . $html . '</div>';
-    }
-
-    public function file_pill(string $extension, string $filename): string
-    {
-        return sprintf(
-            '<span class="ac-file-type">%s</span><span class="ac-file-name">%s</span>',
-            esc_html(strtoupper($extension)),
-            esc_html($filename)
-        );
-    }
-
-    /**
-     * @depecated 7.0.9
+     * @deprecated 7.0.9
      */
     public function get_internal_external_links(): ?array
     {

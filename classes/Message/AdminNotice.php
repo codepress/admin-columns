@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Message;
 
 use AC\View;
 
 class AdminNotice extends Notice
 {
-
     public function render(): string
     {
         $data = [

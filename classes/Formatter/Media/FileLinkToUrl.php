@@ -10,12 +10,11 @@ use AC\Type\Value;
 
 class FileLinkToUrl implements Formatter
 {
-
     public function format(Value $value): Value
     {
         $url = wp_get_attachment_url($value->get_id());
 
-        if ( ! $url) {
+        if (! $url) {
             return $value;
         }
 

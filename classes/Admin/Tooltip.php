@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
 use AC\View;
 
 class Tooltip
 {
-
     private string $id;
 
     private string $content = '';
@@ -17,24 +18,11 @@ class Tooltip
 
     private string $position = 'right';
 
-    public function __construct(string $id, array $args = [])
+    public function __construct(string $id)
     {
         $this->id = $id;
         $this->title = __('Notice', 'codepress-admin-columns');
         $this->link_label = __('Instructions', 'codepress-admin-columns');
-
-        $this->populate($args);
-    }
-
-    private function populate($args): void
-    {
-        foreach ($args as $key => $value) {
-            $method = 'set_' . $key;
-
-            if (method_exists($this, $method)) {
-                call_user_func([$this, $method], $value);
-            }
-        }
     }
 
     public function set_id(string $id): Tooltip

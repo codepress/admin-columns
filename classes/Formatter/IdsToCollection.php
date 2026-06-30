@@ -11,13 +11,18 @@ use AC\Type\ValueCollection;
 
 class IdsToCollection implements Formatter
 {
-
     public function format(Value $value): ValueCollection
     {
         $ids = $value->get_value();
 
         if (is_string($ids)) {
-            return ValueCollection::from_ids($value->get_id(), $this->get_ids_from_string($ids));
+            $id_list = $this->get_ids_from_string($ids);
+
+            if (null === $id_list) {
+                throw new ValueNotFoundException($value->get_id());
+            }
+
+            return ValueCollection::from_ids($value->get_id(), $id_list);
         }
 
         if (is_array($ids)) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Formatter;
 
 use AC\Exception\ValueNotFoundException;
@@ -9,7 +11,6 @@ use AC\Type\Value;
 
 class FormattedJson implements Formatter
 {
-
     private array $keys;
 
     public function __construct(array $keys = [])
@@ -21,7 +22,7 @@ class FormattedJson implements Formatter
     {
         $array = $value->get_value();
 
-        if ( ! is_array($array)) {
+        if (! is_array($array)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
@@ -33,7 +34,7 @@ class FormattedJson implements Formatter
         return $value->with_value(
             sprintf(
                 '<div data-component="ac-json" data-json="%s" data-level="1" ></div>',
-                esc_attr(json_encode($formatted_value))
+                esc_attr(json_encode($formatted_value) ?: '')
             )
         );
     }

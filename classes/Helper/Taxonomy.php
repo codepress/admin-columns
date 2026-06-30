@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper;
 
 use WP_Taxonomy;
@@ -7,13 +9,12 @@ use WP_Term;
 
 class Taxonomy extends Creatable
 {
-
     public function get_term_links(array $terms, ?string $post_type = null): array
     {
         $values = [];
 
         foreach ($terms as $term) {
-            if ( ! $term instanceof WP_Term) {
+            if (! $term instanceof WP_Term) {
                 continue;
             }
 
@@ -56,11 +57,11 @@ class Taxonomy extends Creatable
     {
         $term = get_term_by('id', $term_id, $taxonomy);
 
-        if ( ! $term instanceof WP_Term) {
+        if (! $term instanceof WP_Term) {
             return null;
         }
 
-        if ( ! isset($term->{$field})) {
+        if (! isset($term->{$field})) {
             return null;
         }
 
@@ -73,10 +74,11 @@ class Taxonomy extends Creatable
 
         $options = [];
 
-        foreach ($taxonomies as $index => $taxonomy) {
-            if ($taxonomy->name == 'post_format') {
-                unset($taxonomies[$index]);
+        foreach ($taxonomies as $taxonomy) {
+            if ($taxonomy->name === 'post_format') {
+                continue;
             }
+
             $options[$taxonomy->name] = $taxonomy->label;
         }
 
@@ -104,7 +106,7 @@ class Taxonomy extends Creatable
     {
         $taxonomy_object = get_taxonomy($taxonomy);
 
-        if ( ! $taxonomy_object instanceof WP_Taxonomy) {
+        if (! $taxonomy_object instanceof WP_Taxonomy) {
             return $taxonomy;
         }
 

@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper;
+
+use WP_HTML_Tag_Processor;
 
 class Strings extends Creatable
 {
-
     public function starts_with(string $haystack, string $needle): bool
     {
-        return '' === $needle || 0 === strpos($haystack, $needle);
+        return str_starts_with($haystack, $needle);
     }
 
     public function remove_prefix(string $string, string $prefix): string
@@ -26,20 +29,14 @@ class Strings extends Creatable
 
     public function ends_with(string $haystack, string $needle): bool
     {
-        if ('' === $haystack && '' !== $needle) {
-            return false;
-        }
-
-        $len = strlen($needle);
-
-        return 0 === substr_compare($haystack, $needle, -$len, $len);
+        return str_ends_with($haystack, $needle);
     }
 
     public function get_shortcodes(string $content): array
     {
         global $shortcode_tags;
 
-        if ( ! $shortcode_tags || ! $content) {
+        if (! $shortcode_tags || ! $content) {
             return [];
         }
 
@@ -82,11 +79,11 @@ class Strings extends Creatable
             'c'     => '/\S/',
         ];
 
-        $string = preg_replace($patterns['strip'], ' ', $string);
-        $string = preg_replace('/&nbsp;|&#160;/i', ' ', $string);
-        $string = preg_replace($patterns['clean'], '', $string);
+        $string = (string) preg_replace($patterns['strip'], ' ', $string);
+        $string = (string) preg_replace('/&nbsp;|&#160;/i', ' ', $string);
+        $string = (string) preg_replace($patterns['clean'], '', $string);
 
-        if ( ! strlen(preg_replace('/\s/', '', $string))) {
+        if (! strlen((string) preg_replace('/\s/', '', $string))) {
             return 0;
         }
 
@@ -117,18 +114,19 @@ class Strings extends Creatable
 
     public function is_image(string $url): bool
     {
-        if ( ! $url) {
+        if (! $url) {
             return false;
         }
 
-        $ext = strtolower(pathinfo(strtok($url, '?'), PATHINFO_EXTENSION));
+        $path = (string) strtok($url, '?#');
+        $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 
-        return in_array($ext, ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp']);
+        return in_array($ext, ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp', 'svg', 'avif'], true);
     }
 
     public function is_valid_url(string $url): bool
     {
-        return filter_var($url, FILTER_VALIDATE_URL) || preg_match('/[^\w.-]/', $url);
+        return false !== filter_var($url, FILTER_VALIDATE_URL);
     }
 
     public function is_empty($value): bool
@@ -139,6 +137,33 @@ class Strings extends Creatable
     public function is_not_empty($value): bool
     {
         return $value || 0 === $value || '0' === $value;
+    }
+
+    public function get_image_urls_from_string(string $string): array
+    {
+        if (! $string) {
+            return [];
+        }
+
+        if (false === strpos($string, '<img')) {
+            return [];
+        }
+
+        $urls = [];
+
+        $processor = new WP_HTML_Tag_Processor($string);
+
+        while ($processor->next_tag(['tag_name' => 'img'])) {
+            $src = $processor->get_attribute('src');
+
+            if (! is_string($src) || '' === $src) {
+                continue;
+            }
+
+            $urls[] = $src;
+        }
+
+        return $urls;
     }
 
     public function enumeration_list(array $items, string $compound = 'or'): string
@@ -153,10 +178,13 @@ class Strings extends Creatable
 
         $compound = sprintf(' %s ', trim($compound));
 
-        $last = end($items);
-        $delimiter = ', ';
+        $last = array_pop($items);
 
-        return str_replace($delimiter . $last, $compound . $last, implode($delimiter, $items));
+        if (! $items) {
+            return (string)$last;
+        }
+
+        return implode(', ', $items) . $compound . $last;
     }
 
 }

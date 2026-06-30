@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class StatusFactory extends BaseColumnFactory
 {
-
     private PostStatusIcon $post_status_icon;
 
     public function __construct(

@@ -10,7 +10,6 @@ use AC\Table\TableScreenCollection;
 
 class MenuListFactory
 {
-
     private Aggregate $group_factory;
 
     public function __construct(Aggregate $group_factory)

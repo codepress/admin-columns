@@ -1,11 +1,11 @@
 import {addEventListenerLive} from "../helpers/events";
 
-const $ = require("jquery");
+import $ from "jquery";
 
 declare let ajaxurl: string;
 
 export const dismissNotice = (selector: string) => {
-    document.querySelectorAll(selector).forEach((el: HTMLElement) => {
+    document.querySelectorAll<HTMLElement>(selector).forEach((el) => {
         addEventListenerLive('click', '.ac-notice__dismiss, [data-dismiss], .notice-dismiss', (e: Event) => {
             e.preventDefault();
 

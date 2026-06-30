@@ -9,7 +9,6 @@ use AC\Admin\Colors\Storage\OptionFactory;
 
 final class ColorUpdater
 {
-
     private ColorParser $shipped_color_parser;
 
     private ColorRepository $color_repository;

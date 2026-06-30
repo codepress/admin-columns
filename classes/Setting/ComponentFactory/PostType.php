@@ -14,20 +14,23 @@ use AC\Setting\Control\OptionCollection;
 
 final class PostType implements ComponentFactory
 {
-
     private bool $show_any;
 
-    public function __construct(bool $show_any = true)
+    private bool $multiple;
+
+    public function __construct(bool $show_any = true, bool $multiple = false)
     {
         $this->show_any = $show_any;
+        $this->multiple = $multiple;
     }
 
     public function create(Config $config, ?Specification $conditions = null): Component
     {
         $post_type_options = $this->create_options($this->show_any);
+        $first_option = $post_type_options->first();
         $post_type = $config->has('post_type')
             ? $config->get('post_type')
-            : $post_type_options->first()->get_value();
+            : ($first_option ? $first_option->get_value() : null);
 
         $builder = (new ComponentBuilder())
             ->set_label(__('Post Type', 'codepress-admin-columns'))
@@ -35,7 +38,9 @@ final class PostType implements ComponentFactory
                 OptionFactory::create_select(
                     'post_type',
                     $post_type_options,
-                    $post_type
+                    $post_type,
+                    null,
+                    $this->multiple
                 )
             );
 
@@ -77,7 +82,7 @@ final class PostType implements ComponentFactory
 
         $post_types = get_post_types();
 
-        if ( ! is_array($post_types)) {
+        if (! is_array($post_types)) {
             return $options;
         }
 

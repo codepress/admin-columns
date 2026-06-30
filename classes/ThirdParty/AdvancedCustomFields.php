@@ -9,10 +9,9 @@ use AC\Registerable;
 
 class AdvancedCustomFields implements Registerable
 {
-
     public function register(): void
     {
-        if ( ! Acf::is_active()) {
+        if (! Acf::is_active()) {
             return;
         }
 

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Request;
 
 final class Parameters
 {
-
     private array $parameters;
 
     public function __construct(array $parameters)

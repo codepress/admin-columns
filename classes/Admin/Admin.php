@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
 use AC;
@@ -8,7 +10,6 @@ use AC\Registerable;
 
 class Admin implements Registerable
 {
-
     public const NAME = 'codepress-admin-columns';
 
     private RequestHandlerInterface $request_handler;
@@ -31,10 +32,9 @@ class Admin implements Registerable
 
     private function get_menu_page_factory(): MenuPageFactory
     {
-        return apply_filters(
-            'ac/menu_page_factory',
-            new MenuPageFactory\SubMenu()
-        );
+        $factory = apply_filters('ac/menu_page_factory', new MenuPageFactory\SubMenu());
+
+        return $factory instanceof MenuPageFactory ? $factory : new MenuPageFactory\SubMenu();
     }
 
     public function init(): void
@@ -43,6 +43,10 @@ class Admin implements Registerable
             'parent' => 'options-general.php',
             'icon'   => $this->location->with_suffix('assets/images/page-menu-icon.svg')->get_url(),
         ]);
+
+        if (null === $hook) {
+            return;
+        }
 
         $loader = new AdminLoader($hook, $this->request_handler, $this->scripts);
         $loader->register();

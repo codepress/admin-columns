@@ -8,7 +8,6 @@ use AC\Vendor;
 
 interface FactoryContainer
 {
-
     /**
      * @return mixed
      * @throws Vendor\Psr\Container\NotFoundExceptionInterface

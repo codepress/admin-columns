@@ -12,7 +12,6 @@ use AC\Setting\Config;
 
 class ReplyToFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('In Reply To', 'codepress-admin-columns');

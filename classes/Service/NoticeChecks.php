@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Service;
 
 use AC\Acf\FieldGroupCache;
@@ -13,7 +15,6 @@ use AC\Services;
 
 class NoticeChecks implements Registerable
 {
-
     private AdminColumns $plugin;
 
     private FieldGroupCache $field_group_cache;

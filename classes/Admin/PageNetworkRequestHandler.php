@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
 use AC\Request;
 
 class PageNetworkRequestHandler implements RequestHandlerInterface
 {
-
     /**
      * @var PageFactoryInterface[]
      */

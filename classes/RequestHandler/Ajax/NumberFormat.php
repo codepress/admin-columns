@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\RequestHandler\Ajax;
 
 use AC\Request;
@@ -7,7 +9,6 @@ use AC\RequestAjaxHandler;
 
 final class NumberFormat implements RequestAjaxHandler
 {
-
     public function handle(): void
     {
         $request = new Request();

@@ -8,7 +8,6 @@ use AC\Type\TableScreenContext;
 
 final class CustomFieldFactory
 {
-
     public function create(TableScreenContext $table_screen_context): CustomField
     {
         return new CustomField(

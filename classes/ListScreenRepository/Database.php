@@ -13,6 +13,7 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepositoryWritable;
 use AC\Setting\ConfigCollection;
+use AC\Storage\Encoder\BaseEncoder;
 use AC\Storage\EncoderFactory;
 use AC\Storage\Repository\OriginalColumnsRepository;
 use AC\TableScreen;
@@ -21,10 +22,10 @@ use AC\Type\ListScreenId;
 use AC\Type\ListScreenStatus;
 use AC\Type\TableId;
 use DateTime;
+use LogicException;
 
 class Database extends Base implements ListScreenRepositoryWritable
 {
-
     private const TABLE = 'admin_columns';
 
     private TableScreenFactory $table_screen_factory;
@@ -62,7 +63,7 @@ class Database extends Base implements ListScreenRepositoryWritable
 
         $row = $wpdb->get_row($sql);
 
-        if ( ! $row) {
+        if (! $row) {
             return null;
         }
 
@@ -121,13 +122,22 @@ class Database extends Base implements ListScreenRepositoryWritable
     {
         global $wpdb;
 
-        $list_screen_dto = $this->encoder_factory
-            ->create()
+        $encoder = $this->encoder_factory->create();
+
+        if (! $encoder instanceof BaseEncoder) {
+            throw new LogicException('Encoder does not support setting a list screen.');
+        }
+
+        $list_screen_dto = $encoder
             ->set_list_screen($list_screen)
             ->encode()['list_screen'];
 
         $settings = $this->save_preferences($list_screen_dto);
         $date = DateTime::createFromFormat('U', (string)$list_screen_dto['updated']);
+
+        if (! $date instanceof DateTime) {
+            throw new FailedToSaveListScreen('Failed to save list screen: invalid update timestamp.');
+        }
 
         $args = [
             'list_id'       => $list_screen_dto['id'],
@@ -191,6 +201,8 @@ class Database extends Base implements ListScreenRepositoryWritable
 
     /**
      * Template method to add and remove preferences before retrieval
+     *
+     * @param object{settings?: string|null} $data
      */
     protected function get_preferences(object $data): array
     {
@@ -199,11 +211,14 @@ class Database extends Base implements ListScreenRepositoryWritable
             : [];
     }
 
+    /**
+     * @param object{list_key: string, list_id: string, title: string, status: string, date_modified: string, columns?: string|null, settings?: string|null} $data
+     */
     protected function create_list_screen(object $data): ?ListScreen
     {
         $table_id = new TableId($data->list_key);
 
-        if ( ! $this->table_screen_factory->can_create($table_id)) {
+        if (! $this->table_screen_factory->can_create($table_id)) {
             return null;
         }
 
@@ -220,6 +235,9 @@ class Database extends Base implements ListScreenRepositoryWritable
         );
     }
 
+    /**
+     * @param object{columns?: string|null} $data
+     */
     private function create_column_iterator(TableScreen $table_screen, object $data): ColumnIterator
     {
         return new ProxyColumnIterator(
@@ -232,6 +250,9 @@ class Database extends Base implements ListScreenRepositoryWritable
         );
     }
 
+    /**
+     * @param object{columns?: string|null} $data
+     */
     private function create_configs(object $data): ConfigCollection
     {
         $columns = $data->columns

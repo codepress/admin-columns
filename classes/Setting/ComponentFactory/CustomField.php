@@ -11,7 +11,6 @@ use AC\Type\TableScreenContext;
 
 class CustomField extends BaseComponentFactory
 {
-
     private const NAME = 'field';
 
     private TableScreenContext $table_screen_context;
@@ -56,7 +55,7 @@ class CustomField extends BaseComponentFactory
                 'post_type' => $this->table_screen_context->has_post_type()
                     ? (string)$this->table_screen_context->get_post_type()
                     : '',
-                'taxonomy'  => $this->table_screen_context->has_taxonomy()
+                'taxonomy' => $this->table_screen_context->has_taxonomy()
                     ? (string)$this->table_screen_context->get_taxonomy()
                     : '',
             ],

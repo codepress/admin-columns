@@ -9,7 +9,6 @@ use AC\Type\Value;
 
 class Author implements Formatter
 {
-
     public function format(Value $value)
     {
         return $value->with_value(

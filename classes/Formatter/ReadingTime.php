@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 final class ReadingTime implements Formatter
 {
-
     private int $words_per_minute;
 
     public function __construct(int $words_per_minute)
@@ -36,7 +35,7 @@ final class ReadingTime implements Formatter
 
         $word_count = Helper\Strings::create()->word_count($string);
 
-        if ( ! $word_count) {
+        if (! $word_count) {
             return 0;
         }
 

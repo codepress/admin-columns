@@ -11,7 +11,6 @@ use AC\Type\ValueCollection;
 
 class UsedByMenu implements Formatter
 {
-
     private string $item_type;
 
     public function __construct(string $item_type)
@@ -19,7 +18,7 @@ class UsedByMenu implements Formatter
         $this->item_type = $item_type;
     }
 
-    public function format(Value $value)
+    public function format(Value $value): ValueCollection
     {
         $collection = new ValueCollection($value->get_id());
 
@@ -32,10 +31,9 @@ class UsedByMenu implements Formatter
 
     private function get_menu_terms(int $object_id): array
     {
-        $helper = new Menu();
-
-        return $helper->get_terms(
-            $helper->get_ids($object_id, $this->item_type),
+        return (new Menu())->get_terms(
+            $object_id,
+            $this->item_type,
             [
                 'orderby' => 'name',
             ]

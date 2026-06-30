@@ -10,10 +10,9 @@ use AC\Type\Url\UtmTags;
 
 class EventsCalendarNotice implements IntegrationNotice, UsageAwareNotice
 {
-
     public function is_active(Screen $screen): bool
     {
-        if ( ! class_exists('Tribe__Events__Main')) {
+        if (! class_exists('Tribe__Events__Main')) {
             return false;
         }
 

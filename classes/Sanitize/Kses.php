@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Sanitize;
 
 class Kses
 {
-
     public function sanitize(string $string): string
     {
         return wp_kses($string, $this->get_allowed_html(), $this->get_allowed_protocols());

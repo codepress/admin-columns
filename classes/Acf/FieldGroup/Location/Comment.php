@@ -8,7 +8,6 @@ use AC\Acf\FieldGroup\Query;
 
 class Comment implements Query
 {
-
     public function get_groups(): array
     {
         add_filter('acf/location/rule_match/user_type', '__return_true', 16);

@@ -8,15 +8,14 @@ use InvalidArgumentException;
 
 final class TableId
 {
-
     private string $id;
 
     public function __construct(string $id)
     {
         $this->id = $id;
 
-        if ( ! self::validate($id)) {
-            throw new InvalidArgumentException('List key can not be empty.');
+        if (! self::validate($id)) {
+            throw new InvalidArgumentException('The id cannot be empty.');
         }
     }
 
@@ -25,7 +24,7 @@ final class TableId
         return '' !== $id;
     }
 
-    public function equals(TableId $id): bool
+    public function equals(self $id): bool
     {
         return $this->id === (string)$id;
     }

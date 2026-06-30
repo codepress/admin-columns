@@ -14,7 +14,6 @@ use AC\Value\ExtendedValueLink;
 
 class Value implements ExtendedValue
 {
-
     public function render(
         $id,
         array $params,

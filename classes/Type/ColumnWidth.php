@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Type;
 
 use InvalidArgumentException;
 
 class ColumnWidth
 {
-
     private string $unit;
 
     private int $value;
@@ -21,7 +22,7 @@ class ColumnWidth
 
     private function validate()
     {
-        if ( ! in_array($this->unit, ['px', '%'])) {
+        if (! in_array($this->unit, ['px', '%'])) {
             throw new InvalidArgumentException('Invalid width unit.');
         }
         if ($this->value < 0) {

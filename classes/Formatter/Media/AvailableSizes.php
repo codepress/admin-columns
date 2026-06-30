@@ -11,7 +11,6 @@ use AC\Type\Value;
 
 class AvailableSizes implements Formatter
 {
-
     private bool $include_missing_file_sizes;
 
     public function __construct(bool $include_missing_file_sizes)
@@ -24,7 +23,7 @@ class AvailableSizes implements Formatter
         $meta = get_post_meta($value->get_id(), '_wp_attachment_metadata', true);
         $sizes = $meta['sizes'] ?? null;
 
-        if ( ! $sizes) {
+        if (! $sizes) {
             throw new ValueNotFoundException();
         }
 
@@ -34,15 +33,18 @@ class AvailableSizes implements Formatter
 
         if ($available_sizes) {
             $url = wp_get_attachment_url($value->get_id());
-            $paths[] = Helper\Html::create()->tooltip(
-                Helper\Html::create()->link($url, __('original', 'codepress-admin-columns')),
-                basename($url)
-            );
+
+            if ($url) {
+                $paths[] = Helper\Html::create()->tooltip(
+                    Helper\Html::create()->link($url, __('original', 'codepress-admin-columns')),
+                    basename($url)
+                );
+            }
 
             foreach ($available_sizes as $size) {
                 $src = (array)wp_get_attachment_image_src($value->get_id(), $size);
 
-                if ( ! empty($src[0])) {
+                if (! empty($src[0])) {
                     $paths[] = Helper\Html::create()->tooltip(Helper\Html::create()->link($src[0], $size), basename($src[0]));
                 }
             }
@@ -53,20 +55,22 @@ class AvailableSizes implements Formatter
 
             if ($missing) {
                 foreach ($missing as $size) {
-                    $paths[] = Helper\Html::create()->tooltip(
-                        $size,
-                        sprintf(
-                            __('Missing image file for size %s.', 'codepress-admin-columns'),
-                            '<em>"' . $size . '"</em>'
-                        ),
-                        ['class' => 'ac-missing-size']
+                    $paths[] = sprintf(
+                        '<span class="ac-missing-size">%s</span>',
+                        Helper\Html::create()->tooltip(
+                            $size,
+                            sprintf(
+                                __('Missing image file for size %s.', 'codepress-admin-columns'),
+                                '<em>"' . $size . '"</em>'
+                            )
+                        )
                     );
                 }
             }
         }
 
         return $value->with_value(
-            "<div class='ac-image-sizes'>" . implode(Helper\Html::create()->divider(), $paths) . "</div>"
+            "<div class='ac-image-sizes'>" . Helper\Html::create()->divided($paths) . "</div>"
         );
     }
 

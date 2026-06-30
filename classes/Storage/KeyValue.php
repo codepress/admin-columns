@@ -6,7 +6,6 @@ namespace AC\Storage;
 
 interface KeyValue
 {
-
     public function get();
 
     public function save($value): void;

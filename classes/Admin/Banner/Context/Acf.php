@@ -14,7 +14,6 @@ use AC\Type\Url\UtmTags;
 
 class Acf implements BannerContext
 {
-
     private FieldGroupCache $field_group_cache;
 
     public function __construct(FieldGroupCache $field_group_cache)
@@ -24,7 +23,7 @@ class Acf implements BannerContext
 
     public function is_active(TableScreen $table_screen): bool
     {
-        if ( ! AC\Acf::is_active()) {
+        if (! AC\Acf::is_active()) {
             return false;
         }
 
@@ -43,14 +42,14 @@ class Acf implements BannerContext
         $field_count = $this->field_group_cache->get_count_for_table_screen($table_screen);
 
         return [
-            'badge'             => __('Admin Columns Pro', 'codepress-admin-columns'),
-            'title'             => _n(
+            'badge' => __('Admin Columns Pro', 'codepress-admin-columns'),
+            'title' => _n(
                 'Your ACF field is hidden on this screen',
                 'Your ACF fields are hidden on this screen',
                 $field_count,
                 'codepress-admin-columns'
             ),
-            'description'       => sprintf(
+            'description' => sprintf(
                 _n(
                     '%d ACF field is not visible here. Pro turns it into a column you can sort, filter, edit, and export - no code needed.',
                     '%d ACF fields are not visible here. Pro turns each one into a column you can sort, filter, edit, and export - no code needed.',
@@ -59,12 +58,12 @@ class Acf implements BannerContext
                 ),
                 $field_count
             ),
-            'quote'             => [
+            'quote' => [
                 'text' => __('A super intuitive life saver!', 'codepress-admin-columns'),
                 'cite' => __('Elliot Condon, creator of Advanced Custom Fields', 'codepress-admin-columns'),
             ],
-            'features_label'    => __('With Pro, your ACF fields become:', 'codepress-admin-columns'),
-            'features'          => [
+            'features_label' => __('With Pro, your ACF fields become:', 'codepress-admin-columns'),
+            'features'       => [
                 [
                     'url'   => $upgrade_url->with_content('usp-acf-columns')->get_url(),
                     'label' => __('Visible as columns on this screen', 'codepress-admin-columns'),
@@ -90,14 +89,14 @@ class Acf implements BannerContext
             'upgrade_cta_price' => sprintf(
                 '%s · %s',
                 sprintf(
-                /* translators: %s: price (e.g. $79) */
+                    /* translators: %s: price (e.g. $79) */
                     __('from %s/year', 'codepress-admin-columns'),
                     StartingPrice::get()
                 ),
                 __('all features included', 'codepress-admin-columns')
             ),
-            'integrations'      => [],
-            'promo_url'         => $upgrade_url->get_url(),
+            'integrations' => [],
+            'promo_url'    => $upgrade_url->get_url(),
         ];
     }
 

@@ -11,7 +11,6 @@ use AC\Setting\Config;
 
 class StatusFactory extends BaseColumnFactory
 {
-
     public function get_label(): string
     {
         return __('Status', 'codepress-admin-columns');

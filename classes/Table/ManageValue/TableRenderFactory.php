@@ -12,7 +12,6 @@ use AC\Type\ColumnId;
 
 class TableRenderFactory implements RenderFactory
 {
-
     private ListScreen $list_screen;
 
     private TableScreen $table_screen;
@@ -27,7 +26,7 @@ class TableRenderFactory implements RenderFactory
     {
         $column = $this->list_screen->get_column($columnId);
 
-        if ( ! $column) {
+        if (! $column) {
             return null;
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\Specification;
@@ -12,7 +14,6 @@ use AC\Setting\Control\OptionCollection;
 
 class VideoDisplay implements ComponentFactory
 {
-
     public function create(Config $config, ?Specification $conditions = null): Component
     {
         $builder = (new ComponentBuilder())

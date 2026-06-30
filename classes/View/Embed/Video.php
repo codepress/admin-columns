@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\View\Embed;
 
 use AC\View;
 
 class Video extends View
 {
-
     public function __construct(array $attributes = [])
     {
         parent::__construct();
@@ -20,7 +21,9 @@ class Video extends View
      */
     public function set_src(string $src): self
     {
-        return $this->set('src', $src);
+        $this->set('src', $src);
+
+        return $this;
     }
 
 }

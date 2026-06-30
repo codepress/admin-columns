@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\Preference;
 
 use AC\Preferences\Preference;
@@ -9,7 +11,6 @@ use AC\Type\TableId;
 
 class EditorPreference
 {
-
     private Preference $storage;
 
     public function __construct(bool $is_network = false)

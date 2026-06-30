@@ -14,7 +14,6 @@ use AC\Setting\DefaultSettingsBuilder;
 
 class ExifDataFactory extends BaseColumnFactory
 {
-
     private ExifData $exif_data;
 
     public function __construct(

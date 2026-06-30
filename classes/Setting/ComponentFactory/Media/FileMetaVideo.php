@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Setting\ComponentFactory\Media;
 
 use AC;
@@ -12,7 +14,6 @@ use AC\Setting\Control\OptionCollection;
 
 class FileMetaVideo extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Video Meta');
@@ -79,7 +80,7 @@ class FileMetaVideo extends BaseComponentFactory
             case 'created_timestamp':
                 $formatters->add(
                     new AC\Formatter\Date\LocalizedDateFormat(
-                        AC\Helper\Date::create()->get_date_time_format(),
+                        AC\Helper\WpDateFormat::date_time(),
                         'U'
                     )
                 );

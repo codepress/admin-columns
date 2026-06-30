@@ -15,18 +15,17 @@ use AC\Type\TableScreenContext;
 
 final class PostFactory extends BaseFactory
 {
-
     protected function get_factories(TableScreen $table_screen): ColumnFactoryDefinitionCollection
     {
         $collection = new ColumnFactoryDefinitionCollection();
 
-        if ( ! $table_screen instanceof AC\PostType) {
+        if (! $table_screen instanceof AC\PostType) {
             return $collection;
         }
 
         $table_screen_context = TableScreenContext::from_table_screen($table_screen);
 
-        if ( ! $table_screen_context) {
+        if (! $table_screen_context) {
             return $collection;
         }
 

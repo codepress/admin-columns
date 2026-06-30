@@ -12,7 +12,6 @@ use AC\Type\Value;
 
 class User implements ManageValueService
 {
-
     private RenderFactory $factory;
 
     private int $priority;
@@ -32,6 +31,11 @@ class User implements ManageValueService
         add_filter('manage_users_custom_column', [$this, 'render_value'], $this->priority, 3);
     }
 
+    /**
+     * @param ...$args
+     *
+     * @return mixed
+     */
     public function render_value(...$args)
     {
         [$value, $column_id, $row_id] = $args;

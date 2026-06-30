@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Type;
 
 use AC\Screen;
@@ -7,7 +9,6 @@ use AC\TableScreen;
 
 abstract class Integration
 {
-
     private string $slug;
 
     private string $title;

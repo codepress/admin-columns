@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Exception\IteratorException;
 use Countable;
 use Iterator;
 
 final class ListScreenCollection implements Iterator, Countable
 {
-
     /**
      * @var ListScreen[]
      */
@@ -42,7 +42,13 @@ final class ListScreenCollection implements Iterator, Countable
 
     public function current(): ListScreen
     {
-        return current($this->data);
+        $current = current($this->data);
+
+        if (! $current instanceof ListScreen) {
+            throw IteratorException::from_current();
+        }
+
+        return $current;
     }
 
     public function first(): ?ListScreen
@@ -54,7 +60,13 @@ final class ListScreenCollection implements Iterator, Countable
 
     public function key(): string
     {
-        return key($this->data);
+        $key = key($this->data);
+
+        if (! is_string($key)) {
+            throw IteratorException::from_key();
+        }
+
+        return $key;
     }
 
     public function next(): void

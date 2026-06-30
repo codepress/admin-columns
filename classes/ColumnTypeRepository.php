@@ -12,7 +12,6 @@ use AC\Type\TableId;
 
 class ColumnTypeRepository
 {
-
     private Aggregate $aggregate;
 
     private OriginalColumnsRepository $original_columns_repository;
@@ -38,7 +37,7 @@ class ColumnTypeRepository
     {
         $factory = $this->find_column_factory($this->aggregate->create($table_screen), $type);
 
-        if ( ! $factory) {
+        if (! $factory) {
             return null;
         }
 
@@ -71,7 +70,7 @@ class ColumnTypeRepository
         return $column_names;
     }
 
-    public function find_all_by_original(TableScreen $table_screen): ColumnCollection
+    public function find_all_original(TableScreen $table_screen): ColumnCollection
     {
         $columns = new ColumnCollection();
 

@@ -10,7 +10,6 @@ use AC\TableScreen;
 
 class Aggregate implements MenuGroupFactory
 {
-
     /**
      * @var array{factory: MenuGroupFactory, priority: int}[]
      */

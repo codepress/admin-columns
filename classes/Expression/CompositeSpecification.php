@@ -6,7 +6,6 @@ namespace AC\Expression;
 
 abstract class CompositeSpecification extends Specification
 {
-
     public const RULE = 'rule';
 
     protected Specification $specification;

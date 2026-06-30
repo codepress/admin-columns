@@ -10,7 +10,6 @@ use AC\Setting\Control\Input\OptionFactory;
 
 class LinkToMenu extends BaseComponentFactory
 {
-
     protected function get_label(Config $config): ?string
     {
         return __('Link To', 'codepress-admin-columns');

@@ -23,14 +23,11 @@ use AC\Value\ExtendedValueRegistry;
 
 class Loader
 {
-
     private bool $is_pro_active;
 
     public function __construct(AC\DI\Container $container, bool $is_pro_active = false)
     {
         $this->is_pro_active = $is_pro_active;
-
-        Container::set_container($container);
 
         $this->load($container);
     }
@@ -106,7 +103,7 @@ class Loader
             ColumnFactories\UserFactory::class,
         ];
 
-        if ( ! $this->is_pro_active) {
+        if (! $this->is_pro_active) {
             $classes[] = ColumnFactories\ThirdPartyFactory::class;
             $classes[] = ColumnFactories\IntegrationFactory::class;
         }
@@ -124,6 +121,9 @@ class Loader
         ];
     }
 
+    /**
+     * @return array<class-string<MenuGroupFactory>>
+     */
     private function get_menu_group_factory_classes(): array
     {
         return [
@@ -204,7 +204,7 @@ class Loader
             AC\Acf\FieldGroupCache::class,
         ];
 
-        if ( ! $this->is_pro_active) {
+        if (! $this->is_pro_active) {
             $classes[] = Service\PromoChecks::class;
             $classes[] = Service\NoticeChecks::class;
             $classes[] = PluginActionUpgrade::class;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Integration;
 
 use AC\PostType;
@@ -10,7 +12,6 @@ use AC\Type\Url\Site;
 
 final class EventsCalendar extends Integration
 {
-
     public function __construct()
     {
         parent::__construct(
@@ -50,9 +51,9 @@ final class EventsCalendar extends Integration
     public function show_placeholder(TableScreen $table_screen): bool
     {
         return $table_screen instanceof PostType && in_array(
-                (string)$table_screen->get_post_type(),
-                $this->get_post_types()
-            );
+            (string)$table_screen->get_post_type(),
+            $this->get_post_types()
+        );
     }
 
 }

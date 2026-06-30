@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Form;
 
 use AC\Helper;
@@ -7,7 +9,6 @@ use AC\Renderable;
 
 abstract class Element implements Renderable
 {
-
     protected array $attributes = [];
 
     /**
@@ -37,7 +38,7 @@ abstract class Element implements Renderable
 
     protected function render_description(): ?string
     {
-        if ( ! $this->get_description()) {
+        if (! $this->get_description()) {
             return null;
         }
 
@@ -50,7 +51,7 @@ abstract class Element implements Renderable
 
     public function get_attribute(string $key): ?string
     {
-        if ( ! isset($this->attributes[$key])) {
+        if (! isset($this->attributes[$key])) {
             return null;
         }
 

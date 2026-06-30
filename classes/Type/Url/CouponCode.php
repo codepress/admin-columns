@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Type\Url;
 
 use AC\Type\Uri;
@@ -7,7 +9,6 @@ use AC\Type\Url;
 
 class CouponCode extends Uri
 {
-
     public function __construct(Url $url, string $coupon_code)
     {
         parent::__construct($url->get_url());

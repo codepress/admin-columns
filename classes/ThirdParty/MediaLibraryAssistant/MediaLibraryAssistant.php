@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
@@ -10,7 +12,6 @@ use AC\ThirdParty\MediaLibraryAssistant\TableScreen\ManageValueServiceFactory;
 
 class MediaLibraryAssistant implements Registerable
 {
-
     private Container $container;
 
     public function __construct(Container $container)
@@ -20,7 +21,7 @@ class MediaLibraryAssistant implements Registerable
 
     public function register(): void
     {
-        if ( ! defined('MLA_PLUGIN_PATH')) {
+        if (! defined('MLA_PLUGIN_PATH')) {
             return;
         }
 

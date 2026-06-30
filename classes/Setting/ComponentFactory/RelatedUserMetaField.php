@@ -12,7 +12,6 @@ use AC\Type\TableScreenContext;
 
 class RelatedUserMetaField extends CustomField
 {
-
     private FieldType $field_type;
 
     public function __construct(FieldType $field_type)

@@ -10,7 +10,6 @@ use AC\ThirdParty\MediaLibraryAssistant;
 
 class ManageHeadings extends ScreenColumnsFactory
 {
-
     public function can_create(TableScreen $table_screen): bool
     {
         return $table_screen instanceof MediaLibraryAssistant\TableScreen;

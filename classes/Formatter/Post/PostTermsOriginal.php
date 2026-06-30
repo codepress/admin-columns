@@ -10,7 +10,6 @@ use AC\Type\Value;
 
 class PostTermsOriginal implements Formatter
 {
-
     private string $taxonomy;
 
     public function __construct(string $taxonomy)
@@ -28,7 +27,7 @@ class PostTermsOriginal implements Formatter
             ]
         );
 
-        if ( ! $terms || is_wp_error($terms)) {
+        if (! $terms || is_wp_error($terms)) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 

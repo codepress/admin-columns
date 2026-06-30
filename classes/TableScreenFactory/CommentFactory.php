@@ -12,7 +12,6 @@ use WP_Screen;
 
 class CommentFactory implements TableScreenFactory
 {
-
     public function create(TableId $id): TableScreen
     {
         return $this->create_table_screen();

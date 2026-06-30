@@ -17,7 +17,6 @@ use AC\Setting\Control\OptionCollection;
 
 class PostProperty extends BaseComponentFactory
 {
-
     public const NAME = 'post';
     public const PROPERTY_AUTHOR = 'author';
     public const PROPERTY_FEATURED_IMAGE = 'thumbnail';
