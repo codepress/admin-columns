@@ -10,7 +10,6 @@ use WP_Post;
 
 class Post extends Creatable
 {
-
     /**
      * @param string[]|null $post_types
      * @param string[]|null $post_stati

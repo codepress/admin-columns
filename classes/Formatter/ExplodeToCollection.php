@@ -11,7 +11,6 @@ use InvalidArgumentException;
 
 final class ExplodeToCollection extends ArrayToCollection
 {
-
     private string $separator;
 
     public function __construct(string $separator)
