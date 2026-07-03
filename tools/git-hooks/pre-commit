@@ -18,7 +18,14 @@ if [ ! -f "$FIXER" ]; then
     exit 0
 fi
 
-mapfile -t files < <(git diff --cached --name-only --diff-filter=ACMR -- '*.php')
+# Read staged PHP files into an array. Avoid `mapfile` (bash 4+) so the hook
+# also runs under macOS's system bash 3.2, which GUI git clients invoke via
+# `/usr/bin/env bash` on their minimal PATH. `-z`/`-d ''` keeps paths with
+# spaces or newlines intact.
+files=()
+while IFS= read -r -d '' file; do
+    files+=("$file")
+done < <(git diff --cached --name-only -z --diff-filter=ACMR -- '*.php')
 [ "${#files[@]}" -eq 0 ] && exit 0
 
 if ! "$PHP_BIN" "$FIXER" fix \
