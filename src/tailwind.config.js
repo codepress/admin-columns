@@ -16,6 +16,9 @@ module.exports = {
 		"./packages/material-icons/src/**/*.{js,ts,svelte}",
 		"./js/**/*.{js,ts,svelte}",
 		"./ui/**/*.{js,ts,svelte}",
+		// Include Addons
+		"./../../addons/**/classes/**/*.php",
+		"./../../addons/**/src/js/**/*.{js,ts,svelte}",
 	],
 	theme : {
 		// Custom Spacing
