@@ -23,7 +23,7 @@
     import {getColumnSettingsTranslation} from "../utils/global";
     import {sprintf} from "@wordpress/i18n";
     import ColumnTypeDropdownV2 from "./ColumnTypeDropdownV2.svelte";
-    import {AcButton, AcCheckbox, AcDropdown, AcPanel, AcPanelFooter, AcPanelHeader, AcPanelTitle} from "ACUi/index";
+    import {AcButton, AcCheckbox, AcDropdown, AcDropdownItem, AcPanel, AcPanelFooter, AcPanelHeader, AcPanelTitle} from "ACUi/index";
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
     import {clone} from "lodash-es";
     import {MaterialIcon} from "@ac/material-icons/src";
@@ -44,8 +44,6 @@
     let loadingDefaultColumns: boolean = false;
     let columnTypeComponent: AcDropdown | null;
     let templates: ScreenTemplate[] = [];
-    let templatesOpen: boolean = false;
-    let selectedTemplateId: string | null = null;
     let applyingTemplate: boolean = false;
 
 
@@ -161,23 +159,25 @@
         })
     }
 
-    const handleApplyTemplate = async () => {
-        if (!selectedTemplateId) {
+    const handleTemplateSelect = (e: CustomEvent<string>) => {
+        handleApplyTemplate(e.detail);
+    }
+
+    const handleApplyTemplate = async (templateId: string) => {
+        if (!templateId || applyingTemplate) {
             return;
         }
 
         applyingTemplate = true;
 
         try {
-            const response = await listScreenTemplateSettings(selectedTemplateId);
+            const response = await listScreenTemplateSettings(templateId);
 
             if (response.data.success) {
                 const payload = response.data.data;
 
                 config = payload.config;
                 data.columns = payload.columns;
-                data.settings = Array.isArray(payload.settings) ? {} : payload.settings;
-                templatesOpen = false;
             }
         } finally {
             applyingTemplate = false;
@@ -316,47 +316,54 @@
 						</div>
 
 						{#if templates.length > 0}
-							<div class="acu-text-center acu-pb-4">
-								<button
-									type="button"
-									class="acu-text-12px acu-underline acu-text-gray-600 hover:acu-text-gray-900"
-									on:click={() => (templatesOpen = !templatesOpen)}
+							<div class="acu-mx-auto acu-w-[28rem] acu-max-w-full acu-text-left acu-pb-4">
+								<div class="acu-flex acu-items-center acu-gap-3 acu-pb-4">
+									<span class="acu-flex-1 acu-h-px acu-bg-gray-200"></span>
+									<span class="acu-text-12px acu-font-semibold acu-uppercase acu-tracking-wide acu-text-gray-400">
+										{i18n.editor.sentence.or_use_template}
+									</span>
+									<span class="acu-flex-1 acu-h-px acu-bg-gray-200"></span>
+								</div>
+
+								<label class="acu-block acu-font-bold acu-text-gray-800 acu-pb-1.5">
+									{i18n.editor.label.browse_templates}
+								</label>
+
+								<AcDropdown
+									position="bottom-right"
+									customClass="-selectv2"
+									--acui-dropdown-width="28rem"
+									on:change={handleTemplateSelect}
 								>
-									{#if templatesOpen}
-										{i18n.editor.label.hide_templates} &#9652;
-									{:else}
-										{i18n.editor.label.browse_templates} ({templates.length} {i18n.editor.label.templates_available}) &#9662;
-									{/if}
-								</button>
+									<button
+										slot="trigger"
+										let:active
+										type="button"
+										class="ac-template-select acu-flex acu-items-center acu-justify-between acu-gap-2 acu-w-[28rem] acu-max-w-full acu-px-4 acu-py-2.5 acu-bg-white acu-rounded-md acu-text-gray-600"
+										class:-active={active}
+									>
+										<span>{i18n.editor.label.select_template}</span>
+										<svg
+											class="acu-w-4 acu-h-4 acu-text-gray-500 acu-transition-transform {active ? 'acu-rotate-180' : ''}"
+											viewBox="0 0 20 20"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="1.8"
+											aria-hidden="true"
+										>
+											<path d="M6 8l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</button>
 
-								{#if templatesOpen}
-									<div class="acu-mt-3 acu-mx-auto acu-max-w-md acu-bg-white acu-rounded acu-border acu-border-gray-200 acu-text-left">
-										{#each templates as template (template.id)}
-											<label class="acu-flex acu-items-center acu-gap-2 acu-px-4 acu-py-2 acu-cursor-pointer acu-border-b acu-border-gray-100">
-												<input
-													type="radio"
-													name="ac-template"
-													value={template.id}
-													bind:group={selectedTemplateId}
-												/>
-												<span class="acu-font-bold">{template.title}</span>
-												<span class="acu-text-gray-500 acu-text-12px">
-													{template.column_count} {i18n.editor.label.columns_count}
-												</span>
-											</label>
-										{/each}
-
-										<div class="acu-flex acu-justify-end acu-p-3">
-											<AcButton
-												loading={applyingTemplate}
-												--acui-loading-color="#000"
-												disabled={!selectedTemplateId}
-												on:click={handleApplyTemplate}
-												label={i18n.editor.label.apply_template}
-											/>
-										</div>
-									</div>
-								{/if}
+									{#each templates as template (template.id)}
+										<AcDropdownItem value={template.id}>
+											<span class="acu-flex acu-flex-col acu-py-1">
+												<span class="acu-font-bold acu-text-gray-800">{template.title}</span>
+												<span class="acu-text-gray-400">{template.column_count} {i18n.editor.label.columns_count}</span>
+											</span>
+										</AcDropdownItem>
+									{/each}
+								</AcDropdown>
 							</div>
 						{/if}
 						<div class="acu-text-center acu-text-12px">
@@ -441,5 +448,23 @@
 {:else}
 	<ColumnsFormSkeleton/>
 {/if}
+
+<style>
+	.ac-template-select {
+		border: 1px solid #dcdcde;
+		transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+	}
+
+	.ac-template-select:hover {
+		border-color: #c3c4c7;
+	}
+
+	.ac-template-select:focus,
+	.ac-template-select.-active {
+		outline: none;
+		border-color: var(--ac-primary-color);
+		box-shadow: 0 0 0 1px var(--ac-primary-color);
+	}
+</style>
 
 

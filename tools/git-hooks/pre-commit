@@ -18,7 +18,10 @@ if [ ! -f "$FIXER" ]; then
     exit 0
 fi
 
-mapfile -t files < <(git diff --cached --name-only --diff-filter=ACMR -- '*.php')
+files=()
+while IFS= read -r file; do
+    files+=("$file")
+done < <(git diff --cached --name-only --diff-filter=ACMR -- '*.php')
 [ "${#files[@]}" -eq 0 ] && exit 0
 
 if ! "$PHP_BIN" "$FIXER" fix \

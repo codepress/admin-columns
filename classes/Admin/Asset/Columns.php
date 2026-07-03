@@ -615,10 +615,8 @@ class Columns extends Script
                         'clear_columns'        => __('Clear columns', 'codepress-admin-columns'),
                         'undo'                 => __('Undo', 'codepress-admin-columns'),
                         'load_default_columns' => __('Load default columns', 'codepress-admin-columns'),
-                        'browse_templates'     => __('Browse column templates', 'codepress-admin-columns'),
-                        'hide_templates'       => __('Hide column templates', 'codepress-admin-columns'),
-                        'templates_available'  => __('available', 'codepress-admin-columns'),
-                        'apply_template'       => __('Apply Template', 'codepress-admin-columns'),
+                        'browse_templates'     => __('Column templates', 'codepress-admin-columns'),
+                        'select_template'      => __('Select a template…', 'codepress-admin-columns'),
                         'columns_count'        => __('columns', 'codepress-admin-columns'),
                         'view'                 => __('View Table', 'codepress-admin-columns'),
                     ],
@@ -647,6 +645,10 @@ class Columns extends Script
                         ),
                         'get_started' => __(
                             'Start by adding columns to your list table.',
+                            'codepress-admin-columns'
+                        ),
+                        'or_use_template' => __(
+                            'Or use a template',
                             'codepress-admin-columns'
                         ),
                         'documentation' => sprintf(

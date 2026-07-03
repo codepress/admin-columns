@@ -158,7 +158,6 @@ export const listScreenTemplatesForScreen = (listKey: string): AxiosPromise<Json
 type templateSettingsPayload = {
     columns: ListScreenColumnData[]
     config: { [key: string]: ColumnSettingCollection }
-    settings: { [key: string]: any }
 }
 
 export const listScreenTemplateSettings = (templateId: string): AxiosPromise<JsonSuccessResponse<templateSettingsPayload> | JsonDefaultFailureResponse> => {
