@@ -102,6 +102,11 @@ type AdminColumnsI18n = {
             add_column: string
             add_columns: string
             load_default_columns: string
+            browse_templates: string
+            hide_templates: string
+            templates_available: string
+            apply_template: string
+            columns_count: string
             clear_columns: string
             undo: string
             save: string
