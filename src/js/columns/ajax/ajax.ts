@@ -136,3 +136,39 @@ export const loadDefaultColumns = (listKey: string): AxiosPromise<JsonSuccessRes
         }
     });
 }
+
+export type ScreenTemplate = {
+    id: string
+    title: string
+    column_count: number
+}
+
+export const listScreenTemplatesForScreen = (listKey: string): AxiosPromise<JsonSuccessResponse<ScreenTemplate[]> | JsonDefaultFailureResponse> => {
+    const nonce = getColumnSettingsConfig().nonce;
+
+    return axios.get(ajaxurl, {
+        params: {
+            _ajax_nonce: nonce,
+            action: 'acp-list-screen-templates-for-screen',
+            list_key: listKey
+        }
+    });
+}
+
+type templateSettingsPayload = {
+    columns: ListScreenColumnData[]
+    config: { [key: string]: ColumnSettingCollection }
+    settings: { [key: string]: any }
+}
+
+export const listScreenTemplateSettings = (templateId: string): AxiosPromise<JsonSuccessResponse<templateSettingsPayload> | JsonDefaultFailureResponse> => {
+    const nonce = getColumnSettingsConfig().nonce;
+
+    return axios.get(ajaxurl, {
+        params: {
+            _ajax_nonce: nonce,
+            action: 'acp-list-screen-template-settings',
+            id: templateId
+        }
+    });
+}
