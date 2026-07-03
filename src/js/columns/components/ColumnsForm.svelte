@@ -1,6 +1,6 @@
 <script lang="ts">
     import ColumnItem from "./ColumnItem.svelte";
-    import {getColumnSettings, loadDefaultColumns} from "../ajax/ajax";
+    import {getColumnSettings, loadDefaultColumns, listScreenTemplatesForScreen, listScreenTemplateSettings, ScreenTemplate} from "../ajax/ajax";
     import ColumnUtils from "../utils/column";
     import {ColumnTypesUtils} from "../utils/column-types";
     import ListKeys from "../utils/list-keys";
@@ -43,6 +43,10 @@
     let sortableContainer: HTMLElement | null;
     let loadingDefaultColumns: boolean = false;
     let columnTypeComponent: AcDropdown | null;
+    let templates: ScreenTemplate[] = [];
+    let templatesOpen: boolean = false;
+    let selectedTemplateId: string | null = null;
+    let applyingTemplate: boolean = false;
 
 
     const clearColumns = () => {
@@ -157,6 +161,29 @@
         })
     }
 
+    const handleApplyTemplate = async () => {
+        if (!selectedTemplateId) {
+            return;
+        }
+
+        applyingTemplate = true;
+
+        try {
+            const response = await listScreenTemplateSettings(selectedTemplateId);
+
+            if (response.data.success) {
+                const payload = response.data.data;
+
+                config = payload.config;
+                data.columns = payload.columns;
+                data.settings = Array.isArray(payload.settings) ? {} : payload.settings;
+                templatesOpen = false;
+            }
+        } finally {
+            applyingTemplate = false;
+        }
+    }
+
     const makeSortable = () => {
         const JQ: any = (window as any).jQuery;
         JQ(sortableContainer).sortable({
@@ -198,6 +225,18 @@
 
     onMount(() => {
         setTimeout(makeSortable, 1000);
+    });
+
+    onMount(() => {
+        listScreenTemplatesForScreen($currentListKey)
+            .then(response => {
+                if (response.data.success) {
+                    templates = response.data.data;
+                }
+            })
+            .catch(() => {
+                templates = [];
+            });
     });
 
 </script>
@@ -275,6 +314,51 @@
 								label={i18n.editor.label.load_default_columns}
 							/>
 						</div>
+
+						{#if templates.length > 0}
+							<div class="acu-text-center acu-pb-4">
+								<button
+									type="button"
+									class="acu-text-12px acu-underline acu-text-gray-600 hover:acu-text-gray-900"
+									on:click={() => (templatesOpen = !templatesOpen)}
+								>
+									{#if templatesOpen}
+										{i18n.editor.label.hide_templates} &#9652;
+									{:else}
+										{i18n.editor.label.browse_templates} ({templates.length} {i18n.editor.label.templates_available}) &#9662;
+									{/if}
+								</button>
+
+								{#if templatesOpen}
+									<div class="acu-mt-3 acu-mx-auto acu-max-w-md acu-bg-white acu-rounded acu-border acu-border-gray-200 acu-text-left">
+										{#each templates as template (template.id)}
+											<label class="acu-flex acu-items-center acu-gap-2 acu-px-4 acu-py-2 acu-cursor-pointer acu-border-b acu-border-gray-100">
+												<input
+													type="radio"
+													name="ac-template"
+													value={template.id}
+													bind:group={selectedTemplateId}
+												/>
+												<span class="acu-font-bold">{template.title}</span>
+												<span class="acu-text-gray-500 acu-text-12px">
+													{template.column_count} {i18n.editor.label.columns_count}
+												</span>
+											</label>
+										{/each}
+
+										<div class="acu-flex acu-justify-end acu-p-3">
+											<AcButton
+												loading={applyingTemplate}
+												--acui-loading-color="#000"
+												disabled={!selectedTemplateId}
+												on:click={handleApplyTemplate}
+												label={i18n.editor.label.apply_template}
+											/>
+										</div>
+									</div>
+								{/if}
+							</div>
+						{/if}
 						<div class="acu-text-center acu-text-12px">
 							<p>{@html i18n.editor.sentence.documentation}</p>
 						</div>
