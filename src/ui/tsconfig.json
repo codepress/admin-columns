@@ -1,6 +1,6 @@
 {
     "include": [
-        "js/**/*"
+        "**/*.ts"
     ],
     "compilerOptions": {
         "baseUrl": "./",

@@ -1,0 +1,38 @@
+// Styling for AcDashiconPicker (ACUi). Shared so the picker looks right on any
+// admin screen that uses it (column labels, data sources, ...), not only the
+// column settings page. The modal is appended to <body>, so these rules target
+// the modal globally rather than a page-scoped ancestor.
+.ac-modal.-iconpicker {
+
+	.ac-modal__dialog__content {
+		max-height: calc(100vh - 260px);
+		overflow-y: auto !important;
+	}
+
+	.ac-ipicker__icon {
+		padding: 0;
+		width: 49px;
+		height: 49px;
+		white-space: nowrap;
+		text-align: center;
+		background: none;
+		border: none;
+		cursor: pointer;
+
+		&:hover {
+			color: var(--ac-primary-color-hover);
+		}
+
+		&.active {
+			background: var(--ac-primary-color);
+			color: #fff;
+		}
+
+		span {
+			width: 49px;
+			height: 49px;
+			line-height: 49px;
+		}
+	}
+
+}
