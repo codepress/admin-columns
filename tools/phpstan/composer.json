@@ -1,0 +1,14 @@
+{
+    "require": {
+        "phpstan/phpstan": "*",
+        "phpstan/extension-installer": "*",
+        "szepeviktor/phpstan-wordpress": "*",
+        "php-stubs/wordpress-stubs": "^6.9"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    }
+}
