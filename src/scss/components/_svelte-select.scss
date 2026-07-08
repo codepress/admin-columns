@@ -16,8 +16,8 @@ $input-hover-text-color: #2271b1;
 	--loading-width: 20px;
 	--clear-select-width: 10px;
 	--icons-color: #838a92;
-	--input-color: $input-text-color;
-	--placeholder-color: $input-text-color;
+	--input-color: #{$input-text-color};
+	--placeholder-color: #{$input-text-color};
 	--selected-item-padding: 0 1px 0 0;
 
 	--item-padding: 0 10px;
@@ -151,8 +151,8 @@ $input-hover-text-color: #2271b1;
 	--loading-width: 20px;
 	--clear-select-width: 40px;
 	--icons-color: #838a92;
-	--input-color: $input-text-color;
-	--placeholder-color: $input-text-color;
+	--input-color: #{$input-text-color};
+	--placeholder-color: #{$input-text-color};
 	--selected-item-padding: 0 1px 0 0;
 
 	--list-border: 1px solid #ccc;
