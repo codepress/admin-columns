@@ -14,5 +14,5 @@ $finder = PhpCsFixer\Finder::create()
 
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
-    ->setRules(require $root . '/settings/php-cs-fixer/rules.php')
+    ->setRules(require $root . '/tools/php-cs-fixer/rules.php')
     ->setFinder($finder);

@@ -72,7 +72,7 @@ class Component
     public function get_label(): string
     {
         if ($this->label === null) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('No label provided.');
         }
 
         return $this->label;
@@ -86,7 +86,7 @@ class Component
     public function get_description(): string
     {
         if ($this->description === null) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('No description provided');
         }
 
         return $this->description;
@@ -100,7 +100,7 @@ class Component
     public function get_input(): Input
     {
         if ($this->input === null) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('No input provided.');
         }
 
         return $this->input;
@@ -119,7 +119,7 @@ class Component
     public function get_children(): Children
     {
         if ($this->children === null) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('No children provided.');
         }
 
         return $this->children;
