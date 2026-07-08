@@ -8,16 +8,21 @@
     export let attributes: null | Record<string, any> = null;
 	export let setting: string|null = null;
 
+    // Layout adapts to the width of the nearest `/columnrow` container (set by
+    // whoever renders the settings group), not the viewport. This keeps the row
+    // stacked inside a narrow host (e.g. a Data Sources relation card) while it
+    // goes side-by-side in the wide column panel. See PreferenceSection for the
+    // same @container idiom.
     const containerClass = () => {
-        const base = ['acp-column-setting', 'lg:acu-flex', 'acu-px-6', 'acu-mb-2'];
+        const base = ['acp-column-setting', '@[480px]/columnrow:acu-flex', 'acu-px-6', 'acu-mb-2'];
         if (isSubComponent) base.push('acu-flex-col');
         if (extraClass) base.push(extraClass);
         return base.join(' ');
     };
 
     const labelClass = isSubComponent
-        ? 'acp-column-setting__label acu-font-semibold lg:acu-pt-1 lg:acu-w-[200px]'
-        : 'acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px] acu-flex-shrink-0 acu-flex acu-mr-2';
+        ? 'acp-column-setting__label acu-font-semibold @[480px]/columnrow:acu-pt-1 @[480px]/columnrow:acu-w-[200px]'
+        : 'acp-column-setting__label acu-font-semibold @[480px]/columnrow:acu-py-2 @[480px]/columnrow:acu-w-[200px] acu-flex-shrink-0 acu-flex acu-mr-2';
 
     const valueClass = isSubComponent
         ? 'acp-column-setting__value acu-py-1'
