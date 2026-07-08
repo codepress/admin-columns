@@ -31,6 +31,11 @@ class PregReplace implements Formatter
         return $this->add_pattern('/(\r\n|\r|\n)/', $replacement);
     }
 
+    public function replace_non_breaking_space(string $replacement = ' '): self
+    {
+        return $this->add_pattern('/&nbsp;|&#160;/i', $replacement);
+    }
+
     public function replace_tabs(string $replacement = ' '): self
     {
         return $this->add_pattern('/\t+/', $replacement);
