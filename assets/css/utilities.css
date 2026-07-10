@@ -446,10 +446,6 @@
   max-width: 1075px
 }
 
-.acu-max-w-\[1100px\] {
-  max-width: 1100px
-}
-
 .acu-max-w-\[1200px\] {
   max-width: 1200px
 }
@@ -612,14 +608,6 @@
   justify-content: center
 }
 
-.acu-justify-between {
-  justify-content: space-between
-}
-
-.acu-gap-0\.5 {
-  gap: 3px
-}
-
 .acu-gap-1 {
   gap: 5px
 }
@@ -769,19 +757,9 @@
   background-color: rgb(230 249 241 / var(--tw-bg-opacity, 1))
 }
 
-.acu-bg-\[\#EAF2FA\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(234 242 250 / var(--tw-bg-opacity, 1))
-}
-
 .acu-bg-\[\#F1F5F9\] {
   --tw-bg-opacity: 1;
   background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1))
-}
-
-.acu-bg-\[\#F5F5F5\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(245 245 245 / var(--tw-bg-opacity, 1))
 }
 
 .acu-bg-\[\#F9FAFB\] {
@@ -799,11 +777,6 @@
   background-color: rgb(238 238 238 / var(--tw-bg-opacity, 1))
 }
 
-.acu-bg-\[\#f0f0f0\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(240 240 240 / var(--tw-bg-opacity, 1))
-}
-
 .acu-bg-\[\#fff\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
@@ -811,6 +784,14 @@
 
 .acu-bg-\[transparent\] {
   background-color: transparent
+}
+
+.acu-bg-\[var\(--ac-admin-page-bg\)\] {
+  background-color: var(--ac-admin-page-bg)
+}
+
+.acu-bg-\[var\(--ac-surface-subtle\)\] {
+  background-color: var(--ac-surface-subtle)
 }
 
 .acu-bg-\[white\] {
@@ -994,10 +975,6 @@
   padding-left: 25px
 }
 
-.acu-pl-6 {
-  padding-left: 30px
-}
-
 .acu-pl-8\.5 {
   padding-left: 43px
 }
@@ -1052,10 +1029,6 @@
 
 .acu-pt-\[20px\] {
   padding-top: 20px
-}
-
-.acu-pt-\[30px\] {
-  padding-top: 30px
 }
 
 .acu-pt-\[70px\] {
@@ -1207,11 +1180,6 @@
   color: rgb(0 135 90 / var(--tw-text-opacity, 1))
 }
 
-.acu-text-\[\#2271b1\] {
-  --tw-text-opacity: 1;
-  color: rgb(34 113 177 / var(--tw-text-opacity, 1))
-}
-
 .acu-text-\[\#3c3c3c\] {
   --tw-text-opacity: 1;
   color: rgb(60 60 60 / var(--tw-text-opacity, 1))
@@ -1275,9 +1243,8 @@
   color: var(--ac-link)
 }
 
-.acu-text-\[red\] {
-  --tw-text-opacity: 1;
-  color: rgb(255 0 0 / var(--tw-text-opacity, 1))
+.acu-text-\[var\(--ac-primary-color\)\] {
+  color: var(--ac-primary-color)
 }
 
 .acu-text-acbutton {
@@ -1334,12 +1301,6 @@
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
 }
 
-.acu-transition-transform {
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms
-}
-
 .acu-\@container\/columnrow {
   container-type: inline-size;
   container-name: columnrow
@@ -1371,8 +1332,8 @@
   padding-bottom: 0
 }
 
-.focus-within\:acu-shadow-\[0_0_0_2px_\#2271b1\]:focus-within {
-  --tw-shadow: 0 0 0 2px #2271b1;
+.focus-within\:acu-shadow-\[0_0_0_2px_var\(--ac-primary-color\)\]:focus-within {
+  --tw-shadow: 0 0 0 2px var(--ac-primary-color);
   --tw-shadow-colored: 0 0 0 2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
 }
@@ -1528,10 +1489,6 @@
 }
 
 @media (min-width: 1450px) {
-  .\32xl\:acu-mr-\[380px\] {
-    margin-right: 380px
-  }
-
   .\32xl\:acu-mr-\[390px\] {
     margin-right: 390px
   }
@@ -1597,9 +1554,8 @@
   text-align: right
 }
 
-.\[\&\.-active\]\:acu-bg-\[\#F1F5F9\].-active {
-  --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1))
+.\[\&\.-active\]\:acu-bg-\[var\(--ac-admin-page-bg\)\].-active {
+  background-color: var(--ac-admin-page-bg)
 }
 
 .\[\&\.-active\]\:acu-text-\[\#475569\].-active {
