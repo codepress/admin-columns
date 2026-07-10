@@ -90,12 +90,12 @@ table .column-audio_player {
 
 	.post-com-count-approved:hover .comment-count-approved,
 	.post-com-count-approved:focus .comment-count-approved {
-		background: #0073aa;
+		background: var(--ac-link);
 	}
 
 	.post-com-count-approved:hover:after,
 	.post-com-count-approved:focus:after {
-		border-top-color: #0073aa;
+		border-top-color: var(--ac-link);
 	}
 
 	.post-com-count-pending {
@@ -213,7 +213,7 @@ span.dashicons {
 	}
 
 	&.blue {
-		color: #0073aa;
+		color: var(--ac-link);
 	}
 
 	&.light-blue {
@@ -649,7 +649,7 @@ table.ac-table-items.-user-posts {
 	}
 
 	a:hover > & {
-		border-color: #2271b1;
+		border-color: var(--ac-primary-color);
 		cursor: pointer;
 	}
 }
@@ -674,7 +674,7 @@ table.ac-table-items.-user-posts {
 		border: 1.5px solid #e0e0e0;
 		border-radius: 100px;
 		background: #fff;
-		color: #2271b1;
+		color: var(--ac-primary-color);
 		font-weight: 700;
 		font-size: 11px;
 		padding: 2px 4px;
@@ -697,7 +697,7 @@ table.ac-table-items.-user-posts {
 	}
 
 	a:hover > & {
-		border-color: #2271b1;
+		border-color: var(--ac-primary-color);
 		cursor: pointer;
 	}
 }

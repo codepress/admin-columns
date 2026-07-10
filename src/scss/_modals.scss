@@ -205,7 +205,7 @@ body .ac-modal {
 				background: var(--ac-surface-info);
 				border: 1px solid var(--ac-surface-info-border);
 				border-radius: 100px;
-				color: #2271b1;
+				color: var(--ac-primary-color);
 				font-size: 12px;
 				font-weight: 500;
 				line-height: 1;
@@ -287,8 +287,8 @@ body .ac-modal {
 				margin-bottom: 16px;
 
 				.button.button-primary {
-					background: #2271b1;
-					border-color: #2271b1;
+					background: var(--ac-primary-color);
+					border-color: var(--ac-primary-color);
 					font-size: 14px;
 					padding: 6px 24px;
 					height: auto;
@@ -296,20 +296,20 @@ body .ac-modal {
 					border-radius: 4px;
 
 					&:hover {
-						background: #135e96;
-						border-color: #135e96;
+						background: var(--ac-primary-color-hover);
+						border-color: var(--ac-primary-color-hover);
 					}
 				}
 			}
 
 			&__see-all {
-				color: #2271b1;
+				color: var(--ac-primary-color);
 				font-size: 13px;
 				text-decoration: none;
 				font-weight: 500;
 
 				&:hover {
-					color: #135e96;
+					color: var(--ac-primary-color-hover);
 				}
 			}
 

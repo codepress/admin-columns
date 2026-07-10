@@ -443,7 +443,7 @@ $wp-border-color: #7e8893;
 }
 
 .select2-container--acs2 .select2-results__option--highlighted[aria-selected] {
-	background-color: #5897fb;
+	background-color: var(--ac-select-hover-bg);
 	color: white
 }
 

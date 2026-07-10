@@ -12,7 +12,7 @@
 
 		&:focus {
 			background :#fff;
-			box-shadow: 0 0 0 2px #2271b1;
+			box-shadow: 0 0 0 2px var(--ac-primary-color);
 		}
 
 		&.-active {

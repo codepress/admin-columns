@@ -124,14 +124,14 @@
 	}
 
 	&__link {
-		color: #2271b1;
+		color: var(--ac-primary-color);
 		text-decoration: none;
 		font-size: 13px;
 		font-weight: 600;
 		white-space: nowrap;
 
 		&:hover {
-			color: #135e96;
+			color: var(--ac-primary-color-hover);
 			text-decoration: underline;
 		}
 	}

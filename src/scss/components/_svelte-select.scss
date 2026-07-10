@@ -1,7 +1,7 @@
 $input-border-color: #8c8f94;
-$input-active-border-color: #266fb1;
+$input-active-border-color: var(--ac-primary-color);
 $input-text-color: #2c3338;
-$input-hover-text-color: #2271b1;
+$input-hover-text-color: var(--ac-primary-color);
 
 .svelte-select.-wordpress {
 	--padding: 0 0 0 8px;
@@ -21,7 +21,7 @@ $input-hover-text-color: #2271b1;
 	--selected-item-padding: 0 1px 0 0;
 
 	--item-padding: 0 10px;
-	--item-hover-bg: #5897fb;
+	--item-hover-bg: var(--ac-select-hover-bg);
 	--item-is-active-bg: #ddd;
 	--item-is-active-color: #000;
 	--item-hover-color: #fff;
@@ -33,15 +33,15 @@ $input-hover-text-color: #2271b1;
 	}
 
 	&.focused {
-		box-shadow: 0 0 0 1px #2271b1;
+		box-shadow: 0 0 0 1px var(--ac-primary-color);
 	}
 
 	&:hover {
-		--input-color: #2271b1;
+		--input-color: var(--ac-primary-color);
 	}
 
 	&.-active {
-		--border: 1px solid #2271b1;
+		--border: 1px solid var(--ac-primary-color);
 	}
 
 	.svelte-select-list {
@@ -134,9 +134,9 @@ $input-hover-text-color: #2271b1;
 }
 
 $input-border-color: #8c8f94;
-$input-active-border-color: #266fb1;
+$input-active-border-color: var(--ac-primary-color);
 $input-text-color: #1E3133;
-$input-hover-text-color: #2271b1;
+$input-hover-text-color: var(--ac-primary-color);
 
 .svelte-select.-acui {
 	--padding: 0 0 0 13px;
@@ -181,21 +181,21 @@ $input-hover-text-color: #2271b1;
 	}
 
 	&.focused {
-		box-shadow: 0 0 0 1px #2271b1;
+		box-shadow: 0 0 0 1px var(--ac-primary-color);
 	}
 
 	&.list-open {
 		border-width: 2px !important;
-		border-color: #266fb1 !important;
+		border-color: var(--ac-primary-color) !important;
 		box-shadow: none !important;
 	}
 
 	&:hover {
-		--input-color: #2271b1;
+		--input-color: var(--ac-primary-color);
 	}
 
 	&.-active {
-		--border: 1px solid #2271b1;
+		--border: 1px solid var(--ac-primary-color);
 	}
 
 	.svelte-select-list {
