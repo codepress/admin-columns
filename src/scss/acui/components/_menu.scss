@@ -12,11 +12,11 @@
 
 		&:focus {
 			background :#fff;
-			box-shadow: 0 0 0 2px #2271b1;
+			box-shadow: 0 0 0 2px var(--ac-primary-color);
 		}
 
 		&.-active {
-			background: #E2E8F0;
+			background: var(--ac-admin-menu-active);
 			color: var(--ac-pink-color);
 			font-weight: 500;
 		}
@@ -53,7 +53,7 @@
 		position: relative;
 
 		&.active {
-			background: #E2E8F0;
+			background: var(--ac-admin-menu-active);
 			color: #FE3D6C;
 			font-weight: 500;
 		}
@@ -82,7 +82,7 @@
 	&.-white {
 	    .ac-menu-group-list__link {
             &:hover {
-				background: #F1F5F9;
+				background: var(--ac-admin-page-bg);
 			}
         }
 	}

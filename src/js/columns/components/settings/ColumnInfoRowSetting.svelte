@@ -13,7 +13,7 @@
 			{#each items as item}
 				<strong class="acu-text-[13px] acu-font-semibold acu-text-[#3c434a] acu-whitespace-nowrap">{item.label}</strong>
 				<div>
-					<code class="acu-inline-block acu-bg-[#f0f0f0] acu-text-[#3c3c3c] acu-px-[10px] acu-py-[3px] acu-rounded acu-text-[12px] acu-font-mono">{item.value}</code>
+					<code class="acu-inline-block acu-bg-[var(--ac-surface-subtle)] acu-text-[#3c3c3c] acu-px-[10px] acu-py-[3px] acu-rounded acu-text-[12px] acu-font-mono">{item.value}</code>
 				</div>
 			{/each}
 		</div>

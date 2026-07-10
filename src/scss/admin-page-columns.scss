@@ -8,10 +8,10 @@
 #wpbody-content {
 	padding-bottom: 10px;
 	@media (min-width: 1450px) {
-		background: linear-gradient(to right, #EAF0F6 0px, #EAF0F6 300px, transparent 250px);
+		background: linear-gradient(to right, var(--ac-admin-menu-bg) 0px, var(--ac-admin-menu-bg) 300px, transparent 250px);
 
 		.rtl & {
-			background: linear-gradient(to left, #EAF0F6 0px, #EAF0F6 300px, transparent 250px);
+			background: linear-gradient(to left, var(--ac-admin-menu-bg) 0px, var(--ac-admin-menu-bg) 300px, transparent 250px);
 		}
 	}
 }
@@ -52,7 +52,7 @@
 
 	&__card {
 		background: #fff;
-		border: 1px solid #dcdcde;
+		border: 1px solid var(--ac-border-grey);
 		border-radius: 8px;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 		overflow: hidden;
@@ -72,8 +72,8 @@
 		align-items: center;
 		padding: 4px 10px;
 		border-radius: 999px;
-		background: #f0f6fc;
-		border: 1px solid #c5d9ed;
+		background: var(--ac-surface-info);
+		border: 1px solid var(--ac-surface-info-border);
 		color: var(--ac-primary-color);
 		font-size: 11px;
 		font-weight: 600;
@@ -92,7 +92,7 @@
 
 	&__description {
 		margin: 0 0 14px;
-		color: #50575e;
+		color: var(--ac-table-color);
 		font-size: 13px;
 		line-height: 1.5;
 	}
@@ -102,31 +102,31 @@
 	}
 
 	&__quote {
-		border-left: 3px solid #c5d9ed;
+		border-left: 3px solid var(--ac-surface-info-border);
 		padding: 10px 14px;
 		margin: 0 0 14px;
-		background: #f0f6fc;
+		background: var(--ac-surface-info);
 		border-radius: 0 6px 6px 0;
 
 		p {
 			margin: 0 0 4px;
 			font-size: 13px;
 			line-height: 1.5;
-			color: #1d2327;
+			color: var(--ac-text-strong);
 			font-style: italic;
 		}
 
 		cite {
 			font-style: normal;
 			font-size: 11px;
-			color: #646970;
+			color: var(--ac-text-muted);
 			font-weight: 600;
 		}
 	}
 
 	&__feature-box {
-		border: 1px solid #dcdcde;
-		background: #f6f7f7;
+		border: 1px solid var(--ac-border-grey);
+		background: var(--ac-button-bg);
 		border-radius: 6px;
 		padding: 12px 14px;
 		margin-bottom: 14px;
@@ -138,7 +138,7 @@
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: #646970;
+		color: var(--ac-text-muted);
 	}
 
 	&__feature-list {
@@ -160,7 +160,7 @@
 				position: absolute;
 				left: 2px;
 				top: 0;
-				color: #646970;
+				color: var(--ac-text-muted);
 				font-size: 7px;
 				line-height: 2.7;
 			}
@@ -170,7 +170,7 @@
 	&__integrations {
 		margin: 0 0 14px;
 		font-size: 12px;
-		color: #646970;
+		color: var(--ac-text-muted);
 		line-height: 1.5;
 
 		a {
@@ -189,7 +189,7 @@
 		align-items: center;
 		gap: 4px;
 		font-size: 11px;
-		color: #646970;
+		color: var(--ac-text-muted);
 		margin-bottom: 12px;
 	}
 
@@ -252,7 +252,7 @@
 		margin: 8px 0 0;
 		text-align: center;
 		font-size: 12px;
-		color: #646970;
+		color: var(--ac-text-muted);
 	}
 
 	&__see-all {
@@ -274,7 +274,7 @@
 			display: block;
 			width: 100%;
 			padding: 9px 12px;
-			border: 1px solid #dcdcde;
+			border: 1px solid var(--ac-border-grey);
 			border-radius: 4px;
 			font-size: 13px;
 			margin-bottom: 8px;
@@ -302,9 +302,9 @@
 		text-decoration: none;
 		padding: 11px 14px;
 		border-radius: 4px;
-		border: 1px solid #dcdcde;
-		background: #f6f7f7;
-		color: #1d2327;
+		border: 1px solid var(--ac-border-grey);
+		background: var(--ac-button-bg);
+		color: var(--ac-text-strong);
 		font-size: 13px;
 		font-weight: 600;
 		cursor: pointer;
@@ -312,7 +312,7 @@
 		box-sizing: border-box;
 
 		&:hover {
-			background: #ececec;
+			background: var(--ac-surface-subtle);
 		}
 	}
 
@@ -320,7 +320,7 @@
 		margin: 8px 0 0;
 		text-align: center;
 		font-size: 12px;
-		color: #646970;
+		color: var(--ac-text-muted);
 	}
 }
 
@@ -328,17 +328,17 @@
 	width: 100%;
 	padding: 10px 12px;
 	border-radius: 4px;
-	border: 1px solid #dcdcde;
+	border: 1px solid var(--ac-border-grey);
 	background: #fff;
 	font-size: 13px;
-	color: #1d2327;
+	color: var(--ac-text-strong);
 	cursor: pointer;
 	text-align: center;
 	text-decoration: none;
 	box-sizing: border-box;
 
 	&:hover {
-		background: #f6f7f7;
-		color: #1d2327;
+		background: var(--ac-button-bg);
+		color: var(--ac-text-strong);
 	}
 }

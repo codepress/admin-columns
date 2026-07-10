@@ -1,7 +1,7 @@
 .acui-progress {
 	--containerWidth: 100%;
-	--baseBackground: #ddd;
-	--defaultBarBackground: #0073aa;
+	--baseBackground: var(--ac-surface-muted);
+	--defaultBarBackground: var(--ac-link);
 	--warningBarBackground: #FFB900;
 	--errorBarBackground: var(--ac-notification-red);
 	--finishedBarBackground: #7ED321;

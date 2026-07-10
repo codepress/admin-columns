@@ -23,7 +23,7 @@
 
 </script>
 <button
-	class="ac-header-toggle [&.-active]:acu-bg-[#F1F5F9] [&.-active]:acu-text-[#475569] acu-bg-[transparent]"
+	class="ac-header-toggle [&.-active]:acu-bg-[var(--ac-admin-page-bg)] [&.-active]:acu-text-[#475569] acu-bg-[transparent]"
 	class:-active={isOn}
 	on:click={toggle}
 	{disabled}

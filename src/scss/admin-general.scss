@@ -1,5 +1,5 @@
 @use "sass:color";
-@use 'wordpress-vars';
+@use 'global-vars';
 @use 'articles';
 @use 'admin-variables';
 @use 'colors';
@@ -15,7 +15,7 @@
 
 
 body.settings_page_codepress-admin-columns {
-	background-color: #F1F5F9;
+	background-color: var(--ac-admin-page-bg);
 
 	#cpac {
 		padding: 0;
@@ -47,7 +47,7 @@ body.settings_page_codepress-admin-columns {
 		flex: 33%;
 
 		&__label {
-			color: #1D2327;
+			color: var(--ac-text-strong);
 			margin-left: 8px;
 			text-decoration: dotted;
 			border-bottom: 1px dotted #000;
@@ -371,7 +371,7 @@ span.dashicons {
 	}
 
 	&.blue {
-		color: #0073aa;
+		color: var(--ac-link);
 	}
 
 	&.light-blue {
@@ -474,7 +474,7 @@ table.ac-form-table {
 
 .ac-section {
 	$e: &;
-	background: #F5F5F5;
+	background: var(--ac-surface-subtle);
 	margin-bottom: 28px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 

@@ -11,7 +11,7 @@ $variants : (
 @layer acui {
 	.acui-badge {
 		display: inline-flex;
-		background: #eee;
+		background: var(--ac-surface-subtle);
 		font-weight: 400;
 		height: 26px;
 		line-height: 26px;

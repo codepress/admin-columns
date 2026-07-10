@@ -1,5 +1,11 @@
+// Global CSS custom properties — the single source of truth for Admin Columns colors.
+// Consumed directly as var(--ac-*) in SCSS and mapped to Tailwind color names in
+// tailwind.config.js. The blocks below the defaults re-point a few of these same
+// tokens per active WordPress admin color scheme.
 :root {
 	--ac-text-color: #23282d;
+	--ac-text-strong: #1d2327; // near-black heading / emphasis text
+	--ac-text-muted: #646970; // muted secondary text
 	--ac-link: #0073aa;
 	--ac-link-hover: #0096dd;
 	--ac-button-bg: #f6f7f7;
@@ -24,9 +30,28 @@
 	--ac-table-border: #c3c4c7;
 	--ac-table-color: #50575e;
 
-	--acui-border: #CBD5E1
+	--acui-border: #CBD5E1;
+
+	// Borders
+	--ac-border-input: #8c8f94; // form / select control border
+	--ac-border-subtle: #e2e8f0; // subtle slate border (ui2)
+
+	// Surfaces — light-blue family
+	--ac-surface-active: #EAF2FA; // active / selected (opened column header, select option)
+	--ac-surface-info: #f0f6fc; // quiet info panel (badge, quote, notice)
+	--ac-surface-info-border: #c5d9ed; // border paired with --ac-surface-info
+
+	// Surfaces — neutral backgrounds
+	--ac-surface-subtle: #f5f5f5; // subtle neutral background (panels, hover, empty states)
+	--ac-surface-muted: #ddd; // heavier neutral background
+
+	// Admin chrome — specific brand surfaces, deliberately cool (not the neutral grays)
+	--ac-admin-page-bg: #f1f5f9; // page / body canvas
+	--ac-admin-menu-active: #e2e8f0; // active item in the column-editor menu
+	--ac-admin-menu-bg: #EAF0F6; // cool tint behind the column-editor menu (#wpbody-content backdrop)
 }
 
+// WordPress admin color schemes — re-point a few tokens per active scheme.
 :root body.admin-color-coffee {
 	--ac-button-color: #32373c;
 	--ac-button-border: #8c8f94;

@@ -1,5 +1,5 @@
 @use "sass:color";
-@use 'wordpress-vars';
+@use 'global-vars';
 @use 'colors';
 @use 'webfont';
 @use 'modals';
@@ -90,12 +90,12 @@ table .column-audio_player {
 
 	.post-com-count-approved:hover .comment-count-approved,
 	.post-com-count-approved:focus .comment-count-approved {
-		background: #0073aa;
+		background: var(--ac-link);
 	}
 
 	.post-com-count-approved:hover:after,
 	.post-com-count-approved:focus:after {
-		border-top-color: #0073aa;
+		border-top-color: var(--ac-link);
 	}
 
 	.post-com-count-pending {
@@ -213,7 +213,7 @@ span.dashicons {
 	}
 
 	&.blue {
-		color: #0073aa;
+		color: var(--ac-link);
 	}
 
 	&.light-blue {
@@ -277,7 +277,7 @@ table.ac-table-items {
 
 a.ac-badge-post-count {
 	display: inline-block;
-	background: #eee;
+	background: var(--ac-surface-subtle);
 	border-radius: 3px;
 	font-size: 13px;
 	padding: 6px 14px;
@@ -363,7 +363,7 @@ table.ac-table-items.-user-posts {
 		border-radius: 7px;
 		padding: 0 9px;
 		min-height: 20px;
-		background-color: #e9e9e9;
+		background-color: var(--ac-surface-subtle);
 		text-align: left;
 		font-size: 11px;
 		font-weight: bold;
@@ -384,7 +384,7 @@ table.ac-table-items.-user-posts {
 
 			&.image-id {
 				font-size: 11px;
-				color: #757575;
+				color: var(--ac-text-muted);
 			}
 
 			&.image-file-size {
@@ -394,21 +394,21 @@ table.ac-table-items.-user-posts {
 			&.image-extension {
 				text-transform: uppercase;
 				font-size: 11px;
-				color: #757575;
+				color: var(--ac-text-muted);
 			}
 
 			&.suffix {
 				display: inline-block;
 				text-transform: uppercase;
 				font-size: 10px;
-				color: #757575;
+				color: var(--ac-text-muted);
 				padding-left: 3px;
 				margin-top: -2px;
 			}
 
 			&.dashicons {
 				margin-top: -2px;
-				color: #757575;
+				color: var(--ac-text-muted);
 				font-size: 14px;
 				width: 16px;
 			}
@@ -529,7 +529,7 @@ table.ac-table-items.-user-posts {
 	min-width: 8px;
 	padding: 0 6px;
 	min-height: 20px;
-	background-color: #e9e9e9;
+	background-color: var(--ac-surface-subtle);
 	text-align: center;
 	margin-right: 7px;
 	font-size: 11px;
@@ -619,7 +619,7 @@ table.ac-table-items.-user-posts {
 	margin-bottom: 6px;
 	overflow: hidden;
 	max-width: 100%;
-	background-color: #f0f0f1; // some transparent image won't be visible otherwise
+	background-color: var(--ac-surface-subtle); // some transparent image won't be visible otherwise
 	vertical-align: middle;
 	border-radius: 4px;
 	border: 1px solid rgba(0, 0, 0, 0.1);
@@ -649,7 +649,7 @@ table.ac-table-items.-user-posts {
 	}
 
 	a:hover > & {
-		border-color: #2271b1;
+		border-color: var(--ac-primary-color);
 		cursor: pointer;
 	}
 }
@@ -674,7 +674,7 @@ table.ac-table-items.-user-posts {
 		border: 1.5px solid #e0e0e0;
 		border-radius: 100px;
 		background: #fff;
-		color: #2271b1;
+		color: var(--ac-primary-color);
 		font-weight: 700;
 		font-size: 11px;
 		padding: 2px 4px;
@@ -697,7 +697,7 @@ table.ac-table-items.-user-posts {
 	}
 
 	a:hover > & {
-		border-color: #2271b1;
+		border-color: var(--ac-primary-color);
 		cursor: pointer;
 	}
 }
@@ -721,7 +721,7 @@ table.ac-table-items.-user-posts {
 		min-height: 22px;
 		line-height: 22px;
 		position: relative;
-		border: 1px solid #ccc;
+		border: 1px solid var(--ac-border-grey);
 		border-radius: 2px;
 
 		.ac-bar {
@@ -838,7 +838,7 @@ div.cpac-color span {
 .cpac_wp_button {
 	color: #555;
 	background: #f7f7f7;
-	box-shadow: 0 1px 0 #ccc;
+	box-shadow: 0 1px 0 var(--ac-border-grey);
 	vertical-align: top;
 	display: inline-block;
 	text-decoration: none;
@@ -848,14 +848,14 @@ div.cpac-color span {
 	margin: 0;
 	padding: 0 10px 1px;
 	cursor: pointer;
-	border: 1px solid #ccc;
+	border: 1px solid var(--ac-border-grey);
 	border-radius: 3px;
 	white-space: nowrap;
 	box-sizing: border-box;
 
 	&:hover {
-		background: #fafafa;
-		color: #23282d;
+		background: var(--ac-surface-subtle);
+		color: var(--ac-text-color);
 		border-color: #999;
 	}
 }
@@ -915,7 +915,7 @@ div.cpac-color span {
 			&.trash {
 				a {
 					border-radius: 3px;
-					border: 1px solid #ccc;
+					border: 1px solid var(--ac-border-grey);
 
 					&:before {
 						content: "\f182";
@@ -1111,7 +1111,7 @@ div.cpac-color span {
 	}
 
 	.ac-image-container {
-		border: 1px solid #c3c4c7;
+		border: 1px solid var(--ac-table-border);
 		margin-bottom: 0;
 		overflow: hidden;
 

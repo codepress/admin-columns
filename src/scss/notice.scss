@@ -33,7 +33,7 @@
 }
 
 .ac-notice.ac-notice--integration {
-	border: 1px solid #dcdcde;
+	border: 1px solid var(--ac-border-grey);
 	border-radius: 4px;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
 	padding: 3px 20px 0 12px !important;
@@ -66,7 +66,7 @@
 
 		&__eyebrow {
 			margin: 0 !important;
-			color: #1d2327;
+			color: var(--ac-text-strong);
 			font-size: 13px;
 			font-weight: 600;
 			letter-spacing: .02em;
@@ -76,7 +76,7 @@
 
 		&__title {
 			margin: 0 0 2px !important;
-			color: #1d2327;
+			color: var(--ac-text-strong);
 			font-size: 14px;
 			font-weight: 600;
 			line-height: 1.4;
@@ -84,7 +84,7 @@
 
 		&__desc {
 			margin: 0 !important;
-			color: #50575e;
+			color: var(--ac-table-color);
 			font-size: 13px;
 			line-height: 1.5;
 		}
@@ -124,14 +124,14 @@
 	}
 
 	&__link {
-		color: #2271b1;
+		color: var(--ac-primary-color);
 		text-decoration: none;
 		font-size: 13px;
 		font-weight: 600;
 		white-space: nowrap;
 
 		&:hover {
-			color: #135e96;
+			color: var(--ac-primary-color-hover);
 			text-decoration: underline;
 		}
 	}

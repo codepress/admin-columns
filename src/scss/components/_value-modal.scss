@@ -42,8 +42,8 @@ $modalZindex: 10000000000;
 		border-radius: 6px;
 
 		&__header {
-			background: #fafafa;
-			border-bottom: 1px solid #ccc;
+			background: var(--ac-surface-subtle);
+			border-bottom: 1px solid var(--ac-border-grey);
 			text-align: right;
 			display: flex;
 			border-radius: 6px 6px 0 0;
@@ -77,13 +77,13 @@ $modalZindex: 10000000000;
 					border-radius: 0 6px 0 0;
 					background-color: transparent;
 					cursor: pointer;
-					border-left: 1px solid #ccc;
+					border-left: 1px solid var(--ac-border-grey);
 					display: block;
 					width: 50px;
 					height: 100%;
 
 					&:hover {
-						background: #efefef;
+						background: var(--ac-surface-subtle);
 					}
 				}
 			}
@@ -112,8 +112,8 @@ $modalZindex: 10000000000;
 
 		&__footer {
 			display: flex;
-			border-top: 1px solid #ccc;
-			background: #fafafa;
+			border-top: 1px solid var(--ac-border-grey);
+			background: var(--ac-surface-subtle);
 			border-radius: 0 0 6px 6px;
 
 			.ac-value-modal__edit {
@@ -127,7 +127,7 @@ $modalZindex: 10000000000;
 				width: 40px;
 				height: auto;
 				border: none;
-				border-left: 1px solid #ccc;
+				border-left: 1px solid var(--ac-border-grey);
 				justify-content: center;
 				cursor: pointer;
 				background: none;
@@ -139,7 +139,7 @@ $modalZindex: 10000000000;
 				}
 
 				&:hover {
-					background: #efefef;
+					background: var(--ac-surface-subtle);
 				}
 			}
 		}
@@ -169,7 +169,7 @@ $modalZindex: 10000000000;
 	}
 
 	.ac-badge {
-		background: #eee;
+		background: var(--ac-surface-subtle);
 		border-radius: 3px;
 		color: #464646;
 		font-size: 13px;

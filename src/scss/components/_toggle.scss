@@ -23,7 +23,7 @@
 
 	&__switch {
 		display: inline-block;
-		background: #ccc;
+		background: var(--ac-surface-muted);
 		border-radius: 8px;
 		width: 30px;
 		height: 16px;
@@ -130,7 +130,7 @@
 				cursor: not-allowed;
 
 				~ .ac-toggle-v2__toggle__track {
-					background: #ddd !important;
+					background: var(--ac-surface-muted) !important;
 					cursor: not-allowed;
 				}
 

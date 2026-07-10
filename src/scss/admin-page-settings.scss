@@ -1,13 +1,13 @@
 .ac-settings-banner {
 	background: #fff;
-	border: 1px solid #dcdcde;
+	border: 1px solid var(--ac-border-grey);
 	border-radius: 12px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 	overflow: hidden;
 
 	&__top {
 		padding: 24px 28px;
-		border-bottom: 1px solid #dcdcde;
+		border-bottom: 1px solid var(--ac-border-grey);
 		position: relative;
 
 		&::before {
@@ -26,8 +26,8 @@
 		align-items: center;
 		padding: 4px 10px;
 		border-radius: 999px;
-		background: #f0f6fc;
-		border: 1px solid #c5d9ed;
+		background: var(--ac-surface-info);
+		border: 1px solid var(--ac-surface-info-border);
 		color: var(--ac-primary-color);
 		font-size: 11px;
 		font-weight: 600;
@@ -49,7 +49,7 @@
 		margin: 0;
 		font-size: 16px;
 		line-height: 1.55;
-		color: #50575e;
+		color: var(--ac-table-color);
 		max-width: 680px;
 	}
 
@@ -91,18 +91,18 @@
 
 	&__btn-secondary {
 		background: #fff;
-		border-color: #dcdcde;
+		border-color: var(--ac-border-grey);
 		color: var(--ac-primary-color);
 
 		&:hover {
-			background: #f6f7f7;
+			background: var(--ac-button-bg);
 			color: var(--ac-primary-color-hover);
 		}
 	}
 
 	&__trust {
 		font-size: 13px;
-		color: #646970;
+		color: var(--ac-text-muted);
 	}
 
 	&__star {
@@ -124,8 +124,8 @@
 	}
 
 	&__feature-group {
-		background: #f6f7f7;
-		border: 1px solid #dcdcde;
+		background: var(--ac-button-bg);
+		border: 1px solid var(--ac-border-grey);
 		border-radius: 8px;
 		padding: 16px;
 
@@ -135,7 +135,7 @@
 			line-height: 1.4;
 			letter-spacing: 0.1em;
 			text-transform: uppercase;
-			color: #646970;
+			color: var(--ac-text-muted);
 		}
 
 		ul {
@@ -158,7 +158,7 @@
 				position: absolute;
 				left: 2px;
 				top: 0;
-				color: #646970;
+				color: var(--ac-text-muted);
 				font-size: 6px;
 				line-height: 3.2;
 			}
