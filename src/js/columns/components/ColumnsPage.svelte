@@ -58,23 +58,26 @@
     }
 </script>
 
-<AdminHeaderBar title="Columns">
-	<div class="acu-flex acu-justify-end acu-gap-2">
-		{#each ListScreenSections.getSections( 'header_bar' ) as component}
-			<HtmlSection component={component}></HtmlSection>
-		{/each}
-		<a href="{$currentTableUrl}" class="acui-button acui-button-default">{i18n.editor.label.view}</a>
-		{#if !$listScreenIsReadOnly && $hasUsagePermissions && !screenLocked}
-			<AcButton
-				type="primary"
-				loading={isSaving}
-				softDisabled={isSaving}
-				customClass="ac-button--save-settings"
-				disabled={!$listScreenDataHasChanges && $listScreenIsStored}
-				on:click={() => form.saveSettings()}
-				label={i18n.editor.label.save}
-			/>
-		{/if}
+<AdminHeaderBar>
+	<div class="acu-flex acu-gap-4 acu-items-center acu-max-w-[1490px] xl:acu-mr-[360px] 2xl:acu-mr-[390px]">
+		<h1 class="ac-header-bar__title acu-text-[22px]">Columns</h1>
+		<div class="acu-flex acu-flex-grow acu-justify-end acu-gap-2">
+			{#each ListScreenSections.getSections( 'header_bar' ) as component}
+				<HtmlSection component={component}></HtmlSection>
+			{/each}
+			<a href="{$currentTableUrl}" class="acui-button acui-button-default">{i18n.editor.label.view}</a>
+			{#if !$listScreenIsReadOnly && $hasUsagePermissions && !screenLocked}
+				<AcButton
+					type="primary"
+					loading={isSaving}
+					softDisabled={isSaving}
+					customClass="ac-button--save-settings"
+					disabled={!$listScreenDataHasChanges && $listScreenIsStored}
+					on:click={() => form.saveSettings()}
+					label={i18n.editor.label.save}
+				/>
+			{/if}
+		</div>
 	</div>
 </AdminHeaderBar>
 
