@@ -230,7 +230,7 @@ $wp-border-color: #7e8893;
 
 	&.select2-container--disabled {
 		.select2-selection--single {
-			background-color: #eee;
+			background-color: var(--ac-surface-subtle);
 			cursor: default;
 
 			.select2-selection__clear {
@@ -247,7 +247,7 @@ $wp-border-color: #7e8893;
 		}
 
 		.select2-selection--multiple {
-			background-color: #eee;
+			background-color: var(--ac-surface-subtle);
 			cursor: default
 		}
 
@@ -260,7 +260,7 @@ $wp-border-color: #7e8893;
 	&.select2-container--open {
 		.select2-selection--single {
 			.select2-selection__rendered {
-				background: #eee;
+				background: var(--ac-surface-subtle);
 			}
 		}
 	}
@@ -358,7 +358,7 @@ $wp-border-color: #7e8893;
 
 			&[aria-selected=true],
 			&[data-selected=true] {
-				background-color: #ddd;
+				background-color: var(--ac-surface-muted);
 				color: #000;
 			}
 

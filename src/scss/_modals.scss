@@ -91,7 +91,7 @@ body .ac-modal {
 			}
 			&.-accent {
 				border-top: 1px solid #DBDBDB;
-				background: #F9F9F9;
+				background: var(--ac-surface-subtle);
 			}
 			&.-hide {
 				display: none;
@@ -126,7 +126,7 @@ body .ac-modal {
 			border-radius: 0 0 6px 6px;
 			padding: 12px 20px;
 			border-top: 1px solid #DBDBDB;
-			background: #F9F9F9;
+			background: var(--ac-surface-subtle);
 			font-size: 13px;
 
 
@@ -231,7 +231,7 @@ body .ac-modal {
 			}
 
 			&__features {
-				background: #f6f7f7;
+				background: var(--ac-button-bg);
 				border: 1px solid var(--ac-border-grey);
 				border-radius: 8px;
 				padding: 20px 24px;

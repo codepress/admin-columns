@@ -15,7 +15,7 @@
 
 
 body.settings_page_codepress-admin-columns {
-	background-color: #F1F5F9;
+	background-color: var(--ac-surface-subtle);
 
 	#cpac {
 		padding: 0;
@@ -474,7 +474,7 @@ table.ac-form-table {
 
 .ac-section {
 	$e: &;
-	background: #F5F5F5;
+	background: var(--ac-surface-subtle);
 	margin-bottom: 28px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 

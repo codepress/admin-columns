@@ -95,7 +95,7 @@
 		color: var(--ac-primary-color);
 
 		&:hover {
-			background: #f6f7f7;
+			background: var(--ac-button-bg);
 			color: var(--ac-primary-color-hover);
 		}
 	}
@@ -124,7 +124,7 @@
 	}
 
 	&__feature-group {
-		background: #f6f7f7;
+		background: var(--ac-button-bg);
 		border: 1px solid var(--ac-border-grey);
 		border-radius: 8px;
 		padding: 16px;

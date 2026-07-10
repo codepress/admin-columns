@@ -82,7 +82,7 @@
 			&.-disabled {
 				font-weight: normal;
 				color: #a7aaad!important;
-				background: #f6f7f7!important;
+				background: var(--ac-button-bg)!important;
 				border-color: var(--ac-border-grey)!important;
 				box-shadow: none!important;
 				text-shadow: none!important;
@@ -170,7 +170,7 @@
 	}
 
 	.addon-actions {
-		background: #eee;
+		background: var(--ac-surface-subtle);
 		border-top: 1px solid var(--ac-border-grey);
 		padding: 8px;
 		overflow: hidden;

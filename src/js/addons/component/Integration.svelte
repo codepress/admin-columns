@@ -28,7 +28,7 @@
 
 </script>
 <div class="acu-rounded-[10px] acu-border-solid acu-border-ui-border acu-w-full acu-max-w-[300px] acu-overflow-hidden">
-	<div class="acu-bg-[#F1F5F9]">
+	<div class="acu-bg-[var(--ac-surface-subtle)]">
 		{#if integration.plugin_active}
 			<div class="acu-pt-2 acu-pl-2">
 				<span class="acu-inline-flex acu-items-center acu-gap-1 acu-bg-[#E6F9F1] acu-text-[#00875A] acu-text-[13px] acu-font-semibold acu-rounded-full acu-px-3 acu-py-1 acu-border acu-border-solid acu-border-[#B7E4CF]">

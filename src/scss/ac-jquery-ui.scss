@@ -223,7 +223,7 @@
 				}
 
 				.ui-state-hover {
-					background: #eee;
+					background: var(--ac-surface-subtle);
 				}
 
 				.ui-state-active {
@@ -234,7 +234,7 @@
 		}
 
 		.ui-datepicker-buttonpane {
-			background: #e9e9e9;
+			background: var(--ac-surface-subtle);
 			margin: .7em 0 0 0;
 			padding: 0 .2em;
 			border-left: 0;
@@ -372,7 +372,7 @@
 
 	.ui-widget-header {
 		border: 1px solid var(--ac-border-grey);
-		background: #e9e9e9;
+		background: var(--ac-surface-subtle);
 		color: #333;
 		font-weight: bold
 	}

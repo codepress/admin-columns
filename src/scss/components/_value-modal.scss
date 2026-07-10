@@ -42,7 +42,7 @@ $modalZindex: 10000000000;
 		border-radius: 6px;
 
 		&__header {
-			background: #fafafa;
+			background: var(--ac-surface-subtle);
 			border-bottom: 1px solid var(--ac-border-grey);
 			text-align: right;
 			display: flex;
@@ -83,7 +83,7 @@ $modalZindex: 10000000000;
 					height: 100%;
 
 					&:hover {
-						background: #efefef;
+						background: var(--ac-surface-subtle);
 					}
 				}
 			}
@@ -113,7 +113,7 @@ $modalZindex: 10000000000;
 		&__footer {
 			display: flex;
 			border-top: 1px solid var(--ac-border-grey);
-			background: #fafafa;
+			background: var(--ac-surface-subtle);
 			border-radius: 0 0 6px 6px;
 
 			.ac-value-modal__edit {
@@ -139,7 +139,7 @@ $modalZindex: 10000000000;
 				}
 
 				&:hover {
-					background: #efefef;
+					background: var(--ac-surface-subtle);
 				}
 			}
 		}
@@ -169,7 +169,7 @@ $modalZindex: 10000000000;
 	}
 
 	.ac-badge {
-		background: #eee;
+		background: var(--ac-surface-subtle);
 		border-radius: 3px;
 		color: #464646;
 		font-size: 13px;
