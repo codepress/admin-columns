@@ -1,3 +1,7 @@
+// Global CSS custom properties — the single source of truth for Admin Columns colors.
+// Consumed directly as var(--ac-*) in SCSS and mapped to Tailwind color names in
+// tailwind.config.js. The blocks below the defaults re-point a few of these same
+// tokens per active WordPress admin color scheme.
 :root {
 	--ac-text-color: #23282d;
 	--ac-link: #0073aa;
@@ -24,9 +28,16 @@
 	--ac-table-border: #c3c4c7;
 	--ac-table-color: #50575e;
 
-	--acui-border: #CBD5E1
+	--acui-border: #CBD5E1;
+
+	// Surfaces — light-blue family
+	--ac-surface-active: #EAF2FA; // active / selected (opened column header, select option)
+	--ac-surface-info: #f0f6fc; // quiet info panel (badge, quote, notice)
+	--ac-surface-info-border: #c5d9ed; // border paired with --ac-surface-info
+	--ac-skeleton: var(--ac-surface-info); // loading skeleton, same tone as info surface
 }
 
+// WordPress admin color schemes — re-point a few tokens per active scheme.
 :root body.admin-color-coffee {
 	--ac-button-color: #32373c;
 	--ac-button-border: #8c8f94;

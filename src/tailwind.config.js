@@ -57,7 +57,10 @@ module.exports = {
 			'acbutton': 'var(--ac-button-color)',
 			'acbutton-hover': 'var(--ac-button-hover)',
 			'notification-red': 'var(--ac-notification-red)',
-			'notification-blue': 'var(--ac-notification-blue)'
+			'notification-blue': 'var(--ac-notification-blue)',
+			'surface-active': 'var(--ac-surface-active)',
+			'surface-info': 'var(--ac-surface-info)',
+			'surface-info-border': 'var(--ac-surface-info-border)'
 		},
 		extend : {},
 	},

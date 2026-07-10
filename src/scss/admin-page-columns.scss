@@ -8,10 +8,10 @@
 #wpbody-content {
 	padding-bottom: 10px;
 	@media (min-width: 1450px) {
-		background: linear-gradient(to right, #EAF0F6 0px, #EAF0F6 300px, transparent 250px);
+		background: linear-gradient(to right, var(--ac-skeleton) 0px, var(--ac-skeleton) 300px, transparent 250px);
 
 		.rtl & {
-			background: linear-gradient(to left, #EAF0F6 0px, #EAF0F6 300px, transparent 250px);
+			background: linear-gradient(to left, var(--ac-skeleton) 0px, var(--ac-skeleton) 300px, transparent 250px);
 		}
 	}
 }
@@ -72,8 +72,8 @@
 		align-items: center;
 		padding: 4px 10px;
 		border-radius: 999px;
-		background: #f0f6fc;
-		border: 1px solid #c5d9ed;
+		background: var(--ac-surface-info);
+		border: 1px solid var(--ac-surface-info-border);
 		color: var(--ac-primary-color);
 		font-size: 11px;
 		font-weight: 600;
@@ -102,10 +102,10 @@
 	}
 
 	&__quote {
-		border-left: 3px solid #c5d9ed;
+		border-left: 3px solid var(--ac-surface-info-border);
 		padding: 10px 14px;
 		margin: 0 0 14px;
-		background: #f0f6fc;
+		background: var(--ac-surface-info);
 		border-radius: 0 6px 6px 0;
 
 		p {

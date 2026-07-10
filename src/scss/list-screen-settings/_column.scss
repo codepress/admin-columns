@@ -49,7 +49,7 @@
 	&.-opened .ac-column-header {
 		border-bottom: 1px solid #CBD5E1;
 		//border-top: 1px solid #CBD5E1;
-		background-color: #EAF2FA;
+		background-color: var(--ac-surface-active);
 	}
 
 	.ac-column-settings {

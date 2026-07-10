@@ -30,8 +30,8 @@
 }
 
 .ac-acf-notice {
-    background: #f0f6fc;
-    border: 1px solid #c5d9ed;
+    background: var(--ac-surface-info);
+    border: 1px solid var(--ac-surface-info-border);
     border-radius: 4px;
     padding: 10px 14px;
     font-size: 13px;
@@ -101,8 +101,8 @@
 }
 
 .ac-acf-upsell {
-    background: #f0f6fc;
-    border: 1px solid #c5d9ed;
+    background: var(--ac-surface-info);
+    border: 1px solid var(--ac-surface-info-border);
     border-radius: 6px;
     padding: 16px 20px;
     font-size: 13px;

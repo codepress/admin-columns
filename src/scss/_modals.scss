@@ -202,8 +202,8 @@ body .ac-modal {
 				align-items: center;
 				gap: 6px;
 				padding: 5px 12px;
-				background: #f0f6fc;
-				border: 1px solid #c5d9ed;
+				background: var(--ac-surface-info);
+				border: 1px solid var(--ac-surface-info-border);
 				border-radius: 100px;
 				color: #2271b1;
 				font-size: 12px;

@@ -161,14 +161,14 @@ $input-hover-text-color: #2271b1;
 	--item-height: 35px;
 	--item-line-height: 35px;
 	--item-padding: 0 13px;
-	--item-hover-bg: #EAF2FA;
+	--item-hover-bg: var(--ac-surface-active);
 	//--item-hover-color: #fff;
-	--item-is-active-bg: #EAF2FA;
+	--item-is-active-bg: var(--ac-surface-active);
 	--item-is-active-color: #000;
 
 	--multi-select-padding: 0 0 0 8px;
 	--multi-item-outline: none;
-	--multi-item-bg: #EAF2FA;
+	--multi-item-bg: var(--ac-surface-active);
 
 	--group-title-text-transform: 'none';
 	--group-item-padding-left: 30px;
