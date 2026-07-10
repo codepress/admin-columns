@@ -92,7 +92,7 @@
 
 	&__description {
 		margin: 0 0 14px;
-		color: #50575e;
+		color: var(--ac-table-color);
 		font-size: 13px;
 		line-height: 1.5;
 	}
@@ -112,14 +112,14 @@
 			margin: 0 0 4px;
 			font-size: 13px;
 			line-height: 1.5;
-			color: #1d2327;
+			color: var(--ac-text-strong);
 			font-style: italic;
 		}
 
 		cite {
 			font-style: normal;
 			font-size: 11px;
-			color: #646970;
+			color: var(--ac-text-muted);
 			font-weight: 600;
 		}
 	}
@@ -138,7 +138,7 @@
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: #646970;
+		color: var(--ac-text-muted);
 	}
 
 	&__feature-list {
@@ -160,7 +160,7 @@
 				position: absolute;
 				left: 2px;
 				top: 0;
-				color: #646970;
+				color: var(--ac-text-muted);
 				font-size: 7px;
 				line-height: 2.7;
 			}
@@ -170,7 +170,7 @@
 	&__integrations {
 		margin: 0 0 14px;
 		font-size: 12px;
-		color: #646970;
+		color: var(--ac-text-muted);
 		line-height: 1.5;
 
 		a {
@@ -189,7 +189,7 @@
 		align-items: center;
 		gap: 4px;
 		font-size: 11px;
-		color: #646970;
+		color: var(--ac-text-muted);
 		margin-bottom: 12px;
 	}
 
@@ -252,7 +252,7 @@
 		margin: 8px 0 0;
 		text-align: center;
 		font-size: 12px;
-		color: #646970;
+		color: var(--ac-text-muted);
 	}
 
 	&__see-all {
@@ -304,7 +304,7 @@
 		border-radius: 4px;
 		border: 1px solid var(--ac-border-grey);
 		background: var(--ac-button-bg);
-		color: #1d2327;
+		color: var(--ac-text-strong);
 		font-size: 13px;
 		font-weight: 600;
 		cursor: pointer;
@@ -320,7 +320,7 @@
 		margin: 8px 0 0;
 		text-align: center;
 		font-size: 12px;
-		color: #646970;
+		color: var(--ac-text-muted);
 	}
 }
 
@@ -331,7 +331,7 @@
 	border: 1px solid var(--ac-border-grey);
 	background: #fff;
 	font-size: 13px;
-	color: #1d2327;
+	color: var(--ac-text-strong);
 	cursor: pointer;
 	text-align: center;
 	text-decoration: none;
@@ -339,6 +339,6 @@
 
 	&:hover {
 		background: var(--ac-button-bg);
-		color: #1d2327;
+		color: var(--ac-text-strong);
 	}
 }

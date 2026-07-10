@@ -49,7 +49,7 @@
 		margin: 0;
 		font-size: 16px;
 		line-height: 1.55;
-		color: #50575e;
+		color: var(--ac-table-color);
 		max-width: 680px;
 	}
 
@@ -102,7 +102,7 @@
 
 	&__trust {
 		font-size: 13px;
-		color: #646970;
+		color: var(--ac-text-muted);
 	}
 
 	&__star {
@@ -135,7 +135,7 @@
 			line-height: 1.4;
 			letter-spacing: 0.1em;
 			text-transform: uppercase;
-			color: #646970;
+			color: var(--ac-text-muted);
 		}
 
 		ul {
@@ -158,7 +158,7 @@
 				position: absolute;
 				left: 2px;
 				top: 0;
-				color: #646970;
+				color: var(--ac-text-muted);
 				font-size: 6px;
 				line-height: 3.2;
 			}

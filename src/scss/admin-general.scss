@@ -47,7 +47,7 @@ body.settings_page_codepress-admin-columns {
 		flex: 33%;
 
 		&__label {
-			color: #1D2327;
+			color: var(--ac-text-strong);
 			margin-left: 8px;
 			text-decoration: dotted;
 			border-bottom: 1px dotted #000;

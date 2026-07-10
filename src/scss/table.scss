@@ -384,7 +384,7 @@ table.ac-table-items.-user-posts {
 
 			&.image-id {
 				font-size: 11px;
-				color: #757575;
+				color: var(--ac-text-muted);
 			}
 
 			&.image-file-size {
@@ -394,21 +394,21 @@ table.ac-table-items.-user-posts {
 			&.image-extension {
 				text-transform: uppercase;
 				font-size: 11px;
-				color: #757575;
+				color: var(--ac-text-muted);
 			}
 
 			&.suffix {
 				display: inline-block;
 				text-transform: uppercase;
 				font-size: 10px;
-				color: #757575;
+				color: var(--ac-text-muted);
 				padding-left: 3px;
 				margin-top: -2px;
 			}
 
 			&.dashicons {
 				margin-top: -2px;
-				color: #757575;
+				color: var(--ac-text-muted);
 				font-size: 14px;
 				width: 16px;
 			}
@@ -855,7 +855,7 @@ div.cpac-color span {
 
 	&:hover {
 		background: var(--ac-surface-subtle);
-		color: #23282d;
+		color: var(--ac-text-color);
 		border-color: #999;
 	}
 }
