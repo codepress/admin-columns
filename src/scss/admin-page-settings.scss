@@ -1,13 +1,13 @@
 .ac-settings-banner {
 	background: #fff;
-	border: 1px solid #dcdcde;
+	border: 1px solid var(--ac-border-grey);
 	border-radius: 12px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 	overflow: hidden;
 
 	&__top {
 		padding: 24px 28px;
-		border-bottom: 1px solid #dcdcde;
+		border-bottom: 1px solid var(--ac-border-grey);
 		position: relative;
 
 		&::before {
@@ -91,7 +91,7 @@
 
 	&__btn-secondary {
 		background: #fff;
-		border-color: #dcdcde;
+		border-color: var(--ac-border-grey);
 		color: var(--ac-primary-color);
 
 		&:hover {
@@ -125,7 +125,7 @@
 
 	&__feature-group {
 		background: #f6f7f7;
-		border: 1px solid #dcdcde;
+		border: 1px solid var(--ac-border-grey);
 		border-radius: 8px;
 		padding: 16px;
 

@@ -1,7 +1,7 @@
 .acui-input-group {
 	border-radius: 5px;
 	display: flex;
-	border: 1px solid #CBD5E1;
+	border: 1px solid var(--acui-border);
 
 	> * {
 		display: block;

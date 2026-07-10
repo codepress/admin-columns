@@ -52,7 +52,7 @@
 
 	&__card {
 		background: #fff;
-		border: 1px solid #dcdcde;
+		border: 1px solid var(--ac-border-grey);
 		border-radius: 8px;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 		overflow: hidden;
@@ -125,7 +125,7 @@
 	}
 
 	&__feature-box {
-		border: 1px solid #dcdcde;
+		border: 1px solid var(--ac-border-grey);
 		background: #f6f7f7;
 		border-radius: 6px;
 		padding: 12px 14px;
@@ -274,7 +274,7 @@
 			display: block;
 			width: 100%;
 			padding: 9px 12px;
-			border: 1px solid #dcdcde;
+			border: 1px solid var(--ac-border-grey);
 			border-radius: 4px;
 			font-size: 13px;
 			margin-bottom: 8px;
@@ -302,7 +302,7 @@
 		text-decoration: none;
 		padding: 11px 14px;
 		border-radius: 4px;
-		border: 1px solid #dcdcde;
+		border: 1px solid var(--ac-border-grey);
 		background: #f6f7f7;
 		color: #1d2327;
 		font-size: 13px;
@@ -328,7 +328,7 @@
 	width: 100%;
 	padding: 10px 12px;
 	border-radius: 4px;
-	border: 1px solid #dcdcde;
+	border: 1px solid var(--ac-border-grey);
 	background: #fff;
 	font-size: 13px;
 	color: #1d2327;

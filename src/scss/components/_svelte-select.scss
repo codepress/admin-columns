@@ -1,13 +1,13 @@
-$input-border-color: #8c8f94;
+$input-border-color: var(--ac-border-input);
 $input-active-border-color: var(--ac-primary-color);
 $input-text-color: #2c3338;
 $input-hover-text-color: var(--ac-primary-color);
 
 .svelte-select.-wordpress {
 	--padding: 0 0 0 8px;
-	--border: 1px solid #8c8f94;
+	--border: 1px solid var(--ac-border-input);
 	--border-radius: 2px;
-	--border-hover: 1px solid #8c8f94;
+	--border-hover: 1px solid var(--ac-border-input);
 	--border-focused: 1px solid var(--ac-primary-color);
 	--font-size: 14px;
 	--height: 27px;
@@ -133,16 +133,16 @@ $input-hover-text-color: var(--ac-primary-color);
 
 }
 
-$input-border-color: #8c8f94;
+$input-border-color: var(--ac-border-input);
 $input-active-border-color: var(--ac-primary-color);
 $input-text-color: #1E3133;
 $input-hover-text-color: var(--ac-primary-color);
 
 .svelte-select.-acui {
 	--padding: 0 0 0 13px;
-	--border: 1px solid #CBD5E1;
+	--border: 1px solid var(--acui-border);
 	--border-radius: 5px;
-	--border-hover: 1px solid #8c8f94;
+	--border-hover: 1px solid var(--ac-border-input);
 	--border-focused: 1px solid var(--ac-primary-color);
 	--font-size: 14px;
 	--height: 42px;
@@ -155,7 +155,7 @@ $input-hover-text-color: var(--ac-primary-color);
 	--placeholder-color: #{$input-text-color};
 	--selected-item-padding: 0 1px 0 0;
 
-	--list-border: 1px solid #ccc;
+	--list-border: 1px solid var(--ac-border-grey);
 	--list-border-radius: 0 0 4px 4px;
 
 	--item-height: 35px;

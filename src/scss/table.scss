@@ -721,7 +721,7 @@ table.ac-table-items.-user-posts {
 		min-height: 22px;
 		line-height: 22px;
 		position: relative;
-		border: 1px solid #ccc;
+		border: 1px solid var(--ac-border-grey);
 		border-radius: 2px;
 
 		.ac-bar {
@@ -838,7 +838,7 @@ div.cpac-color span {
 .cpac_wp_button {
 	color: #555;
 	background: #f7f7f7;
-	box-shadow: 0 1px 0 #ccc;
+	box-shadow: 0 1px 0 var(--ac-border-grey);
 	vertical-align: top;
 	display: inline-block;
 	text-decoration: none;
@@ -848,7 +848,7 @@ div.cpac-color span {
 	margin: 0;
 	padding: 0 10px 1px;
 	cursor: pointer;
-	border: 1px solid #ccc;
+	border: 1px solid var(--ac-border-grey);
 	border-radius: 3px;
 	white-space: nowrap;
 	box-sizing: border-box;
@@ -915,7 +915,7 @@ div.cpac-color span {
 			&.trash {
 				a {
 					border-radius: 3px;
-					border: 1px solid #ccc;
+					border: 1px solid var(--ac-border-grey);
 
 					&:before {
 						content: "\f182";
@@ -1111,7 +1111,7 @@ div.cpac-color span {
 	}
 
 	.ac-image-container {
-		border: 1px solid #c3c4c7;
+		border: 1px solid var(--ac-table-border);
 		margin-bottom: 0;
 		overflow: hidden;
 

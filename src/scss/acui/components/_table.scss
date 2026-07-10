@@ -5,7 +5,7 @@
 	thead {
 		td, th {
 			border-bottom: 1px solid;
-			border-color: #E2E8F0;
+			border-color: var(--ac-border-subtle);
 			background: #F9FAFB;
 			font-weight: bold;
 		}
@@ -14,7 +14,7 @@
 	tbody {
 		td, th {
 			border-bottom: 1px solid;
-			border-color: #E2E8F0;
+			border-color: var(--ac-border-subtle);
 		}
 	}
 

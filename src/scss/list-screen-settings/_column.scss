@@ -1,5 +1,5 @@
 .ac-column {
-	border-bottom: 1px solid #CBD5E1;
+	border-bottom: 1px solid var(--acui-border);
 	background-color: #FAFCFE;
 
 	.ac-column-header {
@@ -47,8 +47,8 @@
 	}
 
 	&.-opened .ac-column-header {
-		border-bottom: 1px solid #CBD5E1;
-		//border-top: 1px solid #CBD5E1;
+		border-bottom: 1px solid var(--acui-border);
+		//border-top: 1px solid var(--acui-border);
 		background-color: var(--ac-surface-active);
 	}
 
@@ -57,7 +57,7 @@
 	}
 
 	&.ui-sortable-helper {
-		border-top: 1px solid #cbd5e1;
+		border-top: 1px solid var(--acui-border);
 	}
 	&.ui-sortable-placeholder {
 		border: 1px solid red;
