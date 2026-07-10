@@ -243,7 +243,7 @@
 
 		<div slot="body">
 			{#if data.columns === null || data.columns.length === 0}
-				<div class="acu-p-10 acu-bg-[var(--ac-surface-subtle)]">
+				<div class="acu-p-10 acu-bg-[var(--ac-admin-page-bg)]">
 					{#if locked}
 						<div class="acu-text-center acu-text-gray-500 acu-py-4">
 							<p>{@html i18n.editor.sentence.columns_read_only}</p>

@@ -8,10 +8,10 @@
 #wpbody-content {
 	padding-bottom: 10px;
 	@media (min-width: 1450px) {
-		background: linear-gradient(to right, var(--ac-skeleton) 0px, var(--ac-skeleton) 300px, transparent 250px);
+		background: linear-gradient(to right, var(--ac-admin-menu-bg) 0px, var(--ac-admin-menu-bg) 300px, transparent 250px);
 
 		.rtl & {
-			background: linear-gradient(to left, var(--ac-skeleton) 0px, var(--ac-skeleton) 300px, transparent 250px);
+			background: linear-gradient(to left, var(--ac-admin-menu-bg) 0px, var(--ac-admin-menu-bg) 300px, transparent 250px);
 		}
 	}
 }

@@ -16,7 +16,7 @@
 		}
 
 		&.-active {
-			background: var(--ac-surface-muted);
+			background: var(--ac-admin-menu-active);
 			color: var(--ac-pink-color);
 			font-weight: 500;
 		}
@@ -53,7 +53,7 @@
 		position: relative;
 
 		&.active {
-			background: var(--ac-surface-muted);
+			background: var(--ac-admin-menu-active);
 			color: #FE3D6C;
 			font-weight: 500;
 		}
@@ -82,7 +82,7 @@
 	&.-white {
 	    .ac-menu-group-list__link {
             &:hover {
-				background: var(--ac-surface-subtle);
+				background: var(--ac-admin-page-bg);
 			}
         }
 	}
