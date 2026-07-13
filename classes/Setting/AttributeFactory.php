@@ -18,4 +18,9 @@ final class AttributeFactory
         return new Attribute('help-ref', $reference);
     }
 
+    public static function create_required(): Attribute
+    {
+        return new Attribute('required', 'true');
+    }
+
 }

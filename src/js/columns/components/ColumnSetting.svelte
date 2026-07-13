@@ -31,7 +31,8 @@
 
 <div class={containerClass()} data-setting={setting}>
 	<div class={labelClass}>
-		<span class={isSubComponent ? '' : 'acu-flex-grow'}>{@html label}</span>
+		<span class={isSubComponent ? '' : 'acu-flex-grow'}>{@html label}{#if attributes && attributes['required']}<span
+					style="color:#d63638" aria-hidden="true" title="Required">&nbsp;*</span>{/if}</span>
 		{#if !isSubComponent && attributes && attributes['help-ref']}
 			<AcReferencedTooltip reference={attributes['help-ref']} position="right" closeDelay={300}>
 				<span class="acu-cursor-pointer"><AcIcon icon="question" size="sm" /></span>
