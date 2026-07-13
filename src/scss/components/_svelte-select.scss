@@ -1,7 +1,3 @@
-$input-border-color: var(--ac-border-input);
-$input-active-border-color: var(--ac-primary-color);
-$input-text-color: #2c3338;
-$input-hover-text-color: var(--ac-primary-color);
 
 .svelte-select.-wordpress {
 	--padding: 0 0 0 8px;
@@ -16,8 +12,8 @@ $input-hover-text-color: var(--ac-primary-color);
 	--loading-width: 20px;
 	--clear-select-width: 10px;
 	--icons-color: #838a92;
-	--input-color: #{$input-text-color};
-	--placeholder-color: #{$input-text-color};
+	--input-color: #2c3338;
+	--placeholder-color: #2c3338;
 	--selected-item-padding: 0 1px 0 0;
 
 	--item-padding: 0 10px;
@@ -133,10 +129,6 @@ $input-hover-text-color: var(--ac-primary-color);
 
 }
 
-$input-border-color: var(--ac-border-input);
-$input-active-border-color: var(--ac-primary-color);
-$input-text-color: #1E3133;
-$input-hover-text-color: var(--ac-primary-color);
 
 .svelte-select.-acui {
 	--padding: 0 0 0 13px;
@@ -151,8 +143,8 @@ $input-hover-text-color: var(--ac-primary-color);
 	--loading-width: 20px;
 	--clear-select-width: 40px;
 	--icons-color: #838a92;
-	--input-color: #{$input-text-color};
-	--placeholder-color: #{$input-text-color};
+	--input-color: #1E3133;
+	--placeholder-color: #1E3133;
 	--selected-item-padding: 0 1px 0 0;
 
 	--list-border: 1px solid var(--ac-border-grey);
