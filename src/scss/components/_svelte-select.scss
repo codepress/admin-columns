@@ -22,6 +22,8 @@
 	--item-is-active-color: #000;
 	--item-hover-color: #fff;
 
+	--group-item-padding-left: 20px;
+	--group-title-font-size: 12px;
 	--group-title-text-transform: none;
 
 	&:hover, input {
@@ -38,6 +40,7 @@
 
 	&.-active {
 		--border: 1px solid var(--ac-primary-color);
+		--background: var(--ac-surface-active);
 	}
 
 	.svelte-select-list {
@@ -85,7 +88,7 @@
 	}
 
 	.item.list-group-title {
-		color: black;
+		color: black !important;
 	}
 
 	.icon {
