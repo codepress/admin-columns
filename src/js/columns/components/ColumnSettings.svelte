@@ -11,6 +11,7 @@
     export let parent: string = '';
     export let isSubComponent: boolean = false;
     export let locked: boolean = false;
+    export let showErrors: boolean = false;
 
     let filteredSettings = settings;
 
@@ -62,6 +63,7 @@
 			bind:data={data}
 			on:refresh
 			{isSubComponent}
+			{showErrors}
 		/>
 	{/each}
 

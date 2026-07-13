@@ -11,4 +11,7 @@ return [
     'table'        => [
         'filter' => __('Filter', 'codepress-admin-columns'),
     ],
+    'validation'   => [
+        'required' => __('This field is required.', 'codepress-admin-columns'),
+    ],
 ];

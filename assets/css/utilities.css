@@ -817,8 +817,7 @@
 }
 
 .acu-bg-gray-dark {
-  --tw-bg-opacity: 1;
-  background-color: rgb(61 67 80 / var(--tw-bg-opacity, 1))
+  background-color: var(--ac-gray-dark)
 }
 
 .acu-bg-none {
@@ -1290,8 +1289,7 @@
 }
 
 .acu-text-pink {
-  --tw-text-opacity: 1;
-  color: rgb(233 66 110 / var(--tw-text-opacity, 1))
+  color: var(--ac-pink-color)
 }
 
 .acu-underline {

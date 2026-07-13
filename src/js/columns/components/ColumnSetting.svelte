@@ -1,5 +1,6 @@
 <script lang="ts">
     import { AcIcon, AcReferencedTooltip } from "ACUi/index";
+    import { getGlobalTranslation } from "../../global-translations";
 
     export let description: string | null = null;
     export let label: string;
@@ -7,6 +8,9 @@
     export let isSubComponent: boolean = false;
     export let attributes: null | Record<string, any> = null;
 	export let setting: string|null = null;
+    export let error: boolean = false;
+
+    const requiredMessage = getGlobalTranslation()?.validation?.required ?? 'This field is required.';
 
     // Layout adapts to the width of the nearest `/columnrow` container (set by
     // whoever renders the settings group), not the viewport. This keeps the row
@@ -40,12 +44,25 @@
 		{/if}
 	</div>
 
-	<div class={valueClass}>
+	<div class="{valueClass}{error ? ' -error' : ''}">
 		<slot />
-		{#if description}
+		{#if error}
+			<small class="acp-column-setting__error acu-block acu-py-1 acu-text-[12px]" style="color:#d63638">
+				{requiredMessage}
+			</small>
+		{:else if description}
 			<small class="acp-column-setting__description acu-block acu-py-1 acu-text-[#888] acu-text-[12px]">
 				{@html description}
 			</small>
 		{/if}
 	</div>
 </div>
+
+<style>
+	.acp-column-setting__value.-error :global(input),
+	.acp-column-setting__value.-error :global(select),
+	.acp-column-setting__value.-error :global(textarea) {
+		border-color: #d63638;
+		box-shadow: 0 0 0 1px #d63638;
+	}
+</style>
