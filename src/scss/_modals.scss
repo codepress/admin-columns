@@ -1,4 +1,3 @@
-@use "colors";
 /**
  * Modal
  */
@@ -106,11 +105,11 @@ body .ac-modal {
 					position: absolute;
 					left: 0;
 					top: 0;
-					color: #3D4350;
+					color: var(--ac-gray-dark);
 				}
 
 				&:nth-child(2n) {
-					color: colors.$ac-pink;
+					color: var(--ac-pink-color);
 				}
 
 				position: relative;

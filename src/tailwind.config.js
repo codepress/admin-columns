@@ -48,8 +48,8 @@ module.exports = {
 			'3xl' : '1600px'
 		},
 		colors: {
-			'pink' : '#e9426e',
-			'gray-dark' : '#3D4350',
+			'pink' : 'var(--ac-pink-color)',
+			'gray-dark' : 'var(--ac-gray-dark)',
 			'acbase': 'var(--ac-text-color)',
 			'ui-border': 'var(--acui-border)',
 			'link': 'var(--ac-primary-color)',

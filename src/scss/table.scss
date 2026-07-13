@@ -1,6 +1,5 @@
 @use "sass:color";
 @use 'global-vars';
-@use 'colors';
 @use 'webfont';
 @use 'modals';
 @use 'components/confirmation';
@@ -420,7 +419,7 @@ table.ac-table-items.-user-posts {
 			color: var(--ac-link);
 
 			span.dashicons {
-				color: colors.$ac-dark;
+				color: var(--ac-gray-dark);
 			}
 		}
 	}

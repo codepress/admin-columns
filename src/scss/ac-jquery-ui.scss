@@ -1,7 +1,5 @@
 // scoped jq ui based on 1.11.4
 
-@use "colors";
-
 .ac-jqui {
 
 	.ui-helper-hidden {
@@ -212,7 +210,7 @@
 				&.ui-datepicker-today {
 					a.ui-state-default {
 						background: #e2e2e2;
-						color: colors.$color-text;
+						color: var(--ac-text-color);
 					}
 				}
 

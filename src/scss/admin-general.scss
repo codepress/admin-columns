@@ -1,8 +1,6 @@
-@use "sass:color";
 @use 'global-vars';
 @use 'articles';
 @use 'admin-variables';
-@use 'colors';
 @use 'modals';
 @use 'webfont';
 @use 'components/confirmation';
@@ -389,8 +387,8 @@ span.dashicons {
 }
 
 .wp-core-ui .button-primary.-pink {
-	background: colors.$ac-pink;
-	border-color: color.adjust(colors.$ac-pink, $lightness: -3%);
+	background: var(--ac-pink-color);
+	border-color: #e73463; // = --ac-pink-color darkened 3% (was color.adjust)
 }
 
 /**
