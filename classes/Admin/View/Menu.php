@@ -10,7 +10,7 @@ use AC\View;
 
 class Menu extends View
 {
-    public function __construct(Location $location, Admin\Menu $menu)
+    public function __construct(Location $location, Admin\Menu $menu, string $current = '')
     {
         $items = $menu->get_items();
         $this->sort_by_position($items);
@@ -19,7 +19,8 @@ class Menu extends View
 
         $this
             ->set_template('admin/menu')
-            ->set('url', $location->get_url());
+            ->set('url', $location->get_url())
+            ->set('current', $current);
     }
 
     private function sort_by_position(array &$items): void

@@ -42,9 +42,9 @@ class MenuFactory implements MenuFactoryInterface
         $menu = new Menu();
 
         $items = [
-            Page\Columns::NAME  => __('Columns', 'codepress-admin-columns'),
-            Page\Settings::NAME => __('Settings', 'codepress-admin-columns'),
-            Page\Addons::NAME   => __('Add-ons', 'codepress-admin-columns'),
+            Page\Columns::NAME  => [__('Columns', 'codepress-admin-columns'), 10],
+            Page\Settings::NAME => [__('Settings', 'codepress-admin-columns'), 30],
+            Page\Addons::NAME   => [__('Integrations', 'codepress-admin-columns'), 50],
         ];
 
         $hook_count = $this->hooks->get_count();
@@ -61,18 +61,22 @@ class MenuFactory implements MenuFactoryInterface
                     ),
                     sprintf('-%s %s', Page\Help::NAME, $current === Page\Help::NAME ? '-active' : ''),
                     '',
-                    20
+                    60
                 )
             );
         }
 
-        foreach ($items as $slug => $label) {
+        foreach ($items as $slug => $item) {
+            [$label, $position] = $item;
+
             $menu->add_item(
                 new MenuItem(
                     $slug,
                     $this->create_menu_link($slug),
                     $label,
-                    sprintf('-%s %s', $slug, $current === $slug ? '-active' : '')
+                    sprintf('-%s %s', $slug, $current === $slug ? '-active' : ''),
+                    '',
+                    $position
                 )
             );
         }
@@ -86,7 +90,7 @@ class MenuFactory implements MenuFactoryInterface
                 sprintf('%s %s', 'Upgrade to Pro', '<span class="dashicons dashicons-external"></span>'),
                 '-pro',
                 '_blank',
-                30
+                90
             ),
         );
 
