@@ -289,7 +289,7 @@ body.toplevel_page_codepress-admin-columns {
 		list-style: none;
 		background: #fff;
 		border-radius: 4px;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+		box-shadow: 0 9px 24px 0 rgba(15, 15, 15, .2), 0 3px 6px 0 rgba(15, 15, 15, .1), 0 0 0 1px rgba(15, 15, 15, .05);
 
 		&[hidden] {
 			display: none;
@@ -309,17 +309,17 @@ body.toplevel_page_codepress-admin-columns {
 	&__dropdown-link {
 		display: block;
 		padding: 8px 16px;
-		color: #1e1e1e;
+		color: var(--ac-text-color);
 		text-decoration: none;
 
 		&:hover, &:active {
 			background: var(--ac-admin-menu-active);
-			color: #1e1e1e;
+			color: var(--ac-text-color);
 		}
 
 		&:focus-visible {
 			background: var(--ac-admin-menu-active);
-			color: #1e1e1e;
+			color: var(--ac-text-color);
 			outline: 2px solid var(--ac-gray-dark);
 			outline-offset: -2px;
 		}
@@ -327,15 +327,7 @@ body.toplevel_page_codepress-admin-columns {
 		&[aria-current="page"] {
 			background: var(--ac-admin-menu-active);
 			font-weight: 600;
-			box-shadow: inset 3px 0 0 0 var(--ac-gray-dark);
 		}
-	}
-
-	&__separator {
-		height: 1px;
-		margin: 6px 0;
-		padding: 0;
-		background: var(--ac-ui-border, #e2e8f0);
 	}
 
 }

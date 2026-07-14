@@ -24,8 +24,6 @@ class MenuItem
 
     private string $group;
 
-    private bool $separator_before;
-
     public function __construct(
         string $slug,
         string $url,
@@ -41,7 +39,6 @@ class MenuItem
         $this->target = $target;
         $this->position = $position;
         $this->group = self::GROUP_PRIMARY;
-        $this->separator_before = false;
     }
 
     public function get_slug(): string
@@ -79,11 +76,6 @@ class MenuItem
         return $this->group;
     }
 
-    public function has_separator_before(): bool
-    {
-        return $this->separator_before;
-    }
-
     public function with_group(string $group): self
     {
         $clone = clone $this;
@@ -96,14 +88,6 @@ class MenuItem
     {
         $clone = clone $this;
         $clone->position = $position;
-
-        return $clone;
-    }
-
-    public function with_separator_before(bool $separator_before = true): self
-    {
-        $clone = clone $this;
-        $clone->separator_before = $separator_before;
 
         return $clone;
     }

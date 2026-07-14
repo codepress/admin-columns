@@ -59,11 +59,6 @@ $first = $primary_items[0] ?? $items[0];
 					<ul id="ac-admin-nav-more" class="ac-admin-nav__dropdown" aria-labelledby="ac-admin-nav-more-trigger" hidden>
                         <?php
                         foreach ($more_items as $item) : ?>
-                            <?php
-                            if ($item->has_separator_before()) : ?>
-								<li class="ac-admin-nav__separator" role="separator"></li>
-                            <?php
-                            endif; ?>
 							<li class="ac-admin-nav__dropdown-item <?= esc_attr($item->get_class()); ?>">
 								<a href="<?= esc_url($item->get_url()) ?>" class="ac-admin-nav__dropdown-link"
                                     <?= $item->get_target() ? sprintf(' target="%s"', esc_attr($item->get_target())) : '' ?>
