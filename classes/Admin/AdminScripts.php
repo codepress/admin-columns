@@ -8,6 +8,7 @@ use AC\AdminColumns;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
+use AC\Asset\Script;
 use AC\Asset\Style;
 
 class AdminScripts implements Enqueueables
@@ -26,6 +27,12 @@ class AdminScripts implements Enqueueables
                 'ac-admin',
                 $this->location->with_suffix('assets/css/admin-general.css'),
                 ['ac-ui', 'ac-utilities', 'ac-material-symbols']
+            ),
+            new Script(
+                'ac-admin-navigation',
+                $this->location->with_suffix('assets/js/admin-navigation.js'),
+                [],
+                true
             ),
         ]);
     }

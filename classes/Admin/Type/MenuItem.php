@@ -6,6 +6,10 @@ namespace AC\Admin\Type;
 
 class MenuItem
 {
+    public const GROUP_PRIMARY = '';
+
+    public const GROUP_MORE = 'more';
+
     private string $slug;
 
     private string $url;
@@ -17,6 +21,8 @@ class MenuItem
     private string $target;
 
     private int $position;
+
+    private string $group;
 
     public function __construct(
         string $slug,
@@ -32,6 +38,7 @@ class MenuItem
         $this->class = $class;
         $this->target = $target;
         $this->position = $position;
+        $this->group = self::GROUP_PRIMARY;
     }
 
     public function get_slug(): string
@@ -62,6 +69,27 @@ class MenuItem
     public function get_position(): int
     {
         return $this->position;
+    }
+
+    public function get_group(): string
+    {
+        return $this->group;
+    }
+
+    public function with_group(string $group): self
+    {
+        $clone = clone $this;
+        $clone->group = $group;
+
+        return $clone;
+    }
+
+    public function with_position(int $position): self
+    {
+        $clone = clone $this;
+        $clone->position = $position;
+
+        return $clone;
     }
 
 }

@@ -17,6 +17,7 @@ type LocalizedAddonsI18n = {
     subtitle: string,
     buy_now: string,
     title: {
+        page: string
         enabled: string
         recommended: string
         available: string

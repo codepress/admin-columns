@@ -18,7 +18,7 @@ final class MenuFactory
 
     public function create(MenuFactoryInterface $menu_factory, string $current): Menu
     {
-        return new Menu($this->plugin->get_location(), $menu_factory->create($current));
+        return new Menu($this->plugin->get_location(), $menu_factory->create($current), $current);
     }
 
 }

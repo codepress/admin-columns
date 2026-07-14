@@ -192,6 +192,13 @@ body.toplevel_page_codepress-admin-columns {
 	}
 }
 
+// #acMenu establishes a stacking context (position: relative; z-index: 10), which traps the
+// More dropdown inside it. The page's sticky .ac-header-bar also sits at z-index 10 and comes
+// later in the DOM, so it would paint over the dropdown. Lift the nav header above it.
+#acMenu {
+	z-index: 20;
+}
+
 .ac-admin-nav {
 	$e: &;
 
@@ -200,6 +207,7 @@ body.toplevel_page_codepress-admin-columns {
 
 	&__item {
 		margin: 0;
+		position: relative;
 
 		&.-active {
 			#{$e}__link {
@@ -228,9 +236,97 @@ body.toplevel_page_codepress-admin-columns {
 		transition-duration: .05s;
 		transition-timing-function: ease-in-out;
 
-		&:hover, &:active, &:focus {
+		&:hover, &:active {
 			background: #626979;
 			color: #fff;
+		}
+
+		&:focus-visible {
+			background: #626979;
+			color: #fff;
+			outline: 2px solid #fff;
+			outline-offset: -2px;
+		}
+	}
+
+	// The "More" trigger is a <button>, so reset the UA styles the <a> siblings never needed.
+	&__trigger {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		border: 0;
+		background: transparent;
+		font: inherit;
+		line-height: inherit;
+		cursor: pointer;
+	}
+
+	&__chevron {
+		width: 0;
+		height: 0;
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
+		border-top: 5px solid currentColor;
+		transition: transform .1s ease-in-out;
+	}
+
+	&__trigger[aria-expanded="true"] {
+		background: #626979;
+
+		#{$e}__chevron {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__dropdown {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 30;
+		min-width: 200px;
+		margin: 4px 0 0;
+		padding: 6px 0;
+		list-style: none;
+		background: #fff;
+		border-radius: 4px;
+		box-shadow: 0 9px 24px 0 rgba(15, 15, 15, .2), 0 3px 6px 0 rgba(15, 15, 15, .1), 0 0 0 1px rgba(15, 15, 15, .05);
+
+		&[hidden] {
+			display: none;
+		}
+
+		// Flipped by JS when the menu would overflow the right edge of the viewport.
+		&.-align-right {
+			left: auto;
+			right: 0;
+		}
+	}
+
+	&__dropdown-item {
+		margin: 0;
+	}
+
+	&__dropdown-link {
+		display: block;
+		padding: 8px 16px;
+		color: var(--ac-text-color);
+		text-decoration: none;
+
+		&:hover, &:active {
+			background: var(--ac-admin-menu-active);
+			color: var(--ac-text-color);
+		}
+
+		&:focus-visible {
+			background: var(--ac-admin-menu-active);
+			color: var(--ac-text-color);
+			outline: 2px solid var(--ac-gray-dark);
+			outline-offset: -2px;
+		}
+
+		&[aria-current="page"] {
+			background: var(--ac-admin-menu-active);
+			font-weight: 600;
 		}
 	}
 

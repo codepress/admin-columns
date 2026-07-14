@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 7.2 =
+Release Date: TBD
+
+* [Improved] Renamed "Add-ons" to "Integrations" to better describe the connections with your other plugins.
+
 = 7.1.1 =
 Release Date: July 8th, 2026
 
