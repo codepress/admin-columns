@@ -192,6 +192,13 @@ body.toplevel_page_codepress-admin-columns {
 	}
 }
 
+// #acMenu establishes a stacking context (position: relative; z-index: 10), which traps the
+// More dropdown inside it. The page's sticky .ac-header-bar also sits at z-index 10 and comes
+// later in the DOM, so it would paint over the dropdown. Lift the nav header above it.
+#acMenu {
+	z-index: 20;
+}
+
 .ac-admin-nav {
 	$e: &;
 
