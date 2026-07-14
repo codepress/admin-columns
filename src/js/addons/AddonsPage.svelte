@@ -24,7 +24,7 @@
 
 </script>
 
-<AdminHeaderBar title="Integrations"/>
+<AdminHeaderBar title={i18n.title.page}/>
 
 <div class="acu-mx-[50px] acu-pt-[70px]">
 
@@ -34,7 +34,7 @@
 
 	<main class="acu-flex acu-gap-4 acu-w-full">
 		<AcPanel classNames={['acu-mb-3','acu-flex-grow', 'acu-max-w-[1520px]']}>
-			<AcPanelHeader slot="header" title="Integrations" type="h2"
+			<AcPanelHeader slot="header" title={i18n.title.page} type="h2"
 					subtitle={i18n.subtitle}
 					border/>
 			<div class="acu-p-4 acu-mb-8" slot="body">
