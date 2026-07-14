@@ -118,8 +118,6 @@ class Columns implements Enqueueables, Renderable, RenderableHead
                 $this->location->with_suffix('assets/css/admin-page-columns.css'),
                 ['ac-utilities']
             ),
-            new Style('ac-select2'),
-            new Script('ac-select2'),
         ]);
     }
 
