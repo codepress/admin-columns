@@ -11,6 +11,9 @@
 
     let inputSetting = setting as ColumnInputSetting;
 
+    // Mirror RowSetting: a server-side `readonly` attribute drives the legible locked styling.
+    $: isReadonly = !!(setting.attributes && setting.attributes['readonly']);
+
     const getInputType = (type: string) => {
         return getInputComponent(type);
     }
@@ -23,6 +26,7 @@
             bind:data={data}
             bind:value={data[inputSetting.input?.name]}
             disabled={disabled}
+            readonly={isReadonly}
             config={setting}>
     </svelte:component>
 {/if}

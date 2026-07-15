@@ -18,8 +18,10 @@
     // (showErrors) and its value is still empty.
     $: isRequired = !!(setting.attributes && setting.attributes['required']);
     // A field can opt into read-only via a server-side `readonly` attribute
-    // (e.g. the Table select when editing an existing list table).
-    $: isDisabled = disabled || !!(setting.attributes && setting.attributes['readonly']);
+    // (e.g. the Table select when editing an existing list table). `isReadonly`
+    // drives the legible locked styling; `isDisabled` still blocks interaction.
+    $: isReadonly = !!(setting.attributes && setting.attributes['readonly']);
+    $: isDisabled = disabled || isReadonly;
     $: value = inputSetting.input ? data[inputSetting.input.name] : undefined;
     $: hasError = showErrors && isRequired
         && (value === undefined || value === null || String(value).trim() === '');
@@ -34,6 +36,7 @@
 			bind:value={data[inputSetting.input?.name]}
 			on:refresh
 			disabled={isDisabled}
+			readonly={isReadonly}
 			config={setting}>
 		</svelte:component>
 	{/if}

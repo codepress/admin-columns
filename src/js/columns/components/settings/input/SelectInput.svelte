@@ -5,6 +5,7 @@
 
     export let config: AC.Column.Settings.SelectSetting;
     export let disabled: boolean = false;
+    export let readonly: boolean = false;
     export let value: string | undefined | number;
 
     const dispatch = createEventDispatcher();
@@ -54,7 +55,7 @@
 
 <Select
 	--list-max-height="400px"
-	class="-acui"
+	class={readonly ? '-acui -readonly' : '-acui'}
 	clearable={false}
 	items={options}
 	showChevron

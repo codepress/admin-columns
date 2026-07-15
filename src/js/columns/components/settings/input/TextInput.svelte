@@ -5,6 +5,7 @@
     export let config: AC.Column.Settings.TextSetting;
     export let value: any;
     export let disabled: boolean = false;
+    export let readonly: boolean = false;
 
     const dispatch = createEventDispatcher();
 
@@ -21,5 +22,5 @@
 </script>
 
 <AcInputGroup>
-	<input type="text" bind:value={value} {disabled} placeholder={config.input.placeholder}>
+	<input type="text" bind:value={value} {disabled} readonly={readonly} placeholder={config.input.placeholder}>
 </AcInputGroup>
