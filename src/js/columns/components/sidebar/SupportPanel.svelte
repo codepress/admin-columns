@@ -6,6 +6,6 @@
     const config = getColumnSettingsConfig();
 </script>
 
-<SideBarPanel title={i18n.title}>
+<SideBarPanel title={i18n.title} type="h2">
     {@html config.support.description}
 </SideBarPanel>
