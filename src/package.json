@@ -35,16 +35,13 @@
         "wp-pot": "latest"
     },
     "scripts": {
-        "setup:dev": "bash scripts/setup-git.sh",
-        "assets:release": "bash scripts/assets-release.sh",
-        "assets:lock": "bash scripts/assets-lock.sh",
-        "assets:discard": "bash scripts/assets-discard.sh",
+        "setup": "bash scripts/setup-git.sh",
+        "dev": "nps build.development",
         "build": "nps build",
-        "build-nolanguage": "nps build.lite",
-        "ac:build:development": "nps build.development",
-        "ac:tailwind": "npx tailwindcss -i ./tailwind/ac-utilities.css -o ../assets/css/utilities.css --watch",
-        "ac:languages": "nps languages",
-        "ac:webfont": "node ./scripts/webfont.js"
+        "webfont": "node ./scripts/webfont.js",
+        "release:assets": "bash scripts/assets-release.sh",
+        "release:lock": "bash scripts/assets-lock.sh",
+        "release:discard": "bash scripts/assets-discard.sh"
     },
     "webfont": {
         "formats": [

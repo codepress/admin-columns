@@ -21,7 +21,7 @@ From the `admin-columns/` folder:
 ./install.sh
 ```
 
-This runs the full setup end-to-end: installs PHP dependencies (with vendor prefixing via the bundled `build/` tooling), installs frontend dependencies, and runs the one-time `setup:dev` hook. Compiled frontend assets are already committed to git, so the plugin works immediately after install. Run `npm run build` from `src/` only when producing a release. Re-running the script is safe.
+This runs the full setup end-to-end: installs PHP dependencies (with vendor prefixing via the bundled `build/` tooling), installs frontend dependencies, and runs the one-time `setup` hook. Compiled frontend assets are already committed to git, so the plugin works immediately after install. Run `npm run build` from `src/` only when producing a release. Re-running the script is safe.
 
 After the script finishes, activate **Admin Columns** in WordPress → Plugins.
 
@@ -58,7 +58,7 @@ Compiled assets are committed to git, so this step is only needed if you plan to
 
 ```bash
 npm install
-npm run setup:dev
+npm run setup
 ```
 
 See [`src/README.md`](src/README.md) for watch-mode, production build, and asset-release commands.
