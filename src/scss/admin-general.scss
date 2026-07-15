@@ -291,6 +291,18 @@ body.toplevel_page_codepress-admin-columns {
 		border-radius: 4px;
 		box-shadow: 0 9px 24px 0 rgba(15, 15, 15, .2), 0 3px 6px 0 rgba(15, 15, 15, .1), 0 0 0 1px rgba(15, 15, 15, .05);
 
+		// Bridge the 4px margin gap between the trigger and the dropdown. Without this
+		// transparent strip the pointer crosses a region belonging to neither element,
+		// firing mouseleave on the container and closing the menu before it can be reached.
+		&::before {
+			content: "";
+			position: absolute;
+			top: -4px;
+			left: 0;
+			right: 0;
+			height: 4px;
+		}
+
 		&[hidden] {
 			display: none;
 		}

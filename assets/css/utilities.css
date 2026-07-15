@@ -616,6 +616,10 @@
   place-items: center
 }
 
+.acu-items-start {
+  align-items: flex-start
+}
+
 .acu-items-center {
   align-items: center
 }
@@ -1105,6 +1109,10 @@
 
 .acu-align-top {
   vertical-align: top
+}
+
+.acu-align-middle {
+  vertical-align: middle
 }
 
 .acu-font-mono {

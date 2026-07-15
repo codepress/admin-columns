@@ -17,6 +17,9 @@
     // A required field is invalid once the user has attempted to submit
     // (showErrors) and its value is still empty.
     $: isRequired = !!(setting.attributes && setting.attributes['required']);
+    // A field can opt into read-only via a server-side `readonly` attribute
+    // (e.g. the Table select when editing an existing list table).
+    $: isDisabled = disabled || !!(setting.attributes && setting.attributes['readonly']);
     $: value = inputSetting.input ? data[inputSetting.input.name] : undefined;
     $: hasError = showErrors && isRequired
         && (value === undefined || value === null || String(value).trim() === '');
@@ -30,7 +33,7 @@
 			bind:data={data}
 			bind:value={data[inputSetting.input?.name]}
 			on:refresh
-			disabled={disabled}
+			disabled={isDisabled}
 			config={setting}>
 		</svelte:component>
 	{/if}
@@ -42,7 +45,7 @@
 				settings={setting.children}
 				bind:data={data}
 				on:refresh
-				locked={disabled}
+				locked={isDisabled}
 				{showErrors}
 				parent={inputSetting.input ? inputSetting.input.name : ''}/>
 		</div>
@@ -54,7 +57,7 @@
 	<ColumnSettings
 		on:refresh
 		bind:data={data}
-		locked={disabled}
+		locked={isDisabled}
 		{showErrors}
 		settings={setting.children}
 		parent={inputSetting.input ? inputSetting.input.name : ''}
