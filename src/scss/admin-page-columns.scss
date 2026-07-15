@@ -39,6 +39,106 @@
 
 }
 
+// Collapsible Columns menu (test: no persisted preference yet)
+.ac-admin-page-menu__toggle {
+	display: none; // desktop only
+}
+
+@media (min-width: 1450px) {
+	.ac-admin-page-menu__toggle {
+		position: absolute;
+		top: 26px;
+		right: -13px;
+		z-index: 40;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 26px;
+		height: 26px;
+		padding: 0;
+		border: 1px solid var(--ac-border-grey);
+		border-radius: 50%;
+		background: #fff;
+		color: var(--ac-text-color);
+		cursor: pointer;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+
+		.dashicons {
+			width: 18px;
+			height: 18px;
+			font-size: 18px;
+			line-height: 18px;
+			transition: transform 0.15s ease;
+		}
+	}
+
+	.ac-admin-page-menu {
+		transition: width 0.2s ease; // smooth collapse / expand of the rail
+	}
+
+	.ac-admin-page-menu.is-collapsed {
+		width: 54px;
+		padding: 0;
+
+		.ac-table-screen-nav {
+			position: absolute;
+			top: 0;
+			bottom: 0; // full-height column, same as the pinned menu
+			left: 0;
+			width: 54px;
+			overflow: hidden;
+			box-sizing: border-box;
+			padding: 30px 8px 20px;
+			background: transparent; // let the aside rail tint show through
+			transition: width 0.15s ease;
+		}
+
+		// while collapsed the toggle is hidden; it fades in at the flyout's
+		// right edge once the menu is fully open, to pin the expansion
+		.ac-admin-page-menu__toggle {
+			left: 287px;
+			right: auto;
+			opacity: 0;
+			visibility: hidden;
+			pointer-events: none;
+			transition: opacity 0.15s ease, visibility 0.15s ease;
+		}
+
+		// resting state: only the group icons
+		&:not(:hover) {
+			.ac-menu-group-list,
+			.ac-menu-group-list__favorite,
+			.ac-table-screen-nav__label,
+			.dashicons-arrow-up-alt2 {
+				display: none;
+			}
+
+			.ac-menu-image {
+				margin-right: 0;
+			}
+		}
+
+		// hover: the full menu floats over the content at its original width
+		&:hover {
+			.ac-table-screen-nav {
+				width: 300px; // 250px content + matching padding, same as the pinned menu
+				overflow: visible;
+				padding: 30px 30px 20px 20px;
+				background: var(--ac-admin-menu-bg);
+				box-shadow: 8px 0 16px -6px rgba(0, 0, 0, 0.18);
+				z-index: 30;
+			}
+
+			.ac-admin-page-menu__toggle {
+				opacity: 1;
+				visibility: visible;
+				pointer-events: auto;
+				transition-delay: 0.18s; // only after the flyout is fully open
+			}
+		}
+	}
+}
+
 .ac-probanner {
 	display: grid;
 	gap: 20px;

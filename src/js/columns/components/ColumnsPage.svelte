@@ -34,6 +34,7 @@
 
     let form: ListScreenForm;
     let isSaving: boolean = false;
+    let menuCollapsed: boolean = false;
 
     const i18n = getColumnSettingsTranslation();
     const localConfig = getColumnSettingsConfig();
@@ -82,7 +83,7 @@
 	</div>
 </AdminHeaderBar>
 
-<AdminPageWithSidebar contentClass="acu-max-w-[1640px]">
+<AdminPageWithSidebar collapsible bind:collapsed={menuCollapsed} contentClass="acu-max-w-[1640px]">
 	<ListScreenMenu
 		slot="sidebar"
 		menu={menu}

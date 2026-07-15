@@ -115,7 +115,7 @@
 							class="dashicons dashicons-star-empty"
 						></span>
 					</div>
-					{i18n.menu.favorites}
+					<span class="ac-table-screen-nav__label">{i18n.menu.favorites}</span>
 				</MenuGroupHeader>
 				<ul class="ac-menu-group-list">
 					{#each Object.entries( favoriteItems ) as [ key, label ]}
@@ -134,7 +134,7 @@
 			<div class="acu-mb-[30px] acu-p-0">
 				<MenuGroupHeader on:click={()=>toggleGroup(key)} opened={openedGroups.includes( key )}>
 					<GroupIcon icon={group.icon} defaultIcon="material-description"/>
-					{group.title}
+					<span class="ac-table-screen-nav__label">{group.title}</span>
 				</MenuGroupHeader>
 
 				{#if openedGroups.includes( key )}
