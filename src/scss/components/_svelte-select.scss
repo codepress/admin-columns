@@ -308,3 +308,11 @@
 
 }
 
+// Locked (readonly) selects keep their value legible: muted background, dark text.
+// Distinct from svelte-select's default `disabled` greying, which stays untouched.
+.svelte-select.-acui.-readonly {
+	--disabled-background: var(--ac-input-locked-bg);
+	--disabled-border-color: var(--acui-border);
+	--disabled-color: var(--input-color, #1E3133);
+	--disabled-placeholder-color: var(--input-color, #1E3133);
+}

@@ -24,6 +24,13 @@
 	width: 1%;
 }
 
+// Locked (readonly) inputs: muted background + not-allowed cursor; text stays dark.
+// Shared so every readonly input matches the readonly select. Disabled inputs are unaffected.
+.acui-input-group input[readonly] {
+	background: var(--ac-input-locked-bg);
+	cursor: not-allowed;
+}
+
 .acui-input-group select.acui-input-group-select {
 	appearance: none;
 	background: none;
