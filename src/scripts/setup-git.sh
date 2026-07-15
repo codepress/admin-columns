@@ -1,6 +1,6 @@
 #!/bin/bash
 # Register the custom merge driver for asset files and set up assume-unchanged.
-# Run once per developer: npm run setup:dev
+# Run once per developer: npm run setup
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 AC_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -33,11 +33,11 @@ hook="$AC_ROOT/.git/hooks/post-checkout"
 cat > "$hook" << EOF
 #!/bin/sh
 # Re-apply assume-unchanged on assets after branch switch.
-cd '$AC_ROOT/src' && npm run assets:lock 2>/dev/null || true
+cd '$AC_ROOT/src' && npm run release:lock 2>/dev/null || true
 EOF
 chmod +x "$hook"
 echo "  ✓ admin-columns (post-checkout hook)"
 echo ""
 
-echo "To commit assets: npm run assets:release"
-echo "To re-lock after commit: npm run assets:lock"
+echo "To commit assets: npm run release:assets"
+echo "To re-lock after commit: npm run release:lock"
