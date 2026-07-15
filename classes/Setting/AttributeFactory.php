@@ -23,4 +23,9 @@ final class AttributeFactory
         return new Attribute('required', 'true');
     }
 
+    public static function create_readonly(): Attribute
+    {
+        return new Attribute('readonly', 'true');
+    }
+
 }
