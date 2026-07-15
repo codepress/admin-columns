@@ -26,7 +26,7 @@ section "Installing frontend dependencies"
 ( cd src && npm install )
 
 section "Running one-time frontend dev setup"
-( cd src && npm run setup:dev )
+( cd src && npm run setup )
 
 section "Done"
 cat <<'EOF'

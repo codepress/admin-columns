@@ -6,10 +6,10 @@ TypeScript/Svelte frontend for the Admin Columns free plugin. All commands run f
 
 ```bash
 npm install
-npm run setup:dev
+npm run setup
 ```
 
-`setup:dev` configures three things locally (once per developer, not synced via git):
+`setup` configures three things locally (once per developer, not synced via git):
 - A git merge driver that prevents asset conflicts on merge
 - `assume-unchanged` on all compiled assets, so watch-mode rebuilds stay out of your git client
 - A `post-checkout` hook that automatically restores `assume-unchanged` after every branch switch
@@ -17,15 +17,13 @@ npm run setup:dev
 ## Development
 
 ```bash
-npm run ac:build:development   # Watch mode (JS + CSS)
-npm run ac:tailwind            # Watch Tailwind CSS separately
+npm run dev   # Watch mode: JS + CSS + Tailwind together
 ```
 
 ## Production build
 
 ```bash
-npm run build                  # Full build (JS, CSS, languages)
-npm run build-nolanguage       # Full build without languages
+npm run build   # Full build (JS, CSS, Tailwind, languages)
 ```
 
 ## Releasing assets
@@ -35,21 +33,31 @@ Compiled assets are committed to git so all developers (including backend) alway
 To commit updated assets:
 
 ```bash
-npm run assets:release   # Runs production build + unlocks assets in git client
+npm run release:assets   # Runs production build + unlocks assets in git client
 # → stage and commit assets in your git client
-npm run assets:lock      # Re-hides assets from git client
+npm run release:lock     # Re-hides assets from git client
 ```
 
 If your git client blocks a branch switch due to locally modified assets:
 
 ```bash
-npm run assets:discard   # Discards watch-built changes, allows branch switching
+npm run release:discard  # Discards watch-built changes, allows branch switching
 ```
 
-## Other scripts
+## Other
 
 ```bash
-npm run ac:languages     # Build translation (.pot) file
-npm run ac:webfont       # Regenerate icon font from SVG sources
-npm run ac:svgsymbols    # Build SVG symbols sprite
+npm run webfont   # Regenerate the icon font from SVG sources
+```
+
+Translations run as part of `npm run build`; there is no separate languages script.
+
+## Running things directly
+
+The npm scripts are thin wrappers around nps:
+
+```bash
+npx nps build              # full production build
+npx nps build.development  # same as `npm run dev`
+npx nps languages          # translations only
 ```
