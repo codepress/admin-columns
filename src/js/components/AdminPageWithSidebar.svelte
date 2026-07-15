@@ -6,7 +6,7 @@
 	<aside class="ac-admin-page-menu acu-relative acu-shrink-0 acu-pl-4 acu-pr-[30px] acu-py-8 2xl:acu-w-[250px] 2xl:acu-pt-[30px] 2xl:acu-bg-[var(--ac-admin-menu-bg)]">
 		<slot name="sidebar"/>
 	</aside>
-	<div class="acu-flex acu-flex-col acu-flex-grow {contentClass}">
+	<div class="acu-flex acu-flex-col acu-flex-grow 2xl:acu-pt-8 {contentClass}">
 		<slot/>
 	</div>
 </div>
