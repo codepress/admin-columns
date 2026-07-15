@@ -44,6 +44,24 @@ const initMoreMenu = (): void => {
         isOpen() ? close() : open();
     } );
 
+    // Open on hover. The trigger and dropdown share this container, so moving the
+    // pointer from one to the other never leaves the container and never closes.
+    const container = trigger.closest( '.ac-admin-nav__item' ) as HTMLElement | null;
+
+    if ( container ) {
+        container.addEventListener( 'mouseenter', () => {
+            if ( !isOpen() ) {
+                open();
+            }
+        } );
+
+        container.addEventListener( 'mouseleave', () => {
+            if ( isOpen() ) {
+                close();
+            }
+        } );
+    }
+
     document.addEventListener( 'click', ( event: MouseEvent ) => {
         if ( !isOpen() ) {
             return;
