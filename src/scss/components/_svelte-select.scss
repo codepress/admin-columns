@@ -315,4 +315,16 @@
 	--disabled-border-color: var(--acui-border);
 	--disabled-color: var(--input-color, #1E3133);
 	--disabled-placeholder-color: var(--input-color, #1E3133);
+
+	// A locked select is non-interactive, so neutralise the `.-acui` hover
+	// affordances: keep a disabled cursor (overriding the `cursor: pointer
+	// !important` above) and stop the value text turning primary-blue on hover.
+	&, &:hover, input {
+		cursor: not-allowed !important;
+	}
+
+	&:hover {
+		--input-color: #1E3133;
+		--border: var(--disabled-border-color);
+	}
 }
