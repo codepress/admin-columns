@@ -44,7 +44,12 @@ abstract class TableRows implements Registerable, RequestHandler
 
         $response = new Response\Json();
 
-        $ids = $request->filter('ac_ids', [], FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
+        $ids = array_values(array_filter(
+            array_map('strval', (array)$request->get('ac_ids')),
+            static function (string $id): bool {
+                return '' !== $id;
+            }
+        ));
 
         if (! $ids) {
             $response->error();
