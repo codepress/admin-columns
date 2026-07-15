@@ -12,6 +12,7 @@ class Documentation extends Type\Uri
     public const ARTICLE_BULK_EDITING = '/article/67-how-to-use-bulk-editing';
     public const ARTICLE_CONDITIONAL_FORMATTING = '/article/108-how-to-use-conditional-formatting';
     public const ARTICLE_CUSTOM_FIELD = '/article/59-custom-field-columns';
+    public const ARTICLE_CUSTOM_LIST_TABLES = '/article/120-how-to-setup-custom-list-tables';
     public const ARTICLE_CUSTOM_FIELD_EDITING = '/article/68-enable-editing-for-custom-field-columns';
     public const ARTICLE_EXPORT = '/article/69-how-to-use-export';
     public const ARTICLE_INLINE_EDITING = '/article/27-how-to-use-inline-editing';

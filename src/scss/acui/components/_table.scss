@@ -26,4 +26,17 @@
 		}
 	}
 
+	// Drops the last row's bottom border so it doesn't double up with a
+	// bordered panel footer below. The footer keeps its own top border, so
+	// the separator still renders when the table body is empty.
+	&.ac-flush-last-row {
+		tbody {
+			tr:last-child {
+				td, th {
+					border-bottom: 0;
+				}
+			}
+		}
+	}
+
 }
