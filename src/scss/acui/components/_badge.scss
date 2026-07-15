@@ -31,4 +31,20 @@ $variants : (
 			background: $color2;
         }
 	}
+
+	// Neutral grey badge: muted text with a soft border on a subtle background.
+	.acui-badge.-grey {
+		border-color: var(--ac-border-grey);
+		color: var(--ac-text-muted);
+		background: var(--ac-surface-subtle);
+	}
+
+	// Compact size, e.g. an inline annotation next to a label.
+	.acui-badge.-small {
+		height: 18px;
+		line-height: 18px;
+		padding: 0 8px;
+		border-radius: 9px;
+		font-size: 11px;
+	}
 }
