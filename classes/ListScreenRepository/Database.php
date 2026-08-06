@@ -206,9 +206,11 @@ class Database extends Base implements ListScreenRepositoryWritable
      */
     protected function get_preferences(object $data): array
     {
-        return $data->settings
+        $settings = $data->settings
             ? unserialize($data->settings, ['allowed_classes' => false])
             : [];
+
+        return is_array($settings) ? $settings : [];
     }
 
     /**
@@ -259,7 +261,7 @@ class Database extends Base implements ListScreenRepositoryWritable
             ? unserialize($data->columns, ['allowed_classes' => false])
             : [];
 
-        return ConfigCollection::create_from_array($columns);
+        return ConfigCollection::create_from_array(is_array($columns) ? $columns : []);
     }
 
     private function create_list_screens(array $rows): ListScreenCollection
