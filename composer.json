@@ -30,6 +30,8 @@
         ],
         "cs:install": "@composer install --working-dir=tools/php-cs-fixer --no-interaction",
         "cs": "@php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix",
-        "cs:check": "@php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --dry-run --diff"
+        "cs:check": "@php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --dry-run --diff",
+        "phpstan:install": "@composer install --working-dir=tools/phpstan --no-interaction",
+        "phpstan": "@php tools/phpstan/vendor/bin/phpstan analyse --memory-limit=2G"
     }
 }
