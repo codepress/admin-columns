@@ -198,6 +198,11 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 
 == Changelog ==
 
+= 7.1.2 =
+Release Date: August 10th, 2026
+
+* [Fixed] Prevented a fatal error when a column configuration contained corrupt serialized data.
+
 = 7.1.1 =
 Release Date: July 8th, 2026
 

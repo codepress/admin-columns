@@ -1,7 +1,7 @@
 == Changelog ==
 
 = 7.1.2 =
-Release Date: August 6th, 2026
+Release Date: August 10th, 2026
 
 * [Fixed] Prevented a fatal error when a column configuration contained corrupt serialized data.
 
