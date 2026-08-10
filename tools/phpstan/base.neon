@@ -1,0 +1,45 @@
+# Shared PHPStan configuration for Admin Columns and Admin Columns Pro.
+#
+# Included by phpstan.neon.dist in both repos. Holds the level, third-party stub
+# wiring and shared ignores; each repo's dist file supplies only paths.
+#
+# Do NOT add php-stubs/wordpress-stubs as a bootstrapFile here — szepeviktor/phpstan-wordpress
+# registers it via phpstan/extension-installer, and loading it manually suppresses the
+# extension's WP constant resolution and never-return function handling.
+#
+# scanDirectories is deliberately NOT set here: the prefixed vendor directories differ per repo
+# (the Pro repo has both its own and the embedded free core's), and paths in this file resolve
+# relative to this file. Each phpstan.neon.dist sets its own.
+
+parameters:
+    level: 5
+
+    scanFiles:
+        - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+        - vendor/php-stubs/woocommerce-stubs/woocommerce-packages-stubs.php
+        - vendor/php-stubs/woocommerce-subscriptions-stubs/woocommerce-subscriptions-stubs.php
+        - vendor/php-stubs/acf-pro-stubs/acf-pro-stubs.php
+        - vendor/php-stubs/gravity-forms-stubs/gravity-forms-stubs.php
+        - vendor/wpsyntex/the-events-calendar-stubs/the-events-calendar-stubs.php
+        - stubs/pods.stub.php
+        - stubs/buddypress.stub.php
+        - stubs/jetengine.stub.php
+        - stubs/metabox.stub.php
+        - stubs/toolset.stub.php
+        - stubs/mla.stub.php
+
+    reportUnmatchedIgnoredErrors: false
+
+    ignoreErrors:
+        # WordPress hooks accept mixed types
+        - '#Parameter \#1 .* of function (do_action|apply_filters|add_filter|add_action) expects#'
+        # WordPress function stubs are stricter than the actual WP API
+        - '#Parameter \#1 \$args of function (get_posts|get_comments|get_terms|get_post_stati) expects#'
+        # Deliberately excluded from php-stubs/woocommerce-stubs as internal WooCommerce API
+        - '#(unknown class|not found).*Automattic\\WooCommerce\\Internal#'
+        # Symfony Process is only present in build tooling, not at runtime
+        - '#(on an unknown class|not found).*Symfony\\Component\\Process#'
+        # Fluent interface covariance
+        - '#should return static\(.*\) but returns#'
+        # implode() with array<array|string>
+        - '#Parameter \#2 \$array of function implode expects array<string>, array<array\|string> given#'
