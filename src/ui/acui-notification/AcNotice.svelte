@@ -3,7 +3,7 @@
     import {onMount} from "svelte";
     import AcIcon from "../AcIcon.svelte";
 
-    export let type: 'info' | 'warning' = 'info';
+    export let type: 'info' | 'warning' | 'error' = 'info';
     export let message: string = '';
     export let styled: boolean = false;
     export let showIcon: boolean = false;
@@ -17,7 +17,7 @@
             case 'warning':
                 return 'warning';
             case 'error':
-                return 'dismiss';
+                return 'warning';
             case 'notify':
                 return 'bell';
             default:
