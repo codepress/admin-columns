@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-06-17 10:43:28+0000\n"
+"PO-Revision-Date: 2026-07-09 14:22:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1969,7 +1969,7 @@ msgstr "Chemin local"
 #: classes/Admin/MenuGroupFactory/EventsCalendarGroups.php:27
 #: classes/Integration/EventsCalendar.php:18
 msgid "Events Calendar"
-msgstr "Events Calendar"
+msgstr "Calendrier des évènements"
 
 #: classes/Setting/ComponentFactory/FieldType.php:179
 msgid "URL"
