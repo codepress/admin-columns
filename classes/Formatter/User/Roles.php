@@ -28,7 +28,7 @@ class Roles implements AC\Formatter
 
         $labels = [];
 
-        foreach ($user->roles as $role_name) {
+        foreach (UserRoles::create()->find_role_names($user) as $role_name) {
             $role_object = $this->get_allowed_role($role_name);
 
             if (! $role_object) {

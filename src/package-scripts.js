@@ -12,12 +12,6 @@ module.exports = {
 				'languages',
 				'clean'
 			),
-			lite : npsUtils.series.nps(
-				'styles.build --style=compressed --no-source-map',
-				'scripts --mode=production',
-				'tailwind.build',
-				'clean'
-			),
 			development : npsUtils.concurrent.nps(
 				'styles.build -w',
 				'scripts --mode=development',
