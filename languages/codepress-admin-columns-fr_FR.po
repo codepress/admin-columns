@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-07-09 14:22:32+0000\n"
+"PO-Revision-Date: 2026-08-12 18:47:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2231,7 +2231,7 @@ msgstr "Nouvelle ligne"
 
 #: classes/Setting/ComponentFactory/Separator.php:33
 msgid "Comma Separated"
-msgstr "Séparé par une virgule"
+msgstr "Séparés par des virgules"
 
 #: classes/Setting/ComponentFactory/Password.php:32
 msgid "Plain text"
