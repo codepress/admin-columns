@@ -242,7 +242,7 @@ body.users-php .tablenav .actions {
 		display: block !important;
 		margin-bottom: 4px;
 
-		* {
+		> * {
 			display: none;
 		}
 
