@@ -1206,6 +1206,11 @@
   color: rgb(68 68 68 / var(--tw-text-opacity, 1))
 }
 
+.acu-text-\[\#646970\] {
+  --tw-text-opacity: 1;
+  color: rgb(100 105 112 / var(--tw-text-opacity, 1))
+}
+
 .acu-text-\[\#666\] {
   --tw-text-opacity: 1;
   color: rgb(102 102 102 / var(--tw-text-opacity, 1))

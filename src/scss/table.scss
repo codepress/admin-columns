@@ -238,11 +238,12 @@ body.users-php .tablenav .actions {
 
 // Allow mobile screen to use the edit buttons
 @media screen and (max-width: 782px) {
-	.tablenav.top .actions {
+	// WP 7.1 always renders the bulk actions, marked `hidden` when the list is empty.
+	.tablenav.top .actions:not(.hidden) {
 		display: block !important;
 		margin-bottom: 4px;
 
-		* {
+		> * {
 			display: none;
 		}
 
@@ -1013,12 +1014,14 @@ div.cpac-color span {
 		}
 		tbody {
 			tr:not(.inline-edit-row):not(.no-items) {
-				td {
+				// The checkbox column is a `td` since WP 7.1, the primary column a `th`.
+				td:not(.check-column) {
 					display: none;
+				}
 
-					&.column-primary {
-						display: block;
-					}
+				td.column-primary,
+				th.column-primary {
+					display: block;
 				}
 			}
 		}

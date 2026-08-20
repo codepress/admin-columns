@@ -115,8 +115,8 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
     // Modal creation
     let items: { [key: string]: ValueModalItemCollection } = {};
 
-    event.table.getElement().querySelectorAll<HTMLElement>('td [data-modal-value]').forEach(link => {
-        let cell = event.table.Cells.getByElement(link.closest('td') ?? document.createElement('td'));
+    event.table.getElement().querySelectorAll<HTMLElement>('td [data-modal-value], th [data-modal-value]').forEach(link => {
+        let cell = event.table.Cells.getByElement(link.closest('td, th') ?? document.createElement('td'));
 
         if (cell) {
             if (!items.hasOwnProperty(cell.getName())) {

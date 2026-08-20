@@ -76,7 +76,7 @@ export default class Cells {
     get(id: number, name: string): Cell|null {
         const key = id.toString();
 
-        return this.cells.hasOwnProperty(key) ? this.cells[key][name] : null
+        return this.cells.hasOwnProperty(key) ? this.cells[key][name] ?? null : null;
     }
 
 }
