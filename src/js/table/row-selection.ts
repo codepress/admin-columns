@@ -11,7 +11,7 @@ export default class RowSelection {
 
     getIDs(): Array<number> {
         let ids: Array<number> = [];
-        let checked = this.Table.getElement().querySelectorAll<HTMLInputElement>('tbody th.check-column input[type=checkbox]:checked');
+        let checked = this.Table.getElement().querySelectorAll<HTMLInputElement>('tbody .check-column input[type=checkbox]:checked');
 
         if (checked.length === 0) {
             return ids;

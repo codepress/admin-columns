@@ -125,7 +125,7 @@
 
         if (item) {
             index = items.findIndex(item => item.objectId === objectId);
-            columnTitle = item.element.closest('td')!.dataset.colname as string;
+            columnTitle = item.element.closest('td, th')!.dataset.colname as string;
 
             if (items.length > 1) {
                 document.addEventListener('keydown', initKeyPress);

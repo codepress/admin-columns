@@ -3,7 +3,7 @@ import Cells from "./cells";
 import Columns from "./columns";
 import Cell from "./cell";
 import RowSelection from "./row-selection";
-import {getIdFromTableRow} from "../helpers/table";
+import {getCellSelector, getIdFromTableRow} from "../helpers/table";
 import {EventConstants} from "../constants";
 import AcServices from "../modules/ac-services";
 import ServiceContainer from "../modules/service-container";
@@ -90,8 +90,7 @@ export default class Table {
         let id = getIdFromTableRow(row);
 
         this.Columns.getColumnNames().forEach((name) => {
-            let selector = name.replace(/\./g, '\\.');
-            let td = row.querySelector<HTMLTableCellElement>("td.column-" + selector);
+            let td = row.querySelector<HTMLTableCellElement>(getCellSelector(name));
 
             if (td) {
                 let settings = this.Columns.get(name);
