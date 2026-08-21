@@ -25,6 +25,18 @@
 		&.is-bottom {
 			top: calc(100% + 10px);
 		}
+
+		&.is-align-left {
+			left: 0;
+			right: auto;
+			transform: none;
+		}
+
+		&.is-align-right {
+			left: auto;
+			right: 0;
+			transform: none;
+		}
 	}
 
 	&__arrow {
@@ -33,6 +45,17 @@
 		transform: translateX(-50%);
 		width: 0;
 		height: 0;
+
+		.is-align-left & {
+			left: 20px;
+			transform: none;
+		}
+
+		.is-align-right & {
+			left: auto;
+			right: 20px;
+			transform: none;
+		}
 
 		.is-top & {
 			bottom: -7px;
@@ -51,6 +74,10 @@
 
 	&__message {
 		color: #fff;
+	}
+
+	&__message-note {
+		color: #9ca3af;
 	}
 
 	&__confirm,

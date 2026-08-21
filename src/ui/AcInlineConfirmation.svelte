@@ -8,6 +8,7 @@
     export let cancelLabel: string | null = null;
     export let open: boolean = false;
     export let position: 'top' | 'bottom' = 'bottom';
+    export let align: 'center' | 'left' | 'right' = 'center';
     export let customClass: string = '';
 
     const dispatch = createEventDispatcher();
@@ -77,6 +78,8 @@
                 class="acui-inline-confirmation__popover"
                 class:is-top={position === 'top'}
                 class:is-bottom={position === 'bottom'}
+                class:is-align-left={align === 'left'}
+                class:is-align-right={align === 'right'}
                 bind:this={popoverEl}
                 in:fade={{duration: 150}}
                 out:fade={{duration: 150}}
