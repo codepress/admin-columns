@@ -61,8 +61,15 @@ export const getIdFromString = (value: string): number => {
     return parseInt(id_parts[id_parts.length - 1]);
 }
 
+// WordPress renders the primary column as a `th` since WP 7.1, all other columns as `td`.
+export const getCellSelector = (column_name: string): string => {
+    const name = column_name.replace(/\./g, '\\.');
+
+    return `td.column-${name}, th.column-${name}`;
+}
+
 export const getRowCellByName = (row: HTMLTableRowElement, column_name: string): HTMLTableCellElement|null => {
-    return row.querySelector<HTMLTableCellElement>(`td.column-${column_name}`);
+    return row.querySelector<HTMLTableCellElement>(getCellSelector(column_name));
 }
 
 export const resolveTableBySelector = (selector: string): HTMLTableElement|null => {

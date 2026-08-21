@@ -198,6 +198,11 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 
 == Changelog ==
 
+= 7.1.3 =
+Release Date: August 20th, 2026
+
+* [Fixed] Row selection, the value modal and the responsive table layout broke on WordPress 7.1, because the primary column is now rendered as a table header cell and the checkbox column as a table cell.
+
 = 7.1.2 =
 Release Date: August 10th, 2026
 
