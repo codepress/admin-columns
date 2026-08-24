@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 7.1.4 =
+Release Date: TBD
+
+* [Added] Custom Field column: the counting field type is split into "Number of Values", which counts the values within one custom field and no longer always shows 1, and "Number of Fields", which counts how often the field is stored. Existing columns become "Number of Values".
+* [Fixed] A fatal error occurred when the property of a Parent column was set to a custom field with the Color, Date or HTML field type.
+
 = 7.1.3 =
 Release Date: August 20th, 2026
 

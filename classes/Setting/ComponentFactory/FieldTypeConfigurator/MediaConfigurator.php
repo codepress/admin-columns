@@ -6,6 +6,7 @@ namespace AC\Setting\ComponentFactory\FieldTypeConfigurator;
 
 use AC;
 use AC\Expression\StringComparisonSpecification;
+use AC\FormatterCollection;
 use AC\Setting;
 use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
@@ -31,7 +32,7 @@ class MediaConfigurator implements FieldTypeConfigurator
             ->add_option(self::TYPE, __('Media', 'codepress-admin-columns'), 'relational')
             ->add_formatter(
                 self::TYPE,
-                function (Setting\Config $config, Setting\FormatterCollection $formatters) {
+                function (Setting\Config $config, FormatterCollection $formatters) {
                     $formatters->add(new AC\Formatter\IdsToCollection());
                 }
             )->add_child_component(

@@ -6,6 +6,7 @@ namespace AC\Setting\ComponentFactory\FieldTypeConfigurator;
 
 use AC\Expression\StringComparisonSpecification;
 use AC\Formatter;
+use AC\FormatterCollection;
 use AC\Setting;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
@@ -32,7 +33,7 @@ class DateConfigurator implements FieldTypeConfigurator
             ->add_option(self::TYPE, __('Date', 'codepress-admin-columns'), 'basic')
             ->add_formatter(
                 self::TYPE,
-                function (Setting\Config $config, Setting\FormatterCollection $formatters) {
+                function (Setting\Config $config, FormatterCollection $formatters) {
                     $save_format = $config->get('date_save_format', '');
 
                     if ($save_format === ComponentFactory\DateSaveFormat::FORMAT_AUTO) {

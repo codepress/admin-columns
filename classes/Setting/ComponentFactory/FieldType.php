@@ -28,6 +28,7 @@ class FieldType extends BaseComponentFactory
     public const TYPE_DATE = 'date';
     public const TYPE_IMAGE = 'image';
     public const TYPE_MEDIA = 'library_id';
+    public const TYPE_META_COUNT = 'meta_count';
     public const TYPE_NON_EMPTY = 'has_content';
     public const TYPE_NUMERIC = 'numeric';
     public const TYPE_POST = 'title_by_id';
@@ -189,8 +190,9 @@ class FieldType extends BaseComponentFactory
                 self::TYPE_USER  => __('User', 'codepress-admin-columns'),
             ],
             'multiple' => [
-                self::TYPE_COUNT => __('Number of Fields', 'codepress-admin-columns'),
-                self::TYPE_ARRAY => sprintf(
+                self::TYPE_COUNT      => __('Number of Values', 'codepress-admin-columns'),
+                self::TYPE_META_COUNT => __('Number of Fields', 'codepress-admin-columns'),
+                self::TYPE_ARRAY      => sprintf(
                     '%s / %s',
                     __('Multiple Values', 'codepress-admin-columns'),
                     __('Serialized', 'codepress-admin-columns')
