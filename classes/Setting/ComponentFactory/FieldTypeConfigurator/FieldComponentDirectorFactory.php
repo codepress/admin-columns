@@ -9,6 +9,7 @@ use AC\Setting\Component;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 use AC\Setting\Config;
+use LogicException;
 
 class FieldComponentDirectorFactory implements ComponentFactory
 {
@@ -24,7 +25,7 @@ class FieldComponentDirectorFactory implements ComponentFactory
     public function add(string $key): self
     {
         if (! $this->registry->has($key)) {
-            return $this;
+            throw new LogicException(sprintf('Configurator with key "%s" not found.', $key));
         }
 
         if (! in_array($key, $this->configurator_keys, true)) {
@@ -38,7 +39,7 @@ class FieldComponentDirectorFactory implements ComponentFactory
     {
         $this->add('text')
              ->add('numeric')
-             ->add('boolean')
+             ->add('checkmark')
              ->add('color')
              ->add('html')
              ->add('image')
