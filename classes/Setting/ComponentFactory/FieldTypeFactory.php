@@ -73,13 +73,13 @@ class FieldTypeFactory extends BaseComponentFactory
 
         $groups = [
             'basic'      => __('Basic', 'codepress-admin-columns'),
-            'relational' => __('Relational', 'codepress-admin-columns'),
             'choice'     => __('Choice', 'codepress-admin-columns'),
+            'relational' => __('Relational', 'codepress-admin-columns'),
             'multiple'   => __('Multiple', 'codepress-admin-columns'),
             'custom'     => __('Custom', 'codepress-admin-columns'),
         ];
 
-        foreach ($this->field_types as $group => $options) {
+        foreach ($this->get_grouped_field_types($groups) as $group => $options) {
             foreach ($options as $value => $label) {
                 $collection->add(
                     new Option(
@@ -92,6 +92,19 @@ class FieldTypeFactory extends BaseComponentFactory
         }
 
         return $collection;
+    }
+
+    private function get_grouped_field_types(array $groups): array
+    {
+        $ordered = [];
+
+        foreach (array_keys($groups) as $group) {
+            if (isset($this->field_types[$group])) {
+                $ordered[$group] = $this->field_types[$group];
+            }
+        }
+
+        return $ordered + $this->field_types;
     }
 
     protected function add_formatters(Setting\Config $config, AC\FormatterCollection $formatters): void
