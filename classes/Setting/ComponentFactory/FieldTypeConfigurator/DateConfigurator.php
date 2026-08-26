@@ -38,6 +38,8 @@ class DateConfigurator implements FieldTypeConfigurator
 
                     if ($save_format === ComponentFactory\DateSaveFormat::FORMAT_AUTO) {
                         $formatters->prepend(new Formatter\Date\Timestamp());
+
+                        return;
                     }
 
                     $date_formatter = $save_format
