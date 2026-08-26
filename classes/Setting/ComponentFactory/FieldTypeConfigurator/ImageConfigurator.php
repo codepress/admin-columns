@@ -50,10 +50,10 @@ class ImageConfigurator implements FieldTypeConfigurator
                 $this->image_size,
                 StringComparisonSpecification::equal(self::TYPE)
             )->add_child_component(
-                $this->media_link,
+                $this->number_of_items,
                 StringComparisonSpecification::equal(self::TYPE)
             )->add_child_component(
-                $this->number_of_items,
+                $this->media_link,
                 StringComparisonSpecification::equal(self::TYPE)
             )->add_final_formatter(
                 self::TYPE,

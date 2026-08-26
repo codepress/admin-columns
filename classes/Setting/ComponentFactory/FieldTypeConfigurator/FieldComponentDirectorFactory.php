@@ -66,6 +66,11 @@ class FieldComponentDirectorFactory implements ComponentFactory
         );
     }
 
+    public function with_all(): self
+    {
+        return $this->with(...$this->registry->get_types());
+    }
+
     public function create(Config $config, ?Specification $conditions = null): Component
     {
         $builder = new FieldTypeFactoryBuilder();

@@ -53,11 +53,11 @@ class DateConfigurator implements FieldTypeConfigurator
                     $formatters->prepend($date_formatter);
                 }
             )->add_child_component(
-                $this->date_format,
+                $this->date_save_format,
                 StringComparisonSpecification::equal(self::TYPE)
             )
             ->add_child_component(
-                $this->date_save_format,
+                $this->date_format,
                 StringComparisonSpecification::equal(self::TYPE)
             );
     }
