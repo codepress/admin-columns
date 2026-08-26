@@ -10,6 +10,11 @@ class CountConfigurator implements FieldTypeConfigurator
 {
     public const TYPE = 'count';
 
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
+
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder->add_option(self::TYPE, __('Number of Fields', 'codepress-admin-columns'), 'multiple');

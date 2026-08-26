@@ -13,7 +13,7 @@ use AC\Setting\ComponentFactory\NumberOfItems;
 
 class RelatedUserConfigurator implements FieldTypeConfigurator
 {
-    private const TYPE = 'user_by_id';
+    public const TYPE = 'user_by_id';
 
     private Setting\ComponentFactory\UserProperty $user_property;
 
@@ -29,6 +29,11 @@ class RelatedUserConfigurator implements FieldTypeConfigurator
         $this->user_property = $user_property;
         $this->user_link = $user_link;
         $this->number_of_items = $number_of_items;
+    }
+
+    public function get_type(): string
+    {
+        return self::TYPE;
     }
 
     public function configure(FieldTypeFactoryBuilder $builder): void

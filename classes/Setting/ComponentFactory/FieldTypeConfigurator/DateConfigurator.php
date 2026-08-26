@@ -27,6 +27,11 @@ class DateConfigurator implements FieldTypeConfigurator
         $this->date_save_format = $date_save_format;
     }
 
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
+
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder

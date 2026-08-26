@@ -87,7 +87,7 @@ class PostExtendedProperty extends PostProperty
         );
 
         $components->add(
-            $this->field_type->add_basic()->create(
+            $this->field_type->with_basic()->create(
                 $config,
                 StringComparisonSpecification::equal('custom_field')
             )

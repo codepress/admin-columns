@@ -13,23 +13,23 @@ final class ConfiguratorRegistry
      */
     private array $configurators = [];
 
-    public function register(string $key, FieldTypeConfigurator $configurator): void
+    public function register(FieldTypeConfigurator $configurator): void
     {
-        $this->configurators[$key] = $configurator;
+        $this->configurators[$configurator->get_type()] = $configurator;
     }
 
-    public function has(string $key): bool
+    public function has(string $type): bool
     {
-        return array_key_exists($key, $this->configurators);
+        return array_key_exists($type, $this->configurators);
     }
 
-    public function get(string $key): FieldTypeConfigurator
+    public function get(string $type): FieldTypeConfigurator
     {
-        if (! isset($this->configurators[$key])) {
-            throw new LogicException(sprintf('Configurator with key "%s" not found.', $key));
+        if (! isset($this->configurators[$type])) {
+            throw new LogicException(sprintf('Configurator for field type "%s" not found.', $type));
         }
 
-        return $this->configurators[$key];
+        return $this->configurators[$type];
     }
 
 }

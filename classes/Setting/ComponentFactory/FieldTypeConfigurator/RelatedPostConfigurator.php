@@ -13,7 +13,7 @@ use AC\Setting\ComponentFactory\NumberOfItems;
 
 class RelatedPostConfigurator implements FieldTypeConfigurator
 {
-    private const TYPE = 'title_by_id';
+    public const TYPE = 'title_by_id';
 
     private Setting\ComponentFactory\LinkablePostProperty $post_property;
 
@@ -25,6 +25,11 @@ class RelatedPostConfigurator implements FieldTypeConfigurator
     ) {
         $this->post_property = $post_property;
         $this->number_of_items = $number_of_items;
+    }
+
+    public function get_type(): string
+    {
+        return self::TYPE;
     }
 
     public function configure(FieldTypeFactoryBuilder $builder): void

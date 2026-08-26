@@ -32,6 +32,11 @@ class ImageConfigurator implements FieldTypeConfigurator
         $this->number_of_items = $number_of_items;
     }
 
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
+
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder

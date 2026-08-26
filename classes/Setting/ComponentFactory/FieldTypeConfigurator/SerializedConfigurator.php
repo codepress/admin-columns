@@ -20,6 +20,11 @@ class SerializedConfigurator implements FieldTypeConfigurator
         $this->serialized_display = $serialized_display;
     }
 
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
+
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder

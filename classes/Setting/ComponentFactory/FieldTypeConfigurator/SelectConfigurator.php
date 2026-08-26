@@ -12,13 +12,18 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class SelectConfigurator implements FieldTypeConfigurator
 {
-    private const TYPE = 'select';
+    public const TYPE = 'select';
 
     private Setting\ComponentFactory\SelectOptions $select_options;
 
     public function __construct(Setting\ComponentFactory\SelectOptions $select_options)
     {
         $this->select_options = $select_options;
+    }
+
+    public function get_type(): string
+    {
+        return self::TYPE;
     }
 
     public function configure(FieldTypeFactoryBuilder $builder): void

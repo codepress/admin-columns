@@ -24,6 +24,11 @@ class HtmlConfigurator implements FieldTypeConfigurator
 
     public const TYPE = 'html';
 
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
+
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder

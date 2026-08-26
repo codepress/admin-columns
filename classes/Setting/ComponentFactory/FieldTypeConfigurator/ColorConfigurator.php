@@ -13,6 +13,11 @@ class ColorConfigurator implements FieldTypeConfigurator
 {
     public const TYPE = 'color';
 
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
+
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder

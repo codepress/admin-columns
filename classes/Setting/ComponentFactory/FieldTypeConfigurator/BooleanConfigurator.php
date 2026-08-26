@@ -11,7 +11,12 @@ use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class BooleanConfigurator implements FieldTypeConfigurator
 {
-    private const TYPE = 'checkmark';
+    public const TYPE = 'checkmark';
+
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
 
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
