@@ -6,6 +6,7 @@ namespace AC\Setting\ComponentFactory\FieldTypeConfigurator;
 
 use AC\Expression\StringComparisonSpecification;
 use AC\Formatter;
+use AC\FormatterCollection;
 use AC\Setting;
 use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 use AC\Setting\ComponentFactory\ModalDisplay;
@@ -23,6 +24,11 @@ class HtmlConfigurator implements FieldTypeConfigurator
 
     public const TYPE = 'html';
 
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
+
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder
@@ -31,7 +37,7 @@ class HtmlConfigurator implements FieldTypeConfigurator
                 $this->modal_display,
                 StringComparisonSpecification::equal(self::TYPE)
             )
-            ->add_formatter(self::TYPE, function (Setting\Config $config, Setting\FormatterCollection $formatters) {
+            ->add_formatter(self::TYPE, function (Setting\Config $config, FormatterCollection $formatters) {
                 if ($config->get($this->modal_display::TOGGLE) === ToggleOptionCollection::ON) {
                     $formatters->add(
                         new Formatter\ExtendedValueLink(

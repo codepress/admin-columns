@@ -6,12 +6,13 @@ namespace AC\Setting\ComponentFactory\FieldTypeConfigurator;
 
 use AC;
 use AC\Expression\StringComparisonSpecification;
+use AC\FormatterCollection;
 use AC\Setting;
 use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 
 class SelectConfigurator implements FieldTypeConfigurator
 {
-    private const TYPE = 'select';
+    public const TYPE = 'select';
 
     private Setting\ComponentFactory\SelectOptions $select_options;
 
@@ -20,13 +21,18 @@ class SelectConfigurator implements FieldTypeConfigurator
         $this->select_options = $select_options;
     }
 
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
+
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder
             ->add_option(self::TYPE, __('Select', 'codepress-admin-columns'), 'choice')
             ->add_formatter(
                 self::TYPE,
-                function (Setting\Config $config, Setting\FormatterCollection $formatters) {
+                function (Setting\Config $config, FormatterCollection $formatters) {
                     if ($config->get('is_multiple', 'off') === 'on') {
                         $formatters->add(new AC\Formatter\ArrayToCollection());
                     }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory;
 
 use AC;
-use AC\Expression\Specification;
 use AC\Setting;
 use AC\Setting\AttributeFactory;
 use AC\Setting\Children;
@@ -23,14 +22,22 @@ class FieldTypeFactory extends BaseComponentFactory
 
     private array $final_formatter_configs;
 
-    private array $children_configs;
+    private array $children_resolvers;
 
-    public function __construct(array $field_types, array $formatter_configs = [], array $children_configs = [], array $final_formatter_configs = [])
-    {
+    private array $attributes;
+
+    public function __construct(
+        array $field_types,
+        array $formatter_configs = [],
+        array $children_resolvers = [],
+        array $final_formatter_configs = [],
+        array $attributes = []
+    ) {
         $this->field_types = $field_types;
         $this->formatter_configs = $formatter_configs;
-        $this->children_configs = $children_configs;
+        $this->children_resolvers = $children_resolvers;
         $this->final_formatter_configs = $final_formatter_configs;
+        $this->attributes = $attributes;
     }
 
     protected function get_label(Config $config): ?string
@@ -66,13 +73,13 @@ class FieldTypeFactory extends BaseComponentFactory
 
         $groups = [
             'basic'      => __('Basic', 'codepress-admin-columns'),
-            'relational' => __('Relational', 'codepress-admin-columns'),
             'choice'     => __('Choice', 'codepress-admin-columns'),
+            'relational' => __('Relational', 'codepress-admin-columns'),
             'multiple'   => __('Multiple', 'codepress-admin-columns'),
             'custom'     => __('Custom', 'codepress-admin-columns'),
         ];
 
-        foreach ($this->field_types as $group => $options) {
+        foreach ($this->get_grouped_field_types($groups) as $group => $options) {
             foreach ($options as $value => $label) {
                 $collection->add(
                     new Option(
@@ -85,6 +92,19 @@ class FieldTypeFactory extends BaseComponentFactory
         }
 
         return $collection;
+    }
+
+    private function get_grouped_field_types(array $groups): array
+    {
+        $ordered = [];
+
+        foreach (array_keys($groups) as $group) {
+            if (isset($this->field_types[$group])) {
+                $ordered[$group] = $this->field_types[$group];
+            }
+        }
+
+        return $ordered + $this->field_types;
     }
 
     protected function add_formatters(Setting\Config $config, AC\FormatterCollection $formatters): void
@@ -107,20 +127,24 @@ class FieldTypeFactory extends BaseComponentFactory
         }
     }
 
+    protected function get_attributes(Config $config, AC\Setting\AttributeCollection $attributes): AC\Setting\AttributeCollection
+    {
+        foreach ($this->attributes[$config->get('field_type', '')] ?? [] as $attribute) {
+            $attributes->add($attribute);
+        }
+
+        return $attributes;
+    }
+
     protected function get_children(Setting\Config $config): ?Children
     {
         $components = [];
-        $field_type = $config->get('field_type', '');
 
-        foreach ($this->children_configs as $child_config) {
-            /**
-             * @var BaseComponentFactory $component_factory
-             * @var Specification        $specification
-             */
-            [$component_factory, $specification] = $child_config;
+        foreach ($this->children_resolvers as $resolver) {
+            $component = $resolver($config);
 
-            if ($specification->is_satisfied_by($field_type)) {
-                $components[] = $component_factory->create($config, $specification);
+            if ($component !== null) {
+                $components[] = $component;
             }
         }
 

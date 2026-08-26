@@ -19,6 +19,11 @@ class TextConfigurator implements FieldTypeConfigurator
 
     public const TYPE = 'excerpt';
 
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
+
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder

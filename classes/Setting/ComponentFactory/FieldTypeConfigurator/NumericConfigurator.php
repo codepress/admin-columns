@@ -19,6 +19,11 @@ class NumericConfigurator implements FieldTypeConfigurator
         $this->number_format = $number_format;
     }
 
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
+
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder

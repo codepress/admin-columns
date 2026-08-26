@@ -32,6 +32,11 @@ class ImageConfigurator implements FieldTypeConfigurator
         $this->number_of_items = $number_of_items;
     }
 
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
+
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder
@@ -45,10 +50,10 @@ class ImageConfigurator implements FieldTypeConfigurator
                 $this->image_size,
                 StringComparisonSpecification::equal(self::TYPE)
             )->add_child_component(
-                $this->media_link,
+                $this->number_of_items,
                 StringComparisonSpecification::equal(self::TYPE)
             )->add_child_component(
-                $this->number_of_items,
+                $this->media_link,
                 StringComparisonSpecification::equal(self::TYPE)
             )->add_final_formatter(
                 self::TYPE,

@@ -9,64 +9,77 @@ use AC\Setting\Component;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactory\FieldTypeFactoryBuilder;
 use AC\Setting\Config;
+use LogicException;
 
+/**
+ * Assembles a Field Type setting from a chosen subset of field types. Immutable: every with_*
+ * call returns a copy, so the shared container instance can be configured per call site.
+ */
 class FieldComponentDirectorFactory implements ComponentFactory
 {
     private ConfiguratorRegistry $registry;
 
-    private array $configurator_keys = [];
+    private array $types = [];
 
     public function __construct(ConfiguratorRegistry $registry)
     {
         $this->registry = $registry;
     }
 
-    public function add(string $key): self
+    public function with(string ...$types): self
     {
-        if (! $this->registry->has($key)) {
-            return $this;
+        $clone = clone $this;
+
+        foreach ($types as $type) {
+            if (! $this->registry->has($type)) {
+                throw new LogicException(sprintf('Configurator for field type "%s" not found.', $type));
+            }
+
+            if (! in_array($type, $clone->types, true)) {
+                $clone->types[] = $type;
+            }
         }
 
-        if (! in_array($key, $this->configurator_keys, true)) {
-            $this->configurator_keys[] = $key;
-        }
-
-        return $this;
+        return $clone;
     }
 
-    public function add_basic(): self
+    public function with_basic(): self
     {
-        $this->add('text')
-             ->add('numeric')
-             ->add('boolean')
-             ->add('color')
-             ->add('html')
-             ->add('image')
-             ->add('url')
-             ->add('date');
-
-        return $this;
+        return $this->with(
+            TextConfigurator::TYPE,
+            NumericConfigurator::TYPE,
+            BooleanConfigurator::TYPE,
+            ColorConfigurator::TYPE,
+            HtmlConfigurator::TYPE,
+            ImageConfigurator::TYPE,
+            UrlConfigurator::TYPE,
+            DateConfigurator::TYPE
+        );
     }
 
-    public function add_related(): self
+    public function with_related(): self
     {
-        $this->add('related_post')
-             ->add('related_user')
-             ->add('media');
+        return $this->with(
+            RelatedPostConfigurator::TYPE,
+            RelatedUserConfigurator::TYPE,
+            MediaConfigurator::TYPE
+        );
+    }
 
-        return $this;
+    public function with_all(): self
+    {
+        return $this->with(...$this->registry->get_types());
     }
 
     public function create(Config $config, ?Specification $conditions = null): Component
     {
         $builder = new FieldTypeFactoryBuilder();
 
-        foreach ($this->configurator_keys as $key) {
-            $this->registry->get($key)->configure($builder);
+        foreach ($this->types as $type) {
+            $this->registry->get($type)->configure($builder);
         }
-
-        $this->configurator_keys = [];
 
         return $builder->build()->create($config, $conditions);
     }
+
 }

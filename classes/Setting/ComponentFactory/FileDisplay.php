@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\StringComparisonSpecification;
+use AC\Setting\AttributeCollection;
+use AC\Setting\AttributeFactory;
 use AC\Setting\Children;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
@@ -36,7 +38,14 @@ final class FileDisplay extends BaseComponentFactory
                 ''        => __('Filename', 'codepress-admin-columns'),
                 'preview' => __('Preview', 'codepress-admin-columns'),
             ]),
-            (string)$config->get('file_display', '')
+            (string)$config->get('file_display', ''),
+            null,
+            null,
+            new AttributeCollection([
+                // Which sub settings apply depends on this value, so the column config has to be
+                // rebuilt server side when it changes.
+                AttributeFactory::create_refresh(),
+            ])
         );
     }
 

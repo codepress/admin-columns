@@ -19,6 +19,11 @@ class UrlConfigurator implements FieldTypeConfigurator
         $this->link_label = $link_label;
     }
 
+    public function get_type(): string
+    {
+        return self::TYPE;
+    }
+
     public function configure(FieldTypeFactoryBuilder $builder): void
     {
         $builder

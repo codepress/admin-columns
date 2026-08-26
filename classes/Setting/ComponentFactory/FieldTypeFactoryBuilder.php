@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\Specification;
+use AC\FormatterCollection;
 use AC\Setting;
+use AC\Setting\Component;
+use AC\Setting\Config;
+use AC\Setting\Type\Attribute;
 
 class FieldTypeFactoryBuilder
 {
@@ -15,7 +19,9 @@ class FieldTypeFactoryBuilder
 
     private array $final_formatter_configs = [];
 
-    private array $children_configs = [];
+    private array $children_resolvers = [];
+
+    private array $attributes = [];
 
     public function add_option(string $type, string $label, string $group): self
     {
@@ -27,7 +33,7 @@ class FieldTypeFactoryBuilder
     }
 
     /**
-     * @param callable(Setting\Config, Setting\FormatterCollection):void $formatter_factory
+     * @param callable(Config, FormatterCollection):void $formatter_factory
      */
     public function add_formatter(string $type, callable $formatter_factory): self
     {
@@ -37,7 +43,7 @@ class FieldTypeFactoryBuilder
     }
 
     /**
-     * @param callable(Setting\Config, Setting\FormatterCollection):void $formatter_factory
+     * @param callable(Config, FormatterCollection):void $formatter_factory
      */
     public function add_final_formatter(string $type, callable $formatter_factory): self
     {
@@ -46,9 +52,33 @@ class FieldTypeFactoryBuilder
         return $this;
     }
 
+    public function add_attribute(string $type, Attribute $attribute): self
+    {
+        $this->attributes[$type][] = $attribute;
+
+        return $this;
+    }
+
     public function add_child_component(Setting\ComponentFactory $component_factory, Specification $specification): self
     {
-        $this->children_configs[] = [$component_factory, $specification];
+        return $this->add_child_component_resolver(
+            static function (Config $config) use ($component_factory, $specification): ?Component {
+                return $specification->is_satisfied_by((string)$config->get('field_type', ''))
+                    ? $component_factory->create($config, $specification)
+                    : null;
+            }
+        );
+    }
+
+    /**
+     * Register a child component that depends on more than the selected field type. The resolver
+     * returns null when the component does not apply to the given config.
+     *
+     * @param callable(Config):?Component $resolver
+     */
+    public function add_child_component_resolver(callable $resolver): self
+    {
+        $this->children_resolvers[] = $resolver;
 
         return $this;
     }
@@ -58,8 +88,9 @@ class FieldTypeFactoryBuilder
         return new FieldTypeFactory(
             $this->field_types,
             $this->formatter_configs,
-            $this->children_configs,
-            $this->final_formatter_configs
+            $this->children_resolvers,
+            $this->final_formatter_configs,
+            $this->attributes
         );
     }
 
