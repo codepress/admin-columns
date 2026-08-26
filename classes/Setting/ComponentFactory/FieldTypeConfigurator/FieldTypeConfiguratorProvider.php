@@ -19,6 +19,7 @@ final class FieldTypeConfiguratorProvider
         HtmlConfigurator::class,
         ImageConfigurator::class,
         MediaConfigurator::class,
+        MetaCountConfigurator::class,
         NumericConfigurator::class,
         RelatedPostConfigurator::class,
         RelatedUserConfigurator::class,

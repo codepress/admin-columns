@@ -114,20 +114,31 @@ class CustomFieldFactory extends BaseColumnFactory
     {
         $formatters = parent::get_formatters($config);
 
-        if ($config->get('field_type') === FieldType::TYPE_COUNT) {
-            return $formatters->prepend(
-                Aggregate::from_array([
-                    new AC\Formatter\MetaCollection(
-                        $this->table_context->get_meta_type(),
-                        $config->get('field', '')
-                    ),
-                    new AC\Formatter\Count(),
-                ])
-            );
+        switch ($this->get_field_type($config)) {
+            case FieldType::TYPE_COUNT:
+                return $formatters->prepend(
+                    Aggregate::from_array([
+                        new AC\Formatter\MetaValueCollection(
+                            $this->table_context->get_meta_type(),
+                            $this->get_meta_key($config)
+                        ),
+                        new AC\Formatter\Count(),
+                    ])
+                );
+            case FieldType::TYPE_META_COUNT:
+                return $formatters->prepend(
+                    Aggregate::from_array([
+                        new AC\Formatter\MetaCollection(
+                            $this->table_context->get_meta_type(),
+                            $this->get_meta_key($config)
+                        ),
+                        new AC\Formatter\Count(),
+                    ])
+                );
         }
 
         return $formatters->prepend(
-            new AC\Formatter\Meta($this->table_context->get_meta_type(), $config->get('field', ''))
+            new AC\Formatter\Meta($this->table_context->get_meta_type(), $this->get_meta_key($config))
         );
     }
 

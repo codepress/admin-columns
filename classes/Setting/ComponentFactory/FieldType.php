@@ -26,6 +26,7 @@ class FieldType implements ComponentFactory
     public const TYPE_DATE = 'date';
     public const TYPE_IMAGE = 'image';
     public const TYPE_MEDIA = 'library_id';
+    public const TYPE_META_COUNT = 'meta_count';
     public const TYPE_NON_EMPTY = 'has_content';
     public const TYPE_NUMERIC = 'numeric';
     public const TYPE_POST = 'title_by_id';
