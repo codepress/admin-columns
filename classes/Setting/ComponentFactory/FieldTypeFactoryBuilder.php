@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC;
 use AC\Expression\Specification;
-use AC\FormatterCollection;
 use AC\Setting;
 use AC\Setting\Component;
 use AC\Setting\Config;
@@ -33,7 +33,7 @@ class FieldTypeFactoryBuilder
     }
 
     /**
-     * @param callable(Config, FormatterCollection):void $formatter_factory
+     * @param callable(Setting\Config, AC\FormatterCollection):void $formatter_factory
      */
     public function add_formatter(string $type, callable $formatter_factory): self
     {
@@ -43,7 +43,7 @@ class FieldTypeFactoryBuilder
     }
 
     /**
-     * @param callable(Config, FormatterCollection):void $formatter_factory
+     * @param callable(Setting\Config, AC\FormatterCollection):void $formatter_factory
      */
     public function add_final_formatter(string $type, callable $formatter_factory): self
     {
