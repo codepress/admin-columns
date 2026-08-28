@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-08-15 14:22+0000\n"
+"POT-Creation-Date: 2026-08-28 10:20+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/ColumnGroups.php:26, classes/Response/JsonListScreenSettingsFactory.php:89, classes/RequestHandler/Ajax/CustomFieldKeys.php:81, classes/Setting/ComponentFactory/FieldType.php:151, classes/Setting/ComponentFactory/FieldTypeFactory.php:64, classes/Setting/ComponentFactory/ImageSizeBase.php:114, classes/Setting/ComponentFactory/Separator.php:36, classes/Setting/ComponentFactory/UserProperty.php:133, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:15
+#: classes/ColumnGroups.php:26, classes/Response/JsonListScreenSettingsFactory.php:89, classes/RequestHandler/Ajax/CustomFieldKeys.php:81, classes/Setting/ComponentFactory/FieldType.php:152, classes/Setting/ComponentFactory/FieldTypeFactory.php:64, classes/Setting/ComponentFactory/ImageSizeBase.php:114, classes/Setting/ComponentFactory/Separator.php:36, classes/Setting/ComponentFactory/UserProperty.php:133, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:15
 msgid "Default"
 msgstr ""
 
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Custom Fields"
 msgstr ""
 
-#: classes/ColumnGroups.php:36, classes/Setting/ComponentFactory/FieldType.php:187, classes/Setting/ComponentFactory/FieldTypeConfigurator/MediaConfigurator.php:31
+#: classes/ColumnGroups.php:36, classes/Setting/ComponentFactory/FieldType.php:188, classes/Setting/ComponentFactory/FieldTypeConfigurator/MediaConfigurator.php:32
 msgid "Media"
 msgstr ""
 
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Meta"
 msgstr ""
 
-#: classes/ColumnGroups.php:38, classes/ColumnFactory/Media/ImageFactory.php:40, classes/Setting/ComponentFactory/FieldType.php:177, classes/Setting/ComponentFactory/FieldTypeConfigurator/ImageConfigurator.php:38, classes/Setting/ComponentFactory/Post/FeaturedImageDisplay.php:42
+#: classes/ColumnGroups.php:38, classes/ColumnFactory/Media/ImageFactory.php:40, classes/Setting/ComponentFactory/FieldType.php:178, classes/Setting/ComponentFactory/FieldTypeConfigurator/ImageConfigurator.php:38, classes/Setting/ComponentFactory/Post/FeaturedImageDisplay.php:42
 msgid "Image"
 msgstr ""
 
@@ -52,7 +52,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: classes/ColumnGroups.php:43, classes/Setting/ComponentFactory/FieldType.php:146, classes/Setting/ComponentFactory/FieldTypeFactory.php:72, classes/Setting/ComponentFactory/ImageSizeBase.php:127
+#: classes/ColumnGroups.php:43, classes/Setting/ComponentFactory/FieldType.php:147, classes/Setting/ComponentFactory/FieldTypeFactory.php:72, classes/Setting/ComponentFactory/ImageSizeBase.php:127
 msgid "Custom"
 msgstr ""
 
@@ -1185,7 +1185,7 @@ msgstr ""
 msgid "Tweet"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:597, classes/Setting/ComponentFactory/CustomField.php:62, classes/Setting/ComponentFactory/FieldType.php:184, classes/Setting/ComponentFactory/FieldTypeConfigurator/SelectConfigurator.php:26
+#: classes/Admin/Asset/Columns.php:597, classes/Setting/ComponentFactory/CustomField.php:62, classes/Setting/ComponentFactory/FieldType.php:185, classes/Setting/ComponentFactory/FieldTypeConfigurator/SelectConfigurator.php:27
 msgid "Select"
 msgstr ""
 
@@ -1437,7 +1437,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: classes/ColumnFactory/Comment/PostFactory.php:30, classes/Setting/ComponentFactory/FieldType.php:188, classes/Setting/ComponentFactory/FieldTypeConfigurator/RelatedPostConfigurator.php:26
+#: classes/ColumnFactory/Comment/PostFactory.php:30, classes/Setting/ComponentFactory/FieldType.php:189, classes/Setting/ComponentFactory/FieldTypeConfigurator/RelatedPostConfigurator.php:27
 msgid "Post"
 msgstr ""
 
@@ -1449,7 +1449,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: classes/ColumnFactory/Comment/UserFactory.php:43, classes/Setting/ComponentFactory/FieldType.php:189, classes/Setting/ComponentFactory/FieldTypeConfigurator/RelatedUserConfigurator.php:31
+#: classes/ColumnFactory/Comment/UserFactory.php:43, classes/Setting/ComponentFactory/FieldType.php:190, classes/Setting/ComponentFactory/FieldTypeConfigurator/RelatedUserConfigurator.php:32
 msgid "User"
 msgstr ""
 
@@ -1969,7 +1969,7 @@ msgstr ""
 msgid "Auto Detect"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:48, classes/Setting/ComponentFactory/FieldType.php:174, classes/Setting/ComponentFactory/FieldTypeConfigurator/DateConfigurator.php:32
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:48, classes/Setting/ComponentFactory/FieldType.php:175, classes/Setting/ComponentFactory/FieldTypeConfigurator/DateConfigurator.php:33
 msgid "Date"
 msgstr ""
 
@@ -2025,71 +2025,75 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:106, classes/Setting/ComponentFactory/FieldTypeFactory.php:38
+#: classes/Setting/ComponentFactory/FieldType.php:107, classes/Setting/ComponentFactory/FieldTypeFactory.php:38
 msgid "Field Type"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:111, classes/Setting/ComponentFactory/FieldTypeFactory.php:43
+#: classes/Setting/ComponentFactory/FieldType.php:112, classes/Setting/ComponentFactory/FieldTypeFactory.php:43
 msgid "This will determine how the value will be displayed."
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:120, classes/Setting/ComponentFactory/FieldTypeFactory.php:52
+#: classes/Setting/ComponentFactory/FieldType.php:121, classes/Setting/ComponentFactory/FieldTypeFactory.php:52
 msgid "Select the field type"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:142, classes/Setting/ComponentFactory/FieldTypeFactory.php:68
+#: classes/Setting/ComponentFactory/FieldType.php:143, classes/Setting/ComponentFactory/FieldTypeFactory.php:68
 msgid "Basic"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:143, classes/Setting/ComponentFactory/FieldTypeFactory.php:69
+#: classes/Setting/ComponentFactory/FieldType.php:144, classes/Setting/ComponentFactory/FieldTypeFactory.php:69
 msgid "Relational"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:144, classes/Setting/ComponentFactory/FieldTypeFactory.php:70
+#: classes/Setting/ComponentFactory/FieldType.php:145, classes/Setting/ComponentFactory/FieldTypeFactory.php:70
 msgid "Choice"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:145, classes/Setting/ComponentFactory/FieldTypeFactory.php:71, classes/Setting/ComponentFactory/IsMultiple.php:22
+#: classes/Setting/ComponentFactory/FieldType.php:146, classes/Setting/ComponentFactory/FieldTypeFactory.php:71, classes/Setting/ComponentFactory/IsMultiple.php:22
 msgid "Multiple"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:173, classes/Setting/ComponentFactory/FieldTypeConfigurator/ColorConfigurator.php:18
+#: classes/Setting/ComponentFactory/FieldType.php:174, classes/Setting/ComponentFactory/FieldTypeConfigurator/ColorConfigurator.php:19
 msgid "Color"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:175, classes/Setting/ComponentFactory/FieldTypeConfigurator/TextConfigurator.php:25
+#: classes/Setting/ComponentFactory/FieldType.php:176, classes/Setting/ComponentFactory/FieldTypeConfigurator/TextConfigurator.php:25
 msgid "Text"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:176, classes/Setting/ComponentFactory/FieldTypeConfigurator/HtmlConfigurator.php:29
+#: classes/Setting/ComponentFactory/FieldType.php:177, classes/Setting/ComponentFactory/FieldTypeConfigurator/HtmlConfigurator.php:30
 msgid "HTML"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:178, classes/Setting/ComponentFactory/FieldTypeConfigurator/UrlConfigurator.php:25
+#: classes/Setting/ComponentFactory/FieldType.php:179, classes/Setting/ComponentFactory/FieldTypeConfigurator/UrlConfigurator.php:25
 msgid "URL"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:179, classes/Setting/ComponentFactory/FieldTypeConfigurator/NumericConfigurator.php:25
+#: classes/Setting/ComponentFactory/FieldType.php:180, classes/Setting/ComponentFactory/FieldTypeConfigurator/NumericConfigurator.php:25
 msgid "Number"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:182, classes/Setting/ComponentFactory/FieldTypeConfigurator/HasContentConfigurator.php:18
+#: classes/Setting/ComponentFactory/FieldType.php:183, classes/Setting/ComponentFactory/FieldTypeConfigurator/HasContentConfigurator.php:19
 msgid "Has Content"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:183, classes/Setting/ComponentFactory/FieldTypeConfigurator/BooleanConfigurator.php:18
+#: classes/Setting/ComponentFactory/FieldType.php:184, classes/Setting/ComponentFactory/FieldTypeConfigurator/BooleanConfigurator.php:19
 msgid "True / False"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:192, classes/Setting/ComponentFactory/FieldTypeConfigurator/CountConfigurator.php:15
+#: classes/Setting/ComponentFactory/FieldType.php:193, classes/Setting/ComponentFactory/FieldTypeConfigurator/CountConfigurator.php:19
+msgid "Number of Values"
+msgstr ""
+
+#: classes/Setting/ComponentFactory/FieldType.php:194
 msgid "Number of Fields"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:195, classes/Setting/ComponentFactory/FieldTypeConfigurator/SerializedConfigurator.php:29
+#: classes/Setting/ComponentFactory/FieldType.php:197, classes/Setting/ComponentFactory/FieldTypeConfigurator/SerializedConfigurator.php:29
 msgid "Multiple Values"
 msgstr ""
 
-#: classes/Setting/ComponentFactory/FieldType.php:196, classes/Setting/ComponentFactory/FieldTypeConfigurator/SerializedConfigurator.php:30
+#: classes/Setting/ComponentFactory/FieldType.php:198, classes/Setting/ComponentFactory/FieldTypeConfigurator/SerializedConfigurator.php:30
 msgid "Serialized"
 msgstr ""
 

@@ -2,9 +2,9 @@
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Tags: columns, admin columns, custom fields, list table, woocommerce
 Requires at least: 6.2
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 7.1.2
+Stable tag: 7.1.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -197,6 +197,13 @@ Developers can extend Admin Columns using many actions and filters. You can find
 Head to Settings > Admin Columns and start customizing your columns. Check out the [getting started guide](https://docs.admincolumns.com/category/16-getting-started/) for a walkthrough.
 
 == Changelog ==
+
+= 7.1.4 =
+Release Date: August 28th, 2026
+
+* [Added] Custom Field column: the counting field type is split into "Number of Values", which counts the values within one custom field and no longer always shows 1, and "Number of Fields", which counts how often the field is stored and is the sortable one of the two. Existing columns become "Number of Values".
+* [Fixed] A fatal error occurred when the property of a Parent column was set to a custom field with the Color, Date, HTML or True / False field type.
+* [Fixed] Custom Field column: a Date field set to "Auto Detect" showed an empty cell on the Parent column.
 
 = 7.1.3 =
 Release Date: August 20th, 2026
