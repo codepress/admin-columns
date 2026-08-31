@@ -16,7 +16,7 @@ class Links implements Formatter
 
     private ?array $internal_domains;
 
-    public function __construct(?string $filter_by = null, array $internal_domains = null)
+    public function __construct(?string $filter_by = null, ?array $internal_domains = null)
     {
         $this->filter_by = $filter_by;
         $this->internal_domains = $internal_domains;
