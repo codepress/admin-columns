@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 7.1.5 =
+Release Date: TBD
+
+* [Fixed] A failed lookup of the available WordPress.org translations was not cached, so it was repeated on every request and admin pages could take minutes to load on sites that cannot reach api.wordpress.org.
+
 = 7.1.4 =
 Release Date: August 28th, 2026
 
