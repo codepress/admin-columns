@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-04-17 12:26:14+0000\n"
+"PO-Revision-Date: 2026-09-01 18:51:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,25 +11,59 @@ msgstr ""
 "Language: nl\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:82
+#: templates/tooltip/metrics.php:12
+msgid "This row performs quick calculations on the paginated values, giving you instant insights without exporting your data."
+msgstr "Deze rij voert snelle berekeningen uit op de gepagineerde waarden, waardoor je direct inzicht krijgt zonder je gegevens te exporteren."
+
+#: templates/tooltip/metrics.php:6
+msgid "With Metrics, you can add a calculation row to a column in the list table."
+msgstr "Met Metrics kun je een berekeningsrij toevoegen aan een kolom in de tabel."
+
+#: templates/tooltip/metrics.php:3
+msgid "Metrics"
+msgstr "Statistieken"
+
+#: classes/Setting/ComponentFactory/FieldType.php:193
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/CountConfigurator.php:19
+msgid "Number of Values"
+msgstr "Aantal waarden"
+
+#: classes/Setting/ComponentFactory/BooleanValues.php:34
+msgid "Value for <code>true</code>"
+msgstr "Waarde voor <code>true</code>"
+
+#: classes/Setting/ComponentFactory/BooleanValues.php:25
+msgid "Value for <code>false</code> "
+msgstr "Waarde voor <code>false</code> "
+
+#: classes/Setting/ComponentFactory/BooleanValues.php:17
+msgid "Boolean Values"
+msgstr "Booleaanse waarden"
+
+#: classes/Admin/Asset/Columns.php:530
+msgctxt "wrapping_option"
+msgid "Auto Width"
+msgstr "Automatische breedte"
+
+#: classes/Admin/Asset/Script/SettingsFactory.php:83
 msgid "Export table to CSV"
 msgstr "Tabel exporteren naar CSV"
 
-#: classes/Admin/Asset/Addons.php:45 classes/Check/Integration/AcfNotice.php:61
+#: classes/Admin/Asset/Addons.php:46 classes/Check/Integration/AcfNotice.php:60
 msgid "Learn more"
 msgstr "Lees verder"
 
-#: classes/Acf/Service/FieldSettings.php:121
+#: classes/Acf/Service/FieldSettings.php:120
 msgid "Add as column"
 msgstr "Toevoegen als kolom"
 
-#: classes/Acf/Service/FieldSettings.php:107
-#: classes/Acf/Service/FieldSettings.php:252
+#: classes/Acf/Service/FieldSettings.php:106
+#: classes/Acf/Service/FieldSettings.php:251
 msgid "Edit column →"
 msgstr "Kolom bewerken →"
 
-#: classes/Acf/Service/FieldSettings.php:106
-#: classes/Acf/Service/FieldSettings.php:250
+#: classes/Acf/Service/FieldSettings.php:105
+#: classes/Acf/Service/FieldSettings.php:249
 msgid "Added"
 msgstr "Toegevoegd"
 
@@ -49,15 +83,15 @@ msgstr "Vul de sleutel(s) in van het geneste element die je wilt tonen."
 msgid "Serialized Array Keys"
 msgstr "Geserialiseerde array sleutels"
 
-#: templates/admin/script/storage-file-directory.php:36
+#: templates/admin/script/storage-file-directory.php:38
 msgid "How to setup File Storage"
 msgstr "Hoe bestandsopslag instellen"
 
-#: templates/admin/script/storage-file-directory.php:32
+#: templates/admin/script/storage-file-directory.php:34
 msgid "Read more about %s"
 msgstr "Lees meer over %s"
 
-#: templates/admin/script/storage-file-directory.php:25
+#: templates/admin/script/storage-file-directory.php:27
 msgid ""
 "Once the file directory is set you can migrate your column settings from the database to the\n"
 "\t\tfile storage using our migration tool that will be available on this page."
@@ -65,15 +99,15 @@ msgstr ""
 "Zodra de folder met bestanden is ingesteld, kun je je kolom instellingen migreren van de database naar de\n"
 "\t\tbestandsopslag met behulp van ons migratie gereedschap dat op deze pagina beschikbaar is."
 
-#: templates/admin/script/storage-file-directory.php:11
+#: templates/admin/script/storage-file-directory.php:13
 msgid "Add this code snippet to your theme's functions.php file to start using File Storage."
 msgstr "Deze code snippet toevoegen aan het bestand functions.php van je thema om Bestandsopslag te gaan gebruiken."
 
-#: templates/admin/script/storage-file-directory.php:10
+#: templates/admin/script/storage-file-directory.php:12
 msgid "Set the storage directory to a folder on your file system."
 msgstr "Stel de opslag folder in op een map op je bestandssysteem."
 
-#: templates/admin/script/storage-file-directory.php:7
+#: templates/admin/script/storage-file-directory.php:9
 msgid "File Directory"
 msgstr "Bestand folder"
 
@@ -109,233 +143,235 @@ msgstr "Het filter %s is vervangen op %s sinds %s."
 msgid "The action %s is replaced by %s since %s."
 msgstr "De actie %s is vervangen door %s sinds %s."
 
-#: settings/translations/global.php:5
+#: settings/translations/global.php:7
 msgid "Are you sure?"
 msgstr "Weet je zeker?"
 
-#: classes/Value/Extended/Posts.php:85
+#: classes/Value/Extended/Posts.php:82
 msgid "Recent items"
 msgstr "Recente items"
 
-#: classes/Value/Extended/Posts.php:44
+#: classes/Value/Extended/Posts.php:42
 msgid "No items"
 msgstr "Geen items"
 
-#: classes/ThirdParty/WooCommerce.php:43
+#: classes/ThirdParty/WooCommerce.php:44
 msgid "High-Performance Order Storage"
 msgstr "Bestellingen opslaan met hoge prestaties"
 
-#: classes/ThirdParty/WooCommerce.php:39
+#: classes/ThirdParty/WooCommerce.php:40
 msgid "WooCommerce is using %s on your site. Columns configured here won't appear on the Orders screen. Upgrade to Admin Columns Pro for full order management with HPOS support."
 msgstr "WooCommerce gebruikt %s op je site. Kolommen die hier zijn geconfigureerd worden niet weergegeven op het scherm Bestellingen. Upgrade naar Admin Columns Pro voor volledig beheer van bestellingen met HPOS-ondersteuning."
 
-#: classes/Setting/ComponentFactory/WordLimit.php:39
+#: classes/Setting/ComponentFactory/WordLimit.php:38
 msgid "Words"
 msgstr "Woorden"
 
-#: classes/Setting/ComponentFactory/UserProperty.php:141
+#: classes/Setting/ComponentFactory/UserProperty.php:140
 msgid "Gravatar"
 msgstr "Gravatar"
 
-#: classes/Setting/ComponentFactory/UserProperty.php:41
+#: classes/Setting/ComponentFactory/UserProperty.php:40
 msgid "User Display"
 msgstr "Gebruiker weergave"
 
-#: classes/Setting/ComponentFactory/TermProperty.php:19
+#: classes/Setting/ComponentFactory/TermProperty.php:20
 msgid "Term Display"
 msgstr "Term weergave"
 
-#: classes/Setting/ComponentFactory/SerializedDisplay.php:36
+#: classes/Setting/ComponentFactory/SerializedDisplay.php:35
 msgid "Comma separated"
 msgstr "Door komma gescheiden"
 
-#: classes/Setting/ComponentFactory/SerializedDisplay.php:28
+#: classes/Setting/ComponentFactory/SerializedDisplay.php:27
 msgid "Value Display"
 msgstr "Waardeweergave"
 
-#: classes/Setting/ComponentFactory/SerializedArrayKeys.php:24
+#: classes/Setting/ComponentFactory/SerializedArrayKeys.php:23
 msgid "example"
 msgstr "voorbeeld"
 
-#: classes/Setting/ComponentFactory/SerializedArrayKeys.php:15
+#: classes/Setting/ComponentFactory/SerializedArrayKeys.php:14
 msgid "Array Keys"
 msgstr "Array-sleutels"
 
-#: classes/Setting/ComponentFactory/SelectOptions.php:26
+#: classes/Setting/ComponentFactory/SelectOptions.php:28
 msgid "Select Options"
 msgstr "Opties selecteren"
 
-#: classes/Setting/ComponentFactory/PostProperty.php:55
+#: classes/Setting/ComponentFactory/PostProperty.php:54
 msgid "Post Display"
 msgstr "Berichtweergave"
 
-#: classes/Setting/ComponentFactory/ModalDisplay.php:57
+#: classes/Setting/ComponentFactory/ModalDisplay.php:56
 msgid "Label of the modal link."
 msgstr "Label van de modal link."
 
-#: classes/Setting/ComponentFactory/ModalDisplay.php:38
+#: classes/Setting/ComponentFactory/ModalDisplay.php:37
 msgid "Displays content in a modal instead of the table cell."
 msgstr "Toont inhoud in een modal in plaats van de cel in de tabel."
 
-#: classes/Setting/ComponentFactory/IsMultiple.php:28
+#: classes/Setting/ComponentFactory/IsMultiple.php:27
 msgid "Enable if this field stores multiple values."
 msgstr "Inschakelen als dit veld meerdere waarden opslaat."
 
-#: classes/Setting/ComponentFactory/IsLinkable.php:23
+#: classes/Setting/ComponentFactory/IsLinkable.php:22
 msgid "This will make the value linkable if it is an URL."
 msgstr "Dit maakt de waarde linkbaar als het een URL is."
 
-#: classes/Setting/ComponentFactory/IsLinkable.php:18
+#: classes/Setting/ComponentFactory/IsLinkable.php:17
 msgid "Show Link"
 msgstr "Link weergeven"
 
-#: classes/Setting/ComponentFactory/IsLink.php:16
+#: classes/Setting/ComponentFactory/IsLink.php:15
 msgid "Display as link"
 msgstr "Toon als link"
 
-#: classes/Setting/ComponentFactory/ImageSize.php:31
+#: classes/Setting/ComponentFactory/ImageSize.php:30
 msgid "Image size"
 msgstr "Afbeelding grootte"
 
-#: classes/Setting/ComponentFactory/FileLink.php:29
+#: classes/Setting/ComponentFactory/FileLink.php:28
 msgid "Edit file"
 msgstr "Bestand bewerken"
 
-#: classes/Setting/ComponentFactory/FileLink.php:28
+#: classes/Setting/ComponentFactory/FileLink.php:27
 msgid "Download file"
 msgstr "Bestand downloaden"
 
-#: classes/Setting/ComponentFactory/FileLink.php:27
+#: classes/Setting/ComponentFactory/FileLink.php:26
 msgid "View file"
 msgstr "Bestand bekijken"
 
-#: classes/Setting/ComponentFactory/FileLink.php:19
-#: classes/Setting/ComponentFactory/MediaLink.php:21
-#: classes/Setting/ComponentFactory/PostLink.php:28
+#: classes/Setting/ComponentFactory/FileLink.php:18
+#: classes/Setting/ComponentFactory/MediaLink.php:20
+#: classes/Setting/ComponentFactory/PostLink.php:27
 msgid "Link to"
 msgstr "Link naar"
 
-#: classes/Setting/ComponentFactory/FileDisplay.php:29
+#: classes/Setting/ComponentFactory/FileDisplay.php:28
 msgid "File Display"
 msgstr "Toon bestand"
 
 #: classes/Setting/ComponentFactory/FieldType.php:177
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/HtmlConfigurator.php:30
 msgid "HTML"
 msgstr "HTML"
 
 #: classes/Setting/ComponentFactory/FieldType.php:121
+#: classes/Setting/ComponentFactory/FieldTypeFactory.php:52
 msgid "Select the field type"
 msgstr "Het veldtype selecteren"
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:50
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:59
 msgid "seconds"
 msgstr "seconden"
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:44
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:53
 msgid "Datetime"
 msgstr "Datumtijd"
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:36
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:45
 msgid "Auto Detect"
 msgstr "Automatische detectie"
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:27
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:36
 msgid "This is the format in which dates are stored and saved (also used for sorting, filtering, and editing)."
 msgstr "Dit is het format waarin datums worden opgeslagen en bewaard (ook gebruikt voor sorteren, filteren en bewerken)."
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:22
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:31
 msgid "Stored Date Format"
 msgstr "Opgeslagen datumnotatie"
 
-#: classes/Setting/ComponentFactory/DateFormat.php:43
+#: classes/Setting/ComponentFactory/DateFormat.php:42
 msgid "Display Date Format"
 msgstr "Datumnotatie tonen"
 
-#: classes/Setting/ComponentFactory/CommentDisplay.php:44
+#: classes/Setting/ComponentFactory/CommentDisplay.php:43
 msgid "Comment Display"
 msgstr "Reactieweergave"
 
-#: classes/Setting/ComponentFactory/CharacterLimit.php:39
+#: classes/Setting/ComponentFactory/CharacterLimit.php:38
 msgid "Characters"
 msgstr "Karakters"
 
-#: classes/Setting/ComponentFactory/BeforeAfter.php:30
+#: classes/Setting/ComponentFactory/BeforeAfter.php:29
 msgid "Before & After"
 msgstr "Voor & na"
 
-#: classes/Service/AdminBarEditColumns.php:47
+#: classes/Service/AdminBarEditColumns.php:46
 msgid "Edit Columns"
 msgstr "Kolommen bewerken"
 
-#: classes/RequestHandler/Ajax/NetworkPostStati.php:98
+#: classes/RequestHandler/Ajax/NetworkPostStati.php:97
 msgid "Any post status without Trash"
 msgstr "Elk bericht status zonder prullenbak"
 
-#: classes/RequestHandler/Ajax/NetworkPostStati.php:93
+#: classes/RequestHandler/Ajax/NetworkPostStati.php:92
 msgid "Any post status"
 msgstr "Elke bericht status"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:65
+#: classes/RequestHandler/Ajax/ExtendedValue.php:64
 msgid "Invalid view."
 msgstr "Ongeldige weergave."
 
-#: classes/Integration/YoastSeo.php:18
+#: classes/Integration/YoastSeo.php:19
 msgid "View Yoast focus keywords, readability scores, and SEO status directly in the list table. Filter by score to find underperforming content, then update SEO fields inline."
 msgstr "Yoast focus keywords, leesbaarheidsscores en SEO status direct in de lijstweergave bekijken. Filteren op score om slecht presterende inhoud te vinden en SEO velden inline te updaten."
 
-#: classes/Integration/WooCommerce.php:20
+#: classes/Integration/WooCommerce.php:21
 msgid "Manage products, orders, coupons, and subscriptions from one screen. Bulk edit prices, stock, and SKUs. Filter orders by any field, then export the results to CSV in one click."
 msgstr "Beheer producten, bestellingen, waardebonnen en abonnementen vanuit één scherm. Bewerk prijzen, voorraad en SKU's in bulk. Filter bestellingen op elk veld en exporteer de resultaten met één klik naar CSV."
 
-#: classes/Integration/Types.php:18
+#: classes/Integration/Types.php:19
 msgid "Bring Toolset custom fields and post relationships into the list table. Sort and filter by any Toolset field, and edit values directly without switching screens."
 msgstr "Breng aangepaste velden van Toolset en bericht relaties naar de tabel met lijsten. Sorteren en filteren op elk Toolset veld en waarden direct bewerken zonder van scherm te wisselen."
 
-#: classes/Integration/SeoPress.php:18
+#: classes/Integration/SeoPress.php:19
 msgid "Add SeoPress titles, descriptions, and scores to your post list table. Spot missing metadata at a glance and fix it inline - no need to open each post."
 msgstr "SEOPress titels, beschrijvingen en scores toevoegen aan je tabel met berichten. Ontdek ontbrekende metagegevens in één oogopslag en repareer het inline - Je hoeft niet elk bericht te openen."
 
-#: classes/Integration/RankMath.php:18
+#: classes/Integration/RankMath.php:19
 msgid "See your SEO data where you manage your content. View focus keywords, SEO scores, and schema status as columns - then filter and sort to find pages that need attention."
 msgstr "Je SEO gegevens waar je je inhoud beheert bekijken. Geef focus keywords, SEO scores en schema status weer als kolommen - Filter en sorteer vervolgens om pagina's te vinden die aandacht nodig hebben."
 
-#: classes/Integration/Pods.php:18
+#: classes/Integration/Pods.php:19
 msgid "Show your Pods fields as list table columns. Inline edit field values, filter by any Pod field, and keep your custom content types organized at scale."
 msgstr "Geef je Pods velden weer als kolommen in een tabel. Inline veldwaarden bewerken, filteren op elk Pod veld en je aangepaste contenttypes op schaal overzichtelijk houden."
 
-#: classes/Integration/MetaBox.php:18
+#: classes/Integration/MetaBox.php:19
 msgid "Display Meta Box fields as sortable, editable columns. Filter by custom fields, bulk update values, and manage your Meta Box content from a single overview."
 msgstr "Toon metabox velden als sorteerbare, bewerkbare kolommen. Filteren op aangepaste velden, waarden in bulk updaten en je metabox inhoud beheren vanuit één overzicht."
 
-#: classes/Integration/MediaLibraryAssistant.php:18
+#: classes/Integration/MediaLibraryAssistant.php:19
 msgid "Take control of large media libraries. Add ALT text, captions, and custom metadata as columns - then filter, sort, and bulk update across thousands of files."
 msgstr "Neem controle over grote mediabibliotheken. Voeg ALT-text, bijschriften en aangepaste metagegevens toe als kolommen en filter, sorteer en update in bulk duizenden bestanden."
 
-#: classes/Integration/JetEngine.php:19
+#: classes/Integration/JetEngine.php:20
 msgid "Display and manage JetEngine custom fields, relations, and meta data in any list table. Edit, filter, and sort JetEngine content the same way you manage native WordPress data."
 msgstr "Toon en beheer JetEngine aangepaste velden, relaties en metagegevens in elke lijsttabel. Bewerk, filter en sorteer JetEngine inhoud op dezelfde manier als je native WordPress gegevens beheert."
 
-#: classes/Integration/GravityForms.php:20
+#: classes/Integration/GravityForms.php:21
 msgid "Turn your Gravity Forms entries into a sortable, filterable table. Review submissions, update entry fields inline, and export filtered results to CSV for reporting."
 msgstr "Van je Gravity Forms inzendingen een sorteerbare, filterbare tabel maken. Beoordeel inzendingen, update invoervelden inline en exporteer gefilterde resultaten naar CSV voor rapporten."
 
-#: classes/Integration/EventsCalendar.php:20
+#: classes/Integration/EventsCalendar.php:21
 msgid "See event dates, venues, organizers, and ticket data at a glance. Sort by date, filter by venue, and bulk edit event details without opening each event individually."
 msgstr "Evenement gegevens, locaties, organisatoren en ticketgegevens in één oogopslag bekijken. Filteren op datum, filteren op locatie en details van evenementen in bulk bewerken zonder elk evenement afzonderlijk te openen."
 
-#: classes/Integration/BuddyPress.php:19
+#: classes/Integration/BuddyPress.php:20
 msgid "Add BuddyPress profile fields, registration dates, and group data to your member and group tables. Filter by any field to find exactly the members you need."
 msgstr "BuddyPress profielvelden, registratiegegevens en groepsgegevens toevoegen aan je leden- en groepstabellen. Filteren op elk veld om precies de leden te vinden die je nodig hebt."
 
-#: classes/Integration/BeaverBuilder.php:18
+#: classes/Integration/BeaverBuilder.php:19
 msgid "Manage Beaver Builder templates, saved rows, and modules from a sortable, filterable overview."
 msgstr "Beheer Beaver Builder templates, opgeslagen rijen en modules vanuit een sorteerbaar, filterbaar overzicht."
 
-#: classes/Integration/ACF.php:20
+#: classes/Integration/ACF.php:21
 msgid "See every ACF field directly in your list table - and edit values without opening a single post. Sort, filter, and bulk edit across all field types including repeaters, groups, and relationships."
 msgstr "Elk ACF veld direct in je tabel en bewerk waarden zonder berichten te openen bekijken. Sorteren, filteren op en in bulk bewerken van alle veldtypes, inclusief repeaters, groepen en relaties."
 
-#: classes/Formatter/User/PostCount.php:74
+#: classes/Formatter/User/PostCount.php:73
 msgid "Recent items by %s"
 msgstr "Recente items door %s"
 
@@ -343,214 +379,214 @@ msgstr "Recente items door %s"
 msgid "auto-generated"
 msgstr "automatisch gegenereerd"
 
-#: classes/Formatter/Post/DiscussionStatus.php:28
+#: classes/Formatter/Post/DiscussionStatus.php:27
 msgid "Comments only"
 msgstr "Alleen reacties"
 
-#: classes/Formatter/Post/DiscussionStatus.php:25
+#: classes/Formatter/Post/DiscussionStatus.php:24
 msgid "Pings only"
 msgstr "Alleen pings"
 
-#: classes/Formatter/Post/DiscussionStatus.php:24
+#: classes/Formatter/Post/DiscussionStatus.php:23
 msgid "Open"
 msgstr "Open"
 
-#: classes/Formatter/FileLink.php:33
+#: classes/Formatter/FileLink.php:34
 msgid "Invalid attachment"
 msgstr "Ongeldige bijlage"
 
-#: classes/Formatter/Comment/MetaDateAndAuthor.php:31
+#: classes/Formatter/Comment/MetaDateAndAuthor.php:30
 msgid "%s at %s"
 msgstr "%s om %s"
 
-#: classes/Deprecated/Hook.php:102
+#: classes/Deprecated/Hook.php:109
 msgid "Anonymous Function"
 msgstr "Anonieme functie"
 
-#: classes/Deprecated/Hook.php:93
+#: classes/Deprecated/Hook.php:100
 msgid "Anonymous function"
 msgstr "Anonieme functie"
 
-#: classes/Deprecated/Hook.php:71
+#: classes/Deprecated/Hook.php:77
 msgid "Function"
 msgstr "Functie"
 
-#: classes/ColumnFactory/Post/WordCountFactory.php:41
+#: classes/ColumnFactory/Post/WordCountFactory.php:40
 msgid "Number of words in the post content, excluding HTML tags and shortcodes."
 msgstr "Aantal woorden in de inhoud van het bericht, exclusief HTML tags en shortcodes."
 
-#: classes/ColumnFactory/Post/EstimateReadingTimeFactory.php:41
+#: classes/ColumnFactory/Post/EstimateReadingTimeFactory.php:40
 msgid "Estimated reading time based on the word count of the content."
 msgstr "Geschatte leestijd gebaseerd op het aantal woorden van de inhoud."
 
-#: classes/ColumnFactory/Post/DiscussionFactory.php:22
+#: classes/ColumnFactory/Post/DiscussionFactory.php:21
 msgid "Discussion"
 msgstr "Discussie"
 
-#: classes/ColumnFactory/Media/FullPathFactory.php:43
+#: classes/ColumnFactory/Media/FullPathFactory.php:42
 msgid "File Path"
 msgstr "Bestandspad"
 
-#: classes/ColumnFactory/IntegrationPlaceholder.php:36
+#: classes/ColumnFactory/IntegrationPlaceholder.php:35
 msgid "Integration"
 msgstr "Integratie"
 
-#: classes/ColumnFactory/CustomFieldFactory.php:76
+#: classes/ColumnFactory/CustomFieldFactory.php:77
 msgid "Enable Sorting"
 msgstr "Sorteren inschakelen"
 
-#: classes/ColumnFactory/CustomFieldFactory.php:75
+#: classes/ColumnFactory/CustomFieldFactory.php:76
 msgid "Enable Filtering"
 msgstr "Filteren inschakelen"
 
-#: classes/ColumnFactory/CustomFieldFactory.php:74
+#: classes/ColumnFactory/CustomFieldFactory.php:75
 msgid "Enable Smart Filtering"
 msgstr "Slim filteren inschakelen"
 
-#: classes/ColumnFactory/CustomFieldFactory.php:73
+#: classes/ColumnFactory/CustomFieldFactory.php:74
 msgid "Enable Export"
 msgstr "Export inschakelen"
 
-#: classes/ColumnFactory/CustomFieldFactory.php:72
+#: classes/ColumnFactory/CustomFieldFactory.php:73
 msgid "Enable Bulk Editing"
 msgstr "Bulk bewerken inschakelen"
 
-#: classes/ColumnFactory/CustomFieldFactory.php:71
+#: classes/ColumnFactory/CustomFieldFactory.php:72
 msgid "Enable Editing"
 msgstr "Bewerken inschakelen"
 
-#: classes/ColumnFactory/CustomFieldFactory.php:58
+#: classes/ColumnFactory/CustomFieldFactory.php:59
 msgid "Meta Key"
 msgstr "Meta sleutel"
 
-#: classes/Check/Integration/WooCommerceProductsSearchNotice.php:51
+#: classes/Check/Integration/WooCommerceProductsSearchNotice.php:50
 msgid "Pro lets you search across any product property - SKU, attributes, custom fields, even variation data. Save searches as reusable segments and switch between them in one click."
 msgstr "Met Pro kun je zoekopdrachten uitvoeren op alle producteigenschappen - SKU, attributen, aangepaste velden en zelfs variatiegegevens. Zoekopdrachten kun je opslaan als herbruikbare segmenten en er met één klik tussen wisselen."
 
-#: classes/Check/Integration/WooCommerceProductsSearchNotice.php:46
+#: classes/Check/Integration/WooCommerceProductsSearchNotice.php:45
 msgid "Can't find the right products?"
 msgstr "Kun je de juiste producten niet vinden?"
 
-#: classes/Check/Integration/WooCommerceProductsNotice.php:46
+#: classes/Check/Integration/WooCommerceProductsNotice.php:45
 msgid "Search, filter, and bulk edit prices, stock, and attributes across hundreds of products - find exactly what you need, then update in seconds."
 msgstr "Zoek, filter en bewerk prijzen, voorraad en attributen van honderden producten in bulk - Vind precies wat je nodig hebt en update binnen enkele seconden."
 
-#: classes/Check/Integration/WooCommerceProductsFilterNotice.php:46
+#: classes/Check/Integration/WooCommerceProductsFilterNotice.php:45
 msgid "With Pro, filter products by any property - stock level, attribute, custom field, price range. Save filters as segments and share them with your team."
 msgstr "Met Pro kun je producten filteren op elke eigenschap - Voorraadniveau, attribuut, aangepast veld, prijsklasse. Filters opslaan als segmenten en deel ze met je team."
 
-#: classes/Check/Integration/WooCommerceProductsFilterNotice.php:41
+#: classes/Check/Integration/WooCommerceProductsFilterNotice.php:40
 msgid "Need to narrow down your product list?"
 msgstr "Je productenlijst verkleinen?"
 
-#: classes/Check/Integration/WooCommerceProductsBulkEditNotice.php:48
+#: classes/Check/Integration/WooCommerceProductsBulkEditNotice.php:47
 msgid "With Pro, bulk edit prices, stock, SKUs, attributes, and custom fields across your entire selection. Need to adjust pricing? The Price Update Wizard lets you change prices by percentage or fixed value across hundreds of products in seconds."
 msgstr "Met Pro bewerk je in bulk prijzen, voorraad, SKU's, attributen en aangepaste velden in je hele selectie. Moet je prijzen aanpassen? Met de Wizard Prijsupdates kun je in een paar seconden prijzen wijzigen met een percentage of een vaste waarde voor honderden producten."
 
-#: classes/Check/Integration/WooCommerceProductsBulkEditNotice.php:43
-#: classes/Check/Integration/WooCommerceProductsNotice.php:41
+#: classes/Check/Integration/WooCommerceProductsBulkEditNotice.php:42
+#: classes/Check/Integration/WooCommerceProductsNotice.php:40
 msgid "Updating products one by one?"
 msgstr "Producten één voor één updaten?"
 
-#: classes/Check/Integration/WooCommerceOrdersSearchNotice.php:53
+#: classes/Check/Integration/WooCommerceOrdersSearchNotice.php:52
 msgid "Pro lets you search across any order property - payment method, shipping address, customer email, even order notes. Save your searches as reusable segments and share them with your team."
 msgstr "Met Pro kun je zoekopdrachten uitvoeren op alle eigenschappen van bestellingen - Betaalmethode, verzendadres, e-mailadres van de klant en zelfs notities over bestellingen. Sla je zoekopdrachten op als herbruikbare segmenten en deel ze met je team."
 
-#: classes/Check/Integration/WooCommerceOrdersSearchNotice.php:48
+#: classes/Check/Integration/WooCommerceOrdersSearchNotice.php:47
 msgid "Looking for a specific order?"
 msgstr "Op zoek naar een specifieke bestelling?"
 
-#: classes/Check/Integration/WooCommerceOrdersNotice.php:53
+#: classes/Check/Integration/WooCommerceOrdersNotice.php:52
 msgid "Show any order data as a column - shipping address, payment method, customer email, order notes. Search, filter, and edit without leaving this screen."
 msgstr "Alle gegevens over bestellingen weergeven als kolom - Verzendadres, betaalmethode, e-mailadres van de klant, notities over bestellingen. Zoek, filter en bewerk zonder dit scherm te verlaten."
 
-#: classes/Check/Integration/WooCommerceOrdersNotice.php:48
+#: classes/Check/Integration/WooCommerceOrdersNotice.php:47
 msgid "Still opening each order to find shipping or payment details?"
 msgstr "Moet je nog steeds elke bestelling openen om details over verzending of betaling te vinden?"
 
-#: classes/Check/Integration/WooCommerceOrdersFilterNotice.php:53
+#: classes/Check/Integration/WooCommerceOrdersFilterNotice.php:52
 msgid "With Pro, filter orders by any property - payment status, custom fields, order note content. Save filters as segments you can switch between in one click."
 msgstr "Met Pro kun je bestellingen filteren op elke eigenschap - Betaalstatus, aangepaste velden, inhoud van de notitie. Je kunt filters opslaan als segmenten waartussen je met één klik kunt schakelen."
 
-#: classes/Check/Integration/WooCommerceOrdersFilterNotice.php:48
+#: classes/Check/Integration/WooCommerceOrdersFilterNotice.php:47
 msgid "Wish you could filter by more than this?"
 msgstr "Zou je willen filteren op meer dan dit?"
 
-#: classes/Check/Integration/GravityFormsNotice.php:45
+#: classes/Check/Integration/GravityFormsNotice.php:44
 msgid "Edit fields inline, filter and search faster, and export your entries - all without leaving this table."
 msgstr "Velden inline bewerken, sneller filteren en zoekopdrachten uitvoeren en je invoer exporteren - Allemaal zonder deze tabel te verlaten."
 
-#: classes/Check/Integration/GravityFormsNotice.php:40
+#: classes/Check/Integration/GravityFormsNotice.php:39
 msgid "Still opening entries to edit or manage data?"
 msgstr "Open je nog steeds ingangen om gegevens te bewerken of te beheren?"
 
-#: classes/Check/Integration/EventsCalendarNotice.php:53
+#: classes/Check/Integration/EventsCalendarNotice.php:52
 msgid "See every event detail at a glance - filter by date range, venue, or status, and edit events inline from this table."
 msgstr "Elk detail van een evenement in één oogopslag - Filteren op datumbereik, locatie of status en evenementen inline bewerken vanuit deze tabel bekijken."
 
-#: classes/Check/Integration/EventsCalendarNotice.php:48
+#: classes/Check/Integration/EventsCalendarNotice.php:47
 msgid "Still opening each event to check dates, venues, and organizers?"
 msgstr "Nog steeds bezig met het openen van elk evenement om data, locaties en organisatoren te controleren?"
 
-#: classes/Check/Integration/AcfSortAndFilterNotice.php:64
+#: classes/Check/Integration/AcfSortAndFilterNotice.php:63
 msgid "With Pro, sort by date pickers, numbers, and choice fields. Filter by any ACF field type. Save filters as reusable segments and switch between them in one click."
 msgstr "Met Pro kun je sorteren op datumkiezers, getallen en keuzevelden. Filteren op elk ACF veld type. Filters opslaan als herbruikbare segmenten en wisselen met één klik."
 
-#: classes/Check/Integration/AcfSortAndFilterNotice.php:59
+#: classes/Check/Integration/AcfSortAndFilterNotice.php:58
 msgid "Sort and filter by your custom fields"
 msgstr "Filteren op je aangepaste velden"
 
-#: classes/Check/Integration/AcfNotice.php:51
+#: classes/Check/Integration/AcfNotice.php:50
 msgid "Add ACF columns"
 msgstr "ACF kolommen toevoegen"
 
-#: classes/Check/Integration/AcfNotice.php:46
+#: classes/Check/Integration/AcfNotice.php:45
 msgid "Show ACF fields as columns so you can sort, filter, and edit them directly from your list table."
 msgstr "Geef ACF velden weer als kolommen zodat je ze direct vanuit je lijsttabel kunt sorteren, filteren en bewerken."
 
-#: classes/Check/Integration/AcfNotice.php:41
+#: classes/Check/Integration/AcfNotice.php:40
 msgid "Use these fields directly in your list tables!"
 msgstr "Gebruik deze velden direct in je lijsttabellen!"
 
-#: classes/Check/Integration/AcfBulkEditNotice.php:81
-#: classes/Check/Integration/AcfSortAndFilterNotice.php:79
-#: classes/Check/Integration/EventsCalendarNotice.php:68
-#: classes/Check/Integration/GravityFormsNotice.php:60
-#: classes/Check/Integration/WooCommerceOrdersFilterNotice.php:68
-#: classes/Check/Integration/WooCommerceOrdersNotice.php:68
-#: classes/Check/Integration/WooCommerceOrdersSearchNotice.php:68
-#: classes/Check/Integration/WooCommerceProductsBulkEditNotice.php:66
-#: classes/Check/Integration/WooCommerceProductsFilterNotice.php:61
-#: classes/Check/Integration/WooCommerceProductsNotice.php:61
-#: classes/Check/Integration/WooCommerceProductsSearchNotice.php:66
+#: classes/Check/Integration/AcfBulkEditNotice.php:80
+#: classes/Check/Integration/AcfSortAndFilterNotice.php:78
+#: classes/Check/Integration/EventsCalendarNotice.php:67
+#: classes/Check/Integration/GravityFormsNotice.php:59
+#: classes/Check/Integration/WooCommerceOrdersFilterNotice.php:67
+#: classes/Check/Integration/WooCommerceOrdersNotice.php:67
+#: classes/Check/Integration/WooCommerceOrdersSearchNotice.php:67
+#: classes/Check/Integration/WooCommerceProductsBulkEditNotice.php:65
+#: classes/Check/Integration/WooCommerceProductsFilterNotice.php:60
+#: classes/Check/Integration/WooCommerceProductsNotice.php:60
+#: classes/Check/Integration/WooCommerceProductsSearchNotice.php:65
 msgid "See features"
 msgstr "De functies bekijken"
 
-#: classes/Check/Integration/AcfBulkEditNotice.php:66
+#: classes/Check/Integration/AcfBulkEditNotice.php:65
 msgid "With Pro, edit ACF fields directly from this screen - text, dates, images, relationships, and more. Update multiple posts without opening each one."
 msgstr "Met Pro bewerk je ACF velden rechtstreeks vanuit dit scherm - Tekst, data, afbeeldingen, relaties en meer. Update meerdere berichten zonder ze allemaal te openen."
 
-#: classes/Check/Integration/AcfBulkEditNotice.php:61
+#: classes/Check/Integration/AcfBulkEditNotice.php:60
 msgid "Editing custom fields one post at a time?"
 msgstr "Aangepaste velden per bericht bewerken?"
 
-#: classes/Admin/MenuGroupFactory/WooCommerceGroups.php:48
+#: classes/Admin/MenuGroupFactory/WooCommerceGroups.php:47
 msgid "WooCommerce Attributes"
 msgstr "WooCommerce attributen"
 
-#: classes/Admin/MenuGroupFactory/WooCommerceGroups.php:44
+#: classes/Admin/MenuGroupFactory/WooCommerceGroups.php:43
 msgid "WooCommerce Taxonomies"
 msgstr "WooCommerce taxonomieën"
 
-#: classes/Admin/MenuGroupFactory/GravityFormsGroups.php:20
+#: classes/Admin/MenuGroupFactory/GravityFormsGroups.php:19
 msgid "Entries"
 msgstr "Invoeren"
 
-#: classes/Admin/MenuGroupFactory/DefaultGroups.php:43
+#: classes/Admin/MenuGroupFactory/DefaultGroups.php:45
 msgid "hidden"
 msgstr "verborgen"
 
-#: classes/Admin/MenuGroupFactory/DefaultGroups.php:42
+#: classes/Admin/MenuGroupFactory/DefaultGroups.php:44
 msgid "Custom Post Types"
 msgstr "Aangepaste bericht typen"
 
@@ -558,761 +594,761 @@ msgstr "Aangepaste bericht typen"
 msgid "Post Types"
 msgstr "Berichttypen"
 
-#: classes/Admin/MenuGroupFactory/BeaverBuilderGroups.php:24
-#: classes/Admin/MenuGroupFactory/BeaverBuilderGroups.php:36
-#: classes/Integration/BeaverBuilder.php:16
+#: classes/Admin/MenuGroupFactory/BeaverBuilderGroups.php:23
+#: classes/Admin/MenuGroupFactory/BeaverBuilderGroups.php:35
+#: classes/Integration/BeaverBuilder.php:17
 msgid "Beaver Builder"
 msgstr "Beaver Builder"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:142
+#: classes/Admin/Banner/Context/WooCommerce.php:141
 msgid "Save views for different workflows - refunds, fulfilment, reporting"
 msgstr "Weergaven opslaan voor verschillende workflows - Terugbetalingen, fulfilment, rapporten"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:138
+#: classes/Admin/Banner/Context/WooCommerce.php:137
 msgid "Export filtered order sets to CSV in one click"
 msgstr "Exporteer gefilterde bestelling sets met één klik naar CSV"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:134
+#: classes/Admin/Banner/Context/WooCommerce.php:133
 msgid "Inline edit order status and custom fields"
 msgstr "Inline bewerken bestelstatus en aangepaste velden"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:130
+#: classes/Admin/Banner/Context/WooCommerce.php:129
 msgid "Sort by total, item count, or any order detail"
 msgstr "Sorteren op totaal, aantal items of om het even welk detail van de bestelling"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:126
+#: classes/Admin/Banner/Context/WooCommerce.php:125
 msgid "Filter orders by product, status, date range, or custom field"
 msgstr "Filteren op bestellingen op product, status, datumbereik of aangepast veld"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:122
+#: classes/Admin/Banner/Context/WooCommerce.php:121
 msgid "Add shipping method, coupons, and item count as columns"
 msgstr "Verzendmethode, waardebonnen en aantal items toevoegen als kolommen"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:112
+#: classes/Admin/Banner/Context/WooCommerce.php:111
 msgid "Save different column layouts for different tasks"
 msgstr "Verschillende kolom lay-outs opslaan voor verschillende taken"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:108
+#: classes/Admin/Banner/Context/WooCommerce.php:107
 msgid "Export filtered product lists to CSV"
 msgstr "Gefilterde productlijsten exporteren naar CSV"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:104
+#: classes/Admin/Banner/Context/WooCommerce.php:103
 msgid "Filter products by any field - including custom fields"
 msgstr "Filteren op elk veld - Inclusief aangepaste velden"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:100
+#: classes/Admin/Banner/Context/WooCommerce.php:99
 msgid "Bulk update prices or stock across hundreds of products"
 msgstr "In bulk prijzen of voorraad updaten voor honderden producten"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:96
+#: classes/Admin/Banner/Context/WooCommerce.php:95
 msgid "Inline edit product data directly in the table"
 msgstr "Inline bewerken van productgegevens rechtstreeks in de tabel"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:92
+#: classes/Admin/Banner/Context/WooCommerce.php:91
 msgid "Add price, stock, SKU, and attributes as columns"
 msgstr "Prijs, voorraad, SKU en attributen toevoegen als kolommen"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:51
+#: classes/Admin/Banner/Context/WooCommerce.php:50
 msgid "Filter, edit & manage your orders"
 msgstr "Filteren op, bewerken & je bestellingen beheren"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:50
+#: classes/Admin/Banner/Context/WooCommerce.php:49
 msgid "Take control of your products"
 msgstr "Neem controle over je producten"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:44
+#: classes/Admin/Banner/Context/WooCommerce.php:43
 msgid "Stop clicking into orders to find what you need. Pro turns your order list into a filterable, sortable, exportable overview - built for the way you actually manage orders."
 msgstr "Klik niet langer in bestellingen om te vinden wat je nodig hebt. Pro verandert je bestellijst in een filterbaar, sorteerbaar, exporteerbaar overzicht - Gemaakt voor de manier waarop je bestellingen beheert."
 
-#: classes/Admin/Banner/Context/WooCommerce.php:43
+#: classes/Admin/Banner/Context/WooCommerce.php:42
 msgid "Your product list is more than a list. With Pro, it becomes a workspace where you can view, edit, filter, and export every product detail - without opening a single product."
 msgstr "Je productlijst is meer dan een lijst. Met Pro wordt het een werkruimte waar je elk productdetail kunt bekijken, bewerken, filteren en exporteren - Zonder ook maar één product te openen."
 
-#: classes/Admin/Banner/Context/WooCommerce.php:41
+#: classes/Admin/Banner/Context/WooCommerce.php:40
 msgid "Manage your orders faster"
 msgstr "Beheer je bestellingen sneller"
 
-#: classes/Admin/Banner/Context/WooCommerce.php:40
+#: classes/Admin/Banner/Context/WooCommerce.php:39
 msgid "Manage your products faster"
 msgstr "Beheer je producten sneller"
 
-#: classes/Admin/Banner/Context/Acf.php:97
-#: classes/Admin/Banner/Context/WooCommerce.php:59
-#: classes/Response/JsonListScreenSettingsFactory.php:179
+#: classes/Admin/Banner/Context/Acf.php:96
+#: classes/Admin/Banner/Context/WooCommerce.php:58
+#: classes/Response/JsonListScreenSettingsFactory.php:184
 msgid "all features included"
 msgstr "alle uitgelichte functies inbegrepen"
 
-#: classes/Admin/Banner/Context/Acf.php:89
+#: classes/Admin/Banner/Context/Acf.php:88
 msgid "Unlock ACF fields in your table"
 msgstr "ACF velden ontgrendelen in je tabel"
 
-#: classes/Admin/Banner/Context/Acf.php:82
+#: classes/Admin/Banner/Context/Acf.php:81
 msgid "Bulk editable across hundreds of posts"
 msgstr "Bulk bewerkbaar in honderden berichten"
 
-#: classes/Admin/Banner/Context/Acf.php:78
+#: classes/Admin/Banner/Context/Acf.php:77
 msgid "Editable directly in the table"
 msgstr "Direct bewerkbaar in de tabel"
 
-#: classes/Admin/Banner/Context/Acf.php:74
+#: classes/Admin/Banner/Context/Acf.php:73
 msgid "Filterable and sortable by any field"
 msgstr "Filteren op en sorteren op elk veld"
 
-#: classes/Admin/Banner/Context/Acf.php:70
+#: classes/Admin/Banner/Context/Acf.php:69
 msgid "Visible as columns on this screen"
 msgstr "Zichtbaar als kolommen op dit scherm"
 
-#: classes/Admin/Banner/Context/Acf.php:66
+#: classes/Admin/Banner/Context/Acf.php:65
 msgid "With Pro, your ACF fields become:"
 msgstr "Met Pro worden je ACF velden:"
 
-#: classes/Admin/Banner/Context/Acf.php:64
+#: classes/Admin/Banner/Context/Acf.php:63
 msgid "Elliot Condon, creator of Advanced Custom Fields"
 msgstr "Elliot Condon, maker van Advanced Custom Fields"
 
-#: classes/Admin/Banner/Context/Acf.php:63
+#: classes/Admin/Banner/Context/Acf.php:62
 msgid "A super intuitive life saver!"
 msgstr "Een super intuïtieve levensredder!"
 
-#: classes/Admin/Banner/Context/Acf.php:54
+#: classes/Admin/Banner/Context/Acf.php:53
 msgid "%d ACF field is not visible here. Pro turns it into a column you can sort, filter, edit, and export - no code needed."
 msgid_plural "%d ACF fields are not visible here. Pro turns each one into a column you can sort, filter, edit, and export - no code needed."
 msgstr[0] "%d Het ACF veld is hier niet zichtbaar. Pro maakt er een kolom van die je kunt sorteren, filteren, bewerken en exporteren - Zonder code."
 msgstr[1] "%d ACF velden zijn hier niet zichtbaar. Pro maakt van elk veld een kolom die je kunt sorteren, filteren, bewerken en exporteren - Zonder code."
 
-#: classes/Admin/Banner/Context/Acf.php:47
+#: classes/Admin/Banner/Context/Acf.php:46
 msgid "Your ACF field is hidden on this screen"
 msgid_plural "Your ACF fields are hidden on this screen"
 msgstr[0] "Je ACF veld is verborgen op dit scherm"
 msgstr[1] "Je ACF velden zijn verborgen op dit scherm"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:143
+#: classes/Admin/Asset/Script/SettingsFactory.php:144
 msgid "Turn your list tables into a powerful workflow tool for editing, filtering, sorting, and exporting content."
 msgstr "Van je lijsttabellen een krachtig workflow gereedschap voor het bewerken, filteren, sorteren en exporteren van inhoud maken."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:142
+#: classes/Admin/Asset/Script/SettingsFactory.php:143
 msgid "Work faster in your list tables"
 msgstr "Werk sneller in je lijst tabellen"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:113
-#: classes/RequestHandler/Ajax/IntegrationToggle.php:47
+#: classes/Admin/Asset/Script/SettingsFactory.php:114
+#: classes/RequestHandler/Ajax/IntegrationToggle.php:46
 msgid "Settings saved successfully."
 msgstr "Instellingen succesvol opgeslagen."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:103
+#: classes/Admin/Asset/Script/SettingsFactory.php:104
 msgid "These settings affect the list table."
 msgstr "Deze instellingen zijn van invloed op de tabel met lijsten."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:91
+#: classes/Admin/Asset/Script/SettingsFactory.php:92
 msgid "Unlock columns for popular plugins like ACF, WooCommerce, Yoast SEO, and more."
 msgstr "Ontgrendel kolommen voor populaire plugins zoals ACF, WooCommerce, Yoast SEO en meer."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:90
+#: classes/Admin/Asset/Script/SettingsFactory.php:91
 msgid "Integration add-ons"
 msgstr "Add-ons toevoegen"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:87
+#: classes/Admin/Asset/Script/SettingsFactory.php:88
 msgid "Display as many columns as you need - scroll sideways to see them all without losing row context."
 msgstr "Toon zoveel kolommen als je nodig hebt - Scrol zijwaarts om ze allemaal te zien zonder de context van de rij te verliezen."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:86
+#: classes/Admin/Asset/Script/SettingsFactory.php:87
 msgid "Horizontal scrolling"
 msgstr "Horizontaal scrollen"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:83
+#: classes/Admin/Asset/Script/SettingsFactory.php:84
 msgid "Download your current view as a CSV file - ready for Excel, Google Sheets, or any other tool."
 msgstr "Download je huidige weergave als CSV bestand - Klaar voor Excel, Google Sheets of een ander gereedschap."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:79
+#: classes/Admin/Asset/Script/SettingsFactory.php:80
 msgid "Create different column layouts for different tasks and switch between them with one click."
 msgstr "Verschillende kolom lay-outs voor verschillende taken en wissel ertussen met één klik maken."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:75
+#: classes/Admin/Asset/Script/SettingsFactory.php:76
 msgid "Work your way"
 msgstr "Werk op jouw manier"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:70
+#: classes/Admin/Asset/Script/SettingsFactory.php:71
 msgid "See totals, averages, and counts at the bottom of your columns for quick data insights."
 msgstr "Totalen, gemiddelden en tellingen aan de onderkant van je kolommen voor snel inzicht in gegevens bekijken."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:69
+#: classes/Admin/Asset/Script/SettingsFactory.php:70
 msgid "Column metrics"
 msgstr "Kolom statistiek"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:66
+#: classes/Admin/Asset/Script/SettingsFactory.php:67
 msgid "Column headers stay visible as you scroll, so you always know what you are looking at."
 msgstr "Kolom headers blijven zichtbaar als je scrolt, zodat je altijd weet waar je naar kijkt."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:62
+#: classes/Admin/Asset/Script/SettingsFactory.php:63
 msgid "Click any column header to sort your list by that value - works with dates, numbers, text, and more."
 msgstr "Klik op een kolom header om je lijst op die waarde te sorteren - werkt met datums, getallen, tekst en meer."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:58
+#: classes/Admin/Asset/Script/SettingsFactory.php:59
 msgid "Narrow down your list with advanced filter rules - combine conditions to find exactly what you need."
 msgstr "Verklein je lijst met geavanceerde filterregels - Combineer voorwaarden om precies te vinden wat je nodig hebt."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:57
+#: classes/Admin/Asset/Script/SettingsFactory.php:58
 msgid "Smart filters"
 msgstr "Slimme filters"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:54
+#: classes/Admin/Asset/Script/SettingsFactory.php:55
 msgid "Find anything instantly"
 msgstr "Direct alles vinden"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:49
+#: classes/Admin/Asset/Script/SettingsFactory.php:50
 msgid "Apply color rules to cells so you can instantly spot trends, deadlines, or issues in your data."
 msgstr "Pas kleurregels toe op cellen zodat je direct trends, deadlines of problemen in je gegevens kunt zien."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:48
+#: classes/Admin/Asset/Script/SettingsFactory.php:49
 msgid "Conditional formatting"
 msgstr "Voorwaardelijke opmaak"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:45
+#: classes/Admin/Asset/Script/SettingsFactory.php:46
 msgid "Create new posts, users, or other content without leaving the list table."
 msgstr "Nieuwe berichten, gebruikers of andere inhoud zonder de tabel met lijsten te verlaten maken."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:44
+#: classes/Admin/Asset/Script/SettingsFactory.php:45
 msgid "Add rows from the table"
 msgstr "Rijen toevoegen uit de tabel"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:41
+#: classes/Admin/Asset/Script/SettingsFactory.php:42
 msgid "Update hundreds of values at once. Select rows, pick a column, and apply changes in bulk."
 msgstr "Update honderden waarden tegelijk. Selecteer rijen, kies een kolom en pas wijzigingen in bulk toe."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:40
+#: classes/Admin/Asset/Script/SettingsFactory.php:41
 msgid "Bulk editing"
 msgstr "Bulk bewerken"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:37
+#: classes/Admin/Asset/Script/SettingsFactory.php:38
 msgid "Edit any value directly from the list table - no need to open individual items."
 msgstr "Bewerk elke waarde direct vanuit de tabel - Het is niet nodig om individuele items te openen."
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:36
+#: classes/Admin/Asset/Script/SettingsFactory.php:37
 msgid "Inline editing"
 msgstr "Inline bewerken"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:33
+#: classes/Admin/Asset/Script/SettingsFactory.php:34
 msgid "Edit faster"
 msgstr "Sneller bewerken"
 
-#: classes/Admin/Asset/Columns.php:653
+#: classes/Admin/Asset/Columns.php:654
 msgid "getting started guide"
 msgstr "aan de slag handleiding"
 
-#: classes/Admin/Asset/Columns.php:647
+#: classes/Admin/Asset/Columns.php:648
 msgid "New to Admin Columns? Take a look at our %s"
 msgstr "Nieuw bij Admin Columns? Bekijk onze %s"
 
-#: classes/Admin/Asset/Columns.php:642
+#: classes/Admin/Asset/Columns.php:643
 msgid "Start by adding columns to your list table."
 msgstr "Begin met het toevoegen van kolommen aan je lijsttabel."
 
-#: classes/Admin/Asset/Columns.php:638
+#: classes/Admin/Asset/Columns.php:639
 msgid "The default columns will be shown on the list table when no columns are added."
 msgstr "De standaard kolommen worden weergegeven in de tabel met de lijst als er geen kolommen zijn toegevoegd."
 
-#: classes/Admin/Asset/Columns.php:634
+#: classes/Admin/Asset/Columns.php:635
 msgid "Original column already exists."
 msgstr "De originele kolom bestaat al."
 
-#: classes/Admin/Asset/Columns.php:630
+#: classes/Admin/Asset/Columns.php:631
 msgid "Column %s could not be duplicated"
 msgstr "Kolom %s kon niet gedupliceerd worden"
 
-#: classes/Admin/Asset/Columns.php:625
+#: classes/Admin/Asset/Columns.php:626
 msgid "read only"
 msgstr "alleen-lezen"
 
-#: classes/Admin/Asset/Columns.php:616
+#: classes/Admin/Asset/Columns.php:618
 msgid "View Table"
 msgstr "Tabel bekijken"
 
-#: classes/Admin/Asset/Columns.php:615
+#: classes/Admin/Asset/Columns.php:617
 msgid "Load default columns"
 msgstr "Standaard kolommen laden"
 
-#: classes/Admin/Asset/Columns.php:614
+#: classes/Admin/Asset/Columns.php:616
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: classes/Admin/Asset/Columns.php:613
+#: classes/Admin/Asset/Columns.php:615
 msgid "Clear columns"
 msgstr "Kolommen wissen"
 
-#: classes/Admin/Asset/Columns.php:612
+#: classes/Admin/Asset/Columns.php:614
 msgid "Add Columns"
 msgstr "Kolommen toevoegen"
 
-#: classes/Admin/Asset/Columns.php:610
+#: classes/Admin/Asset/Columns.php:612
 msgid "Save Changes"
 msgstr "Wijzigingen opslaan"
 
-#: classes/Admin/Asset/Columns.php:604
+#: classes/Admin/Asset/Columns.php:606
 msgid "Table View Label"
 msgstr "Tabel weergave label"
 
-#: classes/Admin/Asset/Columns.php:603
-#: classes/Setting/ComponentFactory/ColumnInfo.php:28
+#: classes/Admin/Asset/Columns.php:605
+#: classes/Setting/ComponentFactory/ColumnInfo.php:27
 msgid "Column Info"
 msgstr "Kolom informatie"
 
-#: classes/Admin/Asset/Columns.php:602
+#: classes/Admin/Asset/Columns.php:604
 msgid "Column"
 msgstr "Kolom"
 
-#: classes/Admin/Asset/Columns.php:598
+#: classes/Admin/Asset/Columns.php:600
 msgid "Favorites"
 msgstr "Favorieten"
 
-#: classes/Admin/Asset/Columns.php:586
+#: classes/Admin/Asset/Columns.php:588
 msgid "See Pro features"
 msgstr "Pro functies bekijken"
 
-#: classes/Admin/Asset/Columns.php:582
+#: classes/Admin/Asset/Columns.php:584
 msgid "Tell us what feature you need on the WordPress.org support forum."
 msgstr "Vertel ons welke functie je nodig hebt op het WordPress.org ondersteuningsforum."
 
-#: classes/Admin/Asset/Columns.php:581
+#: classes/Admin/Asset/Columns.php:583
 msgid "Let us know!"
 msgstr "Laat het ons weten!"
 
-#: classes/Admin/Asset/Columns.php:577
+#: classes/Admin/Asset/Columns.php:579
 msgid "A quick rating or tweet helps us a lot."
 msgstr "Een snelle waardering of tweet helpt ons enorm."
 
-#: classes/Admin/Asset/Columns.php:576
+#: classes/Admin/Asset/Columns.php:578
 msgid "Glad to hear it!"
 msgstr "Fijn om te horen!"
 
-#: classes/Admin/Asset/Columns.php:575
+#: classes/Admin/Asset/Columns.php:577
 msgid "Need a feature"
 msgstr "Een functie nodig"
 
-#: classes/Admin/Asset/Columns.php:574
+#: classes/Admin/Asset/Columns.php:576
 msgid "All good"
 msgstr "Alles in orde"
 
-#: classes/Admin/Asset/Columns.php:570
+#: classes/Admin/Asset/Columns.php:572
 msgid "Help us improve Admin Columns with one quick click."
 msgstr "Help ons Admin Columns te verbeteren met één snelle klik."
 
-#: classes/Admin/Asset/Columns.php:569
+#: classes/Admin/Asset/Columns.php:571
 msgid "Missing something?"
 msgstr "Ontbreekt er iets?"
 
-#: classes/Admin/Asset/Columns.php:557
+#: classes/Admin/Asset/Columns.php:559
 msgid "Click %s to apply these column settings to the list table."
 msgstr "Klik op %s om deze kolominstellingen toe te passen op de tabel met de lijst."
 
-#: classes/Admin/Asset/Columns.php:554
+#: classes/Admin/Asset/Columns.php:556
 msgid "not saved"
 msgstr "niet opgeslagen"
 
-#: classes/Admin/Asset/Columns.php:553
+#: classes/Admin/Asset/Columns.php:555
 msgid "These settings are %s."
 msgstr "Deze instellingen zijn %s."
 
-#: classes/Admin/Asset/Columns.php:548
+#: classes/Admin/Asset/Columns.php:550
 msgid "not active"
 msgstr "niet actief"
 
-#: classes/Admin/Asset/Columns.php:544
+#: classes/Admin/Asset/Columns.php:546
 msgid "This table view is %s and won’t appear on the list table."
 msgstr "Deze tabelweergave is %s en verschijnt niet in de lijstweergave."
 
-#: classes/Admin/Asset/Columns.php:539
+#: classes/Admin/Asset/Columns.php:541
 msgid "If you leave this page, all unsaved changes will be lost. Are you sure you want to leave?"
 msgstr "Als je deze pagina verlaat, gaan alle niet opgeslagen wijzigingen verloren. Weet je zeker dat je weg wilt?"
 
-#: classes/Admin/Asset/Columns.php:538
+#: classes/Admin/Asset/Columns.php:540
 msgid "You have unsaved changes"
 msgstr "Je hebt niet opgeslagen wijzigingen"
 
-#: classes/Admin/Asset/Columns.php:528
+#: classes/Admin/Asset/Columns.php:529
 msgctxt "wrapping_option"
 msgid "Clip"
 msgstr "Clip"
 
-#: classes/Admin/Asset/Columns.php:525
+#: classes/Admin/Asset/Columns.php:526
 msgctxt "wrapping_option"
 msgid "Wrap"
 msgstr "Wrap"
 
-#: classes/Admin/Asset/Columns.php:521
+#: classes/Admin/Asset/Columns.php:522
 msgid "Wrapping"
 msgstr "Terugloop"
 
-#: classes/Admin/Asset/Columns.php:520
+#: classes/Admin/Asset/Columns.php:521
 msgid "Primary Column"
 msgstr "Primaire kolom"
 
-#: classes/Admin/Asset/Columns.php:519
+#: classes/Admin/Asset/Columns.php:520
 msgid "No saved filters available."
 msgstr "Geen opgeslagen filters beschikbaar."
 
-#: classes/Admin/Asset/Columns.php:517
+#: classes/Admin/Asset/Columns.php:518
 msgid "Initial Sorting"
 msgstr "Eerste sortering"
 
-#: classes/Admin/Asset/Columns.php:507
+#: classes/Admin/Asset/Columns.php:508
 msgid "Features"
 msgstr "Functies"
 
-#: classes/Admin/Asset/Columns.php:506
+#: classes/Admin/Asset/Columns.php:507
 msgid "default Elements"
 msgstr "standaard elementen"
 
-#: classes/Admin/Asset/Columns.php:493
+#: classes/Admin/Asset/Columns.php:494
 msgid "Select users"
 msgstr "Gebruikers selecteren"
 
-#: classes/Admin/Asset/Columns.php:492
+#: classes/Admin/Asset/Columns.php:493
 msgid "Select roles"
 msgstr "Rollen selecteren"
 
-#: classes/Admin/Asset/Columns.php:486
+#: classes/Admin/Asset/Columns.php:487
 msgid "Toggle to show or hide this view on the list table."
 msgstr "Toggle om deze weergave in de lijstweergave weer te geven of te verbergen."
 
-#: classes/Admin/Asset/Columns.php:480
+#: classes/Admin/Asset/Columns.php:481
 msgid "No spam. Just your discount code."
 msgstr "Geen spam. Gewoon je kortingscode."
 
-#: classes/Admin/Asset/Columns.php:479
+#: classes/Admin/Asset/Columns.php:480
 msgid "Get discount code"
 msgstr "Verkrijg kortingscode"
 
-#: classes/Admin/Asset/Columns.php:478
+#: classes/Admin/Asset/Columns.php:479
 msgid "Your email address"
 msgstr "Je e-mailadres"
 
-#: classes/Admin/Asset/Columns.php:474
+#: classes/Admin/Asset/Columns.php:475
 msgid "Upgrade today and we'll send you a discount code for your first year."
 msgstr "Upgrade vandaag nog en we verzenden je een kortingscode voor je eerste jaar."
 
-#: classes/Admin/Asset/Columns.php:473
+#: classes/Admin/Asset/Columns.php:474
 msgid "Get 10% off Admin Columns Pro"
 msgstr "Ontvang 10% korting op Admin Columns Pro"
 
-#: classes/Admin/Asset/Columns.php:465
+#: classes/Admin/Asset/Columns.php:466
 msgid "Upgrade to Pro"
 msgstr "Upgraden naar Pro"
 
 #. translators: %s: number of sites (e.g. 250,000+)
-#: classes/Admin/Asset/Columns.php:456
-#: classes/Admin/Asset/Script/SettingsFactory.php:161
+#: classes/Admin/Asset/Columns.php:457
+#: classes/Admin/Asset/Script/SettingsFactory.php:162
 msgid "%s sites"
 msgstr "%s sites"
 
-#: classes/Admin/Asset/Columns.php:451
+#: classes/Admin/Asset/Columns.php:452
 msgid "Works with:"
 msgstr "Werkt met:"
 
-#: classes/Admin/Asset/Columns.php:450
-#: classes/Admin/Banner/Context/WooCommerce.php:45
+#: classes/Admin/Asset/Columns.php:451
+#: classes/Admin/Banner/Context/WooCommerce.php:44
 msgid "With Pro you get"
 msgstr "Met Pro krijg je"
 
-#: classes/Admin/Asset/Columns.php:446
+#: classes/Admin/Asset/Columns.php:447
 msgid "Turn your list tables into a powerful command center for sorting, editing, filtering, and exporting content."
 msgstr "Van je lijsttabellen een krachtig commandocentrum voor het sorteren, bewerken, filteren en exporteren van inhoud maken."
 
-#: classes/Admin/Asset/Columns.php:445
+#: classes/Admin/Asset/Columns.php:446
 msgid "Manage your content faster"
 msgstr "Beheer je inhoud sneller"
 
-#: classes/Admin/Asset/Columns.php:439
+#: classes/Admin/Asset/Columns.php:440
 msgid "Multiple table views per screen"
 msgstr "Meerdere weergaven van tabellen per scherm"
 
-#: classes/Admin/Asset/Columns.php:435
+#: classes/Admin/Asset/Columns.php:436
 msgid "Set up different column configurations for different tasks. Switch between views with one click."
 msgstr "Stel verschillende kolom configuraties in voor verschillende taken. Schakel tussen weergaven met één klik."
 
-#: classes/Admin/Asset/Columns.php:434
+#: classes/Admin/Asset/Columns.php:435
 msgid "Create multiple table views"
 msgstr "Meerdere weergaven van tabellen maken"
 
-#: classes/Admin/Asset/Columns.php:433
+#: classes/Admin/Asset/Columns.php:434
 msgid "Column Sets is a Pro feature"
 msgstr "Kolominstellingen is een Pro functie"
 
-#: classes/Admin/Asset/Columns.php:426
+#: classes/Admin/Asset/Columns.php:427
 msgid "Export exactly what you see - your columns, your filters, your data. Ready for spreadsheets or further processing."
 msgstr "Exporteer precies wat je ziet - Je kolommen, je filters, je gegevens. Klaar voor spreadsheets of verdere verwerking."
 
-#: classes/Admin/Asset/Columns.php:425
+#: classes/Admin/Asset/Columns.php:426
 msgid "Export your list table data to CSV"
 msgstr "Exporteer je tabel gegevens naar CSV"
 
-#: classes/Admin/Asset/Columns.php:424
+#: classes/Admin/Asset/Columns.php:425
 msgid "Export is a Pro feature"
 msgstr "Exporteren is een Pro functie"
 
-#: classes/Admin/Asset/Columns.php:421
+#: classes/Admin/Asset/Columns.php:422
 msgid "Smart filters with saved segments"
 msgstr "Slim filteren op opgeslagen segmenten"
 
-#: classes/Admin/Asset/Columns.php:417
+#: classes/Admin/Asset/Columns.php:418
 msgid "Create smart filters combining multiple conditions. Save them as segments and reuse them with one click."
 msgstr "Slimme filters die meerdere voorwaarden combineren maken. Sla ze op als segmenten en hergebruik ze met één klik."
 
-#: classes/Admin/Asset/Columns.php:413
+#: classes/Admin/Asset/Columns.php:414
 msgid "Filter your content with saved filters"
 msgstr "Filter je inhoud met opgeslagen filters"
 
-#: classes/Admin/Asset/Columns.php:412
+#: classes/Admin/Asset/Columns.php:413
 msgid "Smart Filtering is a Pro feature"
 msgstr "Slim filteren is een Pro functie"
 
-#: classes/Admin/Asset/Columns.php:400
+#: classes/Admin/Asset/Columns.php:401
 msgid "Filtering is a Pro feature"
 msgstr "Filteren is een Pro functie"
 
-#: classes/Admin/Asset/Columns.php:397 classes/Admin/Asset/Columns.php:409
+#: classes/Admin/Asset/Columns.php:398 classes/Admin/Asset/Columns.php:410
 msgid "Sort and filter by any column"
 msgstr "Filteren op elke kolom"
 
-#: classes/Admin/Asset/Columns.php:393 classes/Admin/Asset/Columns.php:405
+#: classes/Admin/Asset/Columns.php:394 classes/Admin/Asset/Columns.php:406
 msgid "Instantly find what you need - sort by any column and filter by custom fields, dates, statuses, and more."
 msgstr "Vind direct wat je nodig hebt - Sorteer op elke kolom en filteren op aangepaste velden, datums, statussen en meer."
 
-#: classes/Admin/Asset/Columns.php:389 classes/Admin/Asset/Columns.php:401
+#: classes/Admin/Asset/Columns.php:390 classes/Admin/Asset/Columns.php:402
 msgid "Sort and filter your content by any column"
 msgstr "Je inhoud sorteren en filteren op elke kolom"
 
-#: classes/Admin/Asset/Columns.php:388
+#: classes/Admin/Asset/Columns.php:389
 msgid "Sorting is a Pro feature"
 msgstr "Sorteren is een Pro functie"
 
-#: classes/Admin/Asset/Columns.php:385
+#: classes/Admin/Asset/Columns.php:386
 msgid "Bulk edit hundreds of items at once"
 msgstr "Honderden items tegelijk in bulk bewerken"
 
-#: classes/Admin/Asset/Columns.php:381
+#: classes/Admin/Asset/Columns.php:382
 msgid "Select multiple items and update them in one go - change statuses, categories, custom fields, and more."
 msgstr "Meerdere items en update ze in één keer - wijzig statussen, categorieën, aangepaste velden en meer selecteren."
 
-#: classes/Admin/Asset/Columns.php:380
+#: classes/Admin/Asset/Columns.php:381
 msgid "Edit hundreds of items at once"
 msgstr "Honderden items tegelijk bewerken"
 
-#: classes/Admin/Asset/Columns.php:379
+#: classes/Admin/Asset/Columns.php:380
 msgid "Bulk Editing is a Pro feature"
 msgstr "Bulk bewerken is een Pro functie"
 
-#: classes/Admin/Asset/Columns.php:369
+#: classes/Admin/Asset/Columns.php:370
 msgid "Click any cell to edit - no need to open each item individually. Works with custom fields, taxonomies, and more."
 msgstr "Klik op een cel om te bewerken - Je hoeft niet elk item afzonderlijk te openen. Werkt met aangepaste velden, taxonomieën en meer."
 
-#: classes/Admin/Asset/Columns.php:365 classes/Admin/Asset/Columns.php:373
+#: classes/Admin/Asset/Columns.php:366 classes/Admin/Asset/Columns.php:374
 msgid "Edit content directly in the list table"
 msgstr "Inhoud direct in de tabel met lijsten bewerken"
 
-#: classes/Admin/Asset/Columns.php:364
+#: classes/Admin/Asset/Columns.php:365
 msgid "Inline Editing is a Pro feature"
 msgstr "Inline bewerken is een Pro functie"
 
-#: classes/Admin/Asset/Columns.php:351 classes/Admin/Asset/Columns.php:471
-#: classes/Admin/Asset/Script/SettingsFactory.php:164
+#: classes/Admin/Asset/Columns.php:352 classes/Admin/Asset/Columns.php:472
+#: classes/Admin/Asset/Script/SettingsFactory.php:165
 msgid "30-day money-back guarantee"
 msgstr "30 dagen geld-terug-garantie"
 
 #. translators: %s: rating (e.g. 4.9)
-#: classes/Admin/Asset/Columns.php:347 classes/Admin/Asset/Columns.php:461
+#: classes/Admin/Asset/Columns.php:348 classes/Admin/Asset/Columns.php:462
 msgid "%s on Trustpilot"
 msgstr "%s op Trustpilot"
 
 #. translators: %s: number of sites (e.g. 250,000+)
-#: classes/Admin/Asset/Columns.php:342
+#: classes/Admin/Asset/Columns.php:343
 msgid "Trusted by %s WordPress sites"
 msgstr "Vertrouwd door %s WordPress sites"
 
-#: classes/Admin/Asset/Columns.php:337
+#: classes/Admin/Asset/Columns.php:338
 msgid "With Pro you also get"
 msgstr "Met Pro krijg je ook"
 
-#: classes/Admin/Asset/Columns.php:332
+#: classes/Admin/Asset/Columns.php:333
 msgid "This is a Pro feature"
 msgstr "Dit is een Pro functie"
 
-#: classes/Admin/Asset/Columns.php:324
+#: classes/Admin/Asset/Columns.php:325
 msgid "Something went wrong."
 msgstr "Er is iets fout gegaan."
 
-#: classes/Admin/Asset/Columns.php:321
+#: classes/Admin/Asset/Columns.php:322
 msgid "Delete view"
 msgstr "Weergave verwijderen"
 
-#: classes/Admin/Asset/Columns.php:311 classes/Admin/Asset/Columns.php:312
+#: classes/Admin/Asset/Columns.php:312 classes/Admin/Asset/Columns.php:313
 msgid "Resize Columns"
 msgstr "Kolommen formaat aanpassen"
 
-#: classes/Admin/Asset/Columns.php:310
+#: classes/Admin/Asset/Columns.php:311
 msgid "Add Row (Quick Add)"
 msgstr "Rij toevoegen (Snel toevoegen)"
 
-#: classes/Admin/Asset/Columns.php:309
+#: classes/Admin/Asset/Columns.php:310
 msgid "Conditional Formatting"
 msgstr "Voorwaardelijke opmaak"
 
-#: classes/Admin/Asset/Columns.php:306
+#: classes/Admin/Asset/Columns.php:307
 msgid "Bulk Delete"
 msgstr "Bulk verwijderen"
 
-#: classes/Admin/Asset/Columns.php:301
+#: classes/Admin/Asset/Columns.php:302
 msgid "Row Actions (Below Title)"
 msgstr "Rij acties (onder de titel)"
 
-#: classes/Admin/Asset/Columns.php:289
+#: classes/Admin/Asset/Columns.php:290
 msgid "the Admin Columns website"
 msgstr "de Admin Columns site"
 
-#: classes/Admin/Asset/Columns.php:282
+#: classes/Admin/Asset/Columns.php:283
 msgid "For full documentation, bug reports, feature suggestions and other tips visit %s."
 msgstr "Ga voor volledige documentatie, bug rapporten, functiesuggesties en andere tips naar %s."
 
 #. translators: %s: price (e.g. $79)
-#: classes/Admin/Asset/Columns.php:199 classes/Admin/Asset/Columns.php:358
-#: classes/Admin/Asset/Columns.php:468
-#: classes/Admin/Asset/Script/SettingsFactory.php:152
-#: classes/Admin/Banner/Context/Acf.php:94
-#: classes/Admin/Banner/Context/WooCommerce.php:56
-#: classes/Response/JsonListScreenSettingsFactory.php:176
+#: classes/Admin/Asset/Columns.php:200 classes/Admin/Asset/Columns.php:359
+#: classes/Admin/Asset/Columns.php:469
+#: classes/Admin/Asset/Script/SettingsFactory.php:153
+#: classes/Admin/Banner/Context/Acf.php:93
+#: classes/Admin/Banner/Context/WooCommerce.php:55
+#: classes/Response/JsonListScreenSettingsFactory.php:181
 msgid "from %s/year"
 msgstr "van %s/jaar"
 
 #. translators: %s: post type label plural (e.g. "posts", "pages")
-#: classes/Admin/Asset/Columns.php:194
+#: classes/Admin/Asset/Columns.php:195
 msgid "Unlock faster %s management "
 msgstr "Ontgrendel sneller %s beheer "
 
 #. translators: 1: post type label plural, 2: post type label singular
-#: classes/Admin/Asset/Columns.php:185
-#: classes/Response/JsonListScreenSettingsFactory.php:167
+#: classes/Admin/Asset/Columns.php:186
+#: classes/Response/JsonListScreenSettingsFactory.php:172
 msgid "Turn your %1$s overview into a workspace for sorting, editing, filtering, and exporting - without opening a single %2$s."
 msgstr "Van je %1$s overzicht een werkruimte voor sorteren, bewerken, filteren en exporteren - Zonder ook maar één %2$ste openen maken."
 
 #. translators: %s: post type label plural (e.g. "posts", "pages")
-#: classes/Admin/Asset/Columns.php:180
-#: classes/Response/JsonListScreenSettingsFactory.php:163
-#: classes/Response/JsonListScreenSettingsFactory.php:171
+#: classes/Admin/Asset/Columns.php:181
+#: classes/Response/JsonListScreenSettingsFactory.php:168
+#: classes/Response/JsonListScreenSettingsFactory.php:176
 msgid "Manage your %s faster"
 msgstr "Beheer je %s sneller"
 
-#: classes/Admin/Asset/Columns.php:110
-#: classes/Response/JsonListScreenSettingsFactory.php:203
+#: classes/Admin/Asset/Columns.php:111
+#: classes/Response/JsonListScreenSettingsFactory.php:208
 msgid "Multiple views per screen"
 msgstr "Meerdere weergaven per scherm"
 
-#: classes/Admin/Asset/Columns.php:109 classes/Admin/Asset/Columns.php:430
-#: classes/Response/JsonListScreenSettingsFactory.php:199
+#: classes/Admin/Asset/Columns.php:110 classes/Admin/Asset/Columns.php:431
+#: classes/Response/JsonListScreenSettingsFactory.php:204
 msgid "Export table data to CSV"
 msgstr "Tabel gegevens exporteren naar CSV"
 
 #. translators: %s: post type label plural (e.g. "posts", "pages")
-#: classes/Admin/Asset/Columns.php:106
-#: classes/Response/JsonListScreenSettingsFactory.php:193
+#: classes/Admin/Asset/Columns.php:107
+#: classes/Response/JsonListScreenSettingsFactory.php:198
 msgid "Bulk edit hundreds of %s at once"
 msgstr "Honderden %s in één keer in bulk bewerken"
 
-#: classes/Admin/Asset/Columns.php:103
-#: classes/Response/JsonListScreenSettingsFactory.php:188
+#: classes/Admin/Asset/Columns.php:104
+#: classes/Response/JsonListScreenSettingsFactory.php:193
 msgid "Sort and filter on any column"
 msgstr "Filteren op elke kolom"
 
-#: classes/Admin/Asset/Columns.php:102
-#: classes/Response/JsonListScreenSettingsFactory.php:184
+#: classes/Admin/Asset/Columns.php:103
+#: classes/Response/JsonListScreenSettingsFactory.php:189
 msgid "Inline edit directly in the table"
 msgstr "Inline bewerken direct in de tabel"
 
-#: classes/Admin/Asset/Columns.php:95
-#: classes/Response/JsonListScreenSettingsFactory.php:155
+#: classes/Admin/Asset/Columns.php:96
+#: classes/Response/JsonListScreenSettingsFactory.php:160
 msgid "item"
 msgstr "item"
 
-#: classes/Admin/Asset/Columns.php:94
-#: classes/Response/JsonListScreenSettingsFactory.php:154
+#: classes/Admin/Asset/Columns.php:95
+#: classes/Response/JsonListScreenSettingsFactory.php:159
 msgid "content"
 msgstr "inhoud"
 
-#: classes/Admin/Asset/Addons.php:50
+#: classes/Admin/Asset/Addons.php:51
 msgid "More Integrations"
 msgstr "Meer integraties"
 
-#: classes/Admin/Asset/Addons.php:49
+#: classes/Admin/Asset/Addons.php:50
 msgid "Recommended Integrations"
 msgstr "Aanbevolen integraties"
 
-#: classes/Admin/Asset/Addons.php:48
+#: classes/Admin/Asset/Addons.php:49
 msgid "Enabled Integrations"
 msgstr "Ingeschakelde integraties"
 
-#: classes/Admin/Asset/Addons.php:46
+#: classes/Admin/Asset/Addons.php:47
 msgid "Connect Admin Columns with the plugins you already use. Display, edit, filter, sort, and export their data - all from the list table."
 msgstr "Verbind Admin Columns met de plugins die je al gebruikt. Toon, bewerk, filter, sorteer en exporteer hun gegevens - Allemaal vanuit de lijsttabel."
 
-#: classes/Admin/Asset/Addons.php:44
+#: classes/Admin/Asset/Addons.php:45
 msgid "Unlock with Pro →"
 msgstr "Ontgrendelen met Pro →"
 
-#: classes/Admin/Asset/Addons.php:43
+#: classes/Admin/Asset/Addons.php:44
 msgid "Enable Integration"
 msgstr "Integratie inschakelen"
 
-#: classes/Admin/Asset/Addons.php:42
+#: classes/Admin/Asset/Addons.php:43
 msgid "Detected on your site"
 msgstr "Gedetecteerd op je site"
 
-#: classes/Admin/Asset/Addons.php:41
+#: classes/Admin/Asset/Addons.php:42
 msgid "Plugin not detected"
 msgstr "Plugin niet gevonden"
 
-#: classes/Acf/Service/FieldSettings.php:105
+#: classes/Acf/Service/FieldSettings.php:104
 msgid "Adding..."
 msgstr "Aan het toevoegen..."
 
-#: classes/Acf/Service/FieldSettings.php:331
+#: classes/Acf/Service/FieldSettings.php:330
 msgid "Unlock powerful column features"
 msgstr "Ontgrendel krachtige kolom functies"
 
-#: classes/Acf/Service/FieldSettings.php:316
+#: classes/Acf/Service/FieldSettings.php:315
 msgid "Make this column editable, sortable, and filterable – and manage your content faster right from the overview."
 msgstr "Deze kolom bewerkbaar, sorteerbaar en filterbaar - En beheer je inhoud sneller vanuit het overzicht maken."
 
-#: classes/Acf/Service/FieldSettings.php:309
+#: classes/Acf/Service/FieldSettings.php:308
 msgid "Make this column editable, sortable, and filterable – and manage your %s faster right from the overview."
 msgstr "Deze kolom bewerkbaar, sorteerbaar en filterbaar - En beheer je %s sneller rechtstreeks vanuit het overzicht maken."
 
-#: classes/Acf/Service/FieldSettings.php:221
+#: classes/Acf/Service/FieldSettings.php:220
 msgid "Column settings are managed in Admin Columns after creation."
 msgstr "Instellingen voor kolommen worden na het maken beheerd in Admin Columns."
 
-#: classes/Acf/Service/FieldSettings.php:215
+#: classes/Acf/Service/FieldSettings.php:214
 msgid "General"
 msgstr "Algemeen"
 
-#: classes/Acf/Service/FieldSettings.php:214
+#: classes/Acf/Service/FieldSettings.php:213
 msgid "Field Name"
 msgstr "Veldnaam"
 
-#: classes/Acf/Service/FieldSettings.php:213
+#: classes/Acf/Service/FieldSettings.php:212
 msgid "Enter a %1$s under the %2$s tab to enable adding this field as a column."
 msgstr "Voer een %1$s in onder de tab %2$s om dit veld toe te kunnen voegen als kolom."
 
-#: classes/Acf/Service/FieldSettings.php:207
+#: classes/Acf/Service/FieldSettings.php:206
 msgid "Add this field as a column in the list tables below. Once added, you can open that specific column in Admin Columns to configure it."
 msgstr "Dit veld toevoegen als kolom in de onderstaande tabellen. Eenmaal toegevoegd, kun je die specifieke kolom openen in Admin Columns om hem te configureren."
 
-#: classes/Acf/Service/FieldSettings.php:163
+#: classes/Acf/Service/FieldSettings.php:162
 msgid "Add this field as a column with sorting, filtering, and inline editing."
 msgstr "Dit veld toevoegen als kolom met sorteren, filteren en inline bewerken."
 
-#: classes/Acf/Service/FieldSettings.php:162
+#: classes/Acf/Service/FieldSettings.php:161
 msgid "This field type is supported in Admin Columns Pro"
 msgstr "Dit veldtype wordt ondersteund in Admin Columns Pro"
 
-#: classes/Acf/Service/FieldSettings.php:140
+#: classes/Acf/Service/FieldSettings.php:139
 msgid "This field type cannot be used as an admin column."
 msgstr "Dit veldtype kan niet worden gebruikt als een beheer kolom."
 
@@ -1321,74 +1357,74 @@ msgstr "Dit veldtype kan niet worden gebruikt als een beheer kolom."
 msgid "Add, reorder, and customize columns in your WordPress admin table for any post type, users, and media - no code required."
 msgstr "Kolommen toevoegen, herschikken en aanpassen in je WordPress beheer tabel voor elk berichttype, gebruikers en media - Geen code vereist."
 
-#: classes/Promo/BlackFriday.php:33
+#: classes/Promo/BlackFriday.php:34
 msgid "Get up to %s Off!"
 msgstr "Verkrijg tot %s korting!"
 
-#: classes/Promo/BlackFriday.php:25
+#: classes/Promo/BlackFriday.php:26
 msgid "Save up to %s from Black Friday to Cyber Monday"
 msgstr "Bespaar tot %s van Black Friday tot Cyber Monday"
 
-#: classes/Service/PluginUpdate.php:119
+#: classes/Service/PluginUpdate.php:122
 msgid "See the Plugins page for details."
 msgstr "Zie de pagina Plugin voor details."
 
-#: classes/Service/PluginUpdate.php:117
+#: classes/Service/PluginUpdate.php:120
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: classes/Service/PluginUpdate.php:88
+#: classes/Service/PluginUpdate.php:91
 msgctxt "Anchor text to upgrade guide."
 msgid "upgrade guide"
 msgstr "upgrade gids"
 
-#: classes/Service/PluginUpdate.php:72
+#: classes/Service/PluginUpdate.php:73
 msgctxt "%s contains the link to upgrade guide. Label is translated separately."
 msgid "Please review the %s for details."
 msgstr "Kijk op %s voor details."
 
-#: classes/Service/PluginUpdate.php:58
+#: classes/Service/PluginUpdate.php:57
 msgid "You are upgrading to a new a major version of Admin Columns, which can include <strong>breaking changes</strong>."
 msgstr "Je bent bezig met een upgrade naar een nieuwe grote versie van Admin Columns, die <strong>brekende wijzigingen kan bevatten</strong>."
 
-#: settings/translations/global.php:10
+#: settings/translations/global.php:12
 msgid "Filter"
 msgstr "Filter"
 
-#: classes/Formatter/Media/Audio/Channels.php:20
+#: classes/Formatter/Media/Audio/Channels.php:19
 msgid "channel"
 msgid_plural "channels"
 msgstr[0] "kanaal"
 msgstr[1] "kanalen"
 
-#: classes/RequestHandler/Ajax/ListScreenDelete.php:50
+#: classes/RequestHandler/Ajax/ListScreenDelete.php:58
 msgid "Table view %s successfully deleted."
 msgstr "Tabelweergave %s succesvol verwijderd."
 
-#: classes/Admin/MenuGroupFactory/Aggregate.php:41
-#: classes/RequestHandler/Ajax/NetworkPostStati.php:86
+#: classes/Admin/MenuGroupFactory/Aggregate.php:40
+#: classes/RequestHandler/Ajax/NetworkPostStati.php:85
 #: classes/Setting/ComponentFactory/PostExtendedProperty.php:48
-#: classes/Setting/ComponentFactory/UserProperty.php:138
+#: classes/Setting/ComponentFactory/UserProperty.php:137
 msgid "Other"
 msgstr "Andere"
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:123
+#: classes/RequestHandler/Ajax/ListScreenSave.php:120
 msgid "Column settings could not be saved."
 msgstr "Kolominstellingen konden niet worden opgeslagen."
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:75
+#: classes/RequestHandler/Ajax/ListScreenSave.php:74
 msgid "List screen not found"
 msgstr "Lijstscherm niet gevonden"
 
-#: classes/Value/Extended/MediaPreview.php:66
+#: classes/Value/Extended/MediaPreview.php:69
 msgid "Preview not available"
 msgstr "Voorbeeld niet beschikbaar"
 
-#: classes/Admin/Notice/DatabaseMissing.php:49
+#: classes/Admin/Notice/DatabaseMissing.php:48
 msgid "Create database table."
 msgstr "Database tabel aanmaken."
 
-#: classes/Admin/Notice/DatabaseMissing.php:39
+#: classes/Admin/Notice/DatabaseMissing.php:38
 msgid "Database table %s is missing."
 msgstr "Database tabel %s ontbreekt."
 
@@ -1401,154 +1437,155 @@ msgstr "Met voorwaardelijke format kun je een waarde opmaken op basis van voorwa
 msgid "Conditional Format"
 msgstr "Voorwaardelijk format"
 
-#: settings/translations/global.php:7
+#: settings/translations/global.php:9
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: settings/translations/global.php:6
+#: settings/translations/global.php:8
 msgid "Ok"
 msgstr "Ok"
 
-#: classes/ThirdParty/MediaLibraryAssistant/TableScreen.php:25
+#: classes/ThirdParty/MediaLibraryAssistant/TableScreen.php:27
 msgid "Assistant"
 msgstr "Assistent"
 
-#: classes/Setting/ComponentFactory/Separator.php:34
+#: classes/Setting/ComponentFactory/Separator.php:38
 msgid "Horizontal Rule"
 msgstr "Horizontale regel"
 
-#: classes/Admin/MenuGroupFactory/MediaLibraryAssistantGroups.php:18
-#: classes/Integration/MediaLibraryAssistant.php:16
-#: classes/ThirdParty/MediaLibraryAssistant/TableScreen.php:26
+#: classes/Admin/MenuGroupFactory/MediaLibraryAssistantGroups.php:17
+#: classes/Integration/MediaLibraryAssistant.php:17
+#: classes/ThirdParty/MediaLibraryAssistant/TableScreen.php:28
 msgid "Media Library Assistant"
 msgstr "Media Library Assistant"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:49
+#: classes/RequestHandler/Ajax/ExtendedValue.php:48
 msgid "Invalid list ID."
 msgstr "Ongeldige lijst ID."
 
-#: classes/ColumnFactory/IntegrationPlaceholder.php:55
+#: classes/ColumnFactory/IntegrationPlaceholder.php:54
 msgid "Admin Columns Pro offers full support for %s, allowing you to easily manage %s fields for your overviews."
 msgstr "Admin Columns Pro biedt volledige ondersteuning voor %s, zodat je eenvoudig %s velden kunt beheren voor je overzichten."
 
-#: classes/ColumnFactory/IntegrationPlaceholder.php:48
+#: classes/ColumnFactory/IntegrationPlaceholder.php:47
 msgid "%s support is only available in Admin Columns Pro."
 msgstr "Ondersteuning voor %s is alleen beschikbaar in Admin Columns Pro."
 
-#: templates/tooltip/sorting-include-empty.php:20
+#: templates/tooltip/sorting-include-empty.php:22
 msgid "Read more &raquo;"
 msgstr "Meer lezen &raquo;"
 
-#: templates/tooltip/sorting-include-empty.php:13
+#: templates/tooltip/sorting-include-empty.php:15
 msgid "By enabling this setting the sorting results will include empty values."
 msgstr "Door deze instelling in te schakelen zullen de sorteerresultaten ook lege waarden bevatten."
 
-#: classes/Admin/Asset/Columns.php:502
+#: classes/Admin/Asset/Columns.php:503
 msgid "Show or hide elements from the table list screen."
 msgstr "Toon of verberg elementen van de tabel lijst scherm."
 
-#: classes/Admin/Asset/Columns.php:501
+#: classes/Admin/Asset/Columns.php:502
 msgid "Table Elements"
 msgstr "Tabel elementen"
 
-#: classes/Table/Screen.php:146
+#: classes/Table/Screen.php:147
 msgid "Loading..."
 msgstr "Aan het laden..."
 
-#: classes/Setting/ComponentFactory/VideoDisplay.php:25
+#: classes/Setting/ComponentFactory/VideoDisplay.php:26
 msgid "Pop Up"
 msgstr "Pop-up"
 
-#: classes/Setting/ComponentFactory/VideoDisplay.php:24
+#: classes/Setting/ComponentFactory/VideoDisplay.php:25
 msgid "Embed"
 msgstr "Insluiten"
 
-#: classes/Setting/ComponentFactory/UserProperty.php:129
+#: classes/Setting/ComponentFactory/UserProperty.php:128
 msgid "User Website"
 msgstr "Gebruiker site"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:92
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:93
 msgid "audio"
 msgstr "audio"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:48
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:49
 msgid "Codec"
 msgstr "Codec"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:45
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:46
 msgid "Bits Per Sample"
 msgstr "Bits per monster"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:34
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:49
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:35
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:50
 msgid "Dataformat"
 msgstr "Gegevens format"
 
-#: classes/Formatter/Media/Audio/Bitrate.php:17
+#: classes/Formatter/Media/Audio/Bitrate.php:16
 msgid "Kbps"
 msgstr "Kbps"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:52
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:51
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:51
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:52
 msgid "Sample Rate"
 msgstr "Steekproef percentage"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:50
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:50
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:49
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:51
 msgid "Losless"
 msgstr "Losless"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:49
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:38
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:48
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:39
 msgid "Length Formatted"
 msgstr "Lengte opgemaakt"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:47
-#: classes/Setting/ComponentFactory/Post/FeaturedImageDisplay.php:44
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:46
+#: classes/Setting/ComponentFactory/Post/FeaturedImageDisplay.php:43
 msgid "Filesize"
 msgstr "Bestandsgrootte"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:46
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:35
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:45
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:36
 msgid "Fileformat"
 msgstr "Bestandsformat"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:45
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:44
 msgid "Encoder Options"
 msgstr "Encoder opties"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:44
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:43
 msgid "Data Format"
 msgstr "Gegevens format"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:43
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:33
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:42
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:34
 msgid "Created Timestamp"
 msgstr "Gemaakt tijdstempel"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:42
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:41
 msgid "Compression Ratio"
 msgstr "Compressieverhouding"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:41
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:47
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:40
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:48
 msgid "Channels"
 msgstr "Kanalen"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:40
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:46
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:39
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:47
 msgid "Channelmode"
 msgstr "Kanaalmodus"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:39
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:38
 msgid "Bitrate Mode"
 msgstr "Bitrate modus"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:38
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:37
 msgid "Bitrate"
 msgstr "Bitrate"
 
-#: classes/Setting/ComponentFactory/FieldType.php:197
+#: classes/Setting/ComponentFactory/FieldType.php:198
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/SerializedConfigurator.php:30
 msgid "Serialized"
 msgstr "Geserialiseerde"
 
@@ -1572,227 +1609,227 @@ msgstr "Video"
 msgid "Meta"
 msgstr "Meta"
 
-#: classes/Formatter/Media/Video/ModalEmbedLink.php:28
+#: classes/Formatter/Media/Video/ModalEmbedLink.php:27
 msgid "Play"
 msgstr "Afspelen"
 
-#: classes/ColumnFactory/Media/VideoPlayerFactory.php:49
+#: classes/ColumnFactory/Media/VideoPlayerFactory.php:48
 msgid "Video Player"
 msgstr "Videospeler"
 
-#: classes/ColumnFactory/Media/FileMetaVideoFactory.php:43
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:18
+#: classes/ColumnFactory/Media/FileMetaVideoFactory.php:42
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:19
 msgid "Video Meta"
 msgstr "Video meta"
 
-#: classes/ColumnFactory/Media/FileMetaAudioFactory.php:43
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:20
+#: classes/ColumnFactory/Media/FileMetaAudioFactory.php:42
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:19
 msgid "Audio Meta"
 msgstr "Audio meta"
 
-#: classes/ColumnFactory/Media/ExifDataFactory.php:48
-#: classes/Setting/ComponentFactory/ExifData.php:34
+#: classes/ColumnFactory/Media/ExifDataFactory.php:47
+#: classes/Setting/ComponentFactory/ExifData.php:33
 msgid "Image Meta (EXIF)"
 msgstr "Afbeelding meta (EXIF)"
 
-#: classes/Formatter/Media/AudioPlayer.php:29
-#: classes/Value/Extended/MediaPreview.php:55
+#: classes/Formatter/Media/AudioPlayer.php:28
+#: classes/Value/Extended/MediaPreview.php:57
 msgid "No support for audio player"
 msgstr "Geen ondersteuning voor audiospeler"
 
-#: classes/ColumnFactory/Media/AudioPlayerFactory.php:27
+#: classes/ColumnFactory/Media/AudioPlayerFactory.php:26
 msgid "Audio Player"
 msgstr "Audiospeler"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:108
+#: classes/Admin/Asset/Script/SettingsFactory.php:109
 msgid "Restore settings"
 msgstr "Instellingen terugzetten"
 
-#: classes/Check/Integration/AcfBulkEditNotice.php:71
-#: classes/Check/Integration/AcfSortAndFilterNotice.php:69
-#: classes/Check/Integration/EventsCalendarNotice.php:58
-#: classes/Check/Integration/GravityFormsNotice.php:50
-#: classes/Check/Integration/WooCommerceOrdersFilterNotice.php:58
-#: classes/Check/Integration/WooCommerceOrdersNotice.php:58
-#: classes/Check/Integration/WooCommerceOrdersSearchNotice.php:58
-#: classes/Check/Integration/WooCommerceProductsBulkEditNotice.php:56
-#: classes/Check/Integration/WooCommerceProductsFilterNotice.php:51
-#: classes/Check/Integration/WooCommerceProductsNotice.php:51
-#: classes/Check/Integration/WooCommerceProductsSearchNotice.php:56
-#: classes/ThirdParty/WooCommerce.php:45
+#: classes/Check/Integration/AcfBulkEditNotice.php:70
+#: classes/Check/Integration/AcfSortAndFilterNotice.php:68
+#: classes/Check/Integration/EventsCalendarNotice.php:57
+#: classes/Check/Integration/GravityFormsNotice.php:49
+#: classes/Check/Integration/WooCommerceOrdersFilterNotice.php:57
+#: classes/Check/Integration/WooCommerceOrdersNotice.php:57
+#: classes/Check/Integration/WooCommerceOrdersSearchNotice.php:57
+#: classes/Check/Integration/WooCommerceProductsBulkEditNotice.php:55
+#: classes/Check/Integration/WooCommerceProductsFilterNotice.php:50
+#: classes/Check/Integration/WooCommerceProductsNotice.php:50
+#: classes/Check/Integration/WooCommerceProductsSearchNotice.php:55
+#: classes/ThirdParty/WooCommerce.php:46
 msgid "Upgrade to Admin Columns Pro"
 msgstr "Upgrade naar Admin Columns Pro"
 
-#: classes/Admin/Asset/Columns.php:352 classes/Admin/Asset/Columns.php:472
-#: classes/Admin/Asset/Script/SettingsFactory.php:156
+#: classes/Admin/Asset/Columns.php:353 classes/Admin/Asset/Columns.php:473
+#: classes/Admin/Asset/Script/SettingsFactory.php:157
 msgid "See all Pro features"
 msgstr "Alle Pro functies bekijken"
 
-#: classes/Admin/Banner/Context/Acf.php:86
+#: classes/Admin/Banner/Context/Acf.php:85
 msgid "Exportable to CSV"
 msgstr "Exporteerbaar naar CSV"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:78
+#: classes/Admin/Asset/Script/SettingsFactory.php:79
 msgid "Multiple table views"
 msgstr "Meerdere weergaven van tabellen"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:65
+#: classes/Admin/Asset/Script/SettingsFactory.php:66
 msgid "Sticky headers"
 msgstr "Sticky headers"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:61
+#: classes/Admin/Asset/Script/SettingsFactory.php:62
 msgid "Sortable columns"
 msgstr "Sorteerbare kolommen"
 
-#: classes/Admin/Asset/Columns.php:518
+#: classes/Admin/Asset/Columns.php:519
 msgid "Pre-applied Filters"
 msgstr "Vooraf toegepaste filters"
 
-#: classes/Admin/Asset/Columns.php:516
+#: classes/Admin/Asset/Columns.php:517
 msgid "Horizontal Scrolling"
 msgstr "Horizontaal scrollen"
 
-#: classes/Admin/Asset/Columns.php:512
+#: classes/Admin/Asset/Columns.php:513
 msgid "Set default settings that users will see when they visit the list table."
 msgstr "Stel standaardinstellingen in die gebruikers zullen zien wanneer ze de lijsttabel bezoeken."
 
-#: classes/Admin/Asset/Columns.php:511
+#: classes/Admin/Asset/Columns.php:512
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: classes/Admin/Asset/Columns.php:300
+#: classes/Admin/Asset/Columns.php:301
 msgid "Bulk Actions"
 msgstr "Bulkacties"
 
-#: classes/Admin/Asset/Columns.php:299 classes/Admin/Asset/Columns.php:594
+#: classes/Admin/Asset/Columns.php:300 classes/Admin/Asset/Columns.php:596
 msgid "Search"
 msgstr "Zoeken"
 
-#: classes/Admin/Asset/Columns.php:298
+#: classes/Admin/Asset/Columns.php:299
 msgid "Status (Quick Links)"
 msgstr "Status (snelle links)"
 
-#: classes/Admin/Asset/Columns.php:297
+#: classes/Admin/Asset/Columns.php:298
 msgid "Filters"
 msgstr "Filters"
 
-#: classes/Admin/Asset/Columns.php:304
+#: classes/Admin/Asset/Columns.php:305
 msgid "Inline Edit"
 msgstr "Inline bewerken"
 
-#: classes/Admin/Asset/Columns.php:495
+#: classes/Admin/Asset/Columns.php:496
 msgid "Make this table view available only for specific users or roles."
 msgstr "Maak deze tabel weergave alleen beschikbaar voor specifieke gebruikers of rollen."
 
-#: classes/Admin/Asset/Columns.php:494
+#: classes/Admin/Asset/Columns.php:495
 msgid "Conditionals"
 msgstr "Voorwaarden"
 
-#: classes/Admin/Asset/Columns.php:530
+#: classes/Admin/Asset/Columns.php:532
 msgid "Unlock with Admin Columns Pro"
 msgstr "Ontgrendelen met Admin Columns Pro"
 
-#: classes/Admin/MenuGroupFactory/GravityFormsGroups.php:20
+#: classes/Admin/MenuGroupFactory/GravityFormsGroups.php:19
 msgid "Gravity Forms"
 msgstr "Gravity Forms"
 
-#: classes/Admin/Asset/Addons.php:40
+#: classes/Admin/Asset/Addons.php:41
 msgid "The Add-on %s is activated."
 msgstr "De add-on %s is geactiveerd."
 
-#: classes/ColumnFactory/Media/AlbumFactory.php:22
+#: classes/ColumnFactory/Media/AlbumFactory.php:21
 msgid "Album"
 msgstr "Album"
 
-#: classes/ColumnFactory/Media/ArtistFactory.php:27
+#: classes/ColumnFactory/Media/ArtistFactory.php:26
 msgid "Artist"
 msgstr "Artiest"
 
-#: classes/ColumnFactory/User/LastPostFactory.php:39
+#: classes/ColumnFactory/User/LastPostFactory.php:38
 msgid "Last Post"
 msgstr "Laatste bericht"
 
-#: classes/ColumnFactory/User/FirstPostFactory.php:39
+#: classes/ColumnFactory/User/FirstPostFactory.php:38
 msgid "First Post"
 msgstr "Eerste bericht"
 
-#: classes/Setting/ComponentFactory/PostStatus.php:25
+#: classes/Setting/ComponentFactory/PostStatus.php:24
 msgid "Post Status"
 msgstr "Berichtstatus"
 
-#: templates/tooltip/bulk-editing.php:38 templates/tooltip/custom-field.php:23
-#: templates/tooltip/export-disabled.php:23 templates/tooltip/export.php:33
-#: templates/tooltip/inline-editing.php:44
-#: templates/tooltip/smart-filtering.php:43 templates/tooltip/sorting.php:40
+#: templates/tooltip/bulk-editing.php:40 templates/tooltip/custom-field.php:25
+#: templates/tooltip/export-disabled.php:25 templates/tooltip/export.php:35
+#: templates/tooltip/inline-editing.php:46
+#: templates/tooltip/smart-filtering.php:45 templates/tooltip/sorting.php:42
 msgid "Learn more &raquo;"
 msgstr "Leer meer &raquo;"
 
-#: classes/Formatter/User/UserName.php:29
+#: classes/Formatter/User/UserName.php:28
 msgid "Super Admin"
 msgstr "Super beheerder"
 
-#: classes/ColumnFactory/User/AuthorSlugFactory.php:17
+#: classes/ColumnFactory/User/AuthorSlugFactory.php:16
 msgid "Author Slug"
 msgstr "Auteur slug"
 
-#: classes/ColumnFactory/User/FullNameFactory.php:17
-#: classes/Setting/ComponentFactory/UserProperty.php:122
+#: classes/ColumnFactory/User/FullNameFactory.php:16
+#: classes/Setting/ComponentFactory/UserProperty.php:121
 msgid "Full Name"
 msgstr "Volledige naam"
 
-#: templates/tooltip/export-disabled.php:14
+#: templates/tooltip/export-disabled.php:16
 msgid "Third-party columns and some custom columns cannot be exported unless there is build-in support for that specific column."
 msgstr "Kolommen van derden en sommige aangepaste kolommen kunnen niet worden geëxporteerd, tenzij er ingebouwde ondersteuning is voor die specifieke kolom."
 
-#: templates/tooltip/export-disabled.php:11
+#: templates/tooltip/export-disabled.php:13
 msgid "Unfortunately not every column can be exported."
 msgstr "Helaas kan niet elke kolom worden geëxporteerd."
 
-#: templates/tooltip/export-disabled.php:8
+#: templates/tooltip/export-disabled.php:10
 msgid "Export Unavailable"
 msgstr "Exporteren niet beschikbaar"
 
-#: classes/Admin/Asset/Columns.php:305 templates/tooltip/bulk-editing.php:28
+#: classes/Admin/Asset/Columns.php:306 templates/tooltip/bulk-editing.php:30
 msgid "Bulk Edit"
 msgstr "Bulkbewerking"
 
-#: templates/tooltip/bulk-editing.php:24
+#: templates/tooltip/bulk-editing.php:26
 msgid "Clicking the %s button will display a popup that allows you to add or change the current value of all selected items."
 msgstr "Als je op de knop %s klikt, wordt er een pop-up getoond waarin je de huidige waarde van alle geselecteerde items kan toevoegen of wijzigen."
 
-#: templates/tooltip/bulk-editing.php:14
+#: templates/tooltip/bulk-editing.php:16
 msgid "Select more than one row from the list table to show the bulk edit buttons."
 msgstr "Selecteer meer dan één rij in de lijsttabel om de knoppen voor bulkbewerking te tonen."
 
-#: templates/tooltip/bulk-editing.php:11
+#: templates/tooltip/bulk-editing.php:13
 msgid "Bulk Edit allows you to update multiple values at once."
 msgstr "Met bulk bewerken kan je meerdere waarden tegelijk updaten."
 
-#: templates/tooltip/sorting.php:31
+#: templates/tooltip/sorting.php:33
 msgid "You can change the default sorted column in the optional settings below."
 msgstr "Je kan de standaard gesorteerde kolom wijzigen in de optionele instellingen hieronder."
 
-#: templates/tooltip/sorting.php:26
+#: templates/tooltip/sorting.php:28
 msgid "Reset Sorting"
 msgstr "Sortering resetten"
 
-#: templates/tooltip/sorting.php:25
+#: templates/tooltip/sorting.php:27
 msgid "Reset the sorting by clicking the %s button."
 msgstr "Reset de sortering door op de %s knop te klikken."
 
-#: templates/tooltip/sorting.php:21
+#: templates/tooltip/sorting.php:23
 msgid "When you come back the content is sorted just the way you left it."
 msgstr "Als je terugkomt, wordt de inhoud gesorteerd zoals je hem achterliet."
 
-#: templates/tooltip/sorting.php:20
+#: templates/tooltip/sorting.php:22
 msgid "The sorted column is saved as your personal preference."
 msgstr "De gesorteerde kolom wordt opgeslagen als je persoonlijke voorkeur."
 
-#: templates/tooltip/sorting.php:11
+#: templates/tooltip/sorting.php:13
 msgid "Sort by clicking the column header on the list table. Click the column header again to switch between <em>ascending</em> and <em>descending</em>."
 msgstr "Sorteer door op de kolom header in de lijsttabel te klikken. Klik nogmaals op de kolom header om te wisselen tussen <em>oplopend</em> en <em>aflopend</em>."
 
-#: classes/Admin/Asset/Columns.php:307 templates/tooltip/filtering.php:19
+#: classes/Admin/Asset/Columns.php:308 templates/tooltip/filtering.php:19
 msgid "Smart Filters"
 msgstr "Slimme filters"
 
@@ -1824,161 +1861,163 @@ msgstr "Je kan de inhoud filteren door de kolomwaarde te selecteren in het dropd
 msgid "This will allow the column to be filtered."
 msgstr "Hierdoor kan de kolom worden gefilterd."
 
-#: templates/tooltip/smart-filtering.php:30
+#: templates/tooltip/smart-filtering.php:32
 msgctxt "smart filtering help"
 msgid "When you return to your list table you can easily select them again from the menu."
 msgstr "Wanneer je terugkeert naar je lijsttabel, kan je ze gemakkelijk opnieuw selecteren in het menu."
 
-#: templates/tooltip/smart-filtering.php:29
+#: templates/tooltip/smart-filtering.php:31
 msgctxt "smart filtering help"
 msgid "You can save your filters for later use."
 msgstr "Je kan je filters bewaren voor later gebruik."
 
-#: templates/tooltip/smart-filtering.php:19
+#: templates/tooltip/smart-filtering.php:21
 msgid "Add Filter"
 msgstr "Filter toevoegen"
 
-#: templates/tooltip/smart-filtering.php:9
+#: templates/tooltip/smart-filtering.php:11
 msgctxt "smart filtering help"
 msgid "Smart filtering allows you to segment your data by different criteria."
 msgstr "Met slimme filtering kan je je gegevens op verschillende criteria segmenteren."
 
-#: templates/tooltip/export.php:27
+#: templates/tooltip/export.php:29
 msgid "You can use filters to segment your list before exporting."
 msgstr "Je kan filters gebruiken om je lijst te segmenteren voordat je ze exporteert."
 
-#: templates/tooltip/export.php:21
+#: templates/tooltip/export.php:23
 msgid "The result is a CSV file."
 msgstr "Het resultaat is een CSV bestand."
 
-#: templates/tooltip/export.php:17
+#: templates/tooltip/export.php:19
 msgid "Click the export button and all items will be exported to CSV."
 msgstr "Klik op de exportknop en alle items worden geëxporteerd naar CSV."
 
-#: templates/tooltip/export.php:11
+#: templates/tooltip/export.php:13
 msgid "Export for Admin Columns Pro, allows you to export the contents of your columns to CSV."
 msgstr "Export for Admin Columns Pro, hiermee kan je de inhoud van je kolommen exporteren naar CSV."
 
-#: templates/tooltip/inline-editing.php:35
+#: templates/tooltip/inline-editing.php:37
 msgid "It is possible to undo and redo all changes made with Inline Editing, so using it is without risk."
 msgstr "Het is mogelijk om alle wijzigingen die zijn aangebracht met inline bewerken ongedaan te maken en opnieuw uit te voeren, dus het gebruik ervan is zonder risico."
 
-#: templates/tooltip/inline-editing.php:29
+#: templates/tooltip/inline-editing.php:31
 msgid "Click on the pencil icon to start editing the value of a field."
 msgstr "Klik op het potlood icoon om de waarde van een veld te bewerken."
 
-#: templates/tooltip/custom-field.php:11
-#: templates/tooltip/inline-editing.php:20
+#: templates/tooltip/custom-field.php:13
+#: templates/tooltip/inline-editing.php:22
 msgid "To start inline editing, toggle the “Inline Edit” button on top of the list table."
 msgstr "Om te beginnen met inline bewerken, toggle je de knop \"Inline bewerken\" bovenaan de lijsttabel."
 
-#: templates/tooltip/inline-editing.php:12
+#: templates/tooltip/inline-editing.php:14
 msgid "With Inline Edit, you can update your content quick and easy, without having to open each %s one at the time."
 msgstr "Met inline bewerken kan je je inhoud snel en gemakkelijk updaten, zonder dat je elke %s één voor één hoeft te openen."
 
-#: classes/Integration/MetaBox.php:16
+#: classes/Integration/MetaBox.php:17
 msgid "Meta Box"
 msgstr "Metabox"
 
 #: templates/tooltip/filtering.php:25 templates/tooltip/filtering.php:42
-#: templates/tooltip/smart-filtering.php:7
+#: templates/tooltip/smart-filtering.php:9
 msgid "Smart Filtering"
 msgstr "Slim filteren"
 
-#: templates/tooltip/bulk-editing.php:8
+#: templates/tooltip/bulk-editing.php:10
 msgid "Bulk Editing"
 msgstr "Bulkbewerking"
 
-#: templates/tooltip/inline-editing.php:8
+#: templates/tooltip/inline-editing.php:10
 msgid "Inline Editing"
 msgstr "Inline bewerken"
 
-#: classes/Setting/ComponentFactory/PostType.php:54
+#: classes/Setting/ComponentFactory/PostType.php:59
 msgid "All Post Types"
 msgstr "Alle berichttypen"
 
-#: classes/PluginActionUpgrade.php:32
+#: classes/PluginActionUpgrade.php:33
 msgid "Go Pro"
 msgstr "Ga voor Pro"
 
-#: classes/Plugin/Update/V4000.php:585
+#: classes/Plugin/Update/V4000.php:586
 msgid "Original"
 msgstr "Origineel"
 
-#: classes/ColumnFactory/Post/EstimateReadingTimeFactory.php:36
+#: classes/ColumnFactory/Post/EstimateReadingTimeFactory.php:35
 msgid "Read Time"
 msgstr "Leestijd"
 
-#: classes/ColumnFactory/Post/PasswordProtectedFactory.php:22
+#: classes/ColumnFactory/Post/PasswordProtectedFactory.php:21
 msgid "Password Protected"
 msgstr "Beschermd met een wachtwoord"
 
-#: classes/Setting/ComponentFactory/NumberFormat.php:26
+#: classes/Setting/ComponentFactory/NumberFormat.php:27
 msgid "Number Format"
 msgstr "Nummer format"
 
-#: classes/Setting/ComponentFactory/NumberFormat.php:35
-#: classes/Setting/ComponentFactory/SerializedDisplay.php:37
+#: classes/Setting/ComponentFactory/NumberFormat.php:36
+#: classes/Setting/ComponentFactory/SerializedDisplay.php:36
 msgid "Formatted"
 msgstr "Opgemaakt"
 
-#: classes/Setting/ComponentFactory/NumberFormat.php:63
+#: classes/Setting/ComponentFactory/NumberFormat.php:64
 msgid "Thousands Separator"
 msgstr "Scheidingsteken duizendtallen"
 
-#: classes/Setting/ComponentFactory/NumberFormat.php:54
+#: classes/Setting/ComponentFactory/NumberFormat.php:55
 msgid "Decimal Point"
 msgstr "Decimale punt"
 
-#: classes/Setting/ComponentFactory/NumberFormat.php:48
+#: classes/Setting/ComponentFactory/NumberFormat.php:49
 msgid "Decimals"
 msgstr "Decimalen"
 
-#: classes/Setting/ComponentFactory/TermLink.php:57
+#: classes/Setting/ComponentFactory/TermLink.php:56
 msgid "Edit Term"
 msgstr "Term bewerken"
 
-#: classes/Setting/ComponentFactory/TermLink.php:56
+#: classes/Setting/ComponentFactory/TermLink.php:55
 msgid "Filter by Term"
 msgstr "Filteren op term"
 
-#: classes/Promo/BlackFriday.php:44
+#: classes/Promo/BlackFriday.php:45
 msgid "Get %s now"
 msgstr "Download %s nu"
 
-#: classes/Formatter/Collection/Separator.php:98
+#: classes/Formatter/Collection/Separator.php:112
 msgid "%s more"
 msgstr "%s meer"
 
-#: classes/Setting/ComponentFactory/CommentLink.php:32
+#: classes/Setting/ComponentFactory/CommentLink.php:31
 msgid "View Comment"
 msgstr "Reactie bekijken"
 
-#: classes/Admin/Asset/Columns.php:595
-#: classes/Setting/ComponentFactory/CustomField.php:63
+#: classes/Admin/Asset/Columns.php:597
+#: classes/Setting/ComponentFactory/CustomField.php:62
 #: classes/Setting/ComponentFactory/FieldType.php:185
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/SelectConfigurator.php:27
 msgid "Select"
 msgstr "Selecteer"
 
-#: classes/Admin/Asset/Columns.php:605
+#: classes/Admin/Asset/Columns.php:607
 msgid "Select Icon"
 msgstr "Selecteer pictogram"
 
-#: classes/Setting/ComponentFactory/PathScope.php:35
+#: classes/Setting/ComponentFactory/PathScope.php:34
 msgid "Local Path"
 msgstr "Lokaal pad"
 
-#: classes/Admin/MenuGroupFactory/EventsCalendarGroups.php:27
-#: classes/Integration/EventsCalendar.php:18
+#: classes/Admin/MenuGroupFactory/EventsCalendarGroups.php:26
+#: classes/Integration/EventsCalendar.php:19
 msgid "Events Calendar"
 msgstr "Events Calendar"
 
 #: classes/Setting/ComponentFactory/FieldType.php:179
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/UrlConfigurator.php:25
 msgid "URL"
 msgstr "URL"
 
-#: templates/tooltip/sorting-include-empty.php:10
-#: templates/tooltip/sorting.php:8
+#: templates/tooltip/sorting-include-empty.php:12
+#: templates/tooltip/sorting.php:10
 msgid "Sorting"
 msgstr "Sorteren"
 
@@ -1986,189 +2025,188 @@ msgstr "Sorteren"
 msgid "Filtering"
 msgstr "Filteren"
 
-#: classes/Admin/Asset/Columns.php:308 templates/tooltip/export.php:8
+#: classes/Admin/Asset/Columns.php:309 templates/tooltip/export.php:10
 msgid "Export"
 msgstr "Export"
 
-#: classes/Admin/Asset/Columns.php:333
+#: classes/Admin/Asset/Columns.php:334
 msgid "Upgrade to Pro and take Admin Columns to the next level."
 msgstr "Upgrade naar PRO en breng Admin Columns naar het volgende niveau."
 
-#: classes/Setting/ComponentFactory/DateFormat/Time.php:22
+#: classes/Setting/ComponentFactory/DateFormat/Time.php:21
 msgid "WordPress Time Format"
 msgstr "WordPress tijdnotatie"
 
-#: classes/Setting/ComponentFactory/StringLimit.php:41
+#: classes/Setting/ComponentFactory/StringLimit.php:40
 msgid "No limit"
 msgstr "Geen limiet"
 
-#: classes/Setting/ComponentFactory/StringLimit.php:33
+#: classes/Setting/ComponentFactory/StringLimit.php:32
 msgid "Text Limit"
 msgstr "Tekstlimiet"
 
-#: classes/ColumnFactory/Media/DownloadFactory.php:22
-#: classes/Formatter/Media/Download.php:26
-#: classes/Setting/ComponentFactory/MediaLink.php:31
-#: classes/Table/PrimaryColumn.php:66 classes/Table/PrimaryColumn.php:70
-#: classes/Table/Screen.php:149
+#: classes/ColumnFactory/Media/DownloadFactory.php:21
+#: classes/Formatter/Media/Download.php:25
+#: classes/Setting/ComponentFactory/MediaLink.php:30
+#: classes/Table/PrimaryColumn.php:71 classes/Table/Screen.php:150
 msgid "Download"
 msgstr "Download"
 
-#: classes/Setting/ComponentFactory/PostLink.php:61
+#: classes/Setting/ComponentFactory/PostLink.php:60
 msgctxt "post"
 msgid "View Public %s Author Page"
 msgstr "Bekijk publieke %s auteur pagina"
 
-#: classes/Setting/ComponentFactory/PostLink.php:60
+#: classes/Setting/ComponentFactory/PostLink.php:59
 msgctxt "post"
 msgid "Edit %s Author"
 msgstr "Bewerk %s auteur"
 
-#: classes/Setting/ComponentFactory/PostLink.php:59
+#: classes/Setting/ComponentFactory/PostLink.php:58
 msgctxt "post"
 msgid "View %s"
 msgstr "Bekijk %s"
 
-#: classes/Setting/ComponentFactory/PostLink.php:58
+#: classes/Setting/ComponentFactory/PostLink.php:57
 msgctxt "post"
 msgid "Edit %s"
 msgstr "Bewerk %s"
 
-#: classes/Setting/ComponentFactory/UseIcon.php:19
+#: classes/Setting/ComponentFactory/UseIcon.php:20
 msgid "Use an icon instead of text for displaying."
 msgstr "Toon een icoon in plaats van tekst."
 
-#: classes/Setting/ComponentFactory/PostProperty.php:123
+#: classes/Setting/ComponentFactory/PostProperty.php:122
 msgctxt "post"
 msgid "Featured Image"
 msgstr "Uitgelichte afbeelding"
 
-#: classes/Setting/ComponentFactory/NumberOfItems.php:21
+#: classes/Setting/ComponentFactory/NumberOfItems.php:27
 msgid "Maximum number of items"
 msgstr "Maximale hoeveelheid items"
 
-#: classes/Setting/ComponentFactory/NumberOfItems.php:14
+#: classes/Setting/ComponentFactory/NumberOfItems.php:20
 msgid "Number of Items"
 msgstr "Hoeveelheid items"
 
-#: classes/Setting/ComponentFactory/IncludeMissingSizes.php:21
+#: classes/Setting/ComponentFactory/IncludeMissingSizes.php:20
 msgid "Include sizes that are missing an image file."
 msgstr "Inclusief groottes zonder afbeeldingsbestand."
 
-#: classes/Setting/ComponentFactory/IncludeMissingSizes.php:16
+#: classes/Setting/ComponentFactory/IncludeMissingSizes.php:15
 msgid "Include missing sizes?"
 msgstr "Inclusief ontbrekende groottes?"
 
-#: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:41
+#: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:40
 msgid "current"
 msgstr "huidig"
 
-#: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:36
+#: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:35
 msgid "Network Site:"
 msgstr "Netwerk site:"
 
-#: classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:26
-#: classes/RequestHandler/Ajax/CustomFieldKeys.php:71
+#: classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:21
+#: classes/RequestHandler/Ajax/CustomFieldKeys.php:78
 msgid "Hidden"
 msgstr "Verborgen"
 
-#: classes/Setting/ComponentFactory/ExifData.php:69
+#: classes/Setting/ComponentFactory/ExifData.php:68
 msgid "Keywords"
 msgstr "Keywords"
 
-#: classes/Setting/ComponentFactory/ExifData.php:68
+#: classes/Setting/ComponentFactory/ExifData.php:67
 msgid "Orientation"
 msgstr "Oriëntatie"
 
-#: classes/Setting/ComponentFactory/ExifData.php:63
+#: classes/Setting/ComponentFactory/ExifData.php:62
 msgid "Copyright"
 msgstr "Copyright"
 
-#: classes/Setting/ComponentFactory/CustomField.php:31
-#: classes/Setting/ComponentFactory/CustomField.php:46
+#: classes/Setting/ComponentFactory/CustomField.php:30
+#: classes/Setting/ComponentFactory/CustomField.php:45
 msgid "Custom field key"
 msgstr "Custom field key"
 
-#: classes/Setting/ComponentFactory/AttachmentDisplay.php:48
+#: classes/Setting/ComponentFactory/AttachmentDisplay.php:47
 msgid "Count"
 msgstr "Aantal"
 
-#: classes/Setting/ComponentFactory/AttachmentDisplay.php:47
+#: classes/Setting/ComponentFactory/AttachmentDisplay.php:46
 msgid "Thumbnails"
 msgstr "Thumbnails"
 
-#: classes/Formatter/Post/PostStatusIcon.php:96
+#: classes/Formatter/Post/PostStatusIcon.php:99
 msgid "Missed schedule"
 msgstr "Inplannen gemist"
 
-#: classes/Formatter/Post/DatePublishFormatted.php:40
-#: classes/Formatter/Post/PostStatusIcon.php:87
+#: classes/Formatter/Post/DatePublishFormatted.php:38
+#: classes/Formatter/Post/PostStatusIcon.php:90
 msgid "Scheduled"
 msgstr "Ingepland"
 
-#: classes/ColumnFactory/Post/TitleRawFactory.php:44
+#: classes/ColumnFactory/Post/TitleRawFactory.php:43
 msgid "Title Only"
 msgstr "Alleen titel"
 
-#: classes/ColumnFactory/Post/CommentStatusFactory.php:22
+#: classes/ColumnFactory/Post/CommentStatusFactory.php:21
 msgid "Allow Comments"
 msgstr "Reacties toestaan"
 
-#: classes/ColumnFactory/Post/BeforeMoreFactory.php:50
+#: classes/ColumnFactory/Post/BeforeMoreFactory.php:49
 msgid "More Tag"
 msgstr "Meer tag"
 
-#: classes/ColumnFactory/Post/MenuFactory.php:49
+#: classes/ColumnFactory/Post/MenuFactory.php:48
 msgid "Menu"
 msgstr "Menu"
 
-#: classes/Formatter/Media/Dimensions.php:25
+#: classes/Formatter/Media/Dimensions.php:24
 msgid "Height : %s px"
 msgstr "Hoogte: %s px"
 
-#: classes/Formatter/Media/Dimensions.php:24
+#: classes/Formatter/Media/Dimensions.php:23
 msgid "Width : %s px"
 msgstr "Breedte: %s px"
 
-#: classes/Formatter/Media/AvailableSizes.php:59
+#: classes/Formatter/Media/AvailableSizes.php:63
 msgid "Missing image file for size %s."
 msgstr "Ontbrekend afbeeldingsbestand voor grootte %s."
 
-#: classes/Formatter/Media/AvailableSizes.php:38
+#: classes/Formatter/Media/AvailableSizes.php:39
 msgid "original"
 msgstr "origineel"
 
-#: classes/ColumnFactory/Media/AlternateTextFactory.php:27
+#: classes/ColumnFactory/Media/AlternateTextFactory.php:26
 msgid "Alternative Text"
 msgstr "Alternatieve tekst"
 
-#: classes/Formatter/Post/PostStatusIcon.php:77
+#: classes/Formatter/Post/PostStatusIcon.php:80
 msgid "Pending for review"
 msgstr "In afwachting van beoordeling"
 
-#: classes/Formatter/Post/PostStatusIcon.php:67
+#: classes/Formatter/Post/PostStatusIcon.php:70
 msgid "Draft"
 msgstr "Concept"
 
-#: classes/Formatter/Post/DatePublishFormatted.php:52
-#: classes/Formatter/Post/PostStatusIcon.php:57
+#: classes/Formatter/Post/DatePublishFormatted.php:56
+#: classes/Formatter/Post/PostStatusIcon.php:60
 msgid "Published"
 msgstr "Gepubliceerd"
 
-#: classes/Formatter/Post/PostStatusIcon.php:47
+#: classes/Formatter/Post/PostStatusIcon.php:50
 msgid "Private"
 msgstr "Privé"
 
-#: classes/Setting/ComponentFactory/PostStatusIcon.php:22
+#: classes/Setting/ComponentFactory/PostStatusIcon.php:23
 msgid "Use an icon instead of text for displaying the status."
 msgstr "Toon een icoon in plaats van tekst voor het tonen van de status."
 
-#: classes/Setting/ComponentFactory/PostStatusIcon.php:17
-#: classes/Setting/ComponentFactory/UseIcon.php:14
+#: classes/Setting/ComponentFactory/PostStatusIcon.php:18
+#: classes/Setting/ComponentFactory/UseIcon.php:15
 msgid "Use an icon?"
 msgstr "Icoon gebruiken?"
 
-#: classes/Helper/Strings.php:112
+#: classes/Helper/Strings.php:109
 msgid "&hellip;"
 msgstr "&hellip;"
 
@@ -2180,219 +2218,227 @@ msgstr "Huidige samenvatting is gegenereerd op basis de inhoud."
 msgid "Excerpt is missing."
 msgstr "Samenvatting niet aanwezig."
 
-#: classes/Setting/ComponentFactory/UserProperty.php:128
+#: classes/Setting/ComponentFactory/UserProperty.php:127
 msgid "User Nicename"
 msgstr "Gebruiker schermnaam"
 
-#: classes/Admin/MenuGroupFactory/BuddyPressGroups.php:26
-#: classes/Admin/MenuGroupFactory/BuddyPressGroups.php:38
-#: classes/Integration/BuddyPress.php:17
+#: classes/Admin/MenuGroupFactory/BuddyPressGroups.php:25
+#: classes/Admin/MenuGroupFactory/BuddyPressGroups.php:37
+#: classes/Integration/BuddyPress.php:18
 msgid "BuddyPress"
 msgstr "BuddyPress"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:61
+#: classes/RequestHandler/Ajax/ExtendedValue.php:60
 msgid "Invalid column."
 msgstr "Ongeldige kolom."
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:55
+#: classes/RequestHandler/Ajax/ExtendedValue.php:54
 msgid "Invalid list screen."
 msgstr "Ongeldige lijst weergave."
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:45
+#: classes/RequestHandler/Ajax/ExtendedValue.php:44
 msgid "Invalid item ID."
 msgstr "Ongeldig item ID."
 
-#: classes/Setting/ComponentFactory/WordLimit.php:25
+#: classes/Setting/ComponentFactory/WordLimit.php:24
 msgid "Maximum number of words"
 msgstr "Maximale aantal woorden"
 
-#: classes/Setting/ComponentFactory/StringLimit.php:43
-#: classes/Setting/ComponentFactory/WordLimit.php:18
+#: classes/Setting/ComponentFactory/StringLimit.php:42
+#: classes/Setting/ComponentFactory/WordLimit.php:17
 msgid "Word Limit"
 msgstr "Woordlimiet"
 
-#: classes/Admin/AdminLoader.php:104
-#: classes/Setting/ComponentFactory/AttachmentDisplay.php:39
-#: classes/Setting/ComponentFactory/ModalDisplay.php:46
-#: classes/Setting/ComponentFactory/Post/FeaturedImageDisplay.php:35
-#: classes/Setting/ComponentFactory/VideoDisplay.php:19
+#: classes/Admin/AdminLoader.php:105
+#: classes/Setting/ComponentFactory/AttachmentDisplay.php:38
+#: classes/Setting/ComponentFactory/ModalDisplay.php:45
+#: classes/Setting/ComponentFactory/Post/FeaturedImageDisplay.php:34
+#: classes/Setting/ComponentFactory/VideoDisplay.php:20
 msgid "Display"
 msgstr "Tonen"
 
-#: classes/Setting/ComponentFactory/Separator.php:27
+#: classes/Setting/ComponentFactory/Separator.php:31
 msgid "Separator"
 msgstr "Scheidingsteken"
 
-#: classes/Setting/ComponentFactory/Separator.php:37
+#: classes/Setting/ComponentFactory/Separator.php:41
 msgid "Whitespace"
 msgstr "Witruimte"
 
-#: classes/Setting/ComponentFactory/Separator.php:35
+#: classes/Setting/ComponentFactory/Separator.php:39
 msgid "New Line"
 msgstr "Nieuwe regel"
 
-#: classes/Setting/ComponentFactory/Separator.php:33
+#: classes/Setting/ComponentFactory/Separator.php:37
 msgid "Comma Separated"
 msgstr "Komma gescheiden"
 
-#: classes/Setting/ComponentFactory/Password.php:32
+#: classes/Setting/ComponentFactory/Password.php:31
 msgid "Plain text"
 msgstr "Platte tekst"
 
-#: classes/Formatter/Post/IsPasswordProtected.php:24
-#: classes/Setting/ComponentFactory/Password.php:31
+#: classes/Formatter/Post/IsPasswordProtected.php:23
+#: classes/Setting/ComponentFactory/Password.php:30
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: classes/Setting/ComponentFactory/ImageSizeBase.php:126
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:125
 msgid "Custom Size"
 msgstr "Aangepaste grootte"
 
-#: classes/Setting/ComponentFactory/ImageSizeBase.php:121
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:120
 msgid "Full Size"
 msgstr "Volledige grootte"
 
-#: classes/Setting/ComponentFactory/UserProperty.php:99
+#: classes/Setting/ComponentFactory/UserProperty.php:98
 msgid "Image Size"
 msgstr "Afbeeldingsgrootte"
 
-#: classes/Formatter/Date/TimeDifference.php:28
+#: classes/Formatter/Date/TimeDifference.php:27
 msgid "in %s"
 msgstr "in %s"
 
-#: classes/Formatter/Date/TimeDifference.php:25
+#: classes/Formatter/Date/TimeDifference.php:24
 msgid "%s ago"
 msgstr "%s geleden"
 
-#: classes/Setting/ComponentFactory/DateFormat.php:53
+#: classes/Setting/ComponentFactory/DateFormat.php:52
 msgid "date and time formatting"
 msgstr "datum en tijd notatie"
 
-#: classes/Setting/ComponentFactory/DateFormat.php:49
+#: classes/Setting/ComponentFactory/DateFormat.php:48
 msgid "Learn more about %s."
 msgstr "Leer meer over %s."
 
-#: classes/Setting/ComponentFactory/DateFormat.php:66
+#: classes/Setting/ComponentFactory/DateFormat.php:65
 msgid "The %s can be changed in %s."
 msgstr "De %s kan je aanpassen in %s."
 
-#: classes/Setting/ComponentFactory/DateFormat.php:67
-#: classes/Setting/ComponentFactory/DateFormat/Date.php:22
+#: classes/Setting/ComponentFactory/DateFormat.php:66
+#: classes/Setting/ComponentFactory/DateFormat/Date.php:21
 msgid "WordPress Date Format"
 msgstr "WordPress datumformat"
 
-#: classes/Setting/ComponentFactory/DateFormat/Date.php:21
-#: classes/Setting/ComponentFactory/DateFormat/Time.php:21
+#: classes/Setting/ComponentFactory/DateFormat/Date.php:20
+#: classes/Setting/ComponentFactory/DateFormat/Time.php:20
 msgid "Time Difference"
 msgstr "Tijdsverschil"
 
 #: classes/Setting/ComponentFactory/FieldType.php:146
-#: classes/Setting/ComponentFactory/IsMultiple.php:23
+#: classes/Setting/ComponentFactory/FieldTypeFactory.php:71
+#: classes/Setting/ComponentFactory/IsMultiple.php:22
 msgid "Multiple"
 msgstr "Meerdere"
 
 #: classes/Setting/ComponentFactory/FieldType.php:145
+#: classes/Setting/ComponentFactory/FieldTypeFactory.php:70
 msgid "Choice"
 msgstr "Keuze"
 
 #: classes/Setting/ComponentFactory/FieldType.php:144
+#: classes/Setting/ComponentFactory/FieldTypeFactory.php:69
 msgid "Relational"
 msgstr "Relationeel"
 
 #: classes/Setting/ComponentFactory/FieldType.php:143
+#: classes/Setting/ComponentFactory/FieldTypeFactory.php:68
 msgid "Basic"
 msgstr "Basis"
 
-#: classes/Setting/ComponentFactory/FieldType.php:193
+#: classes/Setting/ComponentFactory/FieldType.php:194
 msgid "Number of Fields"
 msgstr "Aantal velden"
 
 #: classes/Setting/ComponentFactory/FieldType.php:184
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/BooleanConfigurator.php:19
 msgid "True / False"
 msgstr "Waar / Niet waar"
 
 #: classes/Setting/ComponentFactory/FieldType.php:183
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/HasContentConfigurator.php:19
 msgid "Has Content"
 msgstr "Heeft inhoud"
 
 #: classes/Setting/ComponentFactory/FieldType.php:180
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/NumericConfigurator.php:25
 msgid "Number"
 msgstr "Nummer"
 
 #: classes/Setting/ComponentFactory/FieldType.php:176
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/TextConfigurator.php:25
 msgid "Text"
 msgstr "Tekst"
 
-#: classes/Setting/ComponentFactory/CustomField.php:26
+#: classes/Setting/ComponentFactory/CustomField.php:25
 msgid "Field"
 msgstr "Veld"
 
-#: classes/Setting/ComponentFactory/CharacterLimit.php:26
-#: classes/Setting/ComponentFactory/NumberOfItems.php:22
-#: classes/Setting/ComponentFactory/WordLimit.php:26
+#: classes/Setting/ComponentFactory/CharacterLimit.php:25
+#: classes/Setting/ComponentFactory/NumberOfItems.php:28
+#: classes/Setting/ComponentFactory/WordLimit.php:25
 msgid "Leave empty for no limit"
 msgstr "Laat leeg voor geen limiet"
 
-#: classes/Setting/ComponentFactory/CharacterLimit.php:25
+#: classes/Setting/ComponentFactory/CharacterLimit.php:24
 msgid "Maximum number of characters"
 msgstr "Maximum aantal karakters"
 
-#: classes/Setting/ComponentFactory/CharacterLimit.php:18
-#: classes/Setting/ComponentFactory/StringLimit.php:42
+#: classes/Setting/ComponentFactory/CharacterLimit.php:17
+#: classes/Setting/ComponentFactory/StringLimit.php:41
 msgid "Character Limit"
 msgstr "Karakterlimiet"
 
-#: classes/Helper/Strings.php:151
+#: classes/Helper/Strings.php:176
 msgid " or "
 msgstr " of "
 
-#: classes/Formatter/Collection/Separator.php:99
+#: classes/Formatter/Collection/Separator.php:113
 msgid "Hide"
 msgstr "Verbergen"
 
-#: classes/ColumnFactory/User/UserUrlFactory.php:17
+#: classes/ColumnFactory/User/UserUrlFactory.php:16
 msgid "Website"
 msgstr "Site"
 
-#: classes/ColumnFactory/User/ShowToolbarFactory.php:17
+#: classes/ColumnFactory/User/ShowToolbarFactory.php:16
 msgid "Show Toolbar"
 msgstr "Toolbar tonen"
 
-#: classes/ColumnFactory/Post/ShortLinkFactory.php:18
+#: classes/ColumnFactory/Post/ShortLinkFactory.php:17
 msgid "Shortlink"
 msgstr "Shortlink"
 
-#: classes/Setting/ComponentFactory/CommentStatus.php:28
-#: classes/Setting/ComponentFactory/CommentStatus.php:43
+#: classes/Setting/ComponentFactory/CommentStatus.php:27
+#: classes/Setting/ComponentFactory/CommentStatus.php:42
 msgid "Comment Status"
 msgstr "Reactiestatus"
 
-#: classes/Setting/ComponentFactory/PathScope.php:32
+#: classes/Setting/ComponentFactory/PathScope.php:31
 msgid "Full Path"
 msgstr "Volledig pad"
 
-#: classes/Admin/Asset/Columns.php:122
+#: classes/Admin/Asset/Columns.php:123
 msgid "Discount is valid until %s"
 msgstr "Korting is geldig tot %s"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:105
-#: classes/Table/Screen.php:152
+#: classes/Admin/Asset/Script/SettingsFactory.php:106
+#: classes/Table/Screen.php:153
 msgid "Show %s button on table screen."
 msgstr "Toon %s knop bij tabel scherm."
 
-#: classes/Admin/Tooltip.php:23
+#: classes/Admin/Tooltip.php:24
 msgid "Notice"
 msgstr "Bericht"
 
-#: classes/Admin/Tooltip.php:24
+#: classes/Admin/Tooltip.php:25
 msgid "Instructions"
 msgstr "Instructies"
 
-#: templates/admin/page/help-v2.php:24
+#: templates/admin/page/help-v2.php:26
 msgid "our documentation"
 msgstr "onze documentatie"
 
-#: templates/admin/page/help-v2.php:17
+#: templates/admin/page/help-v2.php:19
 msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
 msgstr "Deze site maakt gebruik van enkele acties of filters die zijn veranderd. Lees %s om ze op te lossen."
 
@@ -2400,32 +2446,32 @@ msgstr "Deze site maakt gebruik van enkele acties of filters die zijn veranderd.
 msgid "View documentation"
 msgstr "Bekijk documentatie"
 
-#: classes/Admin/MenuFactory.php:58 templates/admin/page/help-v2.php:12
+#: classes/Admin/MenuFactory.php:59 templates/admin/page/help-v2.php:14
 msgid "Help"
 msgstr "Hulp"
 
-#: classes/Formatter/Post/DiscussionStatus.php:29
+#: classes/Formatter/Post/DiscussionStatus.php:28
 msgid "Closed"
 msgstr "Gesloten"
 
-#: classes/Integration/Types.php:16
+#: classes/Integration/Types.php:17
 msgid "Toolset Types"
 msgstr "Toolset types"
 
-#: classes/Integration/Pods.php:16
+#: classes/Integration/Pods.php:17
 msgid "Pods"
 msgstr "Pods"
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:150
+#: classes/RequestHandler/Ajax/ListScreenSave.php:147
 msgid "View %s screen"
 msgstr "Bekijk %s scherm"
 
-#: classes/Setting/ComponentFactory/LinkLabel.php:26
+#: classes/Setting/ComponentFactory/LinkLabel.php:25
 msgid "Leave blank to display the URL"
 msgstr "Laat leeg om URL te tonen"
 
-#: classes/Setting/ComponentFactory/LinkLabel.php:25
-#: classes/Setting/ComponentFactory/ModalDisplay.php:56
+#: classes/Setting/ComponentFactory/LinkLabel.php:24
+#: classes/Setting/ComponentFactory/ModalDisplay.php:55
 msgid "Link Label"
 msgstr "Link label"
 
@@ -2444,258 +2490,260 @@ msgstr "AdminColumns.com"
 msgid "https://www.admincolumns.com"
 msgstr "https://www.admincolumns.com"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:106
-#: classes/Table/Screen.php:144
+#: classes/Admin/Asset/Script/SettingsFactory.php:107
+#: classes/Table/Screen.php:145
 msgid "Edit columns"
 msgstr "Kolommen bewerken"
 
-#: classes/Admin/Asset/Columns.php:355
-#: classes/Admin/Asset/Script/SettingsFactory.php:149
+#: classes/Admin/Asset/Columns.php:356
+#: classes/Admin/Asset/Script/SettingsFactory.php:150
 msgid "Upgrade"
 msgstr "Upgraden"
 
-#: classes/RequestHandler/Ajax/ListScreenSave.php:145
+#: classes/RequestHandler/Ajax/ListScreenSave.php:142
 msgid "Settings for %s updated successfully."
 msgstr "Instellingen voor %s succesvol geüpdatet."
 
-#: classes/TableScreen/User.php:26
+#: classes/TableScreen/User.php:25
 msgid "Users"
 msgstr "Gebruikers"
 
 #: classes/ColumnGroups.php:36
 #: classes/Setting/ComponentFactory/FieldType.php:188
-#: classes/TableScreen/Media.php:28 classes/TableScreen/Media.php:29
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/MediaConfigurator.php:32
+#: classes/TableScreen/Media.php:27 classes/TableScreen/Media.php:28
 msgid "Media"
 msgstr "Media"
 
-#: classes/Setting/ComponentFactory/CommentDisplay.php:52
-#: classes/TableScreen/Comment.php:25
+#: classes/Setting/ComponentFactory/CommentDisplay.php:51
+#: classes/TableScreen/Comment.php:24
 msgid "Comment"
 msgstr "Reactie"
 
-#: classes/ColumnFactory/User/CommentCountFactory.php:17
-#: classes/TableScreen/Comment.php:26
+#: classes/ColumnFactory/User/CommentCountFactory.php:16
+#: classes/TableScreen/Comment.php:25
 msgid "Comments"
 msgstr "Reacties"
 
-#: classes/Admin/Asset/Columns.php:485
+#: classes/Admin/Asset/Columns.php:486
 msgid "Activate"
 msgstr "Activeren"
 
-#: classes/Admin/Asset/Columns.php:484
+#: classes/Admin/Asset/Columns.php:485
 msgid "Active"
 msgstr "Actief"
 
-#: classes/Admin/Asset/Columns.php:611
+#: classes/Admin/Asset/Columns.php:613
 msgid "Add Column"
 msgstr "Kolom toevoegen"
 
-#: classes/Admin/Asset/Columns.php:566
+#: classes/Admin/Asset/Columns.php:568
 msgid "Support"
 msgstr "Ondersteuning"
 
-#: classes/Admin/Asset/Columns.php:590
+#: classes/Admin/Asset/Columns.php:592
 msgid "Tweet"
 msgstr "Tweet"
 
-#: classes/Admin/Asset/Columns.php:589
+#: classes/Admin/Asset/Columns.php:591
 msgid "Rate"
 msgstr "Waardeer"
 
-#: classes/Admin/Asset/Columns.php:588
+#: classes/Admin/Asset/Columns.php:590
 msgid "Forum"
 msgstr "Forum"
 
-#: classes/Admin/Asset/Columns.php:587
+#: classes/Admin/Asset/Columns.php:589
 msgid "Docs"
 msgstr "Documenten"
 
-#: classes/Acf/Service/FieldSettings.php:334
+#: classes/Acf/Service/FieldSettings.php:333
 msgid "Get Admin Columns Pro →"
 msgstr "Verkrijg Admin Columns Pro →"
 
-#: classes/Admin/MenuFactory.php:44
+#: classes/Admin/MenuFactory.php:45
 msgid "Columns"
 msgstr "Kolommen"
 
-#: classes/Admin/MenuFactory.php:46
+#: classes/Admin/MenuFactory.php:47
 msgid "Add-ons"
 msgstr "Add-ons"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:101
-#: classes/Admin/MenuFactory.php:45 classes/PluginActionLinks.php:32
+#: classes/Admin/Asset/Script/SettingsFactory.php:102
+#: classes/Admin/MenuFactory.php:46 classes/PluginActionLinks.php:33
 msgid "Settings"
 msgstr "Instellingen"
 
-#: classes/Setting/ComponentFactory/ImageSizeBase.php:132
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:131
 msgid "Others"
 msgstr "Overige"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:114
+#: classes/Admin/Asset/Script/SettingsFactory.php:115
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr "Waarschuwing! ALLE gegevens van opgeslagen Admin Columns zullen worden verwijderd. Dit kan niet ongedaan gemaakt worden. 'OK' om te verwijderen, 'Annuleren' om te stoppen"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:109
+#: classes/Admin/Asset/Script/SettingsFactory.php:110
 msgid "Delete all column settings and restore the default settings."
 msgstr "Verwijder alle kolom instellingen, en zet de standaardinstellingen terug."
 
-#: classes/Admin/Asset/Columns.php:561
+#: classes/Admin/Asset/Columns.php:563
 msgid "Save"
 msgstr "Opslaan"
 
-#: classes/Admin/Asset/Script/SettingsFactory.php:102
-#: classes/Setting/ComponentFactory/DateFormat.php:70
+#: classes/Admin/Asset/Script/SettingsFactory.php:103
+#: classes/Setting/ComponentFactory/DateFormat.php:69
 msgid "General Settings"
 msgstr "Algemene instellingen"
 
-#: classes/Acf/Service/FieldSettings.php:165
+#: classes/Acf/Service/FieldSettings.php:164
 msgid "Learn more →"
 msgstr "Lees verder →"
 
-#: classes/ColumnFactory/User/UserNameFactory.php:17
+#: classes/ColumnFactory/User/UserNameFactory.php:16
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: classes/RequestHandler/Ajax/RestoreSettingsRequest.php:51
+#: classes/RequestHandler/Ajax/RestoreSettingsRequest.php:52
 msgid "Default settings successfully restored."
 msgstr "Standaard instellingen succesvol teruggezet."
 
-#: classes/Admin/Asset/Columns.php:325
+#: classes/Admin/Asset/Columns.php:326
 msgid "%s column is already present and can not be duplicated."
 msgstr "%s kolom is al in gebruik en kan niet worden gedupliceerd."
 
-#: classes/Admin/MenuPageFactory/Menu.php:15
-#: classes/Admin/MenuPageFactory/SubMenu.php:16
+#: classes/Admin/MenuPageFactory/Menu.php:16
+#: classes/Admin/MenuPageFactory/SubMenu.php:17
 msgid "Admin Columns Settings"
 msgstr "Admin Columns instellingen"
 
-#: classes/Check/Review.php:150
+#: classes/Check/Review.php:154
 msgid "find answers to frequently asked questions"
 msgstr "vind antwoorden op veel gestelde vragen"
 
-#: classes/Check/Review.php:146
+#: classes/Check/Review.php:150
 msgid "Admin Columns forum on WordPress.org"
 msgstr "Admin Columns forum op WordPress.org"
 
-#: classes/Check/Review.php:145
+#: classes/Check/Review.php:149
 msgid "You can also find help on the %s, and %s."
 msgstr "Je kan ook hulp vinden op de %s, en %s."
 
-#: classes/Check/Review.php:138
+#: classes/Check/Review.php:142
 msgid "documentation page"
 msgstr "documentatie pagina"
 
-#: classes/Check/Review.php:131
+#: classes/Check/Review.php:135
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr "Dat is vervelend om te horen; misschien kunnen we helpen! Als je problemen hebt met de basis instellingen %s of als je hulp wilt met geavanceerdere functies, bezoek dan onze %s."
 
-#: classes/Check/Review.php:122
+#: classes/Check/Review.php:126
 msgid "Permanently hide notice"
 msgstr "Permanent bericht verbergen"
 
-#: classes/Check/Review.php:120
+#: classes/Check/Review.php:124
 msgid "Leave a review!"
 msgstr "Laat een beoordeling achter!"
 
-#: classes/Check/Review.php:112
+#: classes/Check/Review.php:116
 msgid "click here"
 msgstr "klik hier"
 
-#: classes/Check/Review.php:106
+#: classes/Check/Review.php:110
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr "We willen je niet storen, maar je gebruikt %s nu al een tijdje, en we vroegen ons af of je tevreden was met de plugin. Zo ja, zou je dan een beoordeling achter willen laten op WordPress.org? Als je niet blij bent met %s, %s."
 
-#: classes/Admin/Asset/Columns.php:444
-#: classes/Admin/Asset/Script/SettingsFactory.php:141
-#: classes/Admin/Banner/Context/Acf.php:46
-#: classes/Admin/Banner/Context/WooCommerce.php:38
+#: classes/Admin/Asset/Columns.php:445
+#: classes/Admin/Asset/Script/SettingsFactory.php:142
+#: classes/Admin/Banner/Context/Acf.php:45
+#: classes/Admin/Banner/Context/WooCommerce.php:37
 msgid "Admin Columns Pro"
 msgstr "Admin Columns Pro"
 
 #. Plugin Name of the plugin
-#: codepress-admin-columns.php classes/Acf/Service/FieldSettings.php:114
-#: classes/Acf/Service/FieldSettings.php:227
-#: classes/Admin/MenuPageFactory/Menu.php:16
-#: classes/Admin/MenuPageFactory/SubMenu.php:17 classes/Check/Review.php:96
-#: classes/Table/Screen.php:90
+#: codepress-admin-columns.php classes/Acf/Service/FieldSettings.php:113
+#: classes/Acf/Service/FieldSettings.php:226
+#: classes/Admin/MenuPageFactory/Menu.php:17
+#: classes/Admin/MenuPageFactory/SubMenu.php:18 classes/Check/Review.php:100
+#: classes/Table/Screen.php:91
 msgid "Admin Columns"
 msgstr "Admin Columns"
 
-#: classes/ColumnFactory/IntegrationPlaceholder.php:66
+#: classes/ColumnFactory/IntegrationPlaceholder.php:65
 msgid "Find out more"
 msgstr "Meer weten"
 
-#: classes/Setting/ComponentFactory/PostLink.php:53
+#: classes/Setting/ComponentFactory/PostLink.php:52
 msgid "View Public Post Author Page"
 msgstr "Bekijk publieke bericht auteur pagina"
 
-#: classes/Setting/ComponentFactory/PostLink.php:52
+#: classes/Setting/ComponentFactory/PostLink.php:51
 msgid "Edit Post Author"
 msgstr "Bewerk bericht auteur"
 
-#: classes/Setting/ComponentFactory/PostLink.php:51
+#: classes/Setting/ComponentFactory/PostLink.php:50
 msgid "View Post"
 msgstr "Bericht bekijken"
 
-#: classes/Setting/ComponentFactory/PostLink.php:50
+#: classes/Setting/ComponentFactory/PostLink.php:49
 msgid "Edit Post"
 msgstr "Bericht bewerken"
 
-#: classes/Admin/Asset/Columns.php:526
+#: classes/Admin/Asset/Columns.php:527
 msgid "default"
 msgstr "standaard"
 
-#: classes/Setting/ComponentFactory/Label.php:21
+#: classes/Setting/ComponentFactory/Label.php:20
 msgid "This is the name which will appear as the column header."
 msgstr "Deze naam zal verschijnen als kolom header."
 
-#: classes/Setting/ComponentFactory/Label.php:16
+#: classes/Setting/ComponentFactory/Label.php:15
 msgid "Label"
 msgstr "Label"
 
-#: classes/Setting/ComponentFactory/Password.php:26
+#: classes/Setting/ComponentFactory/Password.php:25
 msgid "Display format"
 msgstr "Weergave format"
 
-#: classes/Setting/ComponentFactory/UserLink.php:56
-#: classes/Setting/ComponentFactory/UserProperty.php:126
+#: classes/Setting/ComponentFactory/UserLink.php:55
+#: classes/Setting/ComponentFactory/UserProperty.php:125
 msgid "User Email"
 msgstr "Gebruiker e-mail"
 
-#: classes/Setting/ComponentFactory/UserProperty.php:125
+#: classes/Setting/ComponentFactory/UserProperty.php:124
 msgid "User Login"
 msgstr "Gebruiker login"
 
-#: classes/ColumnFactory/User/LastNameFactory.php:17
-#: classes/Setting/ComponentFactory/UserProperty.php:123
+#: classes/ColumnFactory/User/LastNameFactory.php:16
+#: classes/Setting/ComponentFactory/UserProperty.php:122
 msgid "Last Name"
 msgstr "Achternaam"
 
-#: classes/ColumnFactory/User/FirstNameFactory.php:17
-#: classes/Setting/ComponentFactory/UserProperty.php:121
+#: classes/ColumnFactory/User/FirstNameFactory.php:16
+#: classes/Setting/ComponentFactory/UserProperty.php:120
 msgid "First Name"
 msgstr "Voornaam"
 
-#: classes/ColumnFactory/User/DisplayNameFactory.php:17
-#: classes/Setting/ComponentFactory/UserProperty.php:120
+#: classes/ColumnFactory/User/DisplayNameFactory.php:16
+#: classes/Setting/ComponentFactory/UserProperty.php:119
 msgid "Display Name"
 msgstr "Weergave naam"
 
-#: classes/Setting/ComponentFactory/BeforeAfter.php:45
+#: classes/Setting/ComponentFactory/BeforeAfter.php:44
 msgid "After"
 msgstr "Na"
 
-#: classes/Setting/ComponentFactory/BeforeAfter.php:40
+#: classes/Setting/ComponentFactory/BeforeAfter.php:39
 msgid "Before"
 msgstr "Voor"
 
 #: classes/ColumnGroups.php:43
 #: classes/Setting/ComponentFactory/FieldType.php:147
-#: classes/Setting/ComponentFactory/ImageSizeBase.php:128
+#: classes/Setting/ComponentFactory/FieldTypeFactory.php:72
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:127
 msgid "Custom"
 msgstr "Aangepast"
 
-#: classes/Setting/ComponentFactory/FilePreviewSize.php:34
+#: classes/Setting/ComponentFactory/FilePreviewSize.php:33
 msgid "Preview size"
 msgstr "Voorbeeldformaat"
 
@@ -2703,489 +2751,498 @@ msgstr "Voorbeeldformaat"
 msgid "Example"
 msgstr "Voorbeeld"
 
-#: classes/Acf/Service/DateSaveFormat.php:28
+#: classes/Acf/Service/DateSaveFormat.php:27
 msgid "Date Format"
 msgstr "Datumnotatie"
 
-#: classes/Setting/ComponentFactory/ImageSizeBase.php:120
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:119
 msgid "Large"
 msgstr "Groot"
 
-#: classes/Setting/ComponentFactory/ImageSizeBase.php:119
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:118
 msgid "Medium"
 msgstr "Gemiddeld"
 
-#: classes/Setting/ComponentFactory/ImageSizeBase.php:118
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:117
 msgid "Thumbnail"
 msgstr "Thumbnail"
 
-#: classes/ColumnFactory/User/VisualEditingFactory.php:17
+#: classes/ColumnFactory/User/VisualEditingFactory.php:16
 msgid "Visual Editor"
 msgstr "Visuele editor"
 
-#: classes/ColumnFactory/User/RegisteredDateFactory.php:31
+#: classes/ColumnFactory/User/RegisteredDateFactory.php:30
 msgid "Registered"
 msgstr "Registratie"
 
-#: classes/Setting/ComponentFactory/PostType.php:33
+#: classes/Setting/ComponentFactory/PostType.php:36
 msgid "Post Type"
 msgstr "Berichttype"
 
-#: classes/ColumnFactory/User/PostCountFactory.php:35
+#: classes/ColumnFactory/User/PostCountFactory.php:34
 msgid "Post Count"
 msgstr "Bericht aantal"
 
-#: classes/ColumnFactory/User/NicknameFactory.php:29
-#: classes/Setting/ComponentFactory/UserProperty.php:124
+#: classes/ColumnFactory/User/NicknameFactory.php:28
+#: classes/Setting/ComponentFactory/UserProperty.php:123
 msgid "Nickname"
 msgstr "Schermnaam"
 
-#: classes/ColumnFactory/Post/CommentCountFactory.php:51
+#: classes/ColumnFactory/Post/CommentCountFactory.php:50
 msgid "Comment Count"
 msgstr "Aantal reacties"
 
-#: classes/ColumnFactory/User/UserIdFactory.php:32
-#: classes/Setting/ComponentFactory/UserProperty.php:127
+#: classes/ColumnFactory/User/UserIdFactory.php:31
+#: classes/Setting/ComponentFactory/UserProperty.php:126
 msgid "User ID"
 msgstr "Gebruiker ID"
 
-#: classes/Setting/ComponentFactory/LinkToMenu.php:21
+#: classes/Setting/ComponentFactory/LinkToMenu.php:20
 msgid "This will make the title link to the menu."
 msgstr "Hierdoor zal de titel linken naar het menu."
 
-#: classes/ColumnFactory/Post/TaxonomyFactory.php:54
-#: classes/Setting/ComponentFactory/Taxonomy.php:33
+#: classes/ColumnFactory/Post/TaxonomyFactory.php:53
+#: classes/Setting/ComponentFactory/Taxonomy.php:32
 msgid "Taxonomy"
 msgstr "Taxonomie"
 
-#: classes/ColumnFactory/Post/StickyFactory.php:23
+#: classes/ColumnFactory/Post/StickyFactory.php:22
 msgid "Sticky"
 msgstr "Sticky"
 
-#: classes/ColumnFactory/Comment/StatusFactory.php:17
-#: classes/ColumnFactory/Post/StatusFactory.php:31
-#: classes/RequestHandler/Ajax/NetworkPostStati.php:85
-#: classes/Setting/ComponentFactory/PostProperty.php:125
+#: classes/ColumnFactory/Comment/StatusFactory.php:16
+#: classes/ColumnFactory/Post/StatusFactory.php:30
+#: classes/RequestHandler/Ajax/NetworkPostStati.php:84
+#: classes/Setting/ComponentFactory/PostProperty.php:124
 msgid "Status"
 msgstr "Status"
 
-#: classes/ColumnFactory/Post/SlugFactory.php:17
-#: classes/Setting/ComponentFactory/TermProperty.php:29
+#: classes/ColumnFactory/Post/SlugFactory.php:16
+#: classes/Setting/ComponentFactory/TermProperty.php:30
 msgid "Slug"
 msgstr "Slug"
 
-#: classes/ColumnFactory/Post/ShortcodesFactory.php:18
+#: classes/ColumnFactory/Post/ShortcodesFactory.php:17
 msgid "Shortcodes"
 msgstr "Shortcodes"
 
-#: classes/Setting/ComponentFactory/UserProperty.php:140
+#: classes/Setting/ComponentFactory/UserProperty.php:139
 msgid "Roles"
 msgstr "Rollen"
 
-#: classes/ColumnFactory/Post/PingStatusFactory.php:18
+#: classes/ColumnFactory/Post/PingStatusFactory.php:17
 msgid "Ping Status"
 msgstr "Ping status"
 
-#: classes/ColumnFactory/Post/PermalinkFactory.php:50
+#: classes/ColumnFactory/Post/PermalinkFactory.php:49
 msgid "Permalink"
 msgstr "Permalink"
 
-#: classes/ColumnFactory/Post/PathFactory.php:22
+#: classes/ColumnFactory/Post/PathFactory.php:21
 msgid "Path"
 msgstr "Pad"
 
-#: classes/ColumnFactory/Post/ParentFactory.php:41
+#: classes/ColumnFactory/Post/ParentFactory.php:40
 msgid "Parent"
 msgstr "Hoofd"
 
-#: classes/ColumnFactory/Post/PageTemplateFactory.php:35
+#: classes/ColumnFactory/Post/PageTemplateFactory.php:34
 msgid "Page Template"
 msgstr "Pagina template"
 
-#: classes/ColumnFactory/Post/OrderFactory.php:22
+#: classes/ColumnFactory/Post/OrderFactory.php:21
 msgid "Order"
 msgstr "Volgorde"
 
-#: classes/ColumnFactory/Post/LastModifiedFactory.php:36
+#: classes/ColumnFactory/Post/LastModifiedFactory.php:35
 msgid "Last Modified"
 msgstr "Laatst gewijzigd"
 
-#: classes/ColumnFactory/Post/LastModifiedAuthorFactory.php:46
+#: classes/ColumnFactory/Post/LastModifiedAuthorFactory.php:45
 msgid "Last Modified Author"
 msgstr "Laatst gewijzigd auteur"
 
-#: classes/ColumnFactory/Post/FormatsFactory.php:36
+#: classes/ColumnFactory/Post/FormatsFactory.php:35
 msgid "Post Format"
 msgstr "Bericht format"
 
-#: classes/ColumnFactory/Post/FeaturedImageFactory.php:36
+#: classes/ColumnFactory/Post/FeaturedImageFactory.php:35
 msgid "Featured Image"
 msgstr "Uitgelichte afbeelding"
 
-#: classes/Setting/ComponentFactory/WordsPerMinute.php:27
+#: classes/Setting/ComponentFactory/WordsPerMinute.php:26
 msgid "Estimated reading time in words per minute."
 msgstr "Geschatte leestijd in woorden per minuut."
 
-#: classes/Setting/ComponentFactory/WordsPerMinute.php:26
+#: classes/Setting/ComponentFactory/WordsPerMinute.php:25
 msgid "Words per minute"
 msgstr "Woorden per minuut"
 
-#: classes/Formatter/HumanReadableTime.php:44
+#: classes/Formatter/HumanReadableTime.php:43
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuut"
 msgstr[1] "minuten"
 
-#: classes/Formatter/HumanReadableTime.php:42
+#: classes/Formatter/HumanReadableTime.php:41
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "seconde"
 msgstr[1] "seconden"
 
-#: classes/ColumnFactory/Post/DepthFactory.php:22
+#: classes/ColumnFactory/Post/DepthFactory.php:21
 msgid "Depth"
 msgstr "Diepte"
 
-#: classes/ColumnFactory/Post/DatePublishFactory.php:49
+#: classes/ColumnFactory/Post/DatePublishFactory.php:48
 msgid "Date Published"
 msgstr "Datum van publicatie"
 
-#: classes/Formatter/Comment/StatusLabel.php:37
-#: classes/Setting/ComponentFactory/CommentStatus.php:64
+#: classes/Formatter/Comment/StatusLabel.php:36
+#: classes/Setting/ComponentFactory/CommentStatus.php:63
 msgid "Spam"
 msgstr "Spam"
 
-#: classes/Formatter/Comment/StatusLabel.php:39
-#: classes/Setting/ComponentFactory/CommentStatus.php:63
+#: classes/Formatter/Comment/StatusLabel.php:38
+#: classes/Setting/ComponentFactory/CommentStatus.php:62
 msgid "Pending"
 msgstr "In afwachting"
 
-#: classes/Setting/ComponentFactory/CommentStatus.php:71
+#: classes/Setting/ComponentFactory/CommentStatus.php:70
 msgid "Total"
 msgstr "Totaal"
 
-#: classes/Setting/ComponentFactory/UserLink.php:57
+#: classes/Setting/ComponentFactory/UserLink.php:56
 msgid "View Public Author Page"
 msgstr "Bekijk publieke auteur pagina"
 
-#: classes/Setting/ComponentFactory/UserLink.php:61
+#: classes/Setting/ComponentFactory/UserLink.php:60
 msgid "View User Posts"
 msgstr "Bekijk gebruiker berichten"
 
-#: classes/Setting/ComponentFactory/UserLink.php:55
+#: classes/Setting/ComponentFactory/UserLink.php:54
 msgid "Edit User Profile"
 msgstr "Gebruikersprofiel bewerken"
 
-#: classes/Setting/ComponentFactory/CommentLink.php:31
-#: classes/Setting/ComponentFactory/MediaLink.php:29
-#: classes/Setting/ComponentFactory/PostLink.php:49
-#: classes/Setting/ComponentFactory/Separator.php:36
-#: classes/Setting/ComponentFactory/TermLink.php:55
-#: classes/Setting/ComponentFactory/UserLink.php:54
+#: classes/Setting/ComponentFactory/CommentLink.php:30
+#: classes/Setting/ComponentFactory/MediaLink.php:28
+#: classes/Setting/ComponentFactory/PostLink.php:48
+#: classes/Setting/ComponentFactory/Separator.php:40
+#: classes/Setting/ComponentFactory/TermLink.php:54
+#: classes/Setting/ComponentFactory/UserLink.php:53
 msgid "None"
 msgstr "Geen"
 
-#: classes/Setting/ComponentFactory/CommentLink.php:25
-#: classes/Setting/ComponentFactory/LinkToMenu.php:16
-#: classes/Setting/ComponentFactory/TermLink.php:27
-#: classes/Setting/ComponentFactory/UserLink.php:32
+#: classes/Setting/ComponentFactory/CommentLink.php:24
+#: classes/Setting/ComponentFactory/LinkToMenu.php:15
+#: classes/Setting/ComponentFactory/TermLink.php:26
+#: classes/Setting/ComponentFactory/UserLink.php:31
 msgid "Link To"
 msgstr "Link aan"
 
-#: classes/ColumnFactory/Post/AttachmentFactory.php:41
+#: classes/ColumnFactory/Post/AttachmentFactory.php:40
 msgid "Attachments"
 msgstr "Bijlagen"
 
-#: classes/ColumnFactory/Media/PreviewFactory.php:23
-#: classes/Setting/ComponentFactory/FileDisplay.php:38
-#: classes/Setting/ComponentFactory/NumberFormat.php:72
+#: classes/ColumnFactory/Media/PreviewFactory.php:22
+#: classes/Setting/ComponentFactory/FileDisplay.php:37
+#: classes/Setting/ComponentFactory/NumberFormat.php:73
 msgid "Preview"
 msgstr "Voorbeeld"
 
-#: classes/ColumnFactory/Media/WidthFactory.php:23
-#: classes/Setting/ComponentFactory/ImageSizeBase.php:64
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:39
-#: classes/Setting/ComponentFactory/Width.php:27
+#: classes/ColumnFactory/Media/WidthFactory.php:22
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:63
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:40
+#: classes/Setting/ComponentFactory/Width.php:26
 msgid "Width"
 msgstr "Breedte"
 
-#: classes/ColumnFactory/Media/MimeTypeFactory.php:22
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:51
+#: classes/ColumnFactory/Media/MimeTypeFactory.php:21
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:50
 msgid "Mime Type"
 msgstr "MIME type"
 
-#: classes/ColumnFactory/Media/HeightFactory.php:23
-#: classes/Setting/ComponentFactory/ImageSizeBase.php:70
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:36
+#: classes/ColumnFactory/Media/HeightFactory.php:22
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:69
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:37
 msgid "Height"
 msgstr "Hoogte"
 
-#: classes/Setting/ComponentFactory/PathScope.php:34
+#: classes/Setting/ComponentFactory/PathScope.php:33
 msgid "Relative to main uploads folder"
 msgstr "Relatief aan de uploads map"
 
-#: classes/Setting/ComponentFactory/PathScope.php:33
+#: classes/Setting/ComponentFactory/PathScope.php:32
 msgid "Relative to domain"
 msgstr "Relatief aan het domein"
 
-#: classes/Setting/ComponentFactory/PathScope.php:27
+#: classes/Setting/ComponentFactory/PathScope.php:26
 msgid "Part of the file path to display"
 msgstr "Deel van het bestandspad dat moet worden getoond"
 
-#: classes/Setting/ComponentFactory/PathScope.php:26
+#: classes/Setting/ComponentFactory/PathScope.php:25
 msgid "Path scope"
 msgstr "Pad scope"
 
-#: classes/ColumnFactory/Media/FileSizeFactory.php:23
+#: classes/ColumnFactory/Media/FileSizeFactory.php:22
 msgid "File Size"
 msgstr "Bestandsgrootte"
 
-#: classes/ColumnFactory/Media/FileNameFactory.php:23
-#: classes/Setting/ComponentFactory/FileDisplay.php:37
+#: classes/ColumnFactory/Media/FileNameFactory.php:22
+#: classes/Setting/ComponentFactory/FileDisplay.php:36
 msgid "Filename"
 msgstr "Bestandsnaam"
 
-#: classes/Setting/ComponentFactory/ExifData.php:67
-#: classes/Setting/ComponentFactory/PostProperty.php:120
-#: classes/Setting/ComponentFactory/TermProperty.php:28
+#: classes/Setting/ComponentFactory/ExifData.php:66
+#: classes/Setting/ComponentFactory/PostProperty.php:119
+#: classes/Setting/ComponentFactory/TermProperty.php:29
 msgid "Title"
 msgstr "Titel"
 
-#: classes/Setting/ComponentFactory/ExifData.php:66
+#: classes/Setting/ComponentFactory/ExifData.php:65
 msgid "Shutter Speed"
 msgstr "Sluitertijd"
 
-#: classes/Setting/ComponentFactory/ExifData.php:65
+#: classes/Setting/ComponentFactory/ExifData.php:64
 msgid "ISO"
 msgstr "ISO"
 
-#: classes/Setting/ComponentFactory/ExifData.php:64
+#: classes/Setting/ComponentFactory/ExifData.php:63
 msgid "Focal Length"
 msgstr "Focuslengte"
 
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:49
-#: classes/Setting/ComponentFactory/ExifData.php:62
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:58
+#: classes/Setting/ComponentFactory/ExifData.php:61
 msgid "Timestamp"
 msgstr "Tijdstempel"
 
-#: classes/Setting/ComponentFactory/ExifData.php:60
+#: classes/Setting/ComponentFactory/ExifData.php:59
 msgid "Camera"
 msgstr "Camera"
 
-#: classes/Setting/ComponentFactory/ExifData.php:59
+#: classes/Setting/ComponentFactory/ExifData.php:58
 msgid "Credit"
 msgstr "Credit"
 
-#: classes/Setting/ComponentFactory/ExifData.php:58
+#: classes/Setting/ComponentFactory/ExifData.php:57
 msgid "Aperture"
 msgstr "Aperture"
 
-#: classes/ColumnFactory/Media/DimensionsFactory.php:27
-#: classes/Setting/ComponentFactory/Post/FeaturedImageDisplay.php:45
+#: classes/ColumnFactory/Media/DimensionsFactory.php:26
+#: classes/Setting/ComponentFactory/Post/FeaturedImageDisplay.php:44
 msgid "Dimensions"
 msgstr "Afmetingen"
 
-#: classes/ColumnFactory/Media/CaptionFactory.php:35
-#: classes/Setting/ComponentFactory/ExifData.php:61
+#: classes/ColumnFactory/Media/CaptionFactory.php:34
+#: classes/Setting/ComponentFactory/ExifData.php:60
 msgid "Caption"
 msgstr "Bijschrift"
 
-#: classes/ColumnFactory/Media/AvailableSizesFactory.php:48
+#: classes/ColumnFactory/Media/AvailableSizesFactory.php:47
 msgid "Available Sizes"
 msgstr "Beschikbare grootte"
 
-#: classes/Formatter/Media/PreviewViewLink.php:50
-#: classes/Setting/ComponentFactory/MediaLink.php:30
-#: classes/Table/Screen.php:148
+#: classes/Formatter/Media/PreviewViewLink.php:49
+#: classes/Setting/ComponentFactory/MediaLink.php:29
+#: classes/Table/Screen.php:149
 msgid "View"
 msgstr "Bekijken"
 
+#: classes/Formatter/Comment/StatusLabel.php:34
 #: classes/Formatter/Comment/StatusLabel.php:35
-#: classes/Formatter/Comment/StatusLabel.php:36
-#: classes/Setting/ComponentFactory/CommentStatus.php:65
+#: classes/Setting/ComponentFactory/CommentStatus.php:64
 msgid "Trash"
 msgstr "Prullenbak"
 
-#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:48
-#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:37
+#: classes/Setting/ComponentFactory/Media/FileMetaAudio.php:47
+#: classes/Setting/ComponentFactory/Media/FileMetaVideo.php:38
 msgid "Length"
 msgstr "Lengte"
 
-#: classes/ColumnFactory/User/DescriptionFactory.php:35
+#: classes/ColumnFactory/User/DescriptionFactory.php:34
 msgid "Description"
 msgstr "Beschrijving"
 
 #: classes/Setting/ComponentFactory/FieldType.php:112
+#: classes/Setting/ComponentFactory/FieldTypeFactory.php:43
 msgid "This will determine how the value will be displayed."
 msgstr "Dit zal bepalen hoe de waarde wordt getoond."
 
 #: classes/Setting/ComponentFactory/FieldType.php:107
+#: classes/Setting/ComponentFactory/FieldTypeFactory.php:38
 msgid "Field Type"
 msgstr "Veld type"
 
-#: classes/Setting/ComponentFactory/FieldType.php:196
+#: classes/Setting/ComponentFactory/FieldType.php:197
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/SerializedConfigurator.php:29
 msgid "Multiple Values"
 msgstr "Meerdere waarden"
 
-#: classes/ColumnFactory/Media/ImageFactory.php:41 classes/ColumnGroups.php:38
+#: classes/ColumnFactory/Media/ImageFactory.php:40 classes/ColumnGroups.php:38
 #: classes/Setting/ComponentFactory/FieldType.php:178
-#: classes/Setting/ComponentFactory/Post/FeaturedImageDisplay.php:43
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/ImageConfigurator.php:38
+#: classes/Setting/ComponentFactory/Post/FeaturedImageDisplay.php:42
 msgid "Image"
 msgstr "Afbeelding"
 
-#: classes/ColumnFactory/Comment/ExcerptFactory.php:38
-#: classes/ColumnFactory/Post/ExcerptFactory.php:40
+#: classes/ColumnFactory/Comment/ExcerptFactory.php:37
+#: classes/ColumnFactory/Post/ExcerptFactory.php:39
 msgid "Excerpt"
 msgstr "Samenvatting"
 
 #: classes/Setting/ComponentFactory/FieldType.php:174
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/ColorConfigurator.php:19
 msgid "Color"
 msgstr "Kleur"
 
-#: classes/Admin/MenuGroupFactory/DefaultGroups.php:60
+#: classes/Admin/MenuGroupFactory/DefaultGroups.php:62
 #: classes/ColumnGroups.php:26
-#: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:21
-#: classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:17
-#: classes/RequestHandler/Ajax/CustomFieldKeys.php:74
-#: classes/Response/JsonListScreenSettingsFactory.php:84
+#: classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20
+#: classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:15
+#: classes/RequestHandler/Ajax/CustomFieldKeys.php:81
+#: classes/Response/JsonListScreenSettingsFactory.php:89
 #: classes/Setting/ComponentFactory/FieldType.php:152
-#: classes/Setting/ComponentFactory/ImageSizeBase.php:115
-#: classes/Setting/ComponentFactory/NumberFormat.php:34
-#: classes/Setting/ComponentFactory/Separator.php:32
-#: classes/Setting/ComponentFactory/UserProperty.php:134
+#: classes/Setting/ComponentFactory/FieldTypeFactory.php:64
+#: classes/Setting/ComponentFactory/ImageSizeBase.php:114
+#: classes/Setting/ComponentFactory/NumberFormat.php:35
+#: classes/Setting/ComponentFactory/Separator.php:36
+#: classes/Setting/ComponentFactory/UserProperty.php:133
 msgid "Default"
 msgstr "Standaard"
 
-#: classes/ColumnFactory/CustomFieldFactory.php:88
+#: classes/ColumnFactory/CustomFieldFactory.php:89
 #: classes/Setting/ComponentFactory/PostExtendedProperty.php:46
-#: templates/tooltip/custom-field.php:8
+#: templates/tooltip/custom-field.php:10
 msgid "Custom Field"
 msgstr "Aangepast veld"
 
-#: classes/ColumnFactory/Comment/WordCountFactory.php:32
-#: classes/ColumnFactory/Post/WordCountFactory.php:36
+#: classes/ColumnFactory/Comment/WordCountFactory.php:31
+#: classes/ColumnFactory/Post/WordCountFactory.php:35
 msgid "Word Count"
 msgstr "Aantal woorden"
 
-#: classes/ColumnFactory/Comment/UserFactory.php:44
+#: classes/ColumnFactory/Comment/UserFactory.php:43
 #: classes/Setting/ComponentFactory/FieldType.php:190
-#: classes/TableScreen/User.php:25
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/RelatedUserConfigurator.php:32
+#: classes/TableScreen/User.php:24
 msgid "User"
 msgstr "Gebruiker"
 
-#: classes/ColumnFactory/Comment/CommentTypeFactory.php:17
+#: classes/ColumnFactory/Comment/CommentTypeFactory.php:16
 msgid "Type"
 msgstr "Type"
 
-#: classes/ColumnFactory/Comment/ReplyToFactory.php:18
+#: classes/ColumnFactory/Comment/ReplyToFactory.php:17
 msgid "In Reply To"
 msgstr "In antwoord op"
 
-#: classes/ColumnFactory/Comment/PostFactory.php:31
+#: classes/ColumnFactory/Comment/PostFactory.php:30
 #: classes/Setting/ComponentFactory/FieldType.php:189
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/RelatedPostConfigurator.php:27
 msgid "Post"
 msgstr "Bericht"
 
-#: classes/ColumnFactory/Post/ContentFactory.php:60
+#: classes/ColumnFactory/Post/ContentFactory.php:59
 msgid "Content"
 msgstr "Inhoud"
 
-#: classes/Setting/ComponentFactory/CommentDisplay.php:56
-#: classes/Setting/ComponentFactory/DateSaveFormat.php:39
+#: classes/Setting/ComponentFactory/CommentDisplay.php:55
+#: classes/Setting/ComponentFactory/DateSaveFormat.php:48
 #: classes/Setting/ComponentFactory/FieldType.php:175
-#: classes/Setting/ComponentFactory/PostProperty.php:124
+#: classes/Setting/ComponentFactory/FieldTypeConfigurator/DateConfigurator.php:33
+#: classes/Setting/ComponentFactory/PostProperty.php:123
 msgid "Date"
 msgstr "Datum"
 
-#: classes/Formatter/Comment/LinkableCommentDate.php:32
+#: classes/Formatter/Comment/LinkableCommentDate.php:31
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
 msgstr "Verstuurd op <a href=\"%1$s\">%2$s om %3$s</a>"
 
-#: classes/ColumnFactory/Comment/DateGmtFactory.php:19
+#: classes/ColumnFactory/Comment/DateGmtFactory.php:18
 msgid "Date GMT"
 msgstr "Datum GMT"
 
-#: classes/ColumnFactory/Post/AuthorFactory.php:65
-#: classes/Setting/ComponentFactory/CommentDisplay.php:54
-#: classes/Setting/ComponentFactory/PostProperty.php:122
+#: classes/ColumnFactory/Post/AuthorFactory.php:64
+#: classes/Setting/ComponentFactory/CommentDisplay.php:53
+#: classes/Setting/ComponentFactory/PostProperty.php:121
 msgid "Author"
 msgstr "Auteur"
 
-#: classes/ColumnFactory/Comment/AuthorUrlFactory.php:18
+#: classes/ColumnFactory/Comment/AuthorUrlFactory.php:17
 msgid "Author URL"
 msgstr "Auteur URL"
 
-#: classes/ColumnFactory/Comment/AuthorNameFactory.php:17
+#: classes/ColumnFactory/Comment/AuthorNameFactory.php:16
 msgid "Author Name"
 msgstr "Auteursnaam"
 
-#: classes/ColumnFactory/Comment/AuthorIpFactory.php:17
+#: classes/ColumnFactory/Comment/AuthorIpFactory.php:16
 msgid "Author IP"
 msgstr "Auteur IP"
 
-#: classes/ColumnFactory/Comment/AuthorEmailFactory.php:17
-#: classes/Setting/ComponentFactory/CommentDisplay.php:55
+#: classes/ColumnFactory/Comment/AuthorEmailFactory.php:16
+#: classes/Setting/ComponentFactory/CommentDisplay.php:54
 msgid "Author Email"
 msgstr "Auteur e-mail"
 
-#: classes/ColumnFactory/Comment/AuthorAvatarFactory.php:17
+#: classes/ColumnFactory/Comment/AuthorAvatarFactory.php:16
 msgid "Avatar"
 msgstr "Avatar"
 
-#: classes/ColumnFactory/Comment/ApprovedFactory.php:17
-#: classes/Formatter/Comment/StatusLabel.php:38
-#: classes/Setting/ComponentFactory/CommentStatus.php:62
+#: classes/ColumnFactory/Comment/ApprovedFactory.php:16
+#: classes/Formatter/Comment/StatusLabel.php:37
+#: classes/Setting/ComponentFactory/CommentStatus.php:61
 msgid "Approved"
 msgstr "Toegestaan"
 
-#: classes/ColumnFactory/Comment/AgentFactory.php:17
+#: classes/ColumnFactory/Comment/AgentFactory.php:16
 msgid "Agent"
 msgstr "Agent"
 
-#: classes/Table/Screen.php:147
+#: classes/Table/Screen.php:148
 msgid "Edit"
 msgstr "Bewerken"
 
-#: classes/Setting/ComponentFactory/CommentLink.php:33
+#: classes/Setting/ComponentFactory/CommentLink.php:32
 msgid "Edit Comment"
 msgstr "Reactie bewerken"
 
-#: classes/ColumnFactory/Comment/IdFactory.php:32
-#: classes/ColumnFactory/Post/IdFactory.php:36
-#: classes/Setting/ComponentFactory/CommentDisplay.php:53
-#: classes/Setting/ComponentFactory/PostProperty.php:121
-#: classes/Setting/ComponentFactory/TermProperty.php:30
+#: classes/ColumnFactory/Comment/IdFactory.php:31
+#: classes/ColumnFactory/Post/IdFactory.php:35
+#: classes/Setting/ComponentFactory/CommentDisplay.php:52
+#: classes/Setting/ComponentFactory/PostProperty.php:120
+#: classes/Setting/ComponentFactory/TermProperty.php:31
 msgid "ID"
 msgstr "ID"
 
-#: classes/Helper/Icon.php:60
+#: classes/Helper/Dashicon.php:41
 msgid "No"
 msgstr "Nee"
 
-#: classes/Helper/Icon.php:46
+#: classes/Helper/Dashicon.php:36
 msgid "Yes"
 msgstr "Ja"
 
-#: classes/Setting/ComponentFactory/ActionIcons.php:23
+#: classes/Setting/ComponentFactory/ActionIcons.php:22
 msgid "Use icons instead of text for displaying the actions."
 msgstr "Gebruik iconen in plaats van tekst om acties te tonen."
 
-#: classes/Setting/ComponentFactory/ActionIcons.php:18
+#: classes/Setting/ComponentFactory/ActionIcons.php:17
 msgid "Use icons?"
 msgstr "Iconen gebruiken?"
 
-#: classes/ColumnFactory/ActionsFactory.php:19
+#: classes/ColumnFactory/ActionsFactory.php:18
 msgid "Actions"
 msgstr "Acties"
 
-#: classes/Admin/MenuGroupFactory/WooCommerceGroups.php:25
-#: classes/Admin/MenuGroupFactory/WooCommerceGroups.php:32
-#: classes/Admin/MenuGroupFactory/WooCommerceGroups.php:36
-#: classes/Integration/WooCommerce.php:18
+#: classes/Admin/MenuGroupFactory/WooCommerceGroups.php:24
+#: classes/Admin/MenuGroupFactory/WooCommerceGroups.php:31
+#: classes/Admin/MenuGroupFactory/WooCommerceGroups.php:35
+#: classes/Integration/WooCommerce.php:19
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: classes/Integration/ACF.php:18
+#: classes/Integration/ACF.php:19
 msgid "Advanced Custom Fields"
 msgstr "Advanced Custom Fields"
 
