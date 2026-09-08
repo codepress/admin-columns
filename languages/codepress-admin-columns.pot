@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-08-28 10:20+0000\n"
+"POT-Creation-Date: 2026-09-08 06:29+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -88,43 +88,43 @@ msgstr ""
 msgid "Instructions"
 msgstr ""
 
-#: classes/Check/Review.php:100, classes/Table/Screen.php:91, classes/Acf/Service/FieldSettings.php:113, classes/Acf/Service/FieldSettings.php:226, classes/Admin/MenuPageFactory/Menu.php:17
+#: classes/Check/Review.php:88, classes/Table/Screen.php:91, classes/Acf/Service/FieldSettings.php:113, classes/Acf/Service/FieldSettings.php:226, classes/Admin/MenuPageFactory/Menu.php:17
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/Check/Review.php:110
+#: classes/Check/Review.php:98
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr ""
 
-#: classes/Check/Review.php:116
+#: classes/Check/Review.php:104
 msgid "click here"
 msgstr ""
 
-#: classes/Check/Review.php:124
+#: classes/Check/Review.php:112
 msgid "Leave a review!"
 msgstr ""
 
-#: classes/Check/Review.php:126
+#: classes/Check/Review.php:114
 msgid "Permanently hide notice"
 msgstr ""
 
-#: classes/Check/Review.php:135
+#: classes/Check/Review.php:122
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr ""
 
-#: classes/Check/Review.php:142
+#: classes/Check/Review.php:129
 msgid "documentation page"
 msgstr ""
 
-#: classes/Check/Review.php:149
+#: classes/Check/Review.php:136
 msgid "You can also find help on the %s, and %s."
 msgstr ""
 
-#: classes/Check/Review.php:150
+#: classes/Check/Review.php:137
 msgid "Admin Columns forum on WordPress.org"
 msgstr ""
 
-#: classes/Check/Review.php:154
+#: classes/Check/Review.php:141
 msgid "find answers to frequently asked questions"
 msgstr ""
 

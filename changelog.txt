@@ -5,6 +5,11 @@ Release Date: TBD
 
 * [Improved] Renamed "Add-ons" to "Integrations" to better describe the connections with your other plugins.
 
+= 7.1.5 =
+Release Date: September 8th, 2026
+
+* [Fixed] Dismissing the review notice removes it right away instead of only after a page refresh.
+
 = 7.1.4 =
 Release Date: August 28th, 2026
 
