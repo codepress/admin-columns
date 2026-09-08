@@ -281,7 +281,7 @@ body.toplevel_page_codepress-admin-columns {
 	&__dropdown {
 		position: absolute;
 		top: 100%;
-		left: 0;
+		inset-inline-start: 0;
 		z-index: 30;
 		min-width: 200px;
 		margin: 4px 0 0;
@@ -298,8 +298,7 @@ body.toplevel_page_codepress-admin-columns {
 			content: "";
 			position: absolute;
 			top: -4px;
-			left: 0;
-			right: 0;
+			inset-inline: 0;
 			height: 4px;
 		}
 
@@ -307,10 +306,10 @@ body.toplevel_page_codepress-admin-columns {
 			display: none;
 		}
 
-		// Flipped by JS when the menu would overflow the right edge of the viewport.
-		&.-align-right {
-			left: auto;
-			right: 0;
+		// Flipped by JS when the menu would overflow the viewport.
+		&.-align-end {
+			inset-inline-start: auto;
+			inset-inline-end: 0;
 		}
 	}
 

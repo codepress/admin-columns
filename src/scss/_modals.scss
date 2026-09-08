@@ -29,6 +29,8 @@ body .ac-modal {
 	}
 
 	&__dialog {
+		--ac-modal-close-size: 52px;
+
 		border: 1px solid #787878;
 		border-radius: 6px;
 		background: #fff;
@@ -41,6 +43,8 @@ body .ac-modal {
 			line-height: 16px;
 			color: #555555;
 			padding: 17px 20px;
+			// The close button overlays this corner, so the title has to stop short of it.
+			padding-inline-end: var(--ac-modal-close-size);
 		}
 
 		&__close {
@@ -51,10 +55,10 @@ body .ac-modal {
 			border: none;
 			background: none;
 			position: absolute;
-			right: 0;
+			inset-inline-end: 0;
 			top: 0;
-			width: 52px;
-			height: 52px;
+			width: var(--ac-modal-close-size);
+			height: var(--ac-modal-close-size);
 			text-align: center;
 			color: #555555;
 			cursor: pointer;

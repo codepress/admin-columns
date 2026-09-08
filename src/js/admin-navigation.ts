@@ -1,6 +1,6 @@
 const TRIGGER_ID = 'ac-admin-nav-more-trigger';
 const MENU_ID = 'ac-admin-nav-more';
-const ALIGN_RIGHT_CLASS = '-align-right';
+const ALIGN_END_CLASS = '-align-end';
 
 const initMoreMenu = (): void => {
     const trigger = document.getElementById( TRIGGER_ID ) as HTMLButtonElement | null;
@@ -12,13 +12,16 @@ const initMoreMenu = (): void => {
 
     const isOpen = (): boolean => trigger.getAttribute( 'aria-expanded' ) === 'true';
 
-    // Keep the menu inside the viewport: anchor it to the trigger's right edge when
-    // a left-anchored menu would overflow.
+    // Keep the menu inside the viewport: anchor it to the trigger's inline end when
+    // a start-anchored menu would overflow. Both edges are checked, because which
+    // one a start-anchored menu runs past depends on the writing direction.
     const align = (): void => {
-        menu.classList.remove( ALIGN_RIGHT_CLASS );
+        menu.classList.remove( ALIGN_END_CLASS );
 
-        if ( menu.getBoundingClientRect().right > document.documentElement.clientWidth ) {
-            menu.classList.add( ALIGN_RIGHT_CLASS );
+        const rect = menu.getBoundingClientRect();
+
+        if ( rect.right > document.documentElement.clientWidth || rect.left < 0 ) {
+            menu.classList.add( ALIGN_END_CLASS );
         }
     };
 
