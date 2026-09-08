@@ -1,7 +1,7 @@
 == Changelog ==
 
 = 7.1.5 =
-Release Date: TBD
+Release Date: September 8th, 2026
 
 * [Fixed] Dismissing the review notice removes it right away instead of only after a page refresh.
 
