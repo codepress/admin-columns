@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace AC\Check;
 
 use AC\Ajax;
-use AC\Asset\Location;
-use AC\Asset\Script;
 use AC\Capabilities;
 use AC\Message;
 use AC\Notice\NoticeState;
@@ -20,13 +18,10 @@ final class Review implements Registerable
     private const SLUG = 'review';
     private const DELAY_DAYS = 30;
 
-    private Location $location;
-
     private NoticeState $state;
 
-    public function __construct(Location $location, NoticeState $state)
+    public function __construct(NoticeState $state)
     {
-        $this->location = $location;
         $this->state = $state;
     }
 
@@ -60,13 +55,6 @@ final class Review implements Registerable
         if (! $this->state->is_delay_met(self::SLUG, self::DELAY_DAYS)) {
             return;
         }
-
-        $script = new Script(
-            'ac-notice-review',
-            $this->location->with_suffix('assets/js/message-review.js'),
-            ['jquery']
-        );
-        $script->enqueue();
 
         $notice = new Message\Notice\Dismissible($this->get_message(), $this->get_ajax_handler());
         $notice
@@ -127,7 +115,6 @@ final class Review implements Registerable
 			</p>
 		</div>
 		<div class="help hidden">
-			<a href="#" class="hide-notice hide-review-notice"></a>
 			<p>
                 <?php
 

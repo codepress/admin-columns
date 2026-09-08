@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Service;
 
 use AC\Acf\FieldGroupCache;
-use AC\AdminColumns;
 use AC\Capabilities;
 use AC\Check;
 use AC\Check\Integration;
@@ -15,13 +14,10 @@ use AC\Services;
 
 class NoticeChecks implements Registerable
 {
-    private AdminColumns $plugin;
-
     private FieldGroupCache $field_group_cache;
 
-    public function __construct(AdminColumns $plugin, FieldGroupCache $field_group_cache)
+    public function __construct(FieldGroupCache $field_group_cache)
     {
-        $this->plugin = $plugin;
         $this->field_group_cache = $field_group_cache;
     }
 
@@ -37,7 +33,7 @@ class NoticeChecks implements Registerable
         if (current_user_can(Capabilities::MANAGE)) {
             $state = new NoticeState();
 
-            $services->add(new Check\Review($this->plugin->get_location(), $state));
+            $services->add(new Check\Review($state));
 
             $services->add(
                 new Integration\IntegrationNoticeRenderer(

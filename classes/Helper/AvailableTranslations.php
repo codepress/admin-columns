@@ -6,26 +6,38 @@ namespace AC\Helper;
 
 class AvailableTranslations extends Creatable
 {
+    private const TRANSIENT_KEY = 'ac_available_translations';
+
     /**
-     * Fetches remote translations. Expires in 7 days.
+     * @var array|null
      */
+    private static $translations;
+
     public function get_available_translations(): array
     {
-        $translations = get_site_transient('ac_available_translations');
-
-        if (false !== $translations) {
-            return $translations;
+        if (null !== self::$translations) {
+            return self::$translations;
         }
 
-        require_once(ABSPATH . 'wp-admin/includes/translation-install.php');
+        $translations = get_site_transient(self::TRANSIENT_KEY);
 
-        $translations = wp_get_available_translations();
+        if (false === $translations) {
+            require_once(ABSPATH . 'wp-admin/includes/translation-install.php');
 
-        if (! empty($translations)) {
-            set_site_transient('ac_available_translations', $translations, WEEK_IN_SECONDS);
+            $translations = wp_get_available_translations();
+
+            // A failed fetch is cached too, for a shorter period. Without it an unreachable
+            // api.wordpress.org makes every caller wait for its own timeout.
+            set_site_transient(
+                self::TRANSIENT_KEY,
+                $translations,
+                $translations ? WEEK_IN_SECONDS : HOUR_IN_SECONDS
+            );
         }
 
-        return $translations;
+        self::$translations = (array)$translations;
+
+        return self::$translations;
     }
 
 }
