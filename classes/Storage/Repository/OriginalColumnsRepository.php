@@ -24,15 +24,10 @@ final class OriginalColumnsRepository
         $data = [];
 
         foreach ($columns as $column) {
-            $args = [
-                'label' => $column->get_label(),
+            $data[$column->get_name()] = [
+                'label'    => $column->get_label(),
+                'sortable' => $column->is_sortable(),
             ];
-
-            if ($column->is_sortable()) {
-                $args['sortable'] = true;
-            }
-
-            $data[$column->get_name()] = $args;
         }
 
         $this->storage($id)->save($data);
@@ -41,6 +36,26 @@ final class OriginalColumnsRepository
     public function exists(TableId $id): bool
     {
         return false !== $this->get_cached($id);
+    }
+
+    /**
+     * Whether the stored columns were written by a request that also resolved their sortability.
+     */
+    public function is_complete(TableId $id): bool
+    {
+        $data = $this->get_cached($id);
+
+        if (! $data || ! is_array($data)) {
+            return false;
+        }
+
+        foreach ($data as $column_data) {
+            if (! is_array($column_data) || ! array_key_exists('sortable', $column_data)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function delete(TableId $id): void

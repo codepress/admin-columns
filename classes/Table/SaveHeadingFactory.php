@@ -15,6 +15,6 @@ interface SaveHeadingFactory
 {
     public function can_create(TableScreen $table_screen): bool;
 
-    public function create(TableScreen $table_screen): ?Registerable;
+    public function create(TableScreen $table_screen, bool $do_exit = true): ?Registerable;
 
 }
