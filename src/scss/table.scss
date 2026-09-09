@@ -159,7 +159,6 @@ span.status-closed {
 }
 
 .actions #post-query-submit {
-	float: left;
 	vertical-align: middle;
 }
 
@@ -171,12 +170,7 @@ body:not(.post-type-attachment) .actions #post-query-submit {
 	top: 2px;
 	display: inline-block;
 	vertical-align: middle;
-	float: left;
 	margin-bottom: 4px;
-
-	body.edit-tags-php & {
-		float: none;
-	}
 }
 
 span.dashicons {
@@ -222,8 +216,7 @@ span.dashicons {
 
 body.edit-php {
 	#delete_all {
-		float: left;
-		margin-right: 3px;
+		margin-inline-end: 3px;
 	}
 }
 
@@ -703,8 +696,8 @@ table.ac-table-items.-user-posts {
 }
 
 .rtl .column-column-attachment img {
-	padding-left: 5px;
-	padding-right: 0;
+	padding-inline-end: 5px;
+	padding-inline-start: 0;
 }
 
 .ac-progress-bar {
@@ -794,26 +787,19 @@ div.cpac-color {
 }
 
 div.cpac-color span {
-	display: block;
+	display: inline-block;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	color: #ffffff;
-	float: left;
 	height: 16px;
 	line-height: 16px;
-	margin-right: 12px;
+	margin-inline-end: 12px;
 	overflow: hidden;
 	padding: 4px 5px;
 	font-size: 10px;
 	font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 	min-width: 47px;
 	text-align: center;
-}
-
-.rtl div.cpac-color span {
-	float: right;
-	margin-left: 12px;
-	margin-right: 0;
 }
 
 /* =Actions column
@@ -1036,14 +1022,14 @@ div.cpac-color span {
 	display: none;
 	position: relative;
 	z-index: 20;
-	float: left;
 	white-space: nowrap;
-	margin-right: 5px;
-	margin-left: 1px;
+	vertical-align: top;
+	margin-inline-end: 5px;
+	margin-inline-start: 1px;
 	margin-bottom: 5px;
 
 	&.-init {
-		display: block;
+		display: inline-block;
 	}
 
 	&.-hidden {
@@ -1060,17 +1046,17 @@ div.cpac-color span {
 			border-radius: 0;
 
 			&:not(:first-child) {
-				margin-left: -1px;
+				margin-inline-start: -1px;
 			}
 
 			&:first-child {
-				border-top-left-radius: 2px;
-				border-bottom-left-radius: 2px;
+				border-start-start-radius: 2px;
+				border-end-start-radius: 2px;
 			}
 
 			&:last-child {
-				border-top-right-radius: 2px;
-				border-bottom-right-radius: 2px;
+				border-start-end-radius: 2px;
+				border-end-end-radius: 2px;
 			}
 
 			&:hover,

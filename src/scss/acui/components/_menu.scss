@@ -71,13 +71,9 @@
 	&__favorite {
 		display: none;
 		position: absolute;
-		right: 10px;
+		inset-inline-end: 10px;
 		top: 50%;
 		transform: translateY(-10px);
-		.rtl & {
-			right: inherit;
-			left: 10px;
-		}
 	}
 	&.-white {
 	    .ac-menu-group-list__link {

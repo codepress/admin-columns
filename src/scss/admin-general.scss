@@ -116,13 +116,6 @@ h2, h3 {
  * General
  * ----------------------------------------------------------------------------
  */
-#wpcontent {
-	body.rtl & {
-		padding-right: 0;
-	}
-
-}
-
 #cpac {
 	a:focus,
 	a:active {
@@ -149,7 +142,7 @@ body.toplevel_page_codepress-admin-columns {
 
 
 	#wpcontent {
-		padding-left: 0;
+		padding-inline-start: 0;
 	}
 
 	.wrap {
