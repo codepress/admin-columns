@@ -54,13 +54,16 @@ class SaveHeadings implements Registerable
             return;
         }
 
-        $this->save_on_table($table_screen);
+        $this->save_on_table($table_screen, $request);
     }
 
     private function save_on_request(TableScreen $table_screen): void
     {
-        // Save an empty array in case the hook does not run properly.
-        $this->repository->update($table_screen->get_id(), new OriginalColumns());
+        // Mark the screen as initialized in case the hook does not run properly, without
+        // discarding columns that were stored before.
+        if (! $this->repository->exists($table_screen->get_id())) {
+            $this->repository->update($table_screen->get_id(), new OriginalColumns());
+        }
 
         $service = $this->get_manage_column_service($table_screen);
 
@@ -75,13 +78,17 @@ class SaveHeadings implements Registerable
      * Only the settings page requests the headings. Configurations that never pass through that page,
      * like file based storage, leave the table without its original columns.
      */
-    private function save_on_table(TableScreen $table_screen): void
+    private function save_on_table(TableScreen $table_screen, Request $request): void
     {
-        if ($this->repository->is_complete($table_screen->get_id())) {
+        if (wp_doing_ajax() || $this->repository->is_complete($table_screen->get_id())) {
             return;
         }
 
         if (! current_user_can(Capabilities::MANAGE)) {
+            return;
+        }
+
+        if (! $this->is_default_view($table_screen, $request)) {
             return;
         }
 
@@ -90,6 +97,28 @@ class SaveHeadings implements Registerable
         if ($service) {
             $service->register();
         }
+    }
+
+    /**
+     * A filtered or searched table can hold fewer columns than the table itself. Only the plain view
+     * describes the defaults, which is the view the settings page asks for.
+     */
+    private function is_default_view(TableScreen $table_screen, Request $request): bool
+    {
+        $arguments = [];
+
+        parse_str(
+            (string)wp_parse_url((string)$table_screen->get_url(), PHP_URL_QUERY),
+            $arguments
+        );
+
+        foreach (array_keys($request->get_query()->all()) as $key) {
+            if (! array_key_exists($key, $arguments)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
