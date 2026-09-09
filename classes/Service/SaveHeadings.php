@@ -59,11 +59,8 @@ class SaveHeadings implements Registerable
 
     private function save_on_request(TableScreen $table_screen): void
     {
-        // Mark the screen as initialized in case the hook does not run properly, without
-        // discarding columns that were stored before.
-        if (! $this->repository->exists($table_screen->get_id())) {
-            $this->repository->update($table_screen->get_id(), new OriginalColumns());
-        }
+        // Save an empty array in case the hook does not run properly.
+        $this->repository->update($table_screen->get_id(), new OriginalColumns());
 
         $service = $this->get_manage_column_service($table_screen);
 
