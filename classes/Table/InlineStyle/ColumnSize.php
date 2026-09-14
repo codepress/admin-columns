@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Table\InlineStyle;
 
+use AC\Column\MergeMap;
 use AC\ColumnSize\ListStorage;
 use AC\ColumnSize\UserStorage;
 use AC\ListScreen;
@@ -34,8 +35,16 @@ class ColumnSize
         $html = '';
         $table_id = $list_screen->get_table_id();
 
+        $merge_map = MergeMap::create($list_screen->get_columns());
+
         foreach ($list_screen->get_columns() as $column) {
             $column_id = $column->get_id();
+
+            // Merged columns have no cell of their own, so no width to set.
+            if ($merge_map->is_merged($column_id)) {
+                continue;
+            }
+
             $list_width = $this->list_storage->get($column);
             $user_width = $this->user_storage->get($list_screen->get_id(), $column_id);
 

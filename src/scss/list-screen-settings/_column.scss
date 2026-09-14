@@ -56,6 +56,14 @@
 		padding: 20px 0;
 	}
 
+	// A column that renders inside the cell of the column above it.
+	&.-merged {
+		.ac-column-header {
+			border-inline-start: 3px solid var(--ac-link);
+			padding-inline-start: 25px;
+		}
+	}
+
 	&.ui-sortable-helper {
 		border-top: 1px solid var(--acui-border);
 	}

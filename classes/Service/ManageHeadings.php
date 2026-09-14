@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Service;
 
+use AC\Column\MergeMap;
 use AC\ColumnRepository\Sort\ManualOrder;
 use AC\ListScreen;
 use AC\Registerable;
@@ -40,8 +41,15 @@ class ManageHeadings implements Registerable
         $headings = [];
 
         $sort_strategy = new ManualOrder($list_screen->get_id());
+        $columns = $sort_strategy->sort($list_screen->get_columns());
+        $merge_map = MergeMap::create($columns);
 
-        foreach ($sort_strategy->sort($list_screen->get_columns()) as $column) {
+        foreach ($columns as $column) {
+            // Merged columns render inside the cell above them and get no heading of their own.
+            if ($merge_map->is_merged($column->get_id())) {
+                continue;
+            }
+
             $setting = $column->get_setting('label');
 
             $label = $setting

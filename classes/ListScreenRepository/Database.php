@@ -240,7 +240,7 @@ class Database extends Base implements ListScreenRepositoryWritable
     /**
      * @param object{columns?: string|null} $data
      */
-    private function create_column_iterator(TableScreen $table_screen, object $data): ColumnIterator
+    protected function create_column_iterator(TableScreen $table_screen, object $data): ColumnIterator
     {
         return new ProxyColumnIterator(
             new EncodedData(

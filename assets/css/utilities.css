@@ -1322,6 +1322,10 @@
   color: rgb(255 0 0 / var(--tw-text-opacity, 1))
 }
 
+.acu-text-\[var\(--ac-link\)\] {
+  color: var(--ac-link)
+}
+
 .acu-text-\[var\(--ac-primary-color\)\] {
   color: var(--ac-primary-color)
 }

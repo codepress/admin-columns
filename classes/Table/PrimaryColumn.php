@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Table;
 
+use AC\Column;
+use AC\Column\MergeMap;
+use AC\ColumnIterator;
 use AC\Helper;
 use AC\ListScreen;
 use AC\ListTable\Comment;
@@ -26,7 +29,8 @@ class PrimaryColumn
         $default_column = $this->list_screen->get_column(new ColumnId($default));
 
         $columns = $this->list_screen->get_columns();
-        $column = $columns->first();
+        $merge_map = MergeMap::create($columns);
+        $column = $this->find_first_unmerged($columns, $merge_map);
 
         if (! $default_column && $column) {
             $default = (string)$column->get_id();
@@ -94,6 +98,17 @@ class PrimaryColumn
         unset($actions['quickedit']);
 
         return $actions;
+    }
+
+    private function find_first_unmerged(ColumnIterator $columns, MergeMap $merge_map): ?Column
+    {
+        foreach ($columns as $column) {
+            if (! $merge_map->is_merged($column->get_id())) {
+                return $column;
+            }
+        }
+
+        return null;
     }
 
 }

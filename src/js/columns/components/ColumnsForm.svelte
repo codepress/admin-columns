@@ -45,6 +45,36 @@
     let columnTypeComponent: AcDropdown | null;
 
 
+    // Mirrors AC\Column\MergeMap: a column that WordPress renders itself takes no part in
+    // merging, neither as a target nor as a merged value.
+    const computeMergeState = (columns: ListScreenColumnData[]): { [key: string]: string } => {
+        const originals = ColumnTypesUtils.getOriginalColumnTypes().map(c => c.value);
+        const state: { [key: string]: string } = {};
+        let hasTarget = false;
+
+        columns.forEach(column => {
+            const wants = column.merge_with_previous === 'on';
+
+            if (originals.includes(column.type)) {
+                state[column.name] = wants ? 'blocked' : 'none';
+                hasTarget = false;
+                return;
+            }
+
+            if (hasTarget && wants) {
+                state[column.name] = 'merged';
+                return;
+            }
+
+            state[column.name] = wants ? 'blocked' : 'none';
+            hasTarget = true;
+        });
+
+        return state;
+    }
+
+    $: mergeState = computeMergeState(data?.columns ?? []);
+
     const clearColumns = () => {
         undoState = clone(data);
         data['columns'] = [];
@@ -283,10 +313,11 @@
 			{/if}
 
 			<div bind:this={sortableContainer} class="acu-relative">
-				{#each data.columns as column_data (column_data.name)}
+				{#each data.columns as column_data, index (column_data.name)}
 
 					<ColumnItem
 						locked={locked}
+						mergeState={mergeState[column_data.name] ?? 'none'}
 						bind:config={ config[column_data.name ?? column_data.type] }
 						bind:data={ column_data }
 						on:delete={ ( e ) => deleteColumn( e.detail ) }

@@ -26,6 +26,7 @@
 	export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
     export let locked: boolean = false;
+    export let mergeState: string = 'none';
 
     const i18n = getColumnSettingsTranslation();
     const dispatch = createEventDispatcher();
@@ -120,7 +121,7 @@
     }
 </script>
 
-<div class="ac-column" class:-opened={opened} data-name={data.name} bind:this={columnElement}
+<div class="ac-column" class:-opened={opened} class:-merged={mergeState === 'merged'} data-name={data.name} bind:this={columnElement}
      style="scroll-margin-top: 100px;">
     <header class="ac-column-header acu-flex acu-py-2 acu-pr-6 rtl:acu-pl-6 acu-items-center acu-bg-[#fff]"
             on:click={toggle} on:keydown role="none">
@@ -158,7 +159,14 @@
             </div>
 
             <div class="acu-min-w-[35px] acu-text-right acu-pr-2">
-                {#if data.width && data.width_unit}
+                {#if mergeState === 'merged'}
+                    <span class="acu-font-mono acu-text-[10px] acu-text-[var(--ac-link)]"
+                    >&ldquo;{data.merge_separator ?? ' '}&rdquo;</span>
+                {:else if mergeState === 'blocked'}
+                    <span class="acu-text-[10px] acu-whitespace-nowrap" style="color:#b26200"
+                        title="The column above is rendered by WordPress itself, so this value cannot be merged into it."
+                    >merge not applied</span>
+                {:else if data.width && data.width_unit}
                     <span class="acu-font-mono acu-text-[10px]">{data.width}{data.width_unit}</span>
                 {/if}
             </div>
