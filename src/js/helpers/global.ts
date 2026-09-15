@@ -30,8 +30,9 @@ const appendObjectToFormData = (formData: FormData, data: { [key: string]: any }
     }
 }
 
+// Column names can come from third party plugins and are not guaranteed to be valid CSS identifiers.
 export const sanitizeColumnSelector = ( name: string ) => {
-    return name.replace(/\./g, '\\.');
+    return CSS.escape(name);
 }
 
 export const withCooldown = <T extends (...args: any[]) => void>(callback: T, delay = 1000): T => {

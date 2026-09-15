@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 7.1.6 =
+Release Date: TBD
+
+* [Fixed] All table features stopped working when another plugin registered a column with a percent encoded name, which happens with Hebrew and other non-Latin scripts.
+
 = 7.1.5 =
 Release Date: September 8th, 2026
 
