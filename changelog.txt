@@ -4,6 +4,7 @@
 Release Date: TBD
 
 * [Fixed] Column names are now escaped before being used as a CSS selector.
+* [Fixed] A table row contained the Quick Edit data twice, which could make a plugin fill a Quick Edit field with the value doubled. On the WooCommerce Products table the MSRP Pricing plugin showed and saved an MSRP price such as 19,9919.99.
 
 = 7.1.5 =
 Release Date: September 8th, 2026

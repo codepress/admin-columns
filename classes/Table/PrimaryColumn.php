@@ -46,8 +46,8 @@ class PrimaryColumn
             }
         }
 
-        // Set inline edit data if the default column (title) is not present
-        if ($table_screen instanceof PostType && 'title' !== $default) {
+        // Set inline edit data if the column that renders it is not present
+        if ($table_screen instanceof PostType && ! $default_column) {
             add_filter('page_row_actions', [$this, 'set_inline_edit_data'], 20, 2);
             add_filter('post_row_actions', [$this, 'set_inline_edit_data'], 20, 2);
         }
