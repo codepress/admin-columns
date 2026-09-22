@@ -5,6 +5,12 @@ Release Date: TBD
 
 * [Improved] Renamed "Add-ons" to "Integrations" to better describe the connections with your other plugins.
 
+= 7.1.6 =
+Release Date: September 22nd, 2026
+
+* [Fixed] All table features stopped working when a column name contained a percent encoded character, which happens with Hebrew and other non-Latin scripts.
+* [Fixed] A table row held the Quick Edit data twice, which could make a plugin double a field value.
+
 = 7.1.5 =
 Release Date: September 8th, 2026
 

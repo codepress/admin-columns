@@ -1,4 +1,4 @@
-import {getParamFromUrl} from "./global";
+import {getParamFromUrl, sanitizeColumnSelector} from "./global";
 import {initAcServices} from "./admin-columns";
 import {LocalizedAcTable} from "../types/table";
 import {getTableConfig} from "../table/utils/global";
@@ -63,7 +63,7 @@ export const getIdFromString = (value: string): number => {
 
 // WordPress renders the primary column as a `th` since WP 7.1, all other columns as `td`.
 export const getCellSelector = (column_name: string): string => {
-    const name = column_name.replace(/\./g, '\\.');
+    const name = sanitizeColumnSelector(column_name);
 
     return `td.column-${name}, th.column-${name}`;
 }

@@ -18,12 +18,13 @@ abstract class ScreenColumnsFactory implements SaveHeadingFactory
         $this->repository = $repository;
     }
 
-    public function create(TableScreen $table_screen): ?Registerable
+    public function create(TableScreen $table_screen, bool $do_exit = true): ?Registerable
     {
         return new TableScreen\SaveHeading\ScreenColumns(
             $table_screen->get_screen_id(),
             $table_screen->get_id(),
-            $this->repository
+            $this->repository,
+            $do_exit
         );
     }
 
