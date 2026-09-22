@@ -1,10 +1,10 @@
 == Changelog ==
 
 = 7.1.6 =
-Release Date: TBD
+Release Date: September 22nd, 2026
 
-* [Fixed] Column names are now escaped before being used as a CSS selector.
-* [Fixed] A table row contained the Quick Edit data twice, which could make a plugin fill a Quick Edit field with the value doubled. On the WooCommerce Products table the MSRP Pricing plugin showed and saved an MSRP price such as 19,9919.99.
+* [Fixed] All table features stopped working when a column name contained a percent encoded character, which happens with Hebrew and other non-Latin scripts.
+* [Fixed] A table row held the Quick Edit data twice, which could make a plugin double a field value.
 
 = 7.1.5 =
 Release Date: September 8th, 2026
