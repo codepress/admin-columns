@@ -28,4 +28,10 @@ final class AttributeFactory
         return new Attribute('readonly', 'true');
     }
 
+    // A multiple select keeps its list open while choosing, unless a setting asks for the opposite.
+    public static function create_close_on_select(): Attribute
+    {
+        return new Attribute('close-on-select', 'true');
+    }
+
 }

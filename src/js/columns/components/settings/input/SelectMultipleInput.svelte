@@ -62,13 +62,15 @@
     }
 
     const groupBy = (item: SvelteSelectItem) => item.group;
+
+    $: closeOnSelect = config.input?.attributes?.['close-on-select'] === 'true';
 </script>
 
 <Select
 	--list-max-height="400px"
 	class="-acui"
 	clearable={false}
-	closeListOnChange={false}
+	closeListOnChange={closeOnSelect}
 	items={options}
 	showChevron
 	multiple
