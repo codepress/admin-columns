@@ -68,6 +68,7 @@
 	--list-max-height="400px"
 	class="-acui"
 	clearable={false}
+	closeListOnChange={false}
 	items={options}
 	showChevron
 	multiple
