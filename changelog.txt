@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 7.1.7 =
+Release Date: TBD
+
+* [Fixed] The value modal now sanitizes its content, like the table does.
+
 = 7.1.6 =
 Release Date: September 22nd, 2026
 
