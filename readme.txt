@@ -4,7 +4,7 @@ Tags: columns, admin columns, custom fields, list table, woocommerce
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 7.1.6
+Stable tag: 7.1.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
