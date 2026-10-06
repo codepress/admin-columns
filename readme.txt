@@ -198,16 +198,16 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 
 == Changelog ==
 
+= 7.1.7 =
+Release Date: October 6th, 2026
+
+* [Fixed] The value modal now sanitizes its content, like the table does.
+
 = 7.1.6 =
 Release Date: September 22nd, 2026
 
 * [Fixed] All table features stopped working when a column name contained a percent encoded character, which happens with Hebrew and other non-Latin scripts.
 * [Fixed] A table row held the Quick Edit data twice, which could make a plugin double a field value.
-
-= 7.1.5 =
-Release Date: September 8th, 2026
-
-* [Fixed] Dismissing the review notice removes it right away instead of only after a page refresh.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 
