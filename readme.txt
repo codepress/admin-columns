@@ -202,6 +202,7 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 Release Date: October 6th, 2026
 
 * [Fixed] The value modal now sanitizes its content, like the table does.
+* [Fixed] PHP 8.4 and newer showed deprecation notices.
 
 = 7.1.6 =
 Release Date: September 22nd, 2026
