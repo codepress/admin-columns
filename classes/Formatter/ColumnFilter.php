@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Formatter;
 
+use AC\ApplyFilter\RenderSanitize;
 use AC\Column\Context;
 use AC\Formatter;
 use AC\ListScreen;
@@ -30,7 +31,9 @@ class ColumnFilter implements Formatter
 
     public function format(Value $value): Value
     {
-        if ($this->use_sanitize($value->get_id())) {
+        $sanitize = new RenderSanitize($this->context, $this->table_screen, $this->list_screen);
+
+        if ($sanitize->apply_filters($value->get_id())) {
             $value = (new Kses())->format($value);
         }
 
@@ -48,18 +51,6 @@ class ColumnFilter implements Formatter
         }
 
         return $value;
-    }
-
-    private function use_sanitize($id): bool
-    {
-        return (bool)apply_filters(
-            'ac/column/render/sanitize',
-            true,
-            $this->context,
-            $id,
-            $this->table_screen,
-            $this->list_screen
-        );
     }
 
 }

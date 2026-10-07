@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace AC\RequestHandler\Ajax;
 
+use AC\ApplyFilter\RenderSanitize;
 use AC\Form\NonceFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
+use AC\Sanitize\Kses;
 use AC\Type\ColumnId;
 use AC\Type\ListScreenId;
 use AC\Value\ExtendedValueRegistry;
@@ -66,7 +68,15 @@ class ExtendedValue implements RequestAjaxHandler
 
         header("Cache-Control: max-age=60");
 
-        echo $this->views->get_view($view)->render($id, $params, $column, $list_screen);
+        $output = $this->views->get_view($view)->render($id, $params, $column, $list_screen);
+
+        $sanitize = new RenderSanitize($column->get_context(), $list_screen->get_table_screen(), $list_screen);
+
+        if ($sanitize->apply_filters($id)) {
+            $output = (new Kses())->sanitize($output);
+        }
+
+        echo $output;
 
         exit;
     }
