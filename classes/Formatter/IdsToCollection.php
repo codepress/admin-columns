@@ -19,7 +19,7 @@ class IdsToCollection implements Formatter
             $id_list = $this->get_ids_from_string($ids);
 
             if (null === $id_list) {
-                throw new ValueNotFoundException($value->get_id());
+                throw ValueNotFoundException::from_id($value->get_id());
             }
 
             return ValueCollection::from_ids($value->get_id(), $id_list);
@@ -29,7 +29,7 @@ class IdsToCollection implements Formatter
             return ValueCollection::from_ids($value->get_id(), $this->sanitise_ids($ids));
         }
 
-        throw new ValueNotFoundException($value->get_id());
+        throw ValueNotFoundException::from_id($value->get_id());
     }
 
     private function sanitise_ids(array $ids): array
