@@ -58,6 +58,7 @@ final class PostFactory extends BaseFactory
             Post\PathFactory::class,
             Post\PermalinkFactory::class,
             Post\PingStatusFactory::class,
+            Post\RelatedPostsFactory::class,
             Post\ParentFactory::class,
             Post\OrderFactory::class,
             Post\ShortcodesFactory::class,

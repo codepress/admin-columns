@@ -199,6 +199,7 @@ class Loader
             Service\SaveHeadings::class,
             Service\AdminBarEditColumns::class,
             Service\PluginUpdate::class,
+            Service\RelatedPostsFilter::class,
             Service\Tooltips::class,
             AC\Acf\Service\DateSaveFormat::class,
             AC\Acf\FieldGroupCache::class,
