@@ -39,7 +39,7 @@ final class RelatedPostsDisplay extends BaseComponentFactory
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
         $meta_key = (string)$config->get('related_meta_key', '');
-        $post_type = (string)$config->get('related_post_type', '');
+        $post_type = RelatedPostType::get_post_type($config);
 
         if ('' === $meta_key || '' === $post_type) {
             return;
@@ -65,7 +65,7 @@ final class RelatedPostsDisplay extends BaseComponentFactory
             return;
         }
 
-        $formatters->add(new AC\Formatter\Collection\Separator(''));
+        $formatters->add(new AC\Formatter\Collection\Separator(', '));
     }
 
 }

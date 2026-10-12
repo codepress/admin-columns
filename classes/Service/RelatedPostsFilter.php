@@ -35,12 +35,15 @@ final class RelatedPostsFilter implements Registerable
             return;
         }
 
-        $query->set('meta_query', [
-            [
-                'key'   => $meta_key,
-                'value' => $related_id,
-            ],
-        ]);
+        $meta_query = $query->get('meta_query');
+        $meta_query = is_array($meta_query) ? $meta_query : [];
+
+        $meta_query[] = [
+            'key'   => $meta_key,
+            'value' => $related_id,
+        ];
+
+        $query->set('meta_query', $meta_query);
     }
 
 }

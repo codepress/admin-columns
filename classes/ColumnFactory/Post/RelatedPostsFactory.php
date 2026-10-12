@@ -45,7 +45,7 @@ class RelatedPostsFactory extends BaseColumnFactory
                     (string)$config->get('related_meta_key', ''),
                     [
                         'meta_type' => AC\MetaType::POST,
-                        'post_type' => (string)$config->get('related_post_type', ''),
+                        'post_type' => ComponentFactory\RelatedPostType::get_post_type($config),
                     ],
                     __('Select', 'codepress-admin-columns')
                 )
