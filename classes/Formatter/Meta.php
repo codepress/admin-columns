@@ -41,6 +41,14 @@ class Meta implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
+        $meta_value = apply_filters(
+            'ac/column/meta/value',
+            $meta_value,
+            $value->get_id(),
+            (string)$this->meta_type,
+            $this->meta_key
+        );
+
         return $value->with_value(
             $meta_value
         );
