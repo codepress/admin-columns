@@ -7,6 +7,7 @@ declare(strict_types=1);
  * @var string      $table_id
  * @var string      $column_id
  * @var string|null $list_width
+ * @var bool        $truncate
  */
 
 use AC\View;
@@ -24,6 +25,11 @@ $value = sprintf('var(%s, var(%s))', $var_user, $var_list);
 // browser-dependent. Fall back to auto in overflow mode. A user-set pixel
 // width via the resizer still wins through the separate --user variable.
 $is_percentage = is_string($this->list_width) && substr(trim($this->list_width), -1) === '%';
+
+// Fixed-width cells clip their content; let the ellipsis mark the cut and
+// reveal the full value on hover. Skip in Pro overflow mode, which brings
+// its own ellipsis handling.
+$truncate = $this->truncate && $this->list_width !== null;
 ?>
 <style id="<?= $style_id ?>">
 	<?php if ($this->list_width !== null): ?>
@@ -46,5 +52,20 @@ $is_percentage = is_string($this->list_width) && substr(trim($this->list_width),
 			width: <?= $value ?> !important;
 			max-width: <?= $value ?> !important;
 		}
+
+		<?php if ($truncate): ?>
+		body:not(.acp-overflow-table).ac-<?= $table_id ?> .wrap table td.column-<?= $column_id ?> {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		body:not(.acp-overflow-table).ac-<?= $table_id ?> .wrap table td.column-<?= $column_id ?>:hover {
+			position: relative;
+			z-index: 20;
+			overflow: visible;
+		}
+
+		<?php endif; ?>
 	}
 </style>
