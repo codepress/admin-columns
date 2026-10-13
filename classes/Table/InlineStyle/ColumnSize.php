@@ -31,6 +31,9 @@ class ColumnSize
             return '';
         }
 
+        // Pro owns cell overflow behavior once a wrapping preference is set
+        $truncate = null === $list_screen->get_preference('wrapping');
+
         $html = '';
         $table_id = $list_screen->get_table_id();
 
@@ -39,7 +42,7 @@ class ColumnSize
             $list_width = $this->list_storage->get($column);
             $user_width = $this->user_storage->get($list_screen->get_id(), $column_id);
 
-            $html .= $this->render_base_style($table_id, $column_id, $list_width);
+            $html .= $this->render_base_style($table_id, $column_id, $list_width, $truncate);
 
             if ($user_width) {
                 $html .= $this->render_user_style($table_id, $column_id, $user_width);
@@ -49,12 +52,13 @@ class ColumnSize
         return $html;
     }
 
-    private function render_base_style(TableId $table_id, ColumnId $column_id, ?ColumnWidth $list_width): string
+    private function render_base_style(TableId $table_id, ColumnId $column_id, ?ColumnWidth $list_width, bool $truncate): string
     {
         $view = new View([
             'table_id'   => (string)$table_id,
             'column_id'  => (string)$column_id,
             'list_width' => $this->format_width($list_width),
+            'truncate'   => $truncate,
         ]);
 
         return $view->set_template('table/column-size')->render();
