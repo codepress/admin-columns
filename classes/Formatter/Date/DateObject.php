@@ -38,6 +38,23 @@ class DateObject implements Formatter
     }
 
     /**
+     * Wraps a formatted date in a <time> element so the exact datetime is
+     * machine readable, while the displayed value stays unchanged.
+     */
+    protected function to_time_element(string $display, DateTime $date): string
+    {
+        if ('' === $display || ! (bool)apply_filters('ac/column/date/use_time_element', true)) {
+            return $display;
+        }
+
+        return sprintf(
+            '<time datetime="%s">%s</time>',
+            esc_attr(gmdate(DATE_ATOM, $date->getTimestamp())),
+            $display
+        );
+    }
+
+    /**
      * Checks whether a DateTime parsing operation failed due to an invalid date
      * (for example: "0000-00-00 00:00:00").
      * This function must be called immediately after DateTime::createFromFormat(),
