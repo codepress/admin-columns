@@ -39,7 +39,12 @@ class ColumnSize
             $list_width = $this->list_storage->get($column);
             $user_width = $this->user_storage->get($list_screen->get_id(), $column_id);
 
-            $html .= $this->render_base_style($table_id, $column_id, $list_width);
+            // Without a width there is nothing to size the column to. Printing the
+            // rule anyway would force auto !important and override core and
+            // third-party column widths.
+            if ($list_width || $user_width) {
+                $html .= $this->render_base_style($table_id, $column_id, $list_width);
+            }
 
             if ($user_width) {
                 $html .= $this->render_user_style($table_id, $column_id, $user_width);
