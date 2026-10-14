@@ -309,7 +309,7 @@ msgstr ""
 msgid "Any post status"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:64
+#: classes/RequestHandler/Ajax/ExtendedValue.php:66
 msgid "Invalid view."
 msgstr ""
 
@@ -1457,7 +1457,7 @@ msgstr ""
 msgid "Media Library Assistant"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:48
+#: classes/RequestHandler/Ajax/ExtendedValue.php:50
 msgid "Invalid list ID."
 msgstr ""
 
@@ -2226,15 +2226,15 @@ msgstr "Apelido do usuário"
 msgid "BuddyPress"
 msgstr "BuddyPress"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:60
+#: classes/RequestHandler/Ajax/ExtendedValue.php:62
 msgid "Invalid column."
 msgstr "Coluna inválida."
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:54
+#: classes/RequestHandler/Ajax/ExtendedValue.php:56
 msgid "Invalid list screen."
 msgstr "Tela de listagem inválida."
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:44
+#: classes/RequestHandler/Ajax/ExtendedValue.php:46
 msgid "Invalid item ID."
 msgstr "ID do item inválido."
 
@@ -2614,39 +2614,39 @@ msgstr "A coluna %s já está inclusa e não pode ser duplicada."
 msgid "Admin Columns Settings"
 msgstr "Configurações do Admin Columns"
 
-#: classes/Check/Review.php:154
+#: classes/Check/Review.php:141
 msgid "find answers to frequently asked questions"
 msgstr ""
 
-#: classes/Check/Review.php:150
+#: classes/Check/Review.php:137
 msgid "Admin Columns forum on WordPress.org"
 msgstr ""
 
-#: classes/Check/Review.php:149
+#: classes/Check/Review.php:136
 msgid "You can also find help on the %s, and %s."
 msgstr "Você também pode encontrar ajuda no %s e %s."
 
-#: classes/Check/Review.php:142
+#: classes/Check/Review.php:129
 msgid "documentation page"
 msgstr "página de documentação"
 
-#: classes/Check/Review.php:135
+#: classes/Check/Review.php:122
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr "Lamentamos saber disso; mas talvez nós possamos te ajudar! Se você estiver com problemas para configurar o %s ou se estiver precisando de ajuda com recursos mais avançados, visite nosso %s."
 
-#: classes/Check/Review.php:126
+#: classes/Check/Review.php:114
 msgid "Permanently hide notice"
 msgstr "Esconder permanentemente o aviso"
 
-#: classes/Check/Review.php:124
+#: classes/Check/Review.php:112
 msgid "Leave a review!"
 msgstr "Deixe uma avaliação!"
 
-#: classes/Check/Review.php:116
+#: classes/Check/Review.php:104
 msgid "click here"
 msgstr "clique aqui"
 
-#: classes/Check/Review.php:110
+#: classes/Check/Review.php:98
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr "Nós não queremos lhe incomodar, mas você já está usando o %s há algum tempo, e nós queremos saber se você está feliz com o plugin. Caso esteja, poderia deixar uma avaliação no wordpress.org? Caso não esteja feliz com o %s, por favor %s."
 
@@ -2661,7 +2661,7 @@ msgstr "Admin Columns Pro"
 #: codepress-admin-columns.php classes/Acf/Service/FieldSettings.php:113
 #: classes/Acf/Service/FieldSettings.php:226
 #: classes/Admin/MenuPageFactory/Menu.php:17
-#: classes/Admin/MenuPageFactory/SubMenu.php:18 classes/Check/Review.php:100
+#: classes/Admin/MenuPageFactory/SubMenu.php:18 classes/Check/Review.php:88
 #: classes/Table/Screen.php:91
 msgid "Admin Columns"
 msgstr "Admin Columns"

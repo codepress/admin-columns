@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-08-12 18:47:02+0000\n"
+"PO-Revision-Date: 2026-09-28 13:10:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -309,7 +309,7 @@ msgstr ""
 msgid "Any post status"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:64
+#: classes/RequestHandler/Ajax/ExtendedValue.php:66
 msgid "Invalid view."
 msgstr ""
 
@@ -1457,7 +1457,7 @@ msgstr "Règle horizontale"
 msgid "Media Library Assistant"
 msgstr "Media Library Assistant"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:48
+#: classes/RequestHandler/Ajax/ExtendedValue.php:50
 msgid "Invalid list ID."
 msgstr "ID de la liste invalide."
 
@@ -1785,7 +1785,7 @@ msgstr "Malheureusement toutes les colonnes ne peuvent pas être exportées."
 
 #: templates/tooltip/export-disabled.php:10
 msgid "Export Unavailable"
-msgstr "Export non disponible"
+msgstr "Exportation non disponible"
 
 #: classes/Admin/Asset/Columns.php:306 templates/tooltip/bulk-editing.php:30
 msgid "Bulk Edit"
@@ -2226,15 +2226,15 @@ msgstr "Nom utilisateur normalisé"
 msgid "BuddyPress"
 msgstr "BuddyPress"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:60
+#: classes/RequestHandler/Ajax/ExtendedValue.php:62
 msgid "Invalid column."
 msgstr "Colonne invalide."
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:54
+#: classes/RequestHandler/Ajax/ExtendedValue.php:56
 msgid "Invalid list screen."
 msgstr "Écran de liste invalide."
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:44
+#: classes/RequestHandler/Ajax/ExtendedValue.php:46
 msgid "Invalid item ID."
 msgstr "ID de l’élément invalide."
 
@@ -2614,39 +2614,39 @@ msgstr "La colonne %s est déjà présente et ne peut pas être dupliquée."
 msgid "Admin Columns Settings"
 msgstr "Réglages d’Admin Columns"
 
-#: classes/Check/Review.php:154
+#: classes/Check/Review.php:141
 msgid "find answers to frequently asked questions"
 msgstr "trouver des réponses dans la foire aux questions"
 
-#: classes/Check/Review.php:150
+#: classes/Check/Review.php:137
 msgid "Admin Columns forum on WordPress.org"
 msgstr "forums d’Admin Columns sur WordPress.org"
 
-#: classes/Check/Review.php:149
+#: classes/Check/Review.php:136
 msgid "You can also find help on the %s, and %s."
 msgstr "Vous pouvez également trouver de l’aide dans les %s, et %s."
 
-#: classes/Check/Review.php:142
+#: classes/Check/Review.php:129
 msgid "documentation page"
 msgstr "page de documentation"
 
-#: classes/Check/Review.php:135
+#: classes/Check/Review.php:122
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr "Nous sommes désolés de l’apprendre. Peut être que nous pouvons vous aider ! Si vous avez des problèmes pour configurer %s ou si vous souhaitez obtenir de l’aide pour les fonctionnalités les plus avancées, veuillez visitez notre %s."
 
-#: classes/Check/Review.php:126
+#: classes/Check/Review.php:114
 msgid "Permanently hide notice"
 msgstr "Masquer définitivement la notification"
 
-#: classes/Check/Review.php:124
+#: classes/Check/Review.php:112
 msgid "Leave a review!"
 msgstr "Laisser un avis !"
 
-#: classes/Check/Review.php:116
+#: classes/Check/Review.php:104
 msgid "click here"
 msgstr "cliquez ici"
 
-#: classes/Check/Review.php:110
+#: classes/Check/Review.php:98
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr "Nous ne voulons pas vous déranger mais vous utilisez %s depuis un moment maintenant et nous nous demandions si vous étiez satisfait de l’extension. Si c’est le cas, pourriez-vous laisser un avis sur wordpress.org s’il vous plaît ? Si vous n’êtes pas satisfait d’%s, veuillez %s."
 
@@ -2661,7 +2661,7 @@ msgstr "Admin Columns Pro"
 #: codepress-admin-columns.php classes/Acf/Service/FieldSettings.php:113
 #: classes/Acf/Service/FieldSettings.php:226
 #: classes/Admin/MenuPageFactory/Menu.php:17
-#: classes/Admin/MenuPageFactory/SubMenu.php:18 classes/Check/Review.php:100
+#: classes/Admin/MenuPageFactory/SubMenu.php:18 classes/Check/Review.php:88
 #: classes/Table/Screen.php:91
 msgid "Admin Columns"
 msgstr "Admin Columns"

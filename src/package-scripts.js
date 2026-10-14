@@ -9,7 +9,6 @@ module.exports = {
 				'styles.build --style=compressed --no-source-map',
 				'scripts --mode=production',
 				'tailwind.build',
-				'languages',
 				'clean'
 			),
 			development : npsUtils.concurrent.nps(
@@ -28,9 +27,9 @@ module.exports = {
 		styles : `sass scss:${core_path}css/`,
 		scripts : 'webpack',
 		languages : {
-			default : 'nps "languages.build_pot" & nps "languages.pull_language"',
-			build_pot : "node languages.js",
-			pull_languages : "( cd .. ; ./getlangs )"
+			default : npsUtils.series.nps( 'languages.build_pot', 'languages.pull' ),
+			build_pot : 'node languages.js',
+			pull : 'node scripts/pull-languages.js'
 		}
 	}
 };
