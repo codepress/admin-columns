@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Formatter\Date;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Formatter;
 use AC\Type\Value;
 use DateTime;
@@ -31,7 +32,12 @@ final class TimeElement implements Formatter
             return $formatted;
         }
 
-        $date = $this->date_object->format($value)->get_value();
+        // A date formatter may read another input than the source format, its output still stands
+        try {
+            $date = $this->date_object->format($value)->get_value();
+        } catch (ValueNotFoundException $e) {
+            return $formatted;
+        }
 
         return $formatted->with_value(
             sprintf(
