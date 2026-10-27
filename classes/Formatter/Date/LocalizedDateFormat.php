@@ -29,19 +29,14 @@ final class LocalizedDateFormat extends DateObject
         }
 
         // Default to UTC timezone. This results in an unmodified date.
-        $formatted = wp_date($this->output_format, $date->getTimestamp(), new DateTimeZone('UTC'));
+        $date = wp_date($this->output_format, $date->getTimestamp(), new DateTimeZone('UTC'));
 
-        if (false === $formatted) {
+        if (false === $date) {
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        // Timestamp output is a conversion value, not a display date.
-        if ('U' === $this->output_format) {
-            return $value->with_value($formatted);
-        }
-
         return $value->with_value(
-            $this->to_time_element($formatted, $date)
+            $date
         );
     }
 

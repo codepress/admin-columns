@@ -28,10 +28,7 @@ final class TimeDifference extends DateObject
         }
 
         return $value->with_value(
-            $this->to_time_element(
-                sprintf($tpl, human_time_diff($timestamp, $current_time)),
-                $date
-            )
+            sprintf($tpl, human_time_diff($timestamp, $current_time))
         );
     }
 
