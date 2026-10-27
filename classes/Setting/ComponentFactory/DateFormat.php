@@ -110,10 +110,12 @@ abstract class DateFormat extends BaseComponentFactory
 
     protected function add_formatters(Config $config, FormatterCollection $formatters): void
     {
+        $date_formatter = $this->get_date_formatter(
+            (string)$config->get('date_format') ?: $this->get_default_option()
+        );
+
         $formatters->add(
-            $this->get_date_formatter(
-                (string)$config->get('date_format') ?: $this->get_default_option()
-            )
+            new Formatter\Date\TimeElement($date_formatter, $this->source_format)
         );
     }
 
