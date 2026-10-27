@@ -4,7 +4,7 @@ Tags: columns, admin columns, custom fields, list table, woocommerce
 Requires at least: 6.2
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 7.1.7
+Stable tag: 7.1.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -198,17 +198,16 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 
 == Changelog ==
 
+= 7.1.8 =
+Release Date: October 27th, 2026
+
+* [Fixed] A comment's user agent could inject HTML into the Comments table.
+
 = 7.1.7 =
 Release Date: October 6th, 2026
 
 * [Fixed] The value modal now sanitizes its content, like the table does.
 * [Fixed] PHP 8.4 and newer showed deprecation notices.
-
-= 7.1.6 =
-Release Date: September 22nd, 2026
-
-* [Fixed] All table features stopped working when a column name contained a percent encoded character, which happens with Hebrew and other non-Latin scripts.
-* [Fixed] A table row held the Quick Edit data twice, which could make a plugin double a field value.
 
 [See changelog for all versions](https://github.com/codepress/admin-columns/blob/main/changelog.txt).
 
