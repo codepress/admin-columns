@@ -15,13 +15,10 @@ final class TimeElement implements Formatter
 
     private DateObject $date_object;
 
-    private bool $has_time;
-
     public function __construct(Formatter $formatter, string $source_format)
     {
         $this->formatter = $formatter;
         $this->date_object = new DateObject($source_format);
-        $this->has_time = 1 === preg_match('/(?<!\\\\)[aABgGhHisuvU]/', $source_format);
     }
 
     public function format(Value $value): Value
@@ -50,8 +47,8 @@ final class TimeElement implements Formatter
 
     private function get_datetime_attribute(DateTime $date): string
     {
-        // A date without a time is parsed with the current time filled in
-        if (! $this->has_time) {
+        // Date fields reach this as midnight, often through a timestamp
+        if ('00:00:00' === $date->format('H:i:s')) {
             return $date->format('Y-m-d');
         }
 
