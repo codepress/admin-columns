@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-08-03 13:36:40+0000\n"
+"PO-Revision-Date: 2026-10-09 23:12:19+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -309,7 +309,7 @@ msgstr ""
 msgid "Any post status"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:64
+#: classes/RequestHandler/Ajax/ExtendedValue.php:66
 msgid "Invalid view."
 msgstr ""
 
@@ -1457,7 +1457,7 @@ msgstr "Yatay çizgi"
 msgid "Media Library Assistant"
 msgstr "Media Library Assistant"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:48
+#: classes/RequestHandler/Ajax/ExtendedValue.php:50
 msgid "Invalid list ID."
 msgstr "Geçersiz liste kimliği."
 
@@ -1661,23 +1661,23 @@ msgstr "Admin Columns Pro'ya yükselt"
 #: classes/Admin/Asset/Columns.php:353 classes/Admin/Asset/Columns.php:473
 #: classes/Admin/Asset/Script/SettingsFactory.php:157
 msgid "See all Pro features"
-msgstr ""
+msgstr "Tüm Pro özellikleri gör"
 
 #: classes/Admin/Banner/Context/Acf.php:85
 msgid "Exportable to CSV"
-msgstr ""
+msgstr "CSV olarak dışa aktarılabilir"
 
 #: classes/Admin/Asset/Script/SettingsFactory.php:79
 msgid "Multiple table views"
-msgstr ""
+msgstr "Birden çok tablo görünümü"
 
 #: classes/Admin/Asset/Script/SettingsFactory.php:66
 msgid "Sticky headers"
-msgstr ""
+msgstr "Sabit başlıklar"
 
 #: classes/Admin/Asset/Script/SettingsFactory.php:62
 msgid "Sortable columns"
-msgstr ""
+msgstr "Sıralanabilir sütunlar"
 
 #: classes/Admin/Asset/Columns.php:519
 msgid "Pre-applied Filters"
@@ -1959,11 +1959,11 @@ msgstr "Biçimlendirilmiş"
 
 #: classes/Setting/ComponentFactory/NumberFormat.php:64
 msgid "Thousands Separator"
-msgstr ""
+msgstr "Binler basamağı ayırıcı"
 
 #: classes/Setting/ComponentFactory/NumberFormat.php:55
 msgid "Decimal Point"
-msgstr ""
+msgstr "Ondalık ayracı"
 
 #: classes/Setting/ComponentFactory/NumberFormat.php:49
 msgid "Decimals"
@@ -2029,7 +2029,7 @@ msgstr "Dışa aktar"
 
 #: classes/Admin/Asset/Columns.php:334
 msgid "Upgrade to Pro and take Admin Columns to the next level."
-msgstr ""
+msgstr "Pro sürüme yükseltin ve Admin Columns'u bir sonraki seviyeye taşıyın."
 
 #: classes/Setting/ComponentFactory/DateFormat/Time.php:21
 msgid "WordPress Time Format"
@@ -2226,15 +2226,15 @@ msgstr "Kullanıcı ismi"
 msgid "BuddyPress"
 msgstr "BuddyPress"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:60
+#: classes/RequestHandler/Ajax/ExtendedValue.php:62
 msgid "Invalid column."
 msgstr "Geçersiz sütun."
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:54
+#: classes/RequestHandler/Ajax/ExtendedValue.php:56
 msgid "Invalid list screen."
 msgstr "Geçersiz liste ekranı."
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:44
+#: classes/RequestHandler/Ajax/ExtendedValue.php:46
 msgid "Invalid item ID."
 msgstr "Geçersiz öğe ID."
 
@@ -2450,7 +2450,7 @@ msgstr "Yardım"
 
 #: classes/Formatter/Post/DiscussionStatus.php:28
 msgid "Closed"
-msgstr ""
+msgstr "Kapalı"
 
 #: classes/Integration/Types.php:17
 msgid "Toolset Types"
@@ -2549,7 +2549,7 @@ msgstr "Oy ver"
 
 #: classes/Admin/Asset/Columns.php:590
 msgid "Forum"
-msgstr ""
+msgstr "Forum"
 
 #: classes/Admin/Asset/Columns.php:589
 msgid "Docs"
@@ -2557,7 +2557,7 @@ msgstr "Dökümanlar"
 
 #: classes/Acf/Service/FieldSettings.php:333
 msgid "Get Admin Columns Pro →"
-msgstr ""
+msgstr "Admin Columns Pro edinin →"
 
 #: classes/Admin/MenuFactory.php:45
 msgid "Columns"
@@ -2595,7 +2595,7 @@ msgstr "Genel ayarlar"
 
 #: classes/Acf/Service/FieldSettings.php:164
 msgid "Learn more →"
-msgstr ""
+msgstr " Daha fazla bilgi edinin."
 
 #: classes/ColumnFactory/User/UserNameFactory.php:16
 msgid "Username"
@@ -2614,39 +2614,39 @@ msgstr "%s sütunu zaten mevcut ve çoğaltılamaz."
 msgid "Admin Columns Settings"
 msgstr "Admin Columns ayarları"
 
-#: classes/Check/Review.php:154
+#: classes/Check/Review.php:141
 msgid "find answers to frequently asked questions"
 msgstr "sıkça sorulan soruların cevaplarını bulun"
 
-#: classes/Check/Review.php:150
+#: classes/Check/Review.php:137
 msgid "Admin Columns forum on WordPress.org"
 msgstr "WordPress.org forumlarında Admin Columns"
 
-#: classes/Check/Review.php:149
+#: classes/Check/Review.php:136
 msgid "You can also find help on the %s, and %s."
 msgstr "Ayrıca %s ve %s hakkında yardım bulabilirsiniz."
 
-#: classes/Check/Review.php:142
+#: classes/Check/Review.php:129
 msgid "documentation page"
 msgstr "dökümantasyon sayfası"
 
-#: classes/Check/Review.php:135
+#: classes/Check/Review.php:122
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr "Bunu duyduğumuz için özür dileriz; Belki yardım edebiliriz %s ayarlarını düzgün bir şekilde ayarlamakta sorun yaşıyorsanız veya daha gelişmiş bazı özellikler ile ilgili yardım almak isterseniz lütfen %s adresimizi ziyaret edin."
 
-#: classes/Check/Review.php:126
+#: classes/Check/Review.php:114
 msgid "Permanently hide notice"
 msgstr "Bildirimi kalıcı olarak gizle"
 
-#: classes/Check/Review.php:124
+#: classes/Check/Review.php:112
 msgid "Leave a review!"
 msgstr "Bir inceleme yapın!"
 
-#: classes/Check/Review.php:116
+#: classes/Check/Review.php:104
 msgid "click here"
 msgstr "buraya tıkla"
 
-#: classes/Check/Review.php:110
+#: classes/Check/Review.php:98
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr "Seni rahatsız etmek istemiyoruz, ancak bir süredir %s kullanıyorsunuz ve eklentiden memnun olup olmadığınızı merak ediyoruz. Eğer memnunsanız lütfen wordpress.org'da bir inceleme bırakır mısınız? %s memnun değilseniz, lütfen %s."
 
@@ -2661,7 +2661,7 @@ msgstr "Admin Columns Pro"
 #: codepress-admin-columns.php classes/Acf/Service/FieldSettings.php:113
 #: classes/Acf/Service/FieldSettings.php:226
 #: classes/Admin/MenuPageFactory/Menu.php:17
-#: classes/Admin/MenuPageFactory/SubMenu.php:18 classes/Check/Review.php:100
+#: classes/Admin/MenuPageFactory/SubMenu.php:18 classes/Check/Review.php:88
 #: classes/Table/Screen.php:91
 msgid "Admin Columns"
 msgstr "Admin Columns"

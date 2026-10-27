@@ -5,11 +5,9 @@ module.exports = {
 	scripts : {
 		build : {
 			default : npsUtils.series.nps(
-				'lint_php',
 				'styles.build --style=compressed --no-source-map',
 				'scripts --mode=production',
 				'tailwind.build',
-				'languages',
 				'clean'
 			),
 			development : npsUtils.concurrent.nps(
@@ -20,7 +18,6 @@ module.exports = {
 		},
 		//clean_old : npsUtils.rimraf( `${core_path}*/*.map` ),
 		clean : npsUtils.rimraf( `${core_path}*/*.map` ),
-		lint_php: 'composer cs --working-dir=..',
 		tailwind : {
 			build : 'npx tailwindcss -i ./tailwind/ac-utilities.css -o ../assets/css/utilities.css',
 			watch : 'npx tailwindcss -i ./tailwind/ac-utilities.css -o ../assets/css/utilities.css --watch',
@@ -28,9 +25,9 @@ module.exports = {
 		styles : `sass scss:${core_path}css/`,
 		scripts : 'webpack',
 		languages : {
-			default : 'nps "languages.build_pot" & nps "languages.pull_language"',
-			build_pot : "node languages.js",
-			pull_languages : "( cd .. ; ./getlangs )"
+			default : npsUtils.series.nps( 'languages.build_pot', 'languages.pull' ),
+			build_pot : 'node languages.js',
+			pull : 'node scripts/pull-languages.js'
 		}
 	}
 };

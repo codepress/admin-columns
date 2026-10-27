@@ -311,7 +311,7 @@ msgstr "Elk bericht status zonder prullenbak"
 msgid "Any post status"
 msgstr "Elke bericht status"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:64
+#: classes/RequestHandler/Ajax/ExtendedValue.php:66
 msgid "Invalid view."
 msgstr "Ongeldige weergave."
 
@@ -1459,7 +1459,7 @@ msgstr "Horizontale regel"
 msgid "Media Library Assistant"
 msgstr "Media Library Assistant"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:48
+#: classes/RequestHandler/Ajax/ExtendedValue.php:50
 msgid "Invalid list ID."
 msgstr "Ongeldige lijst ID."
 
@@ -2228,15 +2228,15 @@ msgstr "Gebruiker schermnaam"
 msgid "BuddyPress"
 msgstr "BuddyPress"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:60
+#: classes/RequestHandler/Ajax/ExtendedValue.php:62
 msgid "Invalid column."
 msgstr "Ongeldige kolom."
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:54
+#: classes/RequestHandler/Ajax/ExtendedValue.php:56
 msgid "Invalid list screen."
 msgstr "Ongeldige lijst weergave."
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:44
+#: classes/RequestHandler/Ajax/ExtendedValue.php:46
 msgid "Invalid item ID."
 msgstr "Ongeldig item ID."
 
@@ -2616,39 +2616,39 @@ msgstr "%s kolom is al in gebruik en kan niet worden gedupliceerd."
 msgid "Admin Columns Settings"
 msgstr "Admin Columns instellingen"
 
-#: classes/Check/Review.php:154
+#: classes/Check/Review.php:141
 msgid "find answers to frequently asked questions"
 msgstr "vind antwoorden op veel gestelde vragen"
 
-#: classes/Check/Review.php:150
+#: classes/Check/Review.php:137
 msgid "Admin Columns forum on WordPress.org"
 msgstr "Admin Columns forum op WordPress.org"
 
-#: classes/Check/Review.php:149
+#: classes/Check/Review.php:136
 msgid "You can also find help on the %s, and %s."
 msgstr "Je kan ook hulp vinden op de %s, en %s."
 
-#: classes/Check/Review.php:142
+#: classes/Check/Review.php:129
 msgid "documentation page"
 msgstr "documentatie pagina"
 
-#: classes/Check/Review.php:135
+#: classes/Check/Review.php:122
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr "Dat is vervelend om te horen; misschien kunnen we helpen! Als je problemen hebt met de basis instellingen %s of als je hulp wilt met geavanceerdere functies, bezoek dan onze %s."
 
-#: classes/Check/Review.php:126
+#: classes/Check/Review.php:114
 msgid "Permanently hide notice"
 msgstr "Permanent bericht verbergen"
 
-#: classes/Check/Review.php:124
+#: classes/Check/Review.php:112
 msgid "Leave a review!"
 msgstr "Laat een beoordeling achter!"
 
-#: classes/Check/Review.php:116
+#: classes/Check/Review.php:104
 msgid "click here"
 msgstr "klik hier"
 
-#: classes/Check/Review.php:110
+#: classes/Check/Review.php:98
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr "We willen je niet storen, maar je gebruikt %s nu al een tijdje, en we vroegen ons af of je tevreden was met de plugin. Zo ja, zou je dan een beoordeling achter willen laten op WordPress.org? Als je niet blij bent met %s, %s."
 
@@ -2663,7 +2663,7 @@ msgstr "Admin Columns Pro"
 #: codepress-admin-columns.php classes/Acf/Service/FieldSettings.php:113
 #: classes/Acf/Service/FieldSettings.php:226
 #: classes/Admin/MenuPageFactory/Menu.php:17
-#: classes/Admin/MenuPageFactory/SubMenu.php:18 classes/Check/Review.php:100
+#: classes/Admin/MenuPageFactory/SubMenu.php:18 classes/Check/Review.php:88
 #: classes/Table/Screen.php:91
 msgid "Admin Columns"
 msgstr "Admin Columns"

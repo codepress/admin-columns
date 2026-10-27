@@ -23,7 +23,7 @@ npm run dev   # Watch mode: JS + CSS + Tailwind together
 ## Production build
 
 ```bash
-npm run build   # Full build (JS, CSS, Tailwind, languages)
+npm run build   # Full build (JS, CSS, Tailwind)
 ```
 
 ## Releasing assets
@@ -50,7 +50,15 @@ npm run release:discard  # Discards watch-built changes, allows branch switching
 npm run webfont   # Regenerate the icon font from SVG sources
 ```
 
-Translations run as part of `npm run build`; there is no separate languages script.
+## Translations
+
+```bash
+npm run languages   # Regenerate the .pot and pull translations from translate.wordpress.org
+```
+
+Not part of `npm run build`, run it before a release. Only the .po files are downloaded; the .mo files are compiled
+locally with `msgfmt` (`brew install gettext`). A language that fails to download or validate keeps its previous files,
+and the script exits with 1 and lists what failed.
 
 ## Running things directly
 

@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2026-10-06 12:16+0000\n"
+"POT-Creation-Date: 2026-10-14 09:07+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -1393,7 +1393,7 @@ msgstr ""
 msgid "Pro lets you search across any product property - SKU, attributes, custom fields, even variation data. Save searches as reusable segments and switch between them in one click."
 msgstr ""
 
-#: classes/ColumnFactory/Comment/AgentFactory.php:16
+#: classes/ColumnFactory/Comment/AgentFactory.php:17
 msgid "Agent"
 msgstr ""
 

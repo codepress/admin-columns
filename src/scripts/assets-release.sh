@@ -6,7 +6,11 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 AC_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 echo "Running production build..."
-cd "$SCRIPT_DIR/.." && npm run build
+if ! ( cd "$SCRIPT_DIR/.." && npm run build ); then
+    echo ""
+    echo "Build failed. Assets stay locked."
+    exit 1
+fi
 
 echo ""
 echo "Unlocking assets for staging..."
