@@ -201,6 +201,7 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 = 7.1.9 =
 Release Date: TBD
 
+* [Improved] Date columns now tell screen readers and browsers the exact date and time.
 * [Fixed] Columns without a set width ignored the widths WordPress and other plugins give them.
 
 = 7.1.8 =
