@@ -41,11 +41,11 @@ export default class Table {
     getIdsFromTable(): Array<number> {
         let result: Array<number> = [];
 
-        this.el.getElementsByTagName('tbody')[0].querySelectorAll('tr').forEach(row => {
+        this.getRows().forEach(row => {
             result.push(getIdFromTableRow(row));
         });
 
-        result = result.filter(id => id !== 0);
+        result = result.filter(id => id !== 0 && !Number.isNaN(id));
 
         return result;
     }
@@ -74,9 +74,14 @@ export default class Table {
     }
 
     private initTable() {
-        this.el.getElementsByTagName('tbody')[0].querySelectorAll<HTMLTableRowElement>('tr').forEach(row => {
+        this.getRows().forEach(row => {
             this.updateRow(row);
         });
+    }
+
+    // Only the rows of this table, not those of a table nested inside a cell
+    private getRows(): HTMLTableRowElement[] {
+        return Array.from(this.el.tBodies[0]?.rows ?? []);
     }
 
     updateRow(row: HTMLTableRowElement): void {
