@@ -42,4 +42,5 @@ try {
     $container->get($router->getTask())->run();
 } catch (Exception $e) {
     Shell::error(get_class($e) . ': ' . $e->getMessage());
+    exit(1);
 }

@@ -308,7 +308,7 @@ msgstr ""
 msgid "Any post status"
 msgstr ""
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:64
+#: classes/RequestHandler/Ajax/ExtendedValue.php:66
 msgid "Invalid view."
 msgstr ""
 
@@ -1453,7 +1453,7 @@ msgstr "横のルール"
 msgid "Media Library Assistant"
 msgstr "メディアライブラリアシスタント"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:48
+#: classes/RequestHandler/Ajax/ExtendedValue.php:50
 msgid "Invalid list ID."
 msgstr "無効なリスト ID。"
 
@@ -2222,15 +2222,15 @@ msgstr "ユーザーのスラッグ"
 msgid "BuddyPress"
 msgstr "BuddyPress"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:60
+#: classes/RequestHandler/Ajax/ExtendedValue.php:62
 msgid "Invalid column."
 msgstr "無効な列。"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:54
+#: classes/RequestHandler/Ajax/ExtendedValue.php:56
 msgid "Invalid list screen."
 msgstr "無効なリスト画面。"
 
-#: classes/RequestHandler/Ajax/ExtendedValue.php:44
+#: classes/RequestHandler/Ajax/ExtendedValue.php:46
 msgid "Invalid item ID."
 msgstr "無効な項目 ID。"
 
@@ -2610,39 +2610,39 @@ msgstr "%s 列はすでに存在します。複製することができません
 msgid "Admin Columns Settings"
 msgstr "Admin Columns 設定"
 
-#: classes/Check/Review.php:154
+#: classes/Check/Review.php:141
 msgid "find answers to frequently asked questions"
 msgstr "よくある質問とその回答を見つける"
 
-#: classes/Check/Review.php:150
+#: classes/Check/Review.php:137
 msgid "Admin Columns forum on WordPress.org"
 msgstr "WordPress.org の Admin Columns フォーラム"
 
-#: classes/Check/Review.php:149
+#: classes/Check/Review.php:136
 msgid "You can also find help on the %s, and %s."
 msgstr "%s と %s のヘルプを見つけられます。"
 
-#: classes/Check/Review.php:142
+#: classes/Check/Review.php:129
 msgid "documentation page"
 msgstr "ドキュメントページ"
 
-#: classes/Check/Review.php:135
+#: classes/Check/Review.php:122
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr "ご不便をおかけして申し訳ありません。 多分私たちは助けることができます! %s の設定に問題がある場合や、より高度な機能に関するヘルプが必要な場合は、%s をご覧ください。"
 
-#: classes/Check/Review.php:126
+#: classes/Check/Review.php:114
 msgid "Permanently hide notice"
 msgstr "通知を完全に非表示にする"
 
-#: classes/Check/Review.php:124
+#: classes/Check/Review.php:112
 msgid "Leave a review!"
 msgstr "レビューを残す !"
 
-#: classes/Check/Review.php:116
+#: classes/Check/Review.php:104
 msgid "click here"
 msgstr "ここをクリック"
 
-#: classes/Check/Review.php:110
+#: classes/Check/Review.php:98
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr "あなたを悩ますつもりはありません、%s をしばらくご利用いただいて、あなたがプラグインに満足しているかどうか疑問に思っていました。もしそうなら、wordpress.org でレビューを残していただけませんか? もし %s に満足していないのでしたら、%s してください。"
 
@@ -2657,7 +2657,7 @@ msgstr "Admin Columns Pro"
 #: codepress-admin-columns.php classes/Acf/Service/FieldSettings.php:113
 #: classes/Acf/Service/FieldSettings.php:226
 #: classes/Admin/MenuPageFactory/Menu.php:17
-#: classes/Admin/MenuPageFactory/SubMenu.php:18 classes/Check/Review.php:100
+#: classes/Admin/MenuPageFactory/SubMenu.php:18 classes/Check/Review.php:88
 #: classes/Table/Screen.php:91
 msgid "Admin Columns"
 msgstr "Admin Columns"

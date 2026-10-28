@@ -38,6 +38,7 @@
         "setup": "bash scripts/setup-git.sh",
         "dev": "nps build.development",
         "build": "nps build",
+        "languages": "nps languages",
         "webfont": "node ./scripts/webfont.js",
         "release:assets": "bash scripts/assets-release.sh",
         "release:lock": "bash scripts/assets-lock.sh",

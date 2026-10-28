@@ -71,7 +71,7 @@ final class Prefixer
         $this->run('rm -rf vendor', false);
         $this->run(sprintf('composer install --no-scripts %s', ! $this->isDevelopment ? '--no-dev' : ''));
         $this->applyPatches();
-        $this->run(sprintf('curl -O -L "%s"', $this->url));
+        $this->run(sprintf('curl --fail -O -L "%s"', $this->url));
         $this->run(sprintf('php -d memory_limit=-1 php-scoper.phar add-prefix --force --output-dir %s', $buildDirectory));
         $this->run('rm -rf php-scoper.phar vendor', false);
         $this->run(sprintf('mv %s/vendor ./', $buildDirectory), false);
@@ -119,6 +119,12 @@ final class Prefixer
             echo $process->getOutput();
         } catch (Exception $e) {
             throw ProcessException::processUnsuccessful($process->getCommandLine(), $e);
+        }
+
+        if ( ! $process->isSuccessful()) {
+            echo $process->getErrorOutput();
+
+            throw ProcessException::processUnsuccessful($process->getCommandLine());
         }
 
         if ($tty) {

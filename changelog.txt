@@ -5,6 +5,11 @@ Release Date: TBD
 
 * [Improved] Renamed "Add-ons" to "Integrations" to better describe the connections with your other plugins.
 
+= 7.1.8 =
+Release Date: October 27th, 2026
+
+* [Fixed] A comment's user agent could inject HTML into the Comments table.
+
 = 7.1.7 =
 Release Date: October 6th, 2026
 
