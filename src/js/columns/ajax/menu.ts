@@ -10,7 +10,7 @@ type menuFavoriteResponse = JsonDefaultFailureResponse | JsonSuccessResponse
 export const persistMenuFavorite = (listKey: string, favorite: boolean): AxiosPromise<menuFavoriteResponse> => {
     let data = new FormData();
 
-    data.set('_ajax_nonce', getColumnSettingsConfig().nonce);
+    data.set(getColumnSettingsConfig().nonce.name, getColumnSettingsConfig().nonce.value);
     data.set('action', 'ac-editor-menu-favorites');
     data.set('list_key', listKey);
     data.set('status', favorite ? 'favorite' : '')
@@ -21,7 +21,7 @@ export const persistMenuFavorite = (listKey: string, favorite: boolean): AxiosPr
 export const persistMenuStatus = (group: string, open: boolean): AxiosPromise<JsonDefaultFailureResponse | JsonSuccessResponse> => {
     let data = new FormData();
 
-    data.set('_ajax_nonce', getColumnSettingsConfig().nonce);
+    data.set(getColumnSettingsConfig().nonce.name, getColumnSettingsConfig().nonce.value);
     data.set('action', 'ac-editor-menu-status');
     data.set('group', group);
     data.set('status', open ? 'open' : 'close')

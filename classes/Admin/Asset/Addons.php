@@ -58,11 +58,11 @@ class Addons extends Script
             ->add_inline_variable(
                 'ac_addons',
                 [
-                    $this->nonce->get_name() => $this->nonce->create(),
-                    'is_network_admin'       => is_network_admin(),
-                    'asset_location'         => $this->asset_location->get_url(),
-                    'pro_installed'          => $this->is_pro,
-                    'buy_url'                => (new UtmTags(new Site(Site::PAGE_PRICING), 'integration'))->get_url(),
+                    'nonce'            => $this->nonce->to_script_data(),
+                    'is_network_admin' => is_network_admin(),
+                    'asset_location'   => $this->asset_location->get_url(),
+                    'pro_installed'    => $this->is_pro,
+                    'buy_url'          => (new UtmTags(new Site(Site::PAGE_PRICING), 'integration'))->get_url(),
                 ]
             );
     }

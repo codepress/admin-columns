@@ -85,7 +85,7 @@ declare namespace AC.Vars.Admin.Columns {
     }
 
     type AcAdminColumnsVar = {
-        nonce: string
+        nonce: import('./types/requests').NonceData
         assets: string
         is_pro: boolean
         show_column_info: boolean

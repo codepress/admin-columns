@@ -257,7 +257,7 @@ class Columns extends Script
 
         $this->add_inline_variable('ac_admin_columns', [
             'assets'                     => $this->parent_location->with_suffix('assets')->get_url(),
-            'nonce'                      => NonceFactory::create_ajax()->create(),
+            'nonce'                      => NonceFactory::create_ajax()->to_script_data(),
             'show_column_info'           => (new AC\Admin\Preference\ScreenOptions())->is_active('show_column_info'),
             'is_pro'                     => $this->is_pro_active,
             'list_key'                   => (string)$this->table_screen->get_id(),

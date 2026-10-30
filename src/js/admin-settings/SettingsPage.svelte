@@ -20,7 +20,7 @@
     let loadingShowButtonValue = true;
     let showButtonValue = true;
 
-    getGeneralOption({name: 'show_edit_button', nonce: config._ajax_nonce}).then(r => {
+    getGeneralOption({name: 'show_edit_button', nonce: config.nonce}).then(r => {
         if (r.data.success) {
             showButtonValue = r.data.data === '1' || typeof r.data.data === 'undefined';
             loadingShowButtonValue = false;
@@ -29,7 +29,7 @@
 
     const handleToggleShowButton = () => {
         persistGeneralOption({
-            nonce: config._ajax_nonce,
+            nonce: config.nonce,
             name: 'show_edit_button',
             value: showButtonValue ? '1' : '0'
         }).then(() => {

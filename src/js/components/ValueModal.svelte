@@ -4,6 +4,7 @@
     import axios, {AxiosResponse} from "axios";
     import {ValueModalItem, ValueModalItemCollection} from "../types/admin-columns";
     import {getTableConfig, getTableTranslation} from "../table/utils/global";
+    import {nonceParam} from "../helpers/nonce";
 
     export let items: ValueModalItemCollection
     export let objectId: number;
@@ -79,7 +80,7 @@
                 object_id: item.objectId,
                 view: item.view,
                 params: item.params,
-                _ajax_nonce: tableConfig.ajax_nonce
+                ...nonceParam(tableConfig.nonce)
             }
         }).then((response: AxiosResponse<string>) => {
             content = response.data

@@ -2,7 +2,7 @@ declare const ac_settings_i18n: LocalizedSettingsI18n;
 declare const ac_settings: InlineVarAcSettings;
 
 type InlineVarAcSettings = {
-    _ajax_nonce: string
+    nonce: import('../types/requests').NonceData
     is_pro: boolean
     assets: string
     upgrade_panel: {

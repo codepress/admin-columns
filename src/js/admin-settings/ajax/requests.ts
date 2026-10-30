@@ -1,9 +1,11 @@
 import axios, {AxiosPromise} from "axios";
+import {NonceData} from "../../types/requests";
+import {nonceParam} from "../../helpers/nonce";
 
 declare const ajaxurl: string;
 
 type PersistGeneralOptionArgs = {
-    nonce: string
+    nonce: NonceData
     name: string
     value: string
 }
@@ -11,7 +13,7 @@ type PersistGeneralOptionArgs = {
 export const persistGeneralOption = (args: PersistGeneralOptionArgs): AxiosPromise<''> => {
     const data = new FormData()
     data.append('action', 'ac-persist-admin-general-option');
-    data.append('_ajax_nonce', args.nonce);
+    data.append(args.nonce.name, args.nonce.value);
     data.append('option_name', args.name);
     data.append('option_value', args.value);
 
@@ -20,7 +22,7 @@ export const persistGeneralOption = (args: PersistGeneralOptionArgs): AxiosPromi
 
 
 type GetGeneralOptionArgs = {
-    nonce: string
+    nonce: NonceData
     name: string
 }
 
@@ -33,14 +35,14 @@ export const getGeneralOption = (args: GetGeneralOptionArgs): AxiosPromise<getGe
     return axios.get(ajaxurl, {
         params: {
             action: 'ac-get-admin-general-option',
-            _ajax_nonce: args.nonce,
+            ...nonceParam(args.nonce),
             option_name: args.name,
         }
     })
 }
 
 type RestoreSettingsArgs = {
-    nonce: string
+    nonce: NonceData
 }
 
 
@@ -59,7 +61,7 @@ type RestoreSettingsArgsResponseError = {
 
 export const restoreSettings = ({nonce}: RestoreSettingsArgs): AxiosPromise<RestoreSettingsArgsResponseSuccess|RestoreSettingsArgsResponseError> => {
     let data = new FormData();
-    data.append('_ajax_nonce', nonce);
+    data.append(nonce.name, nonce.value);
     data.append('action', 'ac-restore-settings');
 
     return axios.post(ajaxurl, data);

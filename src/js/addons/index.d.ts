@@ -2,7 +2,7 @@ declare const ac_addons_i18n: LocalizedAddonsI18n;
 declare const ac_addons: InlineVarAcAddons;
 
 type InlineVarAcAddons = {
-    _ajax_nonce: string
+    nonce: import('../types/requests').NonceData
     is_network_admin: boolean
     asset_location: string
     pro_installed: boolean

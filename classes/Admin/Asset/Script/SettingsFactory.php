@@ -132,10 +132,10 @@ final class SettingsFactory
         $script
             ->localize('ac_settings_i18n', Translation::create($translations))
             ->add_inline_variable('ac_settings', [
-                $nonce->get_name() => $nonce->create(),
-                'assets'           => $this->location->with_suffix('assets')->get_url(),
-                'is_pro'           => $this->is_pro_active,
-                'upgrade_panel'    => $this->is_pro_active
+                'nonce'         => $nonce->to_script_data(),
+                'assets'        => $this->location->with_suffix('assets')->get_url(),
+                'is_pro'        => $this->is_pro_active,
+                'upgrade_panel' => $this->is_pro_active
                     ? null
                     : [
                         'upgrade_url' => $upgrade_url,

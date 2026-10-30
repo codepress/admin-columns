@@ -1,7 +1,10 @@
 /// <reference types="jquery" />
 
+import {NonceData} from "./types/requests";
+import {nonceParam} from "./helpers/nonce";
+
 interface AcfFieldSettingsI18n {
-    nonce: string;
+    nonce: NonceData;
     adding: string;
     added: string;
     edit_column: string;
@@ -43,7 +46,7 @@ interface AddColumnResponse {
 
         $.post(ajaxurl, {
             action: 'ac-acf-add-column',
-            _ajax_nonce: i18n.nonce || '',
+            ...(i18n.nonce ? nonceParam(i18n.nonce) : {}),
             table_id: tableId,
             meta_key: metaKey,
             field_data: JSON.stringify(fieldData)

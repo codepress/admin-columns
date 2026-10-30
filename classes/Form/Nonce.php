@@ -51,6 +51,11 @@ class Nonce
         return (bool)wp_verify_nonce($nonce, $this->action);
     }
 
+    public function check_ajax_referer(): void
+    {
+        check_ajax_referer($this->action, $this->name);
+    }
+
     public function verify(Request $request): bool
     {
         return $this->verify_nonce((string)$request->get($this->name));

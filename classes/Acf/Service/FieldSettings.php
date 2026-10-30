@@ -13,6 +13,7 @@ use AC\Asset\Style;
 use AC\Column;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
+use AC\Nonce;
 use AC\Registerable;
 use AC\TableScreen;
 use AC\Type\EditorUrlFactory;
@@ -100,7 +101,7 @@ class FieldSettings implements Registerable
         $script->enqueue();
 
         wp_localize_script('ac-acf-field-settings', 'ac_acf_field_settings', [
-            'nonce'         => wp_create_nonce('ac-ajax'),
+            'nonce'         => (new Nonce\Ajax())->to_script_data(),
             'adding'        => __('Adding...', 'codepress-admin-columns'),
             'added'         => __('Added', 'codepress-admin-columns'),
             'edit_column'   => __('Edit column →', 'codepress-admin-columns'),

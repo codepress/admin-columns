@@ -46,7 +46,7 @@ export const toggleIntegrationStatus = (args: ToggleIntegrationStatusArgs): Axio
     const data = new FormData()
     data.append('action', 'ac-integration-toggle');
     data.append('integration', args.integration);
-    data.append('_ajax_nonce', getAddonsConfig()._ajax_nonce);
+    data.append(getAddonsConfig().nonce.name, getAddonsConfig().nonce.value);
 
     if (args.status) {
         data.append('status', '1');

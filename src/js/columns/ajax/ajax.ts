@@ -1,6 +1,7 @@
 import axios, {AxiosPromise} from "axios";
 import {ListScreenColumnData, ListScreenData} from "../../types/requests";
 import {getColumnSettingsConfig} from "../utils/global";
+import {nonceParam} from "../../helpers/nonce";
 import ColumnConfig = AC.Vars.Admin.Columns.ColumnConfig;
 import JsonSuccessResponse = AC.Ajax.JsonSuccessResponse;
 import JsonDefaultFailureResponse = AC.Ajax.JsonDefaultFailureResponse;
@@ -35,7 +36,7 @@ export const getListScreenSettings = (listKey: string, listId: string = '', abor
     return axios.get(ajaxurl, {
         signal: abort.signal,
         params: {
-            _ajax_nonce: nonce,
+            ...nonceParam(nonce),
             action: 'ac-list-screen-settings',
             list_key: listKey,
             list_screen_id: listId,
@@ -59,7 +60,7 @@ export const getColumnSettings = (listKey: string, columnType: string): AxiosPro
 
     return axios.get(ajaxurl, {
         params: {
-            _ajax_nonce: nonce,
+            ...nonceParam(nonce),
             action: 'ac-list-screen-add-column',
             list_screen: listKey,
             column_type: columnType
@@ -71,7 +72,7 @@ export const saveListScreen = (data: ListScreenData, listKey: string) => {
     const nonce = getColumnSettingsConfig().nonce;
     const formData = new FormData();
 
-    formData.set('_ajax_nonce', nonce);
+    formData.set(nonce.name, nonce.value);
     formData.set('action', 'ac-list-screen-save')
     formData.set('data', JSON.stringify(data));
     formData.set('list_key', listKey);
@@ -95,7 +96,7 @@ export const refreshColumn = (data: ListScreenColumnData, listKey: string): Axio
     const nonce = getColumnSettingsConfig().nonce;
     const formData = new FormData();
 
-    formData.set('_ajax_nonce', nonce);
+    formData.set(nonce.name, nonce.value);
     formData.set('action', 'ac-list-screen-select-column')
     formData.set('data', JSON.stringify(data));
     formData.set('list_key', listKey);
@@ -118,7 +119,7 @@ export const deleteTableView = (listId: string): AxiosPromise<JsonSuccessRespons
     const nonce = getColumnSettingsConfig().nonce;
     const data = new FormData();
 
-    data.set('_ajax_nonce', nonce);
+    data.set(nonce.name, nonce.value);
     data.set('action', 'ac-list-screen-delete');
     data.set('list_id', listId);
 
@@ -130,7 +131,7 @@ export const loadDefaultColumns = (listKey: string): AxiosPromise<JsonSuccessRes
 
     return axios.get(ajaxurl, {
         params: {
-            _ajax_nonce: nonce,
+            ...nonceParam(nonce),
             action: 'ac-list-screen-default-columns',
             list_key: listKey
         }

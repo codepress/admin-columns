@@ -3,7 +3,9 @@ import {NonceData} from "./requests";
 
 export type LocalizedAcTable = {
     assets: string,
+    /** @deprecated read `nonce` */
     ajax_nonce: string,
+    nonce: NonceData,
     table_rows_nonce: NonceData,
     column_types: Record<string, string>,
     layout: string,

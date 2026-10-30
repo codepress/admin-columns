@@ -10,7 +10,7 @@
     const config = getAdminSettingsConfig();
 
     const handleRestoreSettings = () => {
-        restoreSettings({nonce: config._ajax_nonce}).then(( r ) => {
+        restoreSettings({nonce: config.nonce}).then(( r ) => {
 			if( r.data.success ) {
                 NotificationProgrammatic.open({
 					type: "success",
