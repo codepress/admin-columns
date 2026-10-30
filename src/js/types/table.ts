@@ -1,8 +1,10 @@
 import {ModuleConfirmationTranslation} from "./admin-columns";
+import {NonceData} from "./requests";
 
 export type LocalizedAcTable = {
     assets: string,
     ajax_nonce: string,
+    table_rows_nonce: NonceData,
     column_types: Record<string, string>,
     layout: string,
     list_screen: string,

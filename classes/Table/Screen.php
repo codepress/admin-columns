@@ -168,6 +168,7 @@ final class Screen implements Registerable
             'assets'            => $this->location->with_suffix('assets/')->get_url(),
             'list_screen'       => (string)$this->table_screen->get_id(),
             'ajax_nonce'        => wp_create_nonce('ac-ajax'),
+            'table_rows_nonce'  => (new AC\Nonce\TableRows())->to_script_data(),
             'table_id'          => $this->table_screen->get_attr_id(),
             'screen'            => $this->table_screen->get_screen_id(),
             'list_screen_link'  => $this->get_list_screen_clear_link(),

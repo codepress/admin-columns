@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\TableScreen;
 
+use AC\Nonce;
 use AC\Registerable;
 use AC\Request;
 use AC\RequestHandler;
@@ -40,9 +41,11 @@ abstract class TableRows implements Registerable, RequestHandler
 
     public function handle(Request $request): void
     {
-        check_ajax_referer('ac-ajax');
-
         $response = new Response\Json();
+
+        if (! (new Nonce\TableRows())->verify($request)) {
+            $response->error();
+        }
 
         $ids = $request->filter('ac_ids', [], FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
 
