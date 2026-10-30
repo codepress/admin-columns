@@ -23,3 +23,7 @@ export interface ListScreenData {
     type: string
     updated: number
 }
+export interface NonceData {
+    name: string
+    value: string
+}

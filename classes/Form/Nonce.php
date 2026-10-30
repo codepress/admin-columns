@@ -33,6 +33,14 @@ class Nonce
         return wp_create_nonce($this->action);
     }
 
+    public function to_script_data(): array
+    {
+        return [
+            'name'  => $this->name,
+            'value' => $this->create(),
+        ];
+    }
+
     public function create_field(): string
     {
         return wp_nonce_field($this->action, $this->name, true, false);
