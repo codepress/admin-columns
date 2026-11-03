@@ -51,7 +51,7 @@ class PostLink implements Formatter
         }
 
         return $link
-            ? $value->with_value(Helper\Html::create()->link($link, (string)$value))
+            ? $value->with_value(Helper\Html::create()->link_html($link, (string)$value))
             : $value;
     }
 

@@ -28,30 +28,32 @@ class Linkable implements Formatter
         $url = $value->get_value();
 
         if (filter_var($url, FILTER_VALIDATE_URL) && preg_match('/[^\w.-]/', $url)) {
-            $link_label = $this->get_formatted_label($url);
-
-            return $value->with_value(Helper\Html::create()->link($url, $link_label, ['target' => $this->target]));
+            return $value->with_value($this->create_link($url, $url));
         }
 
         if (filter_var($url, FILTER_VALIDATE_EMAIL)) {
-            $link_label = $this->get_formatted_label($url);
-            $mailto_link = 'mailto:' . $url;
-
-            return $value->with_value(Helper\Html::create()->link($mailto_link, $link_label, ['target' => $this->target]));
+            return $value->with_value($this->create_link('mailto:' . $url, $url));
         }
 
         return $value;
     }
 
-    private function get_formatted_label(string $url): string
+    private function create_link(string $href, string $url): string
     {
-        $link_label = $this->custom_label ?: $url;
+        $attributes = ['target' => $this->target];
 
-        if ($this->strip_protocol) {
-            $link_label = urldecode(str_replace(['http://', 'https://'], '', $link_label));
+        if ($this->custom_label) {
+            return Helper\Html::create()->link_html($href, $this->custom_label, $attributes);
         }
 
-        return $link_label;
+        return Helper\Html::create()->link($href, $this->get_url_label($url), $attributes);
+    }
+
+    private function get_url_label(string $url): string
+    {
+        return $this->strip_protocol
+            ? urldecode(str_replace(['http://', 'https://'], '', $url))
+            : $url;
     }
 
 }

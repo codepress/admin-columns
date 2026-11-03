@@ -203,6 +203,7 @@ Release Date: TBD
 
 * [Improved] Dates in columns now include a machine-readable date and time.
 * [Fixed] Columns without a set width ignored the widths WordPress and other plugins give them.
+* [Fixed] A comment's author URL could inject HTML into the Comments table.
 
 = 7.1.8 =
 Release Date: October 27th, 2026

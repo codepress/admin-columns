@@ -19,7 +19,7 @@ class FileLinkToUrl implements Formatter
         }
 
         return $value->with_value(
-            Helper\Html::create()->link(
+            Helper\Html::create()->link_html(
                 $url,
                 (string)$value
             )
