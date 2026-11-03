@@ -5,6 +5,7 @@ Release Date: TBD
 
 * [Improved] Dates in columns now include a machine-readable date and time.
 * [Fixed] Columns without a set width ignored the widths WordPress and other plugins give them.
+* [Fixed] The value modal could follow an unsafe link forged from a column's content.
 
 = 7.1.8 =
 Release Date: October 27th, 2026
