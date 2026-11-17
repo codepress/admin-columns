@@ -199,7 +199,7 @@ Head to Settings > Admin Columns and start customizing your columns. Check out t
 == Changelog ==
 
 = 7.1.9 =
-Release Date: TBD
+Release Date: November 17th, 2026
 
 * [Improved] Dates in columns now include a machine-readable date and time.
 * [Fixed] Columns without a set width ignored the widths WordPress and other plugins give them.
