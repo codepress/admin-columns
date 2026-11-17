@@ -26,7 +26,7 @@ class CommentsForPostLink implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $link = Helper\Html::create()->link(
+        $link = Helper\Html::create()->link_html(
             add_query_arg(
                 [
                     'p'              => $value->get_id(),
