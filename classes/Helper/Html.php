@@ -29,20 +29,28 @@ class Html extends Creatable
 
     public function link(string $url, ?string $label = null, array $attributes = []): string
     {
-        if (! $url) {
-            return $label ?? '';
-        }
-
         if (null === $label) {
             $label = urldecode($url);
         }
 
-        if (! $label) {
+        return $this->link_html($url, esc_html($label), $attributes);
+    }
+
+    /**
+     * A label with HTML is rendered as is: only pass HTML that is already safe to output.
+     */
+    public function link_html(string $url, string $html, array $attributes = []): string
+    {
+        if (! $url) {
+            return $html;
+        }
+
+        if (! $html) {
             return '';
         }
 
-        if (! $this->contains_html($label)) {
-            $label = esc_html($label);
+        if ($html === strip_tags($html)) {
+            $html = esc_html($html);
         }
 
         $tooltip = null;
@@ -59,7 +67,7 @@ class Html extends Creatable
 
         $link = new Link(
             $url,
-            $label,
+            $html,
             $this->filter_attributes($attributes),
             $protocols
         );
@@ -145,11 +153,6 @@ class Html extends Creatable
         }
 
         return $hrefs;
-    }
-
-    private function contains_html(string $string): bool
-    {
-        return $string && $string !== strip_tags($string);
     }
 
     public function divided(array $array): string

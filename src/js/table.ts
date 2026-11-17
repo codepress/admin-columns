@@ -5,6 +5,7 @@ import ScreenOptionsColumns from "./table/screen-options-columns";
 import {auto_init_show_more} from "./plugin/show-more";
 import {EventConstants} from "./constants";
 import {getIdFromTableRow, resolveTableBySelector} from "./helpers/table";
+import {sanitizeUrl} from "./helpers/url";
 import {initAcServices} from "./helpers/admin-columns";
 import {initPointers} from "./modules/ac-pointer";
 import ValueModals from "./modules/value-modals";
@@ -127,9 +128,9 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
 
             items[cell.getName()].push({
                 element: link,
-                editLink: link.dataset.modalEditLink ?? '',
-                downloadLink: link.dataset.modalDownloadLink ?? '',
-                viewLink: link.dataset.modalViewLink ?? '',
+                editLink: sanitizeUrl(link.dataset.modalEditLink ?? ''),
+                downloadLink: sanitizeUrl(link.dataset.modalDownloadLink ?? ''),
+                viewLink: sanitizeUrl(link.dataset.modalViewLink ?? ''),
                 title: link.dataset.modalTitle ?? null,
                 view: link.dataset.view ?? '',
                 columnName: cell.getName(),

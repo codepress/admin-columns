@@ -47,7 +47,7 @@ abstract class ContentTypeLink implements Formatter
 
     protected function create_link(string $url, string $value): string
     {
-        return Helper\Html::create()->link($url, $value);
+        return Helper\Html::create()->link_html($url, $value);
     }
 
     abstract protected function get_edit_link(Value $value): ?string;

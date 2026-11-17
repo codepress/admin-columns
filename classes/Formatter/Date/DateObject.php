@@ -32,9 +32,19 @@ class DateObject implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
+        // A format without a time is parsed with the current time filled in
+        if (! $this->has_time()) {
+            $date->setTime(0, 0);
+        }
+
         return $value->with_value(
             $date
         );
+    }
+
+    private function has_time(): bool
+    {
+        return (bool)preg_match('/(?<!\\\\)[aABgGhHisuvU]/', $this->source_format);
     }
 
     /**
