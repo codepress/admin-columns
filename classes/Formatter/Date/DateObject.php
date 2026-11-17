@@ -26,10 +26,15 @@ class DateObject implements Formatter
             throw ValueNotFoundException::from_id($value->get_id());
         }
 
-        $date = DateTime::createFromFormat($this->get_parse_format(), $date_string) ?: null;
+        $date = DateTime::createFromFormat($this->source_format, $date_string) ?: null;
 
         if (null === $date || $this->is_invalid_parsed_date()) {
             throw ValueNotFoundException::from_id($value->get_id());
+        }
+
+        // A format without a time is parsed with the current time filled in
+        if (! $this->has_time()) {
+            $date->setTime(0, 0);
         }
 
         return $value->with_value(
@@ -37,12 +42,9 @@ class DateObject implements Formatter
         );
     }
 
-    // Without "|" a format that has no time is parsed with the current time filled in
-    private function get_parse_format(): string
+    private function has_time(): bool
     {
-        return preg_match('/(?<!\\\\)[aABgGhHisuvU]/', $this->source_format)
-            ? $this->source_format
-            : $this->source_format . '|';
+        return (bool)preg_match('/(?<!\\\\)[aABgGhHisuvU]/', $this->source_format);
     }
 
     /**
