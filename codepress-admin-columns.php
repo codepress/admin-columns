@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 Plugin Name: Admin Columns
-Version: 7.1.8
+Version: 7.1.9
 Description: Add, reorder, and customize columns in your WordPress admin table for any post type, users, and media - no code required.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -44,7 +44,7 @@ if (! is_admin()) {
 }
 
 define('AC_FILE', __FILE__);
-define('AC_VERSION', '7.1.8');
+define('AC_VERSION', '7.1.9');
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 

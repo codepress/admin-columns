@@ -55,7 +55,7 @@ export default class ShowMore {
     private setToggleText(text: string) {
         let toggle = this.getToggleElement();
         if (toggle) {
-            toggle.innerHTML = text;
+            toggle.textContent = text;
         }
     }
 

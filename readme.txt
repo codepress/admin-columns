@@ -4,7 +4,7 @@ Tags: columns, admin columns, custom fields, list table, woocommerce
 Requires at least: 6.2
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 7.1.8
+Stable tag: 7.1.9
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -197,6 +197,14 @@ Developers can extend Admin Columns using many actions and filters. You can find
 Head to Settings > Admin Columns and start customizing your columns. Check out the [getting started guide](https://docs.admincolumns.com/category/16-getting-started/) for a walkthrough.
 
 == Changelog ==
+
+= 7.1.9 =
+Release Date: November 17th, 2026
+
+* [Improved] Dates in columns now include a machine-readable date and time.
+* [Fixed] Columns without a set width ignored the widths WordPress and other plugins give them.
+* [Fixed] A comment's author URL could inject HTML into the Comments table.
+* [Fixed] The value modal could follow an unsafe link forged from a column's content.
 
 = 7.1.8 =
 Release Date: October 27th, 2026

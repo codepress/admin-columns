@@ -109,8 +109,8 @@ class Separator implements CollectionFormatter
             $toggler = $last_set
                 ? sprintf(
                     '<span class="ac-show-more__divider">|</span><a class="ac-show-more__toggle" data-show-more-toggle data-more="%1$s" data-less="%2$s">%1$s</a>',
-                    sprintf(__('%s more', 'codepress-admin-columns'), count($last_set)),
-                    strtolower(__('Hide', 'codepress-admin-columns'))
+                    esc_attr(sprintf(__('%s more', 'codepress-admin-columns'), count($last_set))),
+                    esc_attr(strtolower(__('Hide', 'codepress-admin-columns')))
                 )
                 : '';
 

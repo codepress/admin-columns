@@ -13,9 +13,9 @@ class MenuLink implements Formatter
     public function format(Value $value): Value
     {
         return $value->with_value(
-            Helper\Html::create()->link(
+            Helper\Html::create()->link_html(
                 add_query_arg(['menu' => $value->get_id()], admin_url('nav-menus.php')),
-                $value->get_value()
+                (string)$value->get_value()
             )
         );
     }
