@@ -17,7 +17,6 @@ use AC\TableScreen;
 use AC\TableScreenFactory\Aggregate;
 use AC\Type\ListScreenIdGenerator;
 use AC\Type\TableId;
-use AC\Type\Value;
 
 class ColumnPreview implements RequestAjaxHandler
 {
@@ -87,16 +86,19 @@ class ColumnPreview implements RequestAjaxHandler
         );
 
         try {
-            $ids = array_map('intval', $sample_items->get_ids($table_screen, self::SAMPLE_SIZE));
+            $values = $sample_items->get_values($table_screen, self::SAMPLE_SIZE);
         } catch (\Throwable $e) {
             return ['supported' => false, 'items' => [], 'sampled' => 0, 'empty' => 0];
         }
+
         $items = [];
         $empty = 0;
 
-        foreach ($ids as $id) {
+        foreach ($values as $sample) {
+            $id = $sample->get_id();
+
             try {
-                $value = trim((string)$render->format(new Value($id)));
+                $value = trim((string)$render->format($sample));
             } catch (\Throwable $e) {
                 $value = '';
             }
@@ -108,7 +110,7 @@ class ColumnPreview implements RequestAjaxHandler
 
             $items[] = [
                 'id'    => $id,
-                'label' => $sample_items->get_label($table_screen, $id) ?: sprintf('#%d', $id),
+                'label' => $sample_items->get_label($table_screen, $id) ?: sprintf('#%s', $id),
                 'value' => $value,
             ];
 

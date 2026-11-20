@@ -18,6 +18,7 @@ export type listScreenSettingsResponse = {
         read_only: boolean
         is_stored: boolean
         is_template: boolean
+        column_preview: boolean
         column_settings: { [key: string]: AC.Vars.Settings.ColumnSetting[] }
         column_types: ColumnConfig[]
         labels: {

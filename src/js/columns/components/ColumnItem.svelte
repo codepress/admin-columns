@@ -6,7 +6,9 @@
 		debugMode,
 		listScreenIsReadOnly,
 		openedColumnsStore,
-		showColumnInfo
+		showColumnInfo,
+		showColumnPreview,
+		columnPreviewSupported
 	} from "../store";
 	import {slide} from 'svelte/transition';
 	import {createEventDispatcher, onMount} from "svelte";
@@ -36,7 +38,7 @@
     let columnTypeName: string;
     let columnDescription: string = '';
     let previewVisible: boolean = true;
-    $: showPreview = !isOriginalColumn && previewVisible;
+    $: showPreview = !isOriginalColumn && $columnPreviewSupported && $showColumnPreview && previewVisible;
     let columnElement: HTMLElement;
 
     const toggle = () => {
@@ -184,7 +186,7 @@
                 <TypeSetting bind:data={data} bind:columnConfig={config} disabled={locked}/>
             </ColumnSetting>
 
-            {#if !isOriginalColumn}
+            {#if !isOriginalColumn && $columnPreviewSupported && $showColumnPreview}
                 <ColumnPreview {data} label={data.label || columnTypeLabel} description={columnDescription} bind:visible={previewVisible}/>
             {/if}
 

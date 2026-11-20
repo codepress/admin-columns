@@ -6,6 +6,7 @@ namespace AC\ColumnPreview\SampleItems;
 
 use AC\ColumnPreview\SampleItems;
 use AC\TableScreen;
+use AC\Type\Value;
 
 class Comment implements SampleItems
 {
@@ -14,7 +15,14 @@ class Comment implements SampleItems
         return $table_screen instanceof TableScreen\Comment;
     }
 
-    public function get_ids(TableScreen $table_screen, int $limit): array
+    public function get_values(TableScreen $table_screen, int $limit): array
+    {
+        return array_map(static function ($id): Value {
+            return new Value((int)$id);
+        }, $this->get_ids($table_screen, $limit));
+    }
+
+    private function get_ids(TableScreen $table_screen, int $limit): array
     {
         return get_comments([
             'number'  => $limit,
@@ -24,7 +32,7 @@ class Comment implements SampleItems
         ]);
     }
 
-    public function get_label(TableScreen $table_screen, int $id): string
+    public function get_label(TableScreen $table_screen, $id): string
     {
         $comment = get_comment($id);
 

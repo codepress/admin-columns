@@ -89,6 +89,7 @@ declare namespace AC.Vars.Admin.Columns {
         assets: string
         is_pro: boolean
         show_column_info: boolean
+        show_column_preview: boolean
         column_groups: ColumnGroup[]
         column_types: ColumnConfig[]
         menu_groups_opened: string[]

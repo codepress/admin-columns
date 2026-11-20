@@ -15,6 +15,7 @@ import {
     listScreenIsReadOnly,
     listScreenIsStored,
     listScreenIsTemplate,
+    columnPreviewSupported,
     listScreenLabels,
     proBannerStore
 } from "../store";
@@ -63,6 +64,7 @@ export async function refreshListScreenData(listKey: string, listId: string = ''
         listScreenDataHasChanges.set(false);
         listScreenIsStored.set(data.is_stored);
         listScreenIsTemplate.set(data.is_template);
+        columnPreviewSupported.set(data.column_preview);
         proBannerStore.set(data.pro_banner);
 
         if (!data.is_stored && listScreenData.columns.length === 0) {

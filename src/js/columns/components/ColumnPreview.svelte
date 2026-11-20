@@ -41,7 +41,7 @@
             Preview
         </div>
         <div class="acp-column-setting__value acu-flex-grow acu-flex acu-items-center acu-gap-4">
-            <table class="ac-column-preview">
+            <table class="ac-column-preview" inert aria-hidden="true">
                 <thead>
                     <tr>
                         <th class="-side"><span class="ac-column-preview__bar -w60"></span></th>
@@ -85,6 +85,9 @@
 <style>
     .ac-column-preview {
         flex-shrink: 0;
+        pointer-events: none;
+        user-select: none;
+        font-size: 12px;
         border-collapse: separate;
         border-spacing: 0;
         border: 1px solid #dcdcde;
@@ -95,7 +98,7 @@
 
     .ac-column-preview th,
     .ac-column-preview td {
-        padding: 10px 14px;
+        padding: 8px 12px;
         vertical-align: middle;
         text-align: center;
         border: 0;
@@ -131,15 +134,23 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        max-height: 60px;
+        max-height: 44px;
+        max-width: 180px;
         overflow: hidden;
         line-height: 1.4;
+        color: #50575e;
+    }
+
+    .ac-column-preview__value :global(*) {
+        font-size: inherit;
     }
 
     .ac-column-preview__value :global(img) {
         display: block;
-        max-height: 60px;
+        max-height: 40px;
+        max-width: 100%;
         width: auto;
+        height: auto;
         margin: 0;
     }
 

@@ -7,6 +7,7 @@ namespace AC\ColumnPreview\SampleItems;
 use AC\ColumnPreview\SampleItems;
 use AC\PostType;
 use AC\TableScreen;
+use AC\Type\Value;
 
 class Post implements SampleItems
 {
@@ -15,7 +16,14 @@ class Post implements SampleItems
         return $table_screen instanceof PostType;
     }
 
-    public function get_ids(TableScreen $table_screen, int $limit): array
+    public function get_values(TableScreen $table_screen, int $limit): array
+    {
+        return array_map(static function ($id): Value {
+            return new Value((int)$id);
+        }, $this->get_ids($table_screen, $limit));
+    }
+
+    private function get_ids(TableScreen $table_screen, int $limit): array
     {
         if (! $table_screen instanceof PostType) {
             return [];
@@ -31,7 +39,7 @@ class Post implements SampleItems
         ]);
     }
 
-    public function get_label(TableScreen $table_screen, int $id): string
+    public function get_label(TableScreen $table_screen, $id): string
     {
         return wp_strip_all_tags(get_the_title($id));
     }
