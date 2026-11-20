@@ -381,6 +381,10 @@
   min-height: 150px
 }
 
+.acu-min-h-\[30px\] {
+  min-height: 30px
+}
+
 .acu-min-h-\[calc\(100vh_-_70px\)\] {
   min-height: calc(100vh - 70px)
 }
@@ -1272,6 +1276,11 @@
 .acu-text-\[\#666\] {
   --tw-text-opacity: 1;
   color: rgb(102 102 102 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#757575\] {
+  --tw-text-opacity: 1;
+  color: rgb(117 117 117 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#777\] {

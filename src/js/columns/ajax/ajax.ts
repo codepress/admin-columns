@@ -136,3 +136,26 @@ export const loadDefaultColumns = (listKey: string): AxiosPromise<JsonSuccessRes
         }
     });
 }
+export type columnPreviewItem = {
+    id: number
+    label: string
+    value: string
+}
+
+export type columnPreviewPayload = {
+    supported: boolean
+    items: columnPreviewItem[]
+    sampled: number
+    empty: number
+}
+
+export const getColumnPreview = (data: ListScreenColumnData, listKey: string): AxiosPromise<JsonSuccessResponse<columnPreviewPayload>> => {
+    const formData = new FormData();
+
+    formData.set('_ajax_nonce', getColumnSettingsConfig().nonce);
+    formData.set('action', 'ac-column-preview');
+    formData.set('data', JSON.stringify(data));
+    formData.set('list_key', listKey);
+
+    return axios.post(ajaxurl, formData);
+}
