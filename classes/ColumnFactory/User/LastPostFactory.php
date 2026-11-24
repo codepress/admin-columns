@@ -38,6 +38,11 @@ class LastPostFactory extends BaseColumnFactory
         return __('Last Post', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __('The most recent post authored by this user, by post date.', 'codepress-admin-columns');
+    }
+
     public function get_column_type(): string
     {
         return 'column-last_post';
