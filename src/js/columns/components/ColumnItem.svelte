@@ -182,12 +182,12 @@
     {#if opened && config !== null }
         <div class="ac-column-settings acu-@container/columnrow" transition:slide>
 
-            <ColumnSetting description="" label={i18n.settings.label.column} extraClass={showPreview ? '' : '-type'} setting="type">
+            <ColumnSetting description={columnDescription} label={i18n.settings.label.column} extraClass={showPreview ? '' : '-type'} setting="type">
                 <TypeSetting bind:data={data} bind:columnConfig={config} disabled={locked}/>
             </ColumnSetting>
 
             {#if !isOriginalColumn && $columnPreviewSupported && $showColumnPreview}
-                <ColumnPreview {data} label={data.label || columnTypeLabel} description={columnDescription} bind:visible={previewVisible}/>
+                <ColumnPreview {data} label={data.label || columnTypeLabel} bind:visible={previewVisible}/>
             {/if}
 
             <ColumnSettings

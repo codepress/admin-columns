@@ -5,7 +5,6 @@
 
     export let data: any;
     export let label: string = '';
-    export let description: string = '';
     export let visible: boolean = true;
 
     let preview: columnPreviewPayload | null = null;
@@ -40,7 +39,7 @@
         <div class="acp-column-setting__label @lg/columnrow:acu-w-[200px] acu-flex-shrink-0 acu-mr-2 acu-text-[#757575]">
             Preview
         </div>
-        <div class="acp-column-setting__value acu-flex-grow acu-flex acu-items-center acu-gap-4">
+        <div class="acp-column-setting__value acu-flex-grow acu-min-w-0 acu-flex acu-flex-wrap acu-items-center acu-gap-x-4 acu-gap-y-1">
             <table class="ac-column-preview" inert aria-hidden="true">
                 <thead>
                     <tr>
@@ -73,10 +72,8 @@
                     {/each}
                 </tbody>
             </table>
-            {#if description}
-                <span class="acu-text-[#757575]">{description}</span>
-            {:else if preview && !preview.items.length}
-                <span class="acu-text-[#757575]">No value in the {preview.sampled} most recent items.</span>
+            {#if preview && !preview.items.length}
+                <span class="acu-text-[#757575] acu-text-[12px]">No value in the {preview.sampled} most recent items.</span>
             {/if}
         </div>
     </div>
@@ -84,7 +81,7 @@
 
 <style>
     .ac-column-preview {
-        flex-shrink: 0;
+        max-width: 100%;
         pointer-events: none;
         user-select: none;
         font-size: 12px;
@@ -114,10 +111,11 @@
 
     .ac-column-preview .-side {
         width: 72px;
+        min-width: 32px;
     }
 
     .ac-column-preview .-column {
-        min-width: 110px;
+        min-width: 90px;
         border-left: 1px solid #dcdcde;
         border-right: 1px solid #dcdcde;
         background: #f0f6fc;
@@ -127,7 +125,7 @@
         background: #e5effa;
         color: var(--ac-link, #2271b1);
         font-weight: 600;
-        white-space: nowrap;
+        overflow-wrap: anywhere;
     }
 
     .ac-column-preview__value {
