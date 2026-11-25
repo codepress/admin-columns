@@ -39,7 +39,7 @@
         <div class="acp-column-setting__label @lg/columnrow:acu-w-[200px] acu-flex-shrink-0 acu-mr-2 acu-text-[#757575]">
             Preview
         </div>
-        <div class="acp-column-setting__value acu-flex-grow acu-min-w-0 acu-flex acu-flex-wrap acu-items-center acu-gap-x-4 acu-gap-y-1">
+        <div class="acp-column-setting__value acu-flex-grow acu-min-w-[0px] acu-flex acu-flex-wrap acu-items-center acu-gap-x-4 acu-gap-y-1">
             <table class="ac-column-preview" inert aria-hidden="true">
                 <thead>
                     <tr>

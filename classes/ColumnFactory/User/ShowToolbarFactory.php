@@ -16,6 +16,14 @@ class ShowToolbarFactory extends BaseColumnFactory
         return __('Show Toolbar', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __(
+            'Whether the toolbar is shown to this user when viewing the site, as set in their profile.',
+            'codepress-admin-columns'
+        );
+    }
+
     public function get_column_type(): string
     {
         return 'column-user_show_toolbar';

@@ -18,6 +18,11 @@ class DateGmtFactory extends BaseColumnFactory
         return __('Date GMT', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __("The comment date in UTC (GMT) instead of the site's timezone.", 'codepress-admin-columns');
+    }
+
     public function get_column_type(): string
     {
         return 'column-date_gmt';

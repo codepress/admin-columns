@@ -16,6 +16,11 @@ class AuthorSlugFactory extends BaseColumnFactory
         return __('Author Slug', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __("The user's nicename, used in the URL of their author archive.", 'codepress-admin-columns');
+    }
+
     public function get_column_type(): string
     {
         return 'column-user_nicename';

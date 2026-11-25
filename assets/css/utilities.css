@@ -175,6 +175,11 @@
   margin-right: 50px
 }
 
+.acu-mx-auto {
+  margin-left: auto;
+  margin-right: auto
+}
+
 .acu-my-2 {
   margin-top: 10px;
   margin-bottom: 10px
@@ -381,10 +386,6 @@
   min-height: 150px
 }
 
-.acu-min-h-\[30px\] {
-  min-height: 30px
-}
-
 .acu-min-h-\[calc\(100vh_-_70px\)\] {
   min-height: calc(100vh - 70px)
 }
@@ -436,6 +437,10 @@
 
 .acu-w-full {
   width: 100%
+}
+
+.acu-min-w-\[0px\] {
+  min-width: 0px
 }
 
 .acu-min-w-\[200px\] {
@@ -673,9 +678,18 @@
        column-gap: 15px
 }
 
+.acu-gap-x-4 {
+  -moz-column-gap: 20px;
+       column-gap: 20px
+}
+
 .acu-gap-x-\[20px\] {
   -moz-column-gap: 20px;
        column-gap: 20px
+}
+
+.acu-gap-y-1 {
+  row-gap: 5px
 }
 
 .acu-gap-y-2 {

@@ -49,4 +49,9 @@ final class BeforeMoreFactory extends BaseColumnFactory
         return __('More Tag', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __('Content before the More tag. Empty when the post has no More tag.', 'codepress-admin-columns');
+    }
+
 }
