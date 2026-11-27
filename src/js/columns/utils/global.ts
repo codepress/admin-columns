@@ -96,6 +96,10 @@ type AdminColumnsI18n = {
             column_preview: string
             table_view_label: string
             select_icon: string
+            preview: string
+        }
+        sentence: {
+            preview_empty: string
         }
     }
     editor: {

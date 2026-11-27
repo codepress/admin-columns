@@ -607,6 +607,11 @@ class Columns extends Script
                         'column_preview'   => __('Column Preview', 'codepress-admin-columns'),
                         'table_view_label' => __('Table View Label', 'codepress-admin-columns'),
                         'select_icon'      => __('Select Icon', 'codepress-admin-columns'),
+                        'preview'          => __('Preview', 'codepress-admin-columns'),
+                    ],
+                    'sentence' => [
+                        /* translators: %d: number of items checked for a value */
+                        'preview_empty' => __('No value in the %d most recent items.', 'codepress-admin-columns'),
                     ],
                 ],
                 'editor' => [

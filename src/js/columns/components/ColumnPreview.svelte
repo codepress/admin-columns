@@ -1,11 +1,15 @@
 <script lang="ts">
     import {onDestroy} from "svelte";
     import {currentListKey} from "../store";
+    import {sprintf} from "@wordpress/i18n";
     import {columnPreviewPayload, getColumnPreview} from "../ajax/ajax";
+    import {getColumnSettingsTranslation} from "../utils/global";
 
     export let data: any;
     export let label: string = '';
     export let visible: boolean = true;
+
+    const i18n = getColumnSettingsTranslation();
 
     let preview: columnPreviewPayload | null = null;
     let timer: ReturnType<typeof setTimeout> | undefined;
@@ -37,7 +41,7 @@
 {#if visible}
     <div class="acp-column-setting -type -preview @lg/columnrow:acu-flex acu-px-6 acu-mb-2 acu-items-center">
         <div class="acp-column-setting__label @lg/columnrow:acu-w-[200px] acu-flex-shrink-0 acu-mr-2 acu-text-[#757575]">
-            Preview
+            {i18n.settings.label.preview}
         </div>
         <div class="acp-column-setting__value acu-flex-grow acu-min-w-[0px] acu-flex acu-flex-wrap acu-items-center acu-gap-x-4 acu-gap-y-1">
             <table class="ac-column-preview" inert aria-hidden="true">
@@ -73,7 +77,7 @@
                 </tbody>
             </table>
             {#if preview && !preview.items.length}
-                <span class="acu-text-[#757575] acu-text-[12px]">No value in the {preview.sampled} most recent items.</span>
+                <span class="acu-text-[#757575] acu-text-[12px]">{sprintf(i18n.settings.sentence.preview_empty, preview.sampled)}</span>
             {/if}
         </div>
     </div>
