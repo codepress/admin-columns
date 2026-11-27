@@ -63,6 +63,7 @@ class JsonListScreenSettingsFactory
             'column_settings' => $this->encode_column_settings($list_screen->get_columns()),
             'is_stored'       => $is_stored,
             'is_template'     => $is_template,
+            'column_preview'  => null !== AC\ColumnPreview\SampleItemsRegistry::find($table_screen),
             'labels'          => [
                 'singular' => $table_screen->get_labels()->get_singular(),
                 'plural'   => $table_screen->get_labels()->get_plural(),

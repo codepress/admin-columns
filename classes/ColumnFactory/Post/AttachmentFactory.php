@@ -40,4 +40,12 @@ class AttachmentFactory extends BaseColumnFactory
         return __('Attachments', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __(
+            'Media uploaded to this post. Media that is only inserted into the content is not included.',
+            'codepress-admin-columns'
+        );
+    }
+
 }

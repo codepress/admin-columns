@@ -43,6 +43,11 @@ class TitleRawFactory extends BaseColumnFactory
         return __('Title Only', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __('The title without row actions or post states.', 'codepress-admin-columns');
+    }
+
     protected function get_settings(Config $config): ComponentCollection
     {
         return new ComponentCollection([

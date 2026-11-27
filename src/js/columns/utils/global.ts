@@ -93,8 +93,13 @@ type AdminColumnsI18n = {
         label: {
             column: string
             column_info: string
+            column_preview: string
             table_view_label: string
             select_icon: string
+            preview: string
+        }
+        sentence: {
+            preview_empty: string
         }
     }
     editor: {

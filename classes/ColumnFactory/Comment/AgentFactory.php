@@ -17,6 +17,11 @@ class AgentFactory extends BaseColumnFactory
         return __('Agent', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __('The browser user agent recorded when the comment was submitted.', 'codepress-admin-columns');
+    }
+
     public function get_column_type(): string
     {
         return 'column-agent';

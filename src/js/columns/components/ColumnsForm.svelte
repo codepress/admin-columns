@@ -15,7 +15,9 @@
         listScreenIsStored,
         listScreenLabels,
         openedColumnsStore,
-        showColumnInfo
+        showColumnInfo,
+        showColumnPreview,
+        columnPreviewSupported
     } from "../store";
     import {createEventDispatcher, onMount, tick} from "svelte";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
@@ -196,6 +198,10 @@
         persistScreenOptions('show_column_info', e.detail === true ? 1 : 0)
     }
 
+    const toggleColumnPreview = (e: CustomEvent<boolean>) => {
+        persistScreenOptions('hide_column_preview', e.detail === true ? 0 : 1)
+    }
+
     onMount(() => {
         setTimeout(makeSortable, 1000);
     });
@@ -232,9 +238,13 @@
 				{/if}
 				<AcDropdown closeOnClick={false}>
 					<MaterialIcon icon="more_vert" slot="trigger" className="acu-cursor-pointer"/>
-					<div on:click|stopPropagation role="none" class="acu-p-4">
+					<div on:click|stopPropagation role="none" class="acu-p-4 acu-flex acu-flex-col acu-gap-2">
 						<AcCheckbox label={i18n.settings.label.column_info} bind:value={$showColumnInfo}
 							on:input={toggleColumnInfo}/>
+						{#if $columnPreviewSupported}
+							<AcCheckbox label={i18n.settings.label.column_preview} bind:value={$showColumnPreview}
+								on:input={toggleColumnPreview}/>
+						{/if}
 					</div>
 				</AcDropdown>
 			</div>

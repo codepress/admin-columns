@@ -18,6 +18,7 @@ export type listScreenSettingsResponse = {
         read_only: boolean
         is_stored: boolean
         is_template: boolean
+        column_preview: boolean
         column_settings: { [key: string]: AC.Vars.Settings.ColumnSetting[] }
         column_types: ColumnConfig[]
         labels: {
@@ -135,4 +136,27 @@ export const loadDefaultColumns = (listKey: string): AxiosPromise<JsonSuccessRes
             list_key: listKey
         }
     });
+}
+export type columnPreviewItem = {
+    id: number
+    label: string
+    value: string
+}
+
+export type columnPreviewPayload = {
+    supported: boolean
+    items: columnPreviewItem[]
+    sampled: number
+    empty: number
+}
+
+export const getColumnPreview = (data: ListScreenColumnData, listKey: string): AxiosPromise<JsonSuccessResponse<columnPreviewPayload>> => {
+    const formData = new FormData();
+
+    formData.set('_ajax_nonce', getColumnSettingsConfig().nonce);
+    formData.set('action', 'ac-column-preview');
+    formData.set('data', JSON.stringify(data));
+    formData.set('list_key', listKey);
+
+    return axios.post(ajaxurl, formData);
 }

@@ -48,6 +48,11 @@ class MenuFactory extends BaseColumnFactory
         return __('Menu', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __('Navigation menus that contain this post.', 'codepress-admin-columns');
+    }
+
     protected function get_settings(Config $config): ComponentCollection
     {
         return new ComponentCollection([

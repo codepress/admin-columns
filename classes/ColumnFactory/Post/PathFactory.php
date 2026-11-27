@@ -21,6 +21,11 @@ class PathFactory extends BaseColumnFactory
         return __('Path', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __('The permalink without the site URL.', 'codepress-admin-columns');
+    }
+
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);

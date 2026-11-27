@@ -6,7 +6,9 @@
 		debugMode,
 		listScreenIsReadOnly,
 		openedColumnsStore,
-		showColumnInfo
+		showColumnInfo,
+		showColumnPreview,
+		columnPreviewSupported
 	} from "../store";
 	import {slide} from 'svelte/transition';
 	import {createEventDispatcher, onMount} from "svelte";
@@ -19,6 +21,7 @@
 	import TypeSetting from "./settings/input/TypeInput.svelte";
 	import {refreshColumn} from "../ajax/ajax";
 	import ColumnLabel from "./ColumnLabel.svelte";
+	import ColumnPreview from "./ColumnPreview.svelte";
 	import JSONTree from "svelte-json-tree";
 	import {MaterialIcon} from "@ac/material-icons/src";
 	import {getColumnSettingsTranslation} from "../utils/global";
@@ -34,6 +37,8 @@
     let columnTypeLabel: string;
     let columnTypeName: string;
     let columnDescription: string = '';
+    let previewVisible: boolean = true;
+    $: showPreview = !isOriginalColumn && $columnPreviewSupported && $showColumnPreview && previewVisible;
     let columnElement: HTMLElement;
 
     const toggle = () => {
@@ -177,9 +182,13 @@
     {#if opened && config !== null }
         <div class="ac-column-settings acu-@container/columnrow" transition:slide>
 
-            <ColumnSetting description="" label={i18n.settings.label.column} extraClass="-type" setting="type">
+            <ColumnSetting description={columnDescription} label={i18n.settings.label.column} extraClass={showPreview ? '' : '-type'} setting="type">
                 <TypeSetting bind:data={data} bind:columnConfig={config} disabled={locked}/>
             </ColumnSetting>
+
+            {#if !isOriginalColumn && $columnPreviewSupported && $showColumnPreview}
+                <ColumnPreview {data} label={data.label || columnTypeLabel} bind:visible={previewVisible}/>
+            {/if}
 
             <ColumnSettings
                     locked={locked}

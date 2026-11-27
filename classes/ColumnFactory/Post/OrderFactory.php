@@ -21,6 +21,11 @@ class OrderFactory extends BaseColumnFactory
         return __('Order', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __('The Order value from Page Attributes, used for manual sorting.', 'codepress-admin-columns');
+    }
+
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);

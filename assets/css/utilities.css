@@ -175,6 +175,11 @@
   margin-right: 50px
 }
 
+.acu-mx-auto {
+  margin-left: auto;
+  margin-right: auto
+}
+
 .acu-my-2 {
   margin-top: 10px;
   margin-bottom: 10px
@@ -434,6 +439,10 @@
   width: 100%
 }
 
+.acu-min-w-\[0px\] {
+  min-width: 0px
+}
+
 .acu-min-w-\[200px\] {
   min-width: 200px
 }
@@ -669,9 +678,18 @@
        column-gap: 15px
 }
 
+.acu-gap-x-4 {
+  -moz-column-gap: 20px;
+       column-gap: 20px
+}
+
 .acu-gap-x-\[20px\] {
   -moz-column-gap: 20px;
        column-gap: 20px
+}
+
+.acu-gap-y-1 {
+  row-gap: 5px
 }
 
 .acu-gap-y-2 {
@@ -1272,6 +1290,11 @@
 .acu-text-\[\#666\] {
   --tw-text-opacity: 1;
   color: rgb(102 102 102 / var(--tw-text-opacity, 1))
+}
+
+.acu-text-\[\#757575\] {
+  --tw-text-opacity: 1;
+  color: rgb(117 117 117 / var(--tw-text-opacity, 1))
 }
 
 .acu-text-\[\#777\] {

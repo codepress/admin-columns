@@ -17,6 +17,14 @@ class ShortcodesFactory extends BaseColumnFactory
         return __('Shortcodes', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __(
+            'Shortcodes used in the content, with a count when one appears more than once.',
+            'codepress-admin-columns'
+        );
+    }
+
     public function get_column_type(): string
     {
         return 'column-shortcode';

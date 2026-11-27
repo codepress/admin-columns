@@ -47,6 +47,14 @@ class AvailableSizesFactory extends BaseColumnFactory
         return __('Available Sizes', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __(
+            'Image sizes WordPress generated for this file, each linking to its own file.',
+            'codepress-admin-columns'
+        );
+    }
+
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);

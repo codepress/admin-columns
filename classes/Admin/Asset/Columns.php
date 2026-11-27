@@ -259,6 +259,7 @@ class Columns extends Script
             'assets'                     => $this->parent_location->with_suffix('assets')->get_url(),
             'nonce'                      => NonceFactory::create_ajax()->create(),
             'show_column_info'           => (new AC\Admin\Preference\ScreenOptions())->is_active('show_column_info'),
+            'show_column_preview'        => ! (new AC\Admin\Preference\ScreenOptions())->is_active('hide_column_preview'),
             'is_pro'                     => $this->is_pro_active,
             'list_key'                   => (string)$this->table_screen->get_id(),
             'list_id'                    => (string)$this->list_id,
@@ -603,8 +604,14 @@ class Columns extends Script
                     'label' => [
                         'column'           => __('Column', 'codepress-admin-columns'),
                         'column_info'      => __('Column Info', 'codepress-admin-columns'),
+                        'column_preview'   => __('Column Preview', 'codepress-admin-columns'),
                         'table_view_label' => __('Table View Label', 'codepress-admin-columns'),
                         'select_icon'      => __('Select Icon', 'codepress-admin-columns'),
+                        'preview'          => __('Preview', 'codepress-admin-columns'),
+                    ],
+                    'sentence' => [
+                        /* translators: %d: number of items checked for a value */
+                        'preview_empty' => __('No value in the %d most recent items.', 'codepress-admin-columns'),
                     ],
                 ],
                 'editor' => [

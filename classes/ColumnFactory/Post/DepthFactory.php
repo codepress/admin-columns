@@ -21,6 +21,11 @@ class DepthFactory extends BaseColumnFactory
         return __('Depth', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return __('Level of this item in the page hierarchy, where top-level items are 1.', 'codepress-admin-columns');
+    }
+
     protected function get_formatters(Config $config): FormatterCollection
     {
         $formatters = parent::get_formatters($config);

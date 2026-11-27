@@ -73,6 +73,11 @@ class Loader
         TableIdsFactory\Aggregate::add($container->get(TableIdsFactory\BaseFactory::class));
         TableScreen\TableRowsFactory\Aggregate::add(new TableScreen\TableRowsFactory\BaseFactory());
 
+        ColumnPreview\SampleItemsRegistry::add(new ColumnPreview\SampleItems\Post());
+        ColumnPreview\SampleItemsRegistry::add(new ColumnPreview\SampleItems\Media());
+        ColumnPreview\SampleItemsRegistry::add(new ColumnPreview\SampleItems\User());
+        ColumnPreview\SampleItemsRegistry::add(new ColumnPreview\SampleItems\Comment());
+
         foreach ($this->get_manage_value_factory_classes() as $class) {
             Service\ManageValue::add(
                 $container->make(ListScreenServiceFactory::class, ['factory' => $container->get($class)])
@@ -159,6 +164,7 @@ class Loader
             'ac-number-format'                => Ajax\NumberFormat::class,
             'ac-list-screen-default-columns'  => Ajax\ListScreenOriginalColumns::class,
             'ac-list-screen-select-column'    => Ajax\ListScreenSelectColumn::class,
+            'ac-column-preview'               => Ajax\ColumnPreview::class,
             'ac-editor-menu-status'           => Ajax\EditorMenuStatus::class,
             'ac-editor-menu-favorites'        => Ajax\EditorMenuFavorites::class,
             'ac-custom-field-keys'            => Ajax\CustomFieldKeys::class,

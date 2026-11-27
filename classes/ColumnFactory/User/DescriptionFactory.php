@@ -34,6 +34,15 @@ class DescriptionFactory extends BaseColumnFactory
         return __('Description', 'codepress-admin-columns');
     }
 
+    public function get_description(): ?string
+    {
+        return sprintf(
+            /* translators: %s: the "Biographical Info" label of the user profile */
+            __("The %s from the user's profile.", 'codepress-admin-columns'),
+            __('Biographical Info')
+        );
+    }
+
     public function get_column_type(): string
     {
         return 'column-user_description';

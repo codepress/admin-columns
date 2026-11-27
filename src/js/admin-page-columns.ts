@@ -17,7 +17,8 @@ import {
     listScreenDataStore,
     listScreenIsReadOnly,
     listScreenIsStored,
-    showColumnInfo
+    showColumnInfo,
+    showColumnPreview
 } from "./columns/store";
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import {initListScreenHeadings, initUninitializedListScreens} from "./columns/utils/listscreen-initialize";
@@ -132,5 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     showColumnInfo.set(localConfig.show_column_info);
+    showColumnPreview.set(localConfig.show_column_preview);
 
 });

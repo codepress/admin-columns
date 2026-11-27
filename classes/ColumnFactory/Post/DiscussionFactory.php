@@ -21,6 +21,11 @@ class DiscussionFactory extends BaseColumnFactory
         return __('Discussion');
     }
 
+    public function get_description(): ?string
+    {
+        return __('Whether comments and pingbacks are allowed on this post.', 'codepress-admin-columns');
+    }
+
     protected function get_formatters(Config $config): FormatterCollection
     {
         return parent::get_formatters($config)
